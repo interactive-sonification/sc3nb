@@ -49,7 +49,7 @@ class SC():
         self.console_logging = console_logging
 
         if sys.platform == "linux" or sys.platform == "linux2":
-            self.terminal_symbol = 'sc3>'  # ???????? is this true?
+            self.terminal_symbol = 'sc3>'
             self.__read_loop = self.__read_loop_unix
         elif sys.platform == "darwin":
             self.terminal_symbol = 'sc3>'
@@ -225,7 +225,7 @@ class SC():
     def free_all(self):
         """Frees all SuperCollider synths (executes s.freeAll)
         """
-
+        
         self.cmd("s.freeAll")
 
     def exit(self):
@@ -559,7 +559,7 @@ def startup(boot=True, magic=True, **kwargs):
     sc = SC(**kwargs)
     if boot:
         sc.boot_with_blip()
-    print(sc.cmdg('\"sc3nb started\".postln;'))
+    sc.cmdv('\"sc3nb started\";')
     if magic:
         ip = get_ipython()
         if ip is not None:
@@ -673,7 +673,7 @@ try:
                                             return true;}
                                     });''')
     elif sys.platform == "win32":
-    get_ipython().run_cell_magic('javascript', '',
+        get_ipython().run_cell_magic('javascript', '',
                                     '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
                                         \'Ctrl-.\', {
                                         help : \'sc.cmd("s.freeAll")\',
