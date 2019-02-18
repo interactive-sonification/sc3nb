@@ -23,6 +23,7 @@ if os.name == 'posix':
 
 ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
+
 class SC():
     """SC is a class to start SuperCollider language as subprocess
     and control it via a pipe. Communication with scsynth is handled
@@ -52,7 +53,6 @@ class SC():
             self.__read_loop = self.__read_loop_unix
         elif sys.platform == "darwin":
             self.terminal_symbol = 'sc3>'
-            import fcntl
             self.__read_loop = self.__read_loop_unix
         elif sys.platform == "win32":
             self.terminal_symbol = '->'
@@ -157,8 +157,8 @@ class SC():
         self.cmd(cmdstr, pyvars=pyvars)
         # get output after current command
         out = self.__scpout_read(terminal=self.terminal_symbol)
-        out = ansi_escape.sub('', out) # to remove ansi chars
-        out = "\n".join(out.splitlines()) # to replace /r by /n
+        out = ansi_escape.sub('', out)  # to remove ansi chars
+        out = "\n".join(out.splitlines())  # to replace /r by /n
         print(out)
 
     def cmdg(self, cmdstr, pyvars=None, dgram_size=1024, timeout=1):
@@ -479,7 +479,7 @@ class SC():
         while True:
             try:
                 out = output.read()
-                if out: 
+                if out:
                     queue.put(out)
                     if self.console_logging:
                         # to remove ansi chars
