@@ -45,7 +45,7 @@ class SC():
 
         SC.sc = self
 
-        SC.console_logging = console_logging
+        self.console_logging = console_logging
 
         if sys.platform == "linux" or sys.platform == "linux2":
             self.terminal_symbol = 'sc3>'  # ???????? is this true?
@@ -465,25 +465,28 @@ class SC():
             except Empty:
                 return
 
-    @staticmethod
-    def __read_loop_windows(output, queue):
+    def __read_loop_windows(self, output, queue):
         for line in iter(output.readline, b''):
             queue.put(line)
+            if self.console_logging:
+                # print to jupyter console...
+                os.write(1, line)
 
-    @staticmethod
-    def __read_loop_unix(output, queue):
+    def __read_loop_unix(self, output, queue):
         file_descriptor = output.fileno()
         file_flags = fcntl.fcntl(file_descriptor, fcntl.F_GETFL)
         fcntl.fcntl(output, fcntl.F_SETFL, file_flags | os.O_NONBLOCK)
-        while 1:
+        while True:
             try:
                 out = output.read()
                 if out: 
                     queue.put(out)
-                    if SC.console_logging:
-                        out = ansi_escape.sub('', out.decode()) # to remove ansi chars
-                        os.write(1, out.encode()) # print to jupyter console...
-            except EOFError:  # ???? is it an EOF error? empty excepts are not pretty
+                    if self.console_logging:
+                        # to remove ansi chars
+                        out = ansi_escape.sub('', out.decode())
+                        # print to jupyter console...
+                        os.write(1, out.encode())
+            except EOFError:
                 pass
             time.sleep(0.001)
 
