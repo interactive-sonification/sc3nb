@@ -71,6 +71,7 @@ class TimedQueue():
         else:
             self.start = 0
 
+        self.onset_idx = np.empty((0, 2))
         self.event_list = []
         self.close_event = threading.Event()
 
@@ -129,12 +130,14 @@ class TimedQueue():
             args = (args,)
         new_event = Event(timetag, function, args, spawn)
         with self.lock:
+            self.event_list.append(new_event)
             evlen = len(self.event_list)
-            if (evlen>0) and (new_event >= self.event_list[evlen-1]):
-                idx = evlen
+            if not self.onset_idx.any():
+                idx = 0
             else:
-                idx = np.searchsorted(self.event_list, new_event)
-            self.event_list.insert(idx, new_event)
+                idx = np.searchsorted(self.onset_idx[:, 0], timetag)
+            self.onset_idx = np.insert(
+                self.onset_idx, idx, [timetag, evlen - 1], axis=0)
 
     def get(self):
         """Get latest event from queue and remove event
@@ -143,8 +146,7 @@ class TimedQueue():
             Event -- Latest event
         """
 
-        with self.lock:
-            event = self.event_list[0]
+        event = self.peek()
         self.pop()
         return event
 
@@ -156,7 +158,7 @@ class TimedQueue():
         """
 
         with self.lock:
-            return self.event_list[0]
+            return self.event_list[int(self.onset_idx[0][1])]
 
     def empty(self):
         """Checks if queue is empty
@@ -173,7 +175,11 @@ class TimedQueue():
         """
 
         with self.lock:
-            del self.event_list[0]
+            event_idx = int(self.onset_idx[0][1])
+            self.onset_idx = self.onset_idx[1:]
+            # remove 1 from all idcs after popped event
+            self.onset_idx[:, 1][self.onset_idx[:, 1] > event_idx] -= 1
+            del self.event_list[event_idx]
 
     def __worker(self, sleep_time, close_event):
         """Worker function to process events"""
@@ -183,7 +189,7 @@ class TimedQueue():
             if self.event_list:
                 event = self.peek()
                 if event.timetag <= time.time() - self.start:
-                    if event.timetag > time.time() - self.start - self.drop_time_thr: # only if not too old 
+                    if event.timetag > time.time() - self.start - self.drop_time_thr:  # only if not too old
                         event.execute()
                     self.pop()
                 # sleep_time = event_list[0].timetag - (time.time() - self.start) - 0.001
@@ -191,6 +197,7 @@ class TimedQueue():
 
     def __repr__(self):
         return self.event_list.__repr__()
+
 
 class TimedQueueSC(TimedQueue):
 
