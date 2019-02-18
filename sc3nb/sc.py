@@ -58,7 +58,7 @@ class SC():
             self.terminal_symbol = '->'
             self.__read_loop = self.__read_loop_windows
         else:
-            raise NotImplementedError('Unsupported OS %s' % (sys.platform))
+            raise NotImplementedError('Unsupported OS {}'.format(sys.platform))
 
         # toggle variable to know if server has been started when exiting
         self.server = False
@@ -109,7 +109,7 @@ class SC():
         sclang_port = self.cmdg('NetAddr.langPort')
 
         if sclang_port != 57120:
-            print('Sclang started on non default port: %s' % (sclang_port))
+            print('Sclang started on non default port: {}'.format(sclang_port))
             self.client.set_sclang("127.0.0.1", sclang_port)
 
         # clear output buffer
@@ -193,7 +193,7 @@ class SC():
 
         cmdstr = '\"' + cmdstr + '\"'
 
-        cmdstr = 'r.value(%s, \"%s\", %s)' % (
+        cmdstr = 'r.value({0}, \"{1}\", {2})'.format(
             cmdstr, self.client.client_addr, self.client.client_port)
 
         self.cmd(cmdstr, pyvars=pyvars)
@@ -383,9 +383,9 @@ class SC():
             n.free;
             n = MIDIFunc.noteOn({ | level, pitch |
                 var amp = ((level-128)/8).dbamp;
-                Synth.new(%s, [\\freq, pitch.midicps, \\amp, amp]);
+                Synth.new({}, [\\freq, pitch.midicps, \\amp, amp]);
             [pitch, amp].postln
-            });""" % (synthname,)
+            });""".format(synthname,)
         self.cmd(code)
 
     def midi_ctrl_free(self):
@@ -409,13 +409,13 @@ class SC():
             // q.off.free;
             q.notes = Array.newClear(128);   // array has one slot per possible MIDI note
             q.on = MIDIFunc.noteOn({ |veloc, num, chan, src|
-                q.notes[num] = Synth.new(%s, [\\freq, num.midicps, \\amp, veloc * 0.00315]);
+                q.notes[num] = Synth.new({}, [\\freq, num.midicps, \\amp, veloc * 0.00315]);
             });
             q.off = MIDIFunc.noteOff({ |veloc, num, chan, src|
                 q.notes[num].release;
             });
             q.freeMIDI = { q.on.free; q.off.free; };
-            """ % (synthname,)
+            """.format(synthname,)
         self.cmd(code)
 
     def midi_gate_free(self):
@@ -525,7 +525,7 @@ class SC():
                 pyvar_strs.remove(pyvar)
         # if any variables not found raise NameError
         for pyvar_str in pyvar_strs:
-            raise NameError('name \'%s\' is not defined' % (pyvar_str))
+            raise NameError('name \'{}\' is not defined'.format(pyvar_str))
         return pyvars
 
     @staticmethod
@@ -536,7 +536,7 @@ class SC():
         if isinstance(obj, np.ndarray):
             return obj.tolist()
         if isinstance(obj, complex):
-            return 'Complex(%s, %s)' % (obj.real, obj.imag)
+            return 'Complex({0}, {1})'.format(obj.real, obj.imag)
         # further type conversion can be added in the future
         return obj
 
@@ -646,7 +646,7 @@ class SC3Magics(Magics):
             if pyvar in user_ns:
                 pyvars[pyvar] = user_ns[pyvar]
             else:
-                raise NameError('name \'%s\' is not defined' % (pyvar))
+                raise NameError('name \'{}\' is not defined'.format(pyvar))
 
         return pyvars
 
