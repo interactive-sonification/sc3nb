@@ -652,7 +652,35 @@ class SC3Magics(Magics):
 
 
 try:
+    if sys.platform == "linux" or sys.platform == "linux2":
+        get_ipython().run_cell_magic('javascript', '',
+                                    '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                                        \'Ctrl-.\', {
+                                        help : \'sc.cmd("s.freeAll")\',
+                                        help_index : \'zz\',
+                                        handler : function (event) {
+                                            IPython.notebook.kernel.execute("sc.cmd(\'s.freeAll\')")
+                                            return true;}
+                                    });''')
+    elif sys.platform == "darwin":
+        get_ipython().run_cell_magic('javascript', '',
+                                    '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                                        \'cmd-.\', {
+                                        help : \'sc.cmd("s.freeAll")\',
+                                        help_index : \'zz\',
+                                        handler : function (event) {
+                                            IPython.notebook.kernel.execute("sc.cmd(\'s.freeAll\')")
+                                            return true;}
+                                    });''')
+    elif sys.platform == "win32":
     get_ipython().run_cell_magic('javascript', '',
-                                 'Jupyter.keyboard_manager.command_shortcuts.add_shortcut(\'cmd-.\', {\n    help : \'sc.cmd("s.freeAll")\',\n    help_index : \'zz\',\n    handler : function (event) {\n        IPython.notebook.kernel.execute("sc.free_all()")\n        return true;\n    }}\n);')
+                                    '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                                        \'Ctrl-.\', {
+                                        help : \'sc.cmd("s.freeAll")\',
+                                        help_index : \'zz\',
+                                        handler : function (event) {
+                                            IPython.notebook.kernel.execute("sc.cmd(\'s.freeAll\')")
+                                            return true;}
+                                    });''')
 except AttributeError:
     pass
