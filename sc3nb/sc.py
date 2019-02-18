@@ -225,7 +225,7 @@ class SC():
     def free_all(self):
         """Frees all SuperCollider synths (executes s.freeAll)
         """
-        
+
         self.cmd("s.freeAll")
 
     def exit(self):
@@ -654,7 +654,7 @@ class SC3Magics(Magics):
 try:
     if sys.platform == "linux" or sys.platform == "linux2":
         get_ipython().run_cell_magic('javascript', '',
-                                    '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                                     '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
                                         \'Ctrl-.\', {
                                         help : \'sc.cmd("s.freeAll")\',
                                         help_index : \'zz\',
@@ -664,7 +664,7 @@ try:
                                     });''')
     elif sys.platform == "darwin":
         get_ipython().run_cell_magic('javascript', '',
-                                    '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                                     '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
                                         \'cmd-.\', {
                                         help : \'sc.cmd("s.freeAll")\',
                                         help_index : \'zz\',
@@ -674,7 +674,7 @@ try:
                                     });''')
     elif sys.platform == "win32":
         get_ipython().run_cell_magic('javascript', '',
-                                    '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                                     '''Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
                                         \'Ctrl-.\', {
                                         help : \'sc.cmd("s.freeAll")\',
                                         help_index : \'zz\',
