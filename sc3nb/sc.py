@@ -112,6 +112,9 @@ class SC():
             print('Sclang started on non default port: %s' % (sclang_port))
             self.client.set_sclang("127.0.0.1", sclang_port)
 
+        # clear output buffer
+        self.__scpout_empty()
+
     def cmd(self, cmdstr, pyvars=None):
         """Sends code to SuperCollider
 
