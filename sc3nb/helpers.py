@@ -1,12 +1,10 @@
 """Collection of small helper functions"""
 
+import numbers
 import os
 import re
 import sys
-import numbers
 
-import pyaudio
-import simpleaudio as sa
 import numpy as np
 
 
@@ -171,61 +169,3 @@ def ampdb(amp):
     """
 
     return 20*np.log10(amp)
-
-# service functions to play and record data arrays from within python
-
-
-def play(sig, num_channels=1, sr=44100, norm=True, block=False):
-    """Plays audio signal
-
-    Arguments:
-        sig {iterable} -- Signal to be played
-
-    Keyword Arguments:
-        num_channels {int} -- Number of channels (default: {1})
-        sr {int} -- Audio sample rate (default: {44100})
-        norm {bool} -- if True, normalize signal
-                       (default: {True})
-        block {bool} -- if True, block until playback is finished
-                        (default: {False})
-
-    Returns:
-        [type] -- [description]
-    """
-
-    factor = 1
-    if isinstance(norm, bool) and norm:
-        factor = 1 / np.max(np.abs(sig))
-    elif isinstance(norm, numbers.Number):
-        factor = norm
-    asig = (32767 * factor * sig).astype(np.int16)
-    play_obj = sa.play_buffer(asig, num_channels, 2, sr)
-    if block:
-        play_obj.wait_done() # wait for playback to finish before returning
-    return play_obj
-
-
-def record(dur=2, channels=1, rate=44100, chunk=256):
-    """Record audio
-
-    Keyword Arguments:
-        dur {int} -- Duration (default: {2})
-        channels {int} -- Number of channels (default: {1})
-        rate {int} -- Audio sample rate (default: {44100})
-        chunk {int} -- Chunk size (default: {256})
-
-    Returns:
-        ndarray -- Recorded signal
-    """
-
-    p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paInt16, channels=channels, rate=rate, input=True,
-                    output=True, frames_per_buffer=chunk)
-    buflist = []
-    for _ in range(0, int(rate/chunk*dur)):
-        data = stream.read(chunk)
-        buflist.append(data)
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-    return np.frombuffer(b''.join(buflist), dtype=np.int16)
