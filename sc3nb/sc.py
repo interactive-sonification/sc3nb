@@ -273,7 +273,7 @@ class SC():
             }).play} , 1000);
         """)
 
-        self.__scpout_read(timeout=5, terminal='finished booting')
+        self.__scpout_read(timeout=10, terminal='finished booting')
 
         print('Done.')
 
