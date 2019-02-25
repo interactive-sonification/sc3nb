@@ -66,6 +66,12 @@ class SC():
         if not sclangpath:
             sclangpath = find_executable('sclang')
 
+        self.sc_end_marker_prog = '("finished"+"booting").postln;'  
+        # hack to print 'finished booting' without having 'finished booting' in the code
+        # needed for MacOS since sclang echos input. In consequence the read_loop_unix()
+        # waiting for the 'finished booting' string returns too early...
+        # TODO: open issue for sc3 github asking for 'no echo' command line option macos sclang 
+
         # sclang subprocess
         self.scp = subprocess.Popen(
             args=[sclangpath],
@@ -214,7 +220,7 @@ class SC():
         """
         print('Booting server...')
 
-        self.cmd('s.boot.doWhenBooted({"finished booting".postln;})')
+        self.cmd('s.boot.doWhenBooted({' + self.sc_end_marker_prog + '})')
 
         self.server = True
 
@@ -271,9 +277,7 @@ class SC():
             Synth.new(\s1, [\freq, 500, \dur, 0.1, \num, 1]);
             0.2.wait;
             x = Synth.new(\s2, [\freq, 1000, \amp, 0.05, \num, 2]);
-            0.1.wait; x.free;
-            "finished booting".postln;
-            }).play} , 1000);
+            0.1.wait; x.free;""" + self.sc_end_marker_prog + r"""}).play} , 1000);
         """)
 
         self.__scpout_read(timeout=10, terminal='finished booting')
@@ -385,7 +389,7 @@ class SC():
                 var amp = ((level-128)/8).dbamp;
                 Synth.new({}, [\\freq, pitch.midicps, \\amp, amp]);
             [pitch, amp].postln
-            });""".format(synthname,)
+            });""".format(synthname)
         self.cmd(code)
 
     def midi_ctrl_free(self):
@@ -415,7 +419,7 @@ class SC():
                 q.notes[num].release;
             });
             q.freeMIDI = { q.on.free; q.off.free; };
-            """.format(synthname,)
+            """.format(synthname)
         self.cmd(code)
 
     def midi_gate_free(self):
