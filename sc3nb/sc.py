@@ -382,15 +382,14 @@ class SC():
                                (default: {'\\syn'})
         """
 
-        code = """
+        self.cmd(r"""
             MIDIIn.connectAll;
             n.free;
             n = MIDIFunc.noteOn({ | level, pitch |
                 var amp = ((level-128)/8).dbamp;
-                Synth.new({}, [\\freq, pitch.midicps, \\amp, amp]);
-            [pitch, amp].postln
-            });""".format(synthname)
-        self.cmd(code)
+                Synth.new(^synthname, [\\freq, pitch.midicps, \\amp, amp]);
+            [pitch, amp].postln});
+            """, pyvars={"synthname": synthname})
 
     def midi_ctrl_free(self):
         """Free MIDI control synth
@@ -406,21 +405,20 @@ class SC():
                                (default: {'\\syn'})
         """
 
-        code = """
+        self.cmd(r"""
             MIDIIn.connectAll;
             q = q ? ();
             // q.on.free;
             // q.off.free;
             q.notes = Array.newClear(128);   // array has one slot per possible MIDI note
             q.on = MIDIFunc.noteOn({ |veloc, num, chan, src|
-                q.notes[num] = Synth.new({}, [\\freq, num.midicps, \\amp, veloc * 0.00315]);
+                q.notes[num] = Synth.new(^synthname, [\\freq, num.midicps, \\amp, veloc * 0.00315]);
             });
             q.off = MIDIFunc.noteOff({ |veloc, num, chan, src|
                 q.notes[num].release;
             });
             q.freeMIDI = { q.on.free; q.off.free; };
-            """.format(synthname)
-        self.cmd(code)
+            """, pyvars={"synthname": synthname})
 
     def midi_gate_free(self):
         """Free MIDI gate synth
