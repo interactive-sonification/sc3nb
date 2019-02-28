@@ -87,7 +87,7 @@ class SC():
 
         print('Starting sclang...')
 
-        self.__scpout_read(timeout=5, terminal='Welcome to SuperCollider')
+        self.__scpout_read(timeout=10, terminal='Welcome to SuperCollider')
 
         print('Done.')
 
