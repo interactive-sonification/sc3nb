@@ -93,7 +93,7 @@ class SC():
 
         print('Starting sclang...')
 
-        self.__scpout_read(timeout=5, terminal='Welcome to SuperCollider')
+        self.__scpout_read(timeout=10, terminal='Welcome to SuperCollider')
 
         print('Done.')
 
@@ -392,7 +392,7 @@ class SC():
         self.cmd(r"""
             MIDIIn.connectAll;
             n.free;
-            n = MIDIFunc.noteOn({ | level, pitch |
+            n = MIDIFunc.noteOn({{ | level, pitch |
                 var amp = ((level-128)/8).dbamp;
                 Synth.new(^synthname, [\\freq, pitch.midicps, \\amp, amp]);
             [pitch, amp].postln});
