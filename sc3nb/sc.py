@@ -259,7 +259,7 @@ class SC():
             { Routine({
             /* synth definitions *********************************/
             "load synth definitions".postln;
-            SynthDef("s1", { |freq=400,dur=0.4,att=0.01,amp=0.3,num=4,pan=0|
+            SynthDef("s1", { | freq=400, dur=0.4, att=0.01, amp=0.3, num=4, pan=0 |
                 Out.ar(0, Pan2.ar(Blip.ar(freq,  num)*
                     EnvGen.kr(Env.perc(att, dur, 1, -2), doneAction: 2),
                     pan, amp))
@@ -268,8 +268,11 @@ class SC():
                 Out.ar(0, Pan2.ar(Blip.ar(freq.lag(lg),  num),
                                   pan.lag(lg), amp.lag(lg)))
             }).add();
-            SynthDef("record", { | bufnum |
+            SynthDef("record-2ch", { | bufnum |
                 DiskOut.ar(bufnum, In.ar(0, 2));
+            }).add();
+            SynthDef("record-1ch", { | bufnum |
+                DiskOut.ar(bufnum, In.ar(0, 1));
             }).add();
             s.sync;
             /* test signals ****************************************/
@@ -349,7 +352,7 @@ class SC():
         self.bundle(onset, "/b_write",
                     [self.rec_bufnum, wavpath, rec_header, rec_format, 0, 0, 1])
 
-    def record(self, onset=0, node_id=2001):
+    def record(self, onset=0, node_id=2001, nr_channels=2):
         """Start recording
 
         Keyword Arguments:
@@ -359,10 +362,14 @@ class SC():
         """
 
         self.rec_node_id = node_id
-        self.bundle(
-            onset, "/s_new", ["record", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
-        # action = 1 = addtotail
-
+        if nr_channels == 1:
+            self.bundle(onset, 
+                "/s_new", ["record-1ch", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
+        else: 
+            self.bundle(onset,                  
+                "/s_new", ["record-2ch", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
+            # action = 1 = addtotail
+            
     def stop_recording(self, onset=0):
         """Stop recording
 
