@@ -360,7 +360,7 @@ class SC():
             node_id {int} -- SuperCollider Node id
                              (default: {2001})
         """
-
+        
         self.rec_node_id = node_id
         if nr_channels == 1:
             self.bundle(onset, 
