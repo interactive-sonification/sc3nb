@@ -6,22 +6,7 @@ For more information, please read the documentation.
 
 #### Building the Documentation
 
-First you will need to install make, [sphinx](http://www.sphinx-doc.org/en/stable/tutorial.html) and the [sphinx napoleon plugin](https://pypi.python.org/pypi/sphinxcontrib-napoleon).
-
-Then, cd into the docs directory:
-
-```bash
-cd sc3nb/docs
-```
-
-After that, you build the documentation easily with
-
-```bash
-make html
-```
-
-And find the index page under .../sc3nb/docs/build/html/index.html
-
+An introduction howto use sc3nb is available in the ipython notebook examples/sc3nb-examples.ipynb 
 
 #### Installation of sc3nb
 
