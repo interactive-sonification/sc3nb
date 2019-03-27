@@ -63,8 +63,20 @@ class SC():
         # toggle variable to know if server has been started when exiting
         self.server = False
 
-        if not sclangpath:
-            sclangpath = find_executable('sclang')
+        # add sclang path to if environment if not already found
+        if sclangpath is not None:
+            sclangpath = os.path.split(sclangpath)
+            if 'sclang' in sclangpath[1]:
+                sclangpath = sclangpath[0]
+            else:
+                sclangpath = os.path.join(*sclangpath)
+            if sclangpath not in os.environ['PATH']:
+                os.environ['PATH'] += os.pathsep + sclangpath
+        else:
+            sclangpath = ''
+
+        # find sclang in environment
+        sclangpath = find_executable('sclang', path=sclangpath)
 
         self.sc_end_marker_prog = '("finished"+"booting").postln;'  
         # hack to print 'finished booting' without having 'finished booting' in the code
