@@ -155,7 +155,6 @@ class SC():
 
         # \x0c token for execution
         self.scp.stdin.write(bytearray(cmdstr + '\x0c', 'utf-8'))
-        # TH: debug cmdv
         self.scp.stdin.flush()
         return len(cmdstr)  # return cmd string length for correct truncation in cmdv
 
