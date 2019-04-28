@@ -155,7 +155,9 @@ class SC():
 
         # \x0c token for execution
         self.scp.stdin.write(bytearray(cmdstr + '\x0c', 'utf-8'))
+        # TH: debug cmdv
         self.scp.stdin.flush()
+        return len(cmdstr)  # return cmd string length for correct truncation in cmdv
 
     def cmdv(self, cmdstr, pyvars=None, discard_output=True):
         """Sends code to SuperCollider printing the output
@@ -175,12 +177,18 @@ class SC():
             pyvars = self.__parse_pyvars(cmdstr)
         if discard_output:
             self.__scpout_empty()  # clean all past outputs
-        self.cmd(cmdstr, pyvars=pyvars)
+        cmdstrlen = self.cmd(cmdstr, pyvars=pyvars)
         # get output after current command
         out = self.__scpout_read(terminal=self.terminal_symbol)
-        out = ansi_escape.sub('', out)  # to remove ansi chars
-        out = "\n".join(out.splitlines())  # to replace /r by /n
+        if sys.platform != 'darwin':
+            outlist = out.splitlines()
+        else:
+            out = out[cmdstrlen:].strip('\n')
+            out = ansi_escape.sub('', out)  # to remove ansi chars
+            outlist = out.splitlines()[:-1]
+        out = "\n".join(outlist) # to replace /r by /n
         print(out)
+        return outlist
 
     def cmdg(self, cmdstr, pyvars=None, dgram_size=1024, timeout=1):
         """Sends code to SuperCollider parsing
