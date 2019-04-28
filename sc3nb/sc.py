@@ -11,6 +11,8 @@ import threading
 import time
 from queue import Empty, Queue
 
+from pythonosc.parsing import osc_types
+
 import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
@@ -78,11 +80,11 @@ class SC():
         # find sclang in environment
         sclangpath = find_executable('sclang', path=sclangpath)
 
-        self.sc_end_marker_prog = '("finished"+"booting").postln;'  
+        self.sc_end_marker_prog = '("finished"+"booting").postln;'
         # hack to print 'finished booting' without having 'finished booting' in the code
         # needed for MacOS since sclang echos input. In consequence the read_loop_unix()
         # waiting for the 'finished booting' string returns too early...
-        # TODO: open issue for sc3 github asking for 'no echo' command line option macos sclang 
+        # TODO: open issue for sc3 github asking for 'no echo' command line option macos sclang
 
         # sclang subprocess
         self.scp = subprocess.Popen(
@@ -113,11 +115,19 @@ class SC():
 
         self.cmd(
             '''
-            r = {arg code, ip, port;
-                    var result = code.interpret;
-                    var addr = NetAddr.new(ip, port);
-                    addr.sendMsg("/return", result);
-            }
+            r = { arg code, ip, port;
+                var result = code.interpret;
+                var addr = NetAddr.new(ip, port);
+                var prependSize = { arg elem;
+                    if (elem.class == Array){
+                        elem = [elem.size] ++ elem.collect(prependSize);
+                    }{
+                        elem;
+                    };
+                };
+                result = prependSize.value(result);
+                addr.sendMsg("/return", result);
+            };
             ''')
 
         self.__scpout_read(terminal='a Function')
@@ -223,6 +233,8 @@ class SC():
 
         self.cmd(cmdstr, pyvars=pyvars)
         result = self.client.recv(dgram_size=dgram_size, timeout=timeout)[0]
+        if type(result) == bytes:
+            result = SC.__parse_sc_blob(result)
 
         return result
 
@@ -379,16 +391,16 @@ class SC():
             node_id {int} -- SuperCollider Node id
                              (default: {2001})
         """
-        
+
         self.rec_node_id = node_id
         if nr_channels == 1:
-            self.bundle(onset, 
+            self.bundle(onset,
                 "/s_new", ["record-1ch", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
-        else: 
-            self.bundle(onset,                  
+        else:
+            self.bundle(onset,
                 "/s_new", ["record-2ch", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
             # action = 1 = addtotail
-            
+
     def stop_recording(self, onset=0):
         """Stop recording
 
@@ -520,6 +532,63 @@ class SC():
             except EOFError:
                 pass
             time.sleep(0.001)
+
+    @staticmethod
+    def __parse_sc_blob(data):
+        '''Parses the blob from a SuperCollider osc message'''
+
+        TYPE_TAG_MARKER = ord(b',')
+        TYPE_TAG_START = 4
+        NUM_SIZE = 4
+        INT_TAG = ord(b'i')
+        bytes2type = {
+            ord(b'i'): lambda data: osc_types.get_int(data, 0),
+            ord(b'f'): lambda data: osc_types.get_float(data, 0),
+            ord(b's'): lambda data: osc_types.get_string(data, 0),
+        }
+
+        def __get_aligned_pos(pos):
+            return NUM_SIZE * int(np.ceil((pos)/NUM_SIZE))
+
+        def __parse_list(data):
+            list_size, _ = bytes2type[INT_TAG](data)
+            type_tag_offset = __get_aligned_pos(list_size + 2)
+            type_tag_end = TYPE_TAG_START + type_tag_offset
+            type_tag = data[TYPE_TAG_START + 1: TYPE_TAG_START + 1 + list_size]
+            value_list = []
+            idx = type_tag_end
+            for t in type_tag:
+                value, num_bytes = bytes2type[t](data[idx:])
+                value_list.append(value)
+                idx += num_bytes
+
+            return value_list, list_size
+
+        def __parse_sc_msg(data):
+            list_size, _ = bytes2type[INT_TAG](data)
+            msg_size = __get_aligned_pos(NUM_SIZE + list_size)
+            sc_list, _ = __parse_list(data[NUM_SIZE: msg_size])
+            return sc_list, msg_size
+
+        bytes2type[ord(b'b')] = __parse_sc_msg
+
+        def __parse_bundle(data):
+            bundle_size = len(data)
+            lists = []
+            idx = 16  # skip header
+            while idx < bundle_size:
+                sc_list, list_size = __parse_sc_msg(data[idx:])
+                lists.append(sc_list)
+                idx += list_size
+
+            return lists, bundle_size
+
+        if data[TYPE_TAG_START] == TYPE_TAG_MARKER:
+            return __parse_list(data)[0]
+        elif data[:8] == b'#bundle\x00':
+            return __parse_bundle(data)[0]
+        else:
+            return data
 
     @staticmethod
     def __parse_pyvars(cmdstr):
