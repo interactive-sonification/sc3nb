@@ -80,17 +80,22 @@ def find_executable(executable, path=''):
 
 
 def linlin(x, smi, sma, dmi, dma):
-    """TODO
+    """map x linearly so that [smi, sma] is mapped to [dmi, dma]
 
     Arguments:
-        x {float} -- [description]
-        smi {float} -- [description]
-        sma {float} -- [description]
-        dmi {float} -- [description]
-        dma {float} -- [description]
+        x {float} -- value to be mapped, can be a numpy array
+        smi {float} -- source minimum value
+        sma {float} -- source maximumn value
+        dmi {float} -- destination minimum value
+        dma {float} -- destination maximum value
+
+        The description is a bit misleading as now clipping is performed,
+        so the function extrapolates. Furthermore it is not forbidden to 
+        use smi>sma (resp. dmi>dma). The function is defined in analogy to 
+        SuperCollider3 .linlin.
 
     Returns:
-        float -- [description]
+        float -- the mapping result
     """
 
     return (x-smi)/(sma-smi)*(dma-dmi) + dmi
