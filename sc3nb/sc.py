@@ -19,6 +19,7 @@ from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .helpers import find_executable, remove_comments
 from .udp import UDPClient, build_bundle, build_message
+from .buffer import Buffer
 
 if os.name == 'posix':
     import fcntl
@@ -636,6 +637,9 @@ class SC():
             return 'Complex({0}, {1})'.format(obj.real, obj.imag)
         # further type conversion can be added in the future
         return obj
+
+    def Buffer(self, data):
+        return Buffer(self, data)
 
 # boot sc and register blip and play sound
 
