@@ -2,22 +2,19 @@
 within jupyter notebooks
 """
 
-import inspect
 import os
 import re
-import subprocess
 import sys
+import subprocess
 import threading
 import time
 from queue import Empty, Queue
-
-from pythonosc.parsing import osc_types
 
 import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
-from .helpers import find_executable, remove_comments
+from .tools import remove_comments, parse_sclang_blob, parse_pyvars, convert_to_sc, replace_vars, find_executable
 from .udp import UDPClient, build_bundle, build_message
 
 if os.name == 'posix':
@@ -156,9 +153,9 @@ class SC():
         """
 
         if pyvars is None:
-            pyvars = self.__parse_pyvars(cmdstr)
+            pyvars = parse_pyvars(cmdstr)
 
-        cmdstr = self.__replace_vars(cmdstr, pyvars)
+        cmdstr = replace_vars(cmdstr, pyvars)
 
         cmdstr = remove_comments(cmdstr).replace(
             '\n', '').replace('\t', '') + '\n'
@@ -183,7 +180,7 @@ class SC():
                                      command (default: {True})
         """
         if pyvars is None:
-            pyvars = self.__parse_pyvars(cmdstr)
+            pyvars = parse_pyvars(cmdstr)
         if discard_output:
             self.__scpout_empty()  # clean all past outputs
         cmdstrlen = self.cmd(cmdstr, pyvars=pyvars)
@@ -222,7 +219,7 @@ class SC():
                    of supported types
         """
         if pyvars is None:
-            pyvars = self.__parse_pyvars(cmdstr)
+            pyvars = parse_pyvars(cmdstr)
 
         cmdstr = cmdstr.replace('\"', '\'')
 
@@ -234,17 +231,9 @@ class SC():
         self.cmd(cmdstr, pyvars=pyvars)
         result = self.client.recv(dgram_size=dgram_size, timeout=timeout)[0]
         if type(result) == bytes:
-            result = SC.__parse_sc_blob(result)
+            result = parse_sclang_blob(result)
 
         return result
-
-    def __replace_vars(self, cmdstr, pyvars):
-        '''Replaces python variables with sc string representation'''
-        for pyvar, value in pyvars.items():
-            pyvar = '^' + pyvar
-            value = self.__convert_to_sc(value).__repr__()
-            cmdstr = cmdstr.replace(pyvar, value)
-        return cmdstr
 
     def boot(self):
         """Boots SuperCollider server
@@ -532,110 +521,6 @@ class SC():
             except EOFError:
                 pass
             time.sleep(0.001)
-
-    @staticmethod
-    def __parse_sc_blob(data):
-        '''Parses the blob from a SuperCollider osc message'''
-
-        TYPE_TAG_MARKER = ord(b',')
-        TYPE_TAG_START = 4
-        NUM_SIZE = 4
-        INT_TAG = ord(b'i')
-        bytes2type = {
-            ord(b'i'): lambda data: osc_types.get_int(data, 0),
-            ord(b'f'): lambda data: osc_types.get_float(data, 0),
-            ord(b's'): lambda data: osc_types.get_string(data, 0),
-        }
-
-        def __get_aligned_pos(pos):
-            return NUM_SIZE * int(np.ceil((pos)/NUM_SIZE))
-
-        def __parse_list(data):
-            list_size, _ = bytes2type[INT_TAG](data)
-            type_tag_offset = __get_aligned_pos(list_size + 2)
-            type_tag_end = TYPE_TAG_START + type_tag_offset
-            type_tag = data[TYPE_TAG_START + 1: TYPE_TAG_START + 1 + list_size]
-            value_list = []
-            idx = type_tag_end
-            for t in type_tag:
-                value, num_bytes = bytes2type[t](data[idx:])
-                value_list.append(value)
-                idx += num_bytes
-
-            return value_list, list_size
-
-        def __parse_sc_msg(data):
-            list_size, _ = bytes2type[INT_TAG](data)
-            msg_size = __get_aligned_pos(NUM_SIZE + list_size)
-            sc_list, _ = __parse_list(data[NUM_SIZE: msg_size])
-            return sc_list, msg_size
-
-        bytes2type[ord(b'b')] = __parse_sc_msg
-
-        def __parse_bundle(data):
-            bundle_size = len(data)
-            lists = []
-            idx = 16  # skip header
-            while idx < bundle_size:
-                sc_list, list_size = __parse_sc_msg(data[idx:])
-                lists.append(sc_list)
-                idx += list_size
-
-            return lists, bundle_size
-
-        if data[TYPE_TAG_START] == TYPE_TAG_MARKER:
-            return __parse_list(data)[0]
-        elif data[:8] == b'#bundle\x00':
-            return __parse_bundle(data)[0]
-        else:
-            return data
-
-    @staticmethod
-    def __parse_pyvars(cmdstr):
-        '''Parses through call stack and finds
-        value of string representations of variables
-        '''
-        matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
-
-        pyvar_strs = [match[1:].strip() for match in matches]
-
-        # get frame from grandparent call stack
-        frame = inspect.stack()[2][0]
-        # grab local variables
-        local = frame.f_locals
-        pyvars = {}
-        # check for variable in local variables
-        for pyvar_str in pyvar_strs:
-            if pyvar_str in local:
-                pyvars[pyvar_str] = local[pyvar_str]
-        # if found in local variables, remove from search
-        for pyvar in pyvars:
-            if pyvar in pyvar_strs:
-                pyvar_strs.remove(pyvar)
-        # check for variable in global variables
-        for pyvar_str in pyvar_strs:
-            if pyvar_str in local:
-                pyvars[pyvar_str] = local[pyvar_str]
-        # if found in global variables, remove from search
-        for pyvar in pyvars:
-            if pyvar in pyvar_strs:
-                pyvar_strs.remove(pyvar)
-        # if any variables not found raise NameError
-        for pyvar_str in pyvar_strs:
-            raise NameError('name \'{}\' is not defined'.format(pyvar_str))
-        return pyvars
-
-    @staticmethod
-    def __convert_to_sc(obj):
-        '''Converts python objects to SuperCollider string
-        representations
-        '''
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        if isinstance(obj, complex):
-            return 'Complex({0}, {1})'.format(obj.real, obj.imag)
-        # further type conversion can be added in the future
-        return obj
 
 # boot sc and register blip and play sound
 
