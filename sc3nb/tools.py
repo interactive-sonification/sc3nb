@@ -1,14 +1,14 @@
 """Collection of helper functions for the libary"""
 
-import numbers
 import inspect
+import numbers
 import os
 import re
 import sys
 
 import numpy as np
-
 from pythonosc.parsing import osc_types
+
 
 def remove_comments(string):
     """Removes all //single-line or /* multi-line */ c-style comments
@@ -130,18 +130,6 @@ def parse_pyvars(cmdstr):
     return pyvars
 
 
-def convert_to_sc(obj):
-    '''Converts python objects to SuperCollider string
-    representations
-    '''
-    if isinstance(obj, np.ndarray):
-        return obj.tolist()
-    if isinstance(obj, complex):
-        return 'Complex({0}, {1})'.format(obj.real, obj.imag)
-    # further type conversion can be added in the future
-    return obj
-
-
 def replace_vars(cmdstr, pyvars):
     if pyvars is None:
         pyvars = parse_pyvars(cmdstr)
@@ -149,9 +137,21 @@ def replace_vars(cmdstr, pyvars):
     '''Replaces python variables with sc string representation'''
     for pyvar, value in pyvars.items():
         pyvar = '^' + pyvar
-        value = convert_to_sc(value).__repr__()
+        value = convert_to_sc(value)
         cmdstr = cmdstr.replace(pyvar, value)
     return cmdstr
+
+
+def convert_to_sc(obj):
+    '''Converts python objects to SuperCollider code literals
+    representations
+    '''
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    if isinstance(obj, complex):
+        return 'Complex({0}, {1})'.format(obj.real, obj.imag)
+    # further type conversion can be added in the future
+    return obj.__repr__()
 
 
 def find_executable(executable, path=''):

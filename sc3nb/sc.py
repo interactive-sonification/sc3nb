@@ -4,8 +4,8 @@ within jupyter notebooks
 
 import os
 import re
-import sys
 import subprocess
+import sys
 import threading
 import time
 from queue import Empty, Queue
@@ -14,7 +14,8 @@ import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
-from .tools import remove_comments, parse_sclang_blob, parse_pyvars, convert_to_sc, replace_vars, find_executable
+from .tools import (convert_to_sc, find_executable, parse_pyvars,
+                    parse_sclang_blob, remove_comments, replace_vars)
 from .udp import UDPClient, build_bundle, build_message
 
 if os.name == 'posix':
@@ -112,7 +113,7 @@ class SC():
 
         self.cmd(
             '''
-            r = { arg code, ip, port;
+            ~callback = { arg code, ip, port;
                 var result = code.interpret;
                 var addr = NetAddr.new(ip, port);
                 var prependSize = { arg elem;
@@ -124,6 +125,7 @@ class SC():
                 };
                 result = prependSize.value(result);
                 addr.sendMsg("/return", result);
+                result;  // result should be returned
             };
             ''')
 
@@ -154,18 +156,9 @@ class SC():
 
         if pyvars is None:
             pyvars = parse_pyvars(cmdstr)
+        self.cmdv(cmdstr, pyvars, verbose=False)
 
-        cmdstr = replace_vars(cmdstr, pyvars)
-
-        cmdstr = remove_comments(cmdstr).replace(
-            '\n', '').replace('\t', '') + '\n'
-
-        # \x0c token for execution
-        self.scp.stdin.write(bytearray(cmdstr + '\x0c', 'utf-8'))
-        self.scp.stdin.flush()
-        return len(cmdstr)  # return cmd string length for correct truncation in cmdv
-
-    def cmdv(self, cmdstr, pyvars=None, discard_output=True):
+    def cmdv(self, cmdstr, pyvars=None, discard_output=True, verbose=True):
         """Sends code to SuperCollider printing the output
 
         Arguments:
@@ -178,25 +171,39 @@ class SC():
             discard_output {bool} -- if True clear output
                                      buffer before passing
                                      command (default: {True})
+            verbose {bool} -- if True print output
+                              (default: {True})
         """
+
+        cmdstr = remove_comments(cmdstr).replace(
+            '\n', '').replace('\t', '')
+
         if pyvars is None:
             pyvars = parse_pyvars(cmdstr)
-        if discard_output:
-            self.__scpout_empty()  # clean all past outputs
-        cmdstrlen = self.cmd(cmdstr, pyvars=pyvars)
-        # get output after current command
-        out = self.__scpout_read(terminal=self.terminal_symbol)
-        if sys.platform != 'darwin':
-            outlist = out.splitlines()
-        else:
-            out = out[cmdstrlen:].strip('\n')
-            out = ansi_escape.sub('', out)  # to remove ansi chars
-            outlist = out.splitlines()[:-1]
-        out = "\n".join(outlist) # to replace /r by /n
-        print(out)
-        return outlist
+        cmdstr = replace_vars(cmdstr, pyvars)
 
-    def cmdg(self, cmdstr, pyvars=None, dgram_size=1024, timeout=1):
+        # \x0c = \f = feed forward for execution
+        self.scp.stdin.write(bytearray(cmdstr + '\n\f', 'utf-8'))
+        self.scp.stdin.flush()
+
+        if verbose:
+            if discard_output:
+                self.__scpout_empty()  # clean all past outputs
+            # get output after current command
+            out = self.__scpout_read(terminal=self.terminal_symbol)
+            if sys.platform != 'darwin':
+                outlist = out.splitlines()[:-1]
+            else:
+                cmdstrlen = self.cmd(cmdstr, pyvars=pyvars)
+                out = out[cmdstrlen:].strip('\n')
+                out = ansi_escape.sub('', out)  # to remove ansi chars
+                outlist = out.splitlines()[:-1]
+            out = "\n".join(outlist)  # to replace /r by /n
+            print(out)
+            return outlist
+
+    def cmdg(self, cmdstr, pyvars=None,
+             discard_output=True, verbose=False, dgram_size=1024, timeout=1):
         """Sends code to SuperCollider parsing
            and returning the output
 
@@ -207,6 +214,8 @@ class SC():
             pyvars {dict} -- Dictionary of name and content
                              python variable pairs
                              (default: {None})
+            verbose {bool} -- if True print output
+                              (default: {True})
             dgram_size {int} -- Size of received data
                                 (default: {1024})
             timeout {int} -- Timeout time for receiving data
@@ -221,14 +230,12 @@ class SC():
         if pyvars is None:
             pyvars = parse_pyvars(cmdstr)
 
-        cmdstr = cmdstr.replace('\"', '\'')
+        inner_cmdstr = cmdstr.replace('"', '\\"')  # escape inner "
+        cmdstr = '~callback.value(\"{0}\", \"{1}\", {2})'.format(
+            inner_cmdstr, self.client.client_addr, self.client.client_port)
 
-        cmdstr = '\"' + cmdstr + '\"'
+        self.cmdv(cmdstr, pyvars, verbose=verbose)
 
-        cmdstr = 'r.value({0}, \"{1}\", {2})'.format(
-            cmdstr, self.client.client_addr, self.client.client_port)
-
-        self.cmd(cmdstr, pyvars=pyvars)
         result = self.client.recv(dgram_size=dgram_size, timeout=timeout)[0]
         if type(result) == bytes:
             result = parse_sclang_blob(result)
@@ -521,8 +528,6 @@ class SC():
             except EOFError:
                 pass
             time.sleep(0.001)
-
-# boot sc and register blip and play sound
 
 
 def startup(boot=True, magic=True, **kwargs):
