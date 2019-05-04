@@ -3,7 +3,7 @@ with SuperCollider within python and jupyter notebooks,
 as well as playing recording and visualizing audio
 """
 
-from . import helpers
+from .helpers import *
 
 from .sc import startup, SC
 from .timed_queue import TimedQueue, TimedQueueSC
