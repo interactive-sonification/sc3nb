@@ -194,8 +194,7 @@ class SC():
             if sys.platform != 'darwin':
                 outlist = out.splitlines()[:-1]
             else:
-                cmdstrlen = self.cmd(cmdstr, pyvars=pyvars)
-                out = out[cmdstrlen:].strip('\n')
+                out = out[len(cmdstr):].strip('\n')
                 out = ansi_escape.sub('', out)  # to remove ansi chars
                 outlist = out.splitlines()[:-1]
             out = "\n".join(outlist)  # to replace /r by /n
@@ -236,7 +235,7 @@ class SC():
 
         self.cmdv(cmdstr, pyvars, verbose=verbose)
 
-        result = self.client.recv(dgram_size=dgram_size, timeout=timeout)[0]
+        result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
         if type(result) == bytes:
             result = parse_sclang_blob(result)
 

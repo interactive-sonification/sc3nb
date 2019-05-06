@@ -5,6 +5,7 @@ OSC messages over UDP
 import select
 import socket
 import time
+import logging
 
 from pythonosc import osc_bundle_builder, osc_message, osc_message_builder
 
@@ -108,8 +109,15 @@ class UDPClient():
         ready = select.select([self._sock], [], [], timeout)[0]
         if ready:
             dgram = self._sock.recv(dgram_size)
-            msg = osc_message.OscMessage(dgram)
-            return msg.params
+            logging.debug("dgram received {}".format(dgram))
+            if dgram[:8] == b'/return\x00':
+                msg = osc_message.OscMessage(dgram)
+                logging.debug("msg.params {}".format(msg.params))
+                if len(msg.params) == 0:
+                    return None
+                return msg.params[0]
+            else:
+                return self.recv(dgram_size, timeout)
         raise TimeoutError('socket timeout when receiving data from SC')
 
     def exit(self):

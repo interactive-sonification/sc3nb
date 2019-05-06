@@ -1,6 +1,7 @@
 """Collection of helper functions for the libary"""
 
 import inspect
+import logging
 import numbers
 import os
 import re
@@ -8,6 +9,96 @@ import sys
 
 import numpy as np
 from pythonosc.parsing import osc_types
+
+
+def parse_sclang_blob(data):
+    '''Parses the blob from a SuperCollider osc message'''
+
+    TYPE_TAG_MARKER = ord(b',')
+    TYPE_TAG_START = 4
+    NUM_SIZE = 4
+    INT_TAG = ord(b'i')
+    bytes2type = {
+        ord(b'i'): lambda data: osc_types.get_int(data, 0),
+        ord(b'f'): lambda data: osc_types.get_float(data, 0),
+        ord(b's'): lambda data: osc_types.get_string(data, 0),
+        ord(b'N'): lambda data: (None, 0),
+        ord(b'I'): lambda data: (np.inf, 0),
+        ord(b'T'): lambda data: (True, 0),
+        ord(b'F'): lambda data: (False, 0)
+    }
+
+    def _get_aligned_pos(pos):
+        return NUM_SIZE * int(np.ceil((pos)/NUM_SIZE))
+
+    def _parse_list(data):
+        logging.debug("[ start parsing list: {}".format(data))
+        list_size, _ = bytes2type[INT_TAG](data)
+        type_tag_offset = _get_aligned_pos(list_size + 2)
+        type_tag_end = TYPE_TAG_START + type_tag_offset
+        type_tag = data[TYPE_TAG_START + 1: TYPE_TAG_START + 1 + list_size]
+        value_list = []
+        idx = type_tag_end
+        for t in type_tag:
+            try:
+                value, num_bytes = bytes2type[t](data[idx:])
+            except KeyError:
+                raise Exception('type tag "{}" not understood'.format(chr(t)))
+            logging.debug("new value {}".format(value))
+            value_list.append(value)
+            idx += num_bytes
+
+        logging.debug("resulting list {}".format(value_list))
+        logging.debug("] end parsing list")
+        return value_list, idx
+
+    def _parse_sc_msg(data):
+        logging.debug(">> parse sc msg: {}".format(data))
+        msg_size, _ = bytes2type[INT_TAG](data)
+        logging.debug("msg size {}".format(msg_size))
+        data = data[NUM_SIZE:]
+
+        if data[:8] == b'#bundle\x00':
+            logging.debug("found bundle")
+            msgs, bundle_size = _parse_bundle(data)
+            return msgs, bundle_size + NUM_SIZE
+        elif data[TYPE_TAG_START] == TYPE_TAG_MARKER:
+            logging.debug("found list")
+            value_list, list_size = _parse_list(data[:msg_size])
+            return value_list, list_size + NUM_SIZE
+        else:
+            raise Exception("Datagram not recognized")
+
+    bytes2type[ord(b'b')] = _parse_sc_msg
+
+    def _parse_bundle(data):
+        logging.debug("## start parsing bundle: {}".format(data))
+        msgs = []
+        msg_count = ord(data[8+3:8+4]) - ord("\x80")
+        bundle_size = 16  # skip header
+        logging.debug("msg count {}".format(msg_count))
+        while msg_count > 0:
+            sc_msg, msg_size = _parse_sc_msg(data[bundle_size:])
+            msgs.append(sc_msg)
+            bundle_size += msg_size
+            msg_count -= 1
+            logging.debug("msgs left {}".format(msg_count))
+
+        bundle_size = _get_aligned_pos(bundle_size)
+        logging.debug("parsed bytes {}".format(data[:bundle_size]))
+        logging.debug("msgs {}".format(msgs))
+        logging.debug("## end parsing bundle ")
+        return msgs, bundle_size
+
+    try:
+        if len(data) > TYPE_TAG_START + 1:
+            if data[TYPE_TAG_START] == TYPE_TAG_MARKER:
+                return _parse_list(data)[0]
+            elif data[:8] == b'#bundle\x00':
+                return _parse_bundle(data)[0]
+    except Exception as e:
+        logging.warning('Ignoring Exception:\n{}\nreturning blob'.format(e))
+    return data
 
 
 def remove_comments(string):
@@ -38,95 +129,27 @@ def remove_comments(string):
     return regex.sub(_replacer, string)
 
 
-def parse_sclang_blob(data):
-    '''Parses the blob from a SuperCollider osc message'''
-
-    TYPE_TAG_MARKER = ord(b',')
-    TYPE_TAG_START = 4
-    NUM_SIZE = 4
-    INT_TAG = ord(b'i')
-    bytes2type = {
-        ord(b'i'): lambda data: osc_types.get_int(data, 0),
-        ord(b'f'): lambda data: osc_types.get_float(data, 0),
-        ord(b's'): lambda data: osc_types.get_string(data, 0),
-    }
-
-    def __get_aligned_pos(pos):
-        return NUM_SIZE * int(np.ceil((pos)/NUM_SIZE))
-
-    def __parse_list(data):
-        list_size, _ = bytes2type[INT_TAG](data)
-        type_tag_offset = __get_aligned_pos(list_size + 2)
-        type_tag_end = TYPE_TAG_START + type_tag_offset
-        type_tag = data[TYPE_TAG_START + 1: TYPE_TAG_START + 1 + list_size]
-        value_list = []
-        idx = type_tag_end
-        for t in type_tag:
-            value, num_bytes = bytes2type[t](data[idx:])
-            value_list.append(value)
-            idx += num_bytes
-
-        return value_list, list_size
-
-    def __parse_sc_msg(data):
-        list_size, _ = bytes2type[INT_TAG](data)
-        msg_size = __get_aligned_pos(NUM_SIZE + list_size)
-        sc_list, _ = __parse_list(data[NUM_SIZE: msg_size])
-        return sc_list, msg_size
-
-    bytes2type[ord(b'b')] = __parse_sc_msg
-
-    def __parse_bundle(data):
-        bundle_size = len(data)
-        lists = []
-        idx = 16  # skip header
-        while idx < bundle_size:
-            sc_list, list_size = __parse_sc_msg(data[idx:])
-            lists.append(sc_list)
-            idx += list_size
-
-        return lists, bundle_size
-
-    if data[TYPE_TAG_START] == TYPE_TAG_MARKER:
-        return __parse_list(data)[0]
-    elif data[:8] == b'#bundle\x00':
-        return __parse_bundle(data)[0]
-    else:
-        return data
-
-
 def parse_pyvars(cmdstr):
     '''Parses through call stack and finds
     value of string representations of variables
     '''
     matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
 
-    pyvar_strs = [match[1:].strip() for match in matches]
+    pyvars = {match.split('^')[1].strip(): None for match in matches}
 
     # get frame from grandparent call stack
     frame = inspect.stack()[2][0]
-    # grab local variables
-    local = frame.f_locals
-    pyvars = {}
-    # check for variable in local variables
-    for pyvar_str in pyvar_strs:
-        if pyvar_str in local:
-            pyvars[pyvar_str] = local[pyvar_str]
-    # if found in local variables, remove from search
+
     for pyvar in pyvars:
-        if pyvar in pyvar_strs:
-            pyvar_strs.remove(pyvar)
-    # check for variable in global variables
-    for pyvar_str in pyvar_strs:
-        if pyvar_str in local:
-            pyvars[pyvar_str] = local[pyvar_str]
-    # if found in global variables, remove from search
-    for pyvar in pyvars:
-        if pyvar in pyvar_strs:
-            pyvar_strs.remove(pyvar)
-    # if any variables not found raise NameError
-    for pyvar_str in pyvar_strs:
-        raise NameError('name \'{}\' is not defined'.format(pyvar_str))
+        # check for variable in local variables
+        if pyvar in frame.f_locals:
+            pyvars[pyvar] = frame.f_locals[pyvar]
+        # check for variable in global variables
+        elif pyvar in frame.f_globals:
+            pyvars[pyvar] = frame.f_globals[pyvar]
+        else:
+            raise NameError('name \'{}\' is not defined'.format(pyvar))
+
     return pyvars
 
 
@@ -147,9 +170,11 @@ def convert_to_sc(obj):
     representations
     '''
     if isinstance(obj, np.ndarray):
-        return obj.tolist()
+        return obj.tolist().__repr__()
     if isinstance(obj, complex):
         return 'Complex({0}, {1})'.format(obj.real, obj.imag)
+    if isinstance(obj, str):
+        return '\\"{0}\\"'.format(obj)
     # further type conversion can be added in the future
     return obj.__repr__()
 
