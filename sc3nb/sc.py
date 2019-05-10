@@ -638,8 +638,8 @@ class SC():
         # further type conversion can be added in the future
         return obj
 
-    def Buffer(self, data):
-        return Buffer(self, data)
+    def Buffer(self, **kwargs):
+        return Buffer(self, **kwargs)
 
 # boot sc and register blip and play sound
 
