@@ -412,21 +412,23 @@ class SC():
         self.bundle(onset, "/b_close", [self.rec_bufnum])
         self.bundle(onset, "/b_free", [self.rec_bufnum])
 
-    def midi_ctrl_synth(self, synthname='\\syn'):
+    def midi_ctrl_synth(self, synthname='syn'):
         """Set up MIDI control synth
 
         Keyword Arguments:
             synthname {str} -- Name of synth
-                               (default: {'\\syn'})
+                               (default: {'syn'})
         """
 
         self.cmd(r"""
             MIDIIn.connectAll;
             n.free;
-            n = MIDIFunc.noteOn({{ | level, pitch |
-                var amp = ((level-128)/8).dbamp;
-                Synth.new(^synthname, [\\freq, pitch.midicps, \\amp, amp]);
-            [pitch, amp].postln});
+            n = MIDIFunc.noteOn( 
+                { | level, pitch |
+                    var amp = ((level-128)/8).dbamp;
+                    Synth.new(^synthname, [\freq, pitch.midicps, \amp, amp]);
+                    [pitch, amp].postln
+                });
             """, pyvars={"synthname": synthname})
 
     def midi_ctrl_free(self):
@@ -435,12 +437,12 @@ class SC():
 
         self.cmd("n.free")
 
-    def midi_gate_synth(self, synthname='\\syn'):
+    def midi_gate_synth(self, synthname='syn'):
         """Set up MIDI gate synth
 
         Keyword Arguments:
             synthname {str} -- Name of synth
-                               (default: {'\\syn'})
+                               (default: {'syn'})
         """
 
         self.cmd(r"""
@@ -450,7 +452,7 @@ class SC():
             // q.off.free;
             q.notes = Array.newClear(128);   // array has one slot per possible MIDI note
             q.on = MIDIFunc.noteOn({ |veloc, num, chan, src|
-                q.notes[num] = Synth.new(^synthname, [\\freq, num.midicps, \\amp, veloc * 0.00315]);
+                q.notes[num] = Synth.new(^synthname, [\freq, num.midicps, \amp, veloc * 0.00315]);
             });
             q.off = MIDIFunc.noteOff({ |veloc, num, chan, src|
                 q.notes[num].release;
