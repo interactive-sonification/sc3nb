@@ -71,10 +71,10 @@ class Buffer:
         self.sc.msg("/b_gen", [self.bufnum, command])
 
     # Section: Output
-    def play(self, synth="pb"):
+    def play(self, synth="pb", loop=False):
         if self.loaded is False:
             raise Exception("Buffer object is not initialized yet!")
-        self.sc.msg("/s_new", [synth, -1, 1, 0, "bufnum", self.bufnum, "rate", self.sr])
+        self.sc.msg("/s_new", [synth, -1, 1, 0, "bufnum", self.bufnum, "rate", self.sr, "loop", 1 if loop else 0])
 
     def write(self, path, header="wav", sample="float"):
         if self.loaded is False:

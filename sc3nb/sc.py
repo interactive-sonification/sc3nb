@@ -306,6 +306,12 @@ class SC():
             SynthDef("record-1ch", { | bufnum |
                 DiskOut.ar(bufnum, In.ar(0, 1));
             }).add();
+            SynthDef("pb", { |out=0, bufnum=0, rate=1, loop=0 |
+                Out.ar(out,
+                    PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
+                               doneAction: Done.freeSelf)!2
+                )
+            }).add();
             s.sync;
             /* test signals ****************************************/
             "create test signals".postln;
