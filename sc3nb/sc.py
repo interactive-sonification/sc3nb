@@ -513,9 +513,9 @@ class SC():
             // array has one slot per possible MIDI note
             q.notes = Array.newClear(128);
             q.on = MIDIFunc.noteOn({ |veloc, num, chan, src|
-            q.notes[num] = Synth.new(
+                q.notes[num] = Synth.new(
                     ^synthname,
-                    [\\freq, num.midicps, \\amp, veloc * 0.00315]);
+                    [\freq, num.midicps, \amp, veloc * 0.00315]);
             });
             q.off = MIDIFunc.noteOff({ |veloc, num, chan, src|
                 q.notes[num].release;
