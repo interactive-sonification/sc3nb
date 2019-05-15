@@ -185,8 +185,8 @@ class SC():
         cmdstr = replace_vars(cmdstr, pyvars)
 
         # cleanup command string
-        cmdstr = remove_comments(cmdstr).replace(
-            '\n', '').replace('\t', '')
+        cmdstr = remove_comments(cmdstr)
+        cmdstr = re.sub('\s+', ' ', cmdstr).strip()
 
         if get_result:
             # wrap the command string with our callback function
@@ -194,22 +194,23 @@ class SC():
             cmdstr = r"""r['callback'].value("{0}", "{1}", {2})""".format(
                 inner_cmdstr, self.client.client_addr, self.client.client_port)
 
-        # write command to sclang pipe
-        self.scp.stdin.write(bytearray(cmdstr + os.linesep + "\f", 'utf-8'))
+        if discard_output:
+                self.__scpout_empty()  # clean all past outputs
+
+        # write command to sclang pipe \f
+        self.scp.stdin.write(bytearray(cmdstr + '\n\f', 'utf-8'))
         self.scp.stdin.flush()
 
         if verbose:
-            if discard_output:
-                self.__scpout_empty()  # clean all past outputs
             # get output after current command
             out = self.__scpout_read(terminal=self.terminal_symbol)
-            if sys.platform == "win32":
+            if sys.platform == 'win32':
                 print(out.strip())
             else:
-                out = out[len(cmdstr):].strip('\n')
                 out = ansi_escape.sub('', out)  # to remove ansi chars
-                outlist = out.splitlines()[:-1]
-                out = "\n".join(outlist)  # to replace /r by /n
+                out = re.sub('(\n)|( \r"?)|(sc3>)', '', out).strip()
+                out = out[len(cmdstr):]
+                print(out)
 
         if get_result:
             result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
@@ -483,7 +484,7 @@ class SC():
         self.cmd(r"""
             MIDIIn.connectAll;
             n.free;
-            n = MIDIFunc.noteOn( 
+            n = MIDIFunc.noteOn(
                 { | level, pitch |
                     var amp = ((level-128)/8).dbamp;
                     Synth.new(^synthname, [\freq, pitch.midicps, \amp, amp]);
