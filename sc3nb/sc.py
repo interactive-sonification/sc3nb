@@ -191,33 +191,42 @@ class SC():
         if get_result:
             # wrap the command string with our callback function
             inner_cmdstr = cmdstr.replace('"', '\\"')  # escape inner "
-            cmdstr = r"""r['callback'].value("{0}", "{1}", {2})""".format(
+            cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
                 inner_cmdstr, self.client.client_addr, self.client.client_port)
 
         if discard_output:
                 self.__scpout_empty()  # clean all past outputs
 
         # write command to sclang pipe \f
+        if cmdstr and cmdstr[-1] != ';':
+            cmdstr += ';'
         self.scp.stdin.write(bytearray(cmdstr + '\n\f', 'utf-8'))
         self.scp.stdin.flush()
 
         if verbose:
             # get output after current command
             out = self.__scpout_read(terminal=self.terminal_symbol)
-            if sys.platform == 'win32':
-                print(out.strip())
-            else:
-                out = ansi_escape.sub('', out)  # to remove ansi chars
-                out = re.sub('(\n)|( \r"?)|(sc3>)', '', out).strip()
-                out = out[len(cmdstr):]
-                print(out)
+            if sys.platform != 'win32':
+                out = ansi_escape.sub('', out)  # remove ansi chars
+                out = out.replace('sc3>', '')  # remove prompt
+                out = out[out.find(';\n') + 2:]  # skip cmdstr echo
+            out = out.strip()
+            print(out)
+            if not get_result:
+                return out
 
         if get_result:
-            result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
-            if type(result) == bytes:
-                result = parse_sclang_blob(result)
-            return result
-
+            try:
+                result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
+                if type(result) == bytes:
+                    result = parse_sclang_blob(result)
+                return result
+            except TimeoutError as e:
+                print(e)
+                print("SCLANG ERROR:")
+                print(self.__scpout_read(terminal=self.terminal_symbol))
+                raise ChildProcessError("was not able to receive result from sclang")
+                
     def cmdv(self, cmdstr, **kwargs):
         """Sends code to SuperCollider (sclang)
            and prints output
@@ -687,6 +696,29 @@ class SC3Magics(Magics):
         if cell:
             pyvars = self.__parse_pyvars(cell)
             return SC.sc.cmdg(cell, pyvars=pyvars)
+
+    @cell_magic
+    @line_magic
+    def scgv(self, line='', cell=None):
+        """Execute SuperCollider code returning output
+
+        Keyword Arguments:
+            line {str} -- Line of SuperCollider code (default: {''})
+            cell {str} -- Cell of SuperCollider code (default: {None})
+
+        Returns:
+            {*} -- Output from SuperCollider code, not
+                   all SC types supported, see
+                   pythonosc.osc_message.Message for list
+                   of supported types
+        """
+
+        if line:
+            pyvars = self.__parse_pyvars(line)
+            return SC.sc.cmdg(line, pyvars=pyvars, verbose=True)
+        if cell:
+            pyvars = self.__parse_pyvars(cell)
+            return SC.sc.cmdg(cell, pyvars=pyvars, verbose=True)
 
     def __parse_pyvars(self, cmdstr):
         """Parses SuperCollider code grabbing python variables
