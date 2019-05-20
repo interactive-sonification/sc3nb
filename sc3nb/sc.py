@@ -186,11 +186,13 @@ class SC():
 
         # cleanup command string
         cmdstr = remove_comments(cmdstr)
-        cmdstr = re.sub('\s+', ' ', cmdstr).strip()
+        cmdstr = re.sub(r'\s+', ' ', cmdstr).strip()
 
         if get_result:
+            # escape " and \ in our SuperCollider string literal
+            inner_cmdstr_escapes = str.maketrans({ord('\\'): r'\\', ord('"'): r'\"'})
+            inner_cmdstr = cmdstr.translate(inner_cmdstr_escapes)
             # wrap the command string with our callback function
-            inner_cmdstr = cmdstr.replace('"', '\\"')  # escape inner "
             cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
                 inner_cmdstr, self.client.client_addr, self.client.client_port)
 
