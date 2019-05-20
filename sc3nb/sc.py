@@ -205,6 +205,20 @@ class SC():
         self.scp.stdin.write(bytearray(cmdstr + '\n\f', 'utf-8'))
         self.scp.stdin.flush()
 
+        return_val = None
+
+        if get_result:
+            try:
+                result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
+                if type(result) == bytes:
+                    result = parse_sclang_blob(result)
+                return_val = result
+            except TimeoutError as e:
+                print(e)
+                print("SCLANG ERROR:")
+                print(self.__scpout_read(terminal=self.terminal_symbol))
+                raise ChildProcessError("was not able to receive result from sclang")
+
         if verbose:
             # get output after current command
             out = self.__scpout_read(terminal=self.terminal_symbol)
@@ -215,20 +229,10 @@ class SC():
             out = out.strip()
             print(out)
             if not get_result:
-                return out
+                return_val = out
 
-        if get_result:
-            try:
-                result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
-                if type(result) == bytes:
-                    result = parse_sclang_blob(result)
-                return result
-            except TimeoutError as e:
-                print(e)
-                print("SCLANG ERROR:")
-                print(self.__scpout_read(terminal=self.terminal_symbol))
-                raise ChildProcessError("was not able to receive result from sclang")
-                
+        return return_val
+
     def cmdv(self, cmdstr, **kwargs):
         """Sends code to SuperCollider (sclang)
            and prints output
