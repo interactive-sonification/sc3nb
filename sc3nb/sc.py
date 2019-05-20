@@ -306,9 +306,15 @@ class SC():
             SynthDef("record-1ch", { | bufnum |
                 DiskOut.ar(bufnum, In.ar(0, 1));
             }).add();
-            SynthDef("pb", { |out=0, bufnum=0, rate=1, loop=0 |
+            SynthDef("pb-1ch", { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
                 Out.ar(out,
                     PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
+                               doneAction: Done.freeSelf)!2
+                )
+            }).add();
+            SynthDef("pb-2ch", { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
+                Out.ar(out,
+                    PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
                                doneAction: Done.freeSelf)!2
                 )
             }).add();
