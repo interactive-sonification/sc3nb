@@ -141,6 +141,10 @@ class SC():
             print('Sclang started on non default port: {}'.format(sclang_port))
             self.client.set_sclang("127.0.0.1", sclang_port)
 
+        # counter for nextNodeID
+        self.num_IDs = 0
+        self.num_buffer_IDs = 0
+
         # clear output buffer
         self.__scpout_empty()
 
@@ -265,6 +269,21 @@ class SC():
         """
 
         self.cmd("s.freeAll")
+
+    def nextNodeID(self):
+        """Returns the next nodeID, starting at 10000, not clientID based
+        """
+
+        self.num_IDs += 1
+        nodeID = self.num_IDs + 10000
+        return nodeID
+
+    def nextBufferID(self):
+        """Returns the next bufferID, starting at 100, not clientID based
+        """
+
+        self.num_buffer_IDs += 1
+        return self.num_buffer_IDs + 100
 
     def exit(self):
         """Closes SuperCollider and shuts down server

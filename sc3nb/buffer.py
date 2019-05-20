@@ -17,7 +17,7 @@ class Buffer:
     b = Buffer().copy(Buffer)
     """
     def __init__(self, sc):
-        self._bufnum = randint(0, 100000)  # ToDo: Better num handling: use nextNodeID after PR
+        self._bufnum = sc.nextBufferID()
         self.sc = sc
         self.sr = None
         self._bufmode = None
@@ -97,13 +97,15 @@ class Buffer:
     def play(self, synth="pb-1ch", rate=1, loop=False, pan=0, amp=0.3):
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
-        self.sc.msg("/s_new", [synth, -1, 1, 0,
+        id = self.sc.nextNodeID()
+        self.sc.msg("/s_new", [synth, id, 1, 0,
                                "bufnum", self._bufnum,
                                "rate", rate,
                                "loop", 1 if loop else 0,
                                "pan", pan,
                                "amp", amp
                                ])
+        return id
 
     def write(self, path, header="wav", sample="float"):
         if self._allocated is False:
