@@ -50,7 +50,7 @@ class Buffer:
         if mode == 'file':
             if not os.path.exists('./temp/'):
                 os.makedirs('./temp/')
-            self._tempfile = './temp/temp_' + str(self._bufnum)
+            self._tempfile = f"./temp/temp_{self._bufnum}.wav"
             sp.io.wavfile.write(self._tempfile, self.sr, data)
             self.sc.msg("/b_allocRead", [self._bufnum, self._tempfile])
         else:
@@ -98,7 +98,7 @@ class Buffer:
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         id = self.sc.nextNodeID()
-        self.sc.msg("/s_new", [synth, id, 1, 0,
+        self.sc.msg("/s_new", [synth, id, 1, 1,
                                "bufnum", self._bufnum,
                                "rate", rate,
                                "loop", 1 if loop else 0,
