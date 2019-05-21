@@ -2,7 +2,6 @@
 within jupyter notebooks
 """
 
-import inspect
 import os
 import re
 import subprocess
@@ -11,13 +10,12 @@ import threading
 import time
 from queue import Empty, Queue
 
-from pythonosc.parsing import osc_types
-
 import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
-from .helpers import find_executable, remove_comments
+from .tools import (convert_to_sc, find_executable, parse_pyvars,
+                    parse_sclang_blob, remove_comments, replace_vars)
 from .udp import UDPClient, build_bundle, build_message
 from .buffer import Buffer
 
@@ -82,10 +80,12 @@ class SC():
         sclangpath = find_executable('sclang', path=sclangpath)
 
         self.sc_end_marker_prog = '("finished"+"booting").postln;'
-        # hack to print 'finished booting' without having 'finished booting' in the code
-        # needed for MacOS since sclang echos input. In consequence the read_loop_unix()
-        # waiting for the 'finished booting' string returns too early...
-        # TODO: open issue for sc3 github asking for 'no echo' command line option macos sclang
+        # hack to print 'finished booting' without having 'finished booting'
+        # in the code needed for MacOS since sclang echos input.
+        # In consequence the read_loop_unix() waiting for the
+        # 'finished booting' string returns too early...
+        # TODO: open issue for sc3 github
+        #       asking for 'no echo' command line option macos sclang
 
         # sclang subprocess
         self.scp = subprocess.Popen(
@@ -114,9 +114,9 @@ class SC():
 
         print('Registering UDP callback...')
 
-        self.cmd(
-            '''
-            r = { arg code, ip, port;
+        self.cmd(r'''
+            r = r ? ();
+            r.callback = { arg code, ip, port;
                 var result = code.interpret;
                 var addr = NetAddr.new(ip, port);
                 var prependSize = { arg elem;
@@ -128,6 +128,7 @@ class SC():
                 };
                 result = prependSize.value(result);
                 addr.sendMsg("/return", result);
+                result;  // result should be returned
             };
             ''')
 
@@ -135,7 +136,7 @@ class SC():
 
         print('Done.')
 
-        sclang_port = self.cmdg('NetAddr.langPort')
+        sclang_port = self.cmdg(r'NetAddr.langPort;')
 
         if sclang_port != 57120:
             print('Sclang started on non default port: {}'.format(sclang_port))
@@ -148,108 +149,167 @@ class SC():
         # clear output buffer
         self.__scpout_empty()
 
-    def cmd(self, cmdstr, pyvars=None):
-        """Sends code to SuperCollider
+    def cmd(self, cmdstr, pyvars=None,
+            verbose=False, discard_output=True,
+            get_result=False, dgram_size=1024, timeout=1):
+        """Sends code to SuperCollider (sclang)
 
         Arguments:
             cmdstr {str} -- SuperCollider code
 
         Keyword Arguments:
-            pyvars {[dict]} -- Dictionary of name and content
-                               python variable pairs
-                               (default: {None})
-        """
-
-        if pyvars is None:
-            pyvars = self.__parse_pyvars(cmdstr)
-
-        cmdstr = self.__replace_vars(cmdstr, pyvars)
-
-        cmdstr = remove_comments(cmdstr).replace(
-            '\n', '').replace('\t', '') + '\n'
-
-        # \x0c token for execution
-        self.scp.stdin.write(bytearray(cmdstr + '\x0c', 'utf-8'))
-        self.scp.stdin.flush()
-        return len(cmdstr)  # return cmd string length for correct truncation in cmdv
-
-    def cmdv(self, cmdstr, pyvars=None, discard_output=True):
-        """Sends code to SuperCollider printing the output
-
-        Arguments:
-            cmdstr {str} -- SuperCollider code
-
-        Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and content
-                             python variable pairs
+            pyvars {dict} -- Dictionary of name and value pairs
+                             of python variables that can be
+                             injected via ^name
                              (default: {None})
+            verbose {bool} -- if True print output
+                              (default: {False})
             discard_output {bool} -- if True clear output
                                      buffer before passing
-                                     command (default: {True})
-        """
-        if pyvars is None:
-            pyvars = self.__parse_pyvars(cmdstr)
-        if discard_output:
-            self.__scpout_empty()  # clean all past outputs
-        cmdstrlen = self.cmd(cmdstr, pyvars=pyvars)
-        # get output after current command
-        out = self.__scpout_read(terminal=self.terminal_symbol)
-        if sys.platform != 'darwin':
-            outlist = out.splitlines()
-        else:
-            out = out[cmdstrlen:].strip('\n')
-            out = ansi_escape.sub('', out)  # to remove ansi chars
-            outlist = out.splitlines()[:-1]
-        out = "\n".join(outlist) # to replace /r by /n
-        print(out)
-        return outlist
-
-    def cmdg(self, cmdstr, pyvars=None, dgram_size=1024, timeout=1):
-        """Sends code to SuperCollider parsing
-           and returning the output
-
-        Arguments:
-            cmdstr {str} -- SuperCollider code
-
-        Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and content
-                             python variable pairs
-                             (default: {None})
+                                     command
+                                     (default: {True})
+            get_result {bool} -- if True receive and return
+                                 the evaluation result
+                                 from sclang
+                                 (default: {False})
             dgram_size {int} -- Size of received data
                                 (default: {1024})
             timeout {int} -- Timeout time for receiving data
                              (default: {1})
 
         Returns:
-            {*} -- Output from SuperCollider code, not
-                   all SC types supported, see
-                   pythonosc.osc_message.Message for list
-                   of supported types
+            {*} -- if get_result=True,
+                   Output from SuperCollider code,
+                   not all SC types supported.
+                   When type is not understood this
+                   will return the data gram from the
+                   OSC packet.
         """
         if pyvars is None:
-            pyvars = self.__parse_pyvars(cmdstr)
+            pyvars = parse_pyvars(cmdstr)
+        cmdstr = replace_vars(cmdstr, pyvars)
 
-        cmdstr = cmdstr.replace('\"', '\'')
+        # cleanup command string
+        cmdstr = remove_comments(cmdstr)
+        cmdstr = re.sub(r'\s+', ' ', cmdstr).strip()
 
-        cmdstr = '\"' + cmdstr + '\"'
+        if get_result:
+            # escape " and \ in our SuperCollider string literal
+            inner_cmdstr_escapes = str.maketrans({ord('\\'): r'\\', ord('"'): r'\"'})
+            inner_cmdstr = cmdstr.translate(inner_cmdstr_escapes)
+            # wrap the command string with our callback function
+            cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
+                inner_cmdstr, self.client.client_addr, self.client.client_port)
 
-        cmdstr = 'r.value({0}, \"{1}\", {2})'.format(
-            cmdstr, self.client.client_addr, self.client.client_port)
+        if discard_output:
+                self.__scpout_empty()  # clean all past outputs
 
-        self.cmd(cmdstr, pyvars=pyvars)
-        result = self.client.recv(dgram_size=dgram_size, timeout=timeout)[0]
-        if type(result) == bytes:
-            result = SC.__parse_sc_blob(result)
+        # write command to sclang pipe \f
+        if cmdstr and cmdstr[-1] != ';':
+            cmdstr += ';'
+        self.scp.stdin.write(bytearray(cmdstr + '\n\f', 'utf-8'))
+        self.scp.stdin.flush()
 
-        return result
+        return_val = None
 
-    def __replace_vars(self, cmdstr, pyvars):
-        '''Replaces python variables with sc string representation'''
-        for pyvar, value in pyvars.items():
-            pyvar = '^' + pyvar
-            value = self.__convert_to_sc(value).__repr__()
-            cmdstr = cmdstr.replace(pyvar, value)
-        return cmdstr
+        if get_result:
+            try:
+                result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
+                if type(result) == bytes:
+                    result = parse_sclang_blob(result)
+                return_val = result
+            except TimeoutError as e:
+                print(e)
+                print("SCLANG ERROR:")
+                print(self.__scpout_read(terminal=self.terminal_symbol))
+                raise ChildProcessError("was not able to receive result from sclang")
+
+        if verbose:
+            # get output after current command
+            out = self.__scpout_read(terminal=self.terminal_symbol)
+            if sys.platform != 'win32':
+                out = ansi_escape.sub('', out)  # remove ansi chars
+                out = out.replace('sc3>', '')  # remove prompt
+                out = out[out.find(';\n') + 2:]  # skip cmdstr echo
+            out = out.strip()
+            print(out)
+            if not get_result:
+                return_val = out
+
+        return return_val
+
+    def cmdv(self, cmdstr, **kwargs):
+        """Sends code to SuperCollider (sclang)
+           and prints output
+
+        Arguments:
+            cmdstr {str} -- SuperCollider code
+
+        Keyword Arguments:
+            pyvars {dict} -- Dictionary of name and value pairs
+                             of python variables that can be
+                             injected via ^name
+                             (default: {None})
+            discard_output {bool} -- if True clear output
+                                     buffer before passing
+                                     command
+                                     (default: {True})
+            get_result {bool} -- if True receive and return
+                                 the evaluation result
+                                 from sclang
+                                 (default: {False})
+            dgram_size {int} -- Size of received data
+                                (default: {1024})
+            timeout {int} -- Timeout time for receiving data
+                             (default: {1})
+
+        Returns:
+            {*} -- if get_result=True,
+                   Output from SuperCollider code,
+                   not all SC types supported.
+                   When type is not understood this
+                   will return the data gram from the
+                   OSC packet.
+        """
+        if kwargs.get("pyvars", None) is None:
+            kwargs["pyvars"] = parse_pyvars(cmdstr)
+
+        return self.cmd(cmdstr, verbose=True, **kwargs)
+
+    def cmdg(self, cmdstr, **kwargs):
+        """Sends code to SuperCollider (sclang)
+           and receives and returns the evaluation result
+
+        Arguments:
+            cmdstr {str} -- SuperCollider code
+
+        Keyword Arguments:
+            pyvars {dict} -- Dictionary of name and value pairs
+                             of python variables that can be
+                             injected via ^name
+                             (default: {None})
+            verbose {bool} -- if True print output
+                              (default: {False})
+            discard_output {bool} -- if True clear output
+                                     buffer before passing
+                                     command
+                                     (default: {True})
+            dgram_size {int} -- Size of received data
+                                (default: {1024})
+            timeout {int} -- Timeout time for receiving data
+                             (default: {1})
+
+        Returns:
+            {*} -- Output from SuperCollider code,
+                   not all SC types supported.
+                   When type is not understood this
+                   will return the data gram from the
+                   OSC packet.
+        """
+        if kwargs.get("pyvars", None) is None:
+            kwargs["pyvars"] = parse_pyvars(cmdstr)
+
+        return self.cmd(cmdstr, get_result=True, **kwargs)
 
     def boot(self):
         """Boots SuperCollider server
@@ -310,31 +370,37 @@ class SC():
             { Routine({
             /* synth definitions *********************************/
             "load synth definitions".postln;
-            SynthDef("s1", { | freq=400, dur=0.4, att=0.01, amp=0.3, num=4, pan=0 |
-                Out.ar(0, Pan2.ar(Blip.ar(freq,  num)*
+            SynthDef("s1",
+                { | freq=400, dur=0.4, att=0.01, amp=0.3, num=4, pan=0 |
+                    Out.ar(0, Pan2.ar(Blip.ar(freq,  num)*
                     EnvGen.kr(Env.perc(att, dur, 1, -2), doneAction: 2),
                     pan, amp))
-            }).add();
-            SynthDef("s2", { | freq=400, amp=0.3, num=4, pan=0, lg=0.1 |
-                Out.ar(0, Pan2.ar(Blip.ar(freq.lag(lg),  num),
-                                  pan.lag(lg), amp.lag(lg)))
-            }).add();
-            SynthDef("record-2ch", { | bufnum |
-                DiskOut.ar(bufnum, In.ar(0, 2));
-            }).add();
-            SynthDef("record-1ch", { | bufnum |
-                DiskOut.ar(bufnum, In.ar(0, 1));
-            }).add();
-            SynthDef("pb-1ch", { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
-                Out.ar(out,
-                    PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
-                               doneAction: Done.freeSelf)!2
+                }).add();
+            SynthDef("s2",
+                { | freq=400, amp=0.3, num=4, pan=0, lg=0.1 |
+                    Out.ar(0, Pan2.ar(Blip.ar(freq.lag(lg),  num),
+                              pan.lag(lg), amp.lag(lg)))
+                }).add();
+            SynthDef("record-2ch",
+                { | bufnum |
+                    DiskOut.ar(bufnum, In.ar(0, 2));
+                }).add();
+            SynthDef("record-1ch",
+                { | bufnum |
+                    DiskOut.ar(bufnum, In.ar(0, 1));
+                }).add();
+            SynthDef("pb-1ch", 
+                { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
+                    Out.ar(out,
+                        PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
+                                   doneAction: Done.freeSelf)!2
                 )
             }).add();
-            SynthDef("pb-2ch", { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
-                Out.ar(out,
-                    PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
-                               doneAction: Done.freeSelf)!2
+            SynthDef("pb-2ch", 
+                { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
+                    Out.ar(out,
+                        PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
+                                   doneAction: Done.freeSelf)!2
                 )
             }).add();
             s.sync;
@@ -393,7 +459,9 @@ class SC():
         bundle = build_bundle(timetag, msg_addr, msg_args)
         self.client.send(bundle, sclang)
 
-    def prepare_for_record(self, onset=0, wavpath="record.wav", bufnum=99, nr_channels=2, rec_header="wav", rec_format="int16"):
+    def prepare_for_record(self, onset=0, wavpath="record.wav",
+                           bufnum=99, nr_channels=2, rec_header="wav",
+                           rec_format="int16"):
         """Setup recording via scsynth
 
         Keyword Arguments:
@@ -410,10 +478,14 @@ class SC():
         """
 
         self.rec_bufnum = bufnum
-        self.bundle(onset, "/b_alloc",
-                    [self.rec_bufnum, 65536, nr_channels])
-        self.bundle(onset, "/b_write",
-                    [self.rec_bufnum, wavpath, rec_header, rec_format, 0, 0, 1])
+        self.bundle(
+            onset,
+            "/b_alloc",
+            [self.rec_bufnum, 65536, nr_channels])
+        self.bundle(
+            onset,
+            "/b_write",
+            [self.rec_bufnum, wavpath, rec_header, rec_format, 0, 0, 1])
 
     def record(self, onset=0, node_id=2001, nr_channels=2):
         """Start recording
@@ -426,11 +498,17 @@ class SC():
 
         self.rec_node_id = node_id
         if nr_channels == 1:
-            self.bundle(onset,
-                "/s_new", ["record-1ch", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
+            self.bundle(
+                onset,
+                "/s_new",
+                ["record-1ch",
+                 self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
         else:
-            self.bundle(onset,
-                "/s_new", ["record-2ch", self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
+            self.bundle(
+                onset,
+                "/s_new",
+                ["record-2ch",
+                 self.rec_node_id, 1, 0, "bufnum", self.rec_bufnum])
             # action = 1 = addtotail
 
     def stop_recording(self, onset=0):
@@ -444,21 +522,23 @@ class SC():
         self.bundle(onset, "/b_close", [self.rec_bufnum])
         self.bundle(onset, "/b_free", [self.rec_bufnum])
 
-    def midi_ctrl_synth(self, synthname='\\syn'):
+    def midi_ctrl_synth(self, synthname='syn'):
         """Set up MIDI control synth
 
         Keyword Arguments:
             synthname {str} -- Name of synth
-                               (default: {'\\syn'})
+                               (default: {'syn'})
         """
 
         self.cmd(r"""
             MIDIIn.connectAll;
             n.free;
-            n = MIDIFunc.noteOn({{ | level, pitch |
-                var amp = ((level-128)/8).dbamp;
-                Synth.new(^synthname, [\\freq, pitch.midicps, \\amp, amp]);
-            [pitch, amp].postln});
+            n = MIDIFunc.noteOn(
+                { | level, pitch |
+                    var amp = ((level-128)/8).dbamp;
+                    Synth.new(^synthname, [\freq, pitch.midicps, \amp, amp]);
+                    [pitch, amp].postln
+                });
             """, pyvars={"synthname": synthname})
 
     def midi_ctrl_free(self):
@@ -467,12 +547,12 @@ class SC():
 
         self.cmd("n.free")
 
-    def midi_gate_synth(self, synthname='\\syn'):
+    def midi_gate_synth(self, synthname='syn'):
         """Set up MIDI gate synth
 
         Keyword Arguments:
             synthname {str} -- Name of synth
-                               (default: {'\\syn'})
+                               (default: {'syn'})
         """
 
         self.cmd(r"""
@@ -480,9 +560,12 @@ class SC():
             q = q ? ();
             // q.on.free;
             // q.off.free;
-            q.notes = Array.newClear(128);   // array has one slot per possible MIDI note
+            // array has one slot per possible MIDI note
+            q.notes = Array.newClear(128);
             q.on = MIDIFunc.noteOn({ |veloc, num, chan, src|
-                q.notes[num] = Synth.new(^synthname, [\\freq, num.midicps, \\amp, veloc * 0.00315]);
+                q.notes[num] = Synth.new(
+                    ^synthname,
+                    [\freq, num.midicps, \amp, veloc * 0.00315]);
             });
             q.off = MIDIFunc.noteOff({ |veloc, num, chan, src|
                 q.notes[num].release;
@@ -565,114 +648,8 @@ class SC():
                 pass
             time.sleep(0.001)
 
-    @staticmethod
-    def __parse_sc_blob(data):
-        '''Parses the blob from a SuperCollider osc message'''
-
-        TYPE_TAG_MARKER = ord(b',')
-        TYPE_TAG_START = 4
-        NUM_SIZE = 4
-        INT_TAG = ord(b'i')
-        bytes2type = {
-            ord(b'i'): lambda data: osc_types.get_int(data, 0),
-            ord(b'f'): lambda data: osc_types.get_float(data, 0),
-            ord(b's'): lambda data: osc_types.get_string(data, 0),
-        }
-
-        def __get_aligned_pos(pos):
-            return NUM_SIZE * int(np.ceil((pos)/NUM_SIZE))
-
-        def __parse_list(data):
-            list_size, _ = bytes2type[INT_TAG](data)
-            type_tag_offset = __get_aligned_pos(list_size + 2)
-            type_tag_end = TYPE_TAG_START + type_tag_offset
-            type_tag = data[TYPE_TAG_START + 1: TYPE_TAG_START + 1 + list_size]
-            value_list = []
-            idx = type_tag_end
-            for t in type_tag:
-                value, num_bytes = bytes2type[t](data[idx:])
-                value_list.append(value)
-                idx += num_bytes
-
-            return value_list, list_size
-
-        def __parse_sc_msg(data):
-            list_size, _ = bytes2type[INT_TAG](data)
-            msg_size = __get_aligned_pos(NUM_SIZE + list_size)
-            sc_list, _ = __parse_list(data[NUM_SIZE: msg_size])
-            return sc_list, msg_size
-
-        bytes2type[ord(b'b')] = __parse_sc_msg
-
-        def __parse_bundle(data):
-            bundle_size = len(data)
-            lists = []
-            idx = 16  # skip header
-            while idx < bundle_size:
-                sc_list, list_size = __parse_sc_msg(data[idx:])
-                lists.append(sc_list)
-                idx += list_size
-
-            return lists, bundle_size
-
-        if data[TYPE_TAG_START] == TYPE_TAG_MARKER:
-            return __parse_list(data)[0]
-        elif data[:8] == b'#bundle\x00':
-            return __parse_bundle(data)[0]
-        else:
-            return data
-
-    @staticmethod
-    def __parse_pyvars(cmdstr):
-        '''Parses through call stack and finds
-        value of string representations of variables
-        '''
-        matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
-
-        pyvar_strs = [match[1:].strip() for match in matches]
-
-        # get frame from grandparent call stack
-        frame = inspect.stack()[2][0]
-        # grab local variables
-        local = frame.f_locals
-        pyvars = {}
-        # check for variable in local variables
-        for pyvar_str in pyvar_strs:
-            if pyvar_str in local:
-                pyvars[pyvar_str] = local[pyvar_str]
-        # if found in local variables, remove from search
-        for pyvar in pyvars:
-            if pyvar in pyvar_strs:
-                pyvar_strs.remove(pyvar)
-        # check for variable in global variables
-        for pyvar_str in pyvar_strs:
-            if pyvar_str in local:
-                pyvars[pyvar_str] = local[pyvar_str]
-        # if found in global variables, remove from search
-        for pyvar in pyvars:
-            if pyvar in pyvar_strs:
-                pyvar_strs.remove(pyvar)
-        # if any variables not found raise NameError
-        for pyvar_str in pyvar_strs:
-            raise NameError('name \'{}\' is not defined'.format(pyvar_str))
-        return pyvars
-
-    @staticmethod
-    def __convert_to_sc(obj):
-        '''Converts python objects to SuperCollider string
-        representations
-        '''
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        if isinstance(obj, complex):
-            return 'Complex({0}, {1})'.format(obj.real, obj.imag)
-        # further type conversion can be added in the future
-        return obj
-
     def Buffer(self, **kwargs):
         return Buffer(self, **kwargs)
-
-# boot sc and register blip and play sound
 
 
 def startup(boot=True, magic=True, **kwargs):
@@ -762,6 +739,29 @@ class SC3Magics(Magics):
         if cell:
             pyvars = self.__parse_pyvars(cell)
             return SC.sc.cmdg(cell, pyvars=pyvars)
+
+    @cell_magic
+    @line_magic
+    def scgv(self, line='', cell=None):
+        """Execute SuperCollider code returning output
+
+        Keyword Arguments:
+            line {str} -- Line of SuperCollider code (default: {''})
+            cell {str} -- Cell of SuperCollider code (default: {None})
+
+        Returns:
+            {*} -- Output from SuperCollider code, not
+                   all SC types supported, see
+                   pythonosc.osc_message.Message for list
+                   of supported types
+        """
+
+        if line:
+            pyvars = self.__parse_pyvars(line)
+            return SC.sc.cmdg(line, pyvars=pyvars, verbose=True)
+        if cell:
+            pyvars = self.__parse_pyvars(cell)
+            return SC.sc.cmdg(cell, pyvars=pyvars, verbose=True)
 
     def __parse_pyvars(self, cmdstr):
         """Parses SuperCollider code grabbing python variables
