@@ -114,15 +114,16 @@ class Buffer:
             self.sc.msg("/b_allocRead", [self._bufnum, self._tempfile])
         else:
             self.sc.msg("/b_alloc", [self._bufnum, data.shape[0]])
-            if data.shape[0] < 1000:
+            blocksize = 1000 # array size compatible with OSC packet size
+            # TODO: check how this depends on datagram size
+            # TODO: put into Buffer header as const if needed elsewhere...
+            if data.shape[0] < blocksize:
                 self.sc.msg("/b_setn", [self._bufnum, [0, data.shape[0], data.tolist()]])
             else:
-                # For datasets larger than 1000 entries, you have to split the data to avoid network problems
-                splitdata = np.array_split(data, data.shape[0]/1000)
-                i = 0
-                for tData in splitdata:
-                    self.sc.msg("/b_setn", [self._bufnum, [i * 1000, tData.shape[0], tData.tolist()]])
-                    i += 1
+                # For datasets larger than {blocksize} entries, split data to avoid network problems
+                splitdata = np.array_split(data, data.shape[0]/blocksize)
+                for i, tData in enumerate(splitdata):
+                    self.sc.msg("/b_setn", [self._bufnum, [i * blocksize, tData.shape[0], tData.tolist()]])
         self._allocated = True
         return self
 
