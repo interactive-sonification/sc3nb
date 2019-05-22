@@ -1,6 +1,7 @@
 import scipy as sp
 import os
 import scipy.io.wavfile
+import numpy as np
 from random import randint
 import time
 
@@ -113,7 +114,15 @@ class Buffer:
             self.sc.msg("/b_allocRead", [self._bufnum, self._tempfile])
         else:
             self.sc.msg("/b_alloc", [self._bufnum, data.shape[0]])
-            self.sc.msg("/b_setn", [self._bufnum, data.tolist()])
+            if data.shape[0] < 1000:
+                self.sc.msg("/b_setn", [self._bufnum, [0, data.shape[0], data.tolist()]])
+            else:
+                # For datasets larger than 1000 entries, you have to split the data to avoid network problems
+                splitdata = np.array_split(data, data.shape[0]/1000)
+                i = 0
+                for tData in splitdata:
+                    self.sc.msg("/b_setn", [self._bufnum, [i * 1000, tData.shape[0], tData.tolist()]])
+                    i += 1
         self._allocated = True
         return self
 
@@ -198,6 +207,7 @@ class Buffer:
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_free", [self._bufnum])
+        self._allocated = False
         if self._bufmode == 'data' and isinstance(self._tempfile, str):
             os.remove(self._tempfile)
 
