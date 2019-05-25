@@ -17,6 +17,7 @@ from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 from .tools import (convert_to_sc, find_executable, parse_pyvars,
                     parse_sclang_blob, remove_comments, replace_vars)
 from .udp import UDPClient, build_bundle, build_message
+from .buffer import Buffer
 
 if os.name == 'posix':
     import fcntl
@@ -140,6 +141,10 @@ class SC():
         if sclang_port != 57120:
             print('Sclang started on non default port: {}'.format(sclang_port))
             self.client.set_sclang("127.0.0.1", sclang_port)
+
+        # counter for nextNodeID
+        self.num_IDs = 0
+        self.num_buffer_IDs = 0
 
         # clear output buffer
         self.__scpout_empty()
@@ -325,6 +330,21 @@ class SC():
 
         self.cmd("s.freeAll")
 
+    def nextNodeID(self):
+        """Returns the next nodeID, starting at 10000, not clientID based
+        """
+
+        self.num_IDs += 1
+        nodeID = self.num_IDs + 10000
+        return nodeID
+
+    def nextBufferID(self):
+        """Returns the next bufferID, starting at 100, not clientID based
+        """
+
+        self.num_buffer_IDs += 1
+        return self.num_buffer_IDs + 100
+
     def exit(self):
         """Closes SuperCollider and shuts down server
         """
@@ -369,6 +389,20 @@ class SC():
                 { | bufnum |
                     DiskOut.ar(bufnum, In.ar(0, 1));
                 }).add();
+            SynthDef("pb-1ch", 
+                { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
+                    Out.ar(out,
+                        PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
+                                   doneAction: Done.freeSelf)!2
+                )
+            }).add();
+            SynthDef("pb-2ch", 
+                { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
+                    Out.ar(out,
+                        PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
+                                   doneAction: Done.freeSelf)!2
+                )
+            }).add();
             s.sync;
             /* test signals ****************************************/
             "create test signals".postln;
@@ -613,6 +647,9 @@ class SC():
             except EOFError:
                 pass
             time.sleep(0.001)
+
+    def Buffer(self, **kwargs):
+        return Buffer(self, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):
