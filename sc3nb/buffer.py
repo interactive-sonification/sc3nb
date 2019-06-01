@@ -81,6 +81,8 @@ class Buffer:
         self._bufnum = sc.nextBufferID()
         self.sc = sc
         self.sr = None
+        self._channels = None
+        self._samples = None
         self._bufmode = None
         self._allocated = False
         self._tempfile = None
@@ -91,6 +93,8 @@ class Buffer:
         self._bufmode = 'file'
         file = sp.io.wavfile.read(path)
         self.sr = file[0]
+        self._channels = file[1].shape[1]
+        self._samples = file[1].shape[0]
         self._path = path
         self.sc.msg("/b_allocRead", [self._bufnum, path])
         self._allocated = True
@@ -101,11 +105,14 @@ class Buffer:
         self._bufmode = 'alloc'
         self.sc.msg("/b_alloc", [self._bufnum, size])
         self._allocated = True
+        # ToDo: How do we know channel & amount of samples here?
         return self
 
     def load_data(self, data, mode='file', sr=44100):
         self._bufmode = 'data'
         self.sr = sr
+        self._samples = data.shape[0]
+        self._channels = data.shape[1]
         if mode == 'file':
             if not os.path.exists('./temp/'):
                 os.makedirs('./temp/')
@@ -140,6 +147,7 @@ class Buffer:
         self.sr = sr
         self._bufnum = bufnum
         self._allocated = True
+        # ToDo: Wait for fixing answer problem -> make an query on bufnum and copy channel & samples from this
         return self
 
     def copy_existing(self, buffer):
@@ -313,6 +321,14 @@ class Buffer:
     @property
     def path(self):
         return self._path
+
+    @property
+    def channels(self):
+        return self._channels
+
+    @property
+    def samples(self):
+        return self._samples
 
     # Section: Private utils
     def _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False):
