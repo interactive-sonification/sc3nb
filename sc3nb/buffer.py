@@ -161,7 +161,7 @@ class Buffer:
     def gen(self, command, args):
         """
         Call a command to fill a buffer. If you know, what you do -> you can use this method.
-        Otherwhise following wrapper exist:
+        Otherwise following wrapper exist:
         :see gen_sine1, gen_sine2, gen_cheby, gen_cheby, gen_copy
         :param command:
         :param args:
@@ -241,8 +241,8 @@ class Buffer:
         :param source:      Buffer: Source buffer object
         :param source_pos:  int: sample position in source
         :param dest_pos:    int: sample position in destination
-        :param copy_amount: int: number of samples to copy. If the number of samples to copy is negative, the maximum number
-                            of samples possible is copied.
+        :param copy_amount: int: number of samples to copy. If the number of samples to copy is negative, the maximum
+                            number of samples possible is copied.
         :return:            self
         """
         return self.gen("copy", [dest_pos, source.bufnum, source_pos, copy_amount])
@@ -252,12 +252,13 @@ class Buffer:
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         id = self.sc.nextNodeID()
-        self.sc.msg("/s_new", [synth, id, 1, 1,
-            "bufnum", self._bufnum,
-            "rate", rate,
-            "loop", 1 if loop else 0,
-            "pan", pan,
-            "amp", amp
+        self.sc.msg("/s_new", [
+                synth, id, 1, 1,
+                "bufnum", self._bufnum,
+                "rate", rate,
+                "loop", 1 if loop else 0,
+                "pan", pan,
+                "amp", amp
             ])
         return id
 
