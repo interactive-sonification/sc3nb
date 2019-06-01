@@ -2,10 +2,10 @@ import scipy as sp
 import os
 import scipy.io.wavfile
 import numpy as np
-from random import randint
 import time
 
 # ToDo: Add blocking to all loader
+
 
 class Buffer:
 
@@ -158,10 +158,18 @@ class Buffer:
         self.sc.msg("/b_fill", [self._bufnum, [start, count, value]])
         return self
 
-    def gen(self, command):
+    def gen(self, command, args):
+        """
+        Call a command to fill a buffer. If you know, what you do -> you can use this method.
+        Otherwhise following wrapper exist:
+        :see gen_sine1, gen_sine2, gen_cheby, gen_cheby, gen_copy
+        :param command:
+        :param args:
+        :return:
+        """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
-        self.sc.msg("/b_gen", [self._bufnum, command])
+        self.sc.msg("/b_gen", [self._bufnum, command] + args)
         return self
 
     def zero(self):
@@ -169,6 +177,75 @@ class Buffer:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_zero", [self._bufnum])
         return self
+
+    def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False, clear=False):
+        """
+        Fill the buffer with sinus waves & given amplitude
+        :param amplitudes:  List: The first float value specifies the amplitude of the first partial, the second float
+                            value specifies the amplitude of the second partial, and so on.
+        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
+        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
+                            by interpolating oscillators.
+        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
+                            the new partials are summed with the existing contents of the buffer
+        :return:            self
+        """
+        return self.gen("sine1", [self._gen_flags(normalize, wavetable, clear), amplitudes])
+
+    def gen_sine2(self, freq_amps: list, normalize=False, wavetable=False, clear=False):
+        """
+        Fill the buffer with sinus waves & given amplitude/ frequency
+        :param freq_amps:   List: Similar to sine1 except that each partial frequency is specified explicitly instead of
+                            being an integer series of partials. Non-integer partial frequencies are possible.
+        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
+        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
+                            by interpolating oscillators.
+        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
+                            the new partials are summed with the existing contents of the buffer
+        :return:            self
+        """
+        return self.gen("sine2", [self._gen_flags(normalize, wavetable, clear), freq_amps])
+
+    def gen_sine3(self, freq_amps_phase: list, normalize=False, wavetable=False, clear=False):
+        """
+        Fill the buffer with sinus waves & given amplitude/ frequency/ phase
+        :param freq_amps_phase:   List: Similar to sine2 except that each partial may have a nonzero starting phase.
+        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
+        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
+                            by interpolating oscillators.
+        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
+                            the new partials are summed with the existing contents of the buffer
+        :return:            self
+        """
+        return self.gen("sine3", [self._gen_flags(normalize, wavetable, clear), freq_amps_phase])
+
+    def gen_cheby(self, amplitude: list, normalize=False, wavetable=False, clear=False):
+        """
+        Fills a buffer with a series of chebyshev polynomials, which can be defined as
+        cheby(n) = amplitude * cos(n * acos(x))
+
+        :param amplitude:   List: The first float value specifies the amplitude for n = 1, the second float value
+                            specifies the amplitude for n = 2, and so on
+        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
+        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
+                            by interpolating oscillators.
+        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
+                            the new partials are summed with the existing contents of the buffer
+        :return:            self
+        """
+        return self.gen("cheby", [self._gen_flags(normalize, wavetable, clear), amplitude])
+
+    def gen_copy(self, source, source_pos, dest_pos, copy_amount):
+        """
+        Copy samples from the source buffer to the destination buffer specified in the b_gen command
+        :param source:      Buffer: Source buffer object
+        :param source_pos:  int: sample position in source
+        :param dest_pos:    int: sample position in destination
+        :param copy_amount: int: number of samples to copy. If the number of samples to copy is negative, the maximum number
+                            of samples possible is copied.
+        :return:            self
+        """
+        return self.gen("copy", [dest_pos, source.bufnum, source_pos, copy_amount])
 
     # Section: Buffer output methods
     def play(self, synth="pb-1ch", rate=1, loop=False, pan=0, amp=0.3):
@@ -199,9 +276,9 @@ class Buffer:
         return self.sc.client.recv()
 
     def __repr__(self):
-        return f"Buffer(sc, sr={str(self.sr)}, bufmode={str(self._bufmode)}) \r\n Loaded={str(self._allocated)}" + \
+        return f"Buffer(sc=sc, sr={str(self.sr)}, bufmode={str(self._bufmode)}) \r\n Loaded={str(self._allocated)}" + \
                f"\r\n Bufnum={str(self._bufnum)}" + \
-                "\r\n To see more information about the buffer data, use Buffer.info()"
+                "\r\n To see more information about the buffer data, use Buffer.query()"  # ToDo: Replace sc= with adress to sc server
 
     # Section: Methods to delete / free Buffers
     def free(self):
@@ -235,3 +312,10 @@ class Buffer:
     @property
     def path(self):
         return self._path
+
+    # Section: Private utils
+    def _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False):
+        normalize = 1 if a_normalize is True else 0
+        wavetable = 2 if a_wavetable is True else 0
+        clear = 4 if a_clear is True else 0
+        return normalize + wavetable + clear
