@@ -174,7 +174,12 @@ def convert_to_sc(obj):
     if isinstance(obj, complex):
         return 'Complex({0}, {1})'.format(obj.real, obj.imag)
     if isinstance(obj, str):
-        return '"{0}"'.format(obj)
+        if obj.startswith("/") and not obj.startswith("//"):
+            return "'{}'".format(obj[1:])  # 'x' will be interpreted as symbol
+        else:
+            if obj.startswith("//"):
+                obj = obj[1:]
+            return '"{}"'.format(obj)  # "x" will be interpreted as string
     # further type conversion can be added in the future
     return obj.__repr__()
 
