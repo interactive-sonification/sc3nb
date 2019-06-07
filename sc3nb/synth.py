@@ -58,5 +58,72 @@ class Synth:
 
 
 class SynthDef:
-    def __init(self, sc):
+    def __init__(self, sc, name, definition):
+        """
+        Create a dynamic synth definition in sc.
+
+        Parameters
+        ----------
+        sc: SC object
+            SC instance where the synthdef should be created
+        name: string
+            default name of the synthdef creation. The naming convention will be name+int, where int is the amount of
+            already created synths of this definition
+        definition: string
+            Pass the default synthdef definition here. Flexible content should be in double
+            brackets ("...{{flexibleContent}}..."). This flexible content, you can dynamic replace with set_context()
+        """
         self.sc = sc
+        self.definition = definition
+        self.name = name
+        self.current_def = definition
+        # dict of all already defined synthdefs with this root-defintion (key=name, value=definition)
+        self.defined_instances = {}
+
+    def reset(self):
+        """
+        Reset the current synthdef configuration to the self.definition value. After this you can restart your
+        configuration with the same root definition
+
+        Returns
+        -------
+        self : object of type SynthDef
+            the SynthDef object
+        """
+        self.current_def = self.definition
+        return self
+
+    def set_context(self, key, value):
+        """
+        This method will replace a given key (format: "...{{key}}...") in the synthdef definition with the given value
+
+        Parameters
+        ----------
+        key: string
+            Searchpattern in the current_def string
+        value: string
+            Replacement of searchpattern
+
+        Returns
+        -------
+        self : object of type SynthDef
+            the SynthDef object
+        """
+        self.current_def = self.current_def.replace(f"{{{key}}}", value)
+        return self
+
+    def create(self):
+        """
+        This method will create the current_def as a sc synthDef. It will block until sc has created the synthdef.
+        If a synth with the same definition was already in sc, this method will only return the name
+
+        Returns
+        -------
+        string: Name of the synthdef
+        """
+        # ToDo: Check if current_def is already in defined_instances
+        name = self.name + len(self.defined_instances)
+        self.sc.cmd()
+        self.defined_instances[name] = self.current_def
+        return name
+
