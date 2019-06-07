@@ -18,6 +18,7 @@ from .tools import (convert_to_sc, find_executable, parse_pyvars,
                     parse_sclang_blob, remove_comments, replace_vars)
 from .udp import UDPClient, build_bundle, build_message
 from .buffer import Buffer
+from .synth import Synth, SynthDef
 
 if os.name == 'posix':
     import fcntl
@@ -650,6 +651,12 @@ class SC():
 
     def Buffer(self, **kwargs):
         return Buffer(self, **kwargs)
+
+    def Synth(self, **kwargs):
+        return Synth(self, **kwargs)
+
+    def SynthDef(self, **kwargs):
+        return SynthDef(self, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):
