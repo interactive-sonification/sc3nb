@@ -161,6 +161,18 @@ class Buffer:
 
     # Section: Buffer modification methods
     def fill(self, start, count, value):
+        """
+
+        Parameters
+        ----------
+        start
+        count
+        value
+
+        Returns
+        -------
+
+        """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_fill", [self._bufnum, [start, count, value]])
