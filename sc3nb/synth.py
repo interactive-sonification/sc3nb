@@ -49,16 +49,17 @@ class Synth:
         self.sc.msg("/s_new", [self.name, self.nodeid, self.action, self.target] + flatten_dict)
         return self
 
-    def set_control(self, key, value):
+    def set(self, key, value):
         """
         Set a control variable for synth after defining it
         """
-        self.sc.msg("/n_set", [self.nodeid, [key, value]])
+        self.args[key] = value
+        self.sc.msg("/n_set", [self.nodeid, key, value])
         return self
 
 
 class SynthDef:
-    def __init__(self, sc, name, definition):
+    def __init__(self, sc, name="", definition=""):
         """
         Create a dynamic synth definition in sc.
 
@@ -109,7 +110,7 @@ class SynthDef:
         self : object of type SynthDef
             the SynthDef object
         """
-        self.current_def = self.current_def.replace(f"{{{key}}}", value)
+        self.current_def = self.current_def.replace("{{"+key+"}}", str(value))
         return self
 
     def create(self):
@@ -122,8 +123,10 @@ class SynthDef:
         string: Name of the synthdef
         """
         # ToDo: Check if current_def is already in defined_instances
-        name = self.name + len(self.defined_instances)
-        self.sc.cmd()
+        name = self.name + str(len(self.defined_instances))
+        command = f"""SynthDef("{name}", {self.current_def}).add();"""
+        self.sc.cmd(command)
         self.defined_instances[name] = self.current_def
+        # ToDo: Wait for release of: self.sc.osc.sync()
         return name
 
