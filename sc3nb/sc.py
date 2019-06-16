@@ -388,20 +388,20 @@ class SC():
                 }).add();
             SynthDef("pb-1ch",
                 { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
-                    Out.ar(out,
-                        PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum),
-                                   loop: loop,
-                                   doneAction: 2)!2
-                )
-            }).add();
+                    var sig = PlayBuf.ar(1, bufnum,
+                        rate*BufRateScale.kr(bufnum),
+                        loop: loop,
+                        doneAction: 2);
+                    Out.ar(out, Pan2.ar(sig, pan, amp))
+                }).add();
             SynthDef("pb-2ch",
                 { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
-                    Out.ar(out,
-                        PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum),
-                                   loop: loop,
-                                   doneAction: 2)!2
-                )
-            }).add();
+                    var sig = PlayBuf.ar(2, bufnum,
+                        rate*BufRateScale.kr(bufnum),
+                        loop: loop,
+                        doneAction: 2);
+                    Out.ar(out, Balance2.ar(sig[0], sig[1], pan, amp))
+                }).add();
             s.sync;
             /* test signals ****************************************/
             "create test signals".postln;
