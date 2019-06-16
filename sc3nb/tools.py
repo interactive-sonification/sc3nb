@@ -154,9 +154,6 @@ def parse_pyvars(cmdstr):
 
 
 def replace_vars(cmdstr, pyvars):
-    if pyvars is None:
-        pyvars = parse_pyvars(cmdstr)
-
     '''Replaces python variables with sc string representation'''
     for pyvar, value in pyvars.items():
         pyvar = '^' + pyvar

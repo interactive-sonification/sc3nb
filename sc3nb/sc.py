@@ -14,10 +14,10 @@ import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
-from .tools import (convert_to_sc, find_executable, parse_pyvars,
-                    parse_sclang_blob, remove_comments, replace_vars)
-from .udp import UDPClient, build_bundle, build_message
 from .buffer import Buffer
+from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
+from .tools import (convert_to_sc, find_executable, parse_pyvars,
+                    remove_comments, replace_vars)
 
 if os.name == 'posix':
     import fcntl
@@ -94,8 +94,6 @@ class SC():
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT)
 
-        self.client = UDPClient()
-
         self.rec_node_id = -1  # i.e. not valid
         self.rec_bufnum = -1
 
@@ -111,6 +109,16 @@ class SC():
         self.__scpout_read(timeout=10, terminal='Welcome to SuperCollider')
 
         print('Done.')
+
+        self.osc = OscCommunication()
+        self.msg = self.osc.msg
+        self.bundle = self.osc.bundle
+        self.msg_queues = self.osc.msg_queues
+        self.update_msg_queues = self.osc.update_msg_queues
+        self.async_msgs = self.osc.async_msgs
+        self.msg_pairs = self.osc.msg_pairs
+        self.sync = self.osc.sync
+        self.get_connection_info = self.osc.get_connection_info
 
         print('Registering UDP callback...')
 
@@ -136,11 +144,10 @@ class SC():
 
         print('Done.')
 
-        sclang_port = self.cmdg(r'NetAddr.langPort;')
-
-        if sclang_port != 57120:
+        sclang_port = self.cmdg('NetAddr.langPort')
+        if sclang_port != SCLANG_DEFAULT_PORT:
+            self.osc.set_sclang(sclang_port=sclang_port)
             print('Sclang started on non default port: {}'.format(sclang_port))
-            self.client.set_sclang("127.0.0.1", sclang_port)
 
         # counter for nextNodeID
         self.num_IDs = 0
@@ -151,7 +158,7 @@ class SC():
 
     def cmd(self, cmdstr, pyvars=None,
             verbose=False, discard_output=True,
-            get_result=False, dgram_size=1024, timeout=1):
+            get_result=False, timeout=1):
         """Sends code to SuperCollider (sclang)
 
         Arguments:
@@ -172,8 +179,6 @@ class SC():
                                  the evaluation result
                                  from sclang
                                  (default: {False})
-            dgram_size {int} -- Size of received data
-                                (default: {1024})
             timeout {int} -- Timeout time for receiving data
                              (default: {1})
 
@@ -195,11 +200,12 @@ class SC():
 
         if get_result:
             # escape " and \ in our SuperCollider string literal
-            inner_cmdstr_escapes = str.maketrans({ord('\\'): r'\\', ord('"'): r'\"'})
+            inner_cmdstr_escapes = str.maketrans(
+                {ord('\\'): r'\\', ord('"'): r'\"'})
             inner_cmdstr = cmdstr.translate(inner_cmdstr_escapes)
             # wrap the command string with our callback function
             cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
-                inner_cmdstr, self.client.client_addr, self.client.client_port)
+                inner_cmdstr, *self.osc.server.server_address)
 
         if verbose and discard_output:
                 self.__scpout_empty()  # clean all past outputs
@@ -214,15 +220,11 @@ class SC():
 
         if get_result:
             try:
-                result = self.client.recv(dgram_size=dgram_size, timeout=timeout)
-                if type(result) == bytes:
-                    result = parse_sclang_blob(result)
-                return_val = result
-            except TimeoutError as e:
-                print(e)
+                return_val = self.osc.returns.get(timeout)
+            except Empty:
                 print("SCLANG ERROR:")
                 print(self.__scpout_read(terminal=self.terminal_symbol))
-                raise ChildProcessError("was not able to receive result from sclang")
+                raise ChildProcessError("unable to receive result from sclang")
 
         if verbose:
             # get output after current command
@@ -258,8 +260,6 @@ class SC():
                                  the evaluation result
                                  from sclang
                                  (default: {False})
-            dgram_size {int} -- Size of received data
-                                (default: {1024})
             timeout {int} -- Timeout time for receiving data
                              (default: {1})
 
@@ -273,7 +273,6 @@ class SC():
         """
         if kwargs.get("pyvars", None) is None:
             kwargs["pyvars"] = parse_pyvars(cmdstr)
-
         return self.cmd(cmdstr, verbose=True, **kwargs)
 
     def cmdg(self, cmdstr, **kwargs):
@@ -294,13 +293,12 @@ class SC():
                                      buffer before passing
                                      command
                                      (default: {True})
-            dgram_size {int} -- Size of received data
-                                (default: {1024})
             timeout {int} -- Timeout time for receiving data
                              (default: {1})
 
         Returns:
-            {*} -- Output from SuperCollider code,
+            {*} -- if get_result=True,
+                   Output from SuperCollider code,
                    not all SC types supported.
                    When type is not understood this
                    will return the data gram from the
@@ -308,7 +306,6 @@ class SC():
         """
         if kwargs.get("pyvars", None) is None:
             kwargs["pyvars"] = parse_pyvars(cmdstr)
-
         return self.cmd(cmdstr, get_result=True, **kwargs)
 
     def boot(self):
@@ -352,7 +349,7 @@ class SC():
         if SC.sc == self:
             if self.server:
                 self.__s_quit()
-        self.client.exit()
+        self.osc.exit()
         self.scp.kill()
 
     def boot_with_blip(self):
@@ -389,18 +386,20 @@ class SC():
                 { | bufnum |
                     DiskOut.ar(bufnum, In.ar(0, 1));
                 }).add();
-            SynthDef("pb-1ch", 
+            SynthDef("pb-1ch",
                 { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
                     Out.ar(out,
-                        PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
-                                   doneAction: Done.freeSelf)!2
+                        PlayBuf.ar(1, bufnum, rate*BufRateScale.kr(bufnum),
+                                   loop: loop,
+                                   doneAction: 2)!2
                 )
             }).add();
-            SynthDef("pb-2ch", 
+            SynthDef("pb-2ch",
                 { |out=0, bufnum=0, rate=1, loop=0, pan=0, amp=0.3 |
                     Out.ar(out,
-                        PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum), loop: loop, 
-                                   doneAction: Done.freeSelf)!2
+                        PlayBuf.ar(2, bufnum, rate*BufRateScale.kr(bufnum),
+                                   loop: loop,
+                                   doneAction: 2)!2
                 )
             }).add();
             s.sync;
@@ -415,49 +414,6 @@ class SC():
         self.__scpout_read(timeout=10, terminal='finished booting')
 
         print('Done.')
-
-    def msg(self, msg_addr, msg_args=None, sclang=False):
-        """Sends OSC message over UDP to either sclang or scsynth
-
-        Arguments:
-            msg_addr {str} -- SuperCollider address
-                              E.g. '/s_new'
-
-        Keyword Arguments:
-            msg_args {list} -- List of arguments to add to
-                               message (default: {None})
-            sclang {bool} -- if True send message to sclang,
-                             otherwise send to scsynth
-                             (default: {False})
-        """
-
-        if msg_args is None:
-            msg_args = []
-        msg = build_message(msg_addr, msg_args)
-        self.client.send(msg, sclang)
-
-    def bundle(self, timetag, msg_addr, msg_args=None, sclang=False):
-        """Sends OSC bundle over UDP to either sclang or scsynth
-
-        Arguments:
-            timetag {int} -- Time at which bundle content
-                             should be executed, either in
-                             absolute or relative time
-            msg_addr {str} -- SuperCollider address
-                              E.g. '/s_new'
-
-        Keyword Arguments:
-            msg_args {list} -- List of arguments to add to
-                               message (default: {None})
-            sclang {bool} -- if True send message to sclang,
-                             otherwise send to scsynth
-                             (default: {False})
-        """
-
-        if msg_args is None:
-            msg_args = []
-        bundle = build_bundle(timetag, msg_addr, msg_args)
-        self.client.send(bundle, sclang)
 
     def prepare_for_record(self, onset=0, wavpath="record.wav",
                            bufnum=99, nr_channels=2, rec_header="wav",
