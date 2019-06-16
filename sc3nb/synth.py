@@ -1,3 +1,5 @@
+import re
+
 class Synth:
     def __init__(self, sc, name="default", nodeid=None, action=1, target=1, args={}):
         """
@@ -57,6 +59,9 @@ class Synth:
         self.sc.msg("/n_set", [self.nodeid, key, value])
         return self
 
+    def __del__(self):
+        self.free()
+
 
 class SynthDef:
     def __init__(self, sc, name="", definition=""):
@@ -89,21 +94,22 @@ class SynthDef:
         Returns
         -------
         self : object of type SynthDef
-            the SynthDef object
+               the SynthDef object
         """
         self.current_def = self.definition
         return self
 
-    def set_context(self, key, value):
+    def set_context(self, key: str, value):
         """
-        This method will replace a given key (format: "...{{key}}...") in the synthdef definition with the given value
+        This method will replace a given key (format: "...{{key}}...") in the synthdef definition with the given value.
+        You can also replace pyvars with a value.
 
         Parameters
         ----------
         key: string
-            Searchpattern in the current_def string
-        value: string
-            Replacement of searchpattern
+             Searchpattern in the current_def string
+        value: string or something with can parsed to string
+               Replacement of searchpattern
 
         Returns
         -------
@@ -111,22 +117,99 @@ class SynthDef:
             the SynthDef object
         """
         self.current_def = self.current_def.replace("{{"+key+"}}", str(value))
+        self.current_def = self.current_def.replace("^"+key, str(value)) # pseudo pyvar
         return self
 
-    def create(self):
+    def set_contexts(self, dictionary: dict):
+        """
+        Set multiple values at onces when you give a dictionary. Because dictionaries are unsorted, keep in mind, that
+        the order is sometimes ignored in this method.
+
+        Parameters
+        ----------
+        dictionary: dict
+            (k,v) tuple dict, while k is the searchpattern and v is the replacement
+
+        Returns
+        -------
+        self : object of type SynthDef
+            the SynthDef object
+        """
+        for (k, v) in dictionary:
+            self.set_context(k, v)
+        return self
+
+    def unset_remaining(self):
+        """
+        This method will remove all existing placeholders in the current def. You can use this at the end of definition
+        to make sure, that your definition is clean. Hint: This method will not remove pyvars
+
+        Returns
+        -------
+        self : object of type SynthDef
+            the SynthDef object
+
+        """
+        self.current_def = re.sub(r"{{[^}]+}}", "", self.current_def)
+        return self
+
+    def create(self, pyvars={}):
         """
         This method will create the current_def as a sc synthDef. It will block until sc has created the synthdef.
         If a synth with the same definition was already in sc, this method will only return the name
+
+        Parameters
+        ----------
+        pyvars: dict
+            SC pyvars dict, to modify the synthdef command while executing it.
 
         Returns
         -------
         string: Name of the synthdef
         """
-        # ToDo: Check if current_def is already in defined_instances
+
+        # Check if a synth with the same definition is already defined -> use this
+        if self.current_def in self.defined_instances.values():
+            return list(self.defined_instances.keys())[list(self.defined_instances.values()).index(self.current_def)]
+
         name = self.name + str(len(self.defined_instances))
-        command = f"""SynthDef("{name}", {self.current_def}).add();"""
-        self.sc.cmd(command)
+
+        # Create new synthDef
+        self.sc.cmd(f"""SynthDef("{name}", {self.current_def}).add();""", pyvars=pyvars)
         self.defined_instances[name] = self.current_def
         # ToDo: Wait for release of: self.sc.osc.sync()
         return name
+
+    def free(self, name: str):
+        """
+
+        Parameters
+        ----------
+        name: str
+            Name of the SynthDef, which should be freed. The SynthDef must not be created by the current SynthDef object
+
+        Returns
+        -------
+        self : object of type SynthDef
+            the SynthDef object
+
+        """
+        self.sc.msg("/d_free", [name])
+
+        # Update defined instances. Important: Don't delete the entry! The naming convention for synthdefs is based on
+        # the count of defined_instances, so a deleted key could override an existing synthdef.
+        if name in self.defined_instances:
+            self.defined_instances[name] = ''
+        return self
+
+    def __del__(self):
+        """
+        Free all SynthDefs, which are defined by this object
+
+        Returns
+        -------
+
+        """
+        for key in self.defined_instances:
+            self.free(key)
 
