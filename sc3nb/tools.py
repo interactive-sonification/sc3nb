@@ -171,6 +171,8 @@ def convert_to_sc(obj):
     if isinstance(obj, complex):
         return 'Complex({0}, {1})'.format(obj.real, obj.imag)
     if isinstance(obj, str):
+        if obj.startswith("sc3:"):  # start sequence for sc3-code
+            return "{}".format(obj[4:])
         if obj.startswith(r"\\") and not obj.startswith(r"\\\\"):
             return "'{}'".format(obj[1:])  # 'x' will be interpreted as symbol
         else:
