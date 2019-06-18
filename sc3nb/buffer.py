@@ -2,9 +2,6 @@ import scipy as sp
 import os
 import scipy.io.wavfile
 import numpy as np
-import time
-
-# ToDo: Add blocking to all loader
 
 
 class Buffer:
@@ -158,7 +155,7 @@ class Buffer:
         self._bufmode = 'data'
         self.sr = sr
         self._samples = data.shape[0]
-        self._channels = data.shape[1]
+        self._channels = 1 if len(data.shape) == 1 else data.shape[1]
         if mode == 'file':
             if not os.path.exists('./temp/'):
                 os.makedirs('./temp/')
@@ -457,6 +454,29 @@ class Buffer:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_write", [self._bufnum, path, header, sample, -1, 0, 0])
         return self
+
+    def to_array(self):
+        """
+        Return the buffer data as an array representation.
+
+        Returns
+        -------
+        array :
+            Values of the buffer
+        """
+        data = []
+        blocksize = 1000  # array size compatible with OSC packet size
+        i = 0
+        while i < self._samples:
+            tmp = self.sc.msg("/b_getn", [self._bufnum,
+                                          i,
+                                          blocksize if i +  blocksize < self._samples else self._samples - i])
+            tmp = list(tmp)
+            tmp.pop(0)
+            data += tmp
+            i += blocksize
+
+        return data
 
     # Section: Buffer information methods
     def query(self):
