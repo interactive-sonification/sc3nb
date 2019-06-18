@@ -154,9 +154,6 @@ def parse_pyvars(cmdstr):
 
 
 def replace_vars(cmdstr, pyvars):
-    if pyvars is None:
-        pyvars = parse_pyvars(cmdstr)
-
     '''Replaces python variables with sc string representation'''
     for pyvar, value in pyvars.items():
         pyvar = '^' + pyvar
@@ -174,7 +171,14 @@ def convert_to_sc(obj):
     if isinstance(obj, complex):
         return 'Complex({0}, {1})'.format(obj.real, obj.imag)
     if isinstance(obj, str):
-        return '"{0}"'.format(obj)
+        if obj.startswith("sc3:"):  # start sequence for sc3-code
+            return "{}".format(obj[4:])
+        if obj.startswith(r"\\") and not obj.startswith(r"\\\\"):
+            return "'{}'".format(obj[1:])  # 'x' will be interpreted as symbol
+        else:
+            if obj.startswith(r"\\\\"):
+                obj = obj[1:]
+            return '"{}"'.format(obj)  # "x" will be interpreted as string
     # further type conversion can be added in the future
     return obj.__repr__()
 
