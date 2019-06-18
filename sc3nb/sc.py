@@ -201,7 +201,7 @@ class SC():
             cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
                 inner_cmdstr, self.client.client_addr, self.client.client_port)
 
-        if discard_output:
+        if verbose and discard_output:
                 self.__scpout_empty()  # clean all past outputs
 
         # write command to sclang pipe \f
