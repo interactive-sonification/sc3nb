@@ -650,12 +650,21 @@ class SC():
             time.sleep(0.001)
 
     def Buffer(self, **kwargs):
+        """
+        Documentation see: :class:`Buffer`
+        """
         return Buffer(self, **kwargs)
 
     def Synth(self, **kwargs):
+        """
+        Documentation see: :class:`Synth`
+        """
         return Synth(self, **kwargs)
 
     def SynthDef(self, **kwargs):
+        """
+        Documentation see: :class:`SynthDef`
+        """
         return SynthDef(self, **kwargs)
 
 
