@@ -194,9 +194,8 @@ class Buffer:
     def query(self):
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
-        self.sc.msg("/b_query", [self._bufnum])
+        return self.sc.msg("/b_query", [self._bufnum])
         # ToDo: Wait for fix sync problem
-        return self.sc.client.recv()
 
     def __repr__(self):
         return f"Buffer(sc, sr={str(self.sr)}, bufmode={str(self._bufmode)}) \r\n Loaded={str(self._allocated)}" + \
