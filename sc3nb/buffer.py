@@ -90,25 +90,71 @@ class Buffer:
 
     # Section: Buffer initialization methods
     def load_file(self, path):
+        """
+        Allocate buffer space and read a sound file.
+
+        Parameters
+        ----------
+        path: string
+            path name of a sound file.
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         self._bufmode = 'file'
         file = sp.io.wavfile.read(path)
         self.sr = file[0]
-        self._channels = file[1].shape[1]
         self._samples = file[1].shape[0]
+        self._channels = 1 if len(file[1].shape) == 1 else file[1].shape[1]
         self._path = path
         self.sc.msg("/b_allocRead", [self._bufnum, path])
         self._allocated = True
         return self
 
-    def alloc(self, size, sr=44100):
+    def alloc(self, size, sr=44100, channels=1):
+        """
+        Allocate buffer space.
+
+        Parameters
+        ----------
+        size: int
+            number of frames
+        sr: int
+            number of channels (optional. default = 1 channel)
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         self.sr = sr
         self._bufmode = 'alloc'
-        self.sc.msg("/b_alloc", [self._bufnum, size])
+        self._channels = channels
+        self._samples = size
+        self.sc.msg("/b_alloc", [self._bufnum, size, channels])
         self._allocated = True
-        # ToDo: How do we know channel & amount of samples here?
         return self
 
     def load_data(self, data, mode='file', sr=44100):
+        """
+        Allocate buffer space and read input data.
+
+        Parameters
+        ----------
+        data: numpy array
+            Data which should inserted
+        mode: string='file'
+            Insert data via filemode or set commands
+        sr: int=44100
+            sample rate
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         self._bufmode = 'data'
         self.sr = sr
         self._samples = data.shape[0]
@@ -135,6 +181,9 @@ class Buffer:
         return self
 
     def load_collection(self, data, mode='file', sr=44100):
+        """
+        Wrapper method of :func:`Buffer.load_data`
+        """
         self.load_data(data, mode, sr)
         return self
 
@@ -143,35 +192,70 @@ class Buffer:
         return self
 
     def load_existing(self, bufnum, sr=44100):
+        """
+        Creates of an already in SC existing bufnum a buffer object.
+
+        Parameters
+        ----------
+        bufnum: int
+            buffer node id
+        sr: int
+            Sample rate
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         self._bufmode = 'existing'
         self.sr = sr
         self._bufnum = bufnum
         self._allocated = True
-        # ToDo: Wait for fixing answer problem -> make an query on bufnum and copy channel & samples from this
+        data = self.sc.msg("/b_query", [self._bufnum])
+        self._channels = data[2]
+        self._samples = data[1]
         return self
 
     def copy_existing(self, buffer):
+        """
+        Duplicate a existing buffer
+
+        Parameters
+        ----------
+        buffer: Buffer obj
+            Buffer which should duplicated
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         self._bufmode = 'copy'
         self.sr = buffer.sr
         filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
         buffer.write(filepath)
-        time.sleep(5)  # ToDo: When sync problem is fixed, use sc.sync() to wait for done instead of wait random 5s
         self.load_file(filepath)
         return self
 
     # Section: Buffer modification methods
     def fill(self, start, count, value):
         """
+        Fill ranges of sample value(s).
 
         Parameters
         ----------
-        start
-        count
-        value
+        start: int
+            sample starting index
+        count: int
+            number of samples to fill
+        value: float
+            value
+
 
         Returns
         -------
-
+        self : object of type Buffer
+            the created Buffer object
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
@@ -181,11 +265,20 @@ class Buffer:
     def gen(self, command, args):
         """
         Call a command to fill a buffer. If you know, what you do -> you can use this method.
-        Otherwise following wrapper exist:
-        :see gen_sine1, gen_sine2, gen_cheby, gen_cheby, gen_copy
-        :param command:
-        :param args:
-        :return:
+
+        See Also
+        --------
+        gen_sine1, gen_sine2, gen_cheby, gen_cheby, gen_copy
+
+        Parameters
+        ----------
+        command
+        args
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
@@ -193,6 +286,14 @@ class Buffer:
         return self
 
     def zero(self):
+        """
+        Free buffer data.
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_zero", [self._bufnum])
@@ -201,41 +302,71 @@ class Buffer:
     def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False, clear=False):
         """
         Fill the buffer with sinus waves & given amplitude
-        :param amplitudes:  List: The first float value specifies the amplitude of the first partial, the second float
-                            value specifies the amplitude of the second partial, and so on.
-        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
-        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
-                            by interpolating oscillators.
-        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
-                            the new partials are summed with the existing contents of the buffer
-        :return:            self
+
+        Parameters
+        ----------
+        amplitudes: List
+            The first float value specifies the amplitude of the first partial, the second float value specifies the
+            amplitude of the second partial, and so on.
+        normalize: Bool
+            Normalize peak amplitude of wave to 1.0.
+        wavetable: Bool
+            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+        clear: Bool
+            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
+            summed with the existing contents of the buffer
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
         """
         return self.gen("sine1", [self._gen_flags(normalize, wavetable, clear), amplitudes])
 
     def gen_sine2(self, freq_amps: list, normalize=False, wavetable=False, clear=False):
         """
         Fill the buffer with sinus waves & given amplitude/ frequency
-        :param freq_amps:   List: Similar to sine1 except that each partial frequency is specified explicitly instead of
-                            being an integer series of partials. Non-integer partial frequencies are possible.
-        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
-        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
-                            by interpolating oscillators.
-        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
-                            the new partials are summed with the existing contents of the buffer
-        :return:            self
+
+        Parameters
+        ----------
+        freq_amps: List
+            Similar to sine1 except that each partial frequency is specified explicitly instead of being an integer
+            series of partials. Non-integer partial frequencies are possible.
+        normalize: Bool
+            Normalize peak amplitude of wave to 1.0.
+        wavetable: Bool
+            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+        clear: Bool
+            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
+            summed with the existing contents of the buffer
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
         """
         return self.gen("sine2", [self._gen_flags(normalize, wavetable, clear), freq_amps])
 
     def gen_sine3(self, freq_amps_phase: list, normalize=False, wavetable=False, clear=False):
         """
         Fill the buffer with sinus waves & given amplitude/ frequency/ phase
-        :param freq_amps_phase:   List: Similar to sine2 except that each partial may have a nonzero starting phase.
-        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
-        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
-                            by interpolating oscillators.
-        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
-                            the new partials are summed with the existing contents of the buffer
-        :return:            self
+
+        Parameters
+        ----------
+        freq_amps_phase : List
+            Similar to sine2 except that each partial may have a nonzero starting phase.
+        normalize : Bool
+            Normalize peak amplitude of wave to 1.0.
+        wavetable : Bool
+            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+        clear: Bool
+            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
+            summed with the existing contents of the buffer
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
         """
         return self.gen("sine3", [self._gen_flags(normalize, wavetable, clear), freq_amps_phase])
 
@@ -244,26 +375,46 @@ class Buffer:
         Fills a buffer with a series of chebyshev polynomials, which can be defined as
         cheby(n) = amplitude * cos(n * acos(x))
 
-        :param amplitude:   List: The first float value specifies the amplitude for n = 1, the second float value
-                            specifies the amplitude for n = 2, and so on
-        :param normalize:   Bool: Normalize peak amplitude of wave to 1.0.
-        :param wavetable:   Bool: If set, then the buffer is written in wavetable format so that it can be read
-                            by interpolating oscillators.
-        :param clear:       Bool: If set then the buffer is cleared before new partials are written into it. Otherwise
-                            the new partials are summed with the existing contents of the buffer
-        :return:            self
+        Parameters
+        ----------
+        amplitude : List
+            The first float value specifies the amplitude for n = 1, the second float value specifies the amplitude
+            for n = 2, and so on
+        normalize : Bool
+            Normalize peak amplitude of wave to 1.0.
+        wavetable : Bool
+            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+        clear: Bool
+            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
+            summed with the existing contents of the buffer
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
         """
         return self.gen("cheby", [self._gen_flags(normalize, wavetable, clear), amplitude])
 
     def gen_copy(self, source, source_pos, dest_pos, copy_amount):
         """
         Copy samples from the source buffer to the destination buffer specified in the b_gen command
-        :param source:      Buffer: Source buffer object
-        :param source_pos:  int: sample position in source
-        :param dest_pos:    int: sample position in destination
-        :param copy_amount: int: number of samples to copy. If the number of samples to copy is negative, the maximum
-                            number of samples possible is copied.
-        :return:            self
+
+        Parameters
+        ----------
+        source: Buffer
+            Source buffer object
+        source_pos: int
+            sample position in source
+        dest_pos: int
+            sample position in destination
+        copy_amount: int
+            number of samples to copy. If the number of samples to copy is negative, the maximum number of samples
+            possible is copied.
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
         """
         return self.gen("copy", [dest_pos, source.bufnum, source_pos, copy_amount])
 
@@ -283,6 +434,25 @@ class Buffer:
         return id
 
     def write(self, path, header="wav", sample="float"):
+        """
+        Write buffer data to a sound file
+
+        Parameters
+        ----------
+        path: string
+            path name of a sound file.
+        header: string
+            header format. Header format is one of:
+            "aiff", "next", "wav", "ircam"", "raw"
+        sample: string
+            sample format. Sample format is one of:
+            "int8", "int16", "int24", "int32", "float", "double", "mulaw", "alaw"
+
+        Returns
+        -------
+        self : object of type Buffer
+            the created Buffer object
+        """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_write", [self._bufnum, path, header, sample, -1, 0, 0])
@@ -290,10 +460,17 @@ class Buffer:
 
     # Section: Buffer information methods
     def query(self):
+        """
+        Get buffer info.
+
+        Returns
+        -------
+        Tuple:
+            (buffernumber, number of frames, number of channels, sample rate)
+        """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         return self.sc.msg("/b_query", [self._bufnum])
-        # ToDo: Wait for fix sync problem
 
     def __repr__(self):
         return f"Buffer(sc=sc, sr={str(self.sr)}, bufmode={str(self._bufmode)}) \r\n Loaded={str(self._allocated)}" + \
@@ -302,6 +479,9 @@ class Buffer:
 
     # Section: Methods to delete / free Buffers
     def free(self):
+        """
+        Free buffer data. - The buffer object in sc will still exists!
+        """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_free", [self._bufnum])
