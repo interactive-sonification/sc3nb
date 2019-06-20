@@ -102,7 +102,6 @@ class SynthDef:
     def set_context(self, key: str, value):
         """
         This method will replace a given key (format: "...{{key}}...") in the synthdef definition with the given value.
-        You can also replace pyvars with a value.
 
         Parameters
         ----------
@@ -117,7 +116,6 @@ class SynthDef:
             the SynthDef object
         """
         self.current_def = self.current_def.replace("{{"+key+"}}", str(value))
-        self.current_def = self.current_def.replace("^"+key, str(value)) # pseudo pyvar
         return self
 
     def set_contexts(self, dictionary: dict):
@@ -179,6 +177,10 @@ class SynthDef:
         self.defined_instances[name] = self.current_def
         # ToDo: Wait for release of: self.sc.osc.sync()
         return name
+
+    def create_and_reset(self, pyvars={}):
+        self.create(pyvars)
+        self.reset()
 
     def free(self, name: str):
         """
