@@ -21,23 +21,31 @@ class Buffer:
     Parameters
     ----------
     sc : object of type SC
-        The server instance to establish the Buffer to 
+        The server instance to establish the Buffer
+    bufnum : int
+        buffer number to be used on scsynth. Defaults to None
+        can be set to enforce a given bufnum
 
     Attributes
     ----------
-    sc : the SC object 
+    sc : the SC object
         to communicate with scsynth
     sr : int
         the sampling rate of the buffer
-    bufnum : int
+    _channels: int
+        nr of channels of the buffer
+    _samples: int
+        buffer length = nr. of sample frames
+    _bufnum : int
         buffer number = bufnum id on scsynth
-    bufmode : {'file', 'osc'}
-        transport mode for data from python to scsynth. Defaults to 'file'
-    path : string
+    _bufmode : str
+        ['file', 'alloc', 'data', 'existing', 'copy']
+        according to previously used generator, defaults to None 
+    _path : string
         path to a audio file as used in load_file()
-    tempfile : string
+    _tempfile : string
         filename (if created) of temporary file used for data transfer to scsynth
-    allocated : boolean
+    _allocated : boolean
         flagged True if Buffer has been allocated by
         any of the initialization methods
 
@@ -47,35 +55,39 @@ class Buffer:
 
     Notes
     -----
-    The default way of allocating a Buffer would be 
+    The default way of allocating a Buffer would be
         b1 = scn.Buffer(sc).alloc(44100)
-    For convenience, a method named Buffer() (sic: capital 'B') 
-    has been added to class SC which forwards self to calling 
-    the Buffer constructor, allowing instead to write
+    For convenience, a method named Buffer() (sic: capital 'B')
+    has been added to class SC which forwards self to calling the
+    Buffer constructor, allowing instead to write
         b1 = sc.Buffer().alloc(44100)
 
     Examples
     --------
+    (see examples/buffer-examples.ipynb)
     b = Buffer().load_file(...)
     b = Buffer().load_data(...)
     b = Buffer().alloc(...)
-    b = Buffer().load_pya(...)
+    b = Buffer().load_asig(...)
     b = Buffer().load_existing(...)
     b = Buffer().copy(Buffer)
 
     Raises
     ------
     Exception: [description]
-    
+
     Returns
     -------
     self : object of type Buffer
         the created Buffer object
-    
+
     """
 
-    def __init__(self, sc):
-        self._bufnum = sc.nextBufferID()
+    def __init__(self, sc, bufnum=None):
+        if bufnum is None:
+            self._bufnum = sc.nextBufferID()
+        else:  # force given bufnum
+            self._bufnum = bufnum
         self.sc = sc
         self.sr = None
         self._channels = None
@@ -129,7 +141,7 @@ class Buffer:
         self.sr = sr
         self._bufmode = 'alloc'
         self._channels = channels
-        self._samples = size
+        self._samples = int(size)
         self.sc.msg("/b_alloc", [self._bufnum, size, channels])
         self._allocated = True
         return self
@@ -184,13 +196,14 @@ class Buffer:
         self.load_data(data, mode, sr)
         return self
 
-    def load_pya(self, pya, mode='file'):
-        Buffer.data(self, pya.asic, mode, sr=pya.sample_rate)
+    def load_asig(self, asig, mode='file'):
+        # ToDo: issue warning is not isinstance(asig, pya.Asig)
+        self.load_data(asig.sig, mode, sr=asig.sr)
         return self
 
-    def load_existing(self, bufnum, sr=44100):
+    def use_existing(self, bufnum, sr=44100):
         """
-        Creates of an already in SC existing bufnum a buffer object.
+        Creates a buffer object from already existing Buffer bufnum.
 
         Parameters
         ----------
@@ -248,7 +261,6 @@ class Buffer:
         value: float
             value
 
-
         Returns
         -------
         self : object of type Buffer
@@ -256,12 +268,15 @@ class Buffer:
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
-        self.sc.msg("/b_fill", [self._bufnum, [start, count, value]])
+        # TODO: prepending 0,0 is a hack since first 'start' somehow gets lost!!!
+        # see ipyng example
+        self.sc.msg("/b_fill", [self._bufnum, [0, 0, start, count, value]])
         return self
 
     def gen(self, command, args):
         """
-        Call a command to fill a buffer. If you know, what you do -> you can use this method.
+        Call a command to fill a buffer. 
+        If you know, what you do -> you can use this method.
 
         See Also
         --------
@@ -298,20 +313,23 @@ class Buffer:
 
     def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False, clear=False):
         """
-        Fill the buffer with sinus waves & given amplitude
+        Fill the buffer with sine waves & given amplitude
 
         Parameters
         ----------
         amplitudes: List
-            The first float value specifies the amplitude of the first partial, the second float value specifies the
-            amplitude of the second partial, and so on.
+            The first float value specifies the amplitude of the first partial,
+            the second float value specifies the amplitude of the second
+            partial, and so on.
         normalize: Bool
             Normalize peak amplitude of wave to 1.0.
         wavetable: Bool
-            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+            If set, then the buffer is written in wavetable format so that it
+            can be read by interpolating oscillators.
         clear: Bool
-            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
-            summed with the existing contents of the buffer
+            If set then the buffer is cleared before new partials are written
+            into it. Otherwise the new partials are summed with the existing
+            contents of the buffer
 
         Returns
         -------
@@ -322,20 +340,23 @@ class Buffer:
 
     def gen_sine2(self, freq_amps: list, normalize=False, wavetable=False, clear=False):
         """
-        Fill the buffer with sinus waves & given amplitude/ frequency
+        Fill the buffer with sine waves & given list of [frequency, amplitude] lists
 
         Parameters
         ----------
         freq_amps: List
-            Similar to sine1 except that each partial frequency is specified explicitly instead of being an integer
-            series of partials. Non-integer partial frequencies are possible.
+            Similar to sine1 except that each partial frequency is specified
+            explicitly instead of being an integer series of partials.
+            Non-integer partial frequencies are possible.
         normalize: Bool
             Normalize peak amplitude of wave to 1.0.
         wavetable: Bool
-            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+            If set, then the buffer is written in wavetable format so that it
+            can be read by interpolating oscillators.
         clear: Bool
-            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
-            summed with the existing contents of the buffer
+            If set then the buffer is cleared before new partials are written
+            into it. Otherwise the new partials are summed with the existing
+            contents of the buffer
 
         Returns
         -------
@@ -346,19 +367,23 @@ class Buffer:
 
     def gen_sine3(self, freq_amps_phase: list, normalize=False, wavetable=False, clear=False):
         """
-        Fill the buffer with sinus waves & given amplitude/ frequency/ phase
+        Fill the buffer with sine waves & given a list of 
+        [frequency, amplitude, phase] entries.
 
         Parameters
         ----------
         freq_amps_phase : List
-            Similar to sine2 except that each partial may have a nonzero starting phase.
+            Similar to sine2 except that each partial may have a
+            nonzero starting phase.
         normalize : Bool
             Normalize peak amplitude of wave to 1.0.
         wavetable : Bool
-            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+            If set, then the buffer is written in wavetable format
+            so that it can be read by interpolating oscillators.
         clear: Bool
-            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
-            summed with the existing contents of the buffer
+            If set then the buffer is cleared before new partials are written
+            into it. Otherwise the new partials are summed with the existing
+            contents of the buffer
 
         Returns
         -------
@@ -369,21 +394,24 @@ class Buffer:
 
     def gen_cheby(self, amplitude: list, normalize=False, wavetable=False, clear=False):
         """
-        Fills a buffer with a series of chebyshev polynomials, which can be defined as
-        cheby(n) = amplitude * cos(n * acos(x))
+        Fills a buffer with a series of chebyshev polynomials, which can be
+        defined as cheby(n) = amplitude * cos(n * acos(x))
 
         Parameters
         ----------
         amplitude : List
-            The first float value specifies the amplitude for n = 1, the second float value specifies the amplitude
+            The first float value specifies the amplitude for n = 1,
+            the second float value specifies the amplitude
             for n = 2, and so on
         normalize : Bool
             Normalize peak amplitude of wave to 1.0.
         wavetable : Bool
-            If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators.
+            If set, then the buffer is written in wavetable format so that it
+            can be read by interpolating oscillators.
         clear: Bool
-            If set then the buffer is cleared before new partials are written into it. Otherwise the new partials are
-            summed with the existing contents of the buffer
+            If set then the buffer is cleared before new partials are written
+            into it. Otherwise the new partials are summed with the existing 
+            contents of the buffer.
 
         Returns
         -------
@@ -394,7 +422,8 @@ class Buffer:
 
     def gen_copy(self, source, source_pos, dest_pos, copy_amount):
         """
-        Copy samples from the source buffer to the destination buffer specified in the b_gen command
+        Copy samples from the source buffer to the destination buffer
+        specified in the b_gen command.
 
         Parameters
         ----------
@@ -405,7 +434,8 @@ class Buffer:
         dest_pos: int
             sample position in destination
         copy_amount: int
-            number of samples to copy. If the number of samples to copy is negative, the maximum number of samples
+            number of samples to copy. If the number of samples to copy is
+            negative, the maximum number of samples
             possible is copied.
 
         Returns
@@ -468,15 +498,11 @@ class Buffer:
         blocksize = 1000  # array size compatible with OSC packet size
         i = 0
         while i < self._samples:
-            tmp = self.sc.msg("/b_getn", [self._bufnum,
-                                          i,
-                                          blocksize if i +  blocksize < self._samples else self._samples - i])
-            tmp = list(tmp)
-            tmp.pop(0)
-            data += tmp
-            i += blocksize
-
-        return data
+            bs = blocksize if i+blocksize < self._samples else self._samples-i 
+            tmp = self.sc.msg("/b_getn", [self._bufnum, i, bs])
+            data += list(tmp)[3:]  # skip first 3 els [bufnum, startidx, size]
+            i += bs
+        return np.array(data)
 
     # Section: Buffer information methods
     def query(self):
@@ -493,9 +519,10 @@ class Buffer:
         return self.sc.msg("/b_query", [self._bufnum])
 
     def __repr__(self):
-        return f"Buffer(sc=sc, sr={str(self.sr)}, bufmode={str(self._bufmode)}) \r\n Loaded={str(self._allocated)}" + \
-               f"\r\n Bufnum={str(self._bufnum)}" + \
-                "\r\n To see more information about the buffer data, use Buffer.query()"  # ToDo: Replace sc= with adress to sc server
+        return f"Buffer {self._bufnum} on sc {self.sc.osc.sclang_address}: "+ \
+            f"{self._channels} x {self._samples} @ {self.sr} Hz –> "+ \
+            f"""{["not loaded", "allocated"][self._allocated]} """+ \
+            f"using mode '{self._bufmode}'"
 
     # Section: Methods to delete / free Buffers
     def free(self):
