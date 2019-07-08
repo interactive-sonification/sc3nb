@@ -69,7 +69,7 @@ class Buffer:
     b = Buffer().load_data(...)
     b = Buffer().alloc(...)
     b = Buffer().load_asig(...)
-    b = Buffer().load_existing(...)
+    b = Buffer().use_existing(...)
     b = Buffer().copy(Buffer)
 
     Raises
@@ -131,6 +131,8 @@ class Buffer:
         size: int
             number of frames
         sr: int
+            number of sampling rate (optional. default = 44100)
+        channels: int
             number of channels (optional. default = 1 channel)
 
         Returns
@@ -240,11 +242,19 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
+
+        # If both buffers use the same sc instance -> copy buffer directly in sc
+        if self.sc == buffer.sc:
+            self.alloc(buffer.samples, buffer.sr, buffer.channels)
+            self.gen_copy(buffer, 0, 0, -1)
+        else:
+            # both sc instance must have the same file server
+            self.sr = buffer.sr
+            filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
+            buffer.write(filepath)
+            self.load_file(filepath)
+
         self._alloc_mode = 'copy'
-        self.sr = buffer.sr
-        filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
-        buffer.write(filepath)
-        self.load_file(filepath)
         return self
 
     # Section: Buffer modification methods
