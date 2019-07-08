@@ -15,6 +15,7 @@ from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .buffer import Buffer
+from .synth import Synth, SynthDef
 from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
 from .tools import (convert_to_sc, find_executable, parse_pyvars,
                     remove_comments, replace_vars)
@@ -605,7 +606,22 @@ class SC():
             time.sleep(0.001)
 
     def Buffer(self, **kwargs):
+        """
+        Documentation see: :class:`Buffer`
+        """
         return Buffer(self, **kwargs)
+
+    def Synth(self, **kwargs):
+        """
+        Documentation see: :class:`Synth`
+        """
+        return Synth(self, **kwargs)
+
+    def SynthDef(self, **kwargs):
+        """
+        Documentation see: :class:`SynthDef`
+        """
+        return SynthDef(self, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):
