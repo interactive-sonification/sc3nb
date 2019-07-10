@@ -284,8 +284,7 @@ class Buffer:
             values = [start, count, value]
         else:
             values = start
-        # TODO: prepending 0,0 is a hack since first 'start' somehow gets lost!!!
-        self.sc.msg("/b_fill", [self._bufnum, [0, 0] + values])
+        self.sc.msg("/b_fill", [self._bufnum] + values)
         return self
 
     def gen(self, command, args):
