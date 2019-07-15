@@ -382,6 +382,7 @@ class OscCommunication():
 
         """
 
+        logging.debug(f"OSC_COM: sending dgram:\n{content.dgram}")
         if sclang:
             self.server.socket.sendto(content.dgram, (self.sclang_address))
         else:

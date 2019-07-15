@@ -38,7 +38,7 @@ class Buffer:
         buffer length = nr. of sample frames
     _bufnum : int
         buffer number = bufnum id on scsynth
-    _bufmode : str
+    _alloc_mode : str
         ['file', 'alloc', 'data', 'existing', 'copy']
         according to previously used generator, defaults to None 
     _path : string
@@ -69,7 +69,7 @@ class Buffer:
     b = Buffer().load_data(...)
     b = Buffer().alloc(...)
     b = Buffer().load_asig(...)
-    b = Buffer().load_existing(...)
+    b = Buffer().use_existing(...)
     b = Buffer().copy(Buffer)
 
     Raises
@@ -92,7 +92,7 @@ class Buffer:
         self.sr = None
         self._channels = None
         self._samples = None
-        self._bufmode = None
+        self._alloc_mode = None
         self._allocated = False
         self._tempfile = None
         self._path = None
@@ -112,7 +112,7 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        self._bufmode = 'file'
+        self._alloc_mode = 'file'
         file = sp.io.wavfile.read(path)
         self.sr = file[0]
         self._samples = file[1].shape[0]
@@ -131,6 +131,8 @@ class Buffer:
         size: int
             number of frames
         sr: int
+            number of sampling rate (optional. default = 44100)
+        channels: int
             number of channels (optional. default = 1 channel)
 
         Returns
@@ -139,7 +141,7 @@ class Buffer:
             the created Buffer object
         """
         self.sr = sr
-        self._bufmode = 'alloc'
+        self._alloc_mode = 'alloc'
         self._channels = channels
         self._samples = int(size)
         self.sc.msg("/b_alloc", [self._bufnum, size, channels])
@@ -164,7 +166,7 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        self._bufmode = 'data'
+        self._alloc_mode = 'data'
         self.sr = sr
         self._samples = data.shape[0]
         self._channels = 1 if len(data.shape) == 1 else data.shape[1]
@@ -217,7 +219,7 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        self._bufmode = 'existing'
+        self._alloc_mode = 'existing'
         self.sr = sr
         self._bufnum = bufnum
         self._allocated = True
@@ -240,22 +242,31 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        self._bufmode = 'copy'
-        self.sr = buffer.sr
-        filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
-        buffer.write(filepath)
-        self.load_file(filepath)
+
+        # If both buffers use the same sc instance -> copy buffer directly in sc
+        if self.sc == buffer.sc:
+            self.alloc(buffer.samples, buffer.sr, buffer.channels)
+            self.gen_copy(buffer, 0, 0, -1)
+        else:
+            # both sc instance must have the same file server
+            self.sr = buffer.sr
+            filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
+            buffer.write(filepath)
+            self.load_file(filepath)
+
+        self._alloc_mode = 'copy'
         return self
 
     # Section: Buffer modification methods
-    def fill(self, start, count, value):
+    def fill(self, start, count=0, value=0):
         """
         Fill ranges of sample value(s).
 
         Parameters
         ----------
-        start: int
-            sample starting index
+        start: int/ list
+            int: sample starting index
+            list: n*[start, count, value] list
         count: int
             number of samples to fill
         value: float
@@ -268,9 +279,12 @@ class Buffer:
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized yet!")
-        # TODO: prepending 0,0 is a hack since first 'start' somehow gets lost!!!
-        # see ipyng example
-        self.sc.msg("/b_fill", [self._bufnum, [0, 0, start, count, value]])
+
+        if type(start) != list:
+            values = [start, count, value]
+        else:
+            values = start
+        self.sc.msg("/b_fill", [self._bufnum] + values)
         return self
 
     def gen(self, command, args):
@@ -522,7 +536,7 @@ class Buffer:
         return f"Buffer {self._bufnum} on sc {self.sc.osc.sclang_address}: "+ \
             f"{self._channels} x {self._samples} @ {self.sr} Hz –> "+ \
             f"""{["not loaded", "allocated"][self._allocated]} """+ \
-            f"using mode '{self._bufmode}'"
+            f"using mode '{self._alloc_mode}'"
 
     # Section: Methods to delete / free Buffers
     def free(self):
@@ -533,8 +547,9 @@ class Buffer:
             raise Exception("Buffer object is not initialized yet!")
         self.sc.msg("/b_free", [self._bufnum])
         self._allocated = False
-        if self._bufmode == 'data' and isinstance(self._tempfile, str):
+        if self._alloc_mode == 'data' and isinstance(self._tempfile, str):
             os.remove(self._tempfile)
+        self._alloc_mode = None
 
     def __del__(self):
         self.free()
@@ -549,8 +564,8 @@ class Buffer:
         return self._allocated
 
     @property
-    def bufmode(self):
-        return self._bufmode
+    def alloc_mode(self):
+        return self._alloc_mode
 
     @property
     def tempfile(self):
