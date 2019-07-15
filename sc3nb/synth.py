@@ -133,7 +133,7 @@ class SynthDef:
         self : object of type SynthDef
             the SynthDef object
         """
-        for (k, v) in dictionary:
+        for (k, v) in dictionary.items():
             self.set_context(k, v)
         return self
 
@@ -179,8 +179,9 @@ class SynthDef:
         return name
 
     def create_and_reset(self, pyvars={}):
-        self.create(pyvars)
+        name = self.create(pyvars)
         self.reset()
+        return name
 
     def free(self, name: str):
         """
@@ -215,3 +216,5 @@ class SynthDef:
         for key in self.defined_instances:
             self.free(key)
 
+    def __repr__(self):
+        return self.current_def
