@@ -1,10 +1,16 @@
 import re
 
+
 class Synth:
+
     def __init__(self, sc, name="default", nodeid=None, action=1, target=1, args={}):
         """
-        Creates a new Synth with given supercollider instance, name and a dict of arguments to the synth. \n
-        Example: stk.Synth(sc=sc, args={"dur": 1, "freq": 400}, name="\s1")
+        Creates a new Synth with given supercollider instance, name
+        and a dict of arguments to the synth.
+
+        Example:
+        --------
+        stk.Synth(sc=sc, args={"dur": 1, "freq": 400}, name="\s1")
         """
         self.name = name
         self.args = args
@@ -44,19 +50,31 @@ class Synth:
 
     def restart(self):
         """
-        Recreates a synth - you can call this method after you free the synth, or the synth was played completely.
-        Attention: Here you create an identical synth! Same synth node etc. - use this method only, if your synth is freeed before!
+        Recreates a synth - you can call this method after you free the synth,
+        or the synth was played completely.
+        Attention: Here you create an identical synth! Same synth node etc.
+        - use this method only, if your synth is freeed before!
         """
         flatten_dict = [val for sublist in [list((k, v)) for k, v in self.args.items()] for val in sublist]
         self.sc.msg("/s_new", [self.name, self.nodeid, self.action, self.target] + flatten_dict)
         return self
 
-    def set(self, key, value):
+    def set(self, key, value=None, *args):
         """
         Set a control variable for synth after defining it
         """
-        self.args[key] = value
-        self.sc.msg("/n_set", [self.nodeid, key, value])
+        if isinstance(key, dict):
+            pardict = key
+            arglist = [self.nodeid]
+            for k, val in key.items():
+                arglist.append(k)
+                arglist.append(val)
+            self.sc.msg("/n_set", arglist)
+        elif isinstance(key, list):
+            self.sc.msg("/n_set", [self.nodeid]+key)
+        else:
+            self.args[key] = value
+            self.sc.msg("/n_set", [self.nodeid, key, value]+list(args))
         return self
 
     def __del__(self):
@@ -73,22 +91,26 @@ class SynthDef:
         sc: SC object
             SC instance where the synthdef should be created
         name: string
-            default name of the synthdef creation. The naming convention will be name+int, where int is the amount of
+            default name of the synthdef creation.
+            The naming convention will be name+int, where int is the amount of
             already created synths of this definition
         definition: string
-            Pass the default synthdef definition here. Flexible content should be in double
-            brackets ("...{{flexibleContent}}..."). This flexible content, you can dynamic replace with set_context()
+            Pass the default synthdef definition here. Flexible content
+            should be in double brackets ("...{{flexibleContent}}...").
+            This flexible content, you can dynamic replace with set_context()
         """
         self.sc = sc
         self.definition = definition
         self.name = name
         self.current_def = definition
-        # dict of all already defined synthdefs with this root-defintion (key=name, value=definition)
+        # dict of all already defined synthdefs with this root-defintion
+        # (key=name, value=definition)
         self.defined_instances = {}
 
     def reset(self):
         """
-        Reset the current synthdef configuration to the self.definition value. After this you can restart your
+        Reset the current synthdef configuration to the self.definition value.
+        After this you can restart your
         configuration with the same root definition
 
         Returns
@@ -101,7 +123,8 @@ class SynthDef:
 
     def set_context(self, key: str, value):
         """
-        This method will replace a given key (format: "...{{key}}...") in the synthdef definition with the given value.
+        This method will replace a given key (format: "...{{key}}...") in the
+        synthdef definition with the given value.
 
         Parameters
         ----------
@@ -120,13 +143,15 @@ class SynthDef:
 
     def set_contexts(self, dictionary: dict):
         """
-        Set multiple values at onces when you give a dictionary. Because dictionaries are unsorted, keep in mind, that
+        Set multiple values at onces when you give a dictionary.
+        Because dictionaries are unsorted, keep in mind, that
         the order is sometimes ignored in this method.
 
         Parameters
         ----------
         dictionary: dict
-            (k,v) tuple dict, while k is the searchpattern and v is the replacement
+            (k,v) tuple dict, while k is the searchpattern and v is the
+            replacement
 
         Returns
         -------
@@ -139,8 +164,10 @@ class SynthDef:
 
     def unset_remaining(self):
         """
-        This method will remove all existing placeholders in the current def. You can use this at the end of definition
-        to make sure, that your definition is clean. Hint: This method will not remove pyvars
+        This method will remove all existing placeholders in the current def.
+        You can use this at the end of definition
+        to make sure, that your definition is clean. Hint: This method will
+        not remove pyvars
 
         Returns
         -------
@@ -153,8 +180,10 @@ class SynthDef:
 
     def create(self, pyvars={}):
         """
-        This method will create the current_def as a sc synthDef. It will block until sc has created the synthdef.
-        If a synth with the same definition was already in sc, this method will only return the name
+        This method will create the current_def as a sc synthDef.
+        It will block until sc has created the synthdef.
+        If a synth with the same definition was already in sc, this method
+        will only return the name.
 
         Parameters
         ----------
@@ -165,10 +194,13 @@ class SynthDef:
         -------
         string: Name of the synthdef
         """
-
-        # Check if a synth with the same definition is already defined -> use this
-        if self.current_def in self.defined_instances.values():
-            return list(self.defined_instances.keys())[list(self.defined_instances.values()).index(self.current_def)]
+        # ToDo: defined instances should be string after filling in pyvars,
+        # otherwise, create doesn't work properly
+        # as of now, check against existing instance is temporarily
+        # commented out, i.e. following three lines:
+        ## Check if a synth with the same definition is already defined -> use it
+        #if self.current_def in self.defined_instances.values():
+        #    return list(self.defined_instances.keys())[list(self.defined_instances.values()).index(self.current_def)]
 
         name = self.name + str(len(self.defined_instances))
 
@@ -188,7 +220,8 @@ class SynthDef:
         Parameters
         ----------
         name: str
-            Name of the SynthDef, which should be freed. The SynthDef must not be created by the current SynthDef object
+            Name of the SynthDef, which should be freed. The SynthDef must not
+            be created by the current SynthDef object
 
         Returns
         -------
@@ -198,8 +231,10 @@ class SynthDef:
         """
         self.sc.msg("/d_free", [name])
 
-        # Update defined instances. Important: Don't delete the entry! The naming convention for synthdefs is based on
-        # the count of defined_instances, so a deleted key could override an existing synthdef.
+        # Update defined instances. Important: Don't delete the entry!
+        # The naming convention for synthdefs is based on
+        # the count of defined_instances, so a deleted key could
+        # override an existing synthdef.
         if name in self.defined_instances:
             self.defined_instances[name] = ''
         return self
@@ -214,4 +249,3 @@ class SynthDef:
         """
         for key in self.defined_instances:
             self.free(key)
-
