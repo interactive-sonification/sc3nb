@@ -104,7 +104,7 @@ class SynthDef:
         self.name = name
         self.current_def = definition
         # dict of all already defined synthdefs with this root-defintion
-        # (key=name, value=definition)
+        # (key=name, value=(definition, pyvars))
         self.defined_instances = {}
 
     def reset(self):
@@ -158,7 +158,7 @@ class SynthDef:
         self : object of type SynthDef
             the SynthDef object
         """
-        for (k, v) in dictionary:
+        for (k, v) in dictionary.items():
             self.set_context(k, v)
         return self
 
@@ -199,20 +199,21 @@ class SynthDef:
         # as of now, check against existing instance is temporarily
         # commented out, i.e. following three lines:
         ## Check if a synth with the same definition is already defined -> use it
-        #if self.current_def in self.defined_instances.values():
-        #    return list(self.defined_instances.keys())[list(self.defined_instances.values()).index(self.current_def)]
+        if (self.current_def, pyvars) in self.defined_instances.values():
+            return list(self.defined_instances.keys())[list(self.defined_instances.values()).index((self.current_def, pyvars))]
 
         name = self.name + str(len(self.defined_instances))
 
         # Create new synthDef
         self.sc.cmd(f"""SynthDef("{name}", {self.current_def}).add();""", pyvars=pyvars)
-        self.defined_instances[name] = self.current_def
+        self.defined_instances[name] = (self.current_def, pyvars)
         # ToDo: Wait for release of: self.sc.osc.sync()
         return name
 
     def create_and_reset(self, pyvars={}):
-        self.create(pyvars)
+        name = self.create(pyvars)
         self.reset()
+        return name
 
     def free(self, name: str):
         """
@@ -249,3 +250,6 @@ class SynthDef:
         """
         for key in self.defined_instances:
             self.free(key)
+
+    def __repr__(self):
+        return self.current_def
