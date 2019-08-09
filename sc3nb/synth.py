@@ -194,11 +194,7 @@ class SynthDef:
         -------
         string: Name of the synthdef
         """
-        # ToDo: defined instances should be string after filling in pyvars,
-        # otherwise, create doesn't work properly
-        # as of now, check against existing instance is temporarily
-        # commented out, i.e. following three lines:
-        ## Check if a synth with the same definition is already defined -> use it
+        # Check if a synth with the same definition is already defined -> use it
         if (self.current_def, pyvars) in self.defined_instances.values():
             return list(self.defined_instances.keys())[list(self.defined_instances.values()).index((self.current_def, pyvars))]
 
