@@ -41,7 +41,6 @@ ASYNC_MSGS = [
             "/b_close"
 ]
 
-
 MSG_PAIRS = {
     # Master
     "/status": "/status.reply",
@@ -84,7 +83,7 @@ def build_bundle(timetag, msg_addr, msg_args):
     """
 
     if msg_args is None:
-            msg_args = []
+        msg_args = []
 
     if timetag < 1e6:
         timetag = time.time() + timetag
@@ -113,7 +112,7 @@ def build_message(msg_addr, msg_args):
     """
 
     if msg_args is None:
-            msg_args = []
+        msg_args = []
 
     if not msg_addr.startswith('/'):
         msg_addr = '/' + msg_addr
@@ -221,9 +220,10 @@ def preprocess_return(value):
         data
 
     """
-    value = value[0]
-    if type(value) == bytes:
-        value = parse_sclang_blob(value)
+    if len(value) == 1:
+        value = value[0]
+        if type(value) == bytes:
+            value = parse_sclang_blob(value)
     return value
 
 
@@ -309,12 +309,12 @@ class OscCommunication():
         return sender
 
     def __log(self, sender, *args):
-        logging.info("OSC_COM: osc msg received from {}: {}"
-                     .format(self.__check_sender(sender), args))
+        logging.info("OSC_COM: osc msg received from {}: {:.55}"
+                     .format(self.__check_sender(sender), str(args)))
 
     def __warn(self, sender, *args):
-        logging.warn("OSC_COM: Error from {}:\n {} {}"
-                     .format(self.__check_sender(sender), args[2], args[1]))
+        logging.warn("OSC_COM: Error from {}:\n {}"
+                     .format(self.__check_sender(sender), args))
 
     def set_sclang(self, sclang_ip='127.0.0.1',
                    sclang_port=SCLANG_DEFAULT_PORT):
@@ -438,18 +438,24 @@ class OscCommunication():
 
         msg = build_message(msg_addr, msg_args)
         self.send(msg, sclang)
-        logging.info("OSC_COM: send {} ".format(msg.address))
+        logging.info("OSC_COM: send {} {:.55}".format(
+            msg.address,
+            str(msg.params)))
         logging.debug("OSC_COM: msg.params {}".format(msg.params))
-        if msg.address in self.async_msgs:
-            if sync:
-                self.sync(timeout=timeout)
-            else:
-                self.msg_queues["/sync"]._skips += 1
-        elif msg.address in self.msg_pairs:
-            if sync:
-                return self.msg_queues[msg.address].get(timeout, skip=True)
-            else:
-                self.msg_queues[msg.address]._skips += 1
+        try:
+            if msg.address in self.msg_pairs:
+                if sync:
+                    return self.msg_queues[msg.address].get(timeout, skip=True)
+                else:
+                    self.msg_queues[msg.address]._skips += 1
+            elif msg.address in self.async_msgs:
+                if sync:
+                    self.sync(timeout=timeout)
+        except Empty, TimeoutError:
+            raise ChildProcessError(
+                f"Failed to sync after message to "
+                f"{'sclang' if sclang else 'scsynth'}"
+                f": {msg.address} {str(msg.params):.55}")
 
     def bundle(self, timetag, msg_addr, msg_args=None, sclang=False):
         """Sends OSC bundle over UDP to either sclang or scsynth

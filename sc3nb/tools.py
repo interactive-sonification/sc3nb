@@ -129,27 +129,54 @@ def remove_comments(string):
     return regex.sub(_replacer, string)
 
 
-def parse_pyvars(cmdstr):
-    '''Parses through call stack and finds
+def parse_pyvars(cmdstr, frame_nr=2):
+    """Parses through call stack and finds
     value of string representations of variables
-    '''
+
+    Parameters
+    ----------
+    cmdstr : string
+        SuperCollider command to be parsed
+    frame_nr : int, optional
+        on which frame to start, by default 2 (grandparent frame)
+
+    Returns
+    -------
+    dict
+        {variable_name: variable_value}
+
+    Raises
+    ------
+    NameError
+        If the variable value could not be found.
+    """
     matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
 
     pyvars = {match.split('^')[1].strip(): None for match in matches}
+    missing_vars = list(pyvars.keys())
 
-    # get frame from grandparent call stack
-    frame = inspect.stack()[2][0]
-
-    for pyvar in pyvars:
-        # check for variable in local variables
-        if pyvar in frame.f_locals:
-            pyvars[pyvar] = frame.f_locals[pyvar]
-        # check for variable in global variables
-        elif pyvar in frame.f_globals:
-            pyvars[pyvar] = frame.f_globals[pyvar]
-        else:
-            raise NameError('name \'{}\' is not defined'.format(pyvar))
-
+    stack = inspect.stack()
+    frame = None
+    try:
+        while len(missing_vars) > 0 and frame_nr < len(stack):
+            frame = stack[frame_nr][0]
+            for pyvar in pyvars:
+                if pyvar not in missing_vars:
+                    continue
+                # check for variable in local variables
+                if pyvar in frame.f_locals:
+                    pyvars[pyvar] = frame.f_locals[pyvar]
+                    missing_vars.remove(pyvar)
+                # check for variable in global variables
+                elif pyvar in frame.f_globals:
+                    pyvars[pyvar] = frame.f_globals[pyvar]
+                    missing_vars.remove(pyvar)
+            frame_nr += 1
+    finally:
+        del frame
+        del stack
+    if len(missing_vars) > 0:
+        raise NameError('name(s) {} not defined'.format(missing_vars))
     return pyvars
 
 

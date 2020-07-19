@@ -30,7 +30,7 @@ class Buffer:
     ----------
     sc : the SC object
         to communicate with scsynth
-    sr : int
+    _sr : int
         the sampling rate of the buffer
     _channels: int
         nr of channels of the buffer
@@ -40,11 +40,12 @@ class Buffer:
         buffer number = bufnum id on scsynth
     _alloc_mode : str
         ['file', 'alloc', 'data', 'existing', 'copy']
-        according to previously used generator, defaults to None 
+        according to previously used generator, defaults to None
     _path : string
         path to a audio file as used in load_file()
     _tempfile : string
-        filename (if created) of temporary file used for data transfer to scsynth
+        filename (if created) of temporary file
+        used for data transfer to scsynth
     _allocated : boolean
         flagged True if Buffer has been allocated by
         any of the initialization methods
@@ -89,23 +90,33 @@ class Buffer:
         else:  # force given bufnum
             self._bufnum = bufnum
         self.sc = sc
-        self.sr = None
+        self._sr = None
         self._channels = None
         self._samples = None
         self._alloc_mode = None
         self._allocated = False
         self._tempfile = None
         self._path = None
+        self._synthDef = None
 
     # Section: Buffer initialization methods
-    def load_file(self, path):
+    def load_file(self, path, starting_frame=0, num_frames=-1, channels=None):
         """
         Allocate buffer space and read a sound file.
+
+        If the number of frames argument is less than or equal to zero,
+        the entire file is read.
 
         Parameters
         ----------
         path: string
             path name of a sound file.
+        starting_frame: int
+            starting frame in file
+        num_frames: int
+            number of frames to read
+        channels: list
+            channels and order of channels to be read from file
 
         Returns
         -------
@@ -113,12 +124,22 @@ class Buffer:
             the created Buffer object
         """
         self._alloc_mode = 'file'
-        file = sp.io.wavfile.read(path)
-        self.sr = file[0]
-        self._samples = file[1].shape[0]
-        self._channels = 1 if len(file[1].shape) == 1 else file[1].shape[1]
+        file = sp.io.wavfile.read(path)  # ToDo: we only need the metadata here
+        self._sr = file[0]
+        if num_frames <= 0:
+            self._samples = file[1].shape[0]
+        else:
+            self._samples = num_frames
+        if channels is None:
+            if len(file[1].shape) == 1:
+                channels = [0]
+            else:
+                channels = range(file[1].shape[1])
+        self._channels = len(channels)
         self._path = path
-        self.sc.msg("/b_allocRead", [self._bufnum, path])
+        self.sc.msg(
+            "/b_allocReadChannel",
+            [self._bufnum, path, starting_frame, num_frames, *channels])
         self._allocated = True
         return self
 
@@ -140,7 +161,7 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        self.sr = sr
+        self._sr = sr
         self._alloc_mode = 'alloc'
         self._channels = channels
         self._samples = int(size)
@@ -157,7 +178,7 @@ class Buffer:
         data: numpy array
             Data which should inserted
         mode: string='file'
-            Insert data via filemode or set commands
+            Insert data via filemode ('file') or n_set OSC commands ('osc')
         sr: int=44100
             sample rate
 
@@ -167,27 +188,35 @@ class Buffer:
             the created Buffer object
         """
         self._alloc_mode = 'data'
-        self.sr = sr
+        self._sr = sr
         self._samples = data.shape[0]
         self._channels = 1 if len(data.shape) == 1 else data.shape[1]
         if mode == 'file':
             if not os.path.exists('./temp/'):
                 os.makedirs('./temp/')
             self._tempfile = f"./temp/temp_{self._bufnum}.wav"
-            sp.io.wavfile.write(self._tempfile, self.sr, data)
+            sp.io.wavfile.write(self._tempfile, self._sr, data)
             self.sc.msg("/b_allocRead", [self._bufnum, self._tempfile])
         else:
             self.sc.msg("/b_alloc", [self._bufnum, data.shape[0]])
-            blocksize = 1000 # array size compatible with OSC packet size
+            blocksize = 1000  # array size compatible with OSC packet size
             # TODO: check how this depends on datagram size
             # TODO: put into Buffer header as const if needed elsewhere...
+            if self._channels > 1:
+                data = data.reshape(-1, 1)
             if data.shape[0] < blocksize:
-                self.sc.msg("/b_setn", [self._bufnum, [0, data.shape[0], data.tolist()]])
+                self.sc.msg("/b_setn",
+                            [self._bufnum, [0, data.shape[0], data.tolist()]],
+                            sync=False)
             else:
-                # For datasets larger than {blocksize} entries, split data to avoid network problems
+                # For datasets larger than {blocksize} entries,
+                # split data to avoid network problems
                 splitdata = np.array_split(data, data.shape[0]/blocksize)
                 for i, tData in enumerate(splitdata):
-                    self.sc.msg("/b_setn", [self._bufnum, [i * blocksize, tData.shape[0], tData.tolist()]])
+                    self.sc.msg("/b_setn",
+                                [self._bufnum, i * blocksize,
+                                 tData.shape[0], tData.tolist()],
+                                sync=False)
         self._allocated = True
         return self
 
@@ -195,13 +224,11 @@ class Buffer:
         """
         Wrapper method of :func:`Buffer.load_data`
         """
-        self.load_data(data, mode, sr)
-        return self
+        return self.load_data(data, mode, sr)
 
     def load_asig(self, asig, mode='file'):
         # ToDo: issue warning is not isinstance(asig, pya.Asig)
-        self.load_data(asig.sig, mode, sr=asig.sr)
-        return self
+        return self.load_data(asig.sig, mode, sr=asig.sr)
 
     def use_existing(self, bufnum, sr=44100):
         """
@@ -220,12 +247,12 @@ class Buffer:
             the created Buffer object
         """
         self._alloc_mode = 'existing'
-        self.sr = sr
+        self._sr = sr
         self._bufnum = bufnum
         self._allocated = True
-        data = self.sc.msg("/b_query", [self._bufnum])
-        self._channels = data[2]
-        self._samples = data[1]
+        info = self.query()
+        self._channels = info[2]
+        self._samples = info[1]
         return self
 
     def copy_existing(self, buffer):
@@ -243,13 +270,13 @@ class Buffer:
             the created Buffer object
         """
 
-        # If both buffers use the same sc instance -> copy buffer directly in sc
+        # If both buffers use the same sc -> copy buffer directly in sc
         if self.sc == buffer.sc:
             self.alloc(buffer.samples, buffer.sr, buffer.channels)
             self.gen_copy(buffer, 0, 0, -1)
         else:
             # both sc instance must have the same file server
-            self.sr = buffer.sr
+            self._sr = buffer.sr
             filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
             buffer.write(filepath)
             self.load_file(filepath)
@@ -278,7 +305,7 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
+            raise Exception("Buffer object is not initialized!")
 
         if type(start) != list:
             values = [start, count, value]
@@ -289,7 +316,7 @@ class Buffer:
 
     def gen(self, command, args):
         """
-        Call a command to fill a buffer. 
+        Call a command to fill a buffer.
         If you know, what you do -> you can use this method.
 
         See Also
@@ -307,7 +334,7 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
+            raise Exception("Buffer object is not initialized!")
         self.sc.msg("/b_gen", [self._bufnum, command] + args)
         return self
 
@@ -321,11 +348,12 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
+            raise Exception("Buffer object is not initialized!")
         self.sc.msg("/b_zero", [self._bufnum])
         return self
 
-    def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False, clear=False):
+    def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False,
+                  clear=False):
         """
         Fill the buffer with sine waves & given amplitude
 
@@ -350,11 +378,15 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        return self.gen("sine1", [self._gen_flags(normalize, wavetable, clear), amplitudes])
+        return self.gen("sine1",
+                        [self._gen_flags(normalize, wavetable, clear),
+                         amplitudes])
 
-    def gen_sine2(self, freq_amps: list, normalize=False, wavetable=False, clear=False):
+    def gen_sine2(self, freq_amps: list, normalize=False, wavetable=False,
+                  clear=False):
         """
-        Fill the buffer with sine waves & given list of [frequency, amplitude] lists
+        Fill the buffer with sine waves
+        given list of [frequency, amplitude] lists
 
         Parameters
         ----------
@@ -377,11 +409,14 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        return self.gen("sine2", [self._gen_flags(normalize, wavetable, clear), freq_amps])
+        return self.gen("sine2",
+                        [self._gen_flags(normalize, wavetable, clear),
+                         freq_amps])
 
-    def gen_sine3(self, freq_amps_phase: list, normalize=False, wavetable=False, clear=False):
+    def gen_sine3(self, freq_amps_phase: list, normalize=False,
+                  wavetable=False, clear=False):
         """
-        Fill the buffer with sine waves & given a list of 
+        Fill the buffer with sine waves & given a list of
         [frequency, amplitude, phase] entries.
 
         Parameters
@@ -404,9 +439,11 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        return self.gen("sine3", [self._gen_flags(normalize, wavetable, clear), freq_amps_phase])
+        return self.gen("sine3", [self._gen_flags(normalize, wavetable, clear),
+                                  freq_amps_phase])
 
-    def gen_cheby(self, amplitude: list, normalize=False, wavetable=False, clear=False):
+    def gen_cheby(self, amplitude: list, normalize=False, wavetable=False,
+                  clear=False):
         """
         Fills a buffer with a series of chebyshev polynomials, which can be
         defined as cheby(n) = amplitude * cos(n * acos(x))
@@ -424,7 +461,7 @@ class Buffer:
             can be read by interpolating oscillators.
         clear: Bool
             If set then the buffer is cleared before new partials are written
-            into it. Otherwise the new partials are summed with the existing 
+            into it. Otherwise the new partials are summed with the existing
             contents of the buffer.
 
         Returns
@@ -432,7 +469,8 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        return self.gen("cheby", [self._gen_flags(normalize, wavetable, clear), amplitude])
+        return self.gen("cheby", [self._gen_flags(normalize, wavetable, clear),
+                                  amplitude])
 
     def gen_copy(self, source, source_pos, dest_pos, copy_amount):
         """
@@ -457,22 +495,36 @@ class Buffer:
         self : object of type Buffer
             the created Buffer object
         """
-        return self.gen("copy", [dest_pos, source.bufnum, source_pos, copy_amount])
+        return self.gen("copy", [dest_pos, source.bufnum, source_pos,
+                                 copy_amount])
 
     # Section: Buffer output methods
-    def play(self, synth="pb-1ch", rate=1, loop=False, pan=0, amp=0.3):
+    def play(self, rate=1, loop=False, pan=0, amp=0.3):
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
-        id = self.sc.nextNodeID()
-        self.sc.msg("/s_new", [
-                synth, id, 1, 1,
-                "bufnum", self._bufnum,
-                "rate", rate,
-                "loop", 1 if loop else 0,
-                "pan", pan,
-                "amp", amp
-            ])
-        return id
+            raise Exception("Buffer object is not initialized!")
+
+        playbuf_def = """
+        { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
+                var sig = PlayBuf.ar(^numChannel, bufnum,
+                    rate*BufRateScale.kr(bufnum),
+                    loop: loop,
+                    doneAction: Done.freeSelf);
+                Out.ar(out, Pan2.ar(sig, pan, amp))
+        }"""
+
+        bufnum = self.bufnum
+        loop = 1 if loop else 0
+        numChannel = self.channels
+        if self._synthDef is None:
+            self._synthDef = self.sc.SynthDef(
+                name=f"playbuf_{bufnum}_",
+                definition=playbuf_def)
+            synth_name = self._synthDef.create()
+            self._synth = self.sc.Synth(name=synth_name)
+        else:
+            self._synth.start(
+                {"rate": rate, "loop": loop, "pan": pan, "amp": amp})
+        return self._synth
 
     def write(self, path, header="wav", sample="float"):
         """
@@ -487,7 +539,8 @@ class Buffer:
             "aiff", "next", "wav", "ircam"", "raw"
         sample: string
             sample format. Sample format is one of:
-            "int8", "int16", "int24", "int32", "float", "double", "mulaw", "alaw"
+            "int8", "int16", "int24", "int32",
+            "float", "double", "mulaw", "alaw"
 
         Returns
         -------
@@ -495,7 +548,7 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
+            raise Exception("Buffer object is not initialized!")
         self.sc.msg("/b_write", [self._bufnum, path, header, sample, -1, 0, 0])
         return self
 
@@ -511,12 +564,14 @@ class Buffer:
         data = []
         blocksize = 1000  # array size compatible with OSC packet size
         i = 0
-        while i < self._samples:
-            bs = blocksize if i+blocksize < self._samples else self._samples-i 
+        num_samples = (self._samples * self._channels)
+        while i < num_samples:
+            bs = blocksize if i+blocksize < num_samples else num_samples-i
             tmp = self.sc.msg("/b_getn", [self._bufnum, i, bs])
             data += list(tmp)[3:]  # skip first 3 els [bufnum, startidx, size]
             i += bs
-        return np.array(data)
+        data = np.array(data).reshape((-1, self._channels))
+        return data
 
     # Section: Buffer information methods
     def query(self):
@@ -529,13 +584,13 @@ class Buffer:
             (buffernumber, number of frames, number of channels, sample rate)
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
+            raise Exception("Buffer object is not initialized!")
         return self.sc.msg("/b_query", [self._bufnum])
 
     def __repr__(self):
-        return f"Buffer {self._bufnum} on sc {self.sc.osc.sclang_address}: "+ \
-            f"{self._channels} x {self._samples} @ {self.sr} Hz –> "+ \
-            f"""{["not loaded", "allocated"][self._allocated]} """+ \
+        return f"Buffer {self.bufnum} on sc {self.sc.osc.sclang_address}: " + \
+            f"{self.channels} x {self.samples} @ {self.sr} Hz –> " + \
+            f"""{["not loaded", "allocated"][self.allocated]} """ + \
             f"using mode '{self._alloc_mode}'"
 
     # Section: Methods to delete / free Buffers
@@ -544,7 +599,7 @@ class Buffer:
         Free buffer data. - The buffer object in sc will still exists!
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized yet!")
+            raise Exception("Buffer object is not initialized!")
         self.sc.msg("/b_free", [self._bufnum])
         self._allocated = False
         if self._alloc_mode == 'data' and isinstance(self._tempfile, str):
@@ -552,7 +607,8 @@ class Buffer:
         self._alloc_mode = None
 
     def __del__(self):
-        self.free()
+        if self._allocated:
+            self.free()
 
     # Section: Properties
     @property
@@ -582,6 +638,14 @@ class Buffer:
     @property
     def samples(self):
         return self._samples
+
+    @property
+    def sr(self):
+        return self._sr
+
+    @property
+    def duration(self):
+        return self._samples / self._sr
 
     # Section: Private utils
     def _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False):

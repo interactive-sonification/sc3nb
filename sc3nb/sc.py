@@ -15,7 +15,7 @@ from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .buffer import Buffer
-from .synth import Synth, SynthDef
+from .synth import Synth, SynthDef, SynthFamily
 from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
 from .tools import (convert_to_sc, find_executable, parse_pyvars,
                     remove_comments, replace_vars)
@@ -116,8 +116,6 @@ class SC():
         self.bundle = self.osc.bundle
         self.msg_queues = self.osc.msg_queues
         self.update_msg_queues = self.osc.update_msg_queues
-        self.async_msgs = self.osc.async_msgs
-        self.msg_pairs = self.osc.msg_pairs
         self.sync = self.osc.sync
         self.get_connection_info = self.osc.get_connection_info
 
@@ -209,7 +207,7 @@ class SC():
                 inner_cmdstr, *self.osc.server.server_address)
 
         if verbose and discard_output:
-                self.__scpout_empty()  # clean all past outputs
+            self.__scpout_empty()  # clean all past outputs
 
         # write command to sclang pipe \f
         if cmdstr and cmdstr[-1] != ';':
@@ -223,8 +221,8 @@ class SC():
             try:
                 return_val = self.osc.returns.get(timeout)
             except Empty:
-                print("SCLANG ERROR:")
-                print(self.__scpout_read(terminal=self.terminal_symbol))
+                print("sclang output, also see console:")
+                print(self.__scpout_read())
                 raise ChildProcessError("unable to receive result from sclang")
 
         if verbose:
@@ -357,13 +355,15 @@ class SC():
         """Boots SuperCollider server with audio feedback
         """
 
-        print('Booting server...')
+        print('Booting scsynth...')
 
         self.server = True
 
         # make sure SC is booted and knows this synths:
         self.cmd(r"""
             Server.default = s = Server.local;
+            o = Server.default.options;
+            o.maxLogins = 2;
             s.boot.doWhenBooted(
             { Routine({
             /* synth definitions *********************************/
@@ -409,10 +409,13 @@ class SC():
             Synth.new(\s1, [\freq, 500, \dur, 0.1, \num, 1]);
             0.2.wait;
             x = Synth.new(\s2, [\freq, 1000, \amp, 0.05, \num, 2]);
-            0.1.wait; x.free;""" + self.sc_end_marker_prog + r"""}).play} , 1000);
+            0.1.wait;
+            x.free;""" + self.sc_end_marker_prog + r"""}).play} , 1000);
         """)
-
         self.__scpout_read(timeout=10, terminal='finished booting')
+
+        print('Registering to scsynth...')
+        self.msg("/notify", 1)  # notify scsynth about us.
 
         print('Done.')
 
@@ -556,21 +559,25 @@ class SC():
         timeout = time.time() + timeout
         out = ''
         terminal_found = False
-        while True:
-            if time.time() >= timeout:
-                raise TimeoutError('timeout when reading SC stdout')
-            try:
-                retbytes = self.scp_queue.get_nowait()
-                if retbytes is not None:
-                    out += retbytes.decode()
-                    if re.search(terminal, out):
-                        terminal_found = True
-            except Empty:
-                if terminal and not terminal_found:
-                    pass
-                else:
-                    return out
-            time.sleep(0.001)
+        try:
+            while True:
+                if time.time() >= timeout:
+                    raise TimeoutError('timeout when reading SC stdout')
+                try:
+                    retbytes = self.scp_queue.get_nowait()
+                    if retbytes is not None:
+                        out += retbytes.decode()
+                        if terminal is not None and re.search(terminal, out):
+                            terminal_found = True
+                except Empty:
+                    if terminal and not terminal_found:
+                        pass
+                    else:
+                        return out
+                time.sleep(0.001)
+        except TimeoutError:
+            print(out)
+            raise
 
     def __scpout_empty(self):
         '''Empties sc output queue'''
@@ -622,6 +629,12 @@ class SC():
         Documentation see: :class:`SynthDef`
         """
         return SynthDef(self, **kwargs)
+
+    def SynthFamily(self, **kwargs):
+        """
+        Documentation see: :class:`SynthFamily`
+        """
+        return SynthFamily(self, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):
