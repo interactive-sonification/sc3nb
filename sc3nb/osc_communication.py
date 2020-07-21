@@ -63,6 +63,43 @@ MSG_PAIRS = {
 }
 
 
+def _add_msg(self, msg_addr, msg_args):
+    """Add a pythonsosc OSC message to this bundle.
+
+    Parameters
+    ----------
+    msg_addr : str
+        SuperCollider address.
+    msg_args : list
+        List of arguments to add to message.
+
+    Returns
+    -------
+    self
+        for call chaining
+    """
+    msg = build_message(msg_addr, msg_args)
+    self.add_content(msg)
+    return self
+
+
+osc_bundle_builder.OscBundleBuilder.add_msg = _add_msg
+
+
+def _send(self, sclang=False):
+    """Build and send this bundle.
+
+    Parameters
+    ----------
+    sclang : bool
+            If True sends msg to sclang else sends msg to scsynth.
+    """
+    self.osc.send(self.build(), sclang)
+
+
+osc_bundle_builder.OscBundleBuilder.send = _send
+
+
 def build_bundle(timetag, msg_addr, msg_args):
     """Builds pythonsosc OSC bundle
 
@@ -70,6 +107,7 @@ def build_bundle(timetag, msg_addr, msg_args):
     ----------
     timetag : int
         Time at which bundle content should be executed.
+        If timetag < 1e6 it is added to time.time().
     msg_addr : str
         SuperCollider address.
     msg_args : list
@@ -370,7 +408,7 @@ class OscCommunication():
         return (self.server.server_address,
                 self.sclang_address, self.scsynth_address)
 
-    def send(self, content, sclang):
+    def send(self, content, sclang=False):
         """Sends OSC message or bundle to sclang or scsnyth
 
         Parameters
@@ -451,7 +489,7 @@ class OscCommunication():
             elif msg.address in self.async_msgs:
                 if sync:
                     self.sync(timeout=timeout)
-        except Empty, TimeoutError:
+        except (Empty, TimeoutError):
             raise ChildProcessError(
                 f"Failed to sync after message to "
                 f"{'sclang' if sclang else 'scsynth'}"
@@ -464,6 +502,7 @@ class OscCommunication():
         ----------
         timetag : int
             Time at which bundle content should be executed.
+            If timetag < 1e6 it is added to time.time().
         msg_addr : str
             SuperCollider address.
         msg_args : list, optional
@@ -477,6 +516,28 @@ class OscCommunication():
 
         bundle = build_bundle(timetag, msg_addr, msg_args)
         self.send(bundle, sclang)
+
+    def bundle_builder(self, timetag):
+        """Generate a bundle builder.
+
+        This allows the user to easly add messages and send it.
+
+        Parameters
+        ----------
+        timetag : int
+            Time at which bundle content should be executed.
+            If timetag < 1e6 it is added to time.time().
+
+        Returns
+        -------
+        OscBundleBuilder
+            custom pythonosc BundleBuilder with add_msg and send
+        """
+        if timetag < 1e6:
+            timetag = time.time() + timetag
+        bundle_builder = osc_bundle_builder.OscBundleBuilder(timetag)
+        bundle_builder.osc = self
+        return bundle_builder
 
     def exit(self):
         """Shuts down the sc3nb server"""
