@@ -117,6 +117,7 @@ class SC():
         self.msg_queues = self.osc.msg_queues
         self.update_msg_queues = self.osc.update_msg_queues
         self.sync = self.osc.sync
+        self.bundle_builder = self.osc.bundle_builder
         self.get_connection_info = self.osc.get_connection_info
 
         print('Registering OSC /return callback in sclang...')
@@ -618,29 +619,29 @@ class SC():
                 pass
             time.sleep(0.001)
 
-    def Buffer(self, **kwargs):
+    def Buffer(self, *args, **kwargs):
         """
         Documentation see: :class:`Buffer`
         """
-        return Buffer(self, **kwargs)
+        return Buffer(self, *args, **kwargs)
 
-    def Synth(self, **kwargs):
+    def Synth(self, *args, **kwargs):
         """
         Documentation see: :class:`Synth`
         """
-        return Synth(self, **kwargs)
+        return Synth(self, *args, **kwargs)
 
-    def SynthDef(self, **kwargs):
+    def SynthDef(self, *args, **kwargs):
         """
         Documentation see: :class:`SynthDef`
         """
-        return SynthDef(self, **kwargs)
+        return SynthDef(self, *args, **kwargs)
 
-    def SynthFamily(self, **kwargs):
+    def SynthFamily(self, *args, **kwargs):
         """
         Documentation see: :class:`SynthFamily`
         """
-        return SynthFamily(self, **kwargs)
+        return SynthFamily(self, *args, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):
