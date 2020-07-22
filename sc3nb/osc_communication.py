@@ -313,6 +313,7 @@ class OscCommunication():
 
         self.server_thread = threading.Thread(
             target=self.server.serve_forever)
+        self.server_thread.daemon = True
         self.server_thread.start()
 
         print("Done.")
@@ -542,4 +543,6 @@ class OscCommunication():
     def exit(self):
         """Shuts down the sc3nb server"""
 
+        print("Shutting down osc communication...")
         self.server.shutdown()
+        print("Done.")

@@ -102,7 +102,7 @@ class SC():
 
         scp_thread = threading.Thread(target=self.__read_loop, args=(
             self.scp.stdout, self.scp_queue))
-        scp_thread.setDaemon(True)
+        scp_thread.daemon = True
         scp_thread.start()
 
         print('Starting sclang...')
@@ -119,7 +119,7 @@ class SC():
         self.sync = self.osc.sync
         self.get_connection_info = self.osc.get_connection_info
 
-        print('Registering UDP callback...')
+        print('Registering OSC /return callback in sclang...')
 
         self.cmd(r'''
             r = r ? ();
@@ -146,7 +146,7 @@ class SC():
         sclang_port = self.cmdg('NetAddr.langPort')
         if sclang_port != SCLANG_DEFAULT_PORT:
             self.osc.set_sclang(sclang_port=sclang_port)
-            print('Sclang started on non default port: {}'.format(sclang_port))
+            print('sclang started on non default port: {}'.format(sclang_port))
 
         # counter for nextNodeID
         self.num_IDs = 0
@@ -349,7 +349,10 @@ class SC():
             if self.server:
                 self.__s_quit()
         self.osc.exit()
+        print("Killing sclang subprocess")
         self.scp.kill()
+        self.scp.wait()
+        print(f"Done. ")
 
     def boot_with_blip(self):
         """Boots SuperCollider server with audio feedback
@@ -548,7 +551,10 @@ class SC():
 
         self.cmd('s.quit')
 
-        self.__scpout_read(terminal='RESULT = 0')
+        if sys.platform in ["linux", "linux2", "darwin"]:
+            self.__scpout_read(terminal='RESULT = 0')
+        elif sys.platform == "win32":
+            self.__scpout_read(terminal='exit code 0.')
 
         self.server = False
 
