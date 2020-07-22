@@ -1,9 +1,59 @@
 import re
 import time
+import ast
 
 from queue import Empty
+from collections import namedtuple
+from functools import reduce
+from operator import iconcat
 
 from .tools import parse_pyvars
+
+
+SynthArgument = namedtuple('SynthArgument', ['type', 'default'])
+
+
+def get_synthDesc(sc, synthDef):
+    """Get SynthDesc via sclang
+
+    Parameters
+    ----------
+    sc : SC
+        SC instance with SynthDef
+    synthDef : str
+        SynthDef name
+
+    Returns
+    -------
+    dict
+        {argument_name: SynthArgument(type, default)}
+
+    Raises
+    ------
+    ValueError
+        When synthDesc of synthDef can not be found.
+    """
+    synthDesc_string = sc.cmd(
+        f"SynthDescLib.global['{synthDef}'];",
+        get_output=True)
+    if synthDesc_string == '-> nil':
+        raise ValueError(
+            f"Can't receive synth arguments, is {synthDef} defined?")
+
+    def _parse_synthDesc(synthDesc_string):
+        lines = synthDesc_string.split('\n')
+        lines = lines[2:-1]  # skip 2 at the beginning 1 at end
+        raw_specs = [line.strip().split(' ', 6)[-3:] for line in lines]
+
+        def _parse_spec(spec):
+            return SynthArgument(
+                type=spec[1],
+                default=ast.literal_eval(spec[2]))
+
+        desc = {s[0]: _parse_spec(s) for s in raw_specs if s[0] != '?'}
+        return desc
+
+    return _parse_synthDesc(synthDesc_string)
 
 
 class Synth:
@@ -39,22 +89,7 @@ class Synth:
         """
         # attention: synth_args must be set first!
         # synth_args is used in setattr, getattr below!
-        try:
-            self.synth_args = sc.cmdg(
-                f"SynthDescLib.global['{name}'].controlNames;")
-            self.default_args = {}
-            n = 0
-            for arg in self.synth_args:
-                default = sc.cmdg(
-                  f"SynthDescLib.global['{name}'].controls[{n}].defaultValue;")
-                if isinstance(default, list):
-                    n = n + len(default)
-                else:
-                    n = n + 1
-                self.default_args[arg] = default
-        except TimeoutError:
-            raise ValueError(
-                f"Can't receive synth arguments, is {name} defined?")
+        self.synth_args = get_synthDesc(sc, name)
         self.name = name
         self.sc = sc
         self.nodeid = nodeid if nodeid is not None else sc.nextNodeID()
@@ -64,7 +99,7 @@ class Synth:
             self.current_args = {}
         else:
             self.current_args = args
-        self.start()
+        self.start(self.current_args)
 
     def run(self, flag=True):
         """
@@ -110,14 +145,12 @@ class Synth:
         """
         self.freed = False
         self.pause_status = False
-        if args is None:
-            args = self.current_args
-        flatten_dict = [
-            val for sublist in [list((k, v)) for k, v in args.items()]
-            for val in sublist]
+        if args is not None:
+            self.current_args = args
+        flatten_args = reduce(iconcat, self.current_args.items(), [])
         self.sc.msg("/s_new",
                     [self.name, self.nodeid, self.action,
-                     self.target] + flatten_dict)
+                     self.target] + flatten_args)
         return self
 
     def set(self, argument, value=None, *args):
@@ -143,19 +176,24 @@ class Synth:
         if isinstance(argument, dict):
             pardict = argument
             arglist = [self.nodeid]
-            for k, val in argument.items():
-                arglist.append(k)
+            for arg, val in argument.items():
+                arglist.append(arg)
                 arglist.append(val)
-                if not k.startswith("t_"):
-                    self.current_args[k] = val
+                self._update_args(arg, val)
             self.sc.msg("/n_set", arglist)
         elif isinstance(argument, list):
+            for n, arg in enumerate(argument):
+                if isinstance(arg, str):
+                    self._update_args(arg, argument[n+1])
             self.sc.msg("/n_set", [self.nodeid]+argument)
         else:
-            if not argument.startswith("t_"):
-                self.current_args[argument] = value
+            self._update_args(argument, value)
             self.sc.msg("/n_set", [self.nodeid, argument, value]+list(args))
         return self
+
+    def _update_args(self, argument, value):
+        if not argument.startswith("t_"):
+            self.current_args[argument] = value
 
     def get(self, argument):
         """Get a synth argument
@@ -167,11 +205,12 @@ class Synth:
         argument : string
             name of the synth argument
         """
-        if isinstance(self.default_args[argument], list):
+        default_value = self.synth_args[argument].default
+        if isinstance(default_value, list):
             return list(
                 self.sc.msg("/s_getn", [self.nodeid,
                                         argument,
-                                        len(self.default_args[argument])]
+                                        len(default_value)]
                             )[3:])
         else:
             return self.sc.msg("/s_get", [self.nodeid, argument])[2]
@@ -389,7 +428,7 @@ class SynthFamily:
     def __init__(self, sc, name, definition=None, context=None,
                  family_args=None, default_args=None, action=1, target=1,
                  wait=0.1):
-        """Create multiple Synth from a SynthDef in a easy way.
+        """Create multiple Synths from a SynthDef in a easy way.
 
         Parameters
         ----------
@@ -402,7 +441,7 @@ class SynthFamily:
         definition : string
             Pass the default synthdef definition here. Flexible content
             should be in double brackets ("...{{flexibleContent}}...").
-            This flexible content, you can dynamic replace with set_context()
+            This can be replaced with set_context()
         context : list of dicts, optional
             Same as in SynthDef.set_contexts
         family_args : list of dicts, optional
