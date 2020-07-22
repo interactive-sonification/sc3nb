@@ -13,8 +13,8 @@ def linlin(x, smi, sma, dmi, dma):
         dma {float} -- destination maximum value
 
         The description is a bit misleading as now clipping is performed,
-        so the function extrapolates. Furthermore it is not forbidden to 
-        use smi>sma (resp. dmi>dma). The function is defined in analogy to 
+        so the function extrapolates. Furthermore it is not forbidden to
+        use smi>sma (resp. dmi>dma). The function is defined in analogy to
         SuperCollider3 .linlin.
 
     Returns:

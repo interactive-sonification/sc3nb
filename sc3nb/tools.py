@@ -2,7 +2,6 @@
 
 import inspect
 import logging
-import numbers
 import os
 import re
 import sys
@@ -158,7 +157,7 @@ def parse_pyvars(cmdstr, frame_nr=2):
     stack = inspect.stack()
     frame = None
     try:
-        while len(missing_vars) > 0 and frame_nr < len(stack):
+        while missing_vars and frame_nr < len(stack):
             frame = stack[frame_nr][0]
             for pyvar in pyvars:
                 if pyvar not in missing_vars:
@@ -175,7 +174,7 @@ def parse_pyvars(cmdstr, frame_nr=2):
     finally:
         del frame
         del stack
-    if len(missing_vars) > 0:
+    if missing_vars:
         raise NameError('name(s) {} not defined'.format(missing_vars))
     return pyvars
 

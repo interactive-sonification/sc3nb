@@ -2,7 +2,6 @@ import re
 import time
 import ast
 
-from queue import Empty
 from collections import namedtuple
 from functools import reduce
 from operator import iconcat
@@ -95,6 +94,8 @@ class Synth:
         self.nodeid = nodeid if nodeid is not None else sc.nextNodeID()
         self.action = action
         self.target = target
+        self.freed = False
+        self.pause_status = False
         if args is None:
             self.current_args = {}
         else:
@@ -174,7 +175,6 @@ class Synth:
         synth.set(["dur", 1, "freq", 400])
         """
         if isinstance(argument, dict):
-            pardict = argument
             arglist = [self.nodeid]
             for arg, val in argument.items():
                 arglist.append(arg)
@@ -378,7 +378,19 @@ class SynthDef:
         self.defined_instances[name] = (self.current_def, pyvars)
         return name
 
-    def create_and_reset(self, pyvars={}):
+    def create_and_reset(self, pyvars=None):
+        """Short hand for create and reset
+
+        Parameters
+        ----------
+        pyvars : dict, optional
+            SC pyvars dict, to inject python variables
+
+        Returns
+        -------
+        string
+            name of SynthDef
+        """
         name = self.create(pyvars)
         self.reset()
         return name

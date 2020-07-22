@@ -6,14 +6,12 @@ SuperCollider over UDP
 
 import errno
 import logging
-import select
-import socket
 import threading
 import time
 from queue import Empty, Queue
 
 from random import randint
-from pythonosc import (dispatcher, osc_bundle_builder, osc_message,
+from pythonosc import (dispatcher, osc_bundle_builder,
                        osc_message_builder, osc_server)
 
 from .tools import parse_sclang_blob
@@ -24,21 +22,21 @@ SCLANG_DEFAULT_PORT = 57120
 OSCCOM_DEFAULT_PORT = 57130
 
 ASYNC_MSGS = [
-            "/quit",    # Master
-            "/notify",
-            "/d_recv",  # Synth Def load SynthDefs
-            "/d_load",
-            "/d_loadDir",
-            "/b_alloc",  # Buffer Commands
-            "/b_allocRead",
-            "/b_allocReadChannel",
-            "/b_read",
-            "/b_readChannel",
-            "/b_write",
-            "/b_free",
-            "/b_zero",
-            "/b_gen",
-            "/b_close"
+    "/quit",    # Master
+    "/notify",
+    "/d_recv",  # Synth Def load SynthDefs
+    "/d_load",
+    "/d_loadDir",
+    "/b_alloc",  # Buffer Commands
+    "/b_allocRead",
+    "/b_allocReadChannel",
+    "/b_read",
+    "/b_readChannel",
+    "/b_write",
+    "/b_free",
+    "/b_zero",
+    "/b_gen",
+    "/b_close"
 ]
 
 MSG_PAIRS = {
@@ -228,7 +226,7 @@ class AddressQueue():
         if skip:
             while self._skips > 0:
                 skipped_value = self.queue.get(block=True, timeout=timeout)
-                logging.warn(f"AddressQueue: skipped value {skipped_value}")
+                logging.warning(f"AddressQueue: skipped value {skipped_value}")
                 self._skips -= 1
         if self._skips > 0:
             self._skips -= 1
@@ -260,7 +258,7 @@ def preprocess_return(value):
     """
     if len(value) == 1:
         value = value[0]
-        if type(value) == bytes:
+        if isinstance(value, bytes):
             value = parse_sclang_blob(value)
     return value
 
@@ -352,8 +350,8 @@ class OscCommunication():
                      .format(self.__check_sender(sender), str(args)))
 
     def __warn(self, sender, *args):
-        logging.warn("OSC_COM: Error from {}:\n {}"
-                     .format(self.__check_sender(sender), args))
+        logging.warning("OSC_COM: Error from {}:\n {}"
+                        .format(self.__check_sender(sender), args))
 
     def set_sclang(self, sclang_ip='127.0.0.1',
                    sclang_port=SCLANG_DEFAULT_PORT):

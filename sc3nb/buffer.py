@@ -1,6 +1,6 @@
-import scipy as sp
 import os
-import scipy.io.wavfile
+
+import scipy as sp
 import numpy as np
 
 
@@ -98,6 +98,7 @@ class Buffer:
         self._tempfile = None
         self._path = None
         self._synthDef = None
+        self._synth = None
 
     # Section: Buffer initialization methods
     def load_file(self, path, starting_frame=0, num_frames=-1, channels=None):
@@ -124,7 +125,7 @@ class Buffer:
             the created Buffer object
         """
         self._alloc_mode = 'file'
-        file = sp.io.wavfile.read(path)  # ToDo: we only need the metadata here
+        file = sp.io.wavfile.read(path)  # TODO: we only need the metadata here
         self._sr = file[0]
         if num_frames <= 0:
             self._samples = file[1].shape[0]
@@ -212,11 +213,10 @@ class Buffer:
                 # For datasets larger than {blocksize} entries,
                 # split data to avoid network problems
                 splitdata = np.array_split(data, data.shape[0]/blocksize)
-                for i, tData in enumerate(splitdata):
+                for i, chunk in enumerate(splitdata):
                     self.sc.msg("/b_setn",
                                 [self._bufnum, i * blocksize,
-                                 tData.shape[0], tData.tolist()],
-                                sync=False)
+                                 chunk.shape[0], chunk.tolist()])
         self._allocated = True
         return self
 
@@ -227,6 +227,20 @@ class Buffer:
         return self.load_data(data, mode, sr)
 
     def load_asig(self, asig, mode='file'):
+        """Create buffer from asig
+
+        Parameters
+        ----------
+        asig : pya.Asig
+            asig to be loaded in buffer
+        mode : str, optional
+            Insert data via filemode ('file') or n_set OSC commands ('osc'), by default 'file'
+
+        Returns
+        -------
+        [type]
+            [description]
+        """
         # ToDo: issue warning is not isinstance(asig, pya.Asig)
         return self.load_data(asig.sig, mode, sr=asig.sr)
 
@@ -307,7 +321,7 @@ class Buffer:
         if self._allocated is False:
             raise Exception("Buffer object is not initialized!")
 
-        if type(start) != list:
+        if not isinstance(start, list):
             values = [start, count, value]
         else:
             values = start
@@ -505,7 +519,7 @@ class Buffer:
 
         playbuf_def = """
         { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
-                var sig = PlayBuf.ar(^numChannel, bufnum,
+                var sig = PlayBuf.ar(^num_channel, bufnum,
                     rate*BufRateScale.kr(bufnum),
                     loop: loop,
                     doneAction: Done.freeSelf);
@@ -514,7 +528,7 @@ class Buffer:
 
         bufnum = self.bufnum
         loop = 1 if loop else 0
-        numChannel = self.channels
+        num_channel = self.channels  # needed for pyvar injection
         if self._synthDef is None:
             self._synthDef = self.sc.SynthDef(
                 name=f"playbuf_{bufnum}_",

@@ -10,20 +10,19 @@ import threading
 import time
 from queue import Empty, Queue
 
-import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .buffer import Buffer
 from .synth import Synth, SynthDef, SynthFamily
 from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
-from .tools import (convert_to_sc, find_executable, parse_pyvars,
+from .tools import (find_executable, parse_pyvars,
                     remove_comments, replace_vars)
 
 if os.name == 'posix':
-    import fcntl
+    import fcntl   # pylint: disable=import-error
 
-ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
 
 class SC():
@@ -236,7 +235,7 @@ class SC():
             # get output after current command
             out = self.__scpout_read(terminal=self.terminal_symbol)
             if sys.platform != 'win32':
-                out = ansi_escape.sub('', out)  # remove ansi chars
+                out = ANSI_ESCAPE.sub('', out)  # remove ansi chars
                 out = out.replace('sc3>', '')  # remove prompt
                 out = out[out.find(';\n') + 2:]  # skip cmdstr echo
             out = out.strip()
@@ -621,7 +620,7 @@ class SC():
                     queue.put(out)
                     if self.console_logging:
                         # to remove ansi chars
-                        out = ansi_escape.sub('', out.decode())
+                        out = ANSI_ESCAPE.sub('', out.decode())
                         # print to jupyter console...
                         os.write(1, out.encode())
             except EOFError:
