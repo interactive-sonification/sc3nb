@@ -158,26 +158,26 @@ class SC():
 
     def cmd(self, cmdstr, pyvars=None,
             verbose=False, discard_output=True,
-            get_result=False, timeout=1):
+            get_result=False, get_output=False, timeout=1):
         """Sends code to SuperCollider (sclang)
 
         Arguments:
             cmdstr {str} -- SuperCollider code
 
         Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and value pairs
-                             of python variables that can be
-                             injected via ^name
+            pyvars {dict} -- Dictionary of name and value pairs of python
+                             variables that can be injected via ^name
                              (default: {None})
             verbose {bool} -- if True print output
                               (default: {False})
-            discard_output {bool} -- if True clear output
-                                     buffer before passing
-                                     command
+            discard_output {bool} -- if True clear output buffer before
+                                     passing command
                                      (default: {True})
-            get_result {bool} -- if True receive and return
-                                 the evaluation result
-                                 from sclang
+            get_result {bool} -- if True receive and return the evaluation
+                                 result from sclang
+                                 (default: {False})
+            get_output {bool} -- if True return output if not get_result
+                                 if verbose this will be True
                                  (default: {False})
             timeout {int} -- Timeout time for receiving data
                              (default: {1})
@@ -187,8 +187,12 @@ class SC():
                    Output from SuperCollider code,
                    not all SC types supported.
                    When type is not understood this
-                   will return the data gram from the
+                   will return the datagram from the
                    OSC packet.
+
+        Raises:
+            ChildProcessError
+                When communication with sclang fails
         """
         if pyvars is None:
             pyvars = parse_pyvars(cmdstr)
@@ -207,7 +211,7 @@ class SC():
             cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
                 inner_cmdstr, *self.osc.server.server_address)
 
-        if verbose and discard_output:
+        if discard_output:
             self.__scpout_empty()  # clean all past outputs
 
         # write command to sclang pipe \f
@@ -222,11 +226,13 @@ class SC():
             try:
                 return_val = self.osc.returns.get(timeout)
             except Empty:
-                print("sclang output, also see console:")
+                print("ERROR: unable to receive /return message from sclang")
+                print("sclang output: (also see console) \n")
                 print(self.__scpout_read())
-                raise ChildProcessError("unable to receive result from sclang")
+                raise ChildProcessError(
+                    "unable to receive /return message from sclang")
 
-        if verbose:
+        if verbose or get_output:
             # get output after current command
             out = self.__scpout_read(terminal=self.terminal_symbol)
             if sys.platform != 'win32':
@@ -234,7 +240,8 @@ class SC():
                 out = out.replace('sc3>', '')  # remove prompt
                 out = out[out.find(';\n') + 2:]  # skip cmdstr echo
             out = out.strip()
-            print(out)
+            if verbose:
+                print(out)
             if not get_result:
                 return_val = out
 
@@ -583,6 +590,8 @@ class SC():
                         return out
                 time.sleep(0.001)
         except TimeoutError:
+            print("ERROR: Timeout while reading sclang")
+            print("sclang output until timeout: \n")
             print(out)
             raise
 
