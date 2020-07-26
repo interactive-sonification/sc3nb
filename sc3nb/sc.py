@@ -134,14 +134,11 @@ class SC():
                         elem;
                     };
                 };
-                var return = prependSize.value(result);
-                addr.sendMsg("/return", return);
+                var msgContent = prependSize.value(result);
+                addr.sendMsg("/return", msgContent);
                 result;  // result should be returned
-            };
-            ''')
-
-        self.__scpout_read(terminal='a Function')
-
+            };''')
+        self.__scpout_read(terminal=self.terminal_symbol)
         print('Done.')
 
         sclang_port = self.cmdg('NetAddr.langPort')

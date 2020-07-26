@@ -350,15 +350,10 @@ class SynthDef:
             pyvars = parse_pyvars(self.current_def)
 
         # Create new synthDef
-        self.sc.cmd(
-            f"""SynthDef("{name}", {self.current_def}).add();""",
+        synth_def_blob = self.sc.cmdg(
+            f"""SynthDef("{name}", {self.current_def}).asBytes();""",
             pyvars=pyvars)
-        # TODO:
-        # we wait here as the SynthDef is added
-        # asynchronosly to the scsynth server.
-        # A better solution would be to use SynthDef.send
-        # this could spawn a SendReply synth on scsynth
-        time.sleep(wait)
+        self.sc.msg("d_recv", synth_def_blob)
         self.defined_instances[name] = (self.current_def, pyvars)
         return name
 

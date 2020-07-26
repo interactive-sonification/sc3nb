@@ -19,10 +19,10 @@ import math
 from pythonosc.osc_bundle import OscBundle
 from pythonosc.parsing import osc_types
 
+SYNTH_DEF_MARKER = b'SCgf'
 TYPE_TAG_MARKER = ord(b',')
 TYPE_TAG_INDEX = 4
 NUM_SIZE = 4
-INT_TAG = ord(b'i')
 BYTES_2_TYPE = {
     'i': osc_types.get_int,
     'f': osc_types.get_float,
@@ -94,6 +94,12 @@ def _parse_osc_bundle_element(dgram, start_index):
         logging.debug("found list")
         value_list, start_index = _parse_list(dgram, start_index)
         return value_list, start_index
+
+    if dgram[start_index:start_index+4] == SYNTH_DEF_MARKER:
+        logging.debug("found SynthDef blob")
+        synth_def = dgram[start_index:start_index+elem_size]
+        start_index = start_index + elem_size
+        return synth_def, start_index
 
     raise ParseError("Datagram not recognized")
 

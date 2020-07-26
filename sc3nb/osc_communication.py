@@ -248,7 +248,7 @@ def preprocess_return(value):
     Parameters
     ----------
     value : tuple
-        tuple with one entry that is the send data
+        return data
 
     Returns
     -------
