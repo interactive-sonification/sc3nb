@@ -9,7 +9,7 @@ from operator import iconcat
 from .tools import parse_pyvars
 
 
-SynthArgument = namedtuple('SynthArgument', ['type', 'default'])
+SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
 
 
 def get_synthDesc(sc, synthDef):
@@ -25,34 +25,18 @@ def get_synthDesc(sc, synthDef):
     Returns
     -------
     dict
-        {argument_name: SynthArgument(type, default)}
+        {argument_name: SynthArgument(rate, default)}
 
     Raises
     ------
     ValueError
         When synthDesc of synthDef can not be found.
     """
-    synthDesc_string = sc.cmd(
-        f"SynthDescLib.global['{synthDef}'];",
-        get_output=True)
-    if synthDesc_string == '-> nil':
-        raise ValueError(
-            f"Can't receive synth arguments, is {synthDef} defined?")
-
-    def _parse_synthDesc(synthDesc_string):
-        lines = synthDesc_string.split('\n')
-        lines = lines[2:-1]  # skip 2 at the beginning 1 at end
-        raw_specs = [line.strip().split(' ', 6)[-3:] for line in lines]
-
-        def _parse_spec(spec):
-            return SynthArgument(
-                type=spec[1],
-                default=ast.literal_eval(spec[2]))
-
-        desc = {s[0]: _parse_spec(s) for s in raw_specs if s[0] != '?'}
-        return desc
-
-    return _parse_synthDesc(synthDesc_string)
+    synthDesc = sc.cmdg(
+        r"""SynthDescLib.global['default'].controls.collect(
+            { arg control;
+              [control.name, control.rate, control.defaultValue]})"))""")
+    return {s[0]: SynthArgument(*s[1:]) for s in synthDesc if s[0] != '?'}
 
 
 class Synth:
