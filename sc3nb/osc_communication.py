@@ -14,7 +14,7 @@ from random import randint
 from pythonosc import (dispatcher, osc_bundle_builder,
                        osc_message_builder, osc_server)
 
-from .tools import parse_sclang_blob
+from .parsing import parse_sclang_osc_packet
 
 SCSYNTH_DEFAULT_PORT = 57110
 SCLANG_DEFAULT_PORT = 57120
@@ -259,7 +259,7 @@ def preprocess_return(value):
     if len(value) == 1:
         value = value[0]
         if isinstance(value, bytes):
-            value = parse_sclang_blob(value)
+            value = parse_sclang_osc_packet(value)
     return value
 
 

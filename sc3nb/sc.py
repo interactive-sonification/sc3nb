@@ -122,6 +122,7 @@ class SC():
         print('Registering OSC /return callback in sclang...')
 
         self.cmd(r'''
+            // NetAddr.useDoubles = true;
             r = r ? ();
             r.callback = { arg code, ip, port;
                 var result = code.interpret;
@@ -133,8 +134,8 @@ class SC():
                         elem;
                     };
                 };
-                result = prependSize.value(result);
-                addr.sendMsg("/return", result);
+                var return = prependSize.value(result);
+                addr.sendMsg("/return", return);
                 result;  // result should be returned
             };
             ''')
@@ -590,7 +591,7 @@ class SC():
                 time.sleep(0.001)
         except TimeoutError:
             print("ERROR: Timeout while reading sclang")
-            print("sclang output until timeout: \n")
+            print("sclang output until timeout: (also see console)\n")
             print(out)
             raise
 
