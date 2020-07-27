@@ -190,8 +190,6 @@ class AddressQueue():
         else:
             if len(args) == 1:
                 args = args[0]
-            elif args:
-                args = None
         self.queue.put(args)
 
     @property
