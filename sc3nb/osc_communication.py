@@ -181,13 +181,16 @@ class AddressQueue():
         self.queue = Queue()
         self._skips = 0
 
-    def __put(self, address, *args):
+    def _put(self, address, *args):
+        if self.address != address:
+            logging.info(
+                "AddressQueue %s: alternative address %s", self.address, address)
         if self.process:
             args = self.process(args)
         else:
             if len(args) == 1:
                 args = args[0]
-            elif len(args) == 0:
+            elif args:
                 args = None
         self.queue.put(args)
 
@@ -197,8 +200,15 @@ class AddressQueue():
         return self._skips
 
     @property
-    def _map_values(self):
-        return self.address, self.__put
+    def map_values(self):
+        """Values needed for dispatcher map call
+
+        Returns
+        -------
+        tuple
+            (OSC address pattern, callback function)
+        """
+        return self.address, self._put
 
     def get(self, timeout=5, skip=False):
         """Returns a value from the queue
@@ -226,7 +236,7 @@ class AddressQueue():
         if skip:
             while self._skips > 0:
                 skipped_value = self.queue.get(block=True, timeout=timeout)
-                logging.warning(f"AddressQueue: skipped value {skipped_value}")
+                logging.warning("AddressQueue: skipped value %s", skipped_value)
                 self._skips -= 1
         if self._skips > 0:
             self._skips -= 1
@@ -284,8 +294,8 @@ class OscCommunication():
                 print("This sc3nb sc instance is at port: {}"
                       .format(server_port))
                 break
-            except OSError as e:
-                if e.errno == errno.EADDRINUSE:
+            except OSError as error:
+                if error.errno == errno.EADDRINUSE:
                     server_port += 1
 
         # set known messages
@@ -298,7 +308,7 @@ class OscCommunication():
 
         # init special msg queues
         self.returns = AddressQueue("/return", preprocess_return)
-        server_dispatcher.map(*self.returns._map_values)
+        server_dispatcher.map(*self.returns.map_values)
 
         # As /done messages have no purpose for us at this point
         # we don't collect /done messages
@@ -335,7 +345,7 @@ class OscCommunication():
         for msg_addr, response_addr in self.msg_pairs.items():
             if msg_addr not in self.msg_queues:
                 addr_queue = AddressQueue(response_addr)
-                self.server.dispatcher.map(*addr_queue._map_values)
+                self.server.dispatcher.map(*addr_queue.map_values)
                 self.msg_queues[msg_addr] = addr_queue
 
     def __check_sender(self, sender):
@@ -350,8 +360,8 @@ class OscCommunication():
                      .format(self.__check_sender(sender), str(args)))
 
     def __warn(self, sender, *args):
-        logging.warning("OSC_COM: Error from {}:\n {}"
-                        .format(self.__check_sender(sender), args))
+        logging.warning("OSC_COM: Error from %s:\n %s",
+                        self.__check_sender(sender), args)
 
     def set_sclang(self, sclang_ip='127.0.0.1',
                    sclang_port=SCLANG_DEFAULT_PORT):
@@ -419,7 +429,7 @@ class OscCommunication():
 
         """
 
-        logging.debug(f"OSC_COM: sending dgram:\n{content.dgram}")
+        logging.debug("OSC_COM: sending dgram:\n%s", content.dgram)
         if sclang:
             self.server.socket.sendto(content.dgram, (self.sclang_address))
         else:
@@ -475,10 +485,12 @@ class OscCommunication():
 
         msg = build_message(msg_addr, msg_args)
         self.send(msg, sclang)
-        logging.info("OSC_COM: send {} {:.55}".format(
-            msg.address,
-            str(msg.params)))
-        logging.debug("OSC_COM: msg.params {}".format(msg.params))
+        if len(str(msg.params)) > 55:
+            msg_params_str = str(msg.params)[:55] + ".."
+        else:
+            msg_params_str = str(msg.params)
+        logging.info("OSC_COM: send %s %s", msg.address, msg_params_str)
+        logging.debug("OSC_COM: msg.params %s ", msg.params)
         try:
             if msg.address in self.msg_pairs:
                 if sync:
@@ -492,7 +504,7 @@ class OscCommunication():
             raise ChildProcessError(
                 f"Failed to sync after message to "
                 f"{'sclang' if sclang else 'scsynth'}"
-                f": {msg.address} {str(msg.params):.55}")
+                f": {msg.address} {msg_params_str}")
 
     def bundle(self, timetag, msg_addr, msg_args=None, sclang=False):
         """Sends OSC bundle over UDP to either sclang or scsynth

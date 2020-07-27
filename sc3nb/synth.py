@@ -1,6 +1,5 @@
 import re
 import time
-import ast
 
 from collections import namedtuple
 from functools import reduce
@@ -32,10 +31,11 @@ def get_synthDesc(sc, synthDef):
     ValueError
         When synthDesc of synthDef can not be found.
     """
-    synthDesc = sc.cmdg(
-        r"""SynthDescLib.global['default'].controls.collect(
+    cmdstr = r"""SynthDescLib.global[{{synthDef}}].controls.collect(
             { arg control;
-              [control.name, control.rate, control.defaultValue]})"))""")
+            [control.name, control.rate, control.defaultValue]
+            })""".replace('{{synthDef}}', f"'{synthDef}'")
+    synthDesc = sc.cmdg(cmdstr)
     return {s[0]: SynthArgument(*s[1:]) for s in synthDesc if s[0] != '?'}
 
 
@@ -350,9 +350,10 @@ class SynthDef:
             pyvars = parse_pyvars(self.current_def)
 
         # Create new synthDef
-        synth_def_blob = self.sc.cmdg(
-            f"""SynthDef("{name}", {self.current_def}).asBytes();""",
-            pyvars=pyvars)
+        synth_def_blob = self.sc.cmdg(f"""
+            d = SynthDef("{name}", {self.current_def});
+            SynthDescLib.global.add(d.asSynthDesc);
+            d.asBytes();""", pyvars=pyvars)
         self.sc.msg("d_recv", synth_def_blob)
         self.defined_instances[name] = (self.current_def, pyvars)
         return name
