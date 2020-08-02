@@ -2,26 +2,26 @@
 import numpy as np
 
 
-def linlin(x, smi, sma, dmi, dma):
-    """map x linearly so that [smi, sma] is mapped to [dmi, dma]
+def linlin(x, x1, x2, y1, y2):
+    """map x linearly so that [x1, x2] is mapped to [y1, y2]
 
     Arguments:
         x {float} -- value to be mapped, can be a numpy array
-        smi {float} -- source minimum value
-        sma {float} -- source maximumn value
-        dmi {float} -- destination minimum value
-        dma {float} -- destination maximum value
+        x1 {float} -- source value 1
+        x2 {float} -- source value 2
+        y1 {float} -- destination value to be reached for x==x1
+        y2 {float} -- destination value to be reached for x==x2
 
-        The description is a bit misleading as now clipping is performed,
-        so the function extrapolates. Furthermore it is not forbidden to
-        use smi>sma (resp. dmi>dma). The function is defined in analogy to
-        SuperCollider3 .linlin.
+        linlin is implemented in analogy to the SC3 linlin, yet this
+        function extrapolates by default.
+        A frequently used invocation is with x1 < x2, i.e. thinking 
+        of them as a range [x1,x2]
 
     Returns:
         float -- the mapping result
     """
 
-    return (x-smi)/(sma-smi)*(dma-dmi) + dmi
+    return (x-x1)/(x2-x1)*(y2-y1) + y1
 
 
 def midicps(m):
