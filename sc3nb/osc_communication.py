@@ -327,7 +327,7 @@ class OscCommunication():
     def update_msg_queues(self, new_msg_pairs=None):
         """Update the queues used for message receiving.
 
-        This method will check for all `msg_pairs` if there is a AddressQueue
+        This method will check for all `msg_pairs` if there is an AddressQueue
         already created and if it is missing it will create one.
 
         Parameters
@@ -471,7 +471,7 @@ class OscCommunication():
             otherwise send the message and return directly.
              (Default value = True)
         timeout : int, optional
-            timeout for sync and response.
+            timeout in seconds for sync and response.
              (Default value = 5)
 
         Returns
