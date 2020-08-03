@@ -14,7 +14,7 @@ from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .buffer import Buffer
-from .synth import Synth, SynthDef, SynthFamily
+from .synth import Synth, SynthDef
 from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
 from .tools import (find_executable, parse_pyvars,
                     remove_comments, replace_vars)
@@ -640,12 +640,6 @@ class SC():
         Documentation see: :class:`SynthDef`
         """
         return SynthDef(self, *args, **kwargs)
-
-    def SynthFamily(self, *args, **kwargs):
-        """
-        Documentation see: :class:`SynthFamily`
-        """
-        return SynthFamily(self, *args, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):
