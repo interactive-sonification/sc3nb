@@ -322,10 +322,10 @@ class SynthDef:
         self.current_def = re.sub(r"{{[^}]+}}", "", self.current_def)
         return self
 
-    def create(self, pyvars=None):
+    def add(self, pyvars=None):
         """
-        This method will create the current_def as a sc synthDef.
-        
+        This method will add the current_def to SuperCollider.
+
         If a synth with the same definition was already in sc, this method
         will only return the name.
 
@@ -358,8 +358,8 @@ class SynthDef:
         self.defined_instances[name] = (self.current_def, pyvars)
         return name
 
-    def create_and_reset(self, pyvars=None):
-        """Short hand for create and reset
+    def add_and_reset(self, pyvars=None):
+        """Short hand for add and reset
 
         Parameters
         ----------
@@ -371,7 +371,7 @@ class SynthDef:
         string
             name of SynthDef
         """
-        name = self.create(pyvars)
+        name = self.add(pyvars)
         self.reset()
         return name
 
