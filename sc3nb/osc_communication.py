@@ -354,8 +354,12 @@ class OscCommunication():
         return sender
 
     def __log(self, sender, *args):
-        logging.info("OSC_COM: osc msg received from {}: {:.55}"
-                     .format(self.__check_sender(sender), str(args)))
+        if len(str(args)) > 55:
+            args_str = str(args)[:55] + ".."
+        else:
+            args_str = str(args)
+        logging.info("OSC_COM: osc msg received from %s: %s",
+                     self.__check_sender(sender), args_str)
 
     def __warn(self, sender, *args):
         logging.warning("OSC_COM: Error from %s:\n %s",

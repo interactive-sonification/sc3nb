@@ -1,5 +1,6 @@
+"""Module to for using SuperCollider SynthDefs and Synths in Python"""
+
 import re
-import time
 
 from collections import namedtuple
 from functools import reduce
@@ -11,14 +12,14 @@ from .tools import parse_pyvars
 SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
 
 
-def get_synthDesc(sc, synthDef):
+def get_synth_desc(sc, synth_def):
     """Get SynthDesc via sclang
 
     Parameters
     ----------
     sc : SC
         SC instance with SynthDef
-    synthDef : str
+    synth_def : str
         SynthDef name
 
     Returns
@@ -34,14 +35,15 @@ def get_synthDesc(sc, synthDef):
     cmdstr = r"""SynthDescLib.global[{{synthDef}}].controls.collect(
             { arg control;
             [control.name, control.rate, control.defaultValue]
-            })""".replace('{{synthDef}}', f"'{synthDef}'")
-    synthDesc = sc.cmdg(cmdstr)
-    return {s[0]: SynthArgument(*s[1:]) for s in synthDesc if s[0] != '?'}
+            })""".replace('{{synthDef}}', f"'{synth_def}'")
+    synth_desc = sc.cmdg(cmdstr)
+    return {s[0]: SynthArgument(*s[1:]) for s in synth_desc if s[0] != '?'}
 
 
 class Synth:
+    """Wrapper for the SuperCollider Synth"""
 
-    def __init__(self, sc, name="default", nodeid=None, action=1, target=1,
+    def __init__(self, sc, name="default", nodeid=None, start=True, action=1, target=1,
                  args=None):
         """Creates a new Synth with given supercollider instance, name
         and a dict of arguments to the synth.
@@ -72,10 +74,10 @@ class Synth:
         """
         # attention: synth_args must be set first!
         # synth_args is used in setattr, getattr below!
-        self.synth_args = get_synthDesc(sc, name)
+        self.synth_args = get_synth_desc(sc, name)
         self.name = name
         self.sc = sc
-        self.nodeid = nodeid if nodeid is not None else sc.nextNodeID()
+        self.nodeid = nodeid if nodeid is not None else sc.next_node_id()
         self.action = action
         self.target = target
         self.freed = False
@@ -84,7 +86,8 @@ class Synth:
             self.current_args = {}
         else:
             self.current_args = args
-        self.start(self.current_args)
+        if start:
+            self.start(self.current_args)
 
     def run(self, flag=True):
         """
@@ -166,9 +169,9 @@ class Synth:
                 self._update_args(arg, val)
             self.sc.msg("/n_set", arglist)
         elif isinstance(argument, list):
-            for n, arg in enumerate(argument):
+            for arg_idx, arg in enumerate(argument):
                 if isinstance(arg, str):
-                    self._update_args(arg, argument[n+1])
+                    self._update_args(arg, argument[arg_idx+1])
             self.sc.msg("/n_set", [self.nodeid]+argument)
         else:
             self._update_args(argument, value)
@@ -222,6 +225,7 @@ class Synth:
 
 
 class SynthDef:
+    """Wrapper for SuperCollider SynthDef"""
 
     def __init__(self, sc, name, definition):
         """
@@ -291,16 +295,15 @@ class SynthDef:
         Parameters
         ----------
         dictionary: dict
-            (k,v) tuple dict, while k is the searchpattern and v is the
-            replacement
+            {searchpattern: replacement}
 
         Returns
         -------
         self : object of type SynthDef
             the SynthDef object
         """
-        for (k, v) in dictionary.items():
-            self.set_context(k, v)
+        for (searchpattern, replacement) in dictionary.items():
+            self.set_context(searchpattern, replacement)
         return self
 
     def unset_remaining(self):
@@ -319,11 +322,10 @@ class SynthDef:
         self.current_def = re.sub(r"{{[^}]+}}", "", self.current_def)
         return self
 
-    def create(self, pyvars=None, wait=0.1):
+    def create(self, pyvars=None):
         """
         This method will create the current_def as a sc synthDef.
-        It will wait until scsynth has hopefully received the synthDef.
-
+        
         If a synth with the same definition was already in sc, this method
         will only return the name.
 
@@ -331,8 +333,6 @@ class SynthDef:
         ----------
         pyvars: dict
             SC pyvars dict, to inject python variables
-        wait: float, optional
-            How long we wait after, default=0.1
 
         Returns
         -------
@@ -349,11 +349,11 @@ class SynthDef:
         if pyvars is None:
             pyvars = parse_pyvars(self.current_def)
 
-        # Create new synthDef
+        # Create new SynthDef add it to SynthDescLib and get bytes
         synth_def_blob = self.sc.cmdg(f"""
-            d = SynthDef("{name}", {self.current_def});
-            SynthDescLib.global.add(d.asSynthDesc);
-            d.asBytes();""", pyvars=pyvars)
+            r.tmpSynthDef = SynthDef("{name}", {self.current_def});
+            SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
+            r.tmpSynthDef.asBytes();""", pyvars=pyvars)
         self.sc.msg("d_recv", synth_def_blob)
         self.defined_instances[name] = (self.current_def, pyvars)
         return name
@@ -416,10 +416,10 @@ class SynthDef:
 
 
 class SynthFamily:
+    """Class to manage multiple Synth synchronously"""
 
     def __init__(self, sc, name, definition=None, context=None,
-                 family_args=None, default_args=None, action=1, target=1,
-                 wait=0.1):
+                 family_args=None, default_args=None, action=1, target=1):
         """Create multiple Synths from a SynthDef in a easy way.
 
         Parameters
@@ -444,9 +444,7 @@ class SynthFamily:
             add action (see s_new), by default 1
         target : int, optional
             add target ID (see s_new), by default 1
-        wait : float, optional
-            time to wait for SynthDefs, by default 0.1
-
+        
         Raises
         ------
         ValueError
@@ -466,25 +464,24 @@ class SynthFamily:
             using_predefined_synth = True
 
         if not using_predefined_synth:
-            self.synthDef = sc.SynthDef(
+            self.synth_def = sc.SynthDef(
                 name=name + "_family_n",
                 definition=definition
             )
 
         synth_info = []
-        for n, member_arg in enumerate(family_args):
+        for member_idx, member_arg in enumerate(family_args):
             if not using_predefined_synth:
                 if context:
-                    self.synthDef.set_contexts(context[n])
-                    synth_name = self.synthDef.create(wait=0.0)
-                    self.synthDef.reset()
+                    self.synth_def.set_contexts(context[member_idx])
+                    synth_name = self.synth_def.create()
+                    self.synth_def.reset()
                 else:
-                    synth_name = self.synthDef.create(wait=0.0)
+                    synth_name = self.synth_def.create()
             else:
                 synth_name = name
             synth_info.append((synth_name, {**default_args, **member_arg}))
-        time.sleep(wait)
-
+        
         self.synths = []
         for synth_name, args in synth_info:
             self.synths.append(sc.Synth(name=synth_name,
@@ -562,8 +559,8 @@ class SynthFamily:
         if hasattr(value, '__iter__') or iter_value:
             if len(value) != len(self.synths):
                 raise ValueError("Not enough values provided.")
-            for n, v in enumerate(value):
-                self.synths[n].set(argument, v)
+            for idx, val in enumerate(value):
+                self.synths[idx].set(argument, val)
         else:
             for synth in self.synths:
                 synth.set(argument, value)

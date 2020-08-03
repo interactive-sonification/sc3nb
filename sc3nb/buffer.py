@@ -1,3 +1,5 @@
+"""Module to for using SuperCollider Buffers in Python"""
+
 import os
 
 import scipy as sp
@@ -5,9 +7,7 @@ import numpy as np
 
 
 class Buffer:
-
-    """
-    A Buffer object represents a SuperCollider3 Buffer on scsynth
+    """A Buffer object represents a SuperCollider3 Buffer on scsynth
     and provides access to low-level buffer commands of scsynth via
     methods of the Buffer objects.
 
@@ -86,7 +86,7 @@ class Buffer:
 
     def __init__(self, sc, bufnum=None):
         if bufnum is None:
-            self._bufnum = sc.nextBufferID()
+            self._bufnum = sc.next_buffer_id()
         else:  # force given bufnum
             self._bufnum = bufnum
         self.sc = sc
@@ -97,7 +97,7 @@ class Buffer:
         self._allocated = False
         self._tempfile = None
         self._path = None
-        self._synthDef = None
+        self._synth_def = None
         self._synth = None
 
     # Section: Buffer initialization methods
@@ -116,8 +116,9 @@ class Buffer:
             starting frame in file
         num_frames: int
             number of frames to read
-        channels: list
-            channels and order of channels to be read from file
+        channels: list | int
+            channels and order of channels to be read from file.
+            if only a int is provided it is loaded as only channel
 
         Returns
         -------
@@ -136,6 +137,8 @@ class Buffer:
                 channels = [0]
             else:
                 channels = range(file[1].shape[1])
+        elif isinstance(channels, int):
+            channels = [channels]
         self._channels = len(channels)
         self._path = path
         self.sc.msg(
@@ -514,12 +517,35 @@ class Buffer:
 
     # Section: Buffer output methods
     def play(self, rate=1, loop=False, pan=0, amp=0.3):
+        """Play the Buffer using a Synth
+
+        Parameters
+        ----------
+        rate : int, optional
+            plackback rate, by default 1
+        loop : bool, optional
+            if True loop the playback, by default False
+        pan : int, optional
+            pan position, -1 is left, +1 is right, by default 0
+        amp : float, optional
+            amplitude, by default 0.3
+
+        Returns
+        -------
+        Synth
+            Synth to control playback.
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
+        """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
+            raise RuntimeError("Buffer object is not initialized!")
 
         playbuf_def = """
         { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
-                var sig = PlayBuf.ar(^num_channel, bufnum,
+                var sig = PlayBuf.ar(^num_channels, bufnum,
                     rate*BufRateScale.kr(bufnum),
                     loop: loop,
                     doneAction: Done.freeSelf);
@@ -528,12 +554,13 @@ class Buffer:
 
         bufnum = self.bufnum
         loop = 1 if loop else 0
-        num_channel = self.channels  # needed for pyvar injection
-        if self._synthDef is None:
-            self._synthDef = self.sc.SynthDef(
+        num_channels = self.channels
+        if self._synth_def is None:
+            self._synth_def = self.sc.SynthDef(
                 name=f"playbuf_{bufnum}_",
                 definition=playbuf_def)
-            synth_name = self._synthDef.create()
+            synth_name = self._synth_def.create(
+                pyvars={"num_channels": num_channels})
             self._synth = self.sc.Synth(name=synth_name)
         else:
             self._synth.start(
@@ -627,10 +654,24 @@ class Buffer:
     # Section: Properties
     @property
     def bufnum(self):
+        """Buffer number which serves as ID in SuperCollider
+
+        Returns
+        -------
+        int
+            bufnum
+        """
         return self._bufnum
 
     @property
     def allocated(self):
+        """Whether this Buffer is allocated
+
+        Returns
+        -------
+        bool
+            True if allocated
+        """
         return self._allocated
 
     @property
@@ -655,10 +696,24 @@ class Buffer:
 
     @property
     def sr(self):
+        """Sampling rate of the Buffer.
+
+        Returns
+        -------
+        int
+            sampling rate
+        """
         return self._sr
 
     @property
     def duration(self):
+        """Duration of the Buffer in seconds.
+
+        Returns
+        -------
+        float
+            duration in seconds
+        """
         return self._samples / self._sr
 
     # Section: Private utils
