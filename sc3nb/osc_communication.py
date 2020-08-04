@@ -84,21 +84,29 @@ def _add_msg(self, msg_addr, msg_args):
 osc_bundle_builder.OscBundleBuilder.add_msg = _add_msg
 
 
-def _send(self, sclang=False):
+def _send(self, osc=None, sclang=False):
     """Build and send this bundle.
 
     Parameters
     ----------
+    osc: OscCommunication
+        OSC instance for sending the bundle.
+        If None it will try to use self.osc which is set when using osc.bundle
     sclang : bool
-            If True sends msg to sclang else sends msg to scsynth.
+        If True sends msg to sclang else sends msg to scsynth.
     """
-    self.osc.send(self.build(), sclang)
+    if self.osc and not osc:
+        self.osc.send(self.build(), sclang)
+    elif osc:
+        osc.send(self.build(), sclang)
+    else:
+        RuntimeError("No OSC instance for sending.")
 
 
 osc_bundle_builder.OscBundleBuilder.send = _send
 
 
-def build_bundle(timetag, msg_addr, msg_args):
+def bundle_builder(timetag, msg_addr=None, msg_args=None):
     """Builds pythonsosc OSC bundle
 
     Parameters
@@ -123,11 +131,11 @@ def build_bundle(timetag, msg_addr, msg_args):
 
     if timetag < 1e6:
         timetag = time.time() + timetag
-    bundle = osc_bundle_builder.OscBundleBuilder(timetag)
-    msg = build_message(msg_addr, msg_args)
-    bundle.add_content(msg)
-    bundle = bundle.build()
-    return bundle
+    builder = osc_bundle_builder.OscBundleBuilder(timetag)
+    if msg_addr:
+        msg = build_message(msg_addr, msg_args)
+        builder.add_content(msg)
+    return builder
 
 
 def build_message(msg_addr, msg_args):
@@ -508,8 +516,10 @@ class OscCommunication():
                 f"{'sclang' if sclang else 'scsynth'}"
                 f": {msg.address} {msg_params_str}")
 
-    def bundle(self, timetag, msg_addr, msg_args=None, sclang=False):
-        """Sends OSC bundle over UDP to either sclang or scsynth
+    def bundle(self, timetag, msg_addr=None, msg_args=None):
+        """Generate a bundle builder.
+
+        This allows the user to easly add messages/bundles and send it.
 
         Parameters
         ----------
@@ -521,25 +531,6 @@ class OscCommunication():
         msg_args : list, optional
             List of arguments to add to message.
              (Default value = None)
-        sclang : bool, optional
-            If True send message to sclang.
-             (Default value = False)
-
-        """
-
-        bundle = build_bundle(timetag, msg_addr, msg_args)
-        self.send(bundle, sclang)
-
-    def bundle_builder(self, timetag):
-        """Generate a bundle builder.
-
-        This allows the user to easly add messages and send it.
-
-        Parameters
-        ----------
-        timetag : int
-            Time at which bundle content should be executed.
-            If timetag < 1e6 it is added to time.time().
 
         Returns
         -------
@@ -548,9 +539,9 @@ class OscCommunication():
         """
         if timetag < 1e6:
             timetag = time.time() + timetag
-        bundle_builder = osc_bundle_builder.OscBundleBuilder(timetag)
-        bundle_builder.osc = self
-        return bundle_builder
+        bundle = bundle_builder(timetag, msg_addr, msg_args)
+        bundle.osc = self
+        return bundle
 
     def exit(self):
         """Shuts down the sc3nb server"""

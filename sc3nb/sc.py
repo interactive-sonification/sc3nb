@@ -116,7 +116,6 @@ class SC():
         self.msg_queues = self.osc.msg_queues
         self.update_msg_queues = self.osc.update_msg_queues
         self.sync = self.osc.sync
-        self.bundle_builder = self.osc.bundle_builder
         self.get_connection_info = self.osc.get_connection_info
 
         print('Registering OSC /return callback in sclang...')
@@ -660,9 +659,9 @@ def startup(boot=True, magic=True, **kwargs):
         sc.boot_with_blip()
     sc.cmdv('\"sc3nb started\";')
     if magic:
-        ip = get_ipython()
-        if ip is not None:
-            ip.register_magics(SC3Magics)
+        ipy = get_ipython()
+        if ipy is not None:
+            ipy.register_magics(SC3Magics)
     return sc
 
 # SC3 magics

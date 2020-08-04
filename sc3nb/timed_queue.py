@@ -207,7 +207,8 @@ class TimedQueueSC(TimedQueue):
         self.sc = sc
 
     def put_bundle(self, onset, timetag, address, args, sclang=False):
-        self.put(onset, self.sc.bundle, args=(timetag, address, args, sclang))
+        bundle = self.sc.bundle(timetag, address, args).build()
+        self.put(onset, self.sc.osc.send, args=(bundle, sclang))
 
     def put_msg(self, onset, address, args, sclang=False):
         self.put(onset, self.sc.msg, args=(address, args, sclang))
