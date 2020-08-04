@@ -1,26 +1,93 @@
+"""Module to for using SuperCollider SynthDefs and Synths in Python"""
+
 import re
+
+from collections import namedtuple
+from functools import reduce
+from operator import iconcat
+
+from .tools import parse_pyvars
+
+
+SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
+
+
+def get_synth_desc(sc, synth_def):
+    """Get SynthDesc via sclang
+
+    Parameters
+    ----------
+    sc : SC
+        SC instance with SynthDef
+    synth_def : str
+        SynthDef name
+
+    Returns
+    -------
+    dict
+        {argument_name: SynthArgument(rate, default)}
+
+    Raises
+    ------
+    ValueError
+        When synthDesc of synthDef can not be found.
+    """
+    cmdstr = r"""SynthDescLib.global[{{synthDef}}].controls.collect(
+            { arg control;
+            [control.name, control.rate, control.defaultValue]
+            })""".replace('{{synthDef}}', f"'{synth_def}'")
+    synth_desc = sc.cmdg(cmdstr)
+    return {s[0]: SynthArgument(*s[1:]) for s in synth_desc if s[0] != '?'}
 
 
 class Synth:
+    """Wrapper for the SuperCollider Synth"""
 
-    def __init__(self, sc, name="default", nodeid=None, action=1, target=1, args={}):
-        """
-        Creates a new Synth with given supercollider instance, name
+    def __init__(self, sc, name="default", nodeid=None, start=True, action=1, target=1,
+                 args=None):
+        """Creates a new Synth with given supercollider instance, name
         and a dict of arguments to the synth.
+
+        Parameters
+        ----------
+        sc : SC
+            sc3nb SuperCollider instance
+        name : str, optional
+            name of the synth to be created, by default "default"
+        nodeid : int, optional
+            ID of the node in SuperCollider, by default sc will create one
+        action : int, optional
+            add action (see s_new), by default 1
+        target : int, optional
+            add target ID (see s_new), by default 1
+        args : dict, optional
+            synth arguments, by default None
+
+        Raises
+        ------
+        ValueError
+            Raised when synth can't be found via SynthDescLib.global
 
         Example:
         --------
-        stk.Synth(sc=sc, args={"dur": 1, "freq": 400}, name="\s1")
+        stk.Synth(sc=sc, args={"dur": 1, "freq": 400}, name="s1")
         """
+        # attention: synth_args must be set first!
+        # synth_args is used in setattr, getattr below!
+        self.synth_args = get_synth_desc(sc, name)
         self.name = name
-        self.args = args
         self.sc = sc
-        self.nodeid = nodeid if nodeid is not None else sc.nextNodeID()
+        self.nodeid = nodeid if nodeid is not None else sc.next_node_id()
         self.action = action
         self.target = target
-        flatten_dict = [val for sublist in [list((k, v)) for k, v in args.items()] for val in sublist]
-        self.sc.msg("/s_new", [name, self.nodeid, action, target] + flatten_dict)
+        self.freed = False
         self.pause_status = False
+        if args is None:
+            self.current_args = {}
+        else:
+            self.current_args = args
+        if start:
+            self.start(self.current_args)
 
     def run(self, flag=True):
         """
@@ -32,57 +99,135 @@ class Synth:
 
     def pause(self, flag=None):
         """
-        Pause a synth, or play it, if synth is allready paused
+        Pause a synth, or play it, if synth is already paused
         """
         self.run(flag if flag is not None else self.pause_status)
         return self
 
     def free(self):
         """
-        Deletes a synth/ stop it
+        Frees a synth with n_free
         """
+        self.freed = True
         self.sc.msg("/n_free", [self.nodeid])
         return self
 
-    def stop(self):
-        self.free()
-        self.restart()
+    def restart(self, args=None):
+        """Free and start synth
 
-    def restart(self):
+        Parameters
+        ----------
+        args : dict, optional
+            synth arguments, by default None
         """
-        Recreates a synth - you can call this method after you free the synth,
-        or the synth was played completely.
+        if not self.freed:
+            self.free()
+        self.start(args)
+
+    def start(self, args=None):
+        """Starts the synth
+
+        This will send a s_new command to scsynth.
         Attention: Here you create an identical synth! Same synth node etc.
-        - use this method only, if your synth is freeed before!
+        - use this method only, if your synth is freed before!
         """
-        flatten_dict = [val for sublist in [list((k, v)) for k, v in self.args.items()] for val in sublist]
-        self.sc.msg("/s_new", [self.name, self.nodeid, self.action, self.target] + flatten_dict)
+        self.freed = False
+        self.pause_status = False
+        if args is not None:
+            self.current_args = args
+        flatten_args = reduce(iconcat, self.current_args.items(), [])
+        self.sc.msg("/s_new",
+                    [self.name, self.nodeid, self.action,
+                     self.target] + flatten_args)
         return self
 
-    def set(self, key, value=None, *args):
+    def set(self, argument, value=None, *args):
+        """Set a control argument of the synth
+
+        This will send a n_set command to scsynth.
+
+        Parameters
+        ----------
+        argument : string | dict | list
+            if string: name of control argument
+            if dict: dict with argument, value pairs
+            if list: use list as message content
+        value : any, optional
+            only used if argument is string, by default None
+
+        Examples
+        -------
+        synth.set("freq", 400)
+        synth.set({"dur": 1, "freq": 400})
+        synth.set(["dur", 1, "freq", 400])
         """
-        Set a control variable for synth after defining it
-        """
-        if isinstance(key, dict):
-            pardict = key
+        if isinstance(argument, dict):
             arglist = [self.nodeid]
-            for k, val in key.items():
-                arglist.append(k)
+            for arg, val in argument.items():
+                arglist.append(arg)
                 arglist.append(val)
+                self._update_args(arg, val)
             self.sc.msg("/n_set", arglist)
-        elif isinstance(key, list):
-            self.sc.msg("/n_set", [self.nodeid]+key)
+        elif isinstance(argument, list):
+            for arg_idx, arg in enumerate(argument):
+                if isinstance(arg, str):
+                    self._update_args(arg, argument[arg_idx+1])
+            self.sc.msg("/n_set", [self.nodeid]+argument)
         else:
-            self.args[key] = value
-            self.sc.msg("/n_set", [self.nodeid, key, value]+list(args))
+            self._update_args(argument, value)
+            self.sc.msg("/n_set", [self.nodeid, argument, value]+list(args))
         return self
+
+    def _update_args(self, argument, value):
+        if not argument.startswith("t_"):
+            self.current_args[argument] = value
+
+    def get(self, argument):
+        """Get a synth argument
+
+        This will request the value from scsynth with s_get(n).
+
+        Parameters
+        ----------
+        argument : string
+            name of the synth argument
+        """
+        default_value = self.synth_args[argument].default
+        if isinstance(default_value, list):
+            return list(
+                self.sc.msg("/s_getn", [self.nodeid,
+                                        argument,
+                                        len(default_value)]
+                            )[3:])
+        else:
+            return self.sc.msg("/s_get", [self.nodeid, argument])[2]
+
+    def __getattr__(self, name):
+        if name in self.synth_args:
+            return self.get(name)
+        raise AttributeError
+
+    def __setattr__(self, name, value):
+        if name != 'synth_args' and name in self.synth_args:
+            self.set(name, value)
+        else:
+            super().__setattr__(name, value)
+
+    def __repr__(self):
+        status = "paused" if self.pause_status else "running"
+        status = status if not self.freed else "freed"
+        return f"Synth {self.nodeid} {self.name} {self.current_args} " + \
+               f"[{status}]"
 
     def __del__(self):
-        self.free()
+        if not self.freed:
+            self.free()
 
 
 class SynthDef:
-    def __init__(self, sc, name="", definition=""):
+    """Wrapper for SuperCollider SynthDef"""
+
+    def __init__(self, sc, name, definition):
         """
         Create a dynamic synth definition in sc.
 
@@ -150,16 +295,15 @@ class SynthDef:
         Parameters
         ----------
         dictionary: dict
-            (k,v) tuple dict, while k is the searchpattern and v is the
-            replacement
+            {searchpattern: replacement}
 
         Returns
         -------
         self : object of type SynthDef
             the SynthDef object
         """
-        for (k, v) in dictionary.items():
-            self.set_context(k, v)
+        for (searchpattern, replacement) in dictionary.items():
+            self.set_context(searchpattern, replacement)
         return self
 
     def unset_remaining(self):
@@ -178,36 +322,56 @@ class SynthDef:
         self.current_def = re.sub(r"{{[^}]+}}", "", self.current_def)
         return self
 
-    def create(self, pyvars={}):
+    def add(self, pyvars=None):
         """
-        This method will create the current_def as a sc synthDef.
-        It will block until sc has created the synthdef.
+        This method will add the current_def to SuperCollider.
+
         If a synth with the same definition was already in sc, this method
         will only return the name.
 
         Parameters
         ----------
         pyvars: dict
-            SC pyvars dict, to modify the synthdef command while executing it.
+            SC pyvars dict, to inject python variables
 
         Returns
         -------
         string: Name of the synthdef
         """
-        # Check if a synth with the same definition is already defined -> use it
+        # if a synth with the same definition is already defined -> use it
         if (self.current_def, pyvars) in self.defined_instances.values():
-            return list(self.defined_instances.keys())[list(self.defined_instances.values()).index((self.current_def, pyvars))]
+            defined_instances = list(self.defined_instances.keys())
+            same_idx = defined_instances.index((self.current_def, pyvars))
+            return defined_instances[same_idx]
 
         name = self.name + str(len(self.defined_instances))
 
-        # Create new synthDef
-        self.sc.cmd(f"""SynthDef("{name}", {self.current_def}).add();""", pyvars=pyvars)
+        if pyvars is None:
+            pyvars = parse_pyvars(self.current_def)
+
+        # Create new SynthDef add it to SynthDescLib and get bytes
+        synth_def_blob = self.sc.cmdg(f"""
+            r.tmpSynthDef = SynthDef("{name}", {self.current_def});
+            SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
+            r.tmpSynthDef.asBytes();""", pyvars=pyvars)
+        self.sc.msg("d_recv", synth_def_blob)
         self.defined_instances[name] = (self.current_def, pyvars)
-        # ToDo: Wait for release of: self.sc.osc.sync()
         return name
 
-    def create_and_reset(self, pyvars={}):
-        name = self.create(pyvars)
+    def add_and_reset(self, pyvars=None):
+        """Short hand for add and reset
+
+        Parameters
+        ----------
+        pyvars : dict, optional
+            SC pyvars dict, to inject python variables
+
+        Returns
+        -------
+        string
+            name of SynthDef
+        """
+        name = self.add(pyvars)
         self.reset()
         return name
 
@@ -248,4 +412,4 @@ class SynthDef:
             self.free(key)
 
     def __repr__(self):
-        return self.current_def
+        return f'SynthDef("{self.name}",{self.current_def})'

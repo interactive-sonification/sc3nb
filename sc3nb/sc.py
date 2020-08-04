@@ -10,20 +10,19 @@ import threading
 import time
 from queue import Empty, Queue
 
-import numpy as np
 from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .buffer import Buffer
 from .synth import Synth, SynthDef
 from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
-from .tools import (convert_to_sc, find_executable, parse_pyvars,
+from .tools import (find_executable, parse_pyvars,
                     remove_comments, replace_vars)
 
 if os.name == 'posix':
-    import fcntl
+    import fcntl   # pylint: disable=import-error
 
-ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
 
 class SC():
@@ -102,7 +101,7 @@ class SC():
 
         scp_thread = threading.Thread(target=self.__read_loop, args=(
             self.scp.stdout, self.scp_queue))
-        scp_thread.setDaemon(True)
+        scp_thread.daemon = True
         scp_thread.start()
 
         print('Starting sclang...')
@@ -116,14 +115,14 @@ class SC():
         self.bundle = self.osc.bundle
         self.msg_queues = self.osc.msg_queues
         self.update_msg_queues = self.osc.update_msg_queues
-        self.async_msgs = self.osc.async_msgs
-        self.msg_pairs = self.osc.msg_pairs
         self.sync = self.osc.sync
+        self.bundle_builder = self.osc.bundle_builder
         self.get_connection_info = self.osc.get_connection_info
 
-        print('Registering UDP callback...')
+        print('Registering OSC /return callback in sclang...')
 
         self.cmd(r'''
+            // NetAddr.useDoubles = true;
             r = r ? ();
             r.callback = { arg code, ip, port;
                 var result = code.interpret;
@@ -135,50 +134,47 @@ class SC():
                         elem;
                     };
                 };
-                result = prependSize.value(result);
-                addr.sendMsg("/return", result);
+                var msgContent = prependSize.value(result);
+                addr.sendMsg("/return", msgContent);
                 result;  // result should be returned
-            };
-            ''')
-
-        self.__scpout_read(terminal='a Function')
-
+            };''')
+        self.__scpout_read(terminal=self.terminal_symbol)
         print('Done.')
 
         sclang_port = self.cmdg('NetAddr.langPort')
         if sclang_port != SCLANG_DEFAULT_PORT:
             self.osc.set_sclang(sclang_port=sclang_port)
-            print('Sclang started on non default port: {}'.format(sclang_port))
+            print('sclang started on non default port: {}'.format(sclang_port))
 
         # counter for nextNodeID
-        self.num_IDs = 0
-        self.num_buffer_IDs = 0
+        self.num_ids = 0
+        self.num_buffer_ids = 0
 
         # clear output buffer
         self.__scpout_empty()
 
     def cmd(self, cmdstr, pyvars=None,
             verbose=False, discard_output=True,
-            get_result=False, timeout=1):
+            get_result=False, get_output=False, timeout=1):
         """Sends code to SuperCollider (sclang)
 
         Arguments:
             cmdstr {str} -- SuperCollider code
 
         Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and value pairs
-                             of python variables that can be
-                             injected via ^name
+            pyvars {dict} -- Dictionary of name and value pairs of python
+                             variables that can be injected via ^name
                              (default: {None})
             verbose {bool} -- if True print output
                               (default: {False})
-            discard_output {bool} -- if True clear output
-                                     buffer before passing
-                                     command
+            discard_output {bool} -- if True clear output buffer before
+                                     passing command
                                      (default: {True})
-            get_result {bool} -- if True receive and return
-                                 the evaluation result
-                                 from sclang
+            get_result {bool} -- if True receive and return the evaluation
+                                 result from sclang
+                                 (default: {False})
+            get_output {bool} -- if True return output if not get_result
+                                 if verbose this will be True
                                  (default: {False})
             timeout {int} -- Timeout time for receiving data
                              (default: {1})
@@ -188,8 +184,12 @@ class SC():
                    Output from SuperCollider code,
                    not all SC types supported.
                    When type is not understood this
-                   will return the data gram from the
+                   will return the datagram from the
                    OSC packet.
+
+        Raises:
+            ChildProcessError
+                When communication with sclang fails
         """
         if pyvars is None:
             pyvars = parse_pyvars(cmdstr)
@@ -208,8 +208,8 @@ class SC():
             cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
                 inner_cmdstr, *self.osc.server.server_address)
 
-        if verbose and discard_output:
-                self.__scpout_empty()  # clean all past outputs
+        if discard_output:
+            self.__scpout_empty()  # clean all past outputs
 
         # write command to sclang pipe \f
         if cmdstr and cmdstr[-1] != ';':
@@ -223,19 +223,22 @@ class SC():
             try:
                 return_val = self.osc.returns.get(timeout)
             except Empty:
-                print("SCLANG ERROR:")
-                print(self.__scpout_read(terminal=self.terminal_symbol))
-                raise ChildProcessError("unable to receive result from sclang")
+                print("ERROR: unable to receive /return message from sclang")
+                print("sclang output: (also see console) \n")
+                print(self.__scpout_read())
+                raise ChildProcessError(
+                    "unable to receive /return message from sclang")
 
-        if verbose:
+        if verbose or get_output:
             # get output after current command
             out = self.__scpout_read(terminal=self.terminal_symbol)
             if sys.platform != 'win32':
-                out = ansi_escape.sub('', out)  # remove ansi chars
+                out = ANSI_ESCAPE.sub('', out)  # remove ansi chars
                 out = out.replace('sc3>', '')  # remove prompt
                 out = out[out.find(';\n') + 2:]  # skip cmdstr echo
             out = out.strip()
-            print(out)
+            if verbose:
+                print(out)
             if not get_result:
                 return_val = out
 
@@ -328,20 +331,18 @@ class SC():
 
         self.cmd("s.freeAll")
 
-    def nextNodeID(self):
-        """Returns the next nodeID, starting at 10000, not clientID based
-        """
+    def next_node_id(self):
+        """Returns the next node ID, starting at 10000, not clientID based"""
+        self.num_ids += 1
+        node_id = self.num_ids + 10000
+        return node_id
 
-        self.num_IDs += 1
-        nodeID = self.num_IDs + 10000
-        return nodeID
-
-    def nextBufferID(self):
+    def next_buffer_id(self):
         """Returns the next bufferID, starting at 100, not clientID based
         """
 
-        self.num_buffer_IDs += 1
-        return self.num_buffer_IDs + 100
+        self.num_buffer_ids += 1
+        return self.num_buffer_ids + 100
 
     def exit(self):
         """Closes SuperCollider and shuts down server
@@ -351,19 +352,24 @@ class SC():
             if self.server:
                 self.__s_quit()
         self.osc.exit()
+        print("Killing sclang subprocess")
         self.scp.kill()
+        self.scp.wait()
+        print(f"Done. ")
 
     def boot_with_blip(self):
         """Boots SuperCollider server with audio feedback
         """
 
-        print('Booting server...')
+        print('Booting scsynth...')
 
         self.server = True
 
         # make sure SC is booted and knows this synths:
         self.cmd(r"""
             Server.default = s = Server.local;
+            o = Server.default.options;
+            o.maxLogins = 2;
             s.boot.doWhenBooted(
             { Routine({
             /* synth definitions *********************************/
@@ -409,10 +415,13 @@ class SC():
             Synth.new(\s1, [\freq, 500, \dur, 0.1, \num, 1]);
             0.2.wait;
             x = Synth.new(\s2, [\freq, 1000, \amp, 0.05, \num, 2]);
-            0.1.wait; x.free;""" + self.sc_end_marker_prog + r"""}).play} , 1000);
+            0.1.wait;
+            x.free;""" + self.sc_end_marker_prog + r"""}).play} , 1000);
         """)
-
         self.__scpout_read(timeout=10, terminal='finished booting')
+
+        print('Registering to scsynth...')
+        self.msg("/notify", 1)  # notify scsynth about us.
 
         print('Done.')
 
@@ -545,7 +554,10 @@ class SC():
 
         self.cmd('s.quit')
 
-        self.__scpout_read(terminal='RESULT = 0')
+        if sys.platform in ["linux", "linux2", "darwin"]:
+            self.__scpout_read(terminal='RESULT = 0')
+        elif sys.platform == "win32":
+            self.__scpout_read(terminal='exit code 0.')
 
         self.server = False
 
@@ -556,21 +568,27 @@ class SC():
         timeout = time.time() + timeout
         out = ''
         terminal_found = False
-        while True:
-            if time.time() >= timeout:
-                raise TimeoutError('timeout when reading SC stdout')
-            try:
-                retbytes = self.scp_queue.get_nowait()
-                if retbytes is not None:
-                    out += retbytes.decode()
-                    if re.search(terminal, out):
-                        terminal_found = True
-            except Empty:
-                if terminal and not terminal_found:
-                    pass
-                else:
-                    return out
-            time.sleep(0.001)
+        try:
+            while True:
+                if time.time() >= timeout:
+                    raise TimeoutError('timeout when reading SC stdout')
+                try:
+                    retbytes = self.scp_queue.get_nowait()
+                    if retbytes is not None:
+                        out += retbytes.decode()
+                        if terminal is not None and re.search(terminal, out):
+                            terminal_found = True
+                except Empty:
+                    if terminal and not terminal_found:
+                        pass
+                    else:
+                        return out
+                time.sleep(0.001)
+        except TimeoutError:
+            print("ERROR: Timeout while reading sclang")
+            print("sclang output until timeout: (also see console)\n")
+            print(out)
+            raise
 
     def __scpout_empty(self):
         '''Empties sc output queue'''
@@ -598,30 +616,30 @@ class SC():
                     queue.put(out)
                     if self.console_logging:
                         # to remove ansi chars
-                        out = ansi_escape.sub('', out.decode())
+                        out = ANSI_ESCAPE.sub('', out.decode())
                         # print to jupyter console...
                         os.write(1, out.encode())
             except EOFError:
                 pass
             time.sleep(0.001)
 
-    def Buffer(self, **kwargs):
+    def Buffer(self, *args, **kwargs):
         """
         Documentation see: :class:`Buffer`
         """
-        return Buffer(self, **kwargs)
+        return Buffer(self, *args, **kwargs)
 
-    def Synth(self, **kwargs):
+    def Synth(self, *args, **kwargs):
         """
         Documentation see: :class:`Synth`
         """
-        return Synth(self, **kwargs)
+        return Synth(self, *args, **kwargs)
 
-    def SynthDef(self, **kwargs):
+    def SynthDef(self, *args, **kwargs):
         """
         Documentation see: :class:`SynthDef`
         """
-        return SynthDef(self, **kwargs)
+        return SynthDef(self, *args, **kwargs)
 
 
 def startup(boot=True, magic=True, **kwargs):

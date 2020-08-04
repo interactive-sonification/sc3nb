@@ -6,17 +6,15 @@ SuperCollider over UDP
 
 import errno
 import logging
-import select
-import socket
 import threading
 import time
 from queue import Empty, Queue
 
 from random import randint
-from pythonosc import (dispatcher, osc_bundle_builder, osc_message,
+from pythonosc import (dispatcher, osc_bundle_builder,
                        osc_message_builder, osc_server)
 
-from .tools import parse_sclang_blob
+from .parsing import parse_sclang_osc_packet
 
 SCSYNTH_DEFAULT_PORT = 57110
 SCLANG_DEFAULT_PORT = 57120
@@ -24,23 +22,22 @@ SCLANG_DEFAULT_PORT = 57120
 OSCCOM_DEFAULT_PORT = 57130
 
 ASYNC_MSGS = [
-            "/quit",    # Master
-            "/notify",
-            "/d_recv",  # Synth Def load SynthDefs
-            "/d_load",
-            "/d_loadDir",
-            "/b_alloc",  # Buffer Commands
-            "/b_allocRead",
-            "/b_allocReadChannel",
-            "/b_read",
-            "/b_readChannel",
-            "/b_write",
-            "/b_free",
-            "/b_zero",
-            "/b_gen",
-            "/b_close"
+    "/quit",    # Master
+    "/notify",
+    "/d_recv",  # Synth Def load SynthDefs
+    "/d_load",
+    "/d_loadDir",
+    "/b_alloc",  # Buffer Commands
+    "/b_allocRead",
+    "/b_allocReadChannel",
+    "/b_read",
+    "/b_readChannel",
+    "/b_write",
+    "/b_free",
+    "/b_zero",
+    "/b_gen",
+    "/b_close"
 ]
-
 
 MSG_PAIRS = {
     # Master
@@ -64,6 +61,43 @@ MSG_PAIRS = {
 }
 
 
+def _add_msg(self, msg_addr, msg_args):
+    """Add a pythonsosc OSC message to this bundle.
+
+    Parameters
+    ----------
+    msg_addr : str
+        SuperCollider address.
+    msg_args : list
+        List of arguments to add to message.
+
+    Returns
+    -------
+    self
+        for call chaining
+    """
+    msg = build_message(msg_addr, msg_args)
+    self.add_content(msg)
+    return self
+
+
+osc_bundle_builder.OscBundleBuilder.add_msg = _add_msg
+
+
+def _send(self, sclang=False):
+    """Build and send this bundle.
+
+    Parameters
+    ----------
+    sclang : bool
+            If True sends msg to sclang else sends msg to scsynth.
+    """
+    self.osc.send(self.build(), sclang)
+
+
+osc_bundle_builder.OscBundleBuilder.send = _send
+
+
 def build_bundle(timetag, msg_addr, msg_args):
     """Builds pythonsosc OSC bundle
 
@@ -71,6 +105,7 @@ def build_bundle(timetag, msg_addr, msg_args):
     ----------
     timetag : int
         Time at which bundle content should be executed.
+        If timetag < 1e6 it is added to time.time().
     msg_addr : str
         SuperCollider address.
     msg_args : list
@@ -84,7 +119,7 @@ def build_bundle(timetag, msg_addr, msg_args):
     """
 
     if msg_args is None:
-            msg_args = []
+        msg_args = []
 
     if timetag < 1e6:
         timetag = time.time() + timetag
@@ -113,7 +148,7 @@ def build_message(msg_addr, msg_args):
     """
 
     if msg_args is None:
-            msg_args = []
+        msg_args = []
 
     if not msg_addr.startswith('/'):
         msg_addr = '/' + msg_addr
@@ -146,14 +181,15 @@ class AddressQueue():
         self.queue = Queue()
         self._skips = 0
 
-    def __put(self, address, *args):
+    def _put(self, address, *args):
+        if self.address != address:
+            logging.info(
+                "AddressQueue %s: alternative address %s", self.address, address)
         if self.process:
             args = self.process(args)
         else:
             if len(args) == 1:
                 args = args[0]
-            elif len(args) == 0:
-                args = None
         self.queue.put(args)
 
     @property
@@ -162,8 +198,15 @@ class AddressQueue():
         return self._skips
 
     @property
-    def _map_values(self):
-        return self.address, self.__put
+    def map_values(self):
+        """Values needed for dispatcher map call
+
+        Returns
+        -------
+        tuple
+            (OSC address pattern, callback function)
+        """
+        return self.address, self._put
 
     def get(self, timeout=5, skip=False):
         """Returns a value from the queue
@@ -191,7 +234,7 @@ class AddressQueue():
         if skip:
             while self._skips > 0:
                 skipped_value = self.queue.get(block=True, timeout=timeout)
-                logging.warn(f"AddressQueue: skipped value {skipped_value}")
+                logging.warning("AddressQueue: skipped value %s", skipped_value)
                 self._skips -= 1
         if self._skips > 0:
             self._skips -= 1
@@ -213,7 +256,7 @@ def preprocess_return(value):
     Parameters
     ----------
     value : tuple
-        tuple with one entry that is the send data
+        return data
 
     Returns
     -------
@@ -221,9 +264,10 @@ def preprocess_return(value):
         data
 
     """
-    value = value[0]
-    if type(value) == bytes:
-        value = parse_sclang_blob(value)
+    if len(value) == 1:
+        value = value[0]
+        if isinstance(value, bytes):
+            value = parse_sclang_osc_packet(value)
     return value
 
 
@@ -248,8 +292,8 @@ class OscCommunication():
                 print("This sc3nb sc instance is at port: {}"
                       .format(server_port))
                 break
-            except OSError as e:
-                if e.errno == errno.EADDRINUSE:
+            except OSError as error:
+                if error.errno == errno.EADDRINUSE:
                     server_port += 1
 
         # set known messages
@@ -262,7 +306,7 @@ class OscCommunication():
 
         # init special msg queues
         self.returns = AddressQueue("/return", preprocess_return)
-        server_dispatcher.map(*self.returns._map_values)
+        server_dispatcher.map(*self.returns.map_values)
 
         # As /done messages have no purpose for us at this point
         # we don't collect /done messages
@@ -275,6 +319,7 @@ class OscCommunication():
 
         self.server_thread = threading.Thread(
             target=self.server.serve_forever)
+        self.server_thread.daemon = True
         self.server_thread.start()
 
         print("Done.")
@@ -282,7 +327,7 @@ class OscCommunication():
     def update_msg_queues(self, new_msg_pairs=None):
         """Update the queues used for message receiving.
 
-        This method will check for all `msg_pairs` if there is a AddressQueue
+        This method will check for all `msg_pairs` if there is an AddressQueue
         already created and if it is missing it will create one.
 
         Parameters
@@ -298,7 +343,7 @@ class OscCommunication():
         for msg_addr, response_addr in self.msg_pairs.items():
             if msg_addr not in self.msg_queues:
                 addr_queue = AddressQueue(response_addr)
-                self.server.dispatcher.map(*addr_queue._map_values)
+                self.server.dispatcher.map(*addr_queue.map_values)
                 self.msg_queues[msg_addr] = addr_queue
 
     def __check_sender(self, sender):
@@ -309,12 +354,16 @@ class OscCommunication():
         return sender
 
     def __log(self, sender, *args):
-        logging.info("OSC_COM: osc msg received from {}: {}"
-                     .format(self.__check_sender(sender), args))
+        if len(str(args)) > 55:
+            args_str = str(args)[:55] + ".."
+        else:
+            args_str = str(args)
+        logging.info("OSC_COM: osc msg received from %s: %s",
+                     self.__check_sender(sender), args_str)
 
     def __warn(self, sender, *args):
-        logging.warn("OSC_COM: Error from {}:\n {} {}"
-                     .format(self.__check_sender(sender), args[2], args[1]))
+        logging.warning("OSC_COM: Error from %s:\n %s",
+                        self.__check_sender(sender), args)
 
     def set_sclang(self, sclang_ip='127.0.0.1',
                    sclang_port=SCLANG_DEFAULT_PORT):
@@ -370,7 +419,7 @@ class OscCommunication():
         return (self.server.server_address,
                 self.sclang_address, self.scsynth_address)
 
-    def send(self, content, sclang):
+    def send(self, content, sclang=False):
         """Sends OSC message or bundle to sclang or scsnyth
 
         Parameters
@@ -382,7 +431,7 @@ class OscCommunication():
 
         """
 
-        logging.debug(f"OSC_COM: sending dgram:\n{content.dgram}")
+        logging.debug("OSC_COM: sending dgram:\n%s", content.dgram)
         if sclang:
             self.server.socket.sendto(content.dgram, (self.sclang_address))
         else:
@@ -426,7 +475,7 @@ class OscCommunication():
             otherwise send the message and return directly.
              (Default value = True)
         timeout : int, optional
-            timeout for sync and response.
+            timeout in seconds for sync and response.
              (Default value = 5)
 
         Returns
@@ -438,18 +487,26 @@ class OscCommunication():
 
         msg = build_message(msg_addr, msg_args)
         self.send(msg, sclang)
-        logging.info("OSC_COM: send {} ".format(msg.address))
-        logging.debug("OSC_COM: msg.params {}".format(msg.params))
-        if msg.address in self.async_msgs:
-            if sync:
-                self.sync(timeout=timeout)
-            else:
-                self.msg_queues["/sync"]._skips += 1
-        elif msg.address in self.msg_pairs:
-            if sync:
-                return self.msg_queues[msg.address].get(timeout, skip=True)
-            else:
-                self.msg_queues[msg.address]._skips += 1
+        if len(str(msg.params)) > 55:
+            msg_params_str = str(msg.params)[:55] + ".."
+        else:
+            msg_params_str = str(msg.params)
+        logging.info("OSC_COM: send %s %s", msg.address, msg_params_str)
+        logging.debug("OSC_COM: msg.params %s ", msg.params)
+        try:
+            if msg.address in self.msg_pairs:
+                if sync:
+                    return self.msg_queues[msg.address].get(timeout, skip=True)
+                else:
+                    self.msg_queues[msg.address]._skips += 1
+            elif msg.address in self.async_msgs:
+                if sync:
+                    self.sync(timeout=timeout)
+        except (Empty, TimeoutError):
+            raise ChildProcessError(
+                f"Failed to sync after message to "
+                f"{'sclang' if sclang else 'scsynth'}"
+                f": {msg.address} {msg_params_str}")
 
     def bundle(self, timetag, msg_addr, msg_args=None, sclang=False):
         """Sends OSC bundle over UDP to either sclang or scsynth
@@ -458,6 +515,7 @@ class OscCommunication():
         ----------
         timetag : int
             Time at which bundle content should be executed.
+            If timetag < 1e6 it is added to time.time().
         msg_addr : str
             SuperCollider address.
         msg_args : list, optional
@@ -472,7 +530,31 @@ class OscCommunication():
         bundle = build_bundle(timetag, msg_addr, msg_args)
         self.send(bundle, sclang)
 
+    def bundle_builder(self, timetag):
+        """Generate a bundle builder.
+
+        This allows the user to easly add messages and send it.
+
+        Parameters
+        ----------
+        timetag : int
+            Time at which bundle content should be executed.
+            If timetag < 1e6 it is added to time.time().
+
+        Returns
+        -------
+        OscBundleBuilder
+            custom pythonosc BundleBuilder with add_msg and send
+        """
+        if timetag < 1e6:
+            timetag = time.time() + timetag
+        bundle_builder = osc_bundle_builder.OscBundleBuilder(timetag)
+        bundle_builder.osc = self
+        return bundle_builder
+
     def exit(self):
         """Shuts down the sc3nb server"""
 
+        print("Shutting down osc communication...")
         self.server.shutdown()
+        print("Done.")

@@ -1,105 +1,11 @@
 """Collection of helper functions for the libary"""
 
 import inspect
-import logging
-import numbers
 import os
 import re
 import sys
 
 import numpy as np
-from pythonosc.parsing import osc_types
-
-
-def parse_sclang_blob(data):
-    '''Parses the blob from a SuperCollider osc message'''
-
-    TYPE_TAG_MARKER = ord(b',')
-    TYPE_TAG_START = 4
-    NUM_SIZE = 4
-    INT_TAG = ord(b'i')
-    bytes2type = {
-        ord(b'i'): lambda data: osc_types.get_int(data, 0),
-        ord(b'f'): lambda data: osc_types.get_float(data, 0),
-        ord(b's'): lambda data: osc_types.get_string(data, 0),
-        ord(b'N'): lambda data: (None, 0),
-        ord(b'I'): lambda data: (np.inf, 0),
-        ord(b'T'): lambda data: (True, 0),
-        ord(b'F'): lambda data: (False, 0)
-    }
-
-    def _get_aligned_pos(pos):
-        return NUM_SIZE * int(np.ceil((pos)/NUM_SIZE))
-
-    def _parse_list(data):
-        logging.debug("[ start parsing list: {}".format(data))
-        list_size, _ = bytes2type[INT_TAG](data)
-        type_tag_offset = _get_aligned_pos(list_size + 2)
-        type_tag_end = TYPE_TAG_START + type_tag_offset
-        type_tag = data[TYPE_TAG_START + 1: TYPE_TAG_START + 1 + list_size]
-        value_list = []
-        idx = type_tag_end
-        for t in type_tag:
-            try:
-                value, num_bytes = bytes2type[t](data[idx:])
-            except KeyError:
-                raise Exception('type tag "{}" not understood'.format(chr(t)))
-            logging.debug("new value {}".format(value))
-            value_list.append(value)
-            idx += num_bytes
-
-        logging.debug("resulting list {}".format(value_list))
-        logging.debug("] end parsing list")
-        return value_list, idx
-
-    def _parse_sc_msg(data):
-        logging.debug(">> parse sc msg: {}".format(data))
-        msg_size, _ = bytes2type[INT_TAG](data)
-        logging.debug("msg size {}".format(msg_size))
-        data = data[NUM_SIZE:]
-
-        if data[:8] == b'#bundle\x00':
-            logging.debug("found bundle")
-            msgs, bundle_size = _parse_bundle(data)
-            return msgs, bundle_size + NUM_SIZE
-        elif data[TYPE_TAG_START] == TYPE_TAG_MARKER:
-            logging.debug("found list")
-            value_list, list_size = _parse_list(data[:msg_size])
-            return value_list, list_size + NUM_SIZE
-        else:
-            raise Exception("Datagram not recognized")
-
-    bytes2type[ord(b'b')] = _parse_sc_msg
-
-    def _parse_bundle(data):
-        logging.debug("## start parsing bundle: {}".format(data))
-        msgs = []
-        msg_count = ord(data[8+3:8+4]) - ord("\x80")
-        bundle_size = 16  # skip header
-        logging.debug("msg count {}".format(msg_count))
-        while msg_count > 0:
-            sc_msg, msg_size = _parse_sc_msg(data[bundle_size:])
-            msgs.append(sc_msg)
-            bundle_size += msg_size
-            msg_count -= 1
-            logging.debug("msgs left {}".format(msg_count))
-
-        bundle_size = _get_aligned_pos(bundle_size)
-        logging.debug("parsed bytes {}".format(data[:bundle_size]))
-        logging.debug("msgs {}".format(msgs))
-        logging.debug("## end parsing bundle ")
-        return msgs, bundle_size
-
-    try:
-        if len(data) > TYPE_TAG_START + 1:
-            if data[TYPE_TAG_START] == TYPE_TAG_MARKER:
-                return _parse_list(data)[0]
-            elif data[:8] == b'#bundle\x00':
-                return _parse_bundle(data)[0]
-    except Exception as e:
-        logging.warning('Ignoring Exception:\n{}\nreturning blob'.format(e))
-    return data
-
 
 def remove_comments(string):
     """Removes all //single-line or /* multi-line */ c-style comments
@@ -129,27 +35,54 @@ def remove_comments(string):
     return regex.sub(_replacer, string)
 
 
-def parse_pyvars(cmdstr):
-    '''Parses through call stack and finds
+def parse_pyvars(cmdstr, frame_nr=2):
+    """Parses through call stack and finds
     value of string representations of variables
-    '''
+
+    Parameters
+    ----------
+    cmdstr : string
+        SuperCollider command to be parsed
+    frame_nr : int, optional
+        on which frame to start, by default 2 (grandparent frame)
+
+    Returns
+    -------
+    dict
+        {variable_name: variable_value}
+
+    Raises
+    ------
+    NameError
+        If the variable value could not be found.
+    """
     matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
 
     pyvars = {match.split('^')[1].strip(): None for match in matches}
+    missing_vars = list(pyvars.keys())
 
-    # get frame from grandparent call stack
-    frame = inspect.stack()[2][0]
-
-    for pyvar in pyvars:
-        # check for variable in local variables
-        if pyvar in frame.f_locals:
-            pyvars[pyvar] = frame.f_locals[pyvar]
-        # check for variable in global variables
-        elif pyvar in frame.f_globals:
-            pyvars[pyvar] = frame.f_globals[pyvar]
-        else:
-            raise NameError('name \'{}\' is not defined'.format(pyvar))
-
+    stack = inspect.stack()
+    frame = None
+    try:
+        while missing_vars and frame_nr < len(stack):
+            frame = stack[frame_nr][0]
+            for pyvar in pyvars:
+                if pyvar not in missing_vars:
+                    continue
+                # check for variable in local variables
+                if pyvar in frame.f_locals:
+                    pyvars[pyvar] = frame.f_locals[pyvar]
+                    missing_vars.remove(pyvar)
+                # check for variable in global variables
+                elif pyvar in frame.f_globals:
+                    pyvars[pyvar] = frame.f_globals[pyvar]
+                    missing_vars.remove(pyvar)
+            frame_nr += 1
+    finally:
+        del frame
+        del stack
+    if missing_vars:
+        raise NameError('name(s) {} not defined'.format(missing_vars))
     return pyvars
 
 
