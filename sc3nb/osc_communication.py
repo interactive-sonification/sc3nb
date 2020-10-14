@@ -447,7 +447,7 @@ class OscCommunication():
         return (self.server.server_address,
                 self.sclang_address, self.scsynth_address)
 
-    def send(self, content, sclang=False):
+    def send(self, content, sclang=False, sync=True, timeout=5):
         """Sends OSC message or bundle to sclang or scsnyth
 
         Parameters
@@ -456,14 +456,44 @@ class OscCommunication():
             Object with `dgram` attribute.
         sclang : bool
             If True sends msg to sclang else sends msg to scsynth.
+        sync : bool, optional
+            If True and content is a OscMessage send message and wait for sync or response
+            otherwise send the message and return directly.
+             (Default value = True)
+        timeout : int, optional
+            timeout in seconds for sync and response.
+             (Default value = 5)
 
         """
-
         logging.debug("OSC_COM: sending dgram:\n%s", content.dgram)
         if sclang:
             self.server.socket.sendto(content.dgram, (self.sclang_address))
         else:
             self.server.socket.sendto(content.dgram, (self.scsynth_address))
+
+        if isinstance(content, osc_message.OscMessage):
+            msg = content
+            if len(str(msg.params)) > 55:
+                msg_params_str = str(msg.params)[:55] + ".."
+            else:
+                msg_params_str = str(msg.params)
+            logging.info("OSC_COM: send %s %s", msg.address, msg_params_str)
+            logging.debug("OSC_COM: msg.params %s ", msg.params)
+            try:
+                if msg.address in self.msg_pairs:
+                    if sync:
+                        return self.msg_queues[msg.address].get(timeout, skip=True)
+                    else:
+                        self.msg_queues[msg.address]._skips += 1
+                elif msg.address in self.async_msgs:
+                    if sync:
+                        self.sync(timeout=timeout)
+            except (Empty, TimeoutError) as e:
+                raise ChildProcessError(
+                    f"Failed to sync after message to "
+                    f"{'sclang' if sclang else 'scsynth'}"
+                    f": {msg.address} {msg_params_str}") from e
+
 
     def sync(self, timeout=5):
         """Sync with the scsynth server with the /sync command.
@@ -514,27 +544,7 @@ class OscCommunication():
         """
 
         msg = build_message(msg_addr, msg_args)
-        self.send(msg, sclang)
-        if len(str(msg.params)) > 55:
-            msg_params_str = str(msg.params)[:55] + ".."
-        else:
-            msg_params_str = str(msg.params)
-        logging.info("OSC_COM: send %s %s", msg.address, msg_params_str)
-        logging.debug("OSC_COM: msg.params %s ", msg.params)
-        try:
-            if msg.address in self.msg_pairs:
-                if sync:
-                    return self.msg_queues[msg.address].get(timeout, skip=True)
-                else:
-                    self.msg_queues[msg.address]._skips += 1
-            elif msg.address in self.async_msgs:
-                if sync:
-                    self.sync(timeout=timeout)
-        except (Empty, TimeoutError):
-            raise ChildProcessError(
-                f"Failed to sync after message to "
-                f"{'sclang' if sclang else 'scsynth'}"
-                f": {msg.address} {msg_params_str}")
+        return self.send(msg, sclang, sync, timeout)
 
     def bundle(self, timetag, msg_addr=None, msg_args=None):
         """Generate a bundle builder.
