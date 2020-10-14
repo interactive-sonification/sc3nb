@@ -11,8 +11,8 @@ import time
 from queue import Empty, Queue
 
 from random import randint
-from pythonosc import (dispatcher, osc_bundle_builder,
-                       osc_message_builder, osc_server)
+from pythonosc import (dispatcher, osc_server,
+                       osc_bundle_builder, osc_message_builder, osc_message)
 
 from .parsing import parse_sclang_osc_packet
 
@@ -62,7 +62,7 @@ MSG_PAIRS = {
 
 
 def _add_msg(self, msg_addr, msg_args):
-    """Add a pythonsosc OSC message to this bundle.
+    """Add a pythonsosc OscMessage to this bundle.
 
     Parameters
     ----------
@@ -104,6 +104,26 @@ def _send(self, osc=None, sclang=False):
 
 
 osc_bundle_builder.OscBundleBuilder.send = _send
+
+
+def _add(self, content):
+    """Add a pythonosc OscMessage or OscBundle to this bundle.
+
+    Parameters
+    ----------
+    content : OscMessage or OscBundle
+        bundle content
+
+    Returns
+    -------
+    OscBundleBuilder
+        self for chaining
+    """
+    self.add_content(content)
+    return self
+
+
+osc_bundle_builder.OscBundleBuilder.add = _add
 
 
 def bundle_builder(timetag, msg_addr=None, msg_args=None):
@@ -459,7 +479,7 @@ class OscCommunication():
         synced = False
         while not synced:
             sync_id = randint(1000, 9999)
-            synced = sync_id == self.msg("/sync", sync_id)
+            synced = (sync_id == self.msg("/sync", sync_id))
             if time.time() >= timeout_end:
                 raise TimeoutError(
                     'timeout while trying to sync with the server')
