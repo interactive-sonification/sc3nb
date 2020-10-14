@@ -25,6 +25,11 @@ if os.name == 'posix':
 ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
 
+class SclangTimeoutError(TimeoutError):
+    def __init__(self, *args, sclang_output=None):
+        super().__init__(args)
+        self.sclang_output = sclang_output
+
 class SC():
     """SC is a class to start SuperCollider language as subprocess
     and control it via a pipe. Communication with scsynth is handled
@@ -106,7 +111,14 @@ class SC():
 
         print('Starting sclang...')
 
-        self.__scpout_read(timeout=10, terminal='Welcome to SuperCollider')
+        try:
+            self.__scpout_read(timeout=10, terminal='Welcome to SuperCollider')
+        except SclangTimeoutError as e:
+            if e.sclang_output:
+                if "Primitive '_GetLangPort' failed" in e.sclang_output:
+                    raise ChildProcessError("sclang could not bind udp socket. "
+                                            "Try killing old sclang processes.") from e
+
 
         print('Done.')
 
@@ -570,7 +582,7 @@ class SC():
         try:
             while True:
                 if time.time() >= timeout:
-                    raise TimeoutError('timeout when reading SC stdout')
+                    raise SclangTimeoutError('timeout when reading SC stdout')
                 try:
                     retbytes = self.scp_queue.get_nowait()
                     if retbytes is not None:
@@ -583,10 +595,11 @@ class SC():
                     else:
                         return out
                 time.sleep(0.001)
-        except TimeoutError:
+        except SclangTimeoutError as e:
             print("ERROR: Timeout while reading sclang")
             print("sclang output until timeout: (also see console)\n")
             print(out)
+            e.sclang_output = out
             raise
 
     def __scpout_empty(self):
