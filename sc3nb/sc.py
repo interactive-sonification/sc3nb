@@ -14,7 +14,8 @@ from IPython import get_ipython
 from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from .buffer import Buffer
-from .synth import Synth, SynthDef
+from .synth import SynthDef
+from .node import Synth, Group
 from .osc_communication import SCLANG_DEFAULT_PORT, OscCommunication
 from .tools import (find_executable, parse_pyvars,
                     remove_comments, replace_vars)
@@ -647,6 +648,12 @@ class SC():
         """
         return Synth(self, *args, **kwargs)
 
+    def Group(self, *args, **kwargs):
+        """
+        Documentation see: :class:`Group`
+        """
+        return Group(self, *args, **kwargs)
+    
     def SynthDef(self, *args, **kwargs):
         """
         Documentation see: :class:`SynthDef`

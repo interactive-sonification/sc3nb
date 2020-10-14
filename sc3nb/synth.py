@@ -3,251 +3,251 @@
 import re
 
 from collections import namedtuple
-from functools import reduce
-from operator import iconcat
+#from functools import reduce
+#from operator import iconcat
 
 from .tools import parse_pyvars
-from .osc_communication import build_message
+#from .osc_communication import build_message
 
-SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
-
-
-def get_synth_desc(sc, synth_def):
-    """Get SynthDesc via sclang
-
-    Parameters
-    ----------
-    sc : SC
-        SC instance with SynthDef
-    synth_def : str
-        SynthDef name
-
-    Returns
-    -------
-    dict
-        {argument_name: SynthArgument(rate, default)}
-
-    Raises
-    ------
-    ValueError
-        When synthDesc of synthDef can not be found.
-    """
-    cmdstr = r"""SynthDescLib.global[{{synthDef}}].controls.collect(
-            { arg control;
-            [control.name, control.rate, control.defaultValue]
-            })""".replace('{{synthDef}}', f"'{synth_def}'")
-    synth_desc = sc.cmdg(cmdstr)
-    return {s[0]: SynthArgument(*s[1:]) for s in synth_desc if s[0] != '?'}
+#SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
 
 
-class Synth:
-    """Wrapper for the SuperCollider Synth"""
+# def get_synth_desc(sc, synth_def):
+#     """Get SynthDesc via sclang
 
-    def __init__(self, sc, name="default", nodeid=None, start=True, action=1, target=1,
-                 args=None):
-        """Creates a new Synth with given supercollider instance, name
-        and a dict of arguments to the synth.
+#     Parameters
+#     ----------
+#     sc : SC
+#         SC instance with SynthDef
+#     synth_def : str
+#         SynthDef name
 
-        Parameters
-        ----------
-        sc : SC
-            sc3nb SuperCollider instance
-        name : str, optional
-            name of the synth to be created, by default "default"
-        nodeid : int, optional
-            ID of the node in SuperCollider, by default sc will create one
-        action : int, optional
-            add action (see s_new), by default 1
-        target : int, optional
-            add target ID (see s_new), by default 1
-        args : dict, optional
-            synth arguments, by default None
+#     Returns
+#     -------
+#     dict
+#         {argument_name: SynthArgument(rate, default)}
 
-        Raises
-        ------
-        ValueError
-            Raised when synth can't be found via SynthDescLib.global
+#     Raises
+#     ------
+#     ValueError
+#         When synthDesc of synthDef can not be found.
+#     """
+#     cmdstr = r"""SynthDescLib.global[{{synthDef}}].controls.collect(
+#             { arg control;
+#             [control.name, control.rate, control.defaultValue]
+#             })""".replace('{{synthDef}}', f"'{synth_def}'")
+#     synth_desc = sc.cmdg(cmdstr)
+#     return {s[0]: SynthArgument(*s[1:]) for s in synth_desc if s[0] != '?'}
 
-        Example:
-        --------
-        stk.Synth(sc=sc, args={"dur": 1, "freq": 400}, name="s1")
-        """
-        # attention: synth_args must be set first!
-        # synth_args is used in setattr, getattr below!
-        self.synth_args = get_synth_desc(sc, name)
-        self.name = name
-        self.sc = sc
-        self.nodeid = nodeid if nodeid is not None else sc.next_node_id()
-        self.action = action
-        self.target = target
-        self.freed = False
-        self.pause_status = False
-        if args is None:
-            self.current_args = {}
-        else:
-            self.current_args = args
-        if start:
-            self.start(self.current_args)
 
-    def run(self, flag=True, return_msg=False):
-        """
-        En-/Disable synth running
-        """
-        msg = build_message("/n_run", [self.nodeid, 0 if flag is False else 1])
-        if return_msg:
-            return msg
-        else:
-            self.sc.osc.send(msg)
-            self.pause_status = not flag
-        return self
+# class Synth:
+#     """Wrapper for the SuperCollider Synth"""
 
-    def pause(self, flag=None):
-        """
-        Pause a synth, or play it, if synth is already paused
-        """
-        self.run(flag if flag is not None else self.pause_status)
-        return self
+#     def __init__(self, sc, name="default", nodeid=None, start=True, action=1, target=1,
+#                  args=None):
+#         """Creates a new Synth with given supercollider instance, name
+#         and a dict of arguments to the synth.
 
-    def free(self, return_msg=False):
-        """
-        Frees a synth with n_free
-        """
-        msg = build_message("/n_free", [self.nodeid])
-        if return_msg:
-            return msg
-        else:
-            self.sc.osc.send(msg)
-            self.freed = True
-        return self
+#         Parameters
+#         ----------
+#         sc : SC
+#             sc3nb SuperCollider instance
+#         name : str, optional
+#             name of the synth to be created, by default "default"
+#         nodeid : int, optional
+#             ID of the node in SuperCollider, by default sc will create one
+#         action : int, optional
+#             add action (see s_new), by default 1
+#         target : int, optional
+#             add target ID (see s_new), by default 1
+#         args : dict, optional
+#             synth arguments, by default None
 
-    def restart(self, args=None):
-        """Free and start synth
+#         Raises
+#         ------
+#         ValueError
+#             Raised when synth can't be found via SynthDescLib.global
 
-        Parameters
-        ----------
-        args : dict, optional
-            synth arguments, by default None
-        """
-        if not self.freed:
-            self.free()
-        self.start(args)
+#         Example:
+#         --------
+#         stk.Synth(sc=sc, args={"dur": 1, "freq": 400}, name="s1")
+#         """
+#         # attention: synth_args must be set first!
+#         # synth_args is used in setattr, getattr below!
+#         self.synth_args = get_synth_desc(sc, name)
+#         self.name = name
+#         self.sc = sc
+#         self.nodeid = nodeid if nodeid is not None else sc.next_node_id()
+#         self.action = action
+#         self.target = target
+#         self.freed = False
+#         self.pause_status = False
+#         if args is None:
+#             self.current_args = {}
+#         else:
+#             self.current_args = args
+#         if start:
+#             self.start(self.current_args)
 
-    def start(self, args=None, return_msg=False):
-        """Starts the synth
+#     def run(self, flag=True, return_msg=False):
+#         """
+#         En-/Disable synth running
+#         """
+#         msg = build_message("/n_run", [self.nodeid, 0 if flag is False else 1])
+#         if return_msg:
+#             return msg
+#         else:
+#             self.sc.osc.send(msg)
+#             self.pause_status = not flag
+#         return self
 
-        This will send a s_new command to scsynth.
-        Attention: Here you create an identical synth! Same synth node etc.
-        - use this method only, if your synth is freed before!
-        """
-        self.freed = False
-        self.pause_status = False
-        if args is not None:
-            self.current_args = args
-        flatten_args = reduce(iconcat, self.current_args.items(), [])
-        msg = build_message("/s_new",
-                                    [self.name, self.nodeid, self.action,
-                                    self.target] + flatten_args)
-        if return_msg:
-            return msg
-        else:
-            self.sc.osc.send(msg)
-        return self
+#     def pause(self, flag=None):
+#         """
+#         Pause a synth, or play it, if synth is already paused
+#         """
+#         self.run(flag if flag is not None else self.pause_status)
+#         return self
 
-    def set(self, argument, value=None, *args, return_msg=False):
-        """Set a control argument of the synth
+#     def free(self, return_msg=False):
+#         """
+#         Frees a synth with n_free
+#         """
+#         msg = build_message("/n_free", [self.nodeid])
+#         if return_msg:
+#             return msg
+#         else:
+#             self.sc.osc.send(msg)
+#             self.freed = True
+#         return self
 
-        This will send a n_set command to scsynth.
+#     def restart(self, args=None):
+#         """Free and start synth
 
-        Parameters
-        ----------
-        argument : string | dict | list
-            if string: name of control argument
-            if dict: dict with argument, value pairs
-            if list: use list as message content
-        value : any, optional
-            only used if argument is string, by default None
+#         Parameters
+#         ----------
+#         args : dict, optional
+#             synth arguments, by default None
+#         """
+#         if not self.freed:
+#             self.free()
+#         self.start(args)
 
-        Examples
-        -------
-        synth.set("freq", 400)
-        synth.set({"dur": 1, "freq": 400})
-        synth.set(["dur", 1, "freq", 400])
-        """
-        if isinstance(argument, dict):
-            arglist = [self.nodeid]
-            for arg, val in argument.items():
-                arglist.append(arg)
-                arglist.append(val)
-                self._update_args(arg, val)
-            msg = build_message("/n_set", arglist)
-        elif isinstance(argument, list):
-            for arg_idx, arg in enumerate(argument):
-                if isinstance(arg, str):
-                    self._update_args(arg, argument[arg_idx+1])
-            msg = build_message("/n_set", [self.nodeid]+argument)
-        else:
-            self._update_args(argument, value)
-            msg = build_message("/n_set", [self.nodeid, argument, value]+list(args))
-        if return_msg:
-            return msg
-        else:
-            self.sc.osc.send(msg)
-        return self
+#     def start(self, args=None, return_msg=False):
+#         """Starts the synth
 
-    def _update_args(self, argument, value):
-        if not argument.startswith("t_"):
-            self.current_args[argument] = value
+#         This will send a s_new command to scsynth.
+#         Attention: Here you create an identical synth! Same synth node etc.
+#         - use this method only, if your synth is freed before!
+#         """
+#         self.freed = False
+#         self.pause_status = False
+#         if args is not None:
+#             self.current_args = args
+#         flatten_args = reduce(iconcat, self.current_args.items(), [])
+#         msg = build_message("/s_new",
+#                                     [self.name, self.nodeid, self.action,
+#                                     self.target] + flatten_args)
+#         if return_msg:
+#             return msg
+#         else:
+#             self.sc.osc.send(msg)
+#         return self
 
-    def get(self, argument):
-        """Get a synth argument
+#     def set(self, argument, value=None, *args, return_msg=False):
+#         """Set a control argument of the synth
 
-        This will request the value from scsynth with s_get(n).
+#         This will send a n_set command to scsynth.
 
-        Parameters
-        ----------
-        argument : string
-            name of the synth argument
-        """
-        default_value = self.synth_args[argument].default
-        if isinstance(default_value, list):
-            return list(
-                self.sc.msg("/s_getn", [self.nodeid,
-                                        argument,
-                                        len(default_value)]
-                            )[3:])
-        else:
-            return self.sc.msg("/s_get", [self.nodeid, argument])[2]
+#         Parameters
+#         ----------
+#         argument : string | dict | list
+#             if string: name of control argument
+#             if dict: dict with argument, value pairs
+#             if list: use list as message content
+#         value : any, optional
+#             only used if argument is string, by default None
 
-    def query(self):
-        """Query a synth with n_query.
+#         Examples
+#         -------
+#         synth.set("freq", 400)
+#         synth.set({"dur": 1, "freq": 400})
+#         synth.set(["dur", 1, "freq", 400])
+#         """
+#         if isinstance(argument, dict):
+#             arglist = [self.nodeid]
+#             for arg, val in argument.items():
+#                 arglist.append(arg)
+#                 arglist.append(val)
+#                 self._update_args(arg, val)
+#             msg = build_message("/n_set", arglist)
+#         elif isinstance(argument, list):
+#             for arg_idx, arg in enumerate(argument):
+#                 if isinstance(arg, str):
+#                     self._update_args(arg, argument[arg_idx+1])
+#             msg = build_message("/n_set", [self.nodeid]+argument)
+#         else:
+#             self._update_args(argument, value)
+#             msg = build_message("/n_set", [self.nodeid, argument, value]+list(args))
+#         if return_msg:
+#             return msg
+#         else:
+#             self.sc.osc.send(msg)
+#         return self
 
-        Returns
-        -------
-        tuple
-            (node ID, parent, prev, next, isGroup)
-        """
-        return self.sc.msg("/n_query", [self.nodeid])
+#     def _update_args(self, argument, value):
+#         if not argument.startswith("t_"):
+#             self.current_args[argument] = value
 
-    def __getattr__(self, name):
-        if name in self.synth_args:
-            return self.get(name)
-        raise AttributeError
+#     def get(self, argument):
+#         """Get a synth argument
 
-    def __setattr__(self, name, value):
-        if name != 'synth_args' and name in self.synth_args:
-            self.set(name, value)
-        else:
-            super().__setattr__(name, value)
+#         This will request the value from scsynth with s_get(n).
 
-    def __repr__(self):
-        status = "paused" if self.pause_status else "running"
-        status = status if not self.freed else "freed"
-        return f"Synth {self.nodeid} {self.name} {self.current_args} " + \
-               f"[{status}]"
+#         Parameters
+#         ----------
+#         argument : string
+#             name of the synth argument
+#         """
+#         default_value = self.synth_args[argument].default
+#         if isinstance(default_value, list):
+#             return list(
+#                 self.sc.msg("/s_getn", [self.nodeid,
+#                                         argument,
+#                                         len(default_value)]
+#                             )[3:])
+#         else:
+#             return self.sc.msg("/s_get", [self.nodeid, argument])[2]
 
-    def __del__(self):
-        if not self.freed:
-            self.free()
+#     def query(self):
+#         """Query a synth with n_query.
+
+#         Returns
+#         -------
+#         tuple
+#             (node ID, parent, prev, next, isGroup)
+#         """
+#         return self.sc.msg("/n_query", [self.nodeid])
+
+#     def __getattr__(self, name):
+#         if name in self.synth_args:
+#             return self.get(name)
+#         raise AttributeError
+
+#     def __setattr__(self, name, value):
+#         if name != 'synth_args' and name in self.synth_args:
+#             self.set(name, value)
+#         else:
+#             super().__setattr__(name, value)
+
+#     def __repr__(self):
+#         status = "paused" if self.pause_status else "running"
+#         status = status if not self.freed else "freed"
+#         return f"Synth {self.nodeid} {self.name} {self.current_args} " + \
+#                f"[{status}]"
+
+#     def __del__(self):
+#         if not self.freed:
+#             self.free()
 
 
 class SynthDef:
@@ -380,7 +380,7 @@ class SynthDef:
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
             r.tmpSynthDef.asBytes();""", pyvars=pyvars)
-        self.sc.msg("d_recv", synth_def_blob)
+        self.sc.msg("/d_recv", synth_def_blob)
         self.defined_instances[name] = (self.current_def, pyvars)
         return name
 
