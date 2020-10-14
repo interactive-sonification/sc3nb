@@ -7,7 +7,7 @@ from functools import reduce
 from operator import iconcat
 
 from .tools import parse_pyvars
-
+from .osc_communication import build_message
 
 SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
 
@@ -89,12 +89,16 @@ class Synth:
         if start:
             self.start(self.current_args)
 
-    def run(self, flag=True):
+    def run(self, flag=True, return_msg=False):
         """
         En-/Disable synth running
         """
-        self.sc.msg("/n_run", [self.nodeid, 0 if flag is False else 1])
-        self.pause_status = not flag
+        msg = build_message("/n_run", [self.nodeid, 0 if flag is False else 1])
+        if return_msg:
+            return msg
+        else:
+            self.sc.osc.send(msg)
+            self.pause_status = not flag
         return self
 
     def pause(self, flag=None):
@@ -104,12 +108,16 @@ class Synth:
         self.run(flag if flag is not None else self.pause_status)
         return self
 
-    def free(self):
+    def free(self, return_msg=False):
         """
         Frees a synth with n_free
         """
-        self.freed = True
-        self.sc.msg("/n_free", [self.nodeid])
+        msg = build_message("/n_free", [self.nodeid])
+        if return_msg:
+            return msg
+        else:
+            self.sc.osc.send(msg)
+            self.freed = True
         return self
 
     def restart(self, args=None):
@@ -124,7 +132,7 @@ class Synth:
             self.free()
         self.start(args)
 
-    def start(self, args=None):
+    def start(self, args=None, return_msg=False):
         """Starts the synth
 
         This will send a s_new command to scsynth.
@@ -136,12 +144,16 @@ class Synth:
         if args is not None:
             self.current_args = args
         flatten_args = reduce(iconcat, self.current_args.items(), [])
-        self.sc.msg("/s_new",
-                    [self.name, self.nodeid, self.action,
-                     self.target] + flatten_args)
+        msg = build_message("/s_new",
+                                    [self.name, self.nodeid, self.action,
+                                    self.target] + flatten_args)
+        if return_msg:
+            return msg
+        else:
+            self.sc.osc.send(msg)
         return self
 
-    def set(self, argument, value=None, *args):
+    def set(self, argument, value=None, *args, return_msg=False):
         """Set a control argument of the synth
 
         This will send a n_set command to scsynth.
@@ -167,15 +179,19 @@ class Synth:
                 arglist.append(arg)
                 arglist.append(val)
                 self._update_args(arg, val)
-            self.sc.msg("/n_set", arglist)
+            msg = build_message("/n_set", arglist)
         elif isinstance(argument, list):
             for arg_idx, arg in enumerate(argument):
                 if isinstance(arg, str):
                     self._update_args(arg, argument[arg_idx+1])
-            self.sc.msg("/n_set", [self.nodeid]+argument)
+            msg = build_message("/n_set", [self.nodeid]+argument)
         else:
             self._update_args(argument, value)
-            self.sc.msg("/n_set", [self.nodeid, argument, value]+list(args))
+            msg = build_message("/n_set", [self.nodeid, argument, value]+list(args))
+        if return_msg:
+            return msg
+        else:
+            self.sc.osc.send(msg)
         return self
 
     def _update_args(self, argument, value):
