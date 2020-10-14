@@ -218,6 +218,16 @@ class Synth:
         else:
             return self.sc.msg("/s_get", [self.nodeid, argument])[2]
 
+    def query(self):
+        """Query a synth with n_query.
+
+        Returns
+        -------
+        tuple
+            (node ID, parent, prev, next, isGroup)
+        """
+        return self.sc.msg("/n_query", [self.nodeid])
+
     def __getattr__(self, name):
         if name in self.synth_args:
             return self.get(name)
