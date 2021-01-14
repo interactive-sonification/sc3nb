@@ -5,6 +5,8 @@ import os
 import scipy.io.wavfile as wavfile
 import numpy as np
 
+import sc3nb
+
 
 class Buffer:
     """A Buffer object represents a SuperCollider3 Buffer on scsynth
@@ -84,12 +86,12 @@ class Buffer:
 
     """
 
-    def __init__(self, sc, bufnum=None):
+    def __init__(self, bufnum=None, server=None):
+        self.server = server or sc3nb.SC.default.server
         if bufnum is None:
-            self._bufnum = sc.next_buffer_id()
+            self._bufnum = self.server.next_buffer_id()
         else:  # force given bufnum
             self._bufnum = bufnum
-        self.sc = sc
         self._sr = None
         self._channels = None
         self._samples = None
@@ -125,22 +127,21 @@ class Buffer:
             the created Buffer object
         """
         self._alloc_mode = 'file'
-        file = wavfile.read(path)  # TODO: we only need the metadata here
-        self._sr = file[0]
+        self._sr, data = wavfile.read(path)  # TODO: we only need the metadata here
         if num_frames <= 0:
-            self._samples = file[1].shape[0]
+            self._samples = data.shape[0]
         else:
             self._samples = num_frames
         if channels is None:
-            if len(file[1].shape) == 1:
+            if len(data.shape) == 1:
                 channels = [0]
             else:
-                channels = range(file[1].shape[1])
+                channels = range(data.shape[1])
         elif isinstance(channels, int):
             channels = [channels]
         self._channels = len(channels)
         self._path = path
-        self.sc.msg(
+        self.server.msg(
             "/b_allocReadChannel",
             [self._bufnum, path, starting_frame, num_frames, *channels])
         self._allocated = True
@@ -167,7 +168,7 @@ class Buffer:
         self._alloc_mode = 'alloc'
         self._channels = channels
         self._samples = int(size)
-        self.sc.msg("/b_alloc", [self._bufnum, size, channels])
+        self.server.msg("/b_alloc", [self._bufnum, size, channels])
         self._allocated = True
         return self
 
@@ -197,26 +198,26 @@ class Buffer:
                 os.makedirs('./temp/')
             self._tempfile = f"./temp/temp_{self._bufnum}.wav"
             wavfile.write(self._tempfile, self._sr, data)
-            self.sc.msg("/b_allocRead", [self._bufnum, self._tempfile])
+            self.server.msg("/b_allocRead", [self._bufnum, self._tempfile])
         elif mode == 'osc':
-            self.sc.msg("/b_alloc", [self._bufnum, data.shape[0]])
+            self.server.msg("/b_alloc", [self._bufnum, data.shape[0]])
             blocksize = 1000  # array size compatible with OSC packet size
             # TODO: check how this depends on datagram size
             # TODO: put into Buffer header as const if needed elsewhere...
             if self._channels > 1:
                 data = data.reshape(-1, 1)
             if data.shape[0] < blocksize:
-                self.sc.msg("/b_setn",
-                            [self._bufnum, [0, data.shape[0], data.tolist()]],
-                            sync=False)
+                self.server.msg("/b_setn",
+                            [self._bufnum, [0, data.shape[0], data.tolist()]],)
             else:
                 # For datasets larger than {blocksize} entries,
                 # split data to avoid network problems
                 splitdata = np.array_split(data, data.shape[0]/blocksize)
                 for i, chunk in enumerate(splitdata):
-                    self.sc.msg("/b_setn",
-                                [self._bufnum, i * blocksize,
-                                 chunk.shape[0], chunk.tolist()])
+                    self.server.msg("/b_setn",
+                                [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
+                                 sync=False)
+                self.server.sync()
         else:
             raise ValueError(f"Unsupported mode '{mode}'.")
         self._allocated = True
@@ -282,8 +283,8 @@ class Buffer:
             the newly created Buffer object
         """
 
-        # If both buffers use the same sc -> copy buffer directly in sc
-        if self.sc == buffer.sc:
+        # If both buffers use the same server -> copy buffer directly in the server
+        if self.server is buffer.server:
             self.alloc(buffer.samples, buffer.sr, buffer.channels)
             self.gen_copy(buffer, 0, 0, -1)
         else:
@@ -322,7 +323,7 @@ class Buffer:
             values = [start, count, value]
         else:
             values = start
-        self.sc.msg("/b_fill", [self._bufnum] + values)
+        self.server.msg("/b_fill", [self._bufnum] + values)
         return self
 
     def gen(self, command, args):
@@ -345,7 +346,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized!")
-        self.sc.msg("/b_gen", [self._bufnum, command] + args)
+        self.server.msg("/b_gen", [self._bufnum, command] + args)
         return self
 
     def zero(self):
@@ -358,7 +359,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized!")
-        self.sc.msg("/b_zero", [self._bufnum])
+        self.server.msg("/b_zero", [self._bufnum])
         return self
 
     def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False,
@@ -540,8 +541,8 @@ class Buffer:
         }"""
 
         if self._synth_def is None:
-            self._synth_def = self.sc.SynthDef(
-                name=f"playbuf_{self.bufnum}_",
+            self._synth_def = sc3nb.SynthDef(
+                name=f"sc3nb_playbuf_{self.bufnum}",
                 definition=playbuf_def)
             synth_name = self._synth_def.add(
                 pyvars={"num_channels": self.channels,
@@ -550,9 +551,9 @@ class Buffer:
                         "loop": 1 if loop else 0,
                         "pan": pan,
                         "amp": amp})
-            self._synth = self.sc.Synth(name=synth_name)
+            self._synth = sc3nb.Synth(name=synth_name, server=self.server)
         else:
-            self._synth.start(
+            self._synth.new(
                 {"rate": rate, "loop": 1 if loop else 0,
                  "pan": pan, "amp": amp})
         return self._synth
@@ -579,7 +580,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized!")
-        self.sc.msg("/b_write", [self._bufnum, path, header, sample, -1, 0, 0])
+        self.server.msg("/b_write", [self._bufnum, path, header, sample, -1, 0, 0])
         return self
 
     def to_array(self):
@@ -596,7 +597,7 @@ class Buffer:
         num_samples = (self._samples * self._channels)
         while i < num_samples:
             bs = blocksize if i+blocksize < num_samples else num_samples-i
-            tmp = self.sc.msg("/b_getn", [self._bufnum, i, bs])
+            tmp = self.server.msg("/b_getn", [self._bufnum, i, bs])
             data += list(tmp)[3:]  # skip first 3 els [bufnum, startidx, size]
             i += bs
         data = np.array(data).reshape((-1, self._channels))
@@ -613,20 +614,23 @@ class Buffer:
         """
         if self._allocated is False:
             raise Exception("Buffer object is not initialized!")
-        return self.sc.msg("/b_query", [self._bufnum])
+        return self.server.msg("/b_query", [self._bufnum])
 
-    def __repr__(self):
-        return f"Buffer {self.bufnum} on sc {self.sc.osc.sclang_address}: " + \
-            f"{self.channels} x {self.samples} @ {self.sr} Hz –> " + \
-            f"""{["not loaded", "allocated"][self.allocated]} """ + \
-            f"using mode '{self._alloc_mode}'"
+    def _repr_pretty_(self, p, cycle):
+        if cycle:
+            p.text("Buffer {self.bufnum}")
+        else:
+            p.text(f"Buffer {self.bufnum} on {self.server.addr}: " + \
+                   f"{self.channels} x {self.samples} @ {self.sr} Hz –> " + \
+                   f"""{["not loaded", "allocated"][self.allocated]} """ + \
+                   f"using mode '{self._alloc_mode}'")
 
     # Section: Methods to delete / free Buffers
     def free(self):
         """Free buffer data. - The Buffer object both in python and sc will continue to exist!"""
         if self._allocated is False:
             raise Exception("Buffer object is not initialized!")
-        self.sc.msg("/b_free", [self._bufnum])
+        self.server.msg("/b_free", [self._bufnum])
         self._allocated = False
         self._alloc_mode = None
 

@@ -19,6 +19,9 @@ import math
 from pythonosc.osc_bundle import OscBundle
 from pythonosc.parsing import osc_types
 
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.addHandler(logging.NullHandler())
+
 SYNTH_DEF_MARKER = b'SCgf'
 TYPE_TAG_MARKER = ord(b',')
 TYPE_TAG_INDEX = 4
@@ -51,7 +54,7 @@ def _parse_list(dgram, start_index):
     n bytes (x) : content as specified by type tag
     '''
     # parse list size
-    logging.debug("[ start parsing list: %s", dgram[start_index:])
+    _LOGGER.debug("[ start parsing list: %s", dgram[start_index:])
     list_size, start_index = osc_types.get_int(dgram, start_index)
 
     # parse type tag
@@ -59,7 +62,7 @@ def _parse_list(dgram, start_index):
     if type_tag.startswith(','):
         type_tag = type_tag[1:]
 
-    logging.debug("list with size %d and content '%s'", list_size, type_tag)
+    _LOGGER.debug("list with size %d and content '%s'", list_size, type_tag)
 
     # parse content
     value_list = []
@@ -68,11 +71,11 @@ def _parse_list(dgram, start_index):
             value, start_index = BYTES_2_TYPE[tag](dgram, start_index)
         except KeyError:
             raise ParseError('type tag "{}" not understood'.format(chr(tag)))
-        logging.debug("new value %s", value)
+        _LOGGER.debug("new value %s", value)
         value_list.append(value)
 
-    logging.debug("resulting list %s", value_list)
-    logging.debug("] end parsing list")
+    _LOGGER.debug("resulting list %s", value_list)
+    _LOGGER.debug("] end parsing list")
     return value_list, start_index
 
 
@@ -82,21 +85,21 @@ def _parse_osc_bundle_element(dgram, start_index):
     The element needs to be either a osc bundle or a list
     '''
     elem_size, start_index = osc_types.get_int(dgram, start_index)
-    logging.debug(">> parse osc bundle element (size: %d): %s ",
+    _LOGGER.debug(">> parse osc bundle element (size: %d): %s ",
                   elem_size, dgram[start_index:start_index+elem_size])
 
     if OscBundle.dgram_is_bundle(dgram[start_index:start_index+elem_size]):
-        logging.debug("found bundle")
+        _LOGGER.debug("found bundle")
         msgs, start_index = _parse_bundle(dgram, start_index)
         return msgs, start_index
 
     if dgram[start_index+TYPE_TAG_INDEX] == TYPE_TAG_MARKER:
-        logging.debug("found list")
+        _LOGGER.debug("found list")
         value_list, start_index = _parse_list(dgram, start_index)
         return value_list, start_index
 
     if dgram[start_index:start_index+4] == SYNTH_DEF_MARKER:
-        logging.debug("found SynthDef blob")
+        _LOGGER.debug("found SynthDef blob")
         synth_def = dgram[start_index:start_index+elem_size]
         start_index = start_index + elem_size
         return synth_def, start_index
@@ -109,7 +112,7 @@ BYTES_2_TYPE['b'] = _parse_osc_bundle_element
 
 def _parse_bundle(dgram, start_index):
     '''Parsing bundle'''
-    logging.debug("## start parsing bundle: %s", dgram[start_index:])
+    _LOGGER.debug("## start parsing bundle: %s", dgram[start_index:])
 
     if dgram[start_index:start_index+8] != b'#bundle\x00':
         raise ParseError(
@@ -117,7 +120,7 @@ def _parse_bundle(dgram, start_index):
     start_index += 8
 
     timetag, start_index = osc_types.get_ttag(dgram, start_index)
-    logging.debug("bundle timetag: %s", timetag)
+    _LOGGER.debug("bundle timetag: %s", timetag)
 
     msgs = []
     while start_index < len(dgram):
@@ -125,9 +128,9 @@ def _parse_bundle(dgram, start_index):
         msgs.append(sc_msg)
 
     start_index = _get_aligned_index(start_index)
-    logging.debug("parsed bytes %s", dgram[:start_index])
-    logging.debug("msgs %s", msgs)
-    logging.debug("## end parsing bundle ")
+    _LOGGER.debug("parsed bytes %s", dgram[:start_index])
+    _LOGGER.debug("msgs %s", msgs)
+    _LOGGER.debug("## end parsing bundle ")
     return msgs, start_index
 
 
@@ -140,5 +143,5 @@ def parse_sclang_osc_packet(data):
             elif data[:8] == b'#bundle\x00':
                 return _parse_bundle(data, 0)[0]
     except ParseError as error:
-        logging.warning('Ignoring ParseError:\n%s\nreturning blob', error)
+        _LOGGER.warning('Ignoring ParseError:\n%s\nreturning blob', error)
     return data

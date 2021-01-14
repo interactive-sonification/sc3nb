@@ -7,6 +7,7 @@ import time
 
 import numpy as np
 
+import sc3nb
 
 class Event():
     """Stores a timestamp, function and arguments for that function.
@@ -198,20 +199,19 @@ class TimedQueue():
     def __repr__(self):
         return self.event_list.__repr__()
 
+    def elapse(self, time_delta):
+        self.start += time_delta
+
 
 class TimedQueueSC(TimedQueue):
 
     def __init__(self, sc, relative_time=False, thread_sleep_time=0.001):
         super().__init__(relative_time, thread_sleep_time)
-
-        self.sc = sc
+        self.sc = sc or sc3nb.SC.default
 
     def put_bundle(self, onset, timetag, address, args, sclang=False):
-        bundle = self.sc.bundle(timetag, address, args).build()
-        self.put(onset, self.sc.osc.send, args=(bundle, sclang))
+        bundle = self.sc.server.bundle(timetag, address, args).build()
+        self.put(onset, self.sc.server.osc.send, args=(bundle, sclang))
 
     def put_msg(self, onset, address, args, sclang=False):
-        self.put(onset, self.sc.msg, args=(address, args, sclang))
-
-    def elapse(self, time_delta):
-        self.start += time_delta
+        self.put(onset, self.sc.server.osc.msg, args=(address, args, sclang))
