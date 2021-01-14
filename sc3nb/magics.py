@@ -26,7 +26,7 @@ def add_shortcut(ipython):
                     help : \'Free all nodes on SC server\',
                     help_index : \'zz\',
                     handler : function (event) {{
-                        IPython.notebook.kernel.execute("sc3nb.SC.default.server.free_all()")
+                        IPython.notebook.kernel.execute("import sc3nb; sc3nb.SC.default.server.free_all()")
                         return true;}}
                     }});
                 }}''')
