@@ -622,7 +622,7 @@ class OscCommunication():
                 raise ChildProcessError(
                     f"Failed to sync after message to "
                     f"{'sclang' if sclang else 'scsynth'}"
-                    f": {msg.address} {msg_params_str}") from timeout_error
+                    f": {msg.address}") from timeout_error
         elif isinstance(content, osc_bundle.OscBundle):
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):

@@ -145,7 +145,9 @@ class SCServer():
         try:
             self.process.read(expect="SuperCollider 3 server ready.", timeout=timeout)
         except ProcessTimeout as process_timeout:
-            if "Only one usage" in process_timeout.output:
+            if "Exception in World_OpenUDP" in process_timeout.output:
+                # ToDo check if string is correct in Win/Linux
+                self.process.kill()
                 self.process = None
                 print("SuperCollider Server port already used.")
                 if self.server_options.udp_port != SCSYNTH_DEFAULT_PORT:
@@ -163,7 +165,7 @@ class SCServer():
 
     def init(self, with_blip=True):
         # notify the supercollider server about us
-        self.notify()
+        self.notify(timeout=10)
 
         # load synthdefs of sc3nb
         directory = resources.__file__[:-len("__init__.py")]
@@ -172,7 +174,7 @@ class SCServer():
         # create default group
         self._default_group = Group(nodeid=1, target=0, server=self)
 
-        self.sync()
+        self.sync(timeout=6)  # ToDo: fix temporary test
         if with_blip:
             self.blip()
 
@@ -247,8 +249,8 @@ class SCServer():
         if self._is_local:
             self.process.kill()
 
-    def sync(self):
-        self.osc.sync()
+    def sync(self, timeout=5):
+        self.osc.sync(timeout=timeout)
 
     def send_synthdef(self, directory):
         pass
@@ -261,10 +263,10 @@ class SCServer():
         msg = build_message("/status")
         return self.send(msg)
 
-    def notify(self, receive_notifications=True):
+    def notify(self, receive_notifications=True, timeout=5):
         flag = 1 if receive_notifications else 0
         msg = build_message("/notify", [flag, self.client_id])  # flag, clientID
-        return self.send(msg)
+        return self.send(msg, timeout=timeout)
 
     def free_all(self):
         msg = build_message("/g_freeAll", 0)

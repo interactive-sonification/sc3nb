@@ -137,7 +137,7 @@ class Process:
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            text=True,
+            universal_newlines=True, # py3.8++ ==> text=True,
             errors='strict',
             bufsize=0)
         # init queue for reading subprocess output queue
