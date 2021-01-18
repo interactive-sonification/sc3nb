@@ -17,6 +17,7 @@ from queue import Empty, Queue
 
 import psutil
 
+ALLOWED_PARENTS = ("scide", "ipykernel")
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
@@ -75,7 +76,7 @@ def find_executable(executable, path=None, add_to_path=False):
     raise FileNotFoundError("Unable to find executable")
 
 
-def kill_processes(exec_path, allowed_parents: Optional[list] = None):
+def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
     """Kill processes with the same path for the executable.
 
     If allowed_parent is provided it will be searched in the names of the
@@ -97,7 +98,6 @@ def kill_processes(exec_path, allowed_parents: Optional[list] = None):
                     cmdline = " ".join(parent.cmdline())
                     if any([allowed_parent in cmdline for allowed_parent in allowed_parents]):
                         continue
-                    
             proc.terminate()
             try:
                 proc.wait(timeout=0.5)

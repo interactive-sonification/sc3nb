@@ -9,22 +9,21 @@ from IPython import get_ipython
 
 import sc3nb.magics
 
-#from .sc_objects.buffer import Buffer
-#from .sc_objects.synthdef import SynthDef
-#from .sc_objects.node import Synth, Group
-
-from .sc_objects.server import SCServer
-
-#from .osc.osc_communication import OscCommunication
-from .sclang import Sclang
-#from .tools import (find_executable, parse_pyvars,
-#                    remove_comments, replace_vars)
-from .process_handling import ProcessTimeout
+from sc3nb.sc_objects.server import SCServer
+from sc3nb.sclang import Sclang
+from sc3nb.process_handling import ProcessTimeout, ALLOWED_PARENTS
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
-def startup(start_server=True, start_sclang=True, magic=True, scsynth_options=None):
+def startup(start_server=True,
+            scsynth_path=None,
+            start_sclang=True,
+            sclang_path=None,
+            magic=True,
+            scsynth_options=None,
+            console_logging=True,
+            allowed_parents=ALLOWED_PARENTS):
     """Starts SC, boots scsynth and registers magics
 
     Keyword Arguments:
@@ -42,60 +41,61 @@ def startup(start_server=True, start_sclang=True, magic=True, scsynth_options=No
             sc3nb.magics.load_ipython_extension(ipy)
 
     if SC.default is None:
-        SC.default = SC(start_server, start_sclang, scsynth_options)
+        SC.default = SC(start_server=start_server,
+                        scsynth_path=scsynth_path,
+                        start_sclang=start_sclang,
+                        sclang_path=sclang_path,
+                        scsynth_options=sclang_path,
+                        console_logging=console_logging,
+                        allowed_parents=allowed_parents)
     else:
         _LOGGER.info("SC already started")
         if start_server:
-            SC.default.start_server(scsynth_options)
+            SC.default.start_server(scsynth_options=scsynth_options,
+                                    scsynth_path=scsynth_path,
+                                    allowed_parents=allowed_parents)
         if start_sclang:
-            SC.default.start_sclang()
+            SC.default.start_sclang(sclang_path=sclang_path,
+                                    allowed_parents=allowed_parents)
     return SC.default
 
 
 class SC():
-    """SC is a class to start SuperCollider language as subprocess
-    and control it via a pipe. Communication with scsynth is handled
-    by OSC messages via. Jupyter magic commands allow for simple
-    execution of SuperCollider code within jupyter notebooks.
-    (c) 2016-19 thermann@techfak.uni-bielefeld.de
-
-    Keyword Arguments:
-        sclangpath {str} -- Path to sclang
-                            (default: {None})
-
-    Raises:
-        NotImplementedError -- Raised if
-                               unsupported OS is found
-    """
 
     default = None
 
     def __init__(self,
                  start_server=True,
+                 scsynth_path=None,
                  start_sclang=True,
+                 sclang_path=None,
                  scsynth_options=None,
-                 console_logging=True):
+                 console_logging=True,
+                 allowed_parents=ALLOWED_PARENTS):
         self._console_logging = console_logging
-
         self._server = None
-        if start_server:
-            self.start_server(scsynth_options=scsynth_options)
-
         self._sclang = None
+        if start_server:
+            self.start_server(scsynth_path=scsynth_path,
+                              scsynth_options=scsynth_options,
+                              console_logging=self._console_logging,
+                              allowed_parents=allowed_parents)
         if start_sclang:
-            self.start_sclang()
+            self.start_sclang(sclang_path=sclang_path,
+                              console_logging=self._console_logging,
+                              allowed_parents=allowed_parents)
 
-        # connect lang with osc
-        #self._sclang.osc = self._server.osc
-        #self._sclang.server = self._server
-        #self._server._sclang = self._sclang
-
-
-    def start_sclang(self, sclang_path=None, console_logging=True):
+    def start_sclang(self,
+                     sclang_path=None,
+                     console_logging=True,
+                     allowed_parents=ALLOWED_PARENTS):
         if self._sclang is None:
             self._sclang = Sclang()
             try:
-                self._sclang.start(sclang_path=sclang_path, console_logging=console_logging)
+                self._sclang.start(
+                    sclang_path=sclang_path,
+                    console_logging=console_logging,
+                    allowed_parents=allowed_parents)
             except ProcessTimeout:
                 self._sclang = None
                 warnings.warn("starting sclang failed")
@@ -106,11 +106,17 @@ class SC():
         else:
             _LOGGER.info("sclang already started")
 
-    def start_server(self, scsynth_path=None, console_logging=True, scsynth_options=None):
+    def start_server(self,
+                     scsynth_options=None,
+                     scsynth_path=None,
+                     console_logging=True,
+                     allowed_parents=ALLOWED_PARENTS):
         if self._server is None:
             self._server = SCServer(server_options=scsynth_options)
             try:
-                self._server.boot(scsynth_path=scsynth_path, console_logging=console_logging)
+                self._server.boot(scsynth_path=scsynth_path,
+                                  console_logging=console_logging,
+                                  allowed_parents=allowed_parents)
             except ProcessTimeout:
                 self._server = None
                 warnings.warn("starting scsynth failed")
@@ -142,7 +148,7 @@ class SC():
             self._server.process.console_logging = value
         if self._sclang is not None:
             self._sclang.process.console_logging = value
-    
+
     def __del__(self):
         '''Handles clean deletion of object'''
         self.exit()
@@ -159,6 +165,7 @@ class SC():
         if self is SC.default:
             SC.default = None
 
+    # TODO what about the MIDI stuff?
     # def midi_ctrl_synth(self, synthname='syn'):
     #     """Set up MIDI control synth
 

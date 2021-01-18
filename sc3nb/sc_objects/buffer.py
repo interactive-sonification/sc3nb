@@ -7,6 +7,11 @@ import numpy as np
 
 import sc3nb
 
+# Buffer altering
+# /b_read           Read sound file data into an existing buffer.
+# /b_readChannel    Read sound file channel data into an existing buffer.
+# /b_set
+
 
 class Buffer:
     """A Buffer object represents a SuperCollider3 Buffer on scsynth
@@ -74,10 +79,6 @@ class Buffer:
     b = Buffer().load_asig(...)
     b = Buffer().use_existing(...)
     b = Buffer().copy(Buffer)
-
-    Raises
-    ------
-    Exception: [description]
 
     Returns
     -------
@@ -317,7 +318,7 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
+            raise RuntimeError("Buffer object is not initialized!")
 
         if not isinstance(start, list):
             values = [start, count, value]
@@ -345,7 +346,7 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
+            raise RuntimeError("Buffer object is not initialized!")
         self.server.msg("/b_gen", [self._bufnum, command] + args)
         return self
 
@@ -358,7 +359,7 @@ class Buffer:
             the created Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
+            raise RuntimeError("Buffer object is not initialized!")
         self.server.msg("/b_zero", [self._bufnum])
         return self
 
@@ -558,7 +559,8 @@ class Buffer:
                  "pan": pan, "amp": amp})
         return self._synth
 
-    def write(self, path, header="wav", sample="float"):
+    def write(self, path, header="wav", sample="float",
+              num_frames=-1, starting_frame=0, leave_open=False):
         """Write buffer data to a sound file
 
         Parameters
@@ -572,15 +574,38 @@ class Buffer:
             sample format. Sample format is one of:
             "int8", "int16", "int24", "int32",
             "float", "double", "mulaw", "alaw"
+        num_frames: int
+            number of frames to write.
+            -1 means all frames.
+        starting_frame: int
+            starting frame in buffer
+        leave_open: boolean
+            Whether you want the buffer file left open.
+            For use with DiskOut you will want this to be true.
+            The file is created, but no frames are written until the DiskOut ugen does so.
+            The default is false which is the correct value for all other cases.
 
         Returns
         -------
         self : Buffer
-            the created Buffer object
+            the Buffer object
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
-        self.server.msg("/b_write", [self._bufnum, path, header, sample, -1, 0, 0])
+            raise RuntimeError("Buffer object is not initialized!")
+        leave_open_val = 1 if leave_open else 0
+        self.server.msg("/b_write", [self._bufnum, path, header, sample,
+                                     num_frames, starting_frame, leave_open_val])
+        return self
+
+    def close(self):
+        """Close soundfile after using a Buffer with DiskOut
+
+        Returns
+        -------
+        self : Buffer
+            the Buffer object
+        """
+        self.server.msg("/b_close", [self._bufnum], bundled=True)
         return self
 
     def to_array(self):
@@ -613,7 +638,7 @@ class Buffer:
             (buffernumber, number of frames, number of channels, sample rate)
         """
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
+            raise RuntimeError("Buffer object is not initialized!")
         return self.server.msg("/b_query", [self._bufnum])
 
     def _repr_pretty_(self, p, cycle):
@@ -629,7 +654,7 @@ class Buffer:
     def free(self):
         """Free buffer data. - The Buffer object both in python and sc will continue to exist!"""
         if self._allocated is False:
-            raise Exception("Buffer object is not initialized!")
+            raise RuntimeError("Buffer object is not initialized!")
         self.server.msg("/b_free", [self._bufnum])
         self._allocated = False
         self._alloc_mode = None

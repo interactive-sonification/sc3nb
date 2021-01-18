@@ -141,6 +141,13 @@ class Node(ABC):
         return self
 
     def _update_args(self, argument, value):
+        try:
+            val = object.__getattribute__(self, argument)
+        except AttributeError:
+            pass
+        else:
+            warnings.warn(f"python attribute {argument}={val} will be deleted and recognized as Node Parameter from now on")
+            delattr(self, argument)
         if not argument.startswith("t_"):
             self.current_args[argument] = value
 
@@ -357,7 +364,6 @@ class Node(ABC):
     def wait(self, func):
         pass
 
-
     def __eq__(self, other):
         return self.nodeid == other.nodeid
 
@@ -371,11 +377,10 @@ class Node(ABC):
         else:
             p.text(f"{name} ({self.nodeid}) {self.current_args} {status}")
 
-    #def __del__(self):
-    #    if self.is_running:
-    #        _LOGGER.debug(
-    #            "freeing deleted node %s with running state %s", self.nodeid, self.is_running)
-    #        self.free()
+    def __del__(self):
+        _LOGGER.debug(
+            "freeing deleted node %s with running state %s", self.nodeid, self.is_running)
+        self.free()
 
     def _get_add_action(self, value):
         """Get the wanted add action regarding state and input
@@ -461,7 +466,7 @@ class Synth(Node):
         except RuntimeWarning:
             warnings.warn("SynthDesc is unknown. SC.default.lang must be running for SynthDescs")
             self.synth_desc = None
-        
+
         self.name = name
 
         self._add_action = self._get_add_action(add_action)
@@ -500,7 +505,7 @@ class Synth(Node):
             self.server.send(msg, bundled=True)
         return self
 
-    def get(self, argument, action=None, return_msg=False):
+    def get(self, argument):
         """Get a synth argument
 
         This will request the value from scsynth with s_get(n).
@@ -714,7 +719,7 @@ class Group(Node):
             self.server.send(msg, bundled=True)
         return self
 
-    def dump_tree(self, post_controls=False, return_msg=False):
+    def dump_tree(self, post_controls=True, return_msg=False):
         """Posts a representation of this group's node subtree with g_dumpTree.
 
         Parameters

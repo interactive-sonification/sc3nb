@@ -13,7 +13,7 @@ import numpy as np
 import sc3nb.resources as resources
 from sc3nb.osc.osc_communication import SCLANG_DEFAULT_PORT
 from sc3nb.sc_objects.server import SCServer
-from sc3nb.process_handling import Process, ProcessTimeout
+from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
 SC3NB_SCLANG_CLIENT_ID = 0
 
@@ -169,7 +169,7 @@ class Sclang:
         self.port = None
         self.started = False
  
-    def start(self, sclang_path=None, console_logging=True):
+    def start(self, sclang_path=None, console_logging=True, allowed_parents=ALLOWED_PARENTS):
         if self.started:
             warnings.warn("sclang arlready started")
             return
@@ -177,7 +177,7 @@ class Sclang:
         self.process = Process(executable='sclang',
                                exec_path=sclang_path,
                                console_logging=console_logging,
-                               allowed_parents=["scide", "ipykernel"])
+                               allowed_parents=allowed_parents)
         try:
             self.read(expect='Welcome to SuperCollider', timeout=10)
         except ProcessTimeout as timeout:

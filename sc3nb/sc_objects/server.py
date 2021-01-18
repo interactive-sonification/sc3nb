@@ -1,17 +1,113 @@
 """Module for managing Server related stuff."""
 import warnings
 
+from collections import namedtuple
 from typing import Optional
 
 import sc3nb.resources as resources
-from sc3nb.process_handling import Process, ProcessTimeout
-from sc3nb.osc.osc_communication import (build_message, Bundler,
+from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
+from sc3nb.osc.osc_communication import (build_message,
                                          OscCommunication,
                                          SCSYNTH_DEFAULT_PORT)
 
 from sc3nb.sc_objects.node import Group
+from sc3nb.sc_objects.synthdef import SynthDef
+
+import sc3nb
 
 SC3NB_SERVER_CLIENT_ID = 1
+
+ServerStatus = namedtuple('ServerStatus',
+                          ["num_ugens", "num_synths", "num_groups", "num_synthdefs",
+                           "avg_cpu", "peak_cpu", "nominal_sr", "actual_sr"])
+
+
+class Recording():
+
+    def __init__(self, path="record.wav", nr_channels=2,
+                 rec_header="wav", rec_format="int16", bufsize=65536, server=None):
+        """Prepare a recording.
+
+        Parameters
+        ----------
+        path : str, optional
+            path of recording file, by default "record.wav"
+        nr_channels : int, optional
+            Number of channels, by default 2
+        rec_header : str, optional
+            File format, by default "wav"
+        rec_format : str, optional
+            Recording resolution, by default "int16"
+        bufsize : int, optional
+            size of buffer, by default 65536
+        server : SCServer, optional
+            server used for recording, by default None
+            if None it will use sc3nb.SC.default.server
+        """
+        self.server = server or sc3nb.SC.default.server
+        # prepare buffer
+        self.record_buffer = sc3nb.Buffer(server=self.server)
+        self.record_buffer.alloc(bufsize, channels=nr_channels)
+        self.record_buffer.write(path, rec_header, rec_format, 0, 0, True)
+        rec_id = self.record_buffer.bufnum
+
+        self.synth_def = SynthDef(f"sc3nb_recording_{rec_id}",
+        r"""{ |in, bufnum, duration|
+			var tick = Impulse.kr(1);
+			var timer = PulseCount.kr(tick) - 1;
+			var doneAction = if(duration <= 0, 0, 2);
+			Line.kr(0, 0, duration, doneAction:doneAction);
+			SendReply.kr(tick, '/recordingDuration', timer, ^rec_id);
+			DiskOut.ar(bufnum, In.ar(in, ^nr_channels))
+		}""")
+        self.synth_name = self.synth_def.add()
+        self.record_synth = None
+
+
+    def start(self, timestamp=0, duration=None, node=None, bus=0):
+        # The Node to record immediately after. By default, this is the default group
+        if self.record_synth:
+            raise RuntimeError("Recording already used.")
+        elif not self.record_synth:
+            if node is None:
+                node = self.server.default_group
+            args = dict(bus=bus,
+                        duration=duration if duration else -1,
+                        bufnum=self.record_buffer.bufnum)
+            with self.server.bundler(timestamp=timestamp):
+                self.record_synth = sc3nb.Synth(self.synth_name, args=args, server=self.server,
+                                                target=node, add_action=sc3nb.AddAction.TO_TAIL)
+        else:
+            warnings.warn("Recording already started.")
+
+    def pause(self, timestamp=0):
+        if self.record_synth:
+            with self.server.bundler(timestamp=timestamp):
+                self.record_synth.run(False)
+        else:
+            warnings.warn("You must start the Recording before pausing.")
+
+    def resume(self, timestamp=0):
+        if self.record_synth:
+            with self.server.bundler(timestamp=timestamp):
+                self.record_synth.run(True)
+        else:
+            warnings.warn("You must start the Recording before resuming.")
+
+    def stop(self, timestamp=0):
+        if self.record_synth:
+            with self.server.bundler(timestamp=timestamp):
+                self.record_synth.free()
+                self.record_buffer.close()
+        else:
+            warnings.warn("You must start the Recording before stopping.")
+
+    def __del__(self):
+        self.synth_def.free()
+        self.record_buffer.free()
+        if self.record_synth:
+            self.record_synth.free()
+
 
 class ServerOptions():
     def __init__(self,
@@ -101,24 +197,19 @@ class SCServer():
             self.server_options = ServerOptions()
         else:
             self.server_options = server_options
-        #if osc_args is None:
-        #    osc_args = {}
+
         self.osc = OscCommunication()
         self.msg = self.osc.msg
-
-        self._bundling_bundle = None
+        self.bundler = self.osc.bundler
+        self.send = self.osc.send
+        self.sync = self.osc.sync
 
         self._default_group = None
-
         self._is_local = None
 
         # counter for nextNodeID
         self._num_node_ids = 0
         self._num_buffer_ids = 0
-
-        # recording node
-        self._rec_node_id = -1  # i.e. not valid
-        self._rec_bufnum = -1
 
         self._address = None # "127.0.0.1"
         self._port = None
@@ -129,19 +220,19 @@ class SCServer():
         self._server_running = False
         self._has_booted = False
 
-    def boot(self, scsynth_path=None, timeout=3, console_logging=True, with_blip=True):
+    def boot(self, scsynth_path=None, timeout=3, console_logging=True, with_blip=True, allowed_parents=ALLOWED_PARENTS):
         if self._has_booted:
             warnings.warn("already booted")
             return
         print('Booting SuperCollider Server...')
-        self._address = "127.0.0.1"
         self._is_local = True
+        self._address = "127.0.0.1"
         self._port = self.server_options.udp_port
         self.process = Process(executable='scsynth',
                                args=self.server_options.args,
                                exec_path=scsynth_path,
                                console_logging=console_logging,
-                               allowed_parents=["scide", "ipykernel"])
+                               allowed_parents=allowed_parents)
         try:
             self.process.read(expect="SuperCollider 3 server ready.", timeout=timeout)
         except ProcessTimeout as process_timeout:
@@ -165,6 +256,8 @@ class SCServer():
 
     def init(self, with_blip=True):
         # notify the supercollider server about us
+        self.osc.set_scsynth(scsynth_ip=self._address, scsynth_port=self._port)
+        
         self.notify(timeout=10)
 
         # load synthdefs of sc3nb
@@ -174,7 +267,7 @@ class SCServer():
         # create default group
         self._default_group = Group(nodeid=1, target=0, server=self)
 
-        self.sync(timeout=6)  # ToDo: fix temporary test
+        self.sync(timeout=10)  # ToDo: fix temporary test
         if with_blip:
             self.blip()
 
@@ -183,16 +276,15 @@ class SCServer():
 
     def blip(self):
         with self.bundler(0.1) as bundler:
-            bundler.add(0.1, "/s_new", ["s1", -1, 1, 1, "freq", 500, "dur", 0.1, "num", 1])
-            bundler.add(0.3, "/s_new", ["s2", -1, 1, 1, "freq", 1000, "amp", 0.05, "num", 2])
+            bundler.add(0.1, "/s_new", ["s1", -1, 0, 1, "freq", 500, "dur", 0.1, "num", 1])
+            bundler.add(0.3, "/s_new", ["s2", -1, 0, 1, "freq", 1000, "amp", 0.05, "num", 2])
             bundler.add(0.4, "/n_free", [-1])
 
     def remote(self, address, port, with_blip=True):
         self._is_local = False
         self._address = address
         self._port = port
-        self.osc.set_scsynth(scsynth_ip=self._address, scsynth_port=self._port)
-        self.init(with_blip)
+        self.init(with_blip=with_blip)
         self._has_booted = True
 
     def reboot(self):
@@ -201,66 +293,30 @@ class SCServer():
         self.quit()
         self.boot()
 
-
-    def bundler(self, timetag=0, msg_addr=None, msg_args=None, send_on_exit=True):
-        """Create a Bundler for this server.
-
-        This allows the user to easly add messages/bundles and send it.
-
-        Parameters
-        ----------
-        timetag : int
-            Time at which bundle content should be executed.
-            If timetag < 1e6 it is added to time.time().
-        msg_addr : str
-            SuperCollider address.
-        msg_args : list, optional
-            List of arguments to add to message.
-             (Default value = None)
-
-        Returns
-        -------
-        Bundler
-            custom pythonosc BundleBuilder with add_msg and send
-        """
-        return Bundler(timetag, msg_addr, msg_args, server=self, send_on_exit=send_on_exit)
-
-    def send(self, content, sync=True, timeout=5, bundled=False, sclang=False):
-        if bundled and self._bundling_bundle:
-            self._bundling_bundle.add(content)
-            return
-        return self.osc.send(content,
-                             server_address=(self._address, self._port),
-                             sync=sync, timeout=timeout, sclang=sclang)
-
-
     def ping(self):
         raise NotImplementedError
 
     # messages
-
     def quit(self):
-        msg = build_message("/quit")
         try:
-            self.send(msg)
+            self.send(build_message("/quit"))
         except ChildProcessError:
-            pass # TODO warn or log?
-        self.osc.exit()
-        if self._is_local:
-            self.process.kill()
+            pass  # sending failed. scscynth maybe dead already.
+        finally:
+            self.osc.exit()
+            if self._is_local:
+                self.process.kill()
 
-    def sync(self, timeout=5):
-        self.osc.sync(timeout=timeout)
+    def send_synthdef(self, synthdef_bytes):
+        msg = build_message("/d_recv", synthdef_bytes)
+        return self.send(msg)
 
-    def send_synthdef(self, directory):
-        pass
+    def load_synthdef(self, synthdef_path):
+        msg = build_message("/d_load", synthdef_path)
+        return self.send(msg)
 
     def load_directory(self, directory, completion_msg=None):
         msg = build_message("/d_loadDir", [directory])
-        return self.send(msg)
-
-    def status(self):
-        msg = build_message("/status")
         return self.send(msg)
 
     def notify(self, receive_notifications=True, timeout=5):
@@ -268,8 +324,9 @@ class SCServer():
         msg = build_message("/notify", [flag, self.client_id])  # flag, clientID
         return self.send(msg, timeout=timeout)
 
-    def free_all(self):
-        msg = build_message("/g_freeAll", 0)
+    def free_all(self, root=False):
+        nodeid = 0 if root else self._default_group.nodeid
+        msg = build_message("/g_freeAll", nodeid)
         self.send(msg)
         msg = build_message("/clearSched")
         self.send(msg)
@@ -283,25 +340,15 @@ class SCServer():
         # sync
         # AppClock?
 
-    #@property TODO
     def next_node_id(self):
         self._num_node_ids += 1
         node_id = self._num_node_ids + 10000
         return node_id
 
-    #@property TODO
     def next_buffer_id(self):
         self._num_buffer_ids += 1
         node_id = self._num_buffer_ids + 100
         return node_id
-
-    @property
-    def options(self):
-        raise NotImplementedError
-
-    @options.setter
-    def options(self):
-        raise NotImplementedError
 
     @property
     def default_group(self):
@@ -315,9 +362,8 @@ class SCServer():
     def output_bus(self):
         raise NotImplementedError
 
-
     # Volume Class in Supercollider. Controls Filter Synth
-    @property  
+    @property
     def volume(self):
         raise NotImplementedError
 
@@ -331,29 +377,31 @@ class SCServer():
     def unmute(self):
         raise NotImplementedError
 
-
     # Information and debugging
+    def status(self):
+        msg = build_message("/status")
+        return ServerStatus._make(self.send(msg)[1:])
 
     def dump_osc(self, level=1):
         msg = build_message("/dumpOSC", [level])
         self.send(msg)
 
+    def dump_tree(self, post_controls=True):
+        msg = build_message("/g_dumpTree", [0, 1 if post_controls else 0])
+        return self.send(msg)
+
     def query_all_nodes(self, flag=0):
         msg = build_message("/g_queryTree", [0, flag])
         return self.send(msg)
 
-    def dump_tree(self, flag=0):
-        msg = build_message("/g_dumpTree", [0, flag])
-        return self.send(msg)
-
     @property
     def peak_cpu(self):
-        raise NotImplementedError
+        return self.status().peak_cpu
 
     @property
     def avg_cpu(self):
-        raise NotImplementedError
-
+        return self.status().peak_cpu
+    
     @property
     def latency(self):
         raise NotImplementedError
@@ -364,34 +412,27 @@ class SCServer():
 
     @property
     def sample_rate(self):
-        raise NotImplementedError
+        return self.status().nominal_sr
 
     @property
     def actual_sample_rate(self):
-        raise NotImplementedError
+        return self.status().actual_sr
 
     @property
     def num_synths(self):
-        raise NotImplementedError
+        return self.status().num_synths
 
     @property
     def num_groups(self):
-        raise NotImplementedError
+        return self.status().num_groups
 
     @property
     def num_ugens(self):
-        raise NotImplementedError
+        return self.status().num_ugens
 
     @property
     def num_synthdefs(self):
-        raise NotImplementedError
-
-    @property
-    def pid(self):
-        if self.is_local:
-            return self.process.popen.pid
-        else:
-            warnings.warn("Server is not local or not booted.")
+        return self.status().num_synthdefs
 
     @property
     def addr(self):
@@ -414,69 +455,8 @@ class SCServer():
         return self._is_local
 
     @property
-    def remote_controlled(self):
-        raise NotImplementedError
-
-    # Message Bundling?
-    #  make bundle
-    #  bind
-
-    # Recording
-    def prepare_for_record(self, onset=0, wavpath="record.wav",
-                           bufnum=99, nr_channels=2, rec_header="wav",
-                           rec_format="int16"): # TODO -> Recorder/Server?
-
-        """Setup recording via scsynth
-
-        Keyword Arguments:
-            onset {int} -- Bundle timetag (default: {0})
-            wavpath {str} -- Save file path
-                             (default: {"record.wav"})
-            bufnum {int} -- Buffer number (default: {99})
-            nr_channels {int} -- Number of channels
-                                 (default: {2})
-            rec_header {str} -- File format
-                                (default: {"wav"})
-            rec_format {str} -- Recording resolution
-                                (default: {"int16"})
-        """
-
-        self.rec_bufnum = bufnum
-        with self.bundler(onset) as bundle:
-            bundle.add(onset, "/b_alloc", [self.rec_bufnum, 65536, nr_channels])
-            bundle.add(onset+0.2, "/b_write", [self.rec_bufnum,
-                                           wavpath, rec_header, rec_format, 0, 0, 1])
-            
-    def record(self, onset=0, node_id=2001, nr_channels=2):  # TODO -> Recorder/Server?
-        """Start recording
-
-        Keyword Arguments:
-            onset {int} -- Bundle timetag (default: {0})
-            node_id {int} -- SuperCollider Node id
-                             (default: {2001})
-        """
-
-        self._rec_node_id = node_id
-        if nr_channels == 1:
-            synth_name = "record-1ch"
+    def pid(self):
+        if self.is_local:
+            return self.process.popen.pid
         else:
-            synth_name = "record-2ch"
-            # action = 1 = addtotail
-        self.bundler(onset,
-                     "/s_new",
-                    [synth_name, self._rec_node_id, 1, 0, "bufnum", self.rec_bufnum]
-        ).send()
-
-    def pause_recording(self, onset=0):  # TODO -> Recorder/Server?
-        pass
-
-    def stop_recording(self, onset=0):  # TODO -> Recorder/Server?
-        """Stop recording
-
-        Keyword Arguments:
-            onset {int} -- Bundle timetag (default: {0})
-        """
-        # TODO do this with a record_buffer of type Buffer 
-        self.bundler(onset).add(onset, "/n_free", [self._rec_node_id]).add(
-                onset+0.5, "/b_close", [self._rec_bufnum]).add(
-                    onset+1, "/b_free", [self._rec_bufnum]).send()
+            warnings.warn("Server is not local or not booted.")

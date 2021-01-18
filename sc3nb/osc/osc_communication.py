@@ -11,6 +11,7 @@ import time
 import copy
 
 from queue import Empty, Queue
+from threading import RLock
 
 from random import randint
 from pythonosc import (dispatcher, osc_server,
@@ -27,7 +28,7 @@ _LOGGER.addHandler(logging.NullHandler())
 SCSYNTH_DEFAULT_PORT = 57110
 SCLANG_DEFAULT_PORT = 57120
 
-OSCCOM_DEFAULT_PORT = 57130
+SC3NB_DEFAULT_PORT = 57130
 
 ASYNC_MSGS = [
     "/quit",    # Master
@@ -69,96 +70,19 @@ MSG_PAIRS = {
 }
 
 
-#def _add_msg(self, msg_addr, msg_args):
-#    """Add a pythonsosc OscMessage to this bundle.
-#
-#    Parameters
-#    ----------
-#    msg_addr : str
-#        SuperCollider address.
-#    msg_args : list
-#        List of arguments to add to message.
-#
-#    Returns
-#    -------
-#    self
-#        for call chaining
-#    """
-#    msg = build_message(msg_addr, msg_args)
-#    self.add_content(msg)
-#    return self
-
-
-#osc_bundle_builder.OscBundleBuilder.add_msg = _add_msg
-
-
-#def _send(self, osc=None, sclang=False):
-#    if self.osc and not osc:
-#        self.osc.send(self.build(), sclang=sclang)
-#    elif osc:
-#        osc.send(self.build(), sclang=sclang)
-#    else:
-#        RuntimeError("No OSC instance for sending.")
-
-
-#osc_bundle_builder.OscBundleBuilder.send = _send
-
-
-#def _add(self, content):
-#    if isinstance(content, osc_bundle_builder.OscBundleBuilder):
-#        #if content._timestamp <= 1e6:
-#        #    content._timestamp += self._timestamp
-#        content = content.build()
-#    self.add_content(content)
-#    return self
-
-
-#osc_bundle_builder.OscBundleBuilder.add = _add
-
-
-# def bundle_builder(timestamp, msg_addr=None, msg_args=None):
-#     """Builds pythonsosc OSC bundle
-
-#     Parameters
-#     ----------
-#     timestamp : int
-#         Time at which bundle content should be executed.
-#         If timestamp < 1e6 it is added to time.time().
-#     msg_addr : str
-#         SuperCollider address.
-#     msg_args : list
-#         List of arguments to add to message.
-
-#     Returns
-#     -------
-#     OscBundle
-#         Bundle ready to be sent.
-
-#     """
-#    if msg_args is None:
-#        msg_args = []
-
-#    if timestamp == 0:
-#        timestamp = osc_types.IMMEDIATELY
-#    elif timestamp < 1e6:
-#        timestamp = time.time() + timestamp
-#    builder = osc_bundle_builder.OscBundleBuilder(timestamp)
-#    if msg_addr:
-#        msg = build_message(msg_addr, msg_args)
-#        builder.add_content(msg)
-#    return builder
-
-
 class Bundler():
 
     def __init__(self, timestamp=0, msg=None, msg_args=None, server=None, send_on_exit=True):
         self.timestamp = timestamp
         if server is not None:
-            self.server = server
+            if isinstance(server, OscCommunication):
+                self.osc = server
+            else:
+                self.osc = server.osc
         elif sc3nb.SC.default:
-            self.server = sc3nb.SC.default.server
+            self.osc = sc3nb.SC.default.server.osc
         else:
-            self.server = None
+            self.osc = None
         self.contents = []
         self.passed_time = 0.0
         if msg:
@@ -195,7 +119,8 @@ class Bundler():
             else:
                 raise ValueError(f"Cannot add {content} of type {type(content)}. "
                                  f"Needing {osc_message.OscMessage} or {Bundler}")
-            _LOGGER.debug("%s Appending %s to Bundler with time %s", self.passed_time, bundler, bundler.timestamp)
+            _LOGGER.debug("%s Appending %s to Bundler with time %s",
+                          self.passed_time, bundler, bundler.timestamp)
             self.contents.append(bundler)
         else:
             if len(params) == 3:
@@ -210,7 +135,7 @@ class Bundler():
 
     def __deepcopy__(self, memo):
         timestamp = self.timestamp
-        new_bundler = Bundler(timestamp, server=self.server)
+        new_bundler = Bundler(timestamp, server=self.osc)
         new_bundler.contents = copy.deepcopy(self.contents)
         return new_bundler
 
@@ -258,22 +183,28 @@ class Bundler():
             instead.
         """
         if not server:
-            server = self.server or sc3nb.SC.default.server
+            osc = self.osc or sc3nb.SC.default.server.osc
         if server:
-            server.send(self.build(), sclang=sclang, bundled=bundled)
+            osc = server.osc
         else:
             RuntimeError("No server for sending provided.")
+        osc.send(self, sclang=sclang, bundled=bundled)
 
     def __enter__(self):
-        self.server._bundling_bundle = self
+        self.osc._bundling_lock.acquire(timeout=5)
+        # if there is already a bundling bundle set when we have
+        # the lock it is from the same thread.
+        self.osc._bundling_bundles.append(self)
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        self.server._bundling_bundle = None
+        if self.osc._bundling_bundles.pop() is not self:
+            raise RuntimeError("Bundler nesting failed.")
+        self.osc._bundling_lock.release()
         if exc_type:
             raise RuntimeError("Bundler failed. Check if add is used correctly.")
         if self.send_on_exit:
-            self.send()
+            self.send(bundled=True)
 
 
 def build_message(msg_addr, msg_args=None):
@@ -422,7 +353,7 @@ def preprocess_return(value):
 class OscCommunication():
     """Class to send and receive OSC messages and bundles."""
 
-    def __init__(self, server_ip='127.0.0.1', server_port=OSCCOM_DEFAULT_PORT,
+    def __init__(self, server_ip='127.0.0.1', server_port=SC3NB_DEFAULT_PORT,
                  sclang_ip='127.0.0.1', sclang_port=SCLANG_DEFAULT_PORT,
                  scsynth_ip='127.0.0.1', scsynth_port=SCSYNTH_DEFAULT_PORT):
         print("Starting OscCommunication...")
@@ -430,6 +361,10 @@ class OscCommunication():
         # set SuperCollider addresses
         self.set_sclang(sclang_ip, sclang_port)
         self.set_scsynth(scsynth_ip, scsynth_port)
+
+        # bundling messages support
+        self._bundling_lock = RLock()
+        self._bundling_bundles = []
 
         # start server
         server_dispatcher = dispatcher.Dispatcher()
@@ -448,23 +383,25 @@ class OscCommunication():
         self.async_msgs = ASYNC_MSGS
         self.msg_pairs = MSG_PAIRS
 
-        # init queues for msg pairs
-        self.msg_queues = {}
+        # init queues for msg pairs, must be after self.server
+        self._msg_queues = {}
         self.update_msg_queues()
 
         # init special msg queues
+
+        # /return messages from sclang callback
         self.returns = AddressQueue("/return", preprocess_return)
         server_dispatcher.map(*self.returns.map_values)
 
-        # As /done messages have no purpose for us at this point
-        # we don't collect /done messages
+        # /done messages have no purpose for us at this point
         self.dones = AddressQueue("/done")
         server_dispatcher.map(*self.dones.map_values)
 
         # set logging handlers
-        server_dispatcher.map("/fail", self._warn, needs_reply_address=True)
-        server_dispatcher.map("/*", self._log, needs_reply_address=True)
+        server_dispatcher.map("/fail", self._warn_fail, needs_reply_address=True)
+        server_dispatcher.map("/*", self._log_message, needs_reply_address=True)
 
+        # start server thread
         self.server_thread = threading.Thread(
             target=self.server.serve_forever)
         self.server_thread.daemon = True
@@ -489,10 +426,10 @@ class OscCommunication():
         if new_msg_pairs:
             self.msg_pairs.update(new_msg_pairs)
         for msg_addr, response_addr in self.msg_pairs.items():
-            if msg_addr not in self.msg_queues:
+            if msg_addr not in self._msg_queues:
                 addr_queue = AddressQueue(response_addr)
                 self.server.dispatcher.map(*addr_queue.map_values)
-                self.msg_queues[msg_addr] = addr_queue
+                self._msg_queues[msg_addr] = addr_queue
 
     def _check_sender(self, sender):
         if sender == self.sclang_address:
@@ -501,7 +438,7 @@ class OscCommunication():
             sender = "scsynth"
         return sender
 
-    def _log(self, sender, *args):
+    def _log_message(self, sender, *args):
         if len(str(args)) > 55:
             args_str = str(args)[:55] + ".."
         else:
@@ -509,7 +446,7 @@ class OscCommunication():
         _LOGGER.info("osc msg received from %s: %s",
                      self._check_sender(sender), args_str)
 
-    def _warn(self, sender, *args):
+    def _warn_fail(self, sender, *args):
         _LOGGER.warning("Error from %s: %s",
                         self._check_sender(sender), args)
 
@@ -545,7 +482,7 @@ class OscCommunication():
         """
         self.scsynth_address = (scsynth_ip, scsynth_port)
 
-    def get_connection_info(self, print_info=True):
+    def connection_info(self, print_info=True):
         """Get information about the address of sc3nb, sclang and scsynth
 
         Parameters
@@ -567,18 +504,21 @@ class OscCommunication():
         return (self.server.server_address,
                 self.sclang_address, self.scsynth_address)
 
-    def send(self, content, server_address=None, sclang=False, sync=True, timeout=5):
+    def send(self, content, receiver_address=None,
+             bundled=False, sclang=False, sync=True, timeout=5):
         """Sends OSC message or bundle to sclang or scsnyth
 
         Parameters
         ----------
-        content : OscMessage or OscBundle
+        content : OscMessage or OscBundle or Bundler
             Object with `dgram` attribute.
-        server_address: tuple(ip, port), optional
+        receiver_address: tuple(ip, port), optional
             Address of the receiving osc server.
             If None, it will send to default osc server.
+        bundled : bool
+            If True it is allowed to bundle the content with bundling.
         sclang : bool
-            If True sends msg to sclang else sends msg to scsynth.
+            If True sends msg to sclang.
         sync : bool, optional
             If True and content is a OscMessage send message and wait for sync or response
             otherwise send the message and return directly.
@@ -588,14 +528,30 @@ class OscCommunication():
              (Default value = 5)
 
         """
-        if server_address:
-            receiver = server_address
+        # bundling
+        if bundled:
+            with self._bundling_lock:
+                if self._bundling_bundles:
+                    self._bundling_bundles[-1].add(content)
+                    return
+
+        # Bundler needs to be build
+        if isinstance(content, Bundler):
+            content = content.build()
+
+        if receiver_address:
+            receiver = receiver_address
         elif sclang:  # sclang overwrites, specific server_address
             receiver = self.sclang_address
         else:
             receiver = self.scsynth_address
 
-        self.server.socket.sendto(content.dgram, receiver)
+        try:
+            datagram = content.dgram
+        except AttributeError as error:
+            raise ValueError(
+                    f"Content '{content}' not supported. It needs a dgram Attribute.") from error
+        self.server.socket.sendto(datagram, receiver)
 
         # TODO add async stuff for completion message etc.
 
@@ -612,12 +568,12 @@ class OscCommunication():
             try:
                 if msg.address in self.msg_pairs:
                     if sync:
-                        return self.msg_queues[msg.address].get(timeout, skip=True)
+                        return self._msg_queues[msg.address].get(timeout, skip=True)
                     else:
-                        self.msg_queues[msg.address]._skips += 1
+                        self._msg_queues[msg.address]._skips += 1
                 elif msg.address in self.async_msgs:
                     if sync:
-                        self.sync(timeout=timeout, server_address=server_address)
+                        self.sync(timeout=timeout, server_address=receiver)
             except (Empty, TimeoutError) as timeout_error:
                 raise ChildProcessError(
                     f"Failed to sync after message to "
@@ -646,13 +602,16 @@ class OscCommunication():
         while not synced:
             sync_id = randint(1000, 9999)
             msg = build_message("/sync", sync_id)
-            synced = (sync_id == self.send(msg, server_address=server_address))
+            synced = (sync_id == self.send(msg, receiver_address=server_address))
             if time.time() >= timeout_end:
                 raise TimeoutError(
                     'timeout while trying to sync with the server')
         return synced
+        #sync_id = randint(1000, 9999)
+        #msg = build_message("/sync", sync_id)
+        #return sync_id == self.send(msg, server_address=server_address, timeout=timeout)
 
-    def msg(self, msg_addr, msg_args=None, sclang=False, sync=True, timeout=5):
+    def msg(self, msg_addr, msg_args=None, bundled=False, sclang=False, sync=True, timeout=5):
         """Sends OSC message over UDP to either sclang or scsynth
 
         Parameters
@@ -679,12 +638,11 @@ class OscCommunication():
             response if sync was True and message is in `msg_pairs`
 
         """
-
         msg = build_message(msg_addr, msg_args)
-        return self.send(msg, sclang=sclang, sync=sync, timeout=timeout)
+        return self.send(content=msg, bundled=bundled, sclang=sclang, sync=sync, timeout=timeout)
 
-    def bundle(self, timestamp, msg_addr=None, msg_args=None):
-        """Generate a bundle builder.
+    def bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True):
+        """Generate a Bundler.
 
         This allows the user to easly add messages/bundles and send it.
 
@@ -701,18 +659,17 @@ class OscCommunication():
 
         Returns
         -------
-        OscBundleBuilder
-            custom pythonosc BundleBuilder with add_msg and send
+        Bundler
+            bundler for OSC bundling.
         """
-        bundle = Bundler(timestamp, msg_addr, msg_args, server=self)
-        return bundle
-
-    def __del__(self):
-        self.exit()
+        return Bundler(timestamp=timestamp, msg=msg, msg_args=msg_args,
+                       server=self, send_on_exit=send_on_exit)
 
     def exit(self):
-        """Shuts down the sc3nb server"""
-
+        """Shuts down the sc3nb OSC server"""
         print("Shutting down osc communication...")
         self.server.shutdown()
         print("Done.")
+
+    def __del__(self):
+        self.exit()

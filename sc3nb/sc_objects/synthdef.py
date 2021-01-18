@@ -4,7 +4,7 @@ import re
 
 import sc3nb
 
-class SynthDef:
+class SynthDef():
     """Wrapper for SuperCollider SynthDef"""
 
     synth_descs = {}
@@ -23,8 +23,6 @@ class SynthDef:
 
         Parameters
         ----------
-        sc: SC object
-            SC instance where the synthdef should be created
         name: string
             default name of the synthdef creation.
             The naming convention will be name+int, where int is the amount of
@@ -33,6 +31,8 @@ class SynthDef:
             Pass the default synthdef definition here. Flexible content
             should be in double brackets ("...{{flexibleContent}}...").
             This flexible content, you can dynamic replace with set_context()
+        sc: SC object
+            SC instance where the synthdef should be created
         """
         self.sc = sc or sc3nb.SC.default
         self.definition = definition

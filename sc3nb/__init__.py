@@ -14,7 +14,7 @@ from .osc.osc_communication import build_message, Bundler
 from .sc_objects.buffer import Buffer
 from .sc_objects.synthdef import SynthDef
 from .sc_objects.node import Node, Synth, Group, AddAction
-from .sc_objects.server import SCServer, ServerOptions
+from .sc_objects.server import SCServer, ServerOptions, Recording
 
 def load_ipython_extension(ipython):
     """Load the extension in IPython."""
