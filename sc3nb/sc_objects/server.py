@@ -21,6 +21,9 @@ ServerStatus = namedtuple('ServerStatus',
                           ["num_ugens", "num_synths", "num_groups", "num_synthdefs",
                            "avg_cpu", "peak_cpu", "nominal_sr", "actual_sr"])
 
+ServerVersion = namedtuple('ServerVersion',
+                           ["name", "major_version", "minor_version", "patch_version",
+                            "git_branch", "commit"])
 
 class Recording():
 
@@ -378,6 +381,10 @@ class SCServer():
         raise NotImplementedError
 
     # Information and debugging
+    def version(self):
+        msg = build_message("/version")
+        return ServerVersion._make(self.send(msg))
+
     def status(self):
         msg = build_message("/status")
         return ServerStatus._make(self.send(msg)[1:])
