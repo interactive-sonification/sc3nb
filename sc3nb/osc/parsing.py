@@ -145,3 +145,24 @@ def parse_sclang_osc_packet(data):
     except ParseError as error:
         _LOGGER.warning('Ignoring ParseError:\n%s\nreturning blob', error)
     return data
+
+
+def preprocess_return(value):
+    """Preprocessing function for /return values
+
+    Parameters
+    ----------
+    value : tuple
+        return data
+
+    Returns
+    -------
+    obj
+        data
+
+    """
+    if len(value) == 1:
+        value = value[0]
+        if isinstance(value, bytes):
+            value = parse_sclang_osc_packet(value)
+    return value
