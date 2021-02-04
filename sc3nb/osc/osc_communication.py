@@ -10,6 +10,7 @@ import threading
 import time
 import copy
 
+from typing import Optional, Sequence
 from queue import Empty, Queue
 from threading import RLock
 
@@ -19,7 +20,7 @@ from pythonosc import (dispatcher, osc_server,
                        osc_bundle, osc_message)
 
 import sc3nb
-from sc3nb.osc.parsing import parse_sclang_osc_packet
+from sc3nb.osc.parsing import preprocess_return
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -72,10 +73,15 @@ MSG_PAIRS = {
 
 class Bundler():
 
-    def __init__(self, timestamp=0, msg=None, msg_args=None, server=None, send_on_exit=True):
+    def __init__(self,
+                 timestamp: int = 0,
+                 msg=None,
+                 msg_args=None,
+                 server=None,
+                 send_on_exit: bool = True) -> None:
         self.timestamp = timestamp
         if server is not None:
-            if isinstance(server, OscCommunication):
+            if isinstance(server, OSCCommunication):
                 self.osc = server
             else:
                 self.osc = server.osc
@@ -166,7 +172,7 @@ class Bundler():
             elif isinstance(content, osc_message.OscMessage):
                 builder.add_content(content)
             else:
-                ValueError()
+                ValueError("Couldn't build with unsupported content: {content}")
         return builder.build()
 
     def send(self, server=None, sclang=False, bundled=True):
@@ -223,7 +229,6 @@ def build_message(msg_addr, msg_args=None):
         Message ready to be sent.
 
     """
-
     if msg_args is None:
         msg_args = []
     elif not hasattr(msg_args, '__iter__') or isinstance(msg_args, (str, bytes)):
@@ -252,26 +257,29 @@ class AddressQueue():
             function that will be applied to the value before they are enqueued
              (Default value = None)
         """
-        self.address = address
+        self._address = address
         self.process = preprocess
-        self.queue = Queue()
+        self._queue = Queue()
         self._skips = 0
 
-    def _put(self, address, *args):
-        if self.address != address:
-            _LOGGER.info(
-                "AddressQueue %s: alternative address %s", self.address, address)
+    def put(self, address, *args):
+        if self._address != address:
+            _LOGGER.warning(
+                "AddressQueue %s: alternative address %s", self._address, address)
         if self.process:
             args = self.process(args)
         else:
             if len(args) == 1:
                 args = args[0]
-        self.queue.put(args)
+        self._queue.put(args)
 
     @property
     def skips(self):
         """Counts how many times this queue was not synced"""
         return self._skips
+
+    def skipped(self):
+        self._skips += 1
 
     @property
     def map_values(self):
@@ -282,9 +290,9 @@ class AddressQueue():
         tuple
             (OSC address pattern, callback function)
         """
-        return self.address, self._put
+        return self._address, self.put
 
-    def get(self, timeout=5, skip=False):
+    def get(self, timeout=5, skip=True):
         """Returns a value from the queue
 
         Parameters
@@ -294,7 +302,7 @@ class AddressQueue():
              (Default value = 5)
         skip : bool, optional
             If True the queue will skip as many values as `skips`
-             (Default value = False)
+             (Default value = True)
 
         Returns
         -------
@@ -309,54 +317,83 @@ class AddressQueue():
         """
         if skip:
             while self._skips > 0:
-                skipped_value = self.queue.get(block=True, timeout=timeout)
+                skipped_value = self._queue.get(block=True, timeout=timeout)
                 _LOGGER.warning("AddressQueue: skipped value %s", skipped_value)
                 self._skips -= 1
         if self._skips > 0:
             self._skips -= 1
-        val = self.queue.get(block=True, timeout=timeout)
-        self.queue.task_done()
+        val = self._queue.get(block=True, timeout=timeout)
+        self._queue.task_done()
         return val
 
     def show(self):
         """Print the content of the queue."""
-        print(list(self.queue.queue))
+        print(list(self._queue.queue))
 
     def _repr_pretty_(self, p, cycle):
         if cycle:
             p.text('AddressQueue')
         else:
-            p.text(f"AddressQueue {self.address} : {list(self.queue.queue)}")
+            p.text(f"AddressQueue {self._address} : {list(self._queue.queue)}")
 
 
-def preprocess_return(value):
-    """Preprocessing function for /return values
+class CollectionHandler():
 
-    Parameters
-    ----------
-    value : tuple
-        return data
+    def __init__(self, address: str, sub_addrs: Optional[Sequence[str]] = None):
+        self._address = address
+        if sub_addrs is not None:
+            self.msg_queues = {msg_addr: AddressQueue(msg_addr) for msg_addr in sub_addrs}
+        else:
+            self.msg_queues = {}
 
-    Returns
-    -------
-    obj
-        data
+    def put(self, _, *args):
+        address, *args = args
+        if address not in self.msg_queues:
+            self.msg_queues[address] = AddressQueue(address)
+            _LOGGER.debug("MessageQueue for %s was created under CollectionHandler %s.",
+                          address,
+                          self._address)
+        self.msg_queues[address].put(address, *args)
 
-    """
-    if len(value) == 1:
-        value = value[0]
-        if isinstance(value, bytes):
-            value = parse_sclang_osc_packet(value)
-    return value
+    @property
+    def map_values(self):
+        """Values needed for dispatcher map call
+
+        Returns
+        -------
+        tuple
+            (OSC address pattern, callback function)
+        """
+        return self._address, self.put
+
+    def __contains__(self, item):
+        return item in self.msg_queues
 
 
-class OscCommunication():
+class OSCCommunicationError(Exception):
+    """Exception for OSCCommunication errors."""
+
+    def __init__(self, message, send_message, fail = None):
+        self.message = message
+        self.fail = fail
+        self.send_message = send_message
+        super().__init__(self.message)
+
+    def __str__(self):
+        message = (f'{self.message} : {self.send_message.address}'
+                   f', {str(self.send_message.params):20}')
+        if self.fail is not None:
+            message = f'Fail occurred {self.fail} -> {message}'
+        return message
+
+
+class OSCCommunication():
     """Class to send and receive OSC messages and bundles."""
 
     def __init__(self, server_ip='127.0.0.1', server_port=SC3NB_DEFAULT_PORT,
                  sclang_ip='127.0.0.1', sclang_port=SCLANG_DEFAULT_PORT,
                  scsynth_ip='127.0.0.1', scsynth_port=SCSYNTH_DEFAULT_PORT):
-        print("Starting OscCommunication...")
+        print("Starting OSCCommunication...")
 
         # set SuperCollider addresses
         self.set_sclang(sclang_ip, sclang_port)
@@ -372,7 +409,7 @@ class OscCommunication():
             try:
                 self.server = osc_server.ThreadingOSCUDPServer(
                     (server_ip, server_port), server_dispatcher)
-                print("This OscCommunication instance is at port: {}"
+                print("This OSCCommunication instance is at port: {}"
                       .format(server_port))
                 break
             except OSError as error:
@@ -393,9 +430,13 @@ class OscCommunication():
         self.returns = AddressQueue("/return", preprocess_return)
         server_dispatcher.map(*self.returns.map_values)
 
-        # /done messages have no purpose for us at this point
-        self.dones = AddressQueue("/done")
+        # /done messages must be seperated
+        self.dones = CollectionHandler(address="/done", sub_addrs=ASYNC_MSGS)
         server_dispatcher.map(*self.dones.map_values)
+
+        self.fails = CollectionHandler(address="/fail")
+        server_dispatcher.map(*self.fails.map_values)
+
 
         # set logging handlers
         server_dispatcher.map("/fail", self._warn_fail, needs_reply_address=True)
@@ -521,8 +562,8 @@ class OscCommunication():
             If True sends msg to sclang.
         sync : bool, optional
             If True and content is a OscMessage send message and wait for sync or response
-            otherwise send the message and return directly.
-             (Default value = True)
+            otherwise send the message and return directly.  (Default value = True)
+            sclang=True will set this to False as sclang does not handle sync messages.
         timeout : int, optional
             timeout in seconds for sync and response.
              (Default value = 5)
@@ -543,6 +584,7 @@ class OscCommunication():
             receiver = receiver_address
         elif sclang:  # sclang overwrites, specific server_address
             receiver = self.sclang_address
+            sync = False
         else:
             receiver = self.scsynth_address
 
@@ -559,10 +601,9 @@ class OscCommunication():
             msg = content
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):
-                if len(str(msg.params)) > 55:
+                msg_params_str = str(msg.params)
+                if not _LOGGER.isEnabledFor(logging.DEBUG) and len(str(msg.params)) > 55:
                     msg_params_str = str(msg.params)[:55] + ".."
-                elif _LOGGER.isEnabledFor(logging.DEBUG):
-                    msg_params_str = str(msg.params)
                 _LOGGER.debug("send to %s : %s %s", receiver, msg.address, msg_params_str)
             # handling
             try:
@@ -570,15 +611,32 @@ class OscCommunication():
                     if sync:
                         return self._msg_queues[msg.address].get(timeout, skip=True)
                     else:
-                        self._msg_queues[msg.address]._skips += 1
-                elif msg.address in self.async_msgs:
+                        self._msg_queues[msg.address].skipped()
+                elif msg.address in self.dones:
+                    if sync:
+                        return self.dones.msg_queues[msg.address].get(timeout, skip=True)
+                    else:
+                        self.dones.msg_queues[msg.address].skipped()
+                else:
                     if sync:
                         self.sync(timeout=timeout, server_address=receiver)
-            except (Empty, TimeoutError) as timeout_error:
-                raise ChildProcessError(
-                    f"Failed to sync after message to "
-                    f"{'sclang' if sclang else 'scsynth'}"
-                    f": {msg.address}") from timeout_error
+            except (Empty, TimeoutError) as error:
+                fail_val = None
+                if msg.address in self.fails:
+                    try:
+                        # TODO read all possible fails
+                        fail_val = self.fails.msg_queues[msg.address].get(timeout=0)
+                    except Empty:
+                        pass
+                if isinstance(error, Empty):
+                    message = "Failed to get reply after message to "
+                elif isinstance(error, TimeoutError):
+                    message = "Failed to sync after message to "
+                else:
+                    message = "Error when sending message to "
+                message += f"{self._check_sender(receiver)}"
+                raise OSCCommunicationError(message, msg, fail_val) from error
+
         elif isinstance(content, osc_bundle.OscBundle):
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):
