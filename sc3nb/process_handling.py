@@ -90,14 +90,17 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
     allowed_parent : str, optional
         parents name of processes to keep, by default None
     """
+    _LOGGER.debug("Trying to find leftover processes of %s", exec_path)
     for proc in psutil.process_iter(['exe']):
         if proc.info['exe'] == exec_path:
             if allowed_parents:
-                parent = proc.parent()
-                if parent:
-                    cmdline = " ".join(parent.cmdline())
+                parents = proc.parents()
+                if parents:
+                    cmdline = " ".join(map(" ".join, map(psutil.Process.cmdline, parents)))
+                    _LOGGER.debug("Parents cmdlines: %s", cmdline)
                     if any([allowed_parent in cmdline for allowed_parent in allowed_parents]):
                         continue
+            _LOGGER.debug("Terminating %s parents: %s", proc, proc.parents())
             proc.terminate()
             try:
                 proc.wait(timeout=0.5)
@@ -117,7 +120,13 @@ class ProcessTimeout(Exception):
 
 
 class Process:
-    def __init__(self, executable, args=None, exec_path=None, console_logging=True, kill_others=True, allowed_parents=None):
+    def __init__(self,
+                 executable,
+                 args=None,
+                 exec_path=None,
+                 console_logging=True,
+                 kill_others=True,
+                 allowed_parents=None):
         self.executable = executable
         self.exec_path = find_executable(self.executable, path=exec_path)
         self.console_logging = console_logging
