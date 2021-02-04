@@ -10,7 +10,7 @@ class SynthDef():
     synth_descs = {}
 
 
-    @classmethod # TODO add this to a SynthDesc class to the server?
+    @classmethod  # TODO add this to a SynthDesc class to the server?
     def get_desc(cls, name):
         if name in cls.synth_descs:
             return cls.synth_descs[name]
