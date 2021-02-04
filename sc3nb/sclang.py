@@ -371,6 +371,7 @@ class SCLang:
             verbose: bool = False,
             discard_output: bool = True,
             get_result: bool = False,
+            print_error: bool = True,
             get_output: bool = False,
             timeout: int = 1) -> Any:
         """Send code to sclang to execute it.
@@ -392,6 +393,9 @@ class SCLang:
         get_result : bool, optional
             If True receive and return the
             evaluation result from sclang, by default False
+        print_error : bool, optional
+            If this and get_result is True and code execution fails
+            the output from sclang will be printed.
         get_output : bool, optional
             If True return output. Does not override get_result
             If verbose this will be True, by default False
@@ -452,10 +456,11 @@ class SCLang:
             try:
                 return_val = self._osc.returns.get(timeout)
             except Empty:
-                print("ERROR: unable to receive /return message from sclang")
-                print("sclang output: (also see console) \n")
                 out = self.read()
-                print(out)
+                if print_error:
+                    print("ERROR: unable to receive /return message from sclang")
+                    print("sclang output: (also see console) \n")
+                    print(out)
                 raise SCLangError(
                     "unable to receive /return message from sclang",
                     sclang_output=out)
@@ -551,9 +556,9 @@ class SCLang:
                 [control.name, control.rate, control.defaultValue]
                 })""".replace('{{synthDef}}', synth_def)
         try:
-            synth_desc = self.cmdg(code)
-        except SCLangError: # this will fail if sclang does not know this synth TODO: is this the only Error?
-            warnings.warn("Couldn't find SynthDef %s with sclang" % synth_def)
+            synth_desc = self.cmd(code, get_result=True, print_error=False)
+        except SCLangError:  # this will fail if sclang does not know this synth
+            warnings.warn(f"Couldn't find SynthDef {synth_def} in sclangs global SynthDescLib.")
             synth_desc = None
 
         if synth_desc:

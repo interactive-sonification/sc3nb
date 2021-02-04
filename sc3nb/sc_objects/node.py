@@ -383,7 +383,7 @@ class Node(ABC):
             self.server.send(msg, bundled=True)
         return self
 
-    def release(self, release_time, return_msg=False):
+    def release(self, release_time=None, return_msg=False):
         """Set gate as specified.
 
         https://doc.sccode.org/Classes/Node.html#-release
@@ -533,7 +533,10 @@ class Node(ABC):
 class Synth(Node):
     """Python representation of a group node on the SuperCollider server."""
 
-    def __init__(self, name: str ="default", args: Dict[str, Any] = None, *,
+    def __init__(self,
+                 name: str = "default",
+                 args: Dict[str, Any] = None,
+                 *,
                  nodeid: Optional[int] = None,
                  new: bool = True,
                  add_action: Optional[Union[AddAction, int]] = None,
