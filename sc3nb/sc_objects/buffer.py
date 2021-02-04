@@ -1,6 +1,11 @@
 """Module to for using SuperCollider Buffers in Python"""
 
 import os
+import warnings
+
+from typing import NamedTuple
+from tempfile import NamedTemporaryFile
+from pathlib import Path
 
 import scipy.io.wavfile as wavfile
 import numpy as np
@@ -11,6 +16,13 @@ import sc3nb
 # /b_read           Read sound file data into an existing buffer.
 # /b_readChannel    Read sound file channel data into an existing buffer.
 # /b_set
+
+class BufferInfo(NamedTuple):
+    """Information about the Buffer"""
+    bufnum: int
+    num_frames: int
+    num_channels: int
+    sample_rate: float
 
 
 class Buffer:
@@ -39,9 +51,9 @@ class Buffer:
         to communicate with scsynth
     _sr : int
         the sampling rate of the buffer
-    _channels: int
+    _channels : int
         number of channels of the buffer
-    _samples: int
+    _samples : int
         buffer length = number of sample frames
     _bufnum : int
         buffer number = bufnum id on scsynth
@@ -98,7 +110,6 @@ class Buffer:
         self._samples = None
         self._alloc_mode = None
         self._allocated = False
-        self._tempfile = None
         self._path = None
         self._synth_def = None
         self._synth = None
@@ -112,13 +123,13 @@ class Buffer:
 
         Parameters
         ----------
-        path: string
+        path : string
             path name of a sound file.
-        starting_frame: int
+        starting_frame : int
             starting frame in file
-        num_frames: int
+        num_frames : int
             number of frames to read
-        channels: list | int
+        channels : list | int
             channels and order of channels to be read from file.
             if only a int is provided it is loaded as only channel
 
@@ -128,7 +139,12 @@ class Buffer:
             the created Buffer object
         """
         self._alloc_mode = 'file'
-        self._sr, data = wavfile.read(path)  # TODO: we only need the metadata here
+        self._path = Path(path).resolve(strict=True)
+        self._sr, data = wavfile.read(self._path)  # TODO: we only need the metadata here
+        server_sr = self.server.sample_rate
+        if self._sr != server_sr:
+            warnings.warn(f"Sample rate of file ({self._sr}) does not "
+                          f"match the SC Server sample rate ({server_sr})")
         if num_frames <= 0:
             self._samples = data.shape[0]
         else:
@@ -141,10 +157,9 @@ class Buffer:
         elif isinstance(channels, int):
             channels = [channels]
         self._channels = len(channels)
-        self._path = path
         self.server.msg(
             "/b_allocReadChannel",
-            [self._bufnum, path, starting_frame, num_frames, *channels])
+            [self._bufnum, str(self._path), starting_frame, num_frames, *channels])
         self._allocated = True
         return self
 
@@ -153,11 +168,11 @@ class Buffer:
 
         Parameters
         ----------
-        size: int
+        size : int
             number of frames
-        sr: int
+        sr : int
             sampling rate in Hz (optional. default = 44100)
-        channels: int
+        channels : int
             number of channels (optional. default = 1 channel)
 
         Returns
@@ -178,11 +193,11 @@ class Buffer:
 
         Parameters
         ----------
-        data: numpy array
+        data : numpy array
             Data which should inserted
-        mode: string='file'
+        mode : string='file'
             Insert data via filemode ('file') or n_set OSC commands ('osc')
-        sr: int=44100
+        sr : int=44100
             sample rate
 
         Returns
@@ -195,11 +210,14 @@ class Buffer:
         self._samples = data.shape[0]
         self._channels = 1 if len(data.shape) == 1 else data.shape[1]
         if mode == 'file':
-            if not os.path.exists('./temp/'):
-                os.makedirs('./temp/')
-            self._tempfile = f"./temp/temp_{self._bufnum}.wav"
-            wavfile.write(self._tempfile, self._sr, data)
-            self.server.msg("/b_allocRead", [self._bufnum, self._tempfile])
+            tempfile = NamedTemporaryFile(delete=False)
+            try:
+                wavfile.write(tempfile, self._sr, data)
+            finally:
+                tempfile.close()
+            self.server.msg("/b_allocRead", [self._bufnum, tempfile.name], sync=True)
+            if os.path.exists(tempfile.name):
+                os.remove(tempfile.name)
         elif mode == 'osc':
             self.server.msg("/b_alloc", [self._bufnum, data.shape[0]])
             blocksize = 1000  # array size compatible with OSC packet size
@@ -251,9 +269,9 @@ class Buffer:
 
         Parameters
         ----------
-        bufnum: int
+        bufnum : int
             buffer node id
-        sr: int
+        sr : int
             Sample rate
 
         Returns
@@ -266,8 +284,8 @@ class Buffer:
         self._bufnum = bufnum
         self._allocated = True
         info = self.query()
-        self._channels = info[2]
-        self._samples = info[1]
+        self._samples = info.num_frames
+        self._channels = info.num_channels
         return self
 
     def copy_existing(self, buffer):
@@ -275,7 +293,7 @@ class Buffer:
 
         Parameters
         ----------
-        buffer: Buffer object
+        buffer : Buffer object
             Buffer which should be duplicated
 
         Returns
@@ -304,12 +322,12 @@ class Buffer:
 
         Parameters
         ----------
-        start: int or list
-            int: sample starting index
-            list: n*[start, count, value] list
-        count: int
+        start : int or list
+            int : sample starting index
+            list : n*[start, count, value] list
+        count : int
             number of samples to fill
-        value: float
+        value : float
             value
 
         Returns
@@ -369,16 +387,16 @@ class Buffer:
 
         Parameters
         ----------
-        amplitudes: List
+        amplitudes : list
             The first float value specifies the amplitude of the first partial,
             the second float value specifies the amplitude of the second
             partial, and so on.
-        normalize: Bool
+        normalize : bool
             Normalize peak amplitude of wave to 1.0.
-        wavetable: Bool
+        wavetable : bool
             If set, then the buffer is written in wavetable format so that it
             can be read by interpolating oscillators.
-        clear: Bool
+        clear : bool
             If set then the buffer is cleared before new partials are written
             into it. Otherwise the new partials are summed with the existing
             contents of the buffer
@@ -399,16 +417,16 @@ class Buffer:
 
         Parameters
         ----------
-        freq_amps: List
+        freq_amps : list
             Similar to sine1 except that each partial frequency is specified
             explicitly instead of being an integer multiple of the fundamental.
             Non-integer partial frequencies are possible.
-        normalize: Bool
+        normalize : bool
             If set, normalize peak amplitude of wave to 1.0.
-        wavetable: Bool
+        wavetable : bool
             If set, the buffer is written in wavetable format so that it
             can be read by interpolating oscillators.
-        clear: Bool
+        clear : bool
             If set, the buffer is cleared before new partials are written
             into it. Otherwise the new partials are summed with the existing
             contents of the buffer.
@@ -429,15 +447,15 @@ class Buffer:
 
         Parameters
         ----------
-        freqs_amps_phases : List
+        freqs_amps_phases : list
             Similar to sine2 except that each partial may have a
             nonzero starting phase.
-        normalize : Bool
+        normalize : bool
             if set, normalize peak amplitude of wave to 1.0.
-        wavetable : Bool
+        wavetable : bool
             If set, the buffer is written in wavetable format
             so that it can be read by interpolating oscillators.
-        clear: Bool
+        clear : bool
             If set, the buffer is cleared before new partials are written
             into it. Otherwise the new partials are summed with the existing
             contents of the buffer.
@@ -457,16 +475,16 @@ class Buffer:
 
         Parameters
         ----------
-        amplitudes : List
+        amplitudes : list
             The first float value specifies the amplitude for n = 1,
             the second float value specifies the amplitude
             for n = 2, and so on
-        normalize : Bool
+        normalize : bool
             If set, normalize the peak amplitude of the Buffer to 1.0.
-        wavetable : Bool
+        wavetable : bool
             If set, the buffer is written in wavetable format so that it
             can be read by interpolating oscillators.
-        clear: Bool
+        clear : bool
             If set the buffer is cleared before new partials are written
             into it. Otherwise the new partials are summed with the existing
             contents of the buffer.
@@ -485,13 +503,13 @@ class Buffer:
 
         Parameters
         ----------
-        source: Buffer
+        source : Buffer
             Source buffer object
-        source_pos: int
+        source_pos : int
             sample position in source
-        dest_pos: int
+        dest_pos : int
             sample position in destination
-        copy_amount: int
+        copy_amount : int
             number of samples to copy. If the number of samples to copy is
             negative, the maximum number of samples
             possible is copied.
@@ -565,21 +583,21 @@ class Buffer:
 
         Parameters
         ----------
-        path: string
+        path : string
             path name of a sound file.
-        header: string
+        header : string
             header format. Header format is one of:
             "aiff", "next", "wav", "ircam"", "raw"
-        sample: string
+        sample : string
             sample format. Sample format is one of:
             "int8", "int16", "int24", "int32",
             "float", "double", "mulaw", "alaw"
-        num_frames: int
+        num_frames : int
             number of frames to write.
             -1 means all frames.
-        starting_frame: int
+        starting_frame : int
             starting frame in buffer
-        leave_open: boolean
+        leave_open : boolean
             Whether you want the buffer file left open.
             For use with DiskOut you will want this to be true.
             The file is created, but no frames are written until the DiskOut ugen does so.
@@ -593,6 +611,7 @@ class Buffer:
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
         leave_open_val = 1 if leave_open else 0
+        path = str(Path(path).resolve())
         self.server.msg("/b_write", [self._bufnum, path, header, sample,
                                      num_frames, starting_frame, leave_open_val])
         return self
@@ -639,7 +658,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
-        return self.server.msg("/b_query", [self._bufnum])
+        return BufferInfo._make(self.server.msg("/b_query", [self._bufnum]))
 
     def _repr_pretty_(self, p, cycle):
         if cycle:
@@ -658,12 +677,6 @@ class Buffer:
         self.server.msg("/b_free", [self._bufnum])
         self._allocated = False
         self._alloc_mode = None
-
-    def __del__(self):
-        if self._alloc_mode == 'data' and isinstance(self._tempfile, str):
-            os.remove(self._tempfile)
-        if self._allocated:
-            self.free()
 
     # Section: Properties
     @property
@@ -703,17 +716,6 @@ class Buffer:
             allocation mode
         """
         return self._alloc_mode
-
-    @property
-    def tempfile(self):
-        """File path of temporary buffer file.
-
-        Returns
-        -------
-        str
-            temporary file path
-        """
-        return self._tempfile
 
     @property
     def path(self):

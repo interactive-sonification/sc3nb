@@ -5,47 +5,65 @@ within jupyter notebooks
 import logging
 import warnings
 
+from typing import Optional, Sequence
 from IPython import get_ipython
 
-import sc3nb.magics
 
-from sc3nb.sc_objects.server import SCServer
-from sc3nb.sclang import Sclang
+import sc3nb.magics as magics
+
+from sc3nb.sc_objects.server import SCServer, ServerOptions
+from sc3nb.sclang import SCLang
 from sc3nb.process_handling import ProcessTimeout, ALLOWED_PARENTS
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
-def startup(start_server=True,
-            scsynth_path=None,
-            start_sclang=True,
-            sclang_path=None,
-            magic=True,
-            scsynth_options=None,
-            console_logging=True,
-            allowed_parents=ALLOWED_PARENTS):
-    """Starts SC, boots scsynth and registers magics
+def startup(start_server: bool = True,
+            scsynth_path: Optional[str] = None,
+            start_sclang: bool = True,
+            sclang_path: Optional[str] = None,
+            magic: bool = True,
+            scsynth_options: Optional[ServerOptions] = None,
+            console_logging: bool = True,
+            allowed_parents: Sequence[str] =ALLOWED_PARENTS):
+    """Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
 
-    Keyword Arguments:
-        boot {bool} -- if True boot scsynth
-                    (default: {True})
-        magic {bool} -- if True register jupyter magics
-                        (default: {True})
+    Parameters
+    ----------
+    start_server : bool, optional
+        If True boot scsynth, by default True
+    scsynth_path : Optional[str], optional
+        Path of scscynth executable, by default None
+    start_sclang : bool, optional
+        If True start sclang, by default True
+    sclang_path : Optional[str], optional
+        Path of sclang executable, by default None
+    magic : bool, optional
+        If True register magics to Jupyter, by default True
+    scsynth_options : Optional[ServerOptions], optional
+        Options for the server, by default None
+    console_logging : bool, optional
+        If True write scsynth/sclang output to console, by default True
+    allowed_parents : Sequence[str], optional
+        Names of parents that are allowed for other instances of
+        sclang/scsynth processes, by default ALLOWED_PARENTS
 
-    Returns:
-        SC -- Communicates with and controls SuperCollider
-    """
+    Returns
+    -------
+    SC
+        SuperCollider Interface class.
+    """    
     if magic:
         ipy = get_ipython()
         if ipy is not None:
-            sc3nb.magics.load_ipython_extension(ipy)
+            magics.load_ipython_extension(ipy)
 
     if SC.default is None:
         SC.default = SC(start_server=start_server,
                         scsynth_path=scsynth_path,
                         start_sclang=start_sclang,
                         sclang_path=sclang_path,
-                        scsynth_options=sclang_path,
+                        scsynth_options=scsynth_options,
                         console_logging=console_logging,
                         allowed_parents=allowed_parents)
     else:
@@ -62,7 +80,7 @@ def startup(start_server=True,
 
 class SC():
 
-    default = None
+    default: Optional["SC"] = None
 
     def __init__(self,
                  start_server=True,
@@ -90,7 +108,7 @@ class SC():
                      console_logging=True,
                      allowed_parents=ALLOWED_PARENTS):
         if self._sclang is None:
-            self._sclang = Sclang()
+            self._sclang = SCLang()
             try:
                 self._sclang.start(
                     sclang_path=sclang_path,

@@ -5,13 +5,13 @@ import inspect
 import time
 import warnings
 
-from collections import namedtuple
+from typing import NamedTuple, Any, Optional, Sequence
 from queue import Empty
 
 import numpy as np
 
 import sc3nb.resources as resources
-from sc3nb.osc.osc_communication import SCLANG_DEFAULT_PORT
+from sc3nb.osc.osc_communication import SCLANG_DEFAULT_PORT, OSCCommunication
 from sc3nb.sc_objects.server import SCServer
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
@@ -19,20 +19,28 @@ SC3NB_SCLANG_CLIENT_ID = 0
 
 ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
-SynthArgument = namedtuple('SynthArgument', ['rate', 'default'])
+
+class SynthArgument(NamedTuple):
+    rate: str
+    default: Any
 
 
-def remove_comments(string):
-    """Removes all //single-line or /* multi-line */ c-style comments
+def remove_comments(code: str) -> str:
+    """Removes all c-style comments from code.
 
-    Arguments:
-        string {str} -- Code
+    This removes //single-line or /* multi-line */  comments.
 
-    Returns:
-        str -- Code without comments
+    Parameters
+    ----------
+    code : str
+        Code where comments should be removed.
+
+    Returns
+    -------
+    str
+        code string without comments
     """
-
-    # function code by Onur Yildirim
+    # function code by Onur Yildirim (https://stackoverflow.com/a/18381470)
     # first group captures quoted strings (double or single)
     # second group captures comments (//single-line or /* multi-line */)
     # alternative cares for escaped quotes
@@ -47,16 +55,15 @@ def remove_comments(string):
             return ""  # so we will return empty to remove the comment
         else:  # otherwise, we will return the 1st group
             return match.group(1)  # captured quoted-string
-    return regex.sub(_replacer, string)
+    return regex.sub(_replacer, code)
 
 
-def parse_pyvars(cmdstr, frame_nr=2):
-    """Parses through call stack and finds
-    value of string representations of variables
+def parse_pyvars(code: str, frame_nr: int = 2):
+    """Looks through call stack and finds values of variables.
 
     Parameters
     ----------
-    cmdstr : string
+    code : str
         SuperCollider command to be parsed
     frame_nr : int, optional
         on which frame to start, by default 2 (grandparent frame)
@@ -71,7 +78,7 @@ def parse_pyvars(cmdstr, frame_nr=2):
     NameError
         If the variable value could not be found.
     """
-    matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
+    matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', code)
 
     pyvars = {match.split('^')[1].strip(): None for match in matches}
     missing_vars = list(pyvars.keys())
@@ -101,26 +108,52 @@ def parse_pyvars(cmdstr, frame_nr=2):
     return pyvars
 
 
-def replace_vars(cmdstr, pyvars):
-    '''Replaces python variables with sc string representation'''
+def replace_vars(code: str, pyvars: dict) -> str:
+    """Replaces python variables with SuperCollider literals in code.
+
+    This replaces the pyvars preceded with ^ in the code with a SC literal.
+    The conversion is done with convert_to_sc.
+
+    Parameters
+    ----------
+    code : str
+        SuperCollider Code with python injections.
+    pyvars : dict
+        Dict with variable names and values.
+
+    Returns
+    -------
+    str
+        Code with injected variables.
+    """
     for pyvar, value in pyvars.items():
         pyvar = '^' + pyvar
         value = convert_to_sc(value)
-        cmdstr = cmdstr.replace(pyvar, value)
-    return cmdstr
+        code = code.replace(pyvar, value)
+    return code
 
 
-def convert_to_sc(obj):
-    '''Converts python objects to SuperCollider code literals
-    representations
-
+def convert_to_sc(obj: Any) -> str:
+    """Converts python objects to SuperCollider code literals.
+    
     This supports currently:
         numpy.ndarray -> SC Array representation
         complex type -> SC Complex
         strings -> if starting with sc3: it will be used as SC code
                    if it starts with a \\ (single escaped backward slash) it will be used as symbol
                    else it will be inserted as string  
-    '''
+    For unsupported types the __repr__ will be used.
+
+    Parameters
+    ----------
+    obj : Any
+        object that should be converted to a SuperCollider code literal.
+
+    Returns
+    -------
+    str
+        SuperCollider Code literal
+    """
     if isinstance(obj, np.ndarray):
         return obj.tolist().__repr__()
     if isinstance(obj, complex):
@@ -138,38 +171,62 @@ def convert_to_sc(obj):
     return obj.__repr__()
 
 
-class SclangError(Exception):
+class SCLangError(Exception):
+    """Exception for Errors related to SuperColliders sclang."""
     def __init__(self, message, sclang_output=None):
         super().__init__(message)
         self.sclang_output = sclang_output
 
-class Sclang:
+class SCLang:
+    """Class to control the SuperCollider Language Interpreter (sclang)."""
 
-    def __init__(self):
-        self._osc = None
-        self._server = None
+    def __init__(self) -> None:
+        """Creates a python representation of sclang.
+
+        Raises
+        ------
+        NotImplementedError
+            When an unsupported OS was found.
+        """
+        self._osc: OSCCommunication
+        self._server: SCServer
 
         if sys.platform == "linux" or sys.platform == "linux2":
             self.prompt_str = 'sc3>'
-            #self._read_loop = self._read_loop_unix
         elif sys.platform == "darwin":
             self.prompt_str = 'sc3>'
-            #self._read_loop = self._read_loop_unix
         elif sys.platform == "win32":
             self.prompt_str = '->'
-            #self._read_loop = self._read_loop_windows
         else:
             raise NotImplementedError('Unsupported OS {}'.format(sys.platform))
 
-        self.rec_node_id = -1  # i.e. not valid
-        self.rec_bufnum = -1
-
-        self.process = None
+        self.process: Process
         
-        self.port = None
+        self.port: Optional[int] = None
         self.started = False
  
-    def start(self, sclang_path=None, console_logging=True, allowed_parents=ALLOWED_PARENTS):
+    def start(self,
+              sclang_path: Optional[str] = None,
+              console_logging: bool = True,
+              allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> None:
+        """Start and initilize the sclang process.
+
+        This will also kill sclang processes that does not have allowed parents.  
+
+        Parameters
+        ----------
+        sclang_path : Optional[str], optional
+            Path with the sclang executable, by default None
+        console_logging : bool, optional
+            If True log sclang output to console, by default True
+        allowed_parents : Sequence[str], optional
+            parents name of processes to keep, by default ALLOWED_PARENTS
+
+        Raises
+        ------
+        SCLangError
+            When starting or initilizing sclang failed.
+        """
         if self.started:
             warnings.warn("sclang arlready started")
             return
@@ -183,7 +240,7 @@ class Sclang:
         except ProcessTimeout as timeout:
             if timeout.output:
                 if "Primitive '_GetLangPort' failed" in timeout.output:
-                    raise SclangError("sclang could not bind udp socket. "
+                    raise SCLangError("sclang could not bind udp socket. "
                                       "Try killing old sclang processes.",
                                       timeout.output) from timeout
             else:
@@ -218,22 +275,46 @@ class Sclang:
             self.load_synthdefs(resource_path)    
             print('Done.')
 
-    def load_synthdefs(self, synthdefs_path):
+    def load_synthdefs(self, synthdefs_path: str) -> None:
+        """Load SynthDef files from path.
+
+        Parameters
+        ----------
+        synthdefs_path : str
+            Path where the SynthDef files are located.
+        """
         self.cmd(r'''PathName.new(^synthdefs_path).files.collect(
             { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
             );''')
 
     @property
-    def server(self):
+    def server(self) -> Optional[SCServer]:
+        """The SuperCollider server connected to this sclang instance."""
         return self._server
 
-    def connect_to_server(self, server=None):
+    def connect_to_server(self, server: Optional[SCServer] = None):
+        """Connect this sclang instance to the SuperCollider Server.
+
+        This will set Server.default and s to a the provided remote Server.
+
+        Parameters
+        ----------
+        server : Optional[SCServer], optional
+            SuperCollider Server to connect. If None try to reconnect.
+
+        Raises
+        ------
+        ValueError
+            If something different from a SCServer or None was provided
+        SCLangError
+            If sclang failed to register to the server.
+        """
         if server is None:
             server = self._server
         if not isinstance(server, SCServer):
             raise ValueError(f"Server must be instance of SCServer, got {type(server)}")
-        cmdstr = r"""Server.default=s=Server.remote('remote', NetAddr("{0}",{1}), clientID:{2});"""
-        self.cmd(cmdstr.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
+        code = r"""Server.default=s=Server.remote('remote', NetAddr("{0}",{1}), clientID:{2});"""
+        self.cmd(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
         try:  # if there are 'too many users' we failed. So the Exception is the successful case!
             self.read(expect='too many users', timeout=2, print_error=False)
         except ProcessTimeout:
@@ -241,22 +322,37 @@ class Sclang:
             self._server = server
             self.connect_to_osc(server.osc)
         else:
-            raise SclangError("failed to register to the server (too many users)\n"
+            raise SCLangError("failed to register to the server (too many users)\n"
                               "Restart the scsynth server with maxLogins >= 3 or specify a different server")
             
     @property
-    def osc(self):
+    def osc(self) -> OSCCommunication:
+        """This sclangs OSCCommunication instance"""
         return self._osc
 
-    def connect_to_osc(self, osc):
+    def connect_to_osc(self, osc: OSCCommunication) -> None:
+        """Connect to an OSCCommunication.
+
+        Parameters
+        ----------
+        osc : OSCCommunication
+            OSCCommunication instance to connect to.
+        """
         self._osc = osc
         if self.port is None:
             self.port = self.cmdg('NetAddr.langPort')
         if self.port != SCLANG_DEFAULT_PORT:
             self._osc.set_sclang(sclang_port=self.port)
-            print('Updated sclang port on osc to non default port: {}'.format(self.port))
+            print('Updated sclang port on OSCCommunication to non default port: {}'.format(self.port))
 
-    def kill(self):
+    def kill(self) -> int:
+        """Kill this sclang instance.
+
+        Returns
+        -------
+        int
+            returncode of the process.
+        """
         self.started = False
         try:
             self.cmd('0.exit;')
@@ -269,73 +365,87 @@ class Sclang:
     def __del__(self):
         self.kill()
 
-    def cmd(self, cmdstr, pyvars=None,
-            verbose=False, discard_output=True,
-            get_result=False, get_output=False, timeout=1):
-        """Sends code to SuperCollider (sclang)
+    def cmd(self,
+            code: str,
+            pyvars: Optional[dict] = None,
+            verbose: bool = False,
+            discard_output: bool = True,
+            get_result: bool = False,
+            get_output: bool = False,
+            timeout: int = 1) -> Any:
+        """Send code to sclang to execute it.
 
-        Arguments:
-            cmdstr {str} -- SuperCollider code
+        This also allows to get the result of the code or the 
+        corresponding output.
 
-        Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and value pairs of python
-                             variables that can be injected via ^name
-                             (default: {None})
-            verbose {bool} -- if True print output
-                              (default: {False})
-            discard_output {bool} -- if True clear output buffer before
-                                     passing command
-                                     (default: {True})
-            get_result {bool} -- if True receive and return the evaluation
-                                 result from sclang
-                                 (default: {False})
-            get_output {bool} -- if True return output if not get_result
-                                 if verbose this will be True
-                                 (default: {False})
-            timeout {int} -- Timeout time for receiving data
-                             (default: {1})
+        Parameters
+        ----------
+        code : str
+            SuperCollider code to execute.
+        pyvars : dict, optional
+            Dictionary of name and value pairs of python
+            variables that can be injected via ^name, by default None
+        verbose : bool, optional
+            If True print output, by default False
+        discard_output : bool, optional
+            If True clear output buffer before passing command, by default True
+        get_result : bool, optional
+            If True receive and return the
+            evaluation result from sclang, by default False
+        get_output : bool, optional
+            If True return output. Does not override get_result
+            If verbose this will be True, by default False
+        timeout : int, optional
+            Timeout for code execution return result, by default 1
 
-        Returns:
-            {*} -- if get_result=True,
-                   Output from SuperCollider code,
-                   not all SC types supported.
-                   When type is not understood this
-                   will return the datagram from the
-                   OSC packet.
+        Returns
+        -------
+        Any
+            if get_result=True,
+                Result from SuperCollider code,
+                not all SC types supported.
+                When type is not understood this
+                will return the datagram from the
+                OSC packet.
+            if get_output or verbose
+                Output from SuperCollider code.
+            else
+                None
 
-        Raises:
-            SclangError
-                When communication with sclang fails.
-            RuntimeError
-                When get_result is used and no OSC is set.
+        Raises
+        ------
+        RuntimeError
+            If get_result is True but no OSCCommunication instance is set.
+        SCLangError
+            When an error with sclang occurs. 
         """
         if pyvars is None:
-            pyvars = parse_pyvars(cmdstr)
-        cmdstr = replace_vars(cmdstr, pyvars)
+            pyvars = parse_pyvars(code)
+        code = replace_vars(code, pyvars)
 
         # cleanup command string
-        cmdstr = remove_comments(cmdstr)
-        cmdstr = re.sub(r'\s+', ' ', cmdstr).strip()
+        code = remove_comments(code)
+        code = re.sub(r'\s+', ' ', code).strip()
 
         if get_result:
             if self._osc is None:
                 raise RuntimeError(
                     "get_result is only possible when osc is set")
             # escape " and \ in our SuperCollider string literal
-            inner_cmdstr_escapes = str.maketrans(
+            inner_code_escapes = str.maketrans(
                 {ord('\\'): r'\\', ord('"'): r'\"'})
-            inner_cmdstr = cmdstr.translate(inner_cmdstr_escapes)
+            inner_code = code.translate(inner_code_escapes)
             # wrap the command string with our callback function
-            cmdstr = r"""r['callback'].value("{0}", "{1}", {2});""".format(
-                inner_cmdstr, *self._osc.server.server_address)
+            code = r"""r['callback'].value("{0}", "{1}", {2});""".format(
+                inner_code, *self._osc.server.server_address)
 
         if discard_output:
             self.empty()  # clean all past outputs
 
         # write command to sclang pipe \f
-        if cmdstr and cmdstr[-1] != ';':
-            cmdstr += ';'
-        self.process.send(cmdstr + '\n\f')
+        if code and code[-1] != ';':
+            code += ';'
+        self.process.send(code + '\n\f')
         
         return_val = None
         if get_result:
@@ -346,7 +456,7 @@ class Sclang:
                 print("sclang output: (also see console) \n")
                 out = self.read()
                 print(out)
-                raise SclangError(
+                raise SCLangError(
                     "unable to receive /return message from sclang",
                     sclang_output=out)
         if verbose or get_output:
@@ -355,7 +465,7 @@ class Sclang:
             if sys.platform != 'win32':
                 out = ANSI_ESCAPE.sub('', out)  # remove ansi chars
                 out = out.replace('sc3>', '')  # remove prompt
-                out = out[out.find(';\n') + 2:]  # skip cmdstr echo
+                out = out[out.find(';\n') + 2:]  # skip code echo
             out = out.strip()
             if verbose:
                 print(out)
@@ -364,76 +474,43 @@ class Sclang:
 
         return return_val
 
-    def cmdv(self, cmdstr, **kwargs):
-        """Sends code to SuperCollider (sclang)
-           and prints output
-
-        Arguments:
-            cmdstr {str} -- SuperCollider code
-
-        Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and value pairs
-                             of python variables that can be
-                             injected via ^name
-                             (default: {None})
-            discard_output {bool} -- if True clear output
-                                     buffer before passing
-                                     command
-                                     (default: {True})
-            get_result {bool} -- if True receive and return
-                                 the evaluation result
-                                 from sclang
-                                 (default: {False})
-            timeout {int} -- Timeout time for receiving data
-                             (default: {1})
-
-        Returns:
-            {*} -- if get_result=True,
-                   Output from SuperCollider code,
-                   not all SC types supported.
-                   When type is not understood this
-                   will return the data gram from the
-                   OSC packet.
-        """
+    def cmdv(self, code: str, **kwargs) -> Any:
+        """cmd with verbose=True"""
         if kwargs.get("pyvars", None) is None:
-            kwargs["pyvars"] = parse_pyvars(cmdstr)
-        return self.cmd(cmdstr, verbose=True, **kwargs)
+            kwargs["pyvars"] = parse_pyvars(code)
+        return self.cmd(code, verbose=True, **kwargs)
 
-    def cmdg(self, cmdstr, **kwargs):
-        """Sends code to SuperCollider (sclang)
-           and receives and returns the evaluation result
-
-        Arguments:
-            cmdstr {str} -- SuperCollider code
-
-        Keyword Arguments:
-            pyvars {dict} -- Dictionary of name and value pairs
-                             of python variables that can be
-                             injected via ^name
-                             (default: {None})
-            verbose {bool} -- if True print output
-                              (default: {False})
-            discard_output {bool} -- if True clear output
-                                     buffer before passing
-                                     command
-                                     (default: {True})
-            timeout {int} -- Timeout time for receiving data
-                             (default: {1})
-
-        Returns:
-            {*} -- if get_result=True,
-                   Output from SuperCollider code,
-                   not all SC types supported.
-                   When type is not understood this
-                   will return the data gram from the
-                   OSC packet.
-        """
+    def cmdg(self, code: str, **kwargs) -> Any:
+        """cmd with get_result=True"""
         if kwargs.get("pyvars", None) is None:
-            kwargs["pyvars"] = parse_pyvars(cmdstr)
-        return self.cmd(cmdstr, get_result=True, **kwargs)
+            kwargs["pyvars"] = parse_pyvars(code)
+        return self.cmd(code, get_result=True, **kwargs)
 
-    def read(self, expect=None, timeout=1, print_error=True):
-        '''Reads first sc output from output queue'''
+    def read(self,
+             expect: Optional[str] = None,
+             timeout: int = 1,
+             print_error: bool = True) -> str:
+        """Reads SuperCollider output from the process output queue.
+
+        Parameters
+        ----------
+        expect : Optional[str], optional
+            Try to read this expected string, by default None
+        timeout : int, optional
+            How long we try to read expected string, by default 1
+        print_error : bool, optional
+            If True this will print a message when timed out, by default True
+
+        Returns
+        -------
+        str
+            output from sclang process.
+
+        Raises
+        ------
+        timeout
+            If expected output string could not be read before timeout.
+        """
         try:
             return self.process.read(expect=expect, timeout=timeout)
         except ProcessTimeout as timeout:
@@ -447,17 +524,15 @@ class Sclang:
                 print(error_str + timeout.output)
             raise timeout
 
-    def empty(self):
-        '''Empties sc output queue'''
+    def empty(self) -> None:
+        """Empties sc output queue."""
         self.process.empty()
 
     def get_synth_desc(self, synth_def):
-        """Get SynthDesc via sclang
+        """Get SynthDesc via sclangs global SynthDescLib.
 
         Parameters
         ----------
-        sc : SC
-            SC instance with SynthDef
         synth_def : str
             SynthDef name
 
@@ -471,13 +546,13 @@ class Sclang:
         ValueError
             When synthDesc of synthDef can not be found.
         """
-        cmdstr = r"""SynthDescLib.global['{{synthDef}}'].controls.collect(
+        code = r"""SynthDescLib.global['{{synthDef}}'].controls.collect(
                 { arg control;
                 [control.name, control.rate, control.defaultValue]
                 })""".replace('{{synthDef}}', synth_def)
         try:
-            synth_desc = self.cmdg(cmdstr)
-        except SclangError: # this will fail if sclang does not know this synth TODO: is this the only Error?
+            synth_desc = self.cmdg(code)
+        except SCLangError: # this will fail if sclang does not know this synth TODO: is this the only Error?
             warnings.warn("Couldn't find SynthDef %s with sclang" % synth_def)
             synth_desc = None
 
