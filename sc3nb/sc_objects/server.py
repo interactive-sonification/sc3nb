@@ -269,7 +269,7 @@ class SCServer(OSCCommunication):
     def init(self, with_blip: bool = True):
         # notify the supercollider server about us
         self.add_receiver("scsynth", self._scsynth_address, self._scsynth_port)
-        self.notify(timeout=10)
+        self.notify()
 
         # load synthdefs of sc3nb
         directory = resources.__file__[:-len("__init__.py")]
@@ -353,16 +353,23 @@ class SCServer(OSCCommunication):
         try:
             return_val = self.send(msg, timeout=timeout)
         except OSCCommunicationError as error:
-            if error.send_message.address in self.fails:
-                message, rest = None, None
+            if msg.address in self.fails:
+                error_value = None
                 while True:
                     try:
-                        message, *rest = self.fails.msg_queues[msg.address].get(timeout=0)
+                        error_value = self.fails.msg_queues[msg.address].get(timeout=0)
                     except Empty:
                         break
-                if message:
+                if error_value is not None:
+                    if isinstance(error_value, tuple):
+                        message, *rest = error_value
+                    else:
+                        message = error_value
+
                     if "already registered" in message:
                         self._client_id = rest[0]
+                    elif "too many users" in message:
+                        raise RuntimeError("scsynth has too many users. Can't notify.") from error
                     else:
                         raise error
         else:
@@ -519,7 +526,7 @@ class SCServer(OSCCommunication):
             return self.process.popen.pid
         else:
             warnings.warn("Server is not local or not booted.")
-    
+
     def _log_message(self, sender, *args):
         if len(str(args)) > 55:
             args_str = str(args)[:55] + ".."

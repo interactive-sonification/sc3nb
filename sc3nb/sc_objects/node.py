@@ -496,12 +496,6 @@ class Node(ABC):
     def __eq__(self, other):
         return self.nodeid == other.nodeid
 
-    #def __del__(self):
-    #    if self._free_on_del:
-    #        _LOGGER.debug(
-    #            "freeing deleted node %s with running state %s", self.nodeid, self.is_running)
-    #        self.free()
-
     @staticmethod
     def _get_nodeid(value: Union['Node', int]) -> int:
         """Get the corresponding node id

@@ -90,9 +90,9 @@ class Bundler():
 
         Parameters
         ----------
-        args : OscMessage or Bundler or Bundler arguments as tuple like
-               (timestamp, msg_addr, msg_args)
-               (timestamp, msg_addr)
+        params : OscMessage or Bundler or Bundler arguments as tuple like
+                 (timestamp, msg_addr, msg_args)
+                 (timestamp, msg_addr)
 
         Returns
         -------
@@ -587,7 +587,10 @@ class OSCCommunication():
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):
                 _LOGGER.info(
-                    "send to %s : %s contents size %s ", receiver, package, len(package._contents))
+                    "send to %s : %s contents size %s ",
+                    self._check_sender(receiver_address),
+                    package,
+                    len(package._contents))
         else:
             _LOGGER.info("send to %s : %s", receiver, package)
 
@@ -659,4 +662,4 @@ class OSCCommunication():
         self._osc_server.shutdown()
 
     def __del__(self):
-        self.exit()
+        self.quit()
