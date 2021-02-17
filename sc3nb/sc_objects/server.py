@@ -274,8 +274,7 @@ class SCServer(OSCCommunication):
         self.notify()
 
         # load synthdefs of sc3nb
-        directory = resources.__file__[:-len("__init__.py")]
-        self.load_directory(directory)
+        self.load_synthdefs()
 
         # create default groups
         self.send_default_groups()
@@ -341,9 +340,15 @@ class SCServer(OSCCommunication):
         msg = build_message("/d_load", synthdef_path)
         return self.send(msg)
 
-    def load_directory(self, directory: str, completion_msg: bytes = None):
-        msg = build_message("/d_loadDir", [directory])
-        return self.send(msg)
+    def load_synthdefs(self,
+                       directory: Optional[str] = None,
+                       completion_msg: bytes = None) -> None:
+        if directory is None:
+            directory = RESOURCES_SYNTH_DEFS
+        args: List[Union[str, bytes]] = [directory]
+        if completion_msg is not None:
+            args.append(completion_msg)
+        self.msg("/d_loadDir", args)
 
     def notify(self,
                receive_notifications: bool = True,
@@ -736,5 +741,8 @@ class Recorder:
         return f"<Recorder [{self._state.value}]>"
 
     def __del__(self):
-        self.stop()
+        try:
+            self.stop()
+        except RuntimeError:
+            pass
         self._record_buffer.free()
