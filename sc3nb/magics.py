@@ -1,6 +1,7 @@
 """This Module adds the Jupyter specialties as Magics and Keyboard Shortcuts"""
 import sys
 import re
+import warnings
 
 from IPython.core.magic import Magics, magics_class, line_cell_magic
 
@@ -10,26 +11,30 @@ def load_ipython_extension(ipython):
     ipython.register_magics(SC3Magics)
     add_shortcut(ipython)
 
-
-def add_shortcut(ipython):
+def add_shortcut(ipython, shortcut = None):
     try:
-        if sys.platform in  ["linux", "linux2", "win32"]:
-            shortcut = 'Ctrl-.'
-        elif sys.platform == "darwin":
+        if sys.platform == "darwin":
             shortcut = 'cmd-.'
-        ipython.run_cell_magic(
-            'javascript',
-            '',
-            f'''if (typeof Jupyter !== 'undefined') {{
-                    Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
-                    \'{shortcut}\', {{
-                    help : \'Free all nodes on SC server\',
-                    help_index : \'zz\',
-                    handler : function (event) {{
-                        IPython.notebook.kernel.execute("import sc3nb; sc3nb.SC.default.server.free_all()")
-                        return true;}}
-                    }});
-                }}''')
+        elif sys.platform in ["linux", "linux2", "win32"]:
+            shortcut = 'Ctrl-.'
+        else:
+            warnings.warn(f"Unable to add shortcut for platform '{sys.platform}'")
+        if shortcut is not None:
+            ipython.run_cell_magic(
+                'javascript',
+                '',
+                f'''if (typeof Jupyter !== 'undefined') {{
+                        Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                        \'{shortcut}\', {{
+                        help : \'Free all nodes on SC server\',
+                        help_index : \'zz\',
+                        handler : function (event) {{
+                            IPython.notebook.kernel.execute(
+                                "import sc3nb; sc3nb.SC.default.server.free_all(root=True)"
+                            )
+                            return true;}}
+                        }});
+                    }}''')
     except AttributeError:
         pass
 
@@ -53,7 +58,7 @@ class SC3Magics(Magics):
             cmdstr = cell
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.default.lang.cmd(cmdstr, pyvars=pyvars)
-        
+
     @line_cell_magic
     def scv(self, line='', cell=None):
         """Execute SuperCollider code with verbose output
