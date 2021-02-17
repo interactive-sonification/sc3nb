@@ -62,11 +62,11 @@ class Buffer:
 
     Parameters
     ----------
-    sc : object of type SC
-        The server instance to establish the Buffer
     bufnum : int
         buffer number to be used on scsynth. Defaults to None
         can be set to enforce a given bufnum
+    server : SCServer, optional
+        The server instance to establish the Buffer
 
     Attributes
     ----------
@@ -332,7 +332,7 @@ class Buffer:
         else:
             # both sc instance must have the same file server
             self._sr = buffer.sr
-            filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"
+            filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"  # TODO use tempfile here
             buffer.write(filepath)
             self.read(filepath)
 
@@ -358,6 +358,7 @@ class Buffer:
         self : Buffer
             the created Buffer object
         """
+        # TODO implement this correctly
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
 

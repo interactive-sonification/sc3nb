@@ -11,7 +11,7 @@ from random import randint
 import sc3nb.resources as resources
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
-from sc3nb.osc.parsing import SYNTH_DEF_MARKER, preprocess_return
+from sc3nb.osc.parsing import preprocess_return
 from sc3nb.osc.osc_communication import (build_message,
                                          OSCCommunication,
                                          OSCCommunicationError,
@@ -217,9 +217,9 @@ class SCServer(OSCCommunication):
             self.server_options = server_options
             _LOGGER.debug("Using custom server options %s", self.server_options)
 
-        super().__init__(server_ip="127.0.0.1",
+        super().__init__(server_ip=LOCALHOST,
                          server_port=SC3NB_DEFAULT_PORT,
-                         default_receiver_ip="127.0.0.1",
+                         default_receiver_ip=LOCALHOST,
                          default_receiver_port=self.server_options.udp_port)
 
         # init msg queues
@@ -414,34 +414,43 @@ class SCServer(OSCCommunication):
     def notify(self,
                receive_notifications: bool = True,
                client_id: Optional[int] = None,
-               timeout: float = 5.0):
+               timeout: float = 1.0):
         flag = 1 if receive_notifications else 0
         client_id = client_id if client_id else self._client_id
         msg = build_message(MasterControlCommand.NOTIFY, [flag, client_id])  # flag, clientID
         try:
             return_val = self.send(msg, timeout=timeout)
         except OSCCommunicationError as error:
-            if msg.address in self.fails:
-                error_value = None
-                while True:
-                    try:
-                        error_value = self.fails.msg_queues[msg.address].get(timeout=0)
-                    except Empty:
-                        break
-                if error_value is not None:
-                    if isinstance(error_value, tuple):
-                        message, *rest = error_value
-                    else:
-                        message = error_value
+            errors = self._get_errors_for_address(msg.address)
+            if len(errors) > 0:
+                last_error_value = errors[-1]
+                if isinstance(last_error_value, tuple):
+                    message, *rest = last_error_value
+                else:
+                    message = last_error_value
+                    rest = None
 
-                    if "already registered" in message:
-                        self._client_id = rest[0]
-                    elif "too many users" in message:
-                        raise RuntimeError("scsynth has too many users. Can't notify.") from error
-                    else:
-                        raise error
+                if "already registered" in message:
+                    self._client_id = rest[0]
+                    return  # only send client_id but not max logins
+                elif "too many users" in message:
+                    raise RuntimeError("scsynth has too many users. Can't notify.") from error
+                elif "not registered" in message:
+                    return  # ignore when we are already not notified anymore.
+            raise error
         else:
-            self._client_id, self._max_logins = return_val
+            if receive_notifications:
+                self._client_id, self._max_logins = return_val
+
+    def _get_errors_for_address(self, address: str):
+        error_values = []
+        if address in self.fails:
+            while True:
+                try:
+                    error_values.append(self.fails.msg_queues[address].get(timeout=0))
+                except Empty:
+                    break
+        return error_values
 
     def free_all(self, root: bool = True):
         self.msg(GroupCommand.FREE_ALL, 0 if root else self.default_group.nodeid)

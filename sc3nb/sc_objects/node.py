@@ -49,7 +49,6 @@ from abc import ABC, abstractmethod
 from enum import Enum, unique
 from functools import reduce
 from operator import iconcat
-from weakref import WeakValueDictionary
 
 import sc3nb
 from sc3nb.osc.osc_communication import build_message
