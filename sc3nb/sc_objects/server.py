@@ -192,7 +192,7 @@ class SCServer(OSCCommunication):
                          default_receiver_port=self.server_options.udp_port)
 
         # init msg queues
-        self.create_msg_pairs(MSG_PAIRS)
+        self.add_msg_pairs(CMD_PAIRS)
 
         # /return messages from sclang callback
         self.returns = MessageQueue("/return", preprocess_return)
@@ -228,6 +228,8 @@ class SCServer(OSCCommunication):
 
         self._server_running: bool  = False
         self._has_booted: bool  = False
+
+        self.latency: float = 0.0
 
     def boot(self,
              scsynth_path: Optional[str] = None,
@@ -284,6 +286,33 @@ class SCServer(OSCCommunication):
             self.blip()
 
         print('Done.')
+
+    def bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True):
+        """Generate a Bundler with added server latency.
+
+        This allows the user to easly add messages/bundles and send it.
+
+        Parameters
+        ----------
+        timestamp : int
+            Time at which bundle content should be executed.
+            This servers latency will be added upon this.
+            If timestamp <= 1e6 it is added to time.time().
+        msg_addr : str
+            SuperCollider address.
+        msg_args : list, optional
+            List of arguments to add to message.
+             (Default value = None)
+
+        Returns
+        -------
+        Bundler
+            bundler for OSC bundling.
+        """
+        return super().bundler(timestamp=timestamp + self.latency,
+                               msg=msg,
+                               msg_args=msg_args,
+                               send_on_exit=send_on_exit)
 
     def blip(self):
         with self.bundler(0.1) as bundler:
@@ -380,8 +409,7 @@ class SCServer(OSCCommunication):
                     else:
                         raise error
         else:
-            if len(return_val) == 2:
-                self._client_id, self._max_logins = return_val
+            self._client_id, self._max_logins = return_val
 
     def free_all(self, root: bool = True):
         self.msg("/g_freeAll", 0 if root else self.default_group.nodeid)
@@ -478,14 +506,6 @@ class SCServer(OSCCommunication):
     @property
     def avg_cpu(self):
         return self.status().peak_cpu
-
-    @property
-    def latency(self):
-        raise NotImplementedError
-
-    @latency.setter
-    def latency(self):
-        raise NotImplementedError
 
     @property
     def sample_rate(self):

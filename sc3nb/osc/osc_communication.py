@@ -36,7 +36,7 @@ def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None
     ----------
     msg_addr : str
         SuperCollider address.
-    msg_args : list
+    msg_args : None or list or dict
         List of arguments to add to message.
 
     Returns
@@ -395,22 +395,16 @@ class OSCCommunication():
     def osc_server(self):
         return self._osc_server
 
-    def create_msg_pairs(self, new_msg_pairs):
-        """Update the queues used for message receiving.
-
-        This method will check for all `msg_pairs` if there is an AddressQueue
-        already created and if it is missing it will create one.
+    def add_msg_pairs(self, msg_pairs: Dict[str, str]):
+        """Add the provided pairs for message receiving.
 
         Parameters
         ----------
-        new_msg_pairs : dict, optional
+        msg_pairs : dict[str, str], optional
             dict containing user specified message pairs.
             {msg_addr: reply_addr}
-            This will be added to `msg_pairs`
-             (Default value = None)
-
         """
-        for msg_addr, reply_addr in new_msg_pairs.items():
+        for msg_addr, reply_addr in msg_pairs.items():
             self.add_msg_queue(MessageQueue(reply_addr), msg_addr)
 
     def add_msg_queue(self, msg_queue: MessageQueue, out_addr: Optional[str] = None):

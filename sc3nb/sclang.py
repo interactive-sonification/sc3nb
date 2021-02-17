@@ -12,7 +12,6 @@ from queue import Empty
 import numpy as np
 
 import sc3nb.resources as resources
-from sc3nb.osc.osc_communication import OSCCommunication
 from sc3nb.sc_objects.server import SCServer
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
