@@ -609,8 +609,7 @@ class SCServer(OSCCommunication):
                      self._check_sender(sender), args_str)
 
     def _warn_fail(self, sender, *args):
-        _LOGGER.warning("Error from %s: %s",
-                        self._check_sender(sender), args)
+        warnings.warn(f"Error from {self._check_sender(sender)}: {args}")
 
 
 @unique

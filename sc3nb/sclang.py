@@ -266,7 +266,7 @@ class SCLang:
                     var msgContent = prependSize.value(result);
                     addr.sendMsg(^replyAddress, msgContent);
                     result;  // result should be returned
-                };''', pyvars={"replyAddress": ReplyAddress.RETURN})
+                };''', pyvars={"replyAddress": ReplyAddress.RETURN_ADDR})
             self.read(expect=self.prompt_str)
             print('Done.')
 
