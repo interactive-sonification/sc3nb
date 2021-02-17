@@ -116,6 +116,10 @@ class Node(ABC):
         self._nodeid = nodeid if nodeid is not None else self._server.next_node_id()
         if group is not None:
             self._group = Node._get_nodeid(group)
+        if target is not None:
+            self._target_id = Node._get_nodeid(target)
+        else:
+            self._target_id = None
         self._set_node_attrs(target, add_action)
 
         _LOGGER.debug("Adding Node (%s) to %s", self._nodeid, self._server)
@@ -141,9 +145,11 @@ class Node(ABC):
             AddAction of this Node, default AddAction.TO_HEAD (0)
         """
         # get target id
-        if target is None:
-            target = self.server.default_group
-        self._target_id = Node._get_nodeid(target)
+        if target is not None:
+            self._target_id = Node._get_nodeid(target)
+        else:
+            if self._target_id is None:
+                self._target_id = self.server.default_group.nodeid
 
         # get add action
         if add_action is None:
@@ -790,7 +796,6 @@ class Group(Node):
         else:
             new_command = "g_new"
         msg = build_message(new_command, [self.nodeid, self._add_action.value, self._target_id])
-
         if return_msg:
             return msg
         else:

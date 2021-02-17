@@ -3,7 +3,7 @@ from enum import Enum, unique
 import logging
 import warnings
 
-from typing import NamedTuple, Optional, Sequence, Union, Tuple
+from typing import Dict, List, NamedTuple, Optional, Sequence, Union, Tuple
 from weakref import WeakValueDictionary
 from queue import Empty
 from random import randint
@@ -11,7 +11,7 @@ from random import randint
 import sc3nb.resources as resources
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
-from sc3nb.osc.parsing import preprocess_return
+from sc3nb.osc.parsing import SYNTH_DEF_MARKER, preprocess_return
 from sc3nb.osc.osc_communication import (build_message,
                                          OSCCommunication,
                                          OSCCommunicationError,
@@ -29,6 +29,8 @@ _LOGGER.addHandler(logging.NullHandler())
 SC3NB_SERVER_CLIENT_ID = 1
 SC3NB_DEFAULT_PORT = 57130
 SCSYNTH_DEFAULT_PORT = 57110
+
+RESOURCES_SYNTH_DEFS = resources.__file__[:-len("__init__.py")]
 
 ASYNC_MSGS = [
     "/quit",    # Master
@@ -210,7 +212,7 @@ class SCServer(OSCCommunication):
         # node managing
         self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
 
-        self._default_group: Optional[Group] = None
+        self._default_groups: Dict[int, Group] = {}
         self._is_local: bool = False
 
         # counter for nextNodeID
@@ -275,8 +277,8 @@ class SCServer(OSCCommunication):
         directory = resources.__file__[:-len("__init__.py")]
         self.load_directory(directory)
 
-        # create default group
-        self._default_group = Group(nodeid=None, target=0, server=self)
+        # create default groups
+        self.send_default_groups()
 
         self.sync()
         if with_blip:
@@ -377,16 +379,20 @@ class SCServer(OSCCommunication):
                 self._client_id, self._max_logins = return_val
 
     def free_all(self, root: bool = True):
-        nodeid = 0 if root else self._default_group.nodeid
-        msg = build_message("/g_freeAll", nodeid)
-        self.send(msg)
-        msg = build_message("/clearSched")
-        self.send(msg)
-
-        # TODO send DefaultGroups
-
-        self._default_group.new(target=0)
+        self.msg("/g_freeAll", 0 if root else self.default_group.nodeid)
+        self.msg("/clearSched")
+        if root:
+            self.send_default_groups()
+        else:
+            self.default_group.free_all()
+            self.default_group.new()
         self.sync()
+
+    def send_default_groups(self):
+        client_ids = range(self._max_logins)
+        def create_default_group(client_id):
+            return sc3nb.Group(nodeid=2 ** 26 * client_id + 1, target=0, server=self).new()
+        self._default_groups = {client: create_default_group(client) for client in client_ids}
 
     def next_node_id(self):
         self._num_node_ids += 1
@@ -408,7 +414,7 @@ class SCServer(OSCCommunication):
 
     @property
     def default_group(self):
-        return self._default_group
+        return self._default_groups[self._client_id]
 
     @property
     def input_bus(self):
