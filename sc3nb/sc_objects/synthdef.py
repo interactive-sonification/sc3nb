@@ -4,6 +4,14 @@ import re
 
 import sc3nb
 
+from enum import Enum
+class SynthDefinitionCommand(str, Enum):
+    RECV = "/d_recv"
+    LOAD = "/d_load"
+    LOAD_DIR = "/d_loadDir"
+    FREE = "/d_free"
+
+
 class SynthDef():
     """Wrapper for SuperCollider SynthDef"""
 
@@ -138,7 +146,7 @@ class SynthDef():
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
             r.tmpSynthDef.asBytes();""", pyvars=pyvars)
-        self.sc.server.msg("/d_recv", synth_def_blob)
+        self.sc.server.msg(SynthDefinitionCommand.RECV, synth_def_blob)
         return self.name
 
     def free(self):
@@ -156,7 +164,7 @@ class SynthDef():
             the SynthDef object
 
         """
-        self.sc.server.msg("/d_free", [self.name])
+        self.sc.server.msg(SynthDefinitionCommand.FREE, [self.name])
         return self
 
     def __repr__(self):

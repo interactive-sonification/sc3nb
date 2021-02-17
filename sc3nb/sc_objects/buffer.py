@@ -17,6 +17,29 @@ import sc3nb
 # /b_readChannel    Read sound file channel data into an existing buffer.
 # /b_set
 
+from enum import Enum
+
+class BufferReply(str, Enum):
+    INFO = "/b_info"
+
+class BufferCommand(str, Enum):
+    ALLOC = "/b_alloc"
+    ALLOC_READ = "/b_allocRead"
+    ALLOC_READ_CHANNEL = "/b_allocReadChannel"
+    READ = "/b_read"
+    READ_CHANNEL = "/b_readChannel"
+    WRITE = "/b_write"
+    FREE = "/b_free"
+    ZERO = "/b_zero"
+    SET = "/b_set"
+    SETN = "/b_setn"
+    FILL = "/b_fill"
+    GEN = "/b_gen"
+    CLOSE = "/b_close"
+    QUERY = "/b_query"
+    GET = "/b_get"
+    GETN = "/b_getn"
+
 class BufferInfo(NamedTuple):
     """Information about the Buffer"""
     bufnum: int
@@ -158,7 +181,7 @@ class Buffer:
             channels = [channels]
         self._channels = len(channels)
         self.server.msg(
-            "/b_allocReadChannel",
+            BufferCommand.ALLOC_READ_CHANNEL,
             [self._bufnum, str(self._path), starting_frame, num_frames, *channels])
         self._allocated = True
         return self
@@ -184,7 +207,7 @@ class Buffer:
         self._alloc_mode = 'alloc'
         self._channels = channels
         self._samples = int(size)
-        self.server.msg("/b_alloc", [self._bufnum, size, channels])
+        self.server.msg(BufferCommand.ALLOC, [self._bufnum, size, channels])
         self._allocated = True
         return self
 
@@ -215,27 +238,27 @@ class Buffer:
                 wavfile.write(tempfile, self._sr, data)
             finally:
                 tempfile.close()
-            self.server.msg("/b_allocRead", [self._bufnum, tempfile.name], await_reply=True)
+            self.server.msg(BufferCommand.ALLOC_READ, [self._bufnum, tempfile.name], await_reply=True)
             if os.path.exists(tempfile.name):
                 os.remove(tempfile.name)
         elif mode == 'osc':
-            self.server.msg("/b_alloc", [self._bufnum, data.shape[0]])
+            self.server.msg(BufferCommand.ALLOC, [self._bufnum, data.shape[0]])
             blocksize = 1000  # array size compatible with OSC packet size
             # TODO: check how this depends on datagram size
             # TODO: put into Buffer header as const if needed elsewhere...
             if self._channels > 1:
                 data = data.reshape(-1, 1)
             if data.shape[0] < blocksize:
-                self.server.msg("/b_setn",
-                            [self._bufnum, [0, data.shape[0], data.tolist()]],)
+                self.server.msg(BufferCommand.SETN,
+                                [self._bufnum, [0, data.shape[0], data.tolist()]], )
             else:
                 # For datasets larger than {blocksize} entries,
                 # split data to avoid network problems
                 splitdata = np.array_split(data, data.shape[0]/blocksize)
                 for i, chunk in enumerate(splitdata):
-                    self.server.msg("/b_setn",
-                                [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
-                                 await_reply=False)
+                    self.server.msg(BufferCommand.SETN,
+                                    [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
+                                    await_reply=False)
                 self.server.sync()
         else:
             raise ValueError(f"Unsupported mode '{mode}'.")
@@ -342,7 +365,7 @@ class Buffer:
             values = [start, count, value]
         else:
             values = start
-        self.server.msg("/b_fill", [self._bufnum] + values)
+        self.server.msg(BufferCommand.FILL, [self._bufnum] + values)
         return self
 
     def gen(self, command, args):
@@ -365,7 +388,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
-        self.server.msg("/b_gen", [self._bufnum, command] + args)
+        self.server.msg(BufferCommand.GEN, [self._bufnum, command] + args)
         return self
 
     def zero(self):
@@ -378,7 +401,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
-        self.server.msg("/b_zero", [self._bufnum])
+        self.server.msg(BufferCommand.ZERO, [self._bufnum])
         return self
 
     def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False,
@@ -612,8 +635,8 @@ class Buffer:
             raise RuntimeError("Buffer object is not initialized!")
         leave_open_val = 1 if leave_open else 0
         path = str(Path(path).resolve())
-        self.server.msg("/b_write", [self._bufnum, path, header, sample,
-                                     num_frames, starting_frame, leave_open_val])
+        self.server.msg(BufferCommand.WRITE, [self._bufnum, path, header, sample,
+                            num_frames, starting_frame, leave_open_val])
         return self
 
     def close(self):
@@ -624,7 +647,7 @@ class Buffer:
         self : Buffer
             the Buffer object
         """
-        self.server.msg("/b_close", [self._bufnum], bundled=True)
+        self.server.msg(BufferCommand.CLOSE, [self._bufnum], bundled=True)
         return self
 
     def to_array(self):
@@ -641,7 +664,7 @@ class Buffer:
         num_samples = (self._samples * self._channels)
         while i < num_samples:
             bs = blocksize if i+blocksize < num_samples else num_samples-i
-            tmp = self.server.msg("/b_getn", [self._bufnum, i, bs])
+            tmp = self.server.msg(BufferCommand.GETN, [self._bufnum, i, bs])
             data += list(tmp)[3:]  # skip first 3 els [bufnum, startidx, size]
             i += bs
         data = np.array(data).reshape((-1, self._channels))
@@ -658,7 +681,7 @@ class Buffer:
         """
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
-        return BufferInfo._make(self.server.msg("/b_query", [self._bufnum]))
+        return BufferInfo._make(self.server.msg(BufferCommand.QUERY, [self._bufnum]))
 
     def _repr_pretty_(self, p, cycle):
         if cycle:
@@ -674,7 +697,7 @@ class Buffer:
         """Free buffer data. - The Buffer object both in python and sc will continue to exist!"""
         if self._allocated is False:
             raise RuntimeError("Buffer object is not initialized!")
-        self.server.msg("/b_free", [self._bufnum])
+        self.server.msg(BufferCommand.FREE, [self._bufnum])
         self._allocated = False
         self._alloc_mode = None
 

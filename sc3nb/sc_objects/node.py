@@ -4,6 +4,44 @@ import logging
 import warnings
 
 from typing import Optional, Union, Any, Sequence, Dict, Tuple, NamedTuple, TYPE_CHECKING
+
+from enum import Enum
+
+class GroupReply(str, Enum):
+    QUERY_TREE_REPLY = "/g_queryTree.reply"
+
+class GroupCommand(str, Enum):
+    QUERY_TREE = "/g_queryTree"
+    DUMP_TREE = "/g_dumpTree"
+    DEEP_FREE = "/g_deepFree"
+    FREE_ALL = "/g_freeAll"
+    TAIL = "/g_tail"
+    HEAD = "/g_head"
+    G_NEW = "/g_new"
+    P_NEW = "/p_new"
+
+class SynthCommand(str, Enum):
+    NEW = "/s_new"
+    S_GET = "/s_get"
+    S_GETN = "/s_getn"
+
+class NodeReply(str, Enum):
+    INFO = "/n_info"
+
+class NodeCommand(str, Enum):
+    ORDER = "/n_order"
+    TRACE = "/n_trace"
+    QUERY = "/n_query"
+    MAP = "/n_map"
+    MAPN = "/n_mapn"
+    MAPA = "/n_mapa"
+    MAPAN = "/n_mapan"
+    FILL = "/n_fill"
+    SET = "/n_set"
+    SETN = "/n_setn"
+    RUN = "/n_run"
+    FREE = "/n_free"
+
 if TYPE_CHECKING:
     from sc3nb.sc_objects.server import SCServer
 
@@ -205,7 +243,7 @@ class Node(ABC):
         See https://doc.sccode.org/Classes/Node.html#-freeMsg"""
         self._is_running = State.PROBABLY_FALSE
         self._is_playing = State.PROBABLY_FALSE
-        msg = build_message("/n_free", [self.nodeid])
+        msg = build_message(NodeCommand.FREE, [self.nodeid])
         if return_msg:
             return msg
         else:
@@ -214,7 +252,7 @@ class Node(ABC):
 
     def run(self, flag=True, return_msg=False):
         """Turn node on or off with n_run"""
-        msg = build_message("/n_run", [self.nodeid, 0 if flag is False else 1])
+        msg = build_message(NodeCommand.RUN, [self.nodeid, 0 if flag is False else 1])
         if return_msg:
             return msg
         else:
@@ -257,7 +295,7 @@ class Node(ABC):
             else:
                 self._update_arg(argument, values)
             msg_args = [argument] + list(values)
-        msg = build_message("/n_set", [self.nodeid] + msg_args)
+        msg = build_message(NodeCommand.SET, [self.nodeid] + msg_args)
         if return_msg:
             return msg
         else:
@@ -300,7 +338,7 @@ class Node(ABC):
     #     OscMessage
     #         if return_msg else self
     #     """
-    #     msg = build_message("/n_setn", [self.nodeid, control, num_controls, *values])
+    #     msg = build_message(SETN, [self.nodeid, control, num_controls, *values])
     #     if return_msg:
     #         return msg
     #     else:
@@ -326,7 +364,7 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
-        msg = build_message("/n_fill", [self.nodeid, control, num_controls, value])
+        msg = build_message(NodeCommand.FILL, [self.nodeid, control, num_controls, value])
         if return_msg:
             return msg
         else:
@@ -352,7 +390,7 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
-        map_command = "/n_mapa" if audio_bus else "/n_map"
+        map_command = NodeCommand.MAPA if audio_bus else NodeCommand.MAP
         msg = build_message(map_command, [self.nodeid, control, bus_index])
         if return_msg:
             return msg
@@ -381,7 +419,7 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
-        map_command = "/n_mapan" if audio_bus else "/n_mapn"
+        map_command = NodeCommand.MAPAN if audio_bus else NodeCommand.MAPN
         msg = build_message(map_command, [self.nodeid, control, bus_index, num_controls])
         if return_msg:
             return msg
@@ -416,7 +454,7 @@ class Node(ABC):
         else:
             release_time = 0
 
-        msg = build_message("/n_set", [self.nodeid, "gate", release_time])
+        msg = build_message(NodeCommand.SET, [self.nodeid, "gate", release_time])
         if return_msg:
             return msg
         else:
@@ -444,7 +482,7 @@ class Node(ABC):
         SynthInfo or GroupInfo
             n_info answer. See above for content description
         """
-        msg = build_message("/n_query", [self.nodeid])
+        msg = build_message(NodeCommand.QUERY, [self.nodeid])
         nodeid, group, prev_nodeid, next_nodeid, *rest = self.server.send(msg)
         if len(rest) == 1 and rest[0] == 0:  # node is synth
             return SynthInfo._make([nodeid, group, prev_nodeid, next_nodeid])
@@ -468,7 +506,7 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
-        msg = build_message("/n_trace", [self.nodeid])
+        msg = build_message(NodeCommand.TRACE, [self.nodeid])
         if return_msg:
             return msg
         else:
@@ -478,7 +516,7 @@ class Node(ABC):
     def move(self, add_action, another_node, return_msg=False):
         if add_action == AddAction.REPLACE:
             raise ValueError("add_action needs to be in [TO_HEAD, TO_TAIL, AFTER, BEFORE]")
-        msg = build_message("/n_order", [add_action.value, another_node.nodeid, self.nodeid])
+        msg = build_message(NodeCommand.ORDER, [add_action.value, another_node.nodeid, self.nodeid])
         if return_msg:
             return msg
         else:
@@ -621,7 +659,7 @@ class Synth(Node):
 
         self._update_args(args)
         flatten_args = reduce(iconcat, self.current_args.items(), [])
-        msg = build_message("/s_new",
+        msg = build_message(SynthCommand.NEW,
                             [self.name, self.nodeid, self._add_action.value,
                              self._target_id] + flatten_args)
         if return_msg:
@@ -650,11 +688,11 @@ class Synth(Node):
             default_value = None
         # if we know they type of the argument and its list we use s_getn
         if default_value is not None and isinstance(default_value, list):
-            msg = build_message("/s_getn", [self.nodeid, argument, len(default_value)])
+            msg = build_message(SynthCommand.S_GETN, [self.nodeid, argument, len(default_value)])
             nodeid, name, _, *values = self.server.send(msg)
             ret_val = list(values)
         else: # default s_get
-            msg = build_message("/s_get", [self.nodeid, argument])
+            msg = build_message(SynthCommand.S_GET, [self.nodeid, argument])
             nodeid, name, ret_val = self.server.send(msg)
         if self.nodeid == nodeid and name == argument:
             return ret_val
@@ -792,9 +830,9 @@ class Group(Node):
         self._is_running = State.UNKNOWN
 
         if self._parallel:
-            new_command = "p_new"
+            new_command = GroupCommand.P_NEW
         else:
-            new_command = "g_new"
+            new_command = GroupCommand.G_NEW
         msg = build_message(new_command, [self.nodeid, self._add_action.value, self._target_id])
         if return_msg:
             return msg
@@ -826,7 +864,7 @@ class Group(Node):
         Group
             self
         """
-        msg = build_message("/g_head", [self.nodeid, node.nodeid])
+        msg = build_message(GroupCommand.HEAD, [self.nodeid, node.nodeid])
         self.server.send(msg, bundled=True)
         return self
 
@@ -843,7 +881,7 @@ class Group(Node):
         Group
             self
         """
-        msg = build_message("/g_tail", [self.nodeid, node.nodeid])
+        msg = build_message(GroupCommand.TAIL, [self.nodeid, node.nodeid])
         self.server.send(msg, bundled=True)
         return self
 
@@ -860,7 +898,7 @@ class Group(Node):
         OscMessage
             if return_msg else self
         """
-        msg = build_message("/g_freeAll", [self.nodeid])
+        msg = build_message(GroupCommand.FREE_ALL, [self.nodeid])
         if return_msg:
             return msg
         else:
@@ -882,7 +920,7 @@ class Group(Node):
         OscMessage
             if return_msg else self
         """
-        msg = build_message("/g_deepFree", [self.nodeid])
+        msg = build_message(GroupCommand.DEEP_FREE, [self.nodeid])
         if return_msg:
             return msg
         else:
@@ -904,7 +942,7 @@ class Group(Node):
         OscMessage
             if return_msg else self
         """
-        msg = build_message("/g_dumpTree", [self.nodeid, 1 if post_controls else 0])
+        msg = build_message(GroupCommand.DUMP_TREE, [self.nodeid, 1 if post_controls else 0])
         if return_msg:
             return msg
         else:
@@ -926,7 +964,7 @@ class Group(Node):
         tuple
             /g_queryTree.reply
         """
-        msg = build_message("/g_queryTree", [self.nodeid, 1 if include_controls else 0])
+        msg = build_message(GroupCommand.QUERY_TREE, [self.nodeid, 1 if include_controls else 0])
         _, *nodes_info = self.server.send(msg)
         return NodeTree(info=nodes_info, root_nodeid=self.nodeid,
                         controls_included=include_controls, start=0)

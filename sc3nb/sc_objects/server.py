@@ -23,54 +23,85 @@ from sc3nb.sc_objects.synthdef import SynthDef
 
 import sc3nb
 
+
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
+
+from sc3nb.sc_objects.node import GroupCommand, SynthCommand, NodeCommand, NodeReply, GroupReply
+from sc3nb.sc_objects.synthdef import SynthDefinitionCommand
+from sc3nb.sc_objects.buffer import BufferCommand, BufferReply
+from sc3nb.sc_objects.bus import ControlBusCommand
+
+class MasterControlReply(str, Enum):
+    VERSION_REPLY = "/version.reply"
+    SYNCED = "/synced"
+    STATUS_REPLY = "/status.reply"
+
+class MasterControlCommand(str, Enum):
+    DUMP_OSC = "/dumpOSC"
+    STATUS = "/status"
+    VERSION = "/version"
+    CLEAR_SCHED = "/clearSched"
+    NOTIFY = "/notify"
+    QUIT = "/quit"
+    SYNC = "/sync"
+
+class ReplyAddress(str, Enum):
+    WILDCARD_ADDR = "/*"
+    FAIL_ADDR = "/fail"
+    DONE_ADDR = "/done"
+    RETURN_ADDR = "/return"
+
+
+ASYNC_CMDS = [
+    # Master
+    MasterControlCommand.QUIT,
+    MasterControlCommand.NOTIFY,
+    # Synth Def load SynthDefs
+    SynthDefinitionCommand.RECV,
+    SynthDefinitionCommand.LOAD,
+    SynthDefinitionCommand.LOAD_DIR,
+    # Buffer Commands
+    BufferCommand.ALLOC,
+    BufferCommand.ALLOC_READ,
+    BufferCommand.ALLOC_READ_CHANNEL,
+    BufferCommand.READ,
+    BufferCommand.READ_CHANNEL,
+    BufferCommand.WRITE,
+    BufferCommand.FREE,
+    BufferCommand.ZERO,
+    BufferCommand.GEN,
+    BufferCommand.CLOSE
+]
+
+CMD_PAIRS = {
+    # Master
+    MasterControlCommand.STATUS: MasterControlReply.STATUS_REPLY,
+    MasterControlCommand.SYNC: MasterControlReply.SYNCED,
+    MasterControlCommand.VERSION: MasterControlReply.VERSION_REPLY,
+    # Synth Commands
+    SynthCommand.S_GET: NodeCommand.SET,
+    SynthCommand.S_GETN: NodeCommand.SETN,
+    # Group Commands
+    GroupCommand.QUERY_TREE: GroupReply.QUERY_TREE_REPLY,
+    # Node Commands
+    NodeCommand.QUERY: NodeReply.INFO,
+    # Buffer Commands
+    BufferCommand.QUERY: BufferReply.INFO,
+    BufferCommand.GET:  BufferCommand.SET,
+    BufferCommand.GETN:  BufferCommand.SETN,
+    # Control Bus Commands
+    ControlBusCommand.GET:  ControlBusCommand.SET,
+    ControlBusCommand.GETN: ControlBusCommand.SETN
+}
+
+LOCALHOST = "127.0.0.1"
 SC3NB_SERVER_CLIENT_ID = 1
 SC3NB_DEFAULT_PORT = 57130
 SCSYNTH_DEFAULT_PORT = 57110
 
 RESOURCES_SYNTH_DEFS = resources.__file__[:-len("__init__.py")]
-
-ASYNC_MSGS = [
-    "/quit",    # Master
-    "/notify",
-    "/d_recv",  # Synth Def load SynthDefs
-    "/d_load",
-    "/d_loadDir",
-    "/b_alloc",  # Buffer Commands
-    "/b_allocRead",
-    "/b_allocReadChannel",
-    "/b_read",
-    "/b_readChannel",
-    "/b_write",
-    "/b_free",
-    "/b_zero",
-    "/b_gen",
-    "/b_close"
-]
-
-MSG_PAIRS = {
-    # Master
-    "/status": "/status.reply",
-    "/sync": "/synced",
-    "/version": "/version.reply",
-    # Synth Commands
-    "/s_get": "/n_set",
-    "/s_getn": "/n_setn",
-    # Group Commands
-    "/g_queryTree": "/g_queryTree.reply",
-    # Node Commands
-    "/n_query": "/n_info",
-    # Buffer Commands
-    "/b_query":  "/b_info",
-    "/b_get":  "/b_set",
-    "/b_getn":  "/b_setn",
-    # Control Bus Commands
-    "/c_get":  "/c_set",
-    "/c_getn":  "/c_setn"
-}
-
 
 class ServerStatus(NamedTuple):
     """Information about the status of the Server program"""
@@ -195,19 +226,19 @@ class SCServer(OSCCommunication):
         self.add_msg_pairs(CMD_PAIRS)
 
         # /return messages from sclang callback
-        self.returns = MessageQueue("/return", preprocess_return)
+        self.returns = MessageQueue(ReplyAddress.RETURN_ADDR, preprocess_return)
         self.add_msg_queue(self.returns)
 
         # /done messages must be seperated
-        self.dones = MessageQueueCollection(address="/done", sub_addrs=ASYNC_MSGS)
+        self.dones = MessageQueueCollection(address=ReplyAddress.DONE_ADDR, sub_addrs=ASYNC_CMDS)
         self.add_msg_queue_collection(self.dones)
 
-        self.fails = MessageQueueCollection(address="/fail")
+        self.fails = MessageQueueCollection(address=ReplyAddress.FAIL_ADDR)
         self.add_msg_queue_collection(self.fails)
 
         # set logging handlers
-        self._osc_server.dispatcher.map("/fail", self._warn_fail, needs_reply_address=True)
-        self._osc_server.dispatcher.map("/*", self._log_message, needs_reply_address=True)
+        self._osc_server.dispatcher.map(ReplyAddress.FAIL_ADDR, self._warn_fail, needs_reply_address=True)
+        self._osc_server.dispatcher.map(ReplyAddress.WILDCARD_ADDR, self._log_message, needs_reply_address=True)
 
         # node managing
         self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
@@ -219,15 +250,16 @@ class SCServer(OSCCommunication):
         self._num_node_ids: int = 0
         self._num_buffer_ids: int = 0
 
-        self.process: Optional[Process]  = None
+        self.process: Optional[Process] = None
+        self._programm_name = "scsynth"
 
         self._client_id: int = SC3NB_SERVER_CLIENT_ID
-        self._scsynth_address = "127.0.0.1"
+        self._scsynth_address = LOCALHOST
         self._scsynth_port = self.server_options.udp_port
         self._max_logins = self.server_options.max_logins
 
-        self._server_running: bool  = False
-        self._has_booted: bool  = False
+        self._server_running: bool = False
+        self._has_booted: bool = False
 
         self.latency: float = 0.0
 
@@ -242,9 +274,9 @@ class SCServer(OSCCommunication):
             return
         print('Booting SuperCollider Server...')
         self._is_local = True
-        self._scsynth_address = "127.0.0.1"
+        self._scsynth_address = LOCALHOST
         self._scsynth_port = self.server_options.udp_port
-        self.process = Process(executable='scsynth',
+        self.process = Process(executable=self._programm_name,
                                args=self.server_options.args,
                                exec_path=scsynth_path,
                                console_logging=console_logging,
@@ -272,7 +304,7 @@ class SCServer(OSCCommunication):
 
     def init(self, with_blip: bool = True):
         # notify the supercollider server about us
-        self.add_receiver("scsynth", self._scsynth_address, self._scsynth_port)
+        self.add_receiver(self._programm_name, self._scsynth_address, self._scsynth_port)
         self.notify()
 
         # load synthdefs of sc3nb
@@ -339,7 +371,7 @@ class SCServer(OSCCommunication):
     # messages
     def quit(self):
         try:
-            self.send(build_message("/quit"))
+            self.send(build_message(MasterControlCommand.QUIT))
         except OSCCommunicationError:
             pass  # sending failed. scscynth maybe dead already.
         finally:
@@ -358,15 +390,15 @@ class SCServer(OSCCommunication):
 
         """
         sync_id = randint(1000, 9999)
-        msg = build_message("/sync", sync_id)
+        msg = build_message(MasterControlCommand.SYNC, sync_id)
         return sync_id == self.send(msg, timeout=timeout)
 
     def send_synthdef(self, synthdef_bytes: bytes):
-        msg = build_message("/d_recv", synthdef_bytes)
+        msg = build_message(SynthDefinitionCommand.RECV, synthdef_bytes)
         return self.send(msg)
 
     def load_synthdef(self, synthdef_path: str):
-        msg = build_message("/d_load", synthdef_path)
+        msg = build_message(SynthDefinitionCommand.LOAD, synthdef_path)
         return self.send(msg)
 
     def load_synthdefs(self,
@@ -377,7 +409,7 @@ class SCServer(OSCCommunication):
         args: List[Union[str, bytes]] = [directory]
         if completion_msg is not None:
             args.append(completion_msg)
-        self.msg("/d_loadDir", args)
+        self.msg(SynthDefinitionCommand.LOAD_DIR, args)
 
     def notify(self,
                receive_notifications: bool = True,
@@ -385,7 +417,7 @@ class SCServer(OSCCommunication):
                timeout: float = 5.0):
         flag = 1 if receive_notifications else 0
         client_id = client_id if client_id else self._client_id
-        msg = build_message("/notify", [flag, client_id])  # flag, clientID
+        msg = build_message(MasterControlCommand.NOTIFY, [flag, client_id])  # flag, clientID
         try:
             return_val = self.send(msg, timeout=timeout)
         except OSCCommunicationError as error:
@@ -412,8 +444,8 @@ class SCServer(OSCCommunication):
             self._client_id, self._max_logins = return_val
 
     def free_all(self, root: bool = True):
-        self.msg("/g_freeAll", 0 if root else self.default_group.nodeid)
-        self.msg("/clearSched")
+        self.msg(GroupCommand.FREE_ALL, 0 if root else self.default_group.nodeid)
+        self.msg(MasterControlCommand.CLEAR_SCHED)
         if root:
             self.send_default_groups()
         else:
@@ -474,24 +506,25 @@ class SCServer(OSCCommunication):
 
     # Information and debugging
     def version(self) -> ServerVersion:
-        msg = build_message("/version")
+        msg = build_message(MasterControlCommand.VERSION)
         return ServerVersion._make(self.send(msg))
 
     def status(self) -> ServerStatus:
-        msg = build_message("/status")
+        msg = build_message(MasterControlCommand.STATUS)
         return ServerStatus._make(self.send(msg)[1:])
 
     def dump_osc(self, level: int = 1):
-        msg = build_message("/dumpOSC", [level])
+        msg = build_message(MasterControlCommand.DUMP_OSC, [level])
         self.send(msg)
 
     def dump_tree(self, controls: bool = True):
-        msg = build_message("/g_dumpTree", [0, 1 if controls else 0])
+        msg = build_message(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
         return self.send(msg)
 
     def query_all_nodes(self, controls: bool = True):
+        # TODO make this root_node.query? so we dont need to import GroupCommand
         flag = 1 if controls else 0
-        msg = build_message("/g_queryTree", [0, flag])
+        msg = build_message(GroupCommand.QUERY_TREE, [0, flag])
         _, *nodes_info = self.send(msg)
         return NodeTree(info=nodes_info,
                         root_nodeid=0,
