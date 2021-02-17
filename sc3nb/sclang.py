@@ -4,17 +4,22 @@ import sys
 import inspect
 import time
 import warnings
+import logging
 
-from typing import NamedTuple, Any, Optional, Sequence
+from typing import NamedTuple, Any, Optional, Sequence, Tuple
 from queue import Empty
 
 import numpy as np
 
 import sc3nb.resources as resources
-from sc3nb.osc.osc_communication import SCLANG_DEFAULT_PORT, OSCCommunication
+from sc3nb.osc.osc_communication import OSCCommunication
 from sc3nb.sc_objects.server import SCServer
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.addHandler(logging.NullHandler())
+
+SCLANG_DEFAULT_PORT = 57120
 SC3NB_SCLANG_CLIENT_ID = 0
 
 ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
@@ -135,13 +140,13 @@ def replace_vars(code: str, pyvars: dict) -> str:
 
 def convert_to_sc(obj: Any) -> str:
     """Converts python objects to SuperCollider code literals.
-    
+
     This supports currently:
         numpy.ndarray -> SC Array representation
         complex type -> SC Complex
         strings -> if starting with sc3: it will be used as SC code
                    if it starts with a \\ (single escaped backward slash) it will be used as symbol
-                   else it will be inserted as string  
+                   else it will be inserted as string
     For unsupported types the __repr__ will be used.
 
     Parameters
@@ -188,9 +193,10 @@ class SCLang:
         NotImplementedError
             When an unsupported OS was found.
         """
-        self._osc: OSCCommunication
-        self._server: SCServer
-
+        self.process: Process
+        self._server: Optional[SCServer] = None
+        self.started: bool = False
+        self._port: int = SCLANG_DEFAULT_PORT
         if sys.platform == "linux" or sys.platform == "linux2":
             self.prompt_str = 'sc3>'
         elif sys.platform == "darwin":
@@ -200,18 +206,13 @@ class SCLang:
         else:
             raise NotImplementedError('Unsupported OS {}'.format(sys.platform))
 
-        self.process: Process
-        
-        self.port: Optional[int] = None
-        self.started = False
- 
     def start(self,
               sclang_path: Optional[str] = None,
               console_logging: bool = True,
               allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> None:
         """Start and initilize the sclang process.
 
-        This will also kill sclang processes that does not have allowed parents.  
+        This will also kill sclang processes that does not have allowed parents.
 
         Parameters
         ----------
@@ -248,7 +249,7 @@ class SCLang:
         else:
             self.started = True
             print('Done.')
-    
+
             print('Registering OSC /return callback in sclang...')
             self.cmd(r'''
                 // NetAddr.useDoubles = true;
@@ -272,7 +273,7 @@ class SCLang:
 
             resource_path = resources.__file__[:-len('__init__.py')].replace("\\", r"\\")
             print(f'Loading SynthDesc from {resource_path}')
-            self.load_synthdefs(resource_path)    
+            self.load_synthdefs(resource_path)
             print('Done.')
 
     def load_synthdefs(self, synthdefs_path: str) -> None:
@@ -283,67 +284,11 @@ class SCLang:
         synthdefs_path : str
             Path where the SynthDef files are located.
         """
-        self.cmd(r'''PathName.new(^synthdefs_path).files.collect(
-            { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
-            );''')
-
-    @property
-    def server(self) -> Optional[SCServer]:
-        """The SuperCollider server connected to this sclang instance."""
-        return self._server
-
-    def connect_to_server(self, server: Optional[SCServer] = None):
-        """Connect this sclang instance to the SuperCollider Server.
-
-        This will set Server.default and s to a the provided remote Server.
-
-        Parameters
-        ----------
-        server : Optional[SCServer], optional
-            SuperCollider Server to connect. If None try to reconnect.
-
-        Raises
-        ------
-        ValueError
-            If something different from a SCServer or None was provided
-        SCLangError
-            If sclang failed to register to the server.
-        """
-        if server is None:
-            server = self._server
-        if not isinstance(server, SCServer):
-            raise ValueError(f"Server must be instance of SCServer, got {type(server)}")
-        code = r"""Server.default=s=Server.remote('remote', NetAddr("{0}",{1}), clientID:{2});"""
-        self.cmd(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
-        try:  # if there are 'too many users' we failed. So the Exception is the successful case!
-            self.read(expect='too many users', timeout=2, print_error=False)
-        except ProcessTimeout:
-            print("Updated SC server at sclang")
-            self._server = server
-            self.connect_to_osc(server.osc)
-        else:
-            raise SCLangError("failed to register to the server (too many users)\n"
-                              "Restart the scsynth server with maxLogins >= 3 or specify a different server")
-            
-    @property
-    def osc(self) -> OSCCommunication:
-        """This sclangs OSCCommunication instance"""
-        return self._osc
-
-    def connect_to_osc(self, osc: OSCCommunication) -> None:
-        """Connect to an OSCCommunication.
-
-        Parameters
-        ----------
-        osc : OSCCommunication
-            OSCCommunication instance to connect to.
-        """
-        self._osc = osc
-        if self.port is None:
-            self.port = self.cmdg('NetAddr.langPort')
-        if self.port != SCLANG_DEFAULT_PORT:
-            self._osc.set_sclang(sclang_port=self.port)
-            print('Updated sclang port on OSCCommunication to non default port: {}'.format(self.port))
+        self.cmd(
+            r'''PathName.new(^synthdefs_path).files.collect(
+              { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
+            );''',
+            pyvars={"synthdefs_path": synthdefs_path})
 
     def kill(self) -> int:
         """Kill this sclang instance.
@@ -376,8 +321,7 @@ class SCLang:
             timeout: int = 1) -> Any:
         """Send code to sclang to execute it.
 
-        This also allows to get the result of the code or the 
-        corresponding output.
+        This also allows to get the result of the code or the corresponding output.
 
         Parameters
         ----------
@@ -421,7 +365,7 @@ class SCLang:
         RuntimeError
             If get_result is True but no OSCCommunication instance is set.
         SCLangError
-            When an error with sclang occurs. 
+            When an error with sclang occurs.
         """
         if pyvars is None:
             pyvars = parse_pyvars(code)
@@ -432,16 +376,16 @@ class SCLang:
         code = re.sub(r'\s+', ' ', code).strip()
 
         if get_result:
-            if self._osc is None:
+            if self._server is None:
                 raise RuntimeError(
-                    "get_result is only possible when osc is set")
+                    "get_result is only possible when connected to a SCServer")
             # escape " and \ in our SuperCollider string literal
             inner_code_escapes = str.maketrans(
                 {ord('\\'): r'\\', ord('"'): r'\"'})
             inner_code = code.translate(inner_code_escapes)
             # wrap the command string with our callback function
             code = r"""r['callback'].value("{0}", "{1}", {2});""".format(
-                inner_code, *self._osc.server.server_address)
+                inner_code, *self._server.osc_server.server_address)
 
         if discard_output:
             self.empty()  # clean all past outputs
@@ -450,11 +394,11 @@ class SCLang:
         if code and code[-1] != ';':
             code += ';'
         self.process.send(code + '\n\f')
-        
+
         return_val = None
         if get_result:
             try:
-                return_val = self._osc.returns.get(timeout)
+                return_val = self._server.returns.get(timeout)
             except Empty:
                 out = self.read()
                 if print_error:
@@ -518,7 +462,7 @@ class SCLang:
         """
         try:
             return self.process.read(expect=expect, timeout=timeout)
-        except ProcessTimeout as timeout:
+        except ProcessTimeout as timeout_error:
             if print_error:
                 error_str = "Timeout while reading sclang"
                 if expect:
@@ -526,8 +470,8 @@ class SCLang:
                                    ' (sclang prompt)' if expect is self.prompt_str else '')
                 error_str += "\noutput until timeout below: (also see console)"
                 error_str += "\n----------------------------------------------\n"
-                print(error_str + timeout.output)
-            raise timeout
+                print(error_str + timeout_error.output)
+            raise timeout_error
 
     def empty(self) -> None:
         """Empties sc output queue."""
@@ -565,3 +509,49 @@ class SCLang:
             return {s[0]: SynthArgument(*s[1:]) for s in synth_desc if s[0] != '?'}
         else:
             return None
+
+    @property
+    def addr(self) -> Tuple[str, int]:
+        return ("127.0.0.1", self._port)
+
+    @property
+    def server(self) -> Optional[SCServer]:
+        """The SuperCollider server connected to this sclang instance."""
+        return self._server
+
+    def connect_to_server(self, server: Optional[SCServer] = None):
+        """Connect this sclang instance to the SuperCollider Server.
+
+        This will set Server.default and s to a the provided remote Server.
+
+        Parameters
+        ----------
+        server : Optional[SCServer], optional
+            SuperCollider Server to connect. If None try to reconnect.
+
+        Raises
+        ------
+        ValueError
+            If something different from a SCServer or None was provided
+        SCLangError
+            If sclang failed to register to the server.
+        """
+        if server is None:
+            server = self._server
+        if not isinstance(server, SCServer):
+            raise ValueError(f"Server must be instance of SCServer, got {type(server)}")
+        code = r"""Server.default=s=Server.remote('remote', NetAddr("{0}",{1}), clientID:{2});"""
+        self.cmd(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
+        try:  # if there are 'too many users' we failed. So the Exception is the successful case!
+            self.read(expect='too many users', timeout=2, print_error=False)
+        except ProcessTimeout:
+            _LOGGER.info("Updated SC server at sclang")
+            self._server = server
+            self._port = self.cmdg('NetAddr.langPort')
+            self._server.add_receiver(name="sclang", ip="127.0.0.1", port=self._port)
+            _LOGGER.info('Updated sclang port on OSCCommunication '
+                         'to non default port: %s', self._port)
+        else:
+            raise SCLangError("failed to register to the server (too many users)\n"
+                              "Restart the scsynth server with maxLogins >= 3 "
+                              "or specify a different server")

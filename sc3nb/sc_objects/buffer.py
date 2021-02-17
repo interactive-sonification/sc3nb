@@ -215,7 +215,7 @@ class Buffer:
                 wavfile.write(tempfile, self._sr, data)
             finally:
                 tempfile.close()
-            self.server.msg("/b_allocRead", [self._bufnum, tempfile.name], sync=True)
+            self.server.msg("/b_allocRead", [self._bufnum, tempfile.name], await_reply=True)
             if os.path.exists(tempfile.name):
                 os.remove(tempfile.name)
         elif mode == 'osc':
@@ -235,7 +235,7 @@ class Buffer:
                 for i, chunk in enumerate(splitdata):
                     self.server.msg("/b_setn",
                                 [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
-                                 sync=False)
+                                 await_reply=False)
                 self.server.sync()
         else:
             raise ValueError(f"Unsupported mode '{mode}'.")

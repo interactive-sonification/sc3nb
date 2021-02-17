@@ -2,15 +2,20 @@
 import logging
 import warnings
 
-from typing import NamedTuple, Optional, Sequence, Union
+from typing import NamedTuple, Optional, Sequence, Union, Tuple
 from weakref import WeakValueDictionary
+from queue import Empty
+from random import randint
 
 import sc3nb.resources as resources
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
+
+from sc3nb.osc.parsing import preprocess_return
 from sc3nb.osc.osc_communication import (build_message,
                                          OSCCommunication,
                                          OSCCommunicationError,
-                                         SCSYNTH_DEFAULT_PORT)
+                                         MessageQueue,
+                                         MessageQueueCollection)
 
 from sc3nb.sc_objects.node import Node, Group, NodeTree
 from sc3nb.sc_objects.synthdef import SynthDef
@@ -21,6 +26,48 @@ _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
 SC3NB_SERVER_CLIENT_ID = 1
+SC3NB_DEFAULT_PORT = 57130
+SCSYNTH_DEFAULT_PORT = 57110
+
+ASYNC_MSGS = [
+    "/quit",    # Master
+    "/notify",
+    "/d_recv",  # Synth Def load SynthDefs
+    "/d_load",
+    "/d_loadDir",
+    "/b_alloc",  # Buffer Commands
+    "/b_allocRead",
+    "/b_allocReadChannel",
+    "/b_read",
+    "/b_readChannel",
+    "/b_write",
+    "/b_free",
+    "/b_zero",
+    "/b_gen",
+    "/b_close"
+]
+
+MSG_PAIRS = {
+    # Master
+    "/status": "/status.reply",
+    "/sync": "/synced",
+    "/version": "/version.reply",
+    # Synth Commands
+    "/s_get": "/n_set",
+    "/s_getn": "/n_setn",
+    # Group Commands
+    "/g_queryTree": "/g_queryTree.reply",
+    # Node Commands
+    "/n_query": "/n_info",
+    # Buffer Commands
+    "/b_query":  "/b_info",
+    "/b_get":  "/b_set",
+    "/b_getn":  "/b_setn",
+    # Control Bus Commands
+    "/c_get":  "/c_set",
+    "/c_getn":  "/c_setn"
+}
+
 
 class ServerStatus(NamedTuple):
     """Information about the status of the Server program"""
@@ -124,7 +171,7 @@ class ServerOptions():
     def __repr__(self):
         return f"<ServerOptions {self.args}>"
 
-class SCServer():
+class SCServer(OSCCommunication):
     """The SCServer represents the SuperCollider Server programm as Python object."""
 
     def __init__(self, server_options: Optional[ServerOptions] = None):
@@ -135,13 +182,32 @@ class SCServer():
         else:
             self.server_options = server_options
             _LOGGER.debug("Using custom server options %s", self.server_options)
-        self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
 
-        self.osc = OSCCommunication(scsynth_port=self.server_options.udp_port)
-        self.msg = self.osc.msg
-        self.bundler = self.osc.bundler
-        self.send = self.osc.send
-        self.sync = self.osc.sync
+        super().__init__(server_ip="127.0.0.1",
+                         server_port=SC3NB_DEFAULT_PORT,
+                         default_receiver_ip="127.0.0.1",
+                         default_receiver_port=self.server_options.udp_port)
+
+        # init msg queues
+        self.create_msg_pairs(MSG_PAIRS)
+
+        # /return messages from sclang callback
+        self.returns = MessageQueue("/return", preprocess_return)
+        self.add_msg_queue(self.returns)
+
+        # /done messages must be seperated
+        self.dones = MessageQueueCollection(address="/done", sub_addrs=ASYNC_MSGS)
+        self.add_msg_queue_collection(self.dones)
+
+        self.fails = MessageQueueCollection(address="/fail")
+        self.add_msg_queue_collection(self.fails)
+
+        # set logging handlers
+        self._osc_server.dispatcher.map("/fail", self._warn_fail, needs_reply_address=True)
+        self._osc_server.dispatcher.map("/*", self._log_message, needs_reply_address=True)
+
+        # node managing
+        self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
 
         self._default_group: Optional[Group] = None
         self._is_local: bool = False
@@ -153,14 +219,15 @@ class SCServer():
         self.process: Optional[Process]  = None
 
         self._client_id: int = SC3NB_SERVER_CLIENT_ID
-        self._address = "127.0.0.1"
-        self._port = self.server_options.udp_port
+        self._scsynth_address = "127.0.0.1"
+        self._scsynth_port = self.server_options.udp_port
         self._max_logins = self.server_options.max_logins
 
         self._server_running: bool  = False
         self._has_booted: bool  = False
 
-    def boot(self, scsynth_path: Optional[str] = None,
+    def boot(self,
+             scsynth_path: Optional[str] = None,
              timeout: float = 3,
              console_logging: bool = True,
              with_blip: bool = True,
@@ -170,8 +237,8 @@ class SCServer():
             return
         print('Booting SuperCollider Server...')
         self._is_local = True
-        self._address = "127.0.0.1"
-        self._port = self.server_options.udp_port
+        self._scsynth_address = "127.0.0.1"
+        self._scsynth_port = self.server_options.udp_port
         self.process = Process(executable='scsynth',
                                args=self.server_options.args,
                                exec_path=scsynth_path,
@@ -190,7 +257,7 @@ class SCServer():
                         f"The specified UDP port {self.server_options.udp_port} is already used")
                 else:
                     print("Trying to connect.")
-                    self.remote(self._address, self._port, with_blip=with_blip)
+                    self.remote(self._scsynth_address, self._scsynth_port, with_blip=with_blip)
             else:
                 print("Failed booting SuperCollider Server.")
                 raise process_timeout
@@ -200,7 +267,7 @@ class SCServer():
 
     def init(self, with_blip: bool = True):
         # notify the supercollider server about us
-        self.osc.set_scsynth(scsynth_ip=self._address, scsynth_port=self._port)
+        self.add_receiver("scsynth", self._scsynth_address, self._scsynth_port)
         self.notify(timeout=10)
 
         # load synthdefs of sc3nb
@@ -210,7 +277,7 @@ class SCServer():
         # create default group
         self._default_group = Group(nodeid=None, target=0, server=self)
 
-        self.sync(timeout=10)  # ToDo: fix temporary test
+        self.sync()
         if with_blip:
             self.blip()
 
@@ -224,8 +291,8 @@ class SCServer():
 
     def remote(self, address: str, port: int, with_blip: bool = True):
         self._is_local = False
-        self._address = address
-        self._port = port
+        self._scsynth_address = address
+        self._scsynth_port = port
         self.init(with_blip=with_blip)
         self._has_booted = True
 
@@ -245,9 +312,23 @@ class SCServer():
         except OSCCommunicationError:
             pass  # sending failed. scscynth maybe dead already.
         finally:
-            self.osc.exit()
+            super().quit()
             if self._is_local:
                 self.process.kill()
+
+    def sync(self, timeout=5):
+        """Sync the server with the /sync command.
+
+        Parameters
+        ----------
+        timeout : int, optional
+            Time in seconds that will be waited for sync.
+             (Default value = 5)
+
+        """
+        sync_id = randint(1000, 9999)
+        msg = build_message("/sync", sync_id)
+        return sync_id == self.send(msg, timeout=timeout)
 
     def send_synthdef(self, synthdef_bytes: bytes):
         msg = build_message("/d_recv", synthdef_bytes)
@@ -264,37 +345,40 @@ class SCServer():
     def notify(self,
                receive_notifications: bool = True,
                client_id: Optional[int] = None,
-               timeout: float = 5):
+               timeout: float = 5.0):
         flag = 1 if receive_notifications else 0
         client_id = client_id if client_id else self._client_id
         msg = build_message("/notify", [flag, client_id])  # flag, clientID
         try:
             return_val = self.send(msg, timeout=timeout)
         except OSCCommunicationError as error:
-            if error.fail is not None:
-                if "already registered" in error.fail[0]:
-                    self._client_id = error.fail[1]
-                else:
-                    raise
+            if error.send_message.address in self.fails:
+                message, rest = None, None
+                while True:
+                    try:
+                        message, *rest = self.fails.msg_queues[msg.address].get(timeout=0)
+                    except Empty:
+                        break
+                if message:
+                    if "already registered" in message:
+                        self._client_id = rest[0]
+                    else:
+                        raise error
         else:
             if len(return_val) == 2:
                 self._client_id, self._max_logins = return_val
 
-    def free_all(self, root: bool = False):
+    def free_all(self, root: bool = True):
         nodeid = 0 if root else self._default_group.nodeid
         msg = build_message("/g_freeAll", nodeid)
         self.send(msg)
         msg = build_message("/clearSched")
         self.send(msg)
-		#self.initTree()
-        # send DefaultGroups
+
+        # TODO send DefaultGroups
+
         self._default_group.new(target=0)
         self.sync()
-        # tree.value(this)
-        # sync
-        # ServerTree.run(this)
-        # sync
-        # AppClock?
 
     def next_node_id(self):
         self._num_node_ids += 1
@@ -409,8 +493,8 @@ class SCServer():
         return self.status().num_synthdefs
 
     @property
-    def addr(self):
-        return (self._address, self._port)
+    def addr(self) -> Tuple[str, int]:
+        return (self._scsynth_address, self._scsynth_port)
 
     @property
     def has_booted(self):
@@ -434,6 +518,19 @@ class SCServer():
             return self.process.popen.pid
         else:
             warnings.warn("Server is not local or not booted.")
+    
+    def _log_message(self, sender, *args):
+        if len(str(args)) > 55:
+            args_str = str(args)[:55] + ".."
+        else:
+            args_str = str(args)
+        _LOGGER.info("osc msg received from %s: %s",
+                     self._check_sender(sender), args_str)
+
+    def _warn_fail(self, sender, *args):
+        _LOGGER.warning("Error from %s: %s",
+                        self._check_sender(sender), args)
+
 
 
 class Recording:

@@ -627,7 +627,7 @@ class Synth(Node):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundled=True, sync=False)
+            self.server.send(msg, bundled=True, await_reply=False)
         return self
 
     def get(self, argument):
@@ -644,7 +644,8 @@ class Synth(Node):
             try:
                 default_value = self.synth_desc[argument].default
             except KeyError as error:
-                raise ValueError(f"argument '{argument}' not in synth_desc {self.synth_desc.keys()}") from error
+                raise ValueError(f"argument '{argument}' not in synth_desc"
+                                 f"{self.synth_desc.keys()}") from error
         else:
             default_value = None
         # if we know they type of the argument and its list we use s_getn
@@ -753,7 +754,9 @@ class Group(Node):
         if new:
             self.new(add_action=self._add_action, target=self._target_id)
 
-    def _update_state(self, group: Optional[Union[Node, int]]  = None, children: Optional[Sequence[Node]] = None):
+    def _update_state(self,
+                      group: Optional[Union[Node, int]] = None,
+                      children: Optional[Sequence[Node]] = None) -> None:
         if group:
             self._group = Node._get_nodeid(group)
         if children is not None:

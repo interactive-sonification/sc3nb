@@ -25,7 +25,7 @@ def startup(start_server: bool = True,
             magic: bool = True,
             scsynth_options: Optional[ServerOptions] = None,
             console_logging: bool = True,
-            allowed_parents: Sequence[str] =ALLOWED_PARENTS):
+            allowed_parents: Sequence[str] = ALLOWED_PARENTS):
     """Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
 
     Parameters
@@ -52,7 +52,7 @@ def startup(start_server: bool = True,
     -------
     SC
         SuperCollider Interface class.
-    """    
+    """
     if magic:
         ipy = get_ipython()
         if ipy is not None:
