@@ -167,7 +167,7 @@ class Node(ABC):
         self._is_running = State.UNKNOWN
 
         # this is state that we cannot really be sure of
-        self.current_args = {}
+        self._current_args = {}
 
     def _set_node_attrs(self,
                         target: Optional[Union['Node', int]],
@@ -311,7 +311,7 @@ class Node(ABC):
                 f"attribute {argument}={val} is deleted and recognized as Node Parameter now")
             delattr(self, argument)
         if not argument.startswith("t_"):
-            self.current_args[argument] = value
+            self._current_args[argument] = value
 
     def _update_args(self, args: Optional[dict] = None):
         if args is not None:
@@ -571,7 +571,7 @@ class Synth(Node):
     """Python representation of a group node on the SuperCollider server."""
 
     def __init__(self,
-                 name: str = "default",
+                 name: Optional[str] = None,
                  args: Dict[str, Any] = None,
                  *,
                  nodeid: Optional[int] = None,
@@ -620,10 +620,12 @@ class Synth(Node):
                          add_action=add_action, target=target,
                          server=server)
 
-        self.name = name
+        if name is None:
+            name = "default"
+        self._name = name
         if args is None:
             args = {}
-        self.current_args = args
+        self._current_args = args
 
         try:
             self.synth_desc = SynthDef.get_desc(name)
@@ -634,12 +636,20 @@ class Synth(Node):
         # attention: this must be after every attribute is set
         self._initialized = True
         if new:
-            self.new(args=self.current_args, add_action=self._add_action, target=self._target_id)
+            self.new(args=self._current_args, add_action=self._add_action, target=self._target_id)
 
     def _update_state(self, name: Optional[str], args: Optional[dict]):
         if name is not None:
-            self.name = name
+            self._name = name
         self._update_args(args)
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def current_args(self):
+        return self._current_args
 
     def new(self,
             args: Optional[dict] = None,
@@ -657,9 +667,9 @@ class Synth(Node):
         self._is_running = State.PROBABLY_TRUE
 
         self._update_args(args)
-        flatten_args = reduce(iconcat, self.current_args.items(), [])
+        flatten_args = reduce(iconcat, self._current_args.items(), [])
         msg = build_message(SynthCommand.NEW,
-                            [self.name, self.nodeid, self._add_action.value,
+                            [self._name, self.nodeid, self._add_action.value,
                              self._target_id] + flatten_args)
         if return_msg:
             return msg
@@ -677,7 +687,7 @@ class Synth(Node):
         argument : string
             name of the synth argument
         """
-        if self.synth_desc is not None:  # change from synth_desc to self.current_args
+        if self.synth_desc is not None:  # change from synth_desc to self._current_args
             try:
                 default_value = self.synth_desc[argument].default
             except KeyError as error:
@@ -707,7 +717,7 @@ class Synth(Node):
     def __getattr__(self, name):
         # python will try obj.__getattribute__(name) before this
         if self._initialized:
-            if name in self.current_args or self.synth_desc and name in self.synth_desc:
+            if name in self._current_args or self.synth_desc and name in self.synth_desc:
                 return self.get(name)
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
 
@@ -725,7 +735,7 @@ class Synth(Node):
         if name in ["_server", "_initialized"] or not self._initialized:
             return super().__setattr__(name, value)
         elif self._initialized:
-            if name in self.current_args or self.synth_desc and name in self.synth_desc:
+            if name in self._current_args or self.synth_desc and name in self.synth_desc:
                 return self.set(name, value)
         warnings.warn(
                 f"Setting '{name}' as python attribute and not as Synth Parameter. "
@@ -738,9 +748,9 @@ class Synth(Node):
         running = self.is_running if self.is_running is not None else "unknown"
         #status = f"playing={playing} running={running}"
         if cylce:
-            p.text(f"Synth ({self.nodeid}) '{self.name}'")
+            p.text(f"Synth ({self.nodeid}) '{self._name}'")
         else:
-            p.text(f"Synth ({self.nodeid}) '{self.name}' {self.current_args}")  # {status}")
+            p.text(f"Synth ({self.nodeid}) '{self._name}' {self._current_args}")  # {status}")
 
 
 class Group(Node):
@@ -974,7 +984,7 @@ class Group(Node):
         if cylce:
             p.text(f"Group ({self.nodeid})")
         else:
-            p.text(f"Group ({self.nodeid}) {self.current_args}")
+            p.text(f"Group ({self.nodeid}) {self._current_args}")
             with p.group(2, " children=[", "]"):
                 if self._children:
                     p.breakable()
