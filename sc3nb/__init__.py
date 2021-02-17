@@ -14,7 +14,7 @@ from sc3nb.osc.osc_communication import build_message, Bundler
 from sc3nb.sc_objects.buffer import Buffer
 from sc3nb.sc_objects.synthdef import SynthDef
 from sc3nb.sc_objects.node import Node, Synth, Group, AddAction
-from sc3nb.sc_objects.server import SCServer, ServerOptions, Recording
+from sc3nb.sc_objects.server import SCServer, ServerOptions, Recorder
 
 def load_ipython_extension(ipython):
     """Load the extension in IPython."""
