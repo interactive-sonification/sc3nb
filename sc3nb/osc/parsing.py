@@ -4,17 +4,13 @@ This implements a extension of the OSC protocol.
 A bundle is now allowed to consist of other bundles or
 lists.
 
-OSC List consists of the following bytes:
-    4 bytes (int) : list_size
-    n bytes (string) : OSC type tag
-    n bytes (x) : content as specified by type tag
-
 This extension is needed as sclang is sending Arrays
 as this list or when nested as bundles with inner list
 
 '''
 import logging
 import math
+from typing import Any, Sequence, Tuple, Union
 
 from pythonosc.osc_bundle import OscBundle
 from pythonosc.parsing import osc_types
@@ -42,17 +38,47 @@ class ParseError(Exception):
     '''Base exception for when a datagram parsing error occurs.'''
 
 
-def _get_aligned_index(index):
-    '''Get next multiple of NUM_SIZE from index'''
-    return NUM_SIZE * int(math.ceil((index)/NUM_SIZE))
+def _get_aligned_index(index: int) -> int:
+    """Get next multiple of NUM_SIZE from index
+
+    Parameters
+    ----------
+    index : int
+        starting index
+
+    Returns
+    -------
+    int
+        next multiple of NUM_SIZE from index
+    """
+    return NUM_SIZE * math.ceil(index/NUM_SIZE)
 
 
-def _parse_list(dgram, start_index):
-    '''List consists of the following bytes:
+def _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
+    """Parse a OSC List
+
+    List consists of the following bytes:
     4 bytes (int) : list_size
     n bytes (string) : OSC type tag
     n bytes (x) : content as specified by type tag
-    '''
+
+    Parameters
+    ----------
+    dgram : bytes
+        datagram with the list
+    start_index : int
+        parsing starting index
+
+    Returns
+    -------
+    Tuple[Sequence[Any], int]
+        parsed list contents, starting index + number of consumed bytes
+
+    Raises
+    ------
+    ParseError
+        If datagram is invalid.
+    """
     # parse list size
     _LOGGER.debug("[ start parsing list: %s", dgram[start_index:])
     list_size, start_index = osc_types.get_int(dgram, start_index)
@@ -79,11 +105,30 @@ def _parse_list(dgram, start_index):
     return value_list, start_index
 
 
-def _parse_osc_bundle_element(dgram, start_index):
-    '''Parse an element from a osc bundle.
+def _parse_osc_bundle_element(dgram: bytes,
+                              start_index: int
+                             ) -> Tuple[Union[Sequence[Any], bytes], int]:
+    """Parse an element from a osc bundle.
 
     The element needs to be either a osc bundle or a list
-    '''
+
+    Parameters
+    ----------
+    dgram : bytes
+        datagram with the bundle element
+    start_index : int
+        parsing starting index
+
+    Returns
+    -------
+    Tuple[Union[Sequence[Any], bytes], int]
+        parsed content of the bundle element, starting index + number of consumed bytes
+
+    Raises
+    ------
+    ParseError
+        If the datagram is invalid.
+    """
     elem_size, start_index = osc_types.get_int(dgram, start_index)
     _LOGGER.debug(">> parse osc bundle element (size: %d): %s ",
                   elem_size, dgram[start_index:start_index+elem_size])
@@ -110,8 +155,26 @@ def _parse_osc_bundle_element(dgram, start_index):
 BYTES_2_TYPE['b'] = _parse_osc_bundle_element
 
 
-def _parse_bundle(dgram, start_index):
-    '''Parsing bundle'''
+def _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
+    """Parsing bundle
+
+    Parameters
+    ----------
+    dgram : bytes
+        datagram with the bundle
+    start_index : int
+        parsing starting index
+
+    Returns
+    -------
+    tuple[Sequence[Any], int]
+        parsed content, starting index + number of consumed bytes
+
+    Raises
+    ------
+    ParseError
+        If the datagram is invalid
+    """
     _LOGGER.debug("## start parsing bundle: %s", dgram[start_index:])
 
     if dgram[start_index:start_index+8] != b'#bundle\x00':
@@ -134,8 +197,19 @@ def _parse_bundle(dgram, start_index):
     return msgs, start_index
 
 
-def parse_sclang_osc_packet(data):
-    '''Parses the OSC packet from sclang.'''
+def parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]:
+    """Parses the OSC packet from sclang.
+
+    Parameters
+    ----------
+    data : bytes
+        bytes send by sclang
+
+    Returns
+    -------
+    bytes or Sequence[Any]
+        unchanged bytes or content of bundles/messages
+    """
     try:
         if len(data) > TYPE_TAG_INDEX + 1:
             if data[TYPE_TAG_INDEX] == TYPE_TAG_MARKER:
@@ -147,7 +221,7 @@ def parse_sclang_osc_packet(data):
     return data
 
 
-def preprocess_return(value):
+def preprocess_return(value: Sequence[Any]) -> Sequence[Any]:
     """Preprocessing function for /return values
 
     Parameters

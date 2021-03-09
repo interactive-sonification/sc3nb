@@ -3,26 +3,31 @@
 import os
 import warnings
 
-from typing import NamedTuple
+from typing import Any, List, NamedTuple, Optional, Sequence, Union, TYPE_CHECKING
+from enum import Enum, unique
 from tempfile import NamedTemporaryFile
 from pathlib import Path
 
 import scipy.io.wavfile as wavfile
 import numpy as np
 
+from sc3nb.sc_objects.synthdef import SynthDef
+from sc3nb.sc_objects.node import Synth
 import sc3nb
 
-# Buffer altering
-# /b_read           Read sound file data into an existing buffer.
-# /b_readChannel    Read sound file channel data into an existing buffer.
-# /b_set
+if TYPE_CHECKING:
+    from sc3nb.sc_objects.server import SCServer
+    import pya
 
-from enum import Enum
 
+@unique
 class BufferReply(str, Enum):
+    """Buffer Command Replies"""
     INFO = "/b_info"
 
+@unique
 class BufferCommand(str, Enum):
+    """Buffer OSC Commands for Buffers"""
     ALLOC = "/b_alloc"
     ALLOC_READ = "/b_allocRead"
     ALLOC_READ_CHANNEL = "/b_allocReadChannel"
@@ -40,6 +45,18 @@ class BufferCommand(str, Enum):
     GET = "/b_get"
     GETN = "/b_getn"
 
+
+@unique
+class BufferAllocationMode(str, Enum):
+    """Buffer Allocation Modes"""
+    FILE = 'file'
+    ALLOC = 'alloc'
+    DATA = 'data'
+    EXISTING = 'existing'
+    COPY = 'copy'
+    NONE = 'none'
+
+
 class BufferInfo(NamedTuple):
     """Information about the Buffer"""
     bufnum: int
@@ -56,17 +73,6 @@ class Buffer:
     The constructor merely initializes a buffer:
     * it selects a buffer number using SC's buffer allocator
     * it initializes attribute variables
-
-    For more information on Buffer commands in sc3, refer to the Server Command
-    Reference in sc3 help.
-
-    Parameters
-    ----------
-    bufnum : int
-        buffer number to be used on scsynth. Defaults to None
-        can be set to enforce a given bufnum
-    server : SCServer, optional
-        The server instance to establish the Buffer
 
     Attributes
     ----------
@@ -92,18 +98,10 @@ class Buffer:
         True if Buffer has been allocated by
         any of the initialization methods
 
-    See Also
-    --------
-    --
-
     Notes
     -----
-    The default way of allocating a Buffer would be
-        b1 = scn.Buffer(sc).alloc(44100)
-    For convenience, a method named Buffer() (sic: capital 'B')
-    has been added to class SC which forwards self to calling the
-    Buffer constructor, allowing instead to write
-        b1 = sc.Buffer().alloc(44100)
+    For more information on Buffer commands, refer to the Server Command Reference in SC3.
+    https://doc.sccode.org/Reference/Server-Command-Reference.html#Buffer%20Commands
 
     Examples
     --------
@@ -114,31 +112,43 @@ class Buffer:
     b = Buffer().load_asig(...)
     b = Buffer().use_existing(...)
     b = Buffer().copy(Buffer)
-
-    Returns
-    -------
-    self : Buffer
-        the created Buffer object
-
     """
 
-    def __init__(self, bufnum=None, server=None):
+    def __init__(self, bufnum: Optional[int] = None, server: Optional['SCServer'] = None) -> None:
+        """Create a Buffer
+
+        Parameters
+        ----------
+        bufnum : int
+            buffer number to be used on scsynth. Defaults to None
+            can be set to enforce a given bufnum
+        server : SCServer, optional
+            The server instance to establish the Buffer
+
+        Returns
+        -------
+        self : Buffer
+            the created Buffer object
+
+        """
         self.server = server or sc3nb.SC.default.server
-        if bufnum is None:
-            self._bufnum = self.server.next_buffer_id()
-        else:  # force given bufnum
-            self._bufnum = bufnum
+        self._bufnum_set_manually = bufnum is not None
+        self._bufnum = bufnum
         self._sr = None
         self._channels = None
         self._samples = None
-        self._alloc_mode = None
+        self._alloc_mode = BufferAllocationMode.NONE
         self._allocated = False
         self._path = None
         self._synth_def = None
         self._synth = None
 
     # Section: Buffer initialization methods
-    def read(self, path, starting_frame=0, num_frames=-1, channels=None):
+    def read(self,
+            path: str,
+            starting_frame: int = 0,
+            num_frames: int = -1,
+            channels: Optional[Union[int, Sequence[int]]] = None) -> 'Buffer':
         """Allocate buffer space and read a sound file.
 
         If the number of frames argument is less than or equal to zero,
@@ -160,8 +170,17 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is already allocated.
         """
-        self._alloc_mode = 'file'
+        if self._allocated:
+            raise RuntimeError("Buffer object is already initialized!")
+        if self._bufnum is None:
+            self._bufnum = self.server.allocate_buffer_id(num=1)[0]
+        self._alloc_mode = BufferAllocationMode.FILE
         self._path = Path(path).resolve(strict=True)
         self._sr, data = wavfile.read(self._path)  # TODO: we only need the metadata here
         server_sr = self.server.sample_rate
@@ -186,7 +205,7 @@ class Buffer:
         self._allocated = True
         return self
 
-    def alloc(self, size, sr=44100, channels=1):
+    def alloc(self, size: int, sr: float = 44100, channels: int = 1) -> 'Buffer':
         """Allocate buffer space.
 
         Parameters
@@ -202,23 +221,32 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is already allocated.
         """
+        if self._allocated:
+            raise RuntimeError("Buffer object is already initialized!")
+        if self._bufnum is None:
+            self._bufnum = self.server.allocate_buffer_id(num=1)[0]
         self._sr = sr
-        self._alloc_mode = 'alloc'
+        self._alloc_mode = BufferAllocationMode.ALLOC
         self._channels = channels
         self._samples = int(size)
         self.server.msg(BufferCommand.ALLOC, [self._bufnum, size, channels])
         self._allocated = True
         return self
 
-    def load_data(self, data, mode='file', sr=44100):
+    def load_data(self, data: np.ndarray, mode: str = 'file', sr: float = 44100) -> 'Buffer':
         """Allocate buffer space and read input data.
 
         Parameters
         ----------
         data : numpy array
             Data which should inserted
-        mode : string='file'
+        mode : 'file' or 'osc'
             Insert data via filemode ('file') or n_set OSC commands ('osc')
         sr : int=44100
             sample rate
@@ -227,8 +255,17 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is already allocated.
         """
-        self._alloc_mode = 'data'
+        if self._allocated:
+            raise RuntimeError("Buffer object is already initialized!")
+        if self._bufnum is None:
+            self._bufnum = self.server.allocate_buffer_id(num=1)[0]
+        self._alloc_mode = BufferAllocationMode.DATA
         self._sr = sr
         self._samples = data.shape[0]
         self._channels = 1 if len(data.shape) == 1 else data.shape[1]
@@ -238,7 +275,9 @@ class Buffer:
                 wavfile.write(tempfile, self._sr, data)
             finally:
                 tempfile.close()
-            self.server.msg(BufferCommand.ALLOC_READ, [self._bufnum, tempfile.name], await_reply=True)
+            self.server.msg(BufferCommand.ALLOC_READ,
+                            [self._bufnum, tempfile.name],
+                            await_reply=True)
             if os.path.exists(tempfile.name):
                 os.remove(tempfile.name)
         elif mode == 'osc':
@@ -265,11 +304,11 @@ class Buffer:
         self._allocated = True
         return self
 
-    def load_collection(self, data, mode='file', sr=44100):
+    def load_collection(self, data: np.ndarray, mode: str = 'file', sr: float = 44100) -> 'Buffer':
         """Wrapper method of :func:`Buffer.load_data`"""
         return self.load_data(data, mode, sr)
 
-    def load_asig(self, asig, mode='file'):
+    def load_asig(self, asig: 'pya.Asig', mode: str ='file') -> 'Buffer':
         """Create buffer from asig
 
         Parameters
@@ -283,11 +322,17 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is already allocated.
         """
-        # ToDo: issue warning is not isinstance(asig, pya.Asig)
+        if self._allocated:
+            raise RuntimeError("Buffer object is already initialized!")
         return self.load_data(asig.sig, mode, sr=asig.sr)
 
-    def use_existing(self, bufnum, sr=44100):
+    def use_existing(self, bufnum: int, sr: float = 44100) -> 'Buffer':
         """Creates a buffer object from already existing Buffer bufnum.
 
         Parameters
@@ -301,8 +346,16 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is already allocated.
         """
-        self._alloc_mode = 'existing'
+        if self._allocated:
+            raise RuntimeError("Buffer object is already initialized!")
+
+        self._alloc_mode = BufferAllocationMode.EXISTING
         self._sr = sr
         self._bufnum = bufnum
         self._allocated = True
@@ -311,7 +364,7 @@ class Buffer:
         self._channels = info.num_channels
         return self
 
-    def copy_existing(self, buffer):
+    def copy_existing(self, buffer: 'Buffer') -> 'Buffer':
         """Duplicate an existing buffer
 
         Parameters
@@ -323,7 +376,16 @@ class Buffer:
         -------
         self : Buffer
             the newly created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is already allocated.
         """
+        if self._allocated:
+            raise RuntimeError("Buffer object is already initialized!")
+        if not buffer.allocated:
+            raise RuntimeError("Other Buffer object is not initialized!")
 
         # If both buffers use the same server -> copy buffer directly in the server
         if self.server is buffer.server:
@@ -332,15 +394,19 @@ class Buffer:
         else:
             # both sc instance must have the same file server
             self._sr = buffer.sr
-            filepath = f"./temp/temp_export_{str(buffer.bufnum)}.wav"  # TODO use tempfile here
-            buffer.write(filepath)
-            self.read(filepath)
-
-        self._alloc_mode = 'copy'
+            tempfile = NamedTemporaryFile(delete=False)
+            tempfile.close()
+            try:
+                buffer.write(tempfile.name)
+                self.read(tempfile.name)
+            finally:
+                if os.path.exists(tempfile.name):
+                    os.remove(tempfile.name)
+        self._alloc_mode = BufferAllocationMode.COPY
         return self
 
     # Section: Buffer modification methods
-    def fill(self, start=0, count=0, value=0):
+    def fill(self, start: int = 0, count: int = 0, value: float = 0) -> 'Buffer':
         """Fill range of samples with value(s).
 
         Parameters
@@ -357,9 +423,14 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
         # TODO implement this correctly
-        if self._allocated is False:
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
 
         if not isinstance(start, list):
@@ -369,7 +440,7 @@ class Buffer:
         self.server.msg(BufferCommand.FILL, [self._bufnum] + values)
         return self
 
-    def gen(self, command, args):
+    def gen(self, command: str, args: List[Any]) -> 'Buffer':
         """Call a command to fill a buffer.
         If you know, what you do -> you can use this method.
 
@@ -386,27 +457,41 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
-        if self._allocated is False:
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
         self.server.msg(BufferCommand.GEN, [self._bufnum, command] + args)
         return self
 
-    def zero(self):
-        """Free buffer data.
+    def zero(self) -> 'Buffer':
+        """Set buffer data to zero.
 
         Returns
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
-        if self._allocated is False:
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
         self.server.msg(BufferCommand.ZERO, [self._bufnum])
         return self
 
-    def gen_sine1(self, amplitudes: list, normalize=False, wavetable=False,
-                  clear=False):
+    def gen_sine1(self,
+                  amplitudes: List[float],
+                  normalize: bool = False,
+                  wavetable: bool = False,
+                  clear: bool =False
+                 ) -> 'Buffer':
         """Fill the buffer with sine waves & given amplitude
 
         Parameters
@@ -429,13 +514,22 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
         return self.gen("sine1",
                         [self._gen_flags(normalize, wavetable, clear),
                          amplitudes])
 
-    def gen_sine2(self, freq_amps: list, normalize=False, wavetable=False,
-                  clear=False):
+    def gen_sine2(self,
+                  freq_amps: List[float],
+                  normalize: bool = False,
+                  wavetable: bool = False,
+                  clear: bool = False
+                 ) -> 'Buffer':
         """Fill the buffer with sine waves
         given list of [frequency, amplitude] lists
 
@@ -459,13 +553,22 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
         return self.gen("sine2",
                         [self._gen_flags(normalize, wavetable, clear),
                          freq_amps])
 
-    def gen_sine3(self, freqs_amps_phases: list, normalize=False,
-                  wavetable=False, clear=False):
+    def gen_sine3(self,
+                  freqs_amps_phases: List[float],
+                  normalize: bool = False,
+                  wavetable: bool = False,
+                  clear: bool = False
+                 ) -> 'Buffer':
         """Fill the buffer with sine waves & given a list of
         [frequency, amplitude, phase] entries.
 
@@ -488,12 +591,21 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
         return self.gen("sine3", [self._gen_flags(normalize, wavetable, clear),
                                   freqs_amps_phases])
 
-    def gen_cheby(self, amplitudes: list, normalize=False, wavetable=False,
-                  clear=False):
+    def gen_cheby(self,
+                  amplitudes: List[float],
+                  normalize: bool = False,
+                  wavetable: bool = False,
+                  clear: bool = False
+                 ) -> 'Buffer':
         """Fills a buffer with a series of chebyshev polynomials, which can be
         defined as cheby(n) = amplitude * cos(n * acos(x))
 
@@ -517,11 +629,21 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
         return self.gen("cheby", [self._gen_flags(normalize, wavetable, clear),
                                   amplitudes])
 
-    def gen_copy(self, source, source_pos, dest_pos, copy_amount):
+    def gen_copy(self,
+                 source: 'Buffer',
+                 source_pos: int,
+                 dest_pos: int,
+                 copy_amount: int
+                ) -> 'Buffer':
         """Copy samples from the source buffer to the destination buffer
         specified in the b_gen command.
 
@@ -542,17 +664,27 @@ class Buffer:
         -------
         self : Buffer
             the created Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
         return self.gen("copy", [dest_pos, source.bufnum, source_pos,
                                  copy_amount])
 
     # Section: Buffer output methods
-    def play(self, rate=1, loop=False, pan=0, amp=0.3):
+    def play(self,
+             rate: float = 1,
+             loop: bool = False,
+             pan: float = 0,
+             amp: float = 0.3
+            ) -> Synth:
         """Play the Buffer using a Synth
 
         Parameters
         ----------
-        rate : int, optional
+        rate : float, optional
             plackback rate, by default 1
         loop : bool, optional
             if True loop the playback, by default False
@@ -571,7 +703,7 @@ class Buffer:
         RuntimeError
             If the Buffer is not allocated yet.
         """
-        if self._allocated is False:
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
 
         playbuf_def = """
@@ -584,7 +716,7 @@ class Buffer:
         }"""
 
         if self._synth_def is None:
-            self._synth_def = sc3nb.SynthDef(
+            self._synth_def = SynthDef(
                 name=f"sc3nb_playbuf_{self.bufnum}",
                 definition=playbuf_def)
             synth_name = self._synth_def.add(
@@ -594,15 +726,21 @@ class Buffer:
                         "loop": 1 if loop else 0,
                         "pan": pan,
                         "amp": amp})
-            self._synth = sc3nb.Synth(name=synth_name, server=self.server)
+            self._synth = Synth(name=synth_name, server=self.server)
         else:
             self._synth.new(
                 {"rate": rate, "loop": 1 if loop else 0,
                  "pan": pan, "amp": amp})
         return self._synth
 
-    def write(self, path, header="wav", sample="float",
-              num_frames=-1, starting_frame=0, leave_open=False):
+    def write(self,
+              path: str,
+              header: str = "wav",
+              sample: str = "float",
+              num_frames: int = -1,
+              starting_frame: int =0,
+              leave_open: bool = False
+             ) -> 'Buffer':
         """Write buffer data to a sound file
 
         Parameters
@@ -631,8 +769,13 @@ class Buffer:
         -------
         self : Buffer
             the Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
-        if self._allocated is False:
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
         leave_open_val = 1 if leave_open else 0
         path = str(Path(path).resolve())
@@ -640,25 +783,39 @@ class Buffer:
                             num_frames, starting_frame, leave_open_val])
         return self
 
-    def close(self):
+    def close(self) -> 'Buffer':
         """Close soundfile after using a Buffer with DiskOut
 
         Returns
         -------
         self : Buffer
             the Buffer object
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
+        if not self._allocated:
+            raise RuntimeError("Buffer object is not initialized!")
         self.server.msg(BufferCommand.CLOSE, [self._bufnum], bundled=True)
         return self
 
-    def to_array(self):
+    def to_array(self) -> np.ndarray:
         """Return the buffer data as an array representation.
 
         Returns
         -------
-        array :
+        np.ndarray:
             Values of the buffer
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
+        if not self._allocated:
+            raise RuntimeError("Buffer object is not initialized!")
         data = []
         blocksize = 1000  # array size compatible with OSC packet size
         i = 0
@@ -672,19 +829,24 @@ class Buffer:
         return data
 
     # Section: Buffer information methods
-    def query(self):
+    def query(self) -> BufferInfo:
         """Get buffer info.
 
         Returns
         -------
         Tuple:
             (buffernumber, number of frames, number of channels, sample rate)
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
         """
-        if self._allocated is False:
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
         return BufferInfo._make(self.server.msg(BufferCommand.QUERY, [self._bufnum]))
 
-    def _repr_pretty_(self, p, cycle):
+    def _repr_pretty_(self, p, cycle) -> None:
         if cycle:
             p.text("Buffer {self.bufnum}")
         else:
@@ -694,17 +856,25 @@ class Buffer:
                    f"using mode '{self._alloc_mode}'")
 
     # Section: Methods to delete / free Buffers
-    def free(self):
-        """Free buffer data. - The Buffer object both in python and sc will continue to exist!"""
-        if self._allocated is False:
+    def free(self) -> None:
+        """Free buffer data.
+
+        Raises
+        ------
+        RuntimeError
+            If the Buffer is not allocated yet.
+        """
+        if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
+        if self._alloc_mode != BufferAllocationMode.EXISTING and not self._bufnum_set_manually:
+            self.server.buffer_id_allocator.free_ids([self._bufnum])
         self.server.msg(BufferCommand.FREE, [self._bufnum])
         self._allocated = False
-        self._alloc_mode = None
+        self._alloc_mode = BufferAllocationMode.NONE
 
     # Section: Properties
     @property
-    def bufnum(self):
+    def bufnum(self) -> Optional[int]:
         """Buffer number which serves as ID in SuperCollider
 
         Returns
@@ -715,7 +885,7 @@ class Buffer:
         return self._bufnum
 
     @property
-    def allocated(self):
+    def allocated(self) -> bool:
         """Whether this Buffer is allocated by
         any of the initialization methods.
 
@@ -727,7 +897,7 @@ class Buffer:
         return self._allocated
 
     @property
-    def alloc_mode(self):
+    def alloc_mode(self) -> BufferAllocationMode:
         """Mode of Buffer allocation.
 
         One of ['file', 'alloc', 'data', 'existing', 'copy']
@@ -742,18 +912,18 @@ class Buffer:
         return self._alloc_mode
 
     @property
-    def path(self):
+    def path(self) -> Optional[Path]:
         """File path that was provided to read.
 
         Returns
         -------
-        str
+        pathlib.Path
             buffer file path
         """
         return self._path
 
     @property
-    def channels(self):
+    def channels(self) -> Optional[int]:
         """Number of channels in the Buffer.
 
         Returns
@@ -764,7 +934,7 @@ class Buffer:
         return self._channels
 
     @property
-    def samples(self):
+    def samples(self) -> Optional[int]:
         """Number of samples in the buffer.
 
         Returns
@@ -775,18 +945,18 @@ class Buffer:
         return self._samples
 
     @property
-    def sr(self):
+    def sr(self) -> Optional[float]:
         """Sampling rate of the Buffer.
 
         Returns
         -------
-        int
+        float
             sampling rate
         """
         return self._sr
 
     @property
-    def duration(self):
+    def duration(self) -> Optional[float]:
         """Duration of the Buffer in seconds.
 
         Returns
@@ -794,10 +964,13 @@ class Buffer:
         float
             duration in seconds
         """
-        return self._samples / self._sr
+        if self._samples is not None and self._sr is not None:
+            return self._samples / self._sr
+        else:
+            return None
 
     # Section: Private utils
-    def _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False):
+    def _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False) -> int:
         """Generate Wave Fill Commands flags from booleans
         according to the SuperCollider Server Command Reference.
 

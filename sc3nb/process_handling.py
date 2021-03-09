@@ -17,32 +17,35 @@ from queue import Empty, Queue
 
 import psutil
 
-ALLOWED_PARENTS = ("scide", "ipykernel")
-
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
+ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+ALLOWED_PARENTS = ("scide", "python")
 
-def find_executable(executable, path=None, add_to_path=False):
+
+def find_executable(executable: str, path: str = None, add_to_path: bool = False):
     """Looks for executable in os $PATH or specified path
 
-    Arguments:
-        executable {str} -- Executable to be found
+    Parameters
+    ----------
+    executable : str
+        Executable to be found
+    path : str, optional
+        Path at which to look for, by default None
+    add_to_path : bool, optional
+        Wether to add the provided path to os $PATH or not, by default False
 
-    Keyword Arguments:
-        path {str} -- Path at which to look for
-                      executable (default: {None})
-        add_to_path {bool} -- Wether to add the provided path
-                              to os $PATH or not (default: {False})
+    Returns
+    -------
+    str
+        Full path to executable
 
-    Raises:
-        FileNotFoundError -- Raised if executable
-                             cannot be found
-
-    Returns:
-        str -- Full path to executable
+    Raises
+    ------
+    FileNotFoundError
+        Raised if executable cannot be found
     """
-
     if path is not None:
         head, tail = os.path.split(path)
         if executable in tail:
@@ -96,9 +99,9 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
             if allowed_parents:
                 parents = proc.parents()
                 if parents:
-                    cmdline = " ".join(map(" ".join, map(psutil.Process.cmdline, parents)))
-                    _LOGGER.debug("Parents cmdlines: %s", cmdline)
-                    if any([allowed_parent in cmdline for allowed_parent in allowed_parents]):
+                    parent_names = " ".join(map(" ".join, map(psutil.Process.name, parents)))
+                    _LOGGER.debug("Parents cmdlines: %s", parent_names)
+                    if any([allowed_parent in parent_names for allowed_parent in allowed_parents]):
                         continue
             _LOGGER.debug("Terminating %s parents: %s", proc, proc.parents())
             proc.terminate()
@@ -110,6 +113,7 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
 
 
 class ProcessTimeout(Exception):
+    """Process Timeout Exception"""
     def __init__(self, executable, output, timeout, expected):
         self.output = output
         self.timeout = timeout
@@ -120,6 +124,7 @@ class ProcessTimeout(Exception):
 
 
 class Process:
+    """Class for starting a executable and communication with it."""
     def __init__(self,
                  executable,
                  args=None,
@@ -161,6 +166,7 @@ class Process:
     def _read_loop(self):
         os.write(1, f"{self.executable} start reading\n".encode())
         for line in iter(self.popen.stdout.readline, ''):
+            ANSI_ESCAPE.sub('', line)
             if self.console_logging:
                 # print to jupyter console...
                 os.write(1, f"{self.executable}:  {line}".encode())
@@ -168,8 +174,26 @@ class Process:
         os.write(1, f"{self.executable} reached EOF\n".encode())
         return
 
-    def read(self, expect=None, timeout=1):
-        '''Reads output from output queue'''
+    def read(self, expect: Optional[str] = None, timeout: float = 1) -> str:
+        """Reads current output from output queue or until expect is found
+
+        Parameters
+        ----------
+        expect : str, optional
+            str that we expect to find, by default None
+        timeout : float, optional
+            timeout for waiting for output, by default 1
+
+        Returns
+        -------
+        str
+            Output of process.
+
+        Raises
+        ------
+        ProcessTimeout
+            If no output or expectation isn't found
+        """
         timeout_time = time.time() + timeout
         out = ''
         expect_found = False
@@ -193,24 +217,42 @@ class Process:
                     return out
             time.sleep(0.001)
 
-    def empty(self):
-        '''Empties output queue'''
+    def empty(self) -> None:
+        """Empties output queue."""
         while True:
             try:
                 self.output_queue.get_nowait()
             except Empty:
                 return
 
-    def send(self, cmdstr):
-        '''Send command strings to process'''
-        # TODO log here with debug
+    def send(self, input_str: str) -> None:
+        """Send input to process
+
+        Parameters
+        ----------
+        input_str : str
+            Input to be send to process
+
+        Raises
+        ------
+        RuntimeError
+            If writing to process fails
+        """
+        _LOGGER.debug(input_str)
         try:
-            self.stdin.write(cmdstr)
+            self.stdin.write(input_str)
             self.stdin.flush()  # shouldnt be needed as buffering is disabled.
         except OSError as error:
             raise RuntimeError("Write to stdin failed") from error
 
-    def kill(self):
+    def kill(self) -> int:
+        """Kill the process.
+
+        Returns
+        -------
+        int
+            return code of process
+        """
         self.popen.kill()
         self.output_reader_thread.join()
         return self.popen.wait()

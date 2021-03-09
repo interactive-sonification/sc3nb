@@ -25,6 +25,8 @@ ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
 
 
 class SynthArgument(NamedTuple):
+    """Synth Argument rate and default value"""
+    name: str
     rate: str
     default: Any
 
@@ -273,6 +275,7 @@ class SCLang:
             resource_path = resources.__file__[:-len('__init__.py')].replace("\\", r"\\")
             print(f'Loading SynthDesc from {resource_path}')
             self.load_synthdefs(resource_path)
+            self.read(expect=self.prompt_str)
             print('Done.')
 
     def load_synthdefs(self, synthdefs_path: str) -> None:
@@ -505,12 +508,13 @@ class SCLang:
             synth_desc = None
 
         if synth_desc:
-            return {s[0]: SynthArgument(*s[1:]) for s in synth_desc if s[0] != '?'}
+            return {s[0]: SynthArgument(s[0], *s[1:]) for s in synth_desc if s[0] != '?'}
         else:
             return None
 
     @property
     def addr(self) -> Tuple[str, int]:
+        """The address of this sclang"""
         return ("127.0.0.1", self._port)
 
     @property

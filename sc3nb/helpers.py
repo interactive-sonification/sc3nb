@@ -1,71 +1,91 @@
 """Collection of helper functions for the user"""
+from typing import Union
 import numpy as np
 
 
-def linlin(x, x1, x2, y1, y2):
-    """map x linearly so that [x1, x2] is mapped to [y1, y2]
+def linlin(value: Union[float, np.ndarray],
+           x1: float,
+           x2: float,
+           y1: float,
+           y2: float
+          ) -> Union[float, np.ndarray]:
+    """Map value linearly so that [x1, x2] is mapped to [y1, y2]
 
-    Arguments:
-        x {float} -- value to be mapped, can be a numpy array
-        x1 {float} -- source value 1
-        x2 {float} -- source value 2
-        y1 {float} -- destination value to be reached for x==x1
-        y2 {float} -- destination value to be reached for x==x2
+    linlin is implemented in analogy to the SC3 linlin, yet this
+    function extrapolates by default.
+    A frequently used invocation is with x1 < x2, i.e. thinking
+    of them as a range [x1,x2]
 
-        linlin is implemented in analogy to the SC3 linlin, yet this
-        function extrapolates by default.
-        A frequently used invocation is with x1 < x2, i.e. thinking 
-        of them as a range [x1,x2]
+    Parameters
+    ----------
+    value : float or np.ndarray
+        value(s) to be mapped
+    x1 : float
+        source value 1
+    x2 : float
+        source value 2
+    y1 : float
+        destination value to be reached for value == x1
+    y2 : float
+        destination value to be reached for value == x2
 
-    Returns:
-        float -- the mapping result
+    Returns
+    -------
+    float
+        the mapping result
     """
+    return (value-x1)/(x2-x1)*(y2-y1) + y1
 
-    return (x-x1)/(x2-x1)*(y2-y1) + y1
 
+def midicps(midi_note: float) -> float:
+    """Convert MIDI note to cycles per second
 
-def midicps(m):
-    """TODO
+    Parameters
+    ----------
+    m : float
+        midi note
 
-    Arguments:
-        m {int} -- [description]
-
-    Returns:
-        float -- [description]
+    Returns
+    -------
+    float
+        corresponding cycles per seconds
     """
+    return 440.0*2**((midi_note-69)/12.0)
 
-    return 440.0*2**((m-69)/12.0)
 
+def cpsmidi(cps: float) -> float:
+    """Convert cycles per second to MIDI note
 
-def cpsmidi(c):
-    """TODO
+    Parameters
+    ----------
+    cps : float
+        cycles per second
 
-    Arguments:
-        c {float} -- [description]
-
-    Returns:
-        float -- [description]
+    Returns
+    -------
+    float
+        corresponding MIDI note
     """
+    return 69+12*np.log2(cps/440.0)
 
-    return 69+12*np.log2(c/440.0)
 
-
-def clip(value, minimum=-float("inf"), maximum=float("inf")):
+def clip(value: float, minimum: float = -float("inf"), maximum: float = float("inf")) -> float:
     """Clips a value to a certain range
 
-    Arguments:
-        value {float} -- Value to clip
+    Parameters
+    ----------
+    value : float
+        Value to clip
+    minimum : float, optional
+        Minimum value output can take, by default -float("inf")
+    maximum : float, optional
+        Maximum value output can take, by default float("inf")
 
-    Keyword Arguments:
-        minimum {float} -- Minimum value output can take
-                           (default: {-float("inf")})
-        maximum {float} -- Maximum value output can take
-                            (default: {float("inf")})
-
-    Returns:
-        float -- clipped value
+    Returns
+    -------
+    float
+        clipped value
     """
-
     if value < minimum:
         return minimum
     if value > maximum:
@@ -73,27 +93,33 @@ def clip(value, minimum=-float("inf"), maximum=float("inf")):
     return value
 
 
-def dbamp(db):
-    """TODO
+def dbamp(decibels: float) -> float:
+    """Convert a decibels to a linear amplitude.
 
-    Arguments:
-        db {[type]} -- [description]
+    Parameters
+    ----------
+    decibels : float
+        Decibel value to convert
 
-    Returns:
-        [type] -- [description]
+    Returns
+    -------
+    float
+        Corresponding linear amplitude
     """
+    return 10**(decibels/20.0)
 
-    return 10**(db/20.0)
 
+def ampdb(amp: float) -> float:
+    """Convert a linear amplitude to decibels.
 
-def ampdb(amp):
-    """TODO
+    Parameters
+    ----------
+    amp : float
+        Linear amplitude to convert
 
-    Arguments:
-        amp {[type]} -- [description]
-
-    Returns:
-        [type] -- [description]
+    Returns
+    -------
+    float
+        Corresponding decibels
     """
-
     return 20*np.log10(amp)

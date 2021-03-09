@@ -1,6 +1,4 @@
-"""Classes to run register functions at certain timepoints
-and run asynchronously
-"""
+"""Classes to run register functions at certain timepoints and run asynchronously"""
 
 import threading
 import time
@@ -22,21 +20,17 @@ class Event():
         spawn {bool} -- if True, create new sub-thread
                         for function (default: {False})
     """
-
     def __init__(self, timetag, function, args, spawn=False):
         if spawn:
             thread = threading.Thread(target=function, args=args)
             function = thread.start
             args = ()
-
         self.timetag = timetag
         self.function = function
         self.args = args
 
     def execute(self):
-        """Executes function
-        """
-
+        """Executes function"""
         self.function(*self.args)
 
     def __eq__(self, other):
@@ -87,7 +81,6 @@ class TimedQueue():
         """Closes event processing without waiting for
         pending events to complete
         """
-
         self.close_event.set()
         self.thread.join()
 
@@ -95,15 +88,12 @@ class TimedQueue():
         """Closes event processing after waiting for
         pending events to complete
         """
-
         self.complete()
         self.close_event.set()
         self.thread.join()
 
     def complete(self):
-        """Blocks until all pending events have completed
-        """
-
+        """Blocks until all pending events have completed"""
         while self.event_list:
             time.sleep(0.01)
 
@@ -146,7 +136,6 @@ class TimedQueue():
         Returns:
             Event -- Latest event
         """
-
         event = self.peek()
         self.pop()
         return event
@@ -157,7 +146,6 @@ class TimedQueue():
         Returns:
             Event -- latest event
         """
-
         with self.lock:
             return self.event_list[int(self.onset_idx[0][1])]
 
@@ -167,14 +155,11 @@ class TimedQueue():
         Returns:
             bool -- True if queue if empty
         """
-
         with self.lock:
             return bool(self.event_list)
 
     def pop(self):
-        """Removes latest event from queue
-        """
-
+        """Removes latest event from queue"""
         with self.lock:
             event_idx = int(self.onset_idx[0][1])
             self.onset_idx = self.onset_idx[1:]
@@ -207,11 +192,11 @@ class TimedQueueSC(TimedQueue):
 
     def __init__(self, sc, relative_time=False, thread_sleep_time=0.001):
         super().__init__(relative_time, thread_sleep_time)
-        self.sc = sc or sc3nb.SC.default
+        self.server = sc or sc3nb.SC.default.server
 
     def put_bundle(self, onset, timetag, address, args):
-        callback = self.sc.server.bundler(timetag, address, args).send
+        callback = self.server.bundler(timetag, address, args).send
         self.put(onset, callback)
 
     def put_msg(self, onset, address, args):
-        self.put(onset, self.sc.server.msg, args=(address, args))
+        self.put(onset, self.server.msg, args=(address, args))

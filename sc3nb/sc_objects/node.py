@@ -3,14 +3,35 @@
 import logging
 import warnings
 
+from abc import ABC, abstractmethod
+from enum import Enum, unique
+from functools import reduce
+from operator import iconcat
+
 from typing import Optional, Union, Any, Sequence, Dict, Tuple, NamedTuple, TYPE_CHECKING
 
-from enum import Enum
+from pythonosc.osc_message import OscMessage
 
+import sc3nb
+from sc3nb.osc.osc_communication import build_message, OSCCommunicationError
+from sc3nb.sc_objects.synthdef import SynthDef
+
+if TYPE_CHECKING:
+    from sc3nb.sc_objects.server import SCServer
+
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.addHandler(logging.NullHandler())
+
+
+@unique
 class GroupReply(str, Enum):
+    """Replies of Group Commands"""
     QUERY_TREE_REPLY = "/g_queryTree.reply"
 
+
+@unique
 class GroupCommand(str, Enum):
+    """OSC Commands for Groups"""
     QUERY_TREE = "/g_queryTree"
     DUMP_TREE = "/g_dumpTree"
     DEEP_FREE = "/g_deepFree"
@@ -20,15 +41,24 @@ class GroupCommand(str, Enum):
     G_NEW = "/g_new"
     P_NEW = "/p_new"
 
+
+@unique
 class SynthCommand(str, Enum):
+    """OSC Commands for Synths"""
     NEW = "/s_new"
     S_GET = "/s_get"
     S_GETN = "/s_getn"
 
+
+@unique
 class NodeReply(str, Enum):
+    """Replies of Node Commands"""
     INFO = "/n_info"
 
+
+@unique
 class NodeCommand(str, Enum):
+    """OSC Commands for Nodes"""
     ORDER = "/n_order"
     TRACE = "/n_trace"
     QUERY = "/n_query"
@@ -42,20 +72,6 @@ class NodeCommand(str, Enum):
     RUN = "/n_run"
     FREE = "/n_free"
 
-if TYPE_CHECKING:
-    from sc3nb.sc_objects.server import SCServer
-
-from abc import ABC, abstractmethod
-from enum import Enum, unique
-from functools import reduce
-from operator import iconcat
-
-import sc3nb
-from sc3nb.osc.osc_communication import build_message
-from sc3nb.sc_objects.synthdef import SynthDef
-
-_LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
 
 @unique
 class AddAction(Enum):
@@ -66,6 +82,7 @@ class AddAction(Enum):
     BEFORE = 3   # add immediately before target in its server's node order
     REPLACE = 4  # replace target and take its place in its server's node order
     # Note: A Synth is not a valid target for \addToHead and \addToTail.
+
 
 class State(Enum):
     """State for playing and running"""
@@ -102,10 +119,6 @@ class Node(ABC):
                 nodeid: Optional[int] = None,
                 server: Optional['SCServer'] = None,
                 **kwargs: Dict) -> 'Node':
-        # test args
-        #x get server or default server
-        #x get NodeRegistry from server
-        # call update = update_node + update_subclass with args, kwargs
         if nodeid is not None:
             if server is None:
                 server = sc3nb.SC.default.server
@@ -125,7 +138,8 @@ class Node(ABC):
         return super().__new__(cls)
 
     @abstractmethod
-    def __init__(self, *,
+    def __init__(self,
+                 *,
                  nodeid: Optional[int] = None,
                  group: Optional[Union['Group', int]] = None,
                  add_action: Optional[Union[AddAction, int]] = None,
@@ -150,7 +164,7 @@ class Node(ABC):
         if nodeid in self._server.nodes:
             raise RuntimeError("The __init__ of Node should not be called twice")
 
-        self._nodeid = nodeid if nodeid is not None else self._server.next_node_id()
+        self._nodeid = nodeid if nodeid is not None else self._server.allocate_node_id()
         if group is not None:
             self._group = Node._get_nodeid(group)
         if target is not None:
@@ -199,7 +213,7 @@ class Node(ABC):
         # derive group
         if self._add_action in [AddAction.TO_HEAD, AddAction.TO_TAIL]:
             self._group = self._target_id
-        else:  # AddAction BEFORE, AFTER or REPLACE
+        elif self._group is None:  # AddAction BEFORE, AFTER or REPLACE
             if isinstance(target, Node):
                 self._group = target.group
             elif target in self._server.nodes:
@@ -207,7 +221,7 @@ class Node(ABC):
                 if target_node:
                     self._group = target_node.group
             else:
-                _LOGGER.warn("Could not derive group of Node, assuming group 0")
+                _LOGGER.warning("Could not derive group of Node, assuming group 0")
                 self._group = 0
         _LOGGER.debug("Node attrs after setting: nodeid %s, group %s, addaction %s, target %s",
                       self._nodeid, self._group, self._add_action, self._target_id)
@@ -224,14 +238,17 @@ class Node(ABC):
 
     @property
     def server(self):
+        """The server on which this node is located."""
         return self._server
 
     @property
     def is_playing(self):
+        """True if this node is playing."""
         return self._is_playing
 
     @property
     def is_running(self):
+        """True if this node is running."""
         return self._is_running
 
     def free(self, return_msg=False):
@@ -318,32 +335,6 @@ class Node(ABC):
             for arg, val in args.items():
                 self._update_arg(arg, val)
 
-    # def setn(self, control, num_controls, values, return_msg=False):
-    #     """Set ranges of control values with n_setn.
-
-    #     Parameters
-    #     ----------
-    #     control : int or string
-    #         control index or name
-    #     num_controls : int
-    #         number of control values to fill
-    #     values : list of float or int
-    #         values to set
-    #     return_msg : bool, optional
-    #         If True return msg else send it directly, by default False
-
-    #     Returns
-    #     -------
-    #     OscMessage
-    #         if return_msg else self
-    #     """
-    #     msg = build_message(SETN, [self.nodeid, control, num_controls, *values])
-    #     if return_msg:
-    #         return msg
-    #     else:
-    #         self.server.send(msg)
-    #     return self
-
     def fill(self, control, num_controls, value, return_msg=False):
         """Fill ranges of control values with n_fill.
 
@@ -370,17 +361,15 @@ class Node(ABC):
             self.server.send(msg, bundled=True)
         return self
 
-    def map(self, control, bus_index, audio_bus=False, return_msg=False):
+    def map(self, control, bus, return_msg=False):
         """Map a node's control to read from a bus using /n_map or /n_mapa.
 
         Parameters
         ----------
         control : int or string
             control index or name
-        bus_index : int
-            control/audio bus index
-        audio_bus : bool, optional
-            True if bus is audio, by default False
+        bus : Bus
+            control/audio bus
         return_msg : bool, optional
             If True return msg else send it directly, by default False
 
@@ -389,6 +378,8 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
+        audio_bus = bus.is_audio_bus()
+        bus_index = bus.idx
         map_command = NodeCommand.MAPA if audio_bus else NodeCommand.MAP
         msg = build_message(map_command, [self.nodeid, control, bus_index])
         if return_msg:
@@ -397,15 +388,15 @@ class Node(ABC):
             self.server.send(msg, bundled=True)
         return self
 
-    def mapn(self, control, bus_index, num_controls, audio_bus=False, return_msg=False):
-        """Map a node's control to read from a bus using /n_map or /n_mapa.
+    def mapn(self, control, bus, num_controls, audio_bus=False, return_msg=False):
+        """Map a node's control to read from a bus using /n_mapn or /n_mapan.
 
         Parameters
         ----------
         control : int or string
             control index or name
-        bus_index : int
-            control/audio bus index
+        bus : Bus
+            control/audio bus
         num_controls : int
             number of controls to map
         audio_bus : bool, optional
@@ -418,6 +409,8 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
+        audio_bus = bus.is_audio_bus()
+        bus_index = bus.idx
         map_command = NodeCommand.MAPAN if audio_bus else NodeCommand.MAPN
         msg = build_message(map_command, [self.nodeid, control, bus_index, num_controls])
         if return_msg:
@@ -512,7 +505,31 @@ class Node(ABC):
             self.server.send(msg, bundled=True)
         return self
 
-    def move(self, add_action, another_node, return_msg=False):
+    def move(self,
+             add_action: AddAction,
+             another_node: 'Node',
+             return_msg: bool = False) -> Optional[OscMessage]:
+        """Move this node
+
+        Parameters
+        ----------
+        add_action : AddAction [TO_HEAD, TO_TAIL, AFTER, BEFORE]
+            What add action should be done.
+        another_node : Node
+            The node which is the target of the add action
+        return_msg : bool, optional
+            If True return msg else send it directly, by default False
+
+        Returns
+        -------
+        OscMessage or None
+            if return_msg this will be the OscMessage
+
+        Raises
+        ------
+        ValueError
+            If a wrong AddAction was provided
+        """
         if add_action == AddAction.REPLACE:
             raise ValueError("add_action needs to be in [TO_HEAD, TO_TAIL, AFTER, BEFORE]")
         msg = build_message(NodeCommand.ORDER, [add_action.value, another_node.nodeid, self.nodeid])
@@ -525,16 +542,20 @@ class Node(ABC):
     # NodeWatcher needed
 
     def register(self):
-        pass
+        """Register to be watched."""
+        raise NotImplementedError()
 
     def unregister(self):
-        pass
+        """Unregister to stop being watched."""
+        raise NotImplementedError()
 
     def on_free(self, func):
-        pass
+        """Callback that is executed when this Synth is freed"""
+        raise NotImplementedError()
 
     def wait(self, func):
-        pass
+        """Wait until this Node is freed"""
+        raise NotImplementedError()
 
     def __eq__(self, other):
         return self.nodeid == other.nodeid
@@ -612,6 +633,8 @@ class Synth(Node):
         if nodeid in self._server.nodes:
             _LOGGER.debug("Update Synth (%s)", nodeid)
             self._update_state(name=name, args=args)
+            if new:
+                self.new(args=args, add_action=add_action, target=target)
             return
 
         # attention: this must be the first line. see __setattr__, __getattr__
@@ -627,11 +650,7 @@ class Synth(Node):
             args = {}
         self._current_args = args
 
-        try:
-            self.synth_desc = SynthDef.get_desc(name)
-        except RuntimeWarning:
-            warnings.warn("SynthDesc is unknown. SC.default.lang must be running for SynthDescs")
-            self.synth_desc = None
+        self._synth_desc = SynthDef.get_desc(name)
 
         # attention: this must be after every attribute is set
         self._initialized = True
@@ -641,14 +660,24 @@ class Synth(Node):
     def _update_state(self, name: Optional[str], args: Optional[dict]):
         if name is not None:
             self._name = name
+            self._synth_desc = SynthDef.get_desc(name)
         self._update_args(args)
 
     @property
+    def synth_desc(self):
+        """This Synths SynthDef name."""
+        if self._synth_desc is None:
+            self._synth_desc = SynthDef.get_desc(self._name)
+        return self._synth_desc
+
+    @property
     def name(self):
+        """This Synths SynthDef name."""
         return self._name
 
     @property
     def current_args(self):
+        """This Synth currently cached args."""
         return self._current_args
 
     def new(self,
@@ -687,37 +716,52 @@ class Synth(Node):
         argument : string
             name of the synth argument
         """
-        if self.synth_desc is not None:  # change from synth_desc to self._current_args
+        if self._synth_desc is not None:  # change from synth_desc to self._current_args
             try:
-                default_value = self.synth_desc[argument].default
+                default_value = self._synth_desc[argument].default
             except KeyError as error:
                 raise ValueError(f"argument '{argument}' not in synth_desc"
-                                 f"{self.synth_desc.keys()}") from error
+                                 f"{self._synth_desc.keys()}") from error
         else:
             default_value = None
         # if we know they type of the argument and its list we use s_getn
         if default_value is not None and isinstance(default_value, list):
-            msg = build_message(SynthCommand.S_GETN, [self.nodeid, argument, len(default_value)])
-            nodeid, name, _, *values = self.server.send(msg)
-            ret_val = list(values)
-        else: # default s_get
-            msg = build_message(SynthCommand.S_GET, [self.nodeid, argument])
-            nodeid, name, ret_val = self.server.send(msg)
-        if self.nodeid == nodeid and name == argument:
-            return ret_val
+            command = SynthCommand.S_GETN
+            args = [self.nodeid, argument, len(default_value)]
         else:
-            raise RuntimeError("Received msg with wrong node id")
+            command = SynthCommand.S_GET
+            args = [self.nodeid, argument]
 
-    def getn(self, index, count, action, return_msg=False):
-        raise NotImplementedError()
+        msg = build_message(command, args)
+        try:
+            reply = self.server.send(msg)
+        except OSCCommunicationError as osc_error:
+            if command in self.server.fails:
+                fail = self.server.fails.msg_queues[command].get(timeout=0)
+                print(f"FAIL - {fail} - {f'Node {self.nodeid} not found' in fail}")
+                if f"Node {self.nodeid} not found" in fail:
+                    raise RuntimeWarning(f"Node {self.nodeid} cannot be found") from osc_error
+            raise
+
+        else:
+            if default_value is not None and isinstance(default_value, list):
+                nodeid, name, _, *values = reply
+                ret_val = list(values)
+            else: # default s_get
+                nodeid, name, ret_val = reply
+            if self.nodeid == nodeid and name == argument:
+                return ret_val
+            else:
+                raise RuntimeError("Received msg with wrong node id")
 
     def seti(self, args):
+        """Set part of an arrayed control."""
         raise NotImplementedError()
 
     def __getattr__(self, name):
         # python will try obj.__getattribute__(name) before this
         if self._initialized:
-            if name in self._current_args or self.synth_desc and name in self.synth_desc:
+            if name in self._current_args or self._synth_desc and name in self._synth_desc:
                 return self.get(name)
         raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
 
@@ -735,7 +779,7 @@ class Synth(Node):
         if name in ["_server", "_initialized"] or not self._initialized:
             return super().__setattr__(name, value)
         elif self._initialized:
-            if name in self._current_args or self.synth_desc and name in self.synth_desc:
+            if name in self._current_args or self._synth_desc and name in self._synth_desc:
                 return self.set(name, value)
         warnings.warn(
                 f"Setting '{name}' as python attribute and not as Synth Parameter. "
@@ -744,13 +788,10 @@ class Synth(Node):
         super().__setattr__(name, value)
 
     def _repr_pretty_(self, p, cylce):
-        playing = self.is_playing if self.is_playing is not None else "unknown"
-        running = self.is_running if self.is_running is not None else "unknown"
-        #status = f"playing={playing} running={running}"
         if cylce:
             p.text(f"Synth ({self.nodeid}) '{self._name}'")
         else:
-            p.text(f"Synth ({self.nodeid}) '{self._name}' {self._current_args}")  # {status}")
+            p.text(f"Synth ({self.nodeid}) '{self._name}' {self._current_args}")
 
 
 class Group(Node):
@@ -907,6 +948,7 @@ class Group(Node):
         OscMessage
             if return_msg else self
         """
+        self._children = []
         msg = build_message(GroupCommand.FREE_ALL, [self.nodeid])
         if return_msg:
             return msg
@@ -929,6 +971,7 @@ class Group(Node):
         OscMessage
             if return_msg else self
         """
+        self._children = [c for c in self._children if isinstance(c, Group)]
         msg = build_message(GroupCommand.DEEP_FREE, [self.nodeid])
         if return_msg:
             return msg
@@ -975,12 +1018,13 @@ class Group(Node):
         """
         msg = build_message(GroupCommand.QUERY_TREE, [self.nodeid, 1 if include_controls else 0])
         _, *nodes_info = self.server.send(msg)
-        return NodeTree(info=nodes_info, root_nodeid=self.nodeid,
-                        controls_included=include_controls, start=0)
+        return NodeTree(info=nodes_info,
+                        root_nodeid=self.nodeid,
+                        controls_included=include_controls,
+                        start=0,
+                        server=self.server)
 
     def _repr_pretty_(self, p, cylce):
-        playing = self.is_playing if self.is_playing is not None else "unknown"
-        running = self.is_running if self.is_running is not None else "unknown"
         if cylce:
             p.text(f"Group ({self.nodeid})")
         else:
@@ -996,6 +1040,7 @@ class Group(Node):
 
 
 class NodeTree:
+    """Node Tree is a class for parsing /g_queryTree.reply"""
     def __init__(self, info: Sequence[Any],
                 root_nodeid: int,
                 controls_included: bool,
@@ -1003,7 +1048,7 @@ class NodeTree:
                 server: Optional['SCServer'] = None) -> None:
         self.controls_included = controls_included
         self.root_nodeid = root_nodeid
-        parsed, self.root = NodeTree.parse_nodes(info, controls_included, start)
+        parsed, self.root = NodeTree.parse_nodes(info, controls_included, start, server)
         assert len(info) == parsed, "Mismatch in nodes info length and parsed info"
 
     @staticmethod
@@ -1053,7 +1098,7 @@ class NodeTree:
         to_parse = num_children
         while to_parse > 0:
             # is group
-            pos, node = NodeTree.parse_nodes(info, controls_included, pos)
+            pos, node = NodeTree.parse_nodes(info, controls_included, pos, server)
             node._group = nodeid
             children.append(node)
             to_parse -= 1
@@ -1066,5 +1111,5 @@ class NodeTree:
         if cylce:
             p.text(f"NodeTree root={self.root_nodeid}")
         else:
-            p.text(f"NodeTree root=")
+            p.text("NodeTree root=")
             p.pretty(self.root)

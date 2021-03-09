@@ -1,24 +1,42 @@
 """This Module adds the Jupyter specialties as Magics and Keyboard Shortcuts"""
 import sys
 import re
+from typing import Any, Dict
 import warnings
 
 from IPython.core.magic import Magics, magics_class, line_cell_magic
 
 import sc3nb
 
-def load_ipython_extension(ipython):
+def load_ipython_extension(ipython) -> None:
+    """Function that is called when Jupyter loads this as extension (%load_ext sc3nb)
+
+    Parameters
+    ----------
+    ipython : IPython
+        IPython object
+    """
     ipython.register_magics(SC3Magics)
     add_shortcut(ipython)
 
-def add_shortcut(ipython, shortcut = None):
+def add_shortcut(ipython, shortcut: str = None) -> None:
+    """Add the server free all shortcut.
+
+    Parameters
+    ----------
+    ipython : IPython
+        IPython object
+    shortcut : str, optional
+        shortcut for free all, by default it is "cmd-." or "Ctrl-."
+    """
     try:
-        if sys.platform == "darwin":
-            shortcut = 'cmd-.'
-        elif sys.platform in ["linux", "linux2", "win32"]:
-            shortcut = 'Ctrl-.'
-        else:
-            warnings.warn(f"Unable to add shortcut for platform '{sys.platform}'")
+        if shortcut is None:
+            if sys.platform == "darwin":
+                shortcut = 'cmd-.'
+            elif sys.platform in ["linux", "linux2", "win32"]:
+                shortcut = 'Ctrl-.'
+            else:
+                warnings.warn(f"Unable to add shortcut for platform '{sys.platform}'")
         if shortcut is not None:
             ipython.run_cell_magic(
                 'javascript',
@@ -41,16 +59,23 @@ def add_shortcut(ipython, shortcut = None):
 
 @magics_class
 class SC3Magics(Magics):
-    """Jupyter magics for SC class
-    """
+    """Jupyter magics for SC class"""
 
     @line_cell_magic
     def sc(self, line='', cell=None):
         """Execute SuperCollider code via magic
 
-        Keyword Arguments:
-            line {str} -- Line of SuperCollider code (default: {''})
-            cell {str} -- Cell of SuperCollider code (default: {None})
+        Parameters
+        ----------
+        line : str, optional
+            Line of SuperCollider code, by default ''
+        cell : str, optional
+            Cell of SuperCollider code , by default None
+
+        Returns
+        -------
+        Unknown
+            cmd result
         """
         if cell is None:
             cmdstr = line
@@ -63,9 +88,17 @@ class SC3Magics(Magics):
     def scv(self, line='', cell=None):
         """Execute SuperCollider code with verbose output
 
-        Keyword Arguments:
-            line {str} -- Line of SuperCollider code (default: {''})
-            cell {str} -- Cell of SuperCollider code (default: {None})
+        Parameters
+        ----------
+        line : str, optional
+            Line of SuperCollider code, by default ''
+        cell : str, optional
+            Cell of SuperCollider code , by default None
+
+        Returns
+        -------
+        Unknown
+            cmd result
         """
         if cell is None:
             cmdstr = line
@@ -78,15 +111,21 @@ class SC3Magics(Magics):
     def scg(self, line='', cell=None):
         """Execute SuperCollider code returning output
 
-        Keyword Arguments:
-            line {str} -- Line of SuperCollider code (default: {''})
-            cell {str} -- Cell of SuperCollider code (default: {None})
+        Parameters
+        ----------
+        line : str, optional
+            Line of SuperCollider code, by default ''
+        cell : str, optional
+            Cell of SuperCollider code , by default None
 
-        Returns:
-            {*} -- Output from SuperCollider code, not
-                   all SC types supported, see
-                   pythonosc.osc_message.Message for list
-                   of supported types
+        Returns
+        -------
+        Unknown
+            cmd result
+            Output from SuperCollider code, not
+            all SC types supported, see
+            pythonosc.osc_message.Message for list
+            of supported types
         """
         if cell is None:
             cmdstr = line
@@ -99,15 +138,21 @@ class SC3Magics(Magics):
     def scgv(self, line='', cell=None):
         """Execute SuperCollider code returning output
 
-        Keyword Arguments:
-            line {str} -- Line of SuperCollider code (default: {''})
-            cell {str} -- Cell of SuperCollider code (default: {None})
+        Parameters
+        ----------
+        line : str, optional
+            Line of SuperCollider code, by default ''
+        cell : str, optional
+            Cell of SuperCollider code , by default None
 
-        Returns:
-            {*} -- Output from SuperCollider code, not
-                   all SC types supported, see
-                   pythonosc.osc_message.Message for list
-                   of supported types
+        Returns
+        -------
+        Unknown
+            cmd result
+            Output from SuperCollider code, not
+            all SC types supported, see
+            pythonosc.osc_message.Message for list
+            of supported types
         """
         if cell is None:
             cmdstr = line
@@ -116,13 +161,27 @@ class SC3Magics(Magics):
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.default.lang.cmdv(cmdstr, pyvars=pyvars)
 
-    def _parse_pyvars(self, cmdstr):
-        """Parses SuperCollider code grabbing python variables
-        and their values
+    def _parse_pyvars(self, code: str) -> Dict[str, Any]:
+        """Parses SuperCollider code for python variables and their values
+
+        Parameters
+        ----------
+        code : str
+            SuperCollider code snippet
+
+        Returns
+        -------
+        Dict[str, Any]
+            Dict with variable names and thier values.
+
+        Raises
+        ------
+        NameError
+            If pyvar injection value can't be found.
         """
         user_ns = self.shell.user_ns
 
-        matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', cmdstr)
+        matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', code)
         pyvars = {match.split('^')[1].strip(): None for match in matches}
         for pyvar in pyvars:
             if pyvar in user_ns:

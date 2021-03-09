@@ -11,13 +11,13 @@ import time
 import copy
 import warnings
 
-from typing import Callable, Dict, Optional, Sequence, Tuple, Union, Any, List
+from typing import Callable, Dict, Optional, Sequence, Tuple, Union, Any
 from abc import ABC, abstractmethod
 from queue import Empty, Queue
 from threading import RLock
 
 from pythonosc.dispatcher import Dispatcher
-from pythonosc.osc_server import ThreadingOSCUDPServer
+from pythonosc.osc_server import OSCUDPServer, ThreadingOSCUDPServer
 from pythonosc.osc_bundle_builder import OscBundleBuilder
 from pythonosc.osc_message_builder import OscMessageBuilder
 from pythonosc.osc_bundle import OscBundle
@@ -29,7 +29,7 @@ _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
 
-def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None):
+def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None) -> OscMessage:
     """Builds pythonsosc OSC message.
 
     Parameters
@@ -60,20 +60,38 @@ def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None
 
 
 class Bundler():
+    """Class for creating OSCBundles and Bundling of Messages"""
 
     def __init__(self,
-                 timestamp: int = 0,
-                 msg=None,
-                 msg_args=None,
-                 server=None,
-                 send_on_exit: bool = True) -> None:
+                 timestamp: float = 0,
+                 msg: Optional[Union[OscMessage, str]] = None,
+                 msg_args: Optional[Sequence[Any]] = None,
+                 server: Optional['OSCCommunication'] = None,
+                 send_on_exit: bool = True
+                ) -> None:
+        """Create a Bundler
+
+        Parameters
+        ----------
+        timestamp : float, optional
+            Starting time at which bundle content should be executed.
+            If timestamp <= 1e6 it is added to time.time(), by default 0
+        msg : OscMessage or str, optional
+            OscMessage or message address, by default None
+        msg_args : sequence of any type, optional
+            Arguments for the message, by default None
+        server : OSCCommunication, optional
+            OSC server, by default None
+        send_on_exit : bool, optional
+            Wether the bundle is send when using as context manger, by default True
+        """
         self.timestamp = timestamp
         if server is not None:
-            self.osc = server
+            self.server = server
         elif sc3nb.SC.default:
-            self.osc = sc3nb.SC.default.server
+            self.server = sc3nb.SC.default.server
         else:
-            self.osc = None
+            self.server = None
         self.contents = []
         self.passed_time = 0.0
         if msg:
@@ -82,15 +100,22 @@ class Bundler():
             self.contents.append(msg)
         self.send_on_exit = send_on_exit
 
-    def wait(self, time_passed):
+    def wait(self, time_passed: float) -> None:
+        """Add time to internal time
+
+        Parameters
+        ----------
+        time_passed : float
+            How much secounds should be passed.
+        """
         self.passed_time += time_passed
 
-    def add(self, *params):
+    def add(self, *params) -> 'Bundler':
         """Add a pythonosc OscMessage or OscBundle to this bundle.
 
         Parameters
         ----------
-        params : OscMessage or Bundler or Bundler arguments as tuple like
+        params : OscMessage or Bundler or Bundler arguments like
                  (timestamp, msg_addr, msg_args)
                  (timestamp, msg_addr)
 
@@ -124,14 +149,19 @@ class Bundler():
                 raise ValueError(f"Invalid parameters {params}")
         return self
 
-    def __deepcopy__(self, memo):
+    def __deepcopy__(self, memo) -> 'Bundler':
         timestamp = self.timestamp
-        new_bundler = Bundler(timestamp, server=self.osc)
+        new_bundler = Bundler(timestamp, server=self.server)
         new_bundler.contents = copy.deepcopy(self.contents)
         return new_bundler
 
-    def build(self, time_offset=None):
+    def build(self, time_offset: Optional[float] = None) -> OscBundle:
         """Build this bundle.
+
+        Parameters
+        ----------
+        time_offset : Optional[float], optional
+            used for recursion, by default None
 
         Returns
         -------
@@ -160,38 +190,45 @@ class Bundler():
                 ValueError("Couldn't build with unsupported content: {content}")
         return builder.build()
 
-    def send(self, server=None, receiver=None, bundled=True):
+    def send(self,
+             server: 'OSCCommunication' = None,
+             receiver: Tuple[str, int] = None,
+             bundled: bool = True):
         """Send this Bundler.
 
         Parameters
         ----------
-        server: SCServer
+        server : OSCCommunication, optional
             Server instance for sending the bundle.
             If None it will use the server from init
-            or try to use sc3nb.SC.default.server
-        sclang: bool, default False
-            If True it will send to the sclang of the server
-            instead.
+            or try to use sc3nb.SC.default.server, by default None
+        receiver : Tuple[str, int], optional
+            Address (ip, port) to send to, by default None
+        bundled : bool, optional
+            If True this is allowed to be bundled, by default True
+
+        Raises
+        ------
+        RuntimeError
+            When no server could be found.
         """
         if not server:
-            osc = self.osc or sc3nb.SC.default.server.osc
-        elif server:
-            osc = server.osc
+            server = self.server or sc3nb.SC.default.server
         else:
             raise RuntimeError("No server for sending provided.")
-        osc.send(self, receiver=receiver, bundled=bundled)
+        server.send(self, receiver=receiver, bundled=bundled)
 
     def __enter__(self):
-        self.osc._bundling_lock.acquire(timeout=5)
+        self.server._bundling_lock.acquire(timeout=1)
         # if there is already a bundling bundle set when we have
         # the lock it is from the same thread.
-        self.osc._bundling_bundles.append(self)
+        self.server._bundling_bundles.append(self)
         return self
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        if self.osc._bundling_bundles.pop() is not self:
+        if self.server._bundling_bundles.pop() is not self:
             raise RuntimeError("Bundler nesting failed.")
-        self.osc._bundling_lock.release()
+        self.server._bundling_lock.release()
         if exc_type:
             raise RuntimeError("Bundler failed. Check if add is used correctly.")
         if self.send_on_exit:
@@ -199,21 +236,34 @@ class Bundler():
 
 
 class MessageHandler(ABC):
+    """Base class for Message Handling"""
 
     @property
     @abstractmethod
     def map_values(self) -> Tuple[str, Callable]:
-        pass
+        """Values used to setup mapping
+
+        Returns
+        -------
+        Tuple[str, Callable]
+            OSC address, corresponding callback
+        """
 
     @abstractmethod
     def put(self, address: str, *args) -> None:
-        pass
+        """Add message to MessageHandler
+
+        Parameters
+        ----------
+        address : str
+            Message address
+        """
 
 
 class MessageQueue(MessageHandler):
     """Queue to retrieve OSC messages send to the corresponding OSC address"""
 
-    def __init__(self, address, preprocess=None):
+    def __init__(self, address: str, preprocess: Optional[Callable] = None):
         """Create a new AddressQueue
 
         Parameters
@@ -229,7 +279,14 @@ class MessageQueue(MessageHandler):
         self._queue = Queue()
         self._skips = 0
 
-    def put(self, address: str, *args):
+    def put(self, address: str, *args) -> None:
+        """Add a message to MessageQueue
+
+        Parameters
+        ----------
+        address : str
+            message address
+        """
         if self._address != address:
             _LOGGER.warning(
                 "AddressQueue %s: alternative address %s", self._address, address)
@@ -241,15 +298,16 @@ class MessageQueue(MessageHandler):
         self._queue.put(args)
 
     @property
-    def skips(self):
+    def skips(self) -> int:
         """Counts how many times this queue was not synced"""
         return self._skips
 
     def skipped(self):
+        """Skipp one queue value"""
         self._skips += 1
 
     @property
-    def map_values(self):
+    def map_values(self) -> Tuple[str, Callable]:
         """Values needed for dispatcher map call
 
         Returns
@@ -259,7 +317,7 @@ class MessageQueue(MessageHandler):
         """
         return self._address, self.put
 
-    def get(self, timeout: float = 5.0, skip=True):
+    def get(self, timeout: float = 5.0, skip: bool = True) -> Any:
         """Returns a value from the queue
 
         Parameters
@@ -293,11 +351,11 @@ class MessageQueue(MessageHandler):
         self._queue.task_done()
         return val
 
-    def show(self):
+    def show(self) -> None:
         """Print the content of the queue."""
         print(list(self._queue.queue))
 
-    def _repr_pretty_(self, p, cycle):
+    def _repr_pretty_(self, p, cycle) -> None:
         if cycle:
             p.text('AddressQueue')
         else:
@@ -308,13 +366,30 @@ class MessageQueueCollection(MessageHandler):
     """A collection of MessageQueues that all are send to the same first address."""
 
     def __init__(self, address: str, sub_addrs: Optional[Sequence[str]] = None):
+        """Create a collection of MessageQueues under the same first address
+
+        Parameters
+        ----------
+        address : str
+            first message address that is the same for all MessageQueues
+        sub_addrs : Optional[Sequence[str]], optional
+            secound message addresses with seperate queues, by default None
+            Additional MessageQueues will be created on demand.
+        """
         self._address = address
         if sub_addrs is not None:
             self.msg_queues = {msg_addr: MessageQueue(msg_addr) for msg_addr in sub_addrs}
         else:
             self.msg_queues = {}
 
-    def put(self, address: str, *args):
+    def put(self, address: str, *args) -> None:
+        """Add a message to the corresponding MessageQueue
+
+        Parameters
+        ----------
+        address : str
+            first message address
+        """
         address, *args = args
         if address not in self.msg_queues:
             self.msg_queues[address] = MessageQueue(address)
@@ -324,7 +399,7 @@ class MessageQueueCollection(MessageHandler):
         self.msg_queues[address].put(address, *args)
 
     @property
-    def map_values(self):
+    def map_values(self) -> Tuple[str, Callable]:
         """Values needed for dispatcher map call
 
         Returns
@@ -334,7 +409,7 @@ class MessageQueueCollection(MessageHandler):
         """
         return self._address, self.put
 
-    def __contains__(self, item):
+    def __contains__(self, item) -> bool:
         return item in self.msg_queues
 
 
@@ -346,13 +421,6 @@ class OSCCommunicationError(Exception):
         self.send_message = send_message
         super().__init__(self.message)
 
-    # def __str__(self): TODO move this to SCServerError
-    #     message = (f'{self.message} : {self.send_message.address}'
-    #                f', {str(self.send_message.params):20}')
-    #     if self.fail is not None:
-    #         message = f'Fail occurred {self.fail} -> {message}'
-    #     return message
-
 
 class OSCCommunication():
     """Class to send and receive OSC messages and bundles."""
@@ -361,7 +429,21 @@ class OSCCommunication():
                  server_ip: str,
                  server_port: int,
                  default_receiver_ip: str,
-                 default_receiver_port: int) -> None:
+                 default_receiver_port: int
+                ) -> None:
+        """Create a OSC communication server
+
+        Parameters
+        ----------
+        server_ip : str
+            IP address to use for this server
+        server_port : int
+            port to use for this server
+        default_receiver_ip : str
+            IP address used for sending by default
+        default_receiver_port : int
+            port used for sending by default
+        """
         self._receivers: Dict[Tuple[str, int], str] = dict()
         self._default_receiver: Tuple[str, int] = (default_receiver_ip, default_receiver_port)
 
@@ -375,6 +457,7 @@ class OSCCommunication():
             try:
                 self._osc_server = ThreadingOSCUDPServer((server_ip, server_port),
                                                          osc_server_dispatcher)
+                self._osc_server_running = True
                 _LOGGER.debug("This OSCCommunication instance is at port: %s", server_port)
                 break
             except OSError as error:
@@ -392,10 +475,11 @@ class OSCCommunication():
         self._reply_addresses: Dict[str, str] = {}
 
     @property
-    def osc_server(self):
+    def osc_server(self) -> OSCUDPServer:
+        """Underlying OSC server"""
         return self._osc_server
 
-    def add_msg_pairs(self, msg_pairs: Dict[str, str]):
+    def add_msg_pairs(self, msg_pairs: Dict[str, str]) -> None:
         """Add the provided pairs for message receiving.
 
         Parameters
@@ -407,7 +491,16 @@ class OSCCommunication():
         for msg_addr, reply_addr in msg_pairs.items():
             self.add_msg_queue(MessageQueue(reply_addr), msg_addr)
 
-    def add_msg_queue(self, msg_queue: MessageQueue, out_addr: Optional[str] = None):
+    def add_msg_queue(self, msg_queue: MessageQueue, out_addr: Optional[str] = None) -> None:
+        """Add a MessageQueue to this servers dispatcher
+
+        Parameters
+        ----------
+        msg_queue : MessageQueue
+            new MessageQueue
+        out_addr : Optional[str], optional
+            The outgoing message address that belongs to this MessageQeue, by default None
+        """
         reply_addr, handler = msg_queue.map_values
         if reply_addr in self._msg_queues or out_addr in self._reply_addresses:
             warnings.warn(f"Overwriting handler for ({out_addr} -> {reply_addr})")
@@ -416,7 +509,14 @@ class OSCCommunication():
         if out_addr:
             self._reply_addresses[out_addr] = reply_addr
 
-    def add_msg_queue_collection(self, msg_queue_collection: MessageQueueCollection):
+    def add_msg_queue_collection(self, msg_queue_collection: MessageQueueCollection) -> None:
+        """Add a MessageQueueCollection
+
+        Parameters
+        ----------
+        msg_queue_collection : MessageQueueCollection
+            MessageQueueCollection to be added
+        """
         collection_addr, handler = msg_queue_collection.map_values
         self._osc_server.dispatcher.map(collection_addr, handler)
         for msg_addr, msg_queue in msg_queue_collection.msg_queues.items():
@@ -425,6 +525,13 @@ class OSCCommunication():
 
     @property
     def msg_queues(self) -> Dict[str, MessageQueue]:
+        """Dict with all added MessageQueues
+
+        Returns
+        -------
+        Dict[str, MessageQueue]
+            Queue address, MessageQueue pairs
+        """
         return self._msg_queues
 
     def _check_sender(self, sender: Tuple[str, int]) -> Union[str, Tuple[str, int]]:
@@ -450,7 +557,9 @@ class OSCCommunication():
         else:
             raise ValueError(f"Incorrect type for receiver ({receiver}).")
 
-    def connection_info(self, print_info=True):
+    def connection_info(self,
+                        print_info: bool = True
+                       ) -> Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]:
         """Get information about the known addresses
 
         Parameters
@@ -462,7 +571,8 @@ class OSCCommunication():
         Returns
         -------
         tuple
-            containing the address of this sc3nb OSC Server and known receivers
+            containing the address of this sc3nb OSC Server
+            and known receivers addresses in a dict with thier names as values
 
         """
         if print_info:
@@ -473,10 +583,7 @@ class OSCCommunication():
                   f"Known receivers: {receivers_str}")
         return (self._osc_server.server_address, self._receivers)
 
-    def add_receiver(self,
-                     name: str,
-                     ip: str,
-                     port: int):
+    def add_receiver(self, name: str, ip: str, port: int):
         """Adds a receiver with the specified address.
 
         Parameters
@@ -522,7 +629,7 @@ class OSCCommunication():
         ValueError
             When the provided package is not supported.
         OSCCommunicationError
-            [description]
+            When the handling of a message fails.
         """
         # bundling
         if bundled:
@@ -589,34 +696,50 @@ class OSCCommunication():
             _LOGGER.info("send to %s : %s", receiver, package)
 
     def get_reply_address(self, msg_address: str) -> Optional[str]:
+        """Get the corresponding reply address for the given address
+
+        Parameters
+        ----------
+        msg_address : str
+            outgoing message address
+
+        Returns
+        -------
+        str or None
+            Corresponding reply address if available
+        """
         return self._reply_addresses.get(msg_address, None)
 
-    def msg(self, msg_addr, msg_args=None, bundled=False, receiver=None, await_reply=True, timeout=5):
+    def msg(self,
+            msg_addr: str,
+            msg_args: Optional[Sequence] = None,
+            bundled: bool = False,
+            receiver: Optional[Tuple[str, int]] = None,
+            await_reply: bool =True,
+            timeout: float = 5
+           ) -> Optional[Any]:
         """Creates and sends OSC message over UDP.
 
         Parameters
         ----------
         msg_addr : str
             SuperCollider address
-        msg_args : list, optional
-            List of arguments to add to message.
-             (Default value = None)
-        sclang : bool, optional
-            If True send message to sclang.
-             (Default value = False)
+        msg_args : Optional[Sequence], optional
+            List of arguments to add to message, by default None
+        bundled : bool, optional
+            [description], by default False
+        receiver : tuple[str, int], optional
+            (IP address, port) to send the message, by default send to default receiver
         await_reply : bool, optional
             If True send message and wait for reply
-            otherwise send the message and return directly.
-             (Default value = True)
-        timeout : int, optional
-            timeout in seconds for reply.
-             (Default value = 5)
+            otherwise send the message and return directly, by default True
+        timeout : float, optional
+            timeout in seconds for reply, by default 5
 
         Returns
         -------
         obj
-            reply if sync was True and message is in `msg_pairs`
-
+            reply if await_reply and there is a reply for this
         """
         return self.send(build_message(msg_addr, msg_args),
                          bundled=bundled,
@@ -624,7 +747,11 @@ class OSCCommunication():
                          await_reply=await_reply,
                          timeout=timeout)
 
-    def bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True):
+    def bundler(self,
+                timestamp: float = 0,
+                msg: Optional[Union[OscMessage, str]] = None,
+                msg_args: Optional[Sequence[Any]] = None,
+                send_on_exit: bool = True) -> Bundler:
         """Generate a Bundler.
 
         This allows the user to easly add messages/bundles and send it.
@@ -634,11 +761,12 @@ class OSCCommunication():
         timestamp : int
             Time at which bundle content should be executed.
             If timestamp <= 1e6 it is added to time.time().
-        msg_addr : str
-            SuperCollider address.
-        msg_args : list, optional
-            List of arguments to add to message.
-             (Default value = None)
+        msg : OscMessage or str, optional
+            OscMessage or message address, by default None
+        msg_args : sequence of any type, optional
+            Arguments for the message, by default None
+        send_on_exit : bool, optional
+            Wether the bundle is send when using as context manger, by default True
 
         Returns
         -------
@@ -651,9 +779,9 @@ class OSCCommunication():
                        server=self,
                        send_on_exit=send_on_exit)
 
-    def quit(self):
+    def quit(self) -> None:
         """Shuts down the sc3nb OSC server"""
-        self._osc_server.shutdown()
-
-    def __del__(self):
-        self.quit()
+        if self._osc_server_running:
+            self._osc_server.shutdown()
+            self._osc_server.server_close()
+            self._osc_server_running = False

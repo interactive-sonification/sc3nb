@@ -1,11 +1,20 @@
 """Module to for using SuperCollider SynthDefs and Synths in Python"""
 
 import re
+import warnings
+
+from enum import Enum, unique
+from typing import Any, Dict, Optional, TYPE_CHECKING
 
 import sc3nb
 
-from enum import Enum
+if TYPE_CHECKING:
+    from sc3nb.sclang import SynthArgument
+    from sc3nb.sc import SC
+
+@unique
 class SynthDefinitionCommand(str, Enum):
+    """OSC Commands for Synth Definitions"""
     RECV = "/d_recv"
     LOAD = "/d_load"
     LOAD_DIR = "/d_loadDir"
@@ -17,29 +26,47 @@ class SynthDef():
 
     synth_descs = {}
 
-
-    @classmethod  # TODO add this to a SynthDesc class to the server?
-    def get_desc(cls, name):
-        if name in cls.synth_descs:
-            return cls.synth_descs[name]
-        return cls.synth_descs.setdefault(name, sc3nb.SC.default.lang.get_synth_desc(name))
-
-
-    def __init__(self, name, definition, sc=None):
-        """
-        Create a dynamic synth definition in sc.
+    @classmethod
+    def get_desc(cls, name: str) -> Optional[Dict[str, 'SynthArgument']]:
+        """Get Synth description
 
         Parameters
         ----------
-        name: string
+        name : str
+            name of SynthDef
+
+        Returns
+        -------
+        Dict
+            dict with SynthArguments
+        """
+        if name in cls.synth_descs:
+            return cls.synth_descs[name]
+        try:
+            synth_desc = sc3nb.SC.default.lang.get_synth_desc(name)
+        except RuntimeWarning:
+            synth_desc = None
+
+        if synth_desc is not None:
+            cls.synth_descs[name] = synth_desc
+        else:
+            warnings.warn("SynthDesc is unknown. SC.default.lang must be running for SynthDescs")
+        return synth_desc
+
+    def __init__(self, name: str, definition: str, sc: Optional['SC'] = None) -> None:
+        """Create a dynamic synth definition in sc.
+
+        Parameters
+        ----------
+        name : string
             default name of the synthdef creation.
             The naming convention will be name+int, where int is the amount of
             already created synths of this definition
-        definition: string
+        definition : string
             Pass the default synthdef definition here. Flexible content
             should be in double brackets ("...{{flexibleContent}}...").
             This flexible content, you can dynamic replace with set_context()
-        sc: SC object
+        sc : SC object
             SC instance where the synthdef should be created
         """
         self.sc = sc or sc3nb.SC.default
@@ -47,31 +74,32 @@ class SynthDef():
         self.name = name
         self.current_def = definition
 
-    def reset(self):
-        """
-        Reset the current synthdef configuration to the self.definition value.
+    def reset(self) -> 'SynthDef':
+        """Reset the current synthdef configuration to the self.definition value.
+
         After this you can restart your
         configuration with the same root definition
 
         Returns
         -------
-        self : object of type SynthDef
-               the SynthDef object
+        object of type SynthDef
+            the SynthDef object
         """
         self.current_def = self.definition
         return self
 
-    def set_context(self, searchpattern: str, value):
-        """
+    def set_context(self, searchpattern: str, value) -> 'SynthDef':
+        """Set context in SynthDef.
+
         This method will replace a given key (format: "...{{key}}...") in the
         synthdef definition with the given value.
 
         Parameters
         ----------
-        searchpattern: string
-                search pattern in the current_def string
-        value: string or something with can parsed to string
-                Replacement of search pattern
+        searchpattern : string
+            search pattern in the current_def string
+        value : string or something with can parsed to string
+            Replacement of search pattern
 
         Returns
         -------
@@ -81,15 +109,15 @@ class SynthDef():
         self.current_def = self.current_def.replace("{{"+searchpattern+"}}", str(value))
         return self
 
-    def set_contexts(self, dictionary: dict):
-        """
-        Set multiple values at onces when you give a dictionary.
+    def set_contexts(self, dictionary: Dict[str, Any]) -> 'SynthDef':
+        """Set multiple values at onces when you give a dictionary.
+
         Because dictionaries are unsorted, keep in mind, that
         the order is sometimes ignored in this method.
 
         Parameters
         ----------
-        dictionary: dict
+        dictionary : dict
             {searchpattern: replacement}
 
         Returns
@@ -101,9 +129,9 @@ class SynthDef():
             self.set_context(searchpattern, replacement)
         return self
 
-    def unset_remaining(self):
-        """
-        This method will remove all existing placeholders in the current def.
+    def unset_remaining(self) -> 'SynthDef':
+        """This method will remove all existing placeholders in the current def.
+
         You can use this at the end of definition
         to make sure, that your definition is clean. Hint: This method will
         not remove pyvars
@@ -117,21 +145,23 @@ class SynthDef():
         self.current_def = re.sub(r"{{[^}]+}}", "", self.current_def)
         return self
 
-    def add(self, pyvars=None, name=None):
-        """
-        This method will add the current_def to SuperCollider.
+    def add(self, pyvars=None, name: Optional[str] = None) -> str:
+        """This method will add the current_def to SuperCollider.
 
         If a synth with the same definition was already in sc, this method
         will only return the name.
 
         Parameters
         ----------
-        pyvars: dict
+        pyvars : dict
             SC pyvars dict, to inject python variables
+        name : str, optional
+            name which this SynthDef will get
 
         Returns
         -------
-        string: Name of the synthdef
+        string:
+            Name of the synthdef
         """
         if name is None:
             name = self.name
@@ -149,20 +179,13 @@ class SynthDef():
         self.sc.server.msg(SynthDefinitionCommand.RECV, synth_def_blob)
         return self.name
 
-    def free(self):
-        """
-
-        Parameters
-        ----------
-        name: str
-            Name of the SynthDef, which should be freed. The SynthDef must not
-            be created by the current SynthDef object
+    def free(self) -> 'SynthDef':
+        """Free this SynthDef from the server.
 
         Returns
         -------
         self : object of type SynthDef
             the SynthDef object
-
         """
         self.sc.server.msg(SynthDefinitionCommand.FREE, [self.name])
         return self
