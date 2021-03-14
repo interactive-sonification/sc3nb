@@ -182,7 +182,7 @@ def _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
             "Datagram of bundles should start with b'#bundle\x00'")
     start_index += 8
 
-    timetag, start_index = osc_types.get_ttag(dgram, start_index)
+    timetag, start_index = osc_types.get_timetag(dgram, start_index)
     _LOGGER.debug("bundle timetag: %s", timetag)
 
     msgs = []
