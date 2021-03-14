@@ -192,7 +192,7 @@ class TimedQueueSC(TimedQueue):
 
     def __init__(self, sc, relative_time=False, thread_sleep_time=0.001):
         super().__init__(relative_time, thread_sleep_time)
-        self.server = sc or sc3nb.SC.default.server
+        self.server = sc.server or sc3nb.SC.default.server
 
     def put_bundle(self, onset, timetag, address, args):
         callback = self.server.bundler(timetag, address, args).send
