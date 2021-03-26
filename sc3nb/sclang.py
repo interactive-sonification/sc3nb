@@ -6,12 +6,14 @@ import time
 import warnings
 import logging
 
+import pkg_resources
+
 from typing import NamedTuple, Any, Optional, Sequence, Tuple
+from pathlib import Path
 from queue import Empty
 
 import numpy as np
 
-import sc3nb.resources as resources
 from sc3nb.sc_objects.server import SCServer, ReplyAddress
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
@@ -274,25 +276,31 @@ class SCLang:
             self.read(expect=self.prompt_str)
             print('Done.')
 
-            resource_path = resources.__file__[:-len('__init__.py')].replace("\\", r"\\")
             print('Loading default SynthDescs')
-            self.load_synthdefs(resource_path)
+            self.load_synthdefs()
             self.read(expect=self.prompt_str)
             print('Done.')
 
-    def load_synthdefs(self, synthdefs_path: str) -> None:
+    def load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None:
         """Load SynthDef files from path.
 
         Parameters
         ----------
-        synthdefs_path : str
+        synthdefs_path : str, optional
             Path where the SynthDef files are located.
+            If no path provided, load default sc3nb SynthDefs.
         """
-        self.cmd(
-            r'''PathName.new(^synthdefs_path).files.collect(
-              { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
-            );''',
-            pyvars={"synthdefs_path": synthdefs_path})
+        if synthdefs_path is None:
+            synthdefs_path = pkg_resources.resource_filename("sc3nb.resources", "synthdefs")
+        path = Path(synthdefs_path)
+        if path.exists() and path.is_dir():
+            self.cmd(
+                r'''PathName.new(^synthdefs_path).files.collect(
+                { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
+                );''',
+                pyvars={"synthdefs_path": path.as_posix()})
+        else:
+            raise ValueError(f"Provided path {path} does not exist or is not a dir")
 
     def kill(self) -> int:
         """Kill this sclang instance.

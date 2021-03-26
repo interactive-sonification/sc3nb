@@ -1,12 +1,14 @@
-include *.txt
+include tox.ini
 include LICENSE
+
+include *.txt
+
+recursive-include sc3nb *.scsyndef
 
 recursive-include tests *.py
 
-recursive-include examples *.ipynb
-recursive-include examples *.wav
-
-recursive-include sc3nb *.scsyndef
 recursive-include sccode *.scd
 
+recursive-include examples *.ipynb
+recursive-include examples *.wav
 recursive-exclude examples .ipynb_checkpoints/*.ipynb

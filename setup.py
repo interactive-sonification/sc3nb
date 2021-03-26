@@ -14,10 +14,6 @@ setup(
     long_description_content_type="text/markdown",
     license='MIT',
     packages=find_packages(exclude=["tests"]),
-    package_data={
-        'ressources': ['*'],
-        'Potato': ['*.txt']
-    },
     install_requires=REQUIRED,
     author='Thomas Hermann',
     author_email='thermann@techfak.uni-bielefeld.de',
