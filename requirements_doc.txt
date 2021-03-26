@@ -1,0 +1,7 @@
+nbstripout
+Sphinx
+nbsphinx
+nbsphinx-link
+xnumpydoc
+sphinx-autoapi
+sphinx-rtd-theme
