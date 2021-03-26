@@ -143,11 +143,11 @@ def convert_to_sc(obj: Any) -> str:
     """Converts python objects to SuperCollider code literals.
 
     This supports currently:
-        numpy.ndarray -> SC Array representation
-        complex type -> SC Complex
-        strings -> if starting with sc3: it will be used as SC code
-                   if it starts with a \\ (single escaped backward slash) it will be used as symbol
-                   else it will be inserted as string
+    numpy.ndarray -> SC Array representation
+    complex type -> SC Complex
+    strings -> if starting with sc3: it will be used as SC code
+               if it starts with a \\ (single escaped backward slash) it will be used as symbol
+               else it will be inserted as string
     For unsupported types the __repr__ will be used.
 
     Parameters
@@ -273,7 +273,7 @@ class SCLang:
             print('Done.')
 
             resource_path = resources.__file__[:-len('__init__.py')].replace("\\", r"\\")
-            print(f'Loading SynthDesc from {resource_path}')
+            print('Loading default SynthDescs')
             self.load_synthdefs(resource_path)
             self.read(expect=self.prompt_str)
             print('Done.')
