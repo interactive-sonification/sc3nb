@@ -175,7 +175,8 @@ class TimedQueue():
             if self.event_list:
                 event = self.peek()
                 if event.timetag <= time.time() - self.start:
-                    if event.timetag > time.time() - self.start - self.drop_time_thr:  # only if not too old
+                    # execute only if not too old
+                    if event.timetag > time.time() - self.start - self.drop_time_thr:
                         event.execute()
                     self.pop()
                 # sleep_time = event_list[0].timetag - (time.time() - self.start) - 0.001
@@ -190,9 +191,9 @@ class TimedQueue():
 
 class TimedQueueSC(TimedQueue):
 
-    def __init__(self, sc, relative_time=False, thread_sleep_time=0.001):
+    def __init__(self, server=None, relative_time=False, thread_sleep_time=0.001):
         super().__init__(relative_time, thread_sleep_time)
-        self.server = sc.server or sc3nb.SC.default.server
+        self.server = server or sc3nb.SC.get_default().server
 
     def put_bundle(self, onset, timetag, address, args):
         callback = self.server.bundler(timetag, address, args).send

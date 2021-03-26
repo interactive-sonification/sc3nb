@@ -1,5 +1,6 @@
 """Module to for using SuperCollider SynthDefs and Synths in Python"""
 
+from logging import error
 import re
 import warnings
 
@@ -43,14 +44,20 @@ class SynthDef():
         if name in cls.synth_descs:
             return cls.synth_descs[name]
         try:
-            synth_desc = sc3nb.SC.default.lang.get_synth_desc(name)
+            synth_desc = sc3nb.SC.get_default().lang.get_synth_desc(name)
         except RuntimeWarning:
             synth_desc = None
 
         if synth_desc is not None:
             cls.synth_descs[name] = synth_desc
         else:
-            warnings.warn("SynthDesc is unknown. SC.default.lang must be running for SynthDescs")
+            try:
+                sc3nb.SC.get_default().lang
+            except RuntimeWarning:
+                sclang_text = "sclang is not running."
+            else:
+                sclang_text = "sclang does not know this SynthDef"
+            warnings.warn(f"SynthDesc is unknown. {sclang_text}")
         return synth_desc
 
     def __init__(self, name: str, definition: str, sc: Optional['SC'] = None) -> None:
@@ -160,8 +167,8 @@ class SynthDef():
 
         Returns
         -------
-        string:
-            Name of the synthdef
+        str
+            Name of the SynthDef
         """
         if name is None:
             name = self.name
@@ -171,13 +178,20 @@ class SynthDef():
         if pyvars is None:
             pyvars = sc3nb.sclang.parse_pyvars(self.current_def)
 
+        # TODO should check if there is context/pyvars that can't be set
+
         # Create new SynthDef add it to SynthDescLib and get bytes
         synth_def_blob = self.sc.lang.cmdg(f"""
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
             r.tmpSynthDef.asBytes();""", pyvars=pyvars)
-        self.sc.server.msg(SynthDefinitionCommand.RECV, synth_def_blob)
-        return self.name
+        if synth_def_blob == 0:
+            error = self.sc.lang.read()
+            print(error)
+            raise RuntimeError(f"Adding SynthDef failed. {error}")
+        else:
+            self.sc.server.send_synthdef(synth_def_blob)
+            return self.name
 
     def free(self) -> 'SynthDef':
         """Free this SynthDef from the server.
@@ -191,4 +205,4 @@ class SynthDef():
         return self
 
     def __repr__(self):
-        return f'SynthDef("{self.name}",{self.current_def})'
+        return f"SynthDef('{self.name}', {self.current_def})"

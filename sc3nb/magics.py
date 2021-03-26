@@ -48,7 +48,7 @@ def add_shortcut(ipython, shortcut: str = None) -> None:
                         help_index : \'zz\',
                         handler : function (event) {{
                             IPython.notebook.kernel.execute(
-                                "import sc3nb; sc3nb.SC.default.server.free_all(root=True)"
+                                "import sc3nb; sc3nb.SC.get_default().server.free_all(root=True)"
                             )
                             return true;}}
                         }});
@@ -82,7 +82,7 @@ class SC3Magics(Magics):
         else:
             cmdstr = cell
         pyvars = self._parse_pyvars(cmdstr)
-        return sc3nb.SC.default.lang.cmd(cmdstr, pyvars=pyvars)
+        return sc3nb.SC.get_default().lang.cmd(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
     def scv(self, line='', cell=None):
@@ -105,7 +105,7 @@ class SC3Magics(Magics):
         else:
             cmdstr = cell
         pyvars = self._parse_pyvars(cmdstr)
-        return sc3nb.SC.default.lang.cmdv(cmdstr, pyvars=pyvars)
+        return sc3nb.SC.get_default().lang.cmdv(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
     def scg(self, line='', cell=None):
@@ -132,7 +132,7 @@ class SC3Magics(Magics):
         else:
             cmdstr = cell
         pyvars = self._parse_pyvars(cmdstr)
-        return sc3nb.SC.default.lang.cmdg(cmdstr, pyvars=pyvars)
+        return sc3nb.SC.get_default().lang.cmdg(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
     def scgv(self, line='', cell=None):
@@ -159,7 +159,7 @@ class SC3Magics(Magics):
         else:
             cmdstr = cell
         pyvars = self._parse_pyvars(cmdstr)
-        return sc3nb.SC.default.lang.cmdv(cmdstr, pyvars=pyvars)
+        return sc3nb.SC.get_default().lang.cmdv(cmdstr, pyvars=pyvars)
 
     def _parse_pyvars(self, code: str) -> Dict[str, Any]:
         """Parses SuperCollider code for python variables and their values

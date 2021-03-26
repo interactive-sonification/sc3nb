@@ -88,10 +88,11 @@ class Bundler():
         self.timestamp = timestamp
         if server is not None:
             self.server = server
-        elif sc3nb.SC.default:
-            self.server = sc3nb.SC.default.server
         else:
-            self.server = None
+            try:
+                self.server = sc3nb.SC.get_default().server
+            except RuntimeWarning:
+                self.server = None
         self.contents = []
         self.passed_time = 0.0
         if msg:
@@ -201,7 +202,7 @@ class Bundler():
         server : OSCCommunication, optional
             Server instance for sending the bundle.
             If None it will use the server from init
-            or try to use sc3nb.SC.default.server, by default None
+            or try to use sc3nb.SC.get_default().server, by default None
         receiver : Tuple[str, int], optional
             Address (ip, port) to send to, by default None
         bundled : bool, optional
@@ -213,7 +214,7 @@ class Bundler():
             When no server could be found.
         """
         if not server:
-            server = self.server or sc3nb.SC.default.server
+            server = self.server or sc3nb.SC.get_default().server
         else:
             raise RuntimeError("No server for sending provided.")
         server.send(self, receiver=receiver, bundled=bundled)

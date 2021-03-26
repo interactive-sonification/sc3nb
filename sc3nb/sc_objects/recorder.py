@@ -48,10 +48,10 @@ class Recorder:
             size of buffer, by default 65536
         server : SCServer, optional
             server used for recording, by default None
-            if None it will use sc3nb.SC.default.server
+            if None it will use sc3nb.SC.get_default().server
         """
         self._state = RecorderState.UNPREPARED
-        self._server = server or SC.default.server
+        self._server = server or SC.get_default().server
         self._record_buffer = Buffer(server=self._server)
         self._record_synth: Optional[Synth] = None
         self.prepare(path, nr_channels, rec_header, rec_format, bufsize)

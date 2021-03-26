@@ -35,7 +35,7 @@ class Bus():
                  index: Optional[int] = None,
                  server: Optional['SCServer'] = None
                  ) -> None:
-        self._server = server or sc3nb.SC.default.server
+        self._server = server or sc3nb.SC.get_default().server
         self._num_channels = num_channels
         self._rate = rate
         if index is None:

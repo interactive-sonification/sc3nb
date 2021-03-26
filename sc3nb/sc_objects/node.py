@@ -121,7 +121,7 @@ class Node(ABC):
                 **kwargs: Dict) -> 'Node':
         if nodeid is not None:
             if server is None:
-                server = sc3nb.SC.default.server
+                server = sc3nb.SC.get_default().server
             try:
                 node = server.nodes[nodeid]
                 if node:
@@ -160,7 +160,7 @@ class Node(ABC):
         server : [type], optional
             [description], by default None
         """
-        self._server = server or sc3nb.SC.default.server
+        self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:
             raise RuntimeError("The __init__ of Node should not be called twice")
 
@@ -629,7 +629,7 @@ class Synth(Node):
         --------
         scn.Synth(sc, "s1", {"dur": 1, "freq": 400})
         """
-        self._server = server or sc3nb.SC.default.server
+        self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:
             _LOGGER.debug("Update Synth (%s)", nodeid)
             self._update_state(name=name, args=args)
@@ -824,7 +824,7 @@ class Group(Node):
         target : Node or int, optional
             add action target, by default 1
         """
-        self._server = server or sc3nb.SC.default.server
+        self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:
             _LOGGER.debug("Update Group (%s)", nodeid)
             self._update_state(group, children)

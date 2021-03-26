@@ -76,27 +76,24 @@ class Buffer:
 
     Attributes
     ----------
-    sc : the SC object
+    server : the SCServer object
         to communicate with scsynth
+    _bufnum : int
+        buffer number = bufnum id on scsynth
     _sr : int
         the sampling rate of the buffer
     _channels : int
         number of channels of the buffer
     _samples : int
         buffer length = number of sample frames
-    _bufnum : int
-        buffer number = bufnum id on scsynth
     _alloc_mode : str
         ['file', 'alloc', 'data', 'existing', 'copy']
         according to previously used generator, defaults to None
-    _path : string
-        path to the audio file used in load_file()
-    _tempfile : string
-        filename (if created) of temporary file
-        used for data transfer to scsynth
     _allocated : boolean
         True if Buffer has been allocated by
         any of the initialization methods
+    _path : str
+        path to the audio file used in load_file()
 
     Notes
     -----
@@ -131,7 +128,7 @@ class Buffer:
             the created Buffer object
 
         """
-        self.server = server or sc3nb.SC.default.server
+        self.server = server or sc3nb.SC.get_default().server
         self._bufnum_set_manually = bufnum is not None
         self._bufnum = bufnum
         self._sr = None

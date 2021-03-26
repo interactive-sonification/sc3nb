@@ -73,11 +73,11 @@ def startup(start_server: bool = True,
     else:
         _LOGGER.info("SC already started")
         if start_server:
-            SC.default.start_server(scsynth_options=scsynth_options,
+            SC.get_default().start_server(scsynth_options=scsynth_options,
                                     scsynth_path=scsynth_path,
                                     allowed_parents=allowed_parents)
         if start_sclang:
-            SC.default.start_sclang(sclang_path=sclang_path,
+            SC.get_default().start_sclang(sclang_path=sclang_path,
                                     allowed_parents=allowed_parents)
     return SC.default
 
@@ -86,6 +86,26 @@ class SC():
     """Class for Wrapping SuperCollider server and language."""
 
     default: Optional["SC"] = None
+
+    @classmethod
+    def get_default(cls) -> "SC":
+        """Get the default SC instance
+
+        Returns
+        -------
+        SC
+            default SC instance
+
+        Raises
+        ------
+        RuntimeWarning
+            If there is no default SC instance.
+        """
+        if cls.default is not None:
+            return cls.default
+        else:
+            raise RuntimeWarning("You need to start a SuperCollider SC instance first"
+                                 " or provide a sclang/server directly.")
 
     def __init__(self,
                  start_server: bool = True,
