@@ -23,11 +23,12 @@ _LOGGER.addHandler(logging.NullHandler())
 SCLANG_DEFAULT_PORT = 57120
 SC3NB_SCLANG_CLIENT_ID = 0
 
-ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+ANSI_ESCAPE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
 
 
 class SynthArgument(NamedTuple):
     """Synth Argument rate and default value"""
+
     name: str
     rate: str
     default: Any
@@ -63,6 +64,7 @@ def remove_comments(code: str) -> str:
             return ""  # so we will return empty to remove the comment
         else:  # otherwise, we will return the 1st group
             return match.group(1)  # captured quoted-string
+
     return regex.sub(_replacer, code)
 
 
@@ -86,9 +88,9 @@ def parse_pyvars(code: str, frame_nr: int = 2):
     NameError
         If the variable value could not be found.
     """
-    matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', code)
+    matches = re.findall(r"\s*\^[A-Za-z_]\w*\s*", code)
 
-    pyvars = {match.split('^')[1].strip(): None for match in matches}
+    pyvars = {match.split("^")[1].strip(): None for match in matches}
     missing_vars = list(pyvars.keys())
 
     stack = inspect.stack()
@@ -112,7 +114,7 @@ def parse_pyvars(code: str, frame_nr: int = 2):
         del frame
         del stack
     if missing_vars:
-        raise NameError('name(s) {} not defined'.format(missing_vars))
+        raise NameError("name(s) {} not defined".format(missing_vars))
     return pyvars
 
 
@@ -135,7 +137,7 @@ def replace_vars(code: str, pyvars: dict) -> str:
         Code with injected variables.
     """
     for pyvar, value in pyvars.items():
-        pyvar = '^' + pyvar
+        pyvar = "^" + pyvar
         value = convert_to_sc(value)
         code = code.replace(pyvar, value)
     return code
@@ -167,7 +169,7 @@ def convert_to_sc(obj: Any) -> str:
     if isinstance(obj, np.ndarray):
         return obj.tolist().__repr__()
     if isinstance(obj, complex):
-        return 'Complex({0}, {1})'.format(obj.real, obj.imag)
+        return "Complex({0}, {1})".format(obj.real, obj.imag)
     if isinstance(obj, str):
         if obj.startswith("sc3:"):  # start sequence for sc3-code
             return "{}".format(obj[4:])
@@ -183,9 +185,11 @@ def convert_to_sc(obj: Any) -> str:
 
 class SCLangError(Exception):
     """Exception for Errors related to SuperColliders sclang."""
+
     def __init__(self, message, sclang_output=None):
         super().__init__(message)
         self.sclang_output = sclang_output
+
 
 class SCLang:
     """Class to control the SuperCollider Language Interpreter (sclang)."""
@@ -203,18 +207,20 @@ class SCLang:
         self.started: bool = False
         self._port: int = SCLANG_DEFAULT_PORT
         if sys.platform == "linux" or sys.platform == "linux2":
-            self.prompt_str = 'sc3>'
+            self.prompt_str = "sc3>"
         elif sys.platform == "darwin":
-            self.prompt_str = 'sc3>'
+            self.prompt_str = "sc3>"
         elif sys.platform == "win32":
-            self.prompt_str = '->'
+            self.prompt_str = "->"
         else:
-            raise NotImplementedError('Unsupported OS {}'.format(sys.platform))
+            raise NotImplementedError("Unsupported OS {}".format(sys.platform))
 
-    def start(self,
-              sclang_path: Optional[str] = None,
-              console_logging: bool = True,
-              allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> None:
+    def start(
+        self,
+        sclang_path: Optional[str] = None,
+        console_logging: bool = True,
+        allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+    ) -> None:
         """Start and initilize the sclang process.
 
         This will also kill sclang processes that does not have allowed parents.
@@ -236,27 +242,32 @@ class SCLang:
         if self.started:
             warnings.warn("sclang arlready started")
             return
-        print('Starting sclang process...')
-        self.process = Process(executable='sclang',
-                               exec_path=sclang_path,
-                               console_logging=console_logging,
-                               allowed_parents=allowed_parents)
+        print("Starting sclang process...")
+        self.process = Process(
+            executable="sclang",
+            exec_path=sclang_path,
+            console_logging=console_logging,
+            allowed_parents=allowed_parents,
+        )
         try:
-            self.read(expect='Welcome to SuperCollider', timeout=10)
+            self.read(expect="Welcome to SuperCollider", timeout=10)
         except ProcessTimeout as timeout:
             if timeout.output:
                 if "Primitive '_GetLangPort' failed" in timeout.output:
-                    raise SCLangError("sclang could not bind udp socket. "
-                                      "Try killing old sclang processes.",
-                                      timeout.output) from timeout
+                    raise SCLangError(
+                        "sclang could not bind udp socket. "
+                        "Try killing old sclang processes.",
+                        timeout.output,
+                    ) from timeout
             else:
                 raise
         else:
             self.started = True
-            print('Done.')
+            print("Done.")
 
-            print('Registering OSC /return callback in sclang...')
-            self.cmd(r'''
+            print("Registering OSC /return callback in sclang...")
+            self.cmd(
+                r"""
                 // NetAddr.useDoubles = true;
                 r = r ? ();
                 r.callback = { arg code, ip, port;
@@ -272,14 +283,16 @@ class SCLang:
                     var msgContent = prependSize.value(result);
                     addr.sendMsg(^replyAddress, msgContent);
                     result;  // result should be returned
-                };''', pyvars={"replyAddress": ReplyAddress.RETURN_ADDR})
+                };""",
+                pyvars={"replyAddress": ReplyAddress.RETURN_ADDR},
+            )
             self.read(expect=self.prompt_str)
-            print('Done.')
+            print("Done.")
 
-            print('Loading default SynthDescs')
+            print("Loading default SynthDescs")
             self.load_synthdefs()
             self.read(expect=self.prompt_str)
-            print('Done.')
+            print("Done.")
 
     def load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None:
         """Load SynthDef files from path.
@@ -291,14 +304,17 @@ class SCLang:
             If no path provided, load default sc3nb SynthDefs.
         """
         if synthdefs_path is None:
-            synthdefs_path = pkg_resources.resource_filename("sc3nb.resources", "synthdefs")
+            synthdefs_path = pkg_resources.resource_filename(
+                "sc3nb.resources", "synthdefs"
+            )
         path = Path(synthdefs_path)
         if path.exists() and path.is_dir():
             self.cmd(
-                r'''PathName.new(^synthdefs_path).files.collect(
+                r"""PathName.new(^synthdefs_path).files.collect(
                 { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
-                );''',
-                pyvars={"synthdefs_path": path.as_posix()})
+                );""",
+                pyvars={"synthdefs_path": path.as_posix()},
+            )
         else:
             raise ValueError(f"Provided path {path} does not exist or is not a dir")
 
@@ -312,7 +328,7 @@ class SCLang:
         """
         self.started = False
         try:
-            self.cmd('0.exit;')
+            self.cmd("0.exit;")
         except RuntimeError:
             pass
         else:
@@ -322,15 +338,17 @@ class SCLang:
     def __del__(self):
         self.kill()
 
-    def cmd(self,
-            code: str,
-            pyvars: Optional[dict] = None,
-            verbose: bool = False,
-            discard_output: bool = True,
-            get_result: bool = False,
-            print_error: bool = True,
-            get_output: bool = False,
-            timeout: int = 1) -> Any:
+    def cmd(
+        self,
+        code: str,
+        pyvars: Optional[dict] = None,
+        verbose: bool = False,
+        discard_output: bool = True,
+        get_result: bool = False,
+        print_error: bool = True,
+        get_output: bool = False,
+        timeout: int = 1,
+    ) -> Any:
         """Send code to sclang to execute it.
 
         This also allows to get the result of the code or the corresponding output.
@@ -385,27 +403,28 @@ class SCLang:
 
         # cleanup command string
         code = remove_comments(code)
-        code = re.sub(r'\s+', ' ', code).strip()
+        code = re.sub(r"\s+", " ", code).strip()
 
         if get_result:
             if self._server is None:
                 raise RuntimeError(
-                    "get_result is only possible when connected to a SCServer")
+                    "get_result is only possible when connected to a SCServer"
+                )
             # escape " and \ in our SuperCollider string literal
-            inner_code_escapes = str.maketrans(
-                {ord('\\'): r'\\', ord('"'): r'\"'})
+            inner_code_escapes = str.maketrans({ord("\\"): r"\\", ord('"'): r"\""})
             inner_code = code.translate(inner_code_escapes)
             # wrap the command string with our callback function
             code = r"""r['callback'].value("{0}", "{1}", {2});""".format(
-                inner_code, *self._server.osc_server.server_address)
+                inner_code, *self._server.osc_server.server_address
+            )
 
         if discard_output:
             self.empty()  # clean all past outputs
 
         # write command to sclang pipe \f
-        if code and code[-1] != ';':
-            code += ';'
-        self.process.send(code + '\n\f')
+        if code and code[-1] != ";":
+            code += ";"
+        self.process.send(code + "\n\f")
 
         return_val = None
         if get_result:
@@ -418,15 +437,15 @@ class SCLang:
                     print("sclang output: (also see console) \n")
                     print(out)
                 raise SCLangError(
-                    "unable to receive /return message from sclang",
-                    sclang_output=out)
+                    "unable to receive /return message from sclang", sclang_output=out
+                )
         if verbose or get_output:
             # get output after current command
             out = self.read(expect=self.prompt_str)
-            if sys.platform != 'win32':
-                out = ANSI_ESCAPE.sub('', out)  # remove ansi chars
-                out = out.replace('sc3>', '')  # remove prompt
-                out = out[out.find(';\n') + 2:]  # skip code echo
+            if sys.platform != "win32":
+                out = ANSI_ESCAPE.sub("", out)  # remove ansi chars
+                out = out.replace("sc3>", "")  # remove prompt
+                out = out[out.find(";\n") + 2 :]  # skip code echo
             out = out.strip()
             if verbose:
                 print(out)
@@ -447,10 +466,9 @@ class SCLang:
             kwargs["pyvars"] = parse_pyvars(code)
         return self.cmd(code, get_result=True, **kwargs)
 
-    def read(self,
-             expect: Optional[str] = None,
-             timeout: int = 1,
-             print_error: bool = True) -> str:
+    def read(
+        self, expect: Optional[str] = None, timeout: int = 1, print_error: bool = True
+    ) -> str:
         """Reads SuperCollider output from the process output queue.
 
         Parameters
@@ -478,8 +496,11 @@ class SCLang:
             if print_error:
                 error_str = "Timeout while reading sclang"
                 if expect:
-                    error_str += (f'\nexpected: "{expect}"'
-                                   ' (sclang prompt)' if expect is self.prompt_str else '')
+                    error_str += (
+                        f'\nexpected: "{expect}"' " (sclang prompt)"
+                        if expect is self.prompt_str
+                        else ""
+                    )
                 error_str += "\noutput until timeout below: (also see console)"
                 error_str += "\n----------------------------------------------\n"
                 print(error_str + timeout_error.output)
@@ -510,15 +531,21 @@ class SCLang:
         code = r"""SynthDescLib.global['{{synthDef}}'].controls.collect(
                 { arg control;
                 [control.name, control.rate, control.defaultValue]
-                })""".replace('{{synthDef}}', synth_def)
+                })""".replace(
+            "{{synthDef}}", synth_def
+        )
         try:
             synth_desc = self.cmd(code, get_result=True, print_error=False)
         except SCLangError:  # this will fail if sclang does not know this synth
-            warnings.warn(f"Couldn't find SynthDef {synth_def} in sclangs global SynthDescLib.")
+            warnings.warn(
+                f"Couldn't find SynthDef {synth_def} in sclangs global SynthDescLib."
+            )
             synth_desc = None
 
         if synth_desc:
-            return {s[0]: SynthArgument(s[0], *s[1:]) for s in synth_desc if s[0] != '?'}
+            return {
+                s[0]: SynthArgument(s[0], *s[1:]) for s in synth_desc if s[0] != "?"
+            }
         else:
             return None
 
@@ -556,15 +583,19 @@ class SCLang:
         code = r"""Server.default=s=Server.remote('remote', NetAddr("{0}",{1}), clientID:{2});"""
         self.cmd(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
         try:  # if there are 'too many users' we failed. So the Exception is the successful case!
-            self.read(expect='too many users', timeout=2, print_error=False)
+            self.read(expect="too many users", timeout=2, print_error=False)
         except ProcessTimeout:
             _LOGGER.info("Updated SC server at sclang")
             self._server = server
-            self._port = self.cmdg('NetAddr.langPort')
+            self._port = self.cmdg("NetAddr.langPort")
             self._server.add_receiver(name="sclang", ip="127.0.0.1", port=self._port)
-            _LOGGER.info('Updated sclang port on OSCCommunication '
-                         'to non default port: %s', self._port)
+            _LOGGER.info(
+                "Updated sclang port on OSCCommunication " "to non default port: %s",
+                self._port,
+            )
         else:
-            raise SCLangError("failed to register to the server (too many users)\n"
-                              "Restart the scsynth server with maxLogins >= 3 "
-                              "or specify a different server")
+            raise SCLangError(
+                "failed to register to the server (too many users)\n"
+                "Restart the scsynth server with maxLogins >= 3 "
+                "or specify a different server"
+            )

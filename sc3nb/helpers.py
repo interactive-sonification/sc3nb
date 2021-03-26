@@ -3,12 +3,9 @@ from typing import Union
 import numpy as np
 
 
-def linlin(value: Union[float, np.ndarray],
-           x1: float,
-           x2: float,
-           y1: float,
-           y2: float
-          ) -> Union[float, np.ndarray]:
+def linlin(
+    value: Union[float, np.ndarray], x1: float, x2: float, y1: float, y2: float
+) -> Union[float, np.ndarray]:
     """Map value linearly so that [x1, x2] is mapped to [y1, y2]
 
     linlin is implemented in analogy to the SC3 linlin, yet this
@@ -34,7 +31,7 @@ def linlin(value: Union[float, np.ndarray],
     float
         the mapping result
     """
-    return (value-x1)/(x2-x1)*(y2-y1) + y1
+    return (value - x1) / (x2 - x1) * (y2 - y1) + y1
 
 
 def midicps(midi_note: float) -> float:
@@ -50,7 +47,7 @@ def midicps(midi_note: float) -> float:
     float
         corresponding cycles per seconds
     """
-    return 440.0*2**((midi_note-69)/12.0)
+    return 440.0 * 2 ** ((midi_note - 69) / 12.0)
 
 
 def cpsmidi(cps: float) -> float:
@@ -66,10 +63,12 @@ def cpsmidi(cps: float) -> float:
     float
         corresponding MIDI note
     """
-    return 69+12*np.log2(cps/440.0)
+    return 69 + 12 * np.log2(cps / 440.0)
 
 
-def clip(value: float, minimum: float = -float("inf"), maximum: float = float("inf")) -> float:
+def clip(
+    value: float, minimum: float = -float("inf"), maximum: float = float("inf")
+) -> float:
     """Clips a value to a certain range
 
     Parameters
@@ -106,7 +105,7 @@ def dbamp(decibels: float) -> float:
     float
         Corresponding linear amplitude
     """
-    return 10**(decibels/20.0)
+    return 10 ** (decibels / 20.0)
 
 
 def ampdb(amp: float) -> float:
@@ -122,4 +121,4 @@ def ampdb(amp: float) -> float:
     float
         Corresponding decibels
     """
-    return 20*np.log10(amp)
+    return 20 * np.log10(amp)

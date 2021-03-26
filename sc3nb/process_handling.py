@@ -20,7 +20,7 @@ import psutil
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
-ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+ANSI_ESCAPE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
 ALLOWED_PARENTS = ("scide", "python")
 
 
@@ -50,21 +50,21 @@ def find_executable(executable: str, path: str = None, add_to_path: bool = False
         head, tail = os.path.split(path)
         if executable in tail:
             path = head
-        if path not in os.environ['PATH'] and add_to_path:
-            os.environ['PATH'] += os.pathsep + path
+        if path not in os.environ["PATH"] and add_to_path:
+            os.environ["PATH"] += os.pathsep + path
 
     if not path:
-        path = os.environ['PATH']
+        path = os.environ["PATH"]
     paths = path.split(os.pathsep)
-    extlist = ['']
-    if os.name == 'os2':
+    extlist = [""]
+    if os.name == "os2":
         _, ext = os.path.splitext(executable)
         # executable files on OS/2 can have an arbitrary extension, but
         # .exe is automatically appended if no dot is present in the name
         if not ext:
             executable = executable + ".exe"
-    elif sys.platform == 'win32':
-        pathext = os.environ['PATHEXT'].lower().split(os.pathsep)
+    elif sys.platform == "win32":
+        pathext = os.environ["PATHEXT"].lower().split(os.pathsep)
         _, ext = os.path.splitext(executable)
         if ext.lower() not in pathext:
             extlist = pathext
@@ -94,14 +94,21 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
         parents name of processes to keep, by default None
     """
     _LOGGER.debug("Trying to find leftover processes of %s", exec_path)
-    for proc in psutil.process_iter(['exe']):
-        if proc.info['exe'] == exec_path:
+    for proc in psutil.process_iter(["exe"]):
+        if proc.info["exe"] == exec_path:
             if allowed_parents:
                 parents = proc.parents()
                 if parents:
-                    parent_names = " ".join(map(" ".join, map(psutil.Process.name, parents)))
+                    parent_names = " ".join(
+                        map(" ".join, map(psutil.Process.name, parents))
+                    )
                     _LOGGER.debug("Parents cmdlines: %s", parent_names)
-                    if any([allowed_parent in parent_names for allowed_parent in allowed_parents]):
+                    if any(
+                        [
+                            allowed_parent in parent_names
+                            for allowed_parent in allowed_parents
+                        ]
+                    ):
                         continue
             _LOGGER.debug("Terminating %s parents: %s", proc, proc.parents())
             proc.terminate()
@@ -114,6 +121,7 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
 
 class ProcessTimeout(Exception):
     """Process Timeout Exception"""
+
     def __init__(self, executable, output, timeout, expected):
         self.output = output
         self.timeout = timeout
@@ -125,13 +133,16 @@ class ProcessTimeout(Exception):
 
 class Process:
     """Class for starting a executable and communication with it."""
-    def __init__(self,
-                 executable,
-                 args=None,
-                 exec_path=None,
-                 console_logging=True,
-                 kill_others=True,
-                 allowed_parents=None):
+
+    def __init__(
+        self,
+        executable,
+        args=None,
+        exec_path=None,
+        console_logging=True,
+        kill_others=True,
+        allowed_parents=None,
+    ):
         self.executable = executable
         self.exec_path = find_executable(self.executable, path=exec_path)
         self.console_logging = console_logging
@@ -151,22 +162,23 @@ class Process:
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            universal_newlines=True, # py3.8++ ==> text=True,
-            errors='strict',
-            bufsize=0)
+            universal_newlines=True,  # py3.8++ ==> text=True,
+            errors="strict",
+            bufsize=0,
+        )
         # init queue for reading subprocess output queue
         self.output_queue = Queue()
         self.stdin = self.popen.stdin
         # output reading worker thread
         self.output_reader_thread = threading.Thread(
-            target=self._read_loop,
-            daemon=True)
+            target=self._read_loop, daemon=True
+        )
         self.output_reader_thread.start()
 
     def _read_loop(self):
         os.write(1, f"{self.executable} start reading\n".encode())
-        for line in iter(self.popen.stdout.readline, ''):
-            ANSI_ESCAPE.sub('', line)
+        for line in iter(self.popen.stdout.readline, ""):
+            ANSI_ESCAPE.sub("", line)
             if self.console_logging:
                 # print to jupyter console...
                 os.write(1, f"{self.executable}:  {line}".encode())
@@ -195,15 +207,16 @@ class Process:
             If no output or expectation isn't found
         """
         timeout_time = time.time() + timeout
-        out = ''
+        out = ""
         expect_found = False
         while True:
             if time.time() >= timeout_time:
                 raise ProcessTimeout(
-                            executable=self.executable,
-                            timeout=timeout,
-                            output=out,
-                            expected=expect)
+                    executable=self.executable,
+                    timeout=timeout,
+                    output=out,
+                    expected=expect,
+                )
             try:
                 new = self.output_queue.get_nowait()
                 if new is not None:

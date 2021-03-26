@@ -12,17 +12,27 @@ import sc3nb.resources as resources
 from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
 
 from sc3nb.osc.parsing import preprocess_return
-from sc3nb.osc.osc_communication import (build_message,
-                                         OSCCommunication,
-                                         OSCCommunicationError,
-                                         MessageQueue,
-                                         MessageQueueCollection)
+from sc3nb.osc.osc_communication import (
+    build_message,
+    OSCCommunication,
+    OSCCommunicationError,
+    MessageQueue,
+    MessageQueueCollection,
+)
 
 from sc3nb.sc_objects.synthdef import SynthDefinitionCommand
 from sc3nb.sc_objects.buffer import BufferCommand, BufferReply
 from sc3nb.sc_objects.bus import ControlBusCommand, BusRate, Bus
-from sc3nb.sc_objects.node import (GroupCommand, SynthCommand, NodeCommand, NodeReply, GroupReply,
-                                   Node, Group, NodeTree)
+from sc3nb.sc_objects.node import (
+    GroupCommand,
+    SynthCommand,
+    NodeCommand,
+    NodeReply,
+    GroupReply,
+    Node,
+    Group,
+    NodeTree,
+)
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -32,13 +42,16 @@ _LOGGER.addHandler(logging.NullHandler())
 @unique
 class MasterControlReply(str, Enum):
     """Reply addresses of the Master Control Commands."""
+
     VERSION_REPLY = "/version.reply"
     SYNCED = "/synced"
     STATUS_REPLY = "/status.reply"
 
+
 @unique
 class MasterControlCommand(str, Enum):
     """Master Control commands of scsynth."""
+
     DUMP_OSC = "/dumpOSC"
     STATUS = "/status"
     VERSION = "/version"
@@ -47,9 +60,11 @@ class MasterControlCommand(str, Enum):
     QUIT = "/quit"
     SYNC = "/sync"
 
+
 @unique
 class ReplyAddress(str, Enum):
     """Specific reply addresses."""
+
     WILDCARD_ADDR = "/*"
     FAIL_ADDR = "/fail"
     DONE_ADDR = "/done"
@@ -74,7 +89,7 @@ ASYNC_CMDS = [
     BufferCommand.FREE,
     BufferCommand.ZERO,
     BufferCommand.GEN,
-    BufferCommand.CLOSE
+    BufferCommand.CLOSE,
 ]
 
 CMD_PAIRS = {
@@ -91,11 +106,11 @@ CMD_PAIRS = {
     NodeCommand.QUERY: NodeReply.INFO,
     # Buffer Commands
     BufferCommand.QUERY: BufferReply.INFO,
-    BufferCommand.GET:  BufferCommand.SET,
-    BufferCommand.GETN:  BufferCommand.SETN,
+    BufferCommand.GET: BufferCommand.SET,
+    BufferCommand.GETN: BufferCommand.SETN,
     # Control Bus Commands
-    ControlBusCommand.GET:  ControlBusCommand.SET,
-    ControlBusCommand.GETN: ControlBusCommand.SETN
+    ControlBusCommand.GET: ControlBusCommand.SET,
+    ControlBusCommand.GETN: ControlBusCommand.SETN,
 }
 
 LOCALHOST = "127.0.0.1"
@@ -105,10 +120,12 @@ SC3NB_DEFAULT_PORT = 57130
 SCSYNTH_DEFAULT_PORT = 57110
 SC3_SERVER_NAME = "scsynth"
 
-RESOURCES_SYNTH_DEFS = resources.__file__[:-len("__init__.py")]
+RESOURCES_SYNTH_DEFS = resources.__file__[: -len("__init__.py")]
+
 
 class ServerStatus(NamedTuple):
     """Information about the status of the Server program"""
+
     num_ugens: int
     num_synths: int
     num_groups: int
@@ -118,8 +135,10 @@ class ServerStatus(NamedTuple):
     nominal_sr: float
     actual_sr: float
 
+
 class ServerVersion(NamedTuple):
     """Information about the version of the Server program"""
+
     name: str
     major_version: int
     minor_version: int
@@ -127,26 +146,30 @@ class ServerVersion(NamedTuple):
     git_branch: str
     commit: str
 
-class ServerOptions():
+
+class ServerOptions:
     """Options for the SuperCollider audio server
 
     This allows the encapsulation and handling of the command line server options.
     """
-    def __init__(self,
-                 udp_port: int = SCSYNTH_DEFAULT_PORT,
-                 max_logins: int = 5,
-                 num_input_buses: int = 2,
-                 num_output_buses: int = 2,
-                 num_audio_buses: int = 1024,
-                 num_control_buses: int = 4096,
-                 num_sample_buffers: int = 1024,
-                 publish_rendezvous: bool = False,
-                 block_size: Optional[int] = None,
-                 hardware_buffer_size: Optional[int] = None,
-                 hardware_sample_size: Optional[int] = None,
-                 hardware_input_device: Optional[str] = None,
-                 hardware_output_device: Optional[str] = None,
-                 other_options: Optional[Sequence[str]] = None):
+
+    def __init__(
+        self,
+        udp_port: int = SCSYNTH_DEFAULT_PORT,
+        max_logins: int = 5,
+        num_input_buses: int = 2,
+        num_output_buses: int = 2,
+        num_audio_buses: int = 1024,
+        num_control_buses: int = 4096,
+        num_sample_buffers: int = 1024,
+        publish_rendezvous: bool = False,
+        block_size: Optional[int] = None,
+        hardware_buffer_size: Optional[int] = None,
+        hardware_sample_size: Optional[int] = None,
+        hardware_input_device: Optional[str] = None,
+        hardware_output_device: Optional[str] = None,
+        other_options: Optional[Sequence[str]] = None,
+    ):
         # arguments as sequence as wanted by subprocess.Popen
         self.args = []
 
@@ -169,7 +192,9 @@ class ServerOptions():
         self.num_output_buses = num_output_buses
         self.args += ["-o", f"{self.num_output_buses}"]
         if num_audio_buses < num_input_buses + num_output_buses:
-            raise ValueError(f"You need at least {num_input_buses + num_output_buses} audio buses")
+            raise ValueError(
+                f"You need at least {num_input_buses + num_output_buses} audio buses"
+            )
         self.num_audio_buses = num_audio_buses
         self.args += ["-a", f"{self.num_audio_buses}"]
 
@@ -205,8 +230,10 @@ class ServerOptions():
         else:
             self.hardware_output_device = hardware_output_device
         if hardware_input_device or hardware_output_device:
-            self.args += ["-H",
-                          f"{self.hardware_input_device} {self.hardware_output_device}".strip()]
+            self.args += [
+                "-H",
+                f"{self.hardware_input_device} {self.hardware_output_device}".strip(),
+            ]
 
         # misc. options
         self.other_options = other_options
@@ -226,12 +253,13 @@ class ServerOptions():
     def __repr__(self):
         return f"<ServerOptions {self.args}>"
 
-class IDBlockAllocator():
+
+class IDBlockAllocator:
     """Allows allocating blocks of ids / indexes"""
 
     def __init__(self, num_ids, offset):
         self._offset = offset
-        self._free_ids = [i+offset for i in range(num_ids)]
+        self._free_ids = [i + offset for i in range(num_ids)]
 
     def allocate(self, num: int = 1) -> Sequence[int]:
         """Allocate the next free ids
@@ -254,8 +282,8 @@ class IDBlockAllocator():
                 raise RuntimeError(f"Cannot allocate {num} ids.")
             num_collected_ids = 1
             for idx in range(1, len(self._free_ids[first_idx:])):
-                prev_id = self._free_ids[first_idx+idx-1]
-                next_id = self._free_ids[first_idx+idx]
+                prev_id = self._free_ids[first_idx + idx - 1]
+                next_id = self._free_ids[first_idx + idx]
                 if abs(prev_id - next_id) > 1:
                     # difference between ids is too large
                     first_idx += idx
@@ -263,8 +291,8 @@ class IDBlockAllocator():
                 num_collected_ids += 1
                 if num_collected_ids == num:
                     break
-        ids = self._free_ids[first_idx:first_idx+idx+1]
-        del self._free_ids[first_idx:first_idx+idx+1]
+        ids = self._free_ids[first_idx : first_idx + idx + 1]
+        del self._free_ids[first_idx : first_idx + idx + 1]
         return ids
 
     def free_ids(self, ids: Sequence[int]) -> None:
@@ -291,10 +319,12 @@ class SCServer(OSCCommunication):
             self.options = options
             _LOGGER.debug("Using custom server options %s", self.options)
 
-        super().__init__(server_ip=LOCALHOST,
-                         server_port=SC3NB_DEFAULT_PORT,
-                         default_receiver_ip=LOCALHOST,
-                         default_receiver_port=self.options.udp_port)
+        super().__init__(
+            server_ip=LOCALHOST,
+            server_port=SC3NB_DEFAULT_PORT,
+            default_receiver_ip=LOCALHOST,
+            default_receiver_port=self.options.udp_port,
+        )
 
         # init msg queues
         self.add_msg_pairs(CMD_PAIRS)
@@ -304,7 +334,9 @@ class SCServer(OSCCommunication):
         self.add_msg_queue(self.returns)
 
         # /done messages must be seperated
-        self.dones = MessageQueueCollection(address=ReplyAddress.DONE_ADDR, sub_addrs=ASYNC_CMDS)
+        self.dones = MessageQueueCollection(
+            address=ReplyAddress.DONE_ADDR, sub_addrs=ASYNC_CMDS
+        )
         self.add_msg_queue_collection(self.dones)
 
         self.fails = MessageQueueCollection(address=ReplyAddress.FAIL_ADDR)
@@ -312,9 +344,11 @@ class SCServer(OSCCommunication):
 
         # set logging handlers
         self._osc_server.dispatcher.map(
-            ReplyAddress.FAIL_ADDR, self._warn_fail, needs_reply_address=True)
+            ReplyAddress.FAIL_ADDR, self._warn_fail, needs_reply_address=True
+        )
         self._osc_server.dispatcher.map(
-            ReplyAddress.WILDCARD_ADDR, self._log_message, needs_reply_address=True)
+            ReplyAddress.WILDCARD_ADDR, self._log_message, needs_reply_address=True
+        )
 
         self.buffer_id_allocator: Optional[IDBlockAllocator] = None
         self.control_bus_id_allocator: Optional[IDBlockAllocator] = None
@@ -327,14 +361,18 @@ class SCServer(OSCCommunication):
         self._default_groups: Dict[int, Group] = {}
         self._is_local: bool = False
 
-        self._output_bus = Bus(rate=BusRate.AUDIO,
-                               num_channels=self.options.num_output_buses,
-                               index=0,
-                               server=self)
-        self._input_bus = Bus(rate=BusRate.AUDIO,
-                              num_channels=self.options.num_input_buses,
-                              index=self.options.num_output_buses,
-                              server=self)
+        self._output_bus = Bus(
+            rate=BusRate.AUDIO,
+            num_channels=self.options.num_output_buses,
+            index=0,
+            server=self,
+        )
+        self._input_bus = Bus(
+            rate=BusRate.AUDIO,
+            num_channels=self.options.num_input_buses,
+            index=self.options.num_output_buses,
+            server=self,
+        )
 
         # counter for nextNodeID
         self._num_node_ids: int = 0
@@ -352,13 +390,15 @@ class SCServer(OSCCommunication):
 
         self.latency: float = 0.0
 
-    def boot(self,
-             scsynth_path: Optional[str] = None,
-             timeout: float = 3,
-             console_logging: bool = True,
-             with_blip: bool = True,
-             kill_others: bool = True,
-             allowed_parents: Sequence[str] = ALLOWED_PARENTS):
+    def boot(
+        self,
+        scsynth_path: Optional[str] = None,
+        timeout: float = 3,
+        console_logging: bool = True,
+        with_blip: bool = True,
+        kill_others: bool = True,
+        allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+    ):
         """Start the Server process.
 
         Parameters
@@ -387,16 +427,18 @@ class SCServer(OSCCommunication):
         if self._has_booted:
             warnings.warn("already booted")
             return
-        print('Booting SuperCollider Server...')
+        print("Booting SuperCollider Server...")
         self._is_local = True
         self._scsynth_address = LOCALHOST
         self._scsynth_port = self.options.udp_port
-        self.process = Process(executable=self._programm_name,
-                               args=self.options.args,
-                               exec_path=scsynth_path,
-                               console_logging=console_logging,
-                               kill_others=kill_others,
-                               allowed_parents=allowed_parents)
+        self.process = Process(
+            executable=self._programm_name,
+            args=self.options.args,
+            exec_path=scsynth_path,
+            console_logging=console_logging,
+            kill_others=kill_others,
+            allowed_parents=allowed_parents,
+        )
         try:
             self.process.read(expect="SuperCollider 3 server ready.", timeout=timeout)
         except ProcessTimeout as process_timeout:
@@ -407,10 +449,13 @@ class SCServer(OSCCommunication):
                 print("SuperCollider Server port already used.")
                 if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
                     raise ValueError(
-                        f"The specified UDP port {self.options.udp_port} is already used")
+                        f"The specified UDP port {self.options.udp_port} is already used"
+                    )
                 else:
                     print("Trying to connect.")
-                    self.remote(self._scsynth_address, self._scsynth_port, with_blip=with_blip)
+                    self.remote(
+                        self._scsynth_address, self._scsynth_port, with_blip=with_blip
+                    )
             else:
                 print("Failed booting SuperCollider Server.")
                 raise process_timeout
@@ -429,7 +474,9 @@ class SCServer(OSCCommunication):
             make a sound when initialized, by default True
         """
         # notify the supercollider server about us
-        self.add_receiver(self._programm_name, self._scsynth_address, self._scsynth_port)
+        self.add_receiver(
+            self._programm_name, self._scsynth_address, self._scsynth_port
+        )
         self.notify()
 
         # init allocators
@@ -438,13 +485,18 @@ class SCServer(OSCCommunication):
         self.buffer_id_allocator = IDBlockAllocator(buffers_per_user, buffer_id_offset)
 
         audio_buses_per_user = int(self.options.num_private_buses / self.max_logins)
-        audio_bus_id_offset = self.client_id * audio_buses_per_user + self.options.first_private_bus
-        self.audio_bus_id_allocator = IDBlockAllocator(audio_buses_per_user, audio_bus_id_offset)
+        audio_bus_id_offset = (
+            self.client_id * audio_buses_per_user + self.options.first_private_bus
+        )
+        self.audio_bus_id_allocator = IDBlockAllocator(
+            audio_buses_per_user, audio_bus_id_offset
+        )
 
         control_buses_per_user = int(self.options.num_control_buses / self.max_logins)
         control_bus_id_offset = self.client_id * control_buses_per_user
-        self.control_bus_id_allocator = IDBlockAllocator(control_buses_per_user,
-                                                         control_bus_id_offset)
+        self.control_bus_id_allocator = IDBlockAllocator(
+            control_buses_per_user, control_bus_id_offset
+        )
 
         # load synthdefs of sc3nb
         self.load_synthdefs()
@@ -456,7 +508,7 @@ class SCServer(OSCCommunication):
         if with_blip:
             self.blip()
 
-        print('Done.')
+        print("Done.")
 
     def bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
@@ -480,16 +532,22 @@ class SCServer(OSCCommunication):
         Bundler
             bundler for OSC bundling.
         """
-        return super().bundler(timestamp=timestamp + self.latency,
-                               msg=msg,
-                               msg_args=msg_args,
-                               send_on_exit=send_on_exit)
+        return super().bundler(
+            timestamp=timestamp + self.latency,
+            msg=msg,
+            msg_args=msg_args,
+            send_on_exit=send_on_exit,
+        )
 
     def blip(self) -> None:
         """Make a blip sound"""
         with self.bundler(0.1) as bundler:
-            bundler.add(0.1, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1])
-            bundler.add(0.3, "/s_new", ["s2", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2])
+            bundler.add(
+                0.1, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1]
+            )
+            bundler.add(
+                0.3, "/s_new", ["s2", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2]
+            )
             bundler.add(0.4, "/n_free", [-1])
 
     def remote(self, address: str, port: int, with_blip: bool = True) -> None:
@@ -577,10 +635,12 @@ class SCServer(OSCCommunication):
         """
         self.msg(SynthDefinitionCommand.LOAD, synthdef_path, await_reply=wait)
 
-    def load_synthdefs(self,
-                       directory: Optional[str] = None,
-                       completion_msg: bytes = None,
-                       wait: bool = True) -> None:
+    def load_synthdefs(
+        self,
+        directory: Optional[str] = None,
+        completion_msg: bytes = None,
+        wait: bool = True,
+    ) -> None:
         """Load all SynthDefs from directory.
 
         Parameters
@@ -599,10 +659,12 @@ class SCServer(OSCCommunication):
             args.append(completion_msg)
         self.msg(SynthDefinitionCommand.LOAD_DIR, args, await_reply=wait)
 
-    def notify(self,
-               receive_notifications: bool = True,
-               client_id: Optional[int] = None,
-               timeout: float = 1.0) -> None:
+    def notify(
+        self,
+        receive_notifications: bool = True,
+        client_id: Optional[int] = None,
+        timeout: float = 1.0,
+    ) -> None:
         """Notify the server about this client.
 
         This provides the client id and max logins info needed for default groups.
@@ -625,7 +687,9 @@ class SCServer(OSCCommunication):
         """
         flag = 1 if receive_notifications else 0
         client_id = client_id if client_id else self._client_id
-        msg = build_message(MasterControlCommand.NOTIFY, [flag, client_id])  # flag, clientID
+        msg = build_message(
+            MasterControlCommand.NOTIFY, [flag, client_id]
+        )  # flag, clientID
         try:
             return_val = self.send(msg, timeout=timeout)
         except OSCCommunicationError as error:
@@ -642,7 +706,9 @@ class SCServer(OSCCommunication):
                     self._client_id = rest[0]
                     return  # only send client_id but not max logins
                 elif "too many users" in message:
-                    raise RuntimeError("scsynth has too many users. Can't notify.") from error
+                    raise RuntimeError(
+                        "scsynth has too many users. Can't notify."
+                    ) from error
                 elif "not registered" in message:
                     return  # ignore when we are already not notified anymore.
             raise error
@@ -683,9 +749,13 @@ class SCServer(OSCCommunication):
     def send_default_groups(self) -> None:
         """Send the default groups for all clients."""
         client_ids = range(self._max_logins)
+
         def create_default_group(client_id):
             return Group(nodeid=2 ** 26 * client_id + 1, target=0, server=self).new()
-        self._default_groups = {client: create_default_group(client) for client in client_ids}
+
+        self._default_groups = {
+            client: create_default_group(client) for client in client_ids
+        }
 
     def allocate_node_id(self) -> int:
         """Get a node id.
@@ -728,7 +798,6 @@ class SCServer(OSCCommunication):
             bus id
         """
         return self.audio_bus_id_allocator.allocate(num)
-
 
     @property
     def client_id(self):
@@ -817,7 +886,7 @@ class SCServer(OSCCommunication):
         self.process.read()
         msg = build_message(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
         self.send(msg)
-        node_tree = self.process.read(expect='NODE TREE')
+        node_tree = self.process.read(expect="NODE TREE")
         print(node_tree)
         if return_tree:
             return node_tree
@@ -920,8 +989,9 @@ class SCServer(OSCCommunication):
             args_str = str(args)[:55] + ".."
         else:
             args_str = str(args)
-        _LOGGER.info("osc msg received from %s: %s",
-                     self._check_sender(sender), args_str)
+        _LOGGER.info(
+            "osc msg received from %s: %s", self._check_sender(sender), args_str
+        )
 
     def _warn_fail(self, sender, *args):
         warnings.warn(f"Error from {self._check_sender(sender)}: {args}")

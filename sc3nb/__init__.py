@@ -28,13 +28,35 @@ from sc3nb.osc.osc_communication import build_message, Bundler
 from sc3nb.helpers import linlin, midicps, cpsmidi, clip, dbamp, ampdb
 
 
-__all__ = ['startup', 'SC', 'TimedQueue', 'TimedQueueSC',
-           'build_message', 'Bundler', 'SCLang',
-           'linlin', 'midicps', 'cpsmidi', 'clip', 'dbamp', 'ampdb',
-           'Buffer', 'SynthDef', 'Node', 'Synth', 'Group',
-           'AddAction', 'SCServer', 'ServerOptions', 'Recorder', 'Bus']
+__all__ = [
+    "startup",
+    "SC",
+    "TimedQueue",
+    "TimedQueueSC",
+    "build_message",
+    "Bundler",
+    "SCLang",
+    "linlin",
+    "midicps",
+    "cpsmidi",
+    "clip",
+    "dbamp",
+    "ampdb",
+    "Buffer",
+    "SynthDef",
+    "Node",
+    "Synth",
+    "Group",
+    "AddAction",
+    "SCServer",
+    "ServerOptions",
+    "Recorder",
+    "Bus",
+]
+
 
 def load_ipython_extension(ipython):
     """Load the extension in IPython."""
     from sc3nb.magics import load_ipython_extension as load_extension
+
     load_extension(ipython)

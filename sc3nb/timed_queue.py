@@ -7,7 +7,8 @@ import numpy as np
 
 import sc3nb
 
-class Event():
+
+class Event:
     """Stores a timestamp, function and arguments for that function.
     Long running functions can be wrapped inside an own thread
 
@@ -20,6 +21,7 @@ class Event():
         spawn {bool} -- if True, create new sub-thread
                         for function (default: {False})
     """
+
     def __init__(self, timetag, function, args, spawn=False):
         if spawn:
             thread = threading.Thread(target=function, args=args)
@@ -43,10 +45,10 @@ class Event():
         return self.timetag <= other.timetag
 
     def __repr__(self):
-        return '%s: %s' % (self.timetag, self.function.__name__)
+        return "%s: %s" % (self.timetag, self.function.__name__)
 
 
-class TimedQueue():
+class TimedQueue:
     """Accumulates events as timestamps and functions. Executes given
     functions according to the timestamps
 
@@ -72,8 +74,9 @@ class TimedQueue():
 
         self.lock = threading.Lock()
 
-        self.thread = threading.Thread(target=self.__worker, args=(
-            thread_sleep_time, self.close_event))  # , daemon=True)
+        self.thread = threading.Thread(
+            target=self.__worker, args=(thread_sleep_time, self.close_event)
+        )  # , daemon=True)
 
         self.thread.start()
 
@@ -115,8 +118,8 @@ class TimedQueue():
             TypeError -- raised if function is not callable
         """
 
-        if not hasattr(function, '__call__'):
-            raise TypeError('function argument cannot be called')
+        if not hasattr(function, "__call__"):
+            raise TypeError("function argument cannot be called")
         if not isinstance(args, tuple):
             args = (args,)
         new_event = Event(timetag, function, args, spawn)
@@ -128,7 +131,8 @@ class TimedQueue():
             else:
                 idx = np.searchsorted(self.onset_idx[:, 0], timetag)
             self.onset_idx = np.insert(
-                self.onset_idx, idx, [timetag, evlen - 1], axis=0)
+                self.onset_idx, idx, [timetag, evlen - 1], axis=0
+            )
 
     def get(self):
         """Get latest event from queue and remove event
@@ -190,7 +194,6 @@ class TimedQueue():
 
 
 class TimedQueueSC(TimedQueue):
-
     def __init__(self, server=None, relative_time=False, thread_sleep_time=0.001):
         super().__init__(relative_time, thread_sleep_time)
         self.server = server or sc3nb.SC.get_default().server

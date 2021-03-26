@@ -15,6 +15,7 @@ from sc3nb.sc_objects.buffer import Buffer
 @unique
 class RecorderState(Enum):
     """Different States"""
+
     UNPREPARED = "UNPREPARED"
     PREPARED = "PREPARED"
     RECORDING = "RECORDING"
@@ -25,13 +26,15 @@ class Recorder:
     """Allows to record audio easily."""
 
     ## TODO rec_header, rec_format with Literal type (py3.8) from Buffer
-    def __init__(self,
-                 path: Optional[str] = "record.wav",
-                 nr_channels: Optional[int] = 2,
-                 rec_header="wav",
-                 rec_format="int16",
-                 bufsize: Optional[int] = 65536,
-                 server: Optional[SCServer] = None):
+    def __init__(
+        self,
+        path: Optional[str] = "record.wav",
+        nr_channels: Optional[int] = 2,
+        rec_header="wav",
+        rec_format="int16",
+        bufsize: Optional[int] = 65536,
+        server: Optional[SCServer] = None,
+    ):
         """Create and prepare a recorder.
 
         Parameters
@@ -78,35 +81,44 @@ class Recorder:
             When Recorder does not needs to be prepared.
         """
         if self._state != RecorderState.UNPREPARED:
-            raise RuntimeError(f"Recorder state must be UNPREPARED but is {self._state}")
+            raise RuntimeError(
+                f"Recorder state must be UNPREPARED but is {self._state}"
+            )
         # prepare buffer
         self._record_buffer.alloc(bufsize, channels=nr_channels)
-        self._record_buffer.write(path=path,
-                                  header=rec_header,
-                                  sample=rec_format,
-                                  num_frames=0,
-                                  starting_frame=0,
-                                  leave_open=True)
+        self._record_buffer.write(
+            path=path,
+            header=rec_header,
+            sample=rec_format,
+            num_frames=0,
+            starting_frame=0,
+            leave_open=True,
+        )
         self._rec_id = self._record_buffer.bufnum
         # TODO we could prepare the synthDef beforehand and just use the right one here.
         # This would allow Recordings without sclang
-        self._synth_def = SynthDef(f"sc3nb_recording_{self._rec_id}",
-        r"""{ |bus, bufnum, duration|
+        self._synth_def = SynthDef(
+            f"sc3nb_recording_{self._rec_id}",
+            r"""{ |bus, bufnum, duration|
 			var tick = Impulse.kr(1);
 			var timer = PulseCount.kr(tick) - 1;
 			Line.kr(0, 0, duration, doneAction: if(duration <= 0, 0, 2));
 			SendReply.kr(tick, '/recordingDuration', timer, ^rec_id);
 			DiskOut.ar(bufnum, In.ar(bus, ^nr_channels))
-		}""")
+		}""",
+        )
         self._synth_name = self._synth_def.add(
-            pyvars={'rec_id': self._rec_id, 'nr_channels': nr_channels})
+            pyvars={"rec_id": self._rec_id, "nr_channels": nr_channels}
+        )
         self._state = RecorderState.PREPARED
 
-    def start(self,
-              timestamp: Optional[float] = 0,
-              duration: Optional[float] = None,
-              node: Union[Node, int] = 0,
-              bus: Optional[int] = 0):
+    def start(
+        self,
+        timestamp: Optional[float] = 0,
+        duration: Optional[float] = None,
+        node: Union[Node, int] = 0,
+        bus: Optional[int] = 0,
+    ):
         """Start the recording.
 
         Parameters
@@ -127,15 +139,19 @@ class Recorder:
         """
         if self._state != RecorderState.PREPARED:
             raise RuntimeError(f"Recorder state must be PREPARED but is {self._state}")
-        args = dict(bus=bus,
-                    duration=duration if duration else -1,
-                    bufnum=self._record_buffer.bufnum)
+        args = dict(
+            bus=bus,
+            duration=duration if duration else -1,
+            bufnum=self._record_buffer.bufnum,
+        )
         with self._server.bundler(timestamp=timestamp):
-            self._record_synth = Synth(self._synth_name,
-                                       args=args,
-                                       server=self._server,
-                                       target=node,
-                                       add_action=AddAction.TO_TAIL)
+            self._record_synth = Synth(
+                self._synth_name,
+                args=args,
+                server=self._server,
+                target=node,
+                add_action=AddAction.TO_TAIL,
+            )
         self._state = RecorderState.RECORDING
 
     def pause(self, timestamp: Optional[float] = 0):
@@ -196,7 +212,9 @@ class Recorder:
                 self._record_buffer.close()
             self._state = RecorderState.UNPREPARED
         else:
-            raise RuntimeError(f"Recorder state must be RECORDING or PAUSED but is {self._state}")
+            raise RuntimeError(
+                f"Recorder state must be RECORDING or PAUSED but is {self._state}"
+            )
 
     def __repr__(self) -> str:
         return f"<Recorder [{self._state.value}]>"

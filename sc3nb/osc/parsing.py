@@ -1,4 +1,4 @@
-'''Module for parsing the OSC packets from sclang.
+"""Module for parsing the OSC packets from sclang.
 
 This implements a extension of the OSC protocol.
 A bundle is now allowed to consist of other bundles or
@@ -7,7 +7,7 @@ lists.
 This extension is needed as sclang is sending Arrays
 as this list or when nested as bundles with inner list
 
-'''
+"""
 import logging
 import math
 from typing import Any, Sequence, Tuple, Union
@@ -18,24 +18,24 @@ from pythonosc.parsing import osc_types
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
-SYNTH_DEF_MARKER = b'SCgf'
-TYPE_TAG_MARKER = ord(b',')
+SYNTH_DEF_MARKER = b"SCgf"
+TYPE_TAG_MARKER = ord(b",")
 TYPE_TAG_INDEX = 4
 NUM_SIZE = 4
 BYTES_2_TYPE = {
-    'i': osc_types.get_int,
-    'f': osc_types.get_float,
-    'd': osc_types.get_double,
-    's': osc_types.get_string,
-    'N': lambda dgram, start_index: (None, start_index),
-    'I': lambda dgram, start_index: (float('inf'), start_index),
-    'T': lambda dgram, start_index: (True, start_index),
-    'F': lambda dgram, start_index: (False, start_index)
+    "i": osc_types.get_int,
+    "f": osc_types.get_float,
+    "d": osc_types.get_double,
+    "s": osc_types.get_string,
+    "N": lambda dgram, start_index: (None, start_index),
+    "I": lambda dgram, start_index: (float("inf"), start_index),
+    "T": lambda dgram, start_index: (True, start_index),
+    "F": lambda dgram, start_index: (False, start_index),
 }
 
 
 class ParseError(Exception):
-    '''Base exception for when a datagram parsing error occurs.'''
+    """Base exception for when a datagram parsing error occurs."""
 
 
 def _get_aligned_index(index: int) -> int:
@@ -51,7 +51,7 @@ def _get_aligned_index(index: int) -> int:
     int
         next multiple of NUM_SIZE from index
     """
-    return NUM_SIZE * math.ceil(index/NUM_SIZE)
+    return NUM_SIZE * math.ceil(index / NUM_SIZE)
 
 
 def _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
@@ -85,7 +85,7 @@ def _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
 
     # parse type tag
     type_tag, start_index = osc_types.get_string(dgram, start_index)
-    if type_tag.startswith(','):
+    if type_tag.startswith(","):
         type_tag = type_tag[1:]
 
     _LOGGER.debug("list with size %d and content '%s'", list_size, type_tag)
@@ -105,9 +105,9 @@ def _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
     return value_list, start_index
 
 
-def _parse_osc_bundle_element(dgram: bytes,
-                              start_index: int
-                             ) -> Tuple[Union[Sequence[Any], bytes], int]:
+def _parse_osc_bundle_element(
+    dgram: bytes, start_index: int
+) -> Tuple[Union[Sequence[Any], bytes], int]:
     """Parse an element from a osc bundle.
 
     The element needs to be either a osc bundle or a list
@@ -130,29 +130,32 @@ def _parse_osc_bundle_element(dgram: bytes,
         If the datagram is invalid.
     """
     elem_size, start_index = osc_types.get_int(dgram, start_index)
-    _LOGGER.debug(">> parse osc bundle element (size: %d): %s ",
-                  elem_size, dgram[start_index:start_index+elem_size])
+    _LOGGER.debug(
+        ">> parse osc bundle element (size: %d): %s ",
+        elem_size,
+        dgram[start_index : start_index + elem_size],
+    )
 
-    if OscBundle.dgram_is_bundle(dgram[start_index:start_index+elem_size]):
+    if OscBundle.dgram_is_bundle(dgram[start_index : start_index + elem_size]):
         _LOGGER.debug("found bundle")
         msgs, start_index = _parse_bundle(dgram, start_index)
         return msgs, start_index
 
-    if dgram[start_index+TYPE_TAG_INDEX] == TYPE_TAG_MARKER:
+    if dgram[start_index + TYPE_TAG_INDEX] == TYPE_TAG_MARKER:
         _LOGGER.debug("found list")
         value_list, start_index = _parse_list(dgram, start_index)
         return value_list, start_index
 
-    if dgram[start_index:start_index+4] == SYNTH_DEF_MARKER:
+    if dgram[start_index : start_index + 4] == SYNTH_DEF_MARKER:
         _LOGGER.debug("found SynthDef blob")
-        synth_def = dgram[start_index:start_index+elem_size]
+        synth_def = dgram[start_index : start_index + elem_size]
         start_index = start_index + elem_size
         return synth_def, start_index
 
     raise ParseError("Datagram not recognized")
 
 
-BYTES_2_TYPE['b'] = _parse_osc_bundle_element
+BYTES_2_TYPE["b"] = _parse_osc_bundle_element
 
 
 def _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
@@ -177,9 +180,8 @@ def _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
     """
     _LOGGER.debug("## start parsing bundle: %s", dgram[start_index:])
 
-    if dgram[start_index:start_index+8] != b'#bundle\x00':
-        raise ParseError(
-            "Datagram of bundles should start with b'#bundle\x00'")
+    if dgram[start_index : start_index + 8] != b"#bundle\x00":
+        raise ParseError("Datagram of bundles should start with b'#bundle\x00'")
     start_index += 8
 
     timetag, start_index = osc_types.get_timetag(dgram, start_index)
@@ -214,10 +216,10 @@ def parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]:
         if len(data) > TYPE_TAG_INDEX + 1:
             if data[TYPE_TAG_INDEX] == TYPE_TAG_MARKER:
                 return _parse_list(data, 0)[0]
-            elif data[:8] == b'#bundle\x00':
+            elif data[:8] == b"#bundle\x00":
                 return _parse_bundle(data, 0)[0]
     except ParseError as error:
-        _LOGGER.warning('Ignoring ParseError:\n%s\nreturning blob', error)
+        _LOGGER.warning("Ignoring ParseError:\n%s\nreturning blob", error)
     return data
 
 

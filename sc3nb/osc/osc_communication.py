@@ -29,7 +29,9 @@ _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
 
-def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None) -> OscMessage:
+def build_message(
+    msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None
+) -> OscMessage:
     """Builds pythonsosc OSC message.
 
     Parameters
@@ -47,11 +49,11 @@ def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None
     """
     if msg_args is None:
         msg_args = []
-    elif not hasattr(msg_args, '__iter__') or isinstance(msg_args, (str, bytes)):
+    elif not hasattr(msg_args, "__iter__") or isinstance(msg_args, (str, bytes)):
         msg_args = [msg_args]
 
-    if not msg_addr.startswith('/'):
-        msg_addr = '/' + msg_addr
+    if not msg_addr.startswith("/"):
+        msg_addr = "/" + msg_addr
 
     builder = OscMessageBuilder(address=msg_addr)
     for msg_arg in msg_args:
@@ -59,16 +61,17 @@ def build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None
     return builder.build()
 
 
-class Bundler():
+class Bundler:
     """Class for creating OSCBundles and Bundling of Messages"""
 
-    def __init__(self,
-                 timestamp: float = 0,
-                 msg: Optional[Union[OscMessage, str]] = None,
-                 msg_args: Optional[Sequence[Any]] = None,
-                 server: Optional['OSCCommunication'] = None,
-                 send_on_exit: bool = True
-                ) -> None:
+    def __init__(
+        self,
+        timestamp: float = 0,
+        msg: Optional[Union[OscMessage, str]] = None,
+        msg_args: Optional[Sequence[Any]] = None,
+        server: Optional["OSCCommunication"] = None,
+        send_on_exit: bool = True,
+    ) -> None:
         """Create a Bundler
 
         Parameters
@@ -111,7 +114,7 @@ class Bundler():
         """
         self.passed_time += time_passed
 
-    def add(self, *params) -> 'Bundler':
+    def add(self, *params) -> "Bundler":
         """Add a pythonosc OscMessage or OscBundle to this bundle.
 
         Parameters
@@ -134,10 +137,16 @@ class Bundler():
                 if bundler.timestamp < 1e6:
                     bundler.timestamp += self.passed_time
             else:
-                raise ValueError(f"Cannot add {content} of type {type(content)}. "
-                                 f"Needing {OscMessage} or {Bundler}")
-            _LOGGER.debug("%s Appending %s to Bundler with time %s",
-                          self.passed_time, bundler, bundler.timestamp)
+                raise ValueError(
+                    f"Cannot add {content} of type {type(content)}. "
+                    f"Needing {OscMessage} or {Bundler}"
+                )
+            _LOGGER.debug(
+                "%s Appending %s to Bundler with time %s",
+                self.passed_time,
+                bundler,
+                bundler.timestamp,
+            )
             self.contents.append(bundler)
         else:
             if len(params) == 3:
@@ -150,7 +159,7 @@ class Bundler():
                 raise ValueError(f"Invalid parameters {params}")
         return self
 
-    def __deepcopy__(self, memo) -> 'Bundler':
+    def __deepcopy__(self, memo) -> "Bundler":
         timestamp = self.timestamp
         new_bundler = Bundler(timestamp, server=self.server)
         new_bundler.contents = copy.deepcopy(self.contents)
@@ -191,10 +200,12 @@ class Bundler():
                 ValueError("Couldn't build with unsupported content: {content}")
         return builder.build()
 
-    def send(self,
-             server: 'OSCCommunication' = None,
-             receiver: Tuple[str, int] = None,
-             bundled: bool = True):
+    def send(
+        self,
+        server: Optional["OSCCommunication"] = None,
+        receiver: Tuple[str, int] = None,
+        bundled: bool = True,
+    ):
         """Send this Bundler.
 
         Parameters
@@ -290,7 +301,8 @@ class MessageQueue(MessageHandler):
         """
         if self._address != address:
             _LOGGER.warning(
-                "AddressQueue %s: alternative address %s", self._address, address)
+                "AddressQueue %s: alternative address %s", self._address, address
+            )
         if self.process:
             args = self.process(args)
         else:
@@ -358,7 +370,7 @@ class MessageQueue(MessageHandler):
 
     def _repr_pretty_(self, p, cycle) -> None:
         if cycle:
-            p.text('AddressQueue')
+            p.text("AddressQueue")
         else:
             p.text(f"AddressQueue {self._address} : {list(self._queue.queue)}")
 
@@ -379,7 +391,9 @@ class MessageQueueCollection(MessageHandler):
         """
         self._address = address
         if sub_addrs is not None:
-            self.msg_queues = {msg_addr: MessageQueue(msg_addr) for msg_addr in sub_addrs}
+            self.msg_queues = {
+                msg_addr: MessageQueue(msg_addr) for msg_addr in sub_addrs
+            }
         else:
             self.msg_queues = {}
 
@@ -394,9 +408,11 @@ class MessageQueueCollection(MessageHandler):
         address, *args = args
         if address not in self.msg_queues:
             self.msg_queues[address] = MessageQueue(address)
-            _LOGGER.debug("MessageQueue for %s was created under CollectionHandler %s.",
-                          address,
-                          self._address)
+            _LOGGER.debug(
+                "MessageQueue for %s was created under CollectionHandler %s.",
+                address,
+                self._address,
+            )
         self.msg_queues[address].put(address, *args)
 
     @property
@@ -423,15 +439,16 @@ class OSCCommunicationError(Exception):
         super().__init__(self.message)
 
 
-class OSCCommunication():
+class OSCCommunication:
     """Class to send and receive OSC messages and bundles."""
 
-    def __init__(self,
-                 server_ip: str,
-                 server_port: int,
-                 default_receiver_ip: str,
-                 default_receiver_port: int
-                ) -> None:
+    def __init__(
+        self,
+        server_ip: str,
+        server_port: int,
+        default_receiver_ip: str,
+        default_receiver_port: int,
+    ) -> None:
         """Create a OSC communication server
 
         Parameters
@@ -446,7 +463,10 @@ class OSCCommunication():
             port used for sending by default
         """
         self._receivers: Dict[Tuple[str, int], str] = dict()
-        self._default_receiver: Tuple[str, int] = (default_receiver_ip, default_receiver_port)
+        self._default_receiver: Tuple[str, int] = (
+            default_receiver_ip,
+            default_receiver_port,
+        )
 
         # bundling messages support
         self._bundling_lock = RLock()
@@ -456,10 +476,13 @@ class OSCCommunication():
         osc_server_dispatcher = Dispatcher()
         while True:
             try:
-                self._osc_server = ThreadingOSCUDPServer((server_ip, server_port),
-                                                         osc_server_dispatcher)
+                self._osc_server = ThreadingOSCUDPServer(
+                    (server_ip, server_port), osc_server_dispatcher
+                )
                 self._osc_server_running = True
-                _LOGGER.debug("This OSCCommunication instance is at port: %s", server_port)
+                _LOGGER.debug(
+                    "This OSCCommunication instance is at port: %s", server_port
+                )
                 break
             except OSError as error:
                 if error.errno == errno.EADDRINUSE:
@@ -467,7 +490,8 @@ class OSCCommunication():
 
         # start server thread
         self._osc_server_thread = threading.Thread(
-            target=self._osc_server.serve_forever)
+            target=self._osc_server.serve_forever
+        )
         self._osc_server_thread.daemon = True
         self._osc_server_thread.start()
 
@@ -492,7 +516,9 @@ class OSCCommunication():
         for msg_addr, reply_addr in msg_pairs.items():
             self.add_msg_queue(MessageQueue(reply_addr), msg_addr)
 
-    def add_msg_queue(self, msg_queue: MessageQueue, out_addr: Optional[str] = None) -> None:
+    def add_msg_queue(
+        self, msg_queue: MessageQueue, out_addr: Optional[str] = None
+    ) -> None:
         """Add a MessageQueue to this servers dispatcher
 
         Parameters
@@ -510,7 +536,9 @@ class OSCCommunication():
         if out_addr:
             self._reply_addresses[out_addr] = reply_addr
 
-    def add_msg_queue_collection(self, msg_queue_collection: MessageQueueCollection) -> None:
+    def add_msg_queue_collection(
+        self, msg_queue_collection: MessageQueueCollection
+    ) -> None:
         """Add a MessageQueueCollection
 
         Parameters
@@ -538,7 +566,9 @@ class OSCCommunication():
     def _check_sender(self, sender: Tuple[str, int]) -> Union[str, Tuple[str, int]]:
         return self._receivers.get(sender, sender)
 
-    def _get_receiver_address(self, receiver: Union[str, Tuple[str, int]]) -> Tuple[str, int]:
+    def _get_receiver_address(
+        self, receiver: Union[str, Tuple[str, int]]
+    ) -> Tuple[str, int]:
         """Reverse lookup the address of a specific receiver
 
         Parameters
@@ -552,15 +582,17 @@ class OSCCommunication():
             Receiver address (ip, port)
         """
         if isinstance(receiver, str):
-            return next(addr for addr, name in self._receivers.items() if name == receiver)
+            return next(
+                addr for addr, name in self._receivers.items() if name == receiver
+            )
         elif isinstance(receiver, tuple):
             return receiver
         else:
             raise ValueError(f"Incorrect type for receiver ({receiver}).")
 
-    def connection_info(self,
-                        print_info: bool = True
-                       ) -> Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]:
+    def connection_info(
+        self, print_info: bool = True
+    ) -> Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]:
         """Get information about the known addresses
 
         Parameters
@@ -580,8 +612,10 @@ class OSCCommunication():
             receivers_str = ""
             for addr, name in self._receivers.items():
                 receivers_str += f'"{name}" at {addr}\n                 '
-            print(f"This instance is at {self._osc_server.server_address},\n"
-                  f"Known receivers: {receivers_str}")
+            print(
+                f"This instance is at {self._osc_server.server_address},\n"
+                f"Known receivers: {receivers_str}"
+            )
         return (self._osc_server.server_address, self._receivers)
 
     def add_receiver(self, name: str, ip: str, port: int):
@@ -598,12 +632,14 @@ class OSCCommunication():
         """
         self._receivers[(ip, port)] = name
 
-    def send(self,
-             package: Union[OscMessage, Bundler, OscBundle],
-             bundled: bool = False,
-             receiver: Optional[Union[str, Tuple[str, int]]] = None,
-             await_reply: bool = True,
-             timeout: float = 5.0) -> Any:
+    def send(
+        self,
+        package: Union[OscMessage, Bundler, OscBundle],
+        bundled: bool = False,
+        receiver: Optional[Union[str, Tuple[str, int]]] = None,
+        await_reply: bool = True,
+        timeout: float = 5.0,
+    ) -> Any:
         """Sends OSC packet
 
         Parameters
@@ -652,7 +688,8 @@ class OSCCommunication():
                 datagram = package.dgram
         except AttributeError as error:
             raise ValueError(
-                    f"Package '{package}' not supported. It needs a dgram Attribute.") from error
+                f"Package '{package}' not supported. It needs a dgram Attribute."
+            ) from error
 
         self._osc_server.socket.sendto(datagram, receiver_address)
 
@@ -661,12 +698,17 @@ class OSCCommunication():
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):
                 msg_params_str = str(msg.params)
-                if not _LOGGER.isEnabledFor(logging.DEBUG) and len(str(msg.params)) > 55:
+                if (
+                    not _LOGGER.isEnabledFor(logging.DEBUG)
+                    and len(str(msg.params)) > 55
+                ):
                     msg_params_str = str(msg.params)[:55] + ".."
-                _LOGGER.debug("send to %s : %s %s",
-                              self._check_sender(receiver_address),
-                              msg.address,
-                              msg_params_str)
+                _LOGGER.debug(
+                    "send to %s : %s %s",
+                    self._check_sender(receiver_address),
+                    msg.address,
+                    msg_params_str,
+                )
             # handling
             try:
                 reply_addr = self.get_reply_address(msg.address)
@@ -692,7 +734,8 @@ class OSCCommunication():
                     "send to %s : %s contents size %s ",
                     self._check_sender(receiver_address),
                     package,
-                    len(package._contents))
+                    len(package._contents),
+                )
         else:
             _LOGGER.info("send to %s : %s", receiver, package)
 
@@ -711,14 +754,15 @@ class OSCCommunication():
         """
         return self._reply_addresses.get(msg_address, None)
 
-    def msg(self,
-            msg_addr: str,
-            msg_args: Optional[Sequence] = None,
-            bundled: bool = False,
-            receiver: Optional[Tuple[str, int]] = None,
-            await_reply: bool =True,
-            timeout: float = 5
-           ) -> Optional[Any]:
+    def msg(
+        self,
+        msg_addr: str,
+        msg_args: Optional[Sequence] = None,
+        bundled: bool = False,
+        receiver: Optional[Tuple[str, int]] = None,
+        await_reply: bool = True,
+        timeout: float = 5,
+    ) -> Optional[Any]:
         """Creates and sends OSC message over UDP.
 
         Parameters
@@ -742,17 +786,21 @@ class OSCCommunication():
         obj
             reply if await_reply and there is a reply for this
         """
-        return self.send(build_message(msg_addr, msg_args),
-                         bundled=bundled,
-                         receiver=receiver,
-                         await_reply=await_reply,
-                         timeout=timeout)
+        return self.send(
+            build_message(msg_addr, msg_args),
+            bundled=bundled,
+            receiver=receiver,
+            await_reply=await_reply,
+            timeout=timeout,
+        )
 
-    def bundler(self,
-                timestamp: float = 0,
-                msg: Optional[Union[OscMessage, str]] = None,
-                msg_args: Optional[Sequence[Any]] = None,
-                send_on_exit: bool = True) -> Bundler:
+    def bundler(
+        self,
+        timestamp: float = 0,
+        msg: Optional[Union[OscMessage, str]] = None,
+        msg_args: Optional[Sequence[Any]] = None,
+        send_on_exit: bool = True,
+    ) -> Bundler:
         """Generate a Bundler.
 
         This allows the user to easly add messages/bundles and send it.
@@ -774,11 +822,13 @@ class OSCCommunication():
         Bundler
             bundler for OSC bundling.
         """
-        return Bundler(timestamp=timestamp,
-                       msg=msg,
-                       msg_args=msg_args,
-                       server=self,
-                       send_on_exit=send_on_exit)
+        return Bundler(
+            timestamp=timestamp,
+            msg=msg,
+            msg_args=msg_args,
+            server=self,
+            send_on_exit=send_on_exit,
+        )
 
     def quit(self) -> None:
         """Shuts down the sc3nb OSC server"""

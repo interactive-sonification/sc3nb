@@ -2,6 +2,7 @@ from tests.test_sc import SCBaseTest
 from sc3nb.sc_objects.buffer import Buffer
 import numpy as np
 
+
 class BufferTest(SCBaseTest):
 
     __test__ = True

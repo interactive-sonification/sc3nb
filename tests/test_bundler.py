@@ -1,6 +1,7 @@
 from sc3nb.osc.osc_communication import Bundler
 from tests.test_sc import SCBaseTest
 
+
 class BundlerTest(SCBaseTest):
 
     __test__ = True

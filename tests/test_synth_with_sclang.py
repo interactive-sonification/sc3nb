@@ -3,6 +3,7 @@ import time
 from tests.test_sc import SCBaseTest
 from sc3nb.sc_objects.node import Synth
 
+
 class SynthTestWithSClang(SCBaseTest):
 
     __test__ = True
@@ -11,7 +12,7 @@ class SynthTestWithSClang(SCBaseTest):
     def setUp(self) -> None:
         self.assertIsNotNone(SynthTestWithSClang.sc.lang)
         self.custom_nodeid = 42
-        self.all_synth_args = {'freq': 400, "amp": 0.3, "num": 4, "pan": 0, "lg": 0.1}
+        self.all_synth_args = {"freq": 400, "amp": 0.3, "num": 4, "pan": 0, "lg": 0.1}
         self.synth = Synth("s2", nodeid=self.custom_nodeid)
 
     def tearDown(self) -> None:

@@ -13,22 +13,24 @@ if TYPE_CHECKING:
     from sc3nb.sclang import SynthArgument
     from sc3nb.sc import SC
 
+
 @unique
 class SynthDefinitionCommand(str, Enum):
     """OSC Commands for Synth Definitions"""
+
     RECV = "/d_recv"
     LOAD = "/d_load"
     LOAD_DIR = "/d_loadDir"
     FREE = "/d_free"
 
 
-class SynthDef():
+class SynthDef:
     """Wrapper for SuperCollider SynthDef"""
 
     synth_descs = {}
 
     @classmethod
-    def get_desc(cls, name: str) -> Optional[Dict[str, 'SynthArgument']]:
+    def get_desc(cls, name: str) -> Optional[Dict[str, "SynthArgument"]]:
         """Get Synth description
 
         Parameters
@@ -60,7 +62,7 @@ class SynthDef():
             warnings.warn(f"SynthDesc is unknown. {sclang_text}")
         return synth_desc
 
-    def __init__(self, name: str, definition: str, sc: Optional['SC'] = None) -> None:
+    def __init__(self, name: str, definition: str, sc: Optional["SC"] = None) -> None:
         """Create a dynamic synth definition in sc.
 
         Parameters
@@ -81,7 +83,7 @@ class SynthDef():
         self.name = name
         self.current_def = definition
 
-    def reset(self) -> 'SynthDef':
+    def reset(self) -> "SynthDef":
         """Reset the current synthdef configuration to the self.definition value.
 
         After this you can restart your
@@ -95,7 +97,7 @@ class SynthDef():
         self.current_def = self.definition
         return self
 
-    def set_context(self, searchpattern: str, value) -> 'SynthDef':
+    def set_context(self, searchpattern: str, value) -> "SynthDef":
         """Set context in SynthDef.
 
         This method will replace a given key (format: "...{{key}}...") in the
@@ -113,10 +115,12 @@ class SynthDef():
         self : object of type SynthDef
             the SynthDef object
         """
-        self.current_def = self.current_def.replace("{{"+searchpattern+"}}", str(value))
+        self.current_def = self.current_def.replace(
+            "{{" + searchpattern + "}}", str(value)
+        )
         return self
 
-    def set_contexts(self, dictionary: Dict[str, Any]) -> 'SynthDef':
+    def set_contexts(self, dictionary: Dict[str, Any]) -> "SynthDef":
         """Set multiple values at onces when you give a dictionary.
 
         Because dictionaries are unsorted, keep in mind, that
@@ -136,7 +140,7 @@ class SynthDef():
             self.set_context(searchpattern, replacement)
         return self
 
-    def unset_remaining(self) -> 'SynthDef':
+    def unset_remaining(self) -> "SynthDef":
         """This method will remove all existing placeholders in the current def.
 
         You can use this at the end of definition
@@ -181,10 +185,13 @@ class SynthDef():
         # TODO should check if there is context/pyvars that can't be set
 
         # Create new SynthDef add it to SynthDescLib and get bytes
-        synth_def_blob = self.sc.lang.cmdg(f"""
+        synth_def_blob = self.sc.lang.cmdg(
+            f"""
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
-            r.tmpSynthDef.asBytes();""", pyvars=pyvars)
+            r.tmpSynthDef.asBytes();""",
+            pyvars=pyvars,
+        )
         if synth_def_blob == 0:
             error = self.sc.lang.read()
             print(error)
@@ -193,7 +200,7 @@ class SynthDef():
             self.sc.server.send_synthdef(synth_def_blob)
             return self.name
 
-    def free(self) -> 'SynthDef':
+    def free(self) -> "SynthDef":
         """Free this SynthDef from the server.
 
         Returns

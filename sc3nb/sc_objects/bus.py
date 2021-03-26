@@ -14,28 +14,32 @@ if TYPE_CHECKING:
 @unique
 class ControlBusCommand(str, Enum):
     """OSC Commands for Control Buses"""
+
     FILL = "/c_fill"
     SET = "/c_set"
     SETN = "/c_setn"
     GET = "/c_get"
     GETN = "/c_getn"
 
+
 @unique
 class BusRate(str, Enum):
     """Calculation rate of Buses"""
+
     AUDIO = "audio"
     CONTROL = "control"
 
 
-class Bus():
+class Bus:
     """Represenation of a Control or Audio Bus on the SuperCollider Server"""
 
-    def __init__(self,
-                 rate: Union[BusRate, str],
-                 num_channels: int = 1,
-                 index: Optional[int] = None,
-                 server: Optional['SCServer'] = None
-                 ) -> None:
+    def __init__(
+        self,
+        rate: Union[BusRate, str],
+        num_channels: int = 1,
+        index: Optional[int] = None,
+        server: Optional["SCServer"] = None,
+    ) -> None:
         self._server = server or sc3nb.SC.get_default().server
         self._num_channels = num_channels
         self._rate = rate
@@ -43,11 +47,15 @@ class Bus():
             if self._rate is BusRate.AUDIO:
                 self._bus_idxs = self._server.allocate_audio_bus_idx(self._num_channels)
             else:
-                self._bus_idxs = self._server.allocate_control_bus_idx(self._num_channels)
+                self._bus_idxs = self._server.allocate_control_bus_idx(
+                    self._num_channels
+                )
         else:
             self._bus_idxs = list(range(index, index + num_channels))
         if num_channels > 1:
-            assert len(self._bus_idxs) == num_channels, "Not enough idxes for number of channels"
+            assert (
+                len(self._bus_idxs) == num_channels
+            ), "Not enough idxes for number of channels"
 
     @property
     def rate(self) -> Union[BusRate, str]:
@@ -119,9 +127,12 @@ class Bus():
             raise RuntimeError("Can't setn Audio Buses")
         if self._num_channels > 1:
             if len(values) != self._num_channels:
-                raise ValueError(f"lenght of values must fit num channels ({self._num_channels})")
-            self._server.msg(ControlBusCommand.SETN,
-                             [self._bus_idxs[0], self._num_channels, *values])
+                raise ValueError(
+                    f"lenght of values must fit num channels ({self._num_channels})"
+                )
+            self._server.msg(
+                ControlBusCommand.SETN, [self._bus_idxs[0], self._num_channels, *values]
+            )
         else:
             self._server.msg(ControlBusCommand.SET, [self._bus_idxs[0], *values])
 
@@ -140,7 +151,9 @@ class Bus():
         """
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't fill Audio Buses")
-        self._server.msg(ControlBusCommand.FILL, [self._bus_idxs[0], self._num_channels, value])
+        self._server.msg(
+            ControlBusCommand.FILL, [self._bus_idxs[0], self._num_channels, value]
+        )
 
     def get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]:
         """Get bus value(s).
@@ -181,11 +194,15 @@ class Bus():
             Reset bus value(s) to 0, by default True
         """
         if self._rate is BusRate.AUDIO:
-            self._bus_idxs = self._server.audio_bus_id_allocator.free_ids(self._bus_idxs)
+            self._bus_idxs = self._server.audio_bus_id_allocator.free_ids(
+                self._bus_idxs
+            )
         else:
             if clear:
                 self.fill(0)
-            self._bus_idxs = self._server.control_bus_id_allocator.free_ids(self._bus_idxs)
+            self._bus_idxs = self._server.control_bus_id_allocator.free_ids(
+                self._bus_idxs
+            )
 
     def __del__(self) -> None:
         if self._bus_idxs:

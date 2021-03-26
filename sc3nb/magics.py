@@ -8,6 +8,7 @@ from IPython.core.magic import Magics, magics_class, line_cell_magic
 
 import sc3nb
 
+
 def load_ipython_extension(ipython) -> None:
     """Function that is called when Jupyter loads this as extension (%load_ext sc3nb)
 
@@ -18,6 +19,7 @@ def load_ipython_extension(ipython) -> None:
     """
     ipython.register_magics(SC3Magics)
     add_shortcut(ipython)
+
 
 def add_shortcut(ipython, shortcut: str = None) -> None:
     """Add the server free all shortcut.
@@ -32,16 +34,16 @@ def add_shortcut(ipython, shortcut: str = None) -> None:
     try:
         if shortcut is None:
             if sys.platform == "darwin":
-                shortcut = 'cmd-.'
+                shortcut = "cmd-."
             elif sys.platform in ["linux", "linux2", "win32"]:
-                shortcut = 'Ctrl-.'
+                shortcut = "Ctrl-."
             else:
                 warnings.warn(f"Unable to add shortcut for platform '{sys.platform}'")
         if shortcut is not None:
             ipython.run_cell_magic(
-                'javascript',
-                '',
-                f'''if (typeof Jupyter !== 'undefined') {{
+                "javascript",
+                "",
+                f"""if (typeof Jupyter !== 'undefined') {{
                         Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
                         \'{shortcut}\', {{
                         help : \'Free all nodes on SC server\',
@@ -52,7 +54,8 @@ def add_shortcut(ipython, shortcut: str = None) -> None:
                             )
                             return true;}}
                         }});
-                    }}''')
+                    }}""",
+            )
     except AttributeError:
         pass
 
@@ -62,7 +65,7 @@ class SC3Magics(Magics):
     """Jupyter magics for SC class"""
 
     @line_cell_magic
-    def sc(self, line='', cell=None):
+    def sc(self, line="", cell=None):
         """Execute SuperCollider code via magic
 
         Parameters
@@ -85,7 +88,7 @@ class SC3Magics(Magics):
         return sc3nb.SC.get_default().lang.cmd(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
-    def scv(self, line='', cell=None):
+    def scv(self, line="", cell=None):
         """Execute SuperCollider code with verbose output
 
         Parameters
@@ -108,7 +111,7 @@ class SC3Magics(Magics):
         return sc3nb.SC.get_default().lang.cmdv(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
-    def scg(self, line='', cell=None):
+    def scg(self, line="", cell=None):
         """Execute SuperCollider code returning output
 
         Parameters
@@ -135,7 +138,7 @@ class SC3Magics(Magics):
         return sc3nb.SC.get_default().lang.cmdg(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
-    def scgv(self, line='', cell=None):
+    def scgv(self, line="", cell=None):
         """Execute SuperCollider code returning output
 
         Parameters
@@ -181,12 +184,12 @@ class SC3Magics(Magics):
         """
         user_ns = self.shell.user_ns
 
-        matches = re.findall(r'\s*\^[A-Za-z_]\w*\s*', code)
-        pyvars = {match.split('^')[1].strip(): None for match in matches}
+        matches = re.findall(r"\s*\^[A-Za-z_]\w*\s*", code)
+        pyvars = {match.split("^")[1].strip(): None for match in matches}
         for pyvar in pyvars:
             if pyvar in user_ns:
                 pyvars[pyvar] = user_ns[pyvar]
             else:
-                raise NameError('name \'{}\' is not defined'.format(pyvar))
+                raise NameError("name '{}' is not defined".format(pyvar))
 
         return pyvars

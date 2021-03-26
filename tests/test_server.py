@@ -2,8 +2,8 @@ from unittest import TestCase
 from sc3nb.sc_objects.server import SCServer, ServerOptions
 from sc3nb.sc_objects.node import Group
 
-class ServerTest(TestCase):
 
+class ServerTest(TestCase):
     def setUp(self) -> None:
         self.port = 57777
         options = ServerOptions(udp_port=self.port)

@@ -13,11 +13,11 @@ class SynthTest(SCBaseTest):
         with self.assertRaises(RuntimeWarning):
             SynthTest.sc.lang
         self.custom_nodeid = 42
-        self.args = {'amp': 0.0, "num": 3}
-        warnings.simplefilter('always', UserWarning)
-        with self.assertWarnsRegex(UserWarning,
-                                   "SynthDesc is unknown",
-                                   msg="SynthDesc seems to be known"):
+        self.args = {"amp": 0.0, "num": 3}
+        warnings.simplefilter("always", UserWarning)
+        with self.assertWarnsRegex(
+            UserWarning, "SynthDesc is unknown", msg="SynthDesc seems to be known"
+        ):
             self.synth = Synth("s2", args=self.args, nodeid=self.custom_nodeid)
         self.assertIsNone(self.synth._synth_desc)
 
@@ -41,13 +41,15 @@ class SynthTest(SCBaseTest):
         for name, value in {"amp": 0.3, "num": 1}.items():
             self.synth.__setattr__(name, value)
             self.assertAlmostEqual(self.synth.__getattr__(name), value)
-        #with self.assertWarnsRegex(UserWarning, "Setting 'freq' as python attribute"):
+        # with self.assertWarnsRegex(UserWarning, "Setting 'freq' as python attribute"):
         self.synth.freq = 420
 
     def test_set_get(self):
         with self.assertWarnsRegex(UserWarning, "Setting 'freq' as python attribute"):
             self.synth.freq = 420  # should warn if setting attribute
-        self.assertAlmostEqual(self.synth.get("freq"), 400)  # default freq of s2 SynthDef
+        self.assertAlmostEqual(
+            self.synth.get("freq"), 400
+        )  # default freq of s2 SynthDef
         with self.assertWarnsRegex(UserWarning, "recognized as Node Parameter now"):
             self.synth.set("freq", 100)
         self.assertAlmostEqual(self.synth.get("freq"), 100)

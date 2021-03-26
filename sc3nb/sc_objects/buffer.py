@@ -23,11 +23,14 @@ if TYPE_CHECKING:
 @unique
 class BufferReply(str, Enum):
     """Buffer Command Replies"""
+
     INFO = "/b_info"
+
 
 @unique
 class BufferCommand(str, Enum):
     """Buffer OSC Commands for Buffers"""
+
     ALLOC = "/b_alloc"
     ALLOC_READ = "/b_allocRead"
     ALLOC_READ_CHANNEL = "/b_allocReadChannel"
@@ -49,16 +52,18 @@ class BufferCommand(str, Enum):
 @unique
 class BufferAllocationMode(str, Enum):
     """Buffer Allocation Modes"""
-    FILE = 'file'
-    ALLOC = 'alloc'
-    DATA = 'data'
-    EXISTING = 'existing'
-    COPY = 'copy'
-    NONE = 'none'
+
+    FILE = "file"
+    ALLOC = "alloc"
+    DATA = "data"
+    EXISTING = "existing"
+    COPY = "copy"
+    NONE = "none"
 
 
 class BufferInfo(NamedTuple):
     """Information about the Buffer"""
+
     bufnum: int
     num_frames: int
     num_channels: int
@@ -122,7 +127,9 @@ class Buffer:
 
     """
 
-    def __init__(self, bufnum: Optional[int] = None, server: Optional['SCServer'] = None) -> None:
+    def __init__(
+        self, bufnum: Optional[int] = None, server: Optional["SCServer"] = None
+    ) -> None:
         self.server = server or sc3nb.SC.get_default().server
         self._bufnum_set_manually = bufnum is not None
         self._bufnum = bufnum
@@ -136,11 +143,13 @@ class Buffer:
         self._synth = None
 
     # Section: Buffer initialization methods
-    def read(self,
-            path: str,
-            starting_frame: int = 0,
-            num_frames: int = -1,
-            channels: Optional[Union[int, Sequence[int]]] = None) -> 'Buffer':
+    def read(
+        self,
+        path: str,
+        starting_frame: int = 0,
+        num_frames: int = -1,
+        channels: Optional[Union[int, Sequence[int]]] = None,
+    ) -> "Buffer":
         """Allocate buffer space and read a sound file.
 
         If the number of frames argument is less than or equal to zero,
@@ -174,11 +183,15 @@ class Buffer:
             self._bufnum = self.server.allocate_buffer_id(num=1)[0]
         self._alloc_mode = BufferAllocationMode.FILE
         self._path = Path(path).resolve(strict=True)
-        self._sr, data = wavfile.read(self._path)  # TODO: we only need the metadata here
+        self._sr, data = wavfile.read(
+            self._path
+        )  # TODO: we only need the metadata here
         server_sr = self.server.sample_rate
         if self._sr != server_sr:
-            warnings.warn(f"Sample rate of file ({self._sr}) does not "
-                          f"match the SC Server sample rate ({server_sr})")
+            warnings.warn(
+                f"Sample rate of file ({self._sr}) does not "
+                f"match the SC Server sample rate ({server_sr})"
+            )
         if num_frames <= 0:
             self._samples = data.shape[0]
         else:
@@ -193,11 +206,12 @@ class Buffer:
         self._channels = len(channels)
         self.server.msg(
             BufferCommand.ALLOC_READ_CHANNEL,
-            [self._bufnum, str(self._path), starting_frame, num_frames, *channels])
+            [self._bufnum, str(self._path), starting_frame, num_frames, *channels],
+        )
         self._allocated = True
         return self
 
-    def alloc(self, size: int, sr: float = 44100, channels: int = 1) -> 'Buffer':
+    def alloc(self, size: int, sr: float = 44100, channels: int = 1) -> "Buffer":
         """Allocate buffer space.
 
         Parameters
@@ -231,7 +245,9 @@ class Buffer:
         self._allocated = True
         return self
 
-    def load_data(self, data: np.ndarray, mode: str = 'file', sr: float = 44100) -> 'Buffer':
+    def load_data(
+        self, data: np.ndarray, mode: str = "file", sr: float = 44100
+    ) -> "Buffer":
         """Allocate buffer space and read input data.
 
         Parameters
@@ -261,18 +277,20 @@ class Buffer:
         self._sr = sr
         self._samples = data.shape[0]
         self._channels = 1 if len(data.shape) == 1 else data.shape[1]
-        if mode == 'file':
+        if mode == "file":
             tempfile = NamedTemporaryFile(delete=False)
             try:
                 wavfile.write(tempfile, self._sr, data)
             finally:
                 tempfile.close()
-            self.server.msg(BufferCommand.ALLOC_READ,
-                            [self._bufnum, tempfile.name],
-                            await_reply=True)
+            self.server.msg(
+                BufferCommand.ALLOC_READ,
+                [self._bufnum, tempfile.name],
+                await_reply=True,
+            )
             if os.path.exists(tempfile.name):
                 os.remove(tempfile.name)
-        elif mode == 'osc':
+        elif mode == "osc":
             self.server.msg(BufferCommand.ALLOC, [self._bufnum, data.shape[0]])
             blocksize = 1000  # array size compatible with OSC packet size
             # TODO: check how this depends on datagram size
@@ -280,27 +298,33 @@ class Buffer:
             if self._channels > 1:
                 data = data.reshape(-1, 1)
             if data.shape[0] < blocksize:
-                self.server.msg(BufferCommand.SETN,
-                                [self._bufnum, [0, data.shape[0], data.tolist()]], )
+                self.server.msg(
+                    BufferCommand.SETN,
+                    [self._bufnum, [0, data.shape[0], data.tolist()]],
+                )
             else:
                 # For datasets larger than {blocksize} entries,
                 # split data to avoid network problems
-                splitdata = np.array_split(data, data.shape[0]/blocksize)
+                splitdata = np.array_split(data, data.shape[0] / blocksize)
                 for i, chunk in enumerate(splitdata):
-                    self.server.msg(BufferCommand.SETN,
-                                    [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
-                                    await_reply=False)
+                    self.server.msg(
+                        BufferCommand.SETN,
+                        [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
+                        await_reply=False,
+                    )
                 self.server.sync()
         else:
             raise ValueError(f"Unsupported mode '{mode}'.")
         self._allocated = True
         return self
 
-    def load_collection(self, data: np.ndarray, mode: str = 'file', sr: float = 44100) -> 'Buffer':
+    def load_collection(
+        self, data: np.ndarray, mode: str = "file", sr: float = 44100
+    ) -> "Buffer":
         """Wrapper method of :func:`Buffer.load_data`"""
         return self.load_data(data, mode, sr)
 
-    def load_asig(self, asig: 'pya.Asig', mode: str ='file') -> 'Buffer':
+    def load_asig(self, asig: "pya.Asig", mode: str = "file") -> "Buffer":
         """Create buffer from asig
 
         Parameters
@@ -324,7 +348,7 @@ class Buffer:
             raise RuntimeError("Buffer object is already initialized!")
         return self.load_data(asig.sig, mode, sr=asig.sr)
 
-    def use_existing(self, bufnum: int, sr: float = 44100) -> 'Buffer':
+    def use_existing(self, bufnum: int, sr: float = 44100) -> "Buffer":
         """Creates a buffer object from already existing Buffer bufnum.
 
         Parameters
@@ -356,7 +380,7 @@ class Buffer:
         self._channels = info.num_channels
         return self
 
-    def copy_existing(self, buffer: 'Buffer') -> 'Buffer':
+    def copy_existing(self, buffer: "Buffer") -> "Buffer":
         """Duplicate an existing buffer
 
         Parameters
@@ -398,7 +422,7 @@ class Buffer:
         return self
 
     # Section: Buffer modification methods
-    def fill(self, start: int = 0, count: int = 0, value: float = 0) -> 'Buffer':
+    def fill(self, start: int = 0, count: int = 0, value: float = 0) -> "Buffer":
         """Fill range of samples with value(s).
 
         Parameters
@@ -432,7 +456,7 @@ class Buffer:
         self.server.msg(BufferCommand.FILL, [self._bufnum] + values)
         return self
 
-    def gen(self, command: str, args: List[Any]) -> 'Buffer':
+    def gen(self, command: str, args: List[Any]) -> "Buffer":
         """Call a command to fill a buffer.
         If you know, what you do -> you can use this method.
 
@@ -460,7 +484,7 @@ class Buffer:
         self.server.msg(BufferCommand.GEN, [self._bufnum, command] + args)
         return self
 
-    def zero(self) -> 'Buffer':
+    def zero(self) -> "Buffer":
         """Set buffer data to zero.
 
         Returns
@@ -478,12 +502,13 @@ class Buffer:
         self.server.msg(BufferCommand.ZERO, [self._bufnum])
         return self
 
-    def gen_sine1(self,
-                  amplitudes: List[float],
-                  normalize: bool = False,
-                  wavetable: bool = False,
-                  clear: bool =False
-                 ) -> 'Buffer':
+    def gen_sine1(
+        self,
+        amplitudes: List[float],
+        normalize: bool = False,
+        wavetable: bool = False,
+        clear: bool = False,
+    ) -> "Buffer":
         """Fill the buffer with sine waves & given amplitude
 
         Parameters
@@ -512,16 +537,17 @@ class Buffer:
         RuntimeError
             If the Buffer is not allocated yet.
         """
-        return self.gen("sine1",
-                        [self._gen_flags(normalize, wavetable, clear),
-                         amplitudes])
+        return self.gen(
+            "sine1", [self._gen_flags(normalize, wavetable, clear), amplitudes]
+        )
 
-    def gen_sine2(self,
-                  freq_amps: List[float],
-                  normalize: bool = False,
-                  wavetable: bool = False,
-                  clear: bool = False
-                 ) -> 'Buffer':
+    def gen_sine2(
+        self,
+        freq_amps: List[float],
+        normalize: bool = False,
+        wavetable: bool = False,
+        clear: bool = False,
+    ) -> "Buffer":
         """Fill the buffer with sine waves
         given list of [frequency, amplitude] lists
 
@@ -551,16 +577,17 @@ class Buffer:
         RuntimeError
             If the Buffer is not allocated yet.
         """
-        return self.gen("sine2",
-                        [self._gen_flags(normalize, wavetable, clear),
-                         freq_amps])
+        return self.gen(
+            "sine2", [self._gen_flags(normalize, wavetable, clear), freq_amps]
+        )
 
-    def gen_sine3(self,
-                  freqs_amps_phases: List[float],
-                  normalize: bool = False,
-                  wavetable: bool = False,
-                  clear: bool = False
-                 ) -> 'Buffer':
+    def gen_sine3(
+        self,
+        freqs_amps_phases: List[float],
+        normalize: bool = False,
+        wavetable: bool = False,
+        clear: bool = False,
+    ) -> "Buffer":
         """Fill the buffer with sine waves & given a list of
         [frequency, amplitude, phase] entries.
 
@@ -589,15 +616,17 @@ class Buffer:
         RuntimeError
             If the Buffer is not allocated yet.
         """
-        return self.gen("sine3", [self._gen_flags(normalize, wavetable, clear),
-                                  freqs_amps_phases])
+        return self.gen(
+            "sine3", [self._gen_flags(normalize, wavetable, clear), freqs_amps_phases]
+        )
 
-    def gen_cheby(self,
-                  amplitudes: List[float],
-                  normalize: bool = False,
-                  wavetable: bool = False,
-                  clear: bool = False
-                 ) -> 'Buffer':
+    def gen_cheby(
+        self,
+        amplitudes: List[float],
+        normalize: bool = False,
+        wavetable: bool = False,
+        clear: bool = False,
+    ) -> "Buffer":
         """Fills a buffer with a series of chebyshev polynomials, which can be
         defined as cheby(n) = amplitude * cos(n * acos(x))
 
@@ -627,15 +656,13 @@ class Buffer:
         RuntimeError
             If the Buffer is not allocated yet.
         """
-        return self.gen("cheby", [self._gen_flags(normalize, wavetable, clear),
-                                  amplitudes])
+        return self.gen(
+            "cheby", [self._gen_flags(normalize, wavetable, clear), amplitudes]
+        )
 
-    def gen_copy(self,
-                 source: 'Buffer',
-                 source_pos: int,
-                 dest_pos: int,
-                 copy_amount: int
-                ) -> 'Buffer':
+    def gen_copy(
+        self, source: "Buffer", source_pos: int, dest_pos: int, copy_amount: int
+    ) -> "Buffer":
         """Copy samples from the source buffer to the destination buffer
         specified in the b_gen command.
 
@@ -662,16 +689,12 @@ class Buffer:
         RuntimeError
             If the Buffer is not allocated yet.
         """
-        return self.gen("copy", [dest_pos, source.bufnum, source_pos,
-                                 copy_amount])
+        return self.gen("copy", [dest_pos, source.bufnum, source_pos, copy_amount])
 
     # Section: Buffer output methods
-    def play(self,
-             rate: float = 1,
-             loop: bool = False,
-             pan: float = 0,
-             amp: float = 0.3
-            ) -> Synth:
+    def play(
+        self, rate: float = 1, loop: bool = False, pan: float = 0, amp: float = 0.3
+    ) -> Synth:
         """Play the Buffer using a Synth
 
         Parameters
@@ -709,30 +732,34 @@ class Buffer:
 
         if self._synth_def is None:
             self._synth_def = SynthDef(
-                name=f"sc3nb_playbuf_{self.bufnum}",
-                definition=playbuf_def)
+                name=f"sc3nb_playbuf_{self.bufnum}", definition=playbuf_def
+            )
             synth_name = self._synth_def.add(
-                pyvars={"num_channels": self.channels,
-                        "bufnum": self.bufnum,
-                        "rate": rate,
-                        "loop": 1 if loop else 0,
-                        "pan": pan,
-                        "amp": amp})
+                pyvars={
+                    "num_channels": self.channels,
+                    "bufnum": self.bufnum,
+                    "rate": rate,
+                    "loop": 1 if loop else 0,
+                    "pan": pan,
+                    "amp": amp,
+                }
+            )
             self._synth = Synth(name=synth_name, server=self.server)
         else:
             self._synth.new(
-                {"rate": rate, "loop": 1 if loop else 0,
-                 "pan": pan, "amp": amp})
+                {"rate": rate, "loop": 1 if loop else 0, "pan": pan, "amp": amp}
+            )
         return self._synth
 
-    def write(self,
-              path: str,
-              header: str = "wav",
-              sample: str = "float",
-              num_frames: int = -1,
-              starting_frame: int =0,
-              leave_open: bool = False
-             ) -> 'Buffer':
+    def write(
+        self,
+        path: str,
+        header: str = "wav",
+        sample: str = "float",
+        num_frames: int = -1,
+        starting_frame: int = 0,
+        leave_open: bool = False,
+    ) -> "Buffer":
         """Write buffer data to a sound file
 
         Parameters
@@ -771,11 +798,21 @@ class Buffer:
             raise RuntimeError("Buffer object is not initialized!")
         leave_open_val = 1 if leave_open else 0
         path = str(Path(path).resolve())
-        self.server.msg(BufferCommand.WRITE, [self._bufnum, path, header, sample,
-                            num_frames, starting_frame, leave_open_val])
+        self.server.msg(
+            BufferCommand.WRITE,
+            [
+                self._bufnum,
+                path,
+                header,
+                sample,
+                num_frames,
+                starting_frame,
+                leave_open_val,
+            ],
+        )
         return self
 
-    def close(self) -> 'Buffer':
+    def close(self) -> "Buffer":
         """Close soundfile after using a Buffer with DiskOut
 
         Returns
@@ -811,9 +848,9 @@ class Buffer:
         data = []
         blocksize = 1000  # array size compatible with OSC packet size
         i = 0
-        num_samples = (self._samples * self._channels)
+        num_samples = self._samples * self._channels
         while i < num_samples:
-            bs = blocksize if i+blocksize < num_samples else num_samples-i
+            bs = blocksize if i + blocksize < num_samples else num_samples - i
             tmp = self.server.msg(BufferCommand.GETN, [self._bufnum, i, bs])
             data += list(tmp)[3:]  # skip first 3 els [bufnum, startidx, size]
             i += bs
@@ -842,10 +879,12 @@ class Buffer:
         if cycle:
             p.text("Buffer {self.bufnum}")
         else:
-            p.text(f"Buffer {self.bufnum} on {self.server.addr}: " + \
-                   f"{self.channels} x {self.samples} @ {self.sr} Hz –> " + \
-                   f"""{["not loaded", "allocated"][self.allocated]} """ + \
-                   f"using mode '{self._alloc_mode}'")
+            p.text(
+                f"Buffer {self.bufnum} on {self.server.addr}: "
+                + f"{self.channels} x {self.samples} @ {self.sr} Hz –> "
+                + f"""{["not loaded", "allocated"][self.allocated]} """
+                + f"using mode '{self._alloc_mode}'"
+            )
 
     # Section: Methods to delete / free Buffers
     def free(self) -> None:
@@ -858,7 +897,10 @@ class Buffer:
         """
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
-        if self._alloc_mode != BufferAllocationMode.EXISTING and not self._bufnum_set_manually:
+        if (
+            self._alloc_mode != BufferAllocationMode.EXISTING
+            and not self._bufnum_set_manually
+        ):
             self.server.buffer_id_allocator.free_ids([self._bufnum])
         self.server.msg(BufferCommand.FREE, [self._bufnum])
         self._allocated = False
