@@ -105,6 +105,5 @@ venv.bak/
 
 .vscode
 
-temp/
 .idea/
 docs/source/autogen
