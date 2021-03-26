@@ -1,0 +1,12 @@
+include *.txt
+include LICENSE
+
+recursive-include tests *.py
+
+recursive-include examples *.ipynb
+recursive-include examples *.wav
+
+recursive-include sc3nb *.scsyndef
+recursive-include sccode *.scd
+
+recursive-exclude examples .ipynb_checkpoints/*.ipynb
