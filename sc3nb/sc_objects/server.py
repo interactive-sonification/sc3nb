@@ -128,7 +128,10 @@ class ServerVersion(NamedTuple):
     commit: str
 
 class ServerOptions():
-    """ServerOptions encapulates the command line server options."""
+    """Options for the SuperCollider audio server
+
+    This allows the encapsulation and handling of the command line server options.
+    """
     def __init__(self,
                  udp_port: int = SCSYNTH_DEFAULT_PORT,
                  max_logins: int = 5,
@@ -277,7 +280,7 @@ class IDBlockAllocator():
 
 
 class SCServer(OSCCommunication):
-    """The SCServer represents the SuperCollider Server programm as Python object."""
+    """SuperCollider audio server representaion."""
 
     def __init__(self, options: Optional[ServerOptions] = None):
         # process

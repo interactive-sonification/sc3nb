@@ -34,7 +34,7 @@ class SynthArgument(NamedTuple):
 def remove_comments(code: str) -> str:
     """Removes all c-style comments from code.
 
-    This removes //single-line or /* multi-line */  comments.
+    This removes `//single-line` or `/* multi-line */`  comments.
 
     Parameters
     ----------
@@ -143,11 +143,13 @@ def convert_to_sc(obj: Any) -> str:
     """Converts python objects to SuperCollider code literals.
 
     This supports currently:
-    numpy.ndarray -> SC Array representation
-    complex type -> SC Complex
-    strings -> if starting with sc3: it will be used as SC code
-               if it starts with a \\ (single escaped backward slash) it will be used as symbol
-               else it will be inserted as string
+
+    * numpy.ndarray -> SC Array representation
+    * complex type -> SC Complex
+    * strings -> if starting with sc3: it will be used as SC code
+                 if it starts with a \\ (single escaped backward slash) it will be used as symbol
+                 else it will be inserted as string
+
     For unsupported types the __repr__ will be used.
 
     Parameters

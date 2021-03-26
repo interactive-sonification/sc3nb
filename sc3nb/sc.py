@@ -26,7 +26,8 @@ def startup(start_server: bool = True,
             scsynth_options: Optional[ServerOptions] = None,
             with_blip: bool = True,
             console_logging: bool = True,
-            allowed_parents: Sequence[str] = ALLOWED_PARENTS):
+            allowed_parents: Sequence[str] = ALLOWED_PARENTS
+           ) -> 'SC':
     """Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
 
     Parameters
@@ -83,9 +84,33 @@ def startup(start_server: bool = True,
 
 
 class SC():
-    """Class for Wrapping SuperCollider server and language."""
+    """Create a SuperCollider Wrapper object.
 
+    Parameters
+    ----------
+    start_server : bool, optional
+        If True boot scsynth, by default True.
+    scsynth_path : Optional[str], optional
+        Path of scscynth executable, by default None.
+    start_sclang : bool, optional
+        If True start sclang, by default True.
+    sclang_path : Optional[str], optional
+        Path of sclang executable, by default None.
+    scsynth_options : Optional[ServerOptions], optional
+        Options for the server, by default None.
+    with_blib : bool, optional
+        Make a sound when booted, by default True.
+    console_logging : bool, optional
+        If True write scsynth/sclang output to console, by default True.
+    allowed_parents : Sequence[str], optional
+        Names of parents that are allowed for other instances of
+        sclang/scsynth processes, by default ALLOWED_PARENTS.
+    """
     default: Optional["SC"] = None
+    """Default SC instance.
+
+    This will be used by all SuperCollider objects if no SC/server/lang is specified.
+    """
 
     @classmethod
     def get_default(cls) -> "SC":
@@ -116,28 +141,6 @@ class SC():
                  with_blib: bool = True,
                  console_logging: bool =True,
                  allowed_parents: Sequence[str] = ALLOWED_PARENTS):
-        """Create a SuperCollider Wrapper object.
-
-        Parameters
-        ----------
-        start_server : bool, optional
-            If True boot scsynth, by default True
-        scsynth_path : Optional[str], optional
-            Path of scscynth executable, by default None
-        start_sclang : bool, optional
-            If True start sclang, by default True
-        sclang_path : Optional[str], optional
-            Path of sclang executable, by default None
-        scsynth_options : Optional[ServerOptions], optional
-            Options for the server, by default None
-        with_blip : bool, optional
-            make a sound when booted, by default True
-        console_logging : bool, optional
-            If True write scsynth/sclang output to console, by default True
-        allowed_parents : Sequence[str], optional
-            Names of parents that are allowed for other instances of
-            sclang/scsynth processes, by default ALLOWED_PARENTS
-        """
         self._console_logging = console_logging
         self._server = None
         self._sclang = None

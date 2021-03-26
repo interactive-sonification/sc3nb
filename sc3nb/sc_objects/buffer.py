@@ -1,4 +1,4 @@
-"""Module to for using SuperCollider Buffers in Python"""
+"""Module for using SuperCollider Buffers in Python"""
 
 import os
 import warnings
@@ -71,8 +71,17 @@ class Buffer:
     methods of the Buffer objects.
 
     The constructor merely initializes a buffer:
-    * it selects a buffer number using SC's buffer allocator
+
+    * it selects a buffer number using the server's buffer allocator
     * it initializes attribute variables
+
+    Parameters
+    ----------
+    bufnum : int
+        buffer number to be used on scsynth. Defaults to None
+        can be set to enforce a given bufnum
+    server : SCServer, optional
+        The server instance to establish the Buffer
 
     Attributes
     ----------
@@ -103,31 +112,17 @@ class Buffer:
     Examples
     --------
     (see examples/buffer-examples.ipynb)
-    b = Buffer().load_file(...)
-    b = Buffer().load_data(...)
-    b = Buffer().alloc(...)
-    b = Buffer().load_asig(...)
-    b = Buffer().use_existing(...)
-    b = Buffer().copy(Buffer)
+
+    >>> b = Buffer().load_file(...)
+    >>> b = Buffer().load_data(...)
+    >>> b = Buffer().alloc(...)
+    >>> b = Buffer().load_asig(...)
+    >>> b = Buffer().use_existing(...)
+    >>> b = Buffer().copy(Buffer)
+
     """
 
     def __init__(self, bufnum: Optional[int] = None, server: Optional['SCServer'] = None) -> None:
-        """Create a Buffer
-
-        Parameters
-        ----------
-        bufnum : int
-            buffer number to be used on scsynth. Defaults to None
-            can be set to enforce a given bufnum
-        server : SCServer, optional
-            The server instance to establish the Buffer
-
-        Returns
-        -------
-        self : Buffer
-            the created Buffer object
-
-        """
         self.server = server or sc3nb.SC.get_default().server
         self._bufnum_set_manually = bufnum is not None
         self._bufnum = bufnum

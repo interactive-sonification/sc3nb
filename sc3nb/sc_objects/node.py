@@ -18,6 +18,7 @@ from sc3nb.sc_objects.synthdef import SynthDef
 
 if TYPE_CHECKING:
     from sc3nb.sc_objects.server import SCServer
+    from sc3nb.sclang import SynthArgument
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
@@ -75,7 +76,10 @@ class NodeCommand(str, Enum):
 
 @unique
 class AddAction(Enum):
-    """Add action codes of SuperCollider"""
+    """AddAction of SuperCollider nodes.
+
+    This Enum contains the codes for the different ways to add a node.
+    """
     TO_HEAD = 0  # (the default) add at the head of the group specified by target
     TO_TAIL = 1  # add at the tail of the group specified by target
     AFTER = 2    # add immediately after target in its server's node order
@@ -112,7 +116,7 @@ class GroupInfo(NamedTuple):
 
 
 class Node(ABC):
-    """Python representation of a node on the SuperCollider server."""
+    """Representation of a Node on SuperCollider."""
 
     def __new__(cls,
                 *args,
@@ -289,10 +293,12 @@ class Node(ABC):
             only used if argument is string, by default None
 
         Examples
-        -------
-        synth.set("freq", 400)
-        synth.set({"dur": 1, "freq": 400})
-        synth.set(["dur", 1, "freq", 400])
+        --------
+
+        >>> synth.set("freq", 400)
+        >>> synth.set({"dur": 1, "freq": 400})
+        >>> synth.set(["dur", 1, "freq", 400])
+
         """
         if isinstance(argument, dict):
             msg_args = []
@@ -425,7 +431,7 @@ class Node(ABC):
             self.server.send(msg, bundled=True)
         return self
 
-    def query(self):
+    def query(self) -> Union[SynthInfo, GroupInfo]:
         """Sends an n_query message to the server.
 
         The answer is send to all clients who have registered via the /notify command.
@@ -561,7 +567,7 @@ class Node(ABC):
         return nodeid
 
 class Synth(Node):
-    """Python representation of a group node on the SuperCollider server."""
+    """Representation of a Synth on SuperCollider."""
 
     def __init__(self,
                  name: Optional[str] = None,
@@ -597,9 +603,11 @@ class Synth(Node):
         ValueError
             Raised when synth can't be found via SynthDescLib.global
 
-        Example:
+        Examples
         --------
-        scn.Synth(sc, "s1", {"dur": 1, "freq": 400})
+
+        >>> scn.Synth(sc, "s1", {"dur": 1, "freq": 400})
+
         """
         self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:
@@ -636,19 +644,19 @@ class Synth(Node):
         self._update_args(args)
 
     @property
-    def synth_desc(self):
+    def synth_desc(self) -> Optional[Dict[str, "SynthArgument"]]:
         """This Synths SynthDef name."""
         if self._synth_desc is None:
             self._synth_desc = SynthDef.get_desc(self._name)
         return self._synth_desc
 
     @property
-    def name(self):
+    def name(self) -> str:
         """This Synths SynthDef name."""
         return self._name
 
     @property
-    def current_args(self):
+    def current_args(self) -> Dict[str, Any]:
         """This Synth currently cached args."""
         return self._current_args
 
@@ -656,7 +664,7 @@ class Synth(Node):
             args: Optional[dict] = None,
             add_action: Optional[Union[AddAction, int]] = None,
             target: Optional[Union[Node, int]] = None,
-            return_msg: bool = False):
+            return_msg: bool = False) -> Union["Synth", OscMessage]:
         """Creates the synth on the server with s_new.
 
         Attention: Here you create an identical synth! Same nodeID etc.
@@ -678,14 +686,14 @@ class Synth(Node):
             self.server.send(msg, bundled=True, await_reply=False)
         return self
 
-    def get(self, argument):
+    def get(self, argument: str) -> Any:
         """Get a synth argument
 
         This will request the value from scsynth with s_get(n).
 
         Parameters
         ----------
-        argument : string
+        argument : str
             name of the synth argument
         """
         if self._synth_desc is not None:  # change from synth_desc to self._current_args
@@ -756,7 +764,7 @@ class Synth(Node):
                 return self.set(name, value)
         warnings.warn(
                 f"Setting '{name}' as python attribute and not as Synth Parameter. "
-                "SynthDesc is unknown. sclang must be running and knowing this SynthDef for SynthDescs. "
+                "SynthDesc is unknown. sclang must be running and knowing this SynthDef "
                 "Use set method when using Synths without SynthDesc to set Synth Parameters.")
         super().__setattr__(name, value)
 
@@ -768,7 +776,7 @@ class Synth(Node):
 
 
 class Group(Node):
-    """Python representation of a group node on the SuperCollider server."""
+    """Representation of a Group on SuperCollider."""
 
     def __init__(self,
                  nodeid: Optional[int] = None,

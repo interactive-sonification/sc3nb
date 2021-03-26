@@ -1,26 +1,35 @@
-"""Collection of Classes and functions for communicating
+"""Package for interfacing SuperCollider.
+
+Collection of Classes and functions for communicating
 with SuperCollider within python and jupyter notebooks,
-as well as playing recording and visualizing audio
+as well as playing recording and visualizing audio.
+
+Examples
+--------
+For example usage please refer to the user guide.
 """
 
 
 from sc3nb.sc import startup, SC
 
-from sc3nb.timed_queue import TimedQueue, TimedQueueSC
+from sc3nb.sc_objects.server import SCServer, ServerOptions
+from sc3nb.sclang import SCLang
 
+from sc3nb.sc_objects.node import Node, Synth, Group, AddAction
+from sc3nb.sc_objects.synthdef import SynthDef
+from sc3nb.sc_objects.buffer import Buffer
+from sc3nb.sc_objects.bus import Bus
+
+from sc3nb.sc_objects.recorder import Recorder
+
+from sc3nb.timed_queue import TimedQueue, TimedQueueSC
 from sc3nb.osc.osc_communication import build_message, Bundler
 
 from sc3nb.helpers import linlin, midicps, cpsmidi, clip, dbamp, ampdb
 
-from sc3nb.sc_objects.buffer import Buffer
-from sc3nb.sc_objects.synthdef import SynthDef
-from sc3nb.sc_objects.node import Node, Synth, Group, AddAction
-from sc3nb.sc_objects.server import SCServer, ServerOptions
-from sc3nb.sc_objects.recorder import Recorder
-from sc3nb.sc_objects.bus import Bus
 
 __all__ = ['startup', 'SC', 'TimedQueue', 'TimedQueueSC',
-           'build_message', 'Bundler',
+           'build_message', 'Bundler', 'SCLang',
            'linlin', 'midicps', 'cpsmidi', 'clip', 'dbamp', 'ampdb',
            'Buffer', 'SynthDef', 'Node', 'Synth', 'Group',
            'AddAction', 'SCServer', 'ServerOptions', 'Recorder', 'Bus']

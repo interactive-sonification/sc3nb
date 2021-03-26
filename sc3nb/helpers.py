@@ -77,9 +77,9 @@ def clip(value: float, minimum: float = -float("inf"), maximum: float = float("i
     value : float
         Value to clip
     minimum : float, optional
-        Minimum value output can take, by default -float("inf")
+        Minimum output value, by default -float("inf")
     maximum : float, optional
-        Maximum value output can take, by default float("inf")
+        Maximum output value, by default float("inf")
 
     Returns
     -------
