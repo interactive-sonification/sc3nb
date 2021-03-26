@@ -19,6 +19,11 @@ from sc3nb.sc_objects.server import SCServer, ServerOptions
 from sc3nb.sc_objects.recorder import Recorder
 from sc3nb.sc_objects.bus import Bus
 
+__all__ = ['startup', 'SC', 'TimedQueue', 'TimedQueueSC',
+           'build_message', 'Bundler',
+           'linlin', 'midicps', 'cpsmidi', 'clip', 'dbamp', 'ampdb',
+           'Buffer', 'SynthDef', 'Node', 'Synth', 'Group',
+           'AddAction', 'SCServer', 'ServerOptions', 'Recorder', 'Bus']
 
 def load_ipython_extension(ipython):
     """Load the extension in IPython."""
