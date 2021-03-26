@@ -107,3 +107,4 @@ venv.bak/
 
 temp/
 .idea/
+docs/source/autogen
