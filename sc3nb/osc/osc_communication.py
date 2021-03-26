@@ -4,24 +4,23 @@ Classes and functions to communicate with SuperCollider
 using the Open Sound Control (OSC) protocol over UDP
 """
 
+import copy
 import errno
 import logging
 import threading
 import time
-import copy
 import warnings
-
-from typing import Callable, Dict, Optional, Sequence, Tuple, Union, Any
 from abc import ABC, abstractmethod
 from queue import Empty, Queue
 from threading import RLock
+from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union
 
 from pythonosc.dispatcher import Dispatcher
-from pythonosc.osc_server import OSCUDPServer, ThreadingOSCUDPServer
-from pythonosc.osc_bundle_builder import OscBundleBuilder
-from pythonosc.osc_message_builder import OscMessageBuilder
 from pythonosc.osc_bundle import OscBundle
+from pythonosc.osc_bundle_builder import OscBundleBuilder
 from pythonosc.osc_message import OscMessage
+from pythonosc.osc_message_builder import OscMessageBuilder
+from pythonosc.osc_server import OSCUDPServer, ThreadingOSCUDPServer
 
 import sc3nb
 

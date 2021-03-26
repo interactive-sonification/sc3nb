@@ -1,21 +1,19 @@
 """Module for handling a SuperCollider language (sclang) process."""
+import inspect
+import logging
 import re
 import sys
-import inspect
 import time
 import warnings
-import logging
-
-import pkg_resources
-
-from typing import NamedTuple, Any, Optional, Sequence, Tuple
 from pathlib import Path
 from queue import Empty
+from typing import Any, NamedTuple, Optional, Sequence, Tuple
 
 import numpy as np
+import pkg_resources
 
-from sc3nb.sc_objects.server import SCServer, ReplyAddress
-from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
+from sc3nb.process_handling import ALLOWED_PARENTS, Process, ProcessTimeout
+from sc3nb.sc_objects.server import ReplyAddress, SCServer
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())

@@ -1,6 +1,7 @@
-from tests.test_sc import SCBaseTest
-from sc3nb.sc_objects.buffer import Buffer
 import numpy as np
+
+from sc3nb.sc_objects.buffer import Buffer
+from tests.test_sc import SCBaseTest
 
 
 class BufferTest(SCBaseTest):

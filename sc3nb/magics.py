@@ -1,10 +1,10 @@
 """This Module adds the Jupyter specialties as Magics and Keyboard Shortcuts"""
-import sys
 import re
-from typing import Any, Dict
+import sys
 import warnings
+from typing import Any, Dict
 
-from IPython.core.magic import Magics, magics_class, line_cell_magic
+from IPython.core.magic import Magics, line_cell_magic, magics_class
 
 import sc3nb
 

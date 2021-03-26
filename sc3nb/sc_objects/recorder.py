@@ -1,15 +1,13 @@
 """Module for recording"""
 
 from enum import Enum, unique
-
 from typing import Optional, Union
 
 from sc3nb.sc import SC
-
-from sc3nb.sc_objects.server import SCServer
-from sc3nb.sc_objects.node import Node, Synth, AddAction
-from sc3nb.sc_objects.synthdef import SynthDef
 from sc3nb.sc_objects.buffer import Buffer
+from sc3nb.sc_objects.node import AddAction, Node, Synth
+from sc3nb.sc_objects.server import SCServer
+from sc3nb.sc_objects.synthdef import SynthDef
 
 
 @unique

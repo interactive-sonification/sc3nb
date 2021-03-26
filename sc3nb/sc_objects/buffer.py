@@ -2,22 +2,22 @@
 
 import os
 import warnings
-
-from typing import Any, List, NamedTuple, Optional, Sequence, Union, TYPE_CHECKING
 from enum import Enum, unique
-from tempfile import NamedTemporaryFile
 from pathlib import Path
+from tempfile import NamedTemporaryFile
+from typing import TYPE_CHECKING, Any, List, NamedTuple, Optional, Sequence, Union
 
-import scipy.io.wavfile as wavfile
 import numpy as np
+import scipy.io.wavfile as wavfile
 
-from sc3nb.sc_objects.synthdef import SynthDef
-from sc3nb.sc_objects.node import Synth
 import sc3nb
+from sc3nb.sc_objects.node import Synth
+from sc3nb.sc_objects.synthdef import SynthDef
 
 if TYPE_CHECKING:
-    from sc3nb.sc_objects.server import SCServer
     import pya
+
+    from sc3nb.sc_objects.server import SCServer
 
 
 @unique

@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from sc3nb.sc import startup
 from sc3nb.sc_objects.server import ServerOptions
 

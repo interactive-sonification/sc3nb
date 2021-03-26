@@ -1,19 +1,15 @@
 """ Module for process handling. """
 
 import logging
-import warnings
-
 import os
 import re
-import sys
-import time
-
-import threading
 import subprocess
-
-from typing import Optional
+import sys
+import threading
+import time
+import warnings
 from queue import Empty, Queue
-
+from typing import Optional
 
 import psutil
 

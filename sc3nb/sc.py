@@ -4,16 +4,14 @@ within jupyter notebooks
 
 import logging
 import warnings
-
 from typing import Optional, Sequence
+
 from IPython import get_ipython
 
-
 import sc3nb.magics as magics
-
+from sc3nb.process_handling import ALLOWED_PARENTS, ProcessTimeout
 from sc3nb.sc_objects.server import SCServer, ServerOptions
 from sc3nb.sclang import SCLang
-from sc3nb.process_handling import ProcessTimeout, ALLOWED_PARENTS
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())

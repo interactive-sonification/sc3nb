@@ -1,5 +1,6 @@
 """Collection of helper functions for the user"""
 from typing import Union
+
 import numpy as np
 
 

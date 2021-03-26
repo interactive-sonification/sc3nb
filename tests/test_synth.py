@@ -1,8 +1,8 @@
 import time
 import warnings
 
-from tests.test_sc import SCBaseTest
 from sc3nb.sc_objects.node import Synth, SynthInfo
+from tests.test_sc import SCBaseTest
 
 
 class SynthTest(SCBaseTest):

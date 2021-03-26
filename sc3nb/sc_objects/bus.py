@@ -1,9 +1,8 @@
 """Python representation of the scsynth Bus."""
 
-from enum import Enum, unique
-
-from typing import Optional, Sequence, Union, TYPE_CHECKING
 from collections.abc import Iterable
+from enum import Enum, unique
+from typing import TYPE_CHECKING, Optional, Sequence, Union
 
 import sc3nb
 

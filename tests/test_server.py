@@ -1,6 +1,7 @@
 from unittest import TestCase
-from sc3nb.sc_objects.server import SCServer, ServerOptions
+
 from sc3nb.sc_objects.node import Group
+from sc3nb.sc_objects.server import SCServer, ServerOptions
 
 
 class ServerTest(TestCase):

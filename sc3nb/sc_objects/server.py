@@ -1,39 +1,35 @@
 """Module for managing Server related stuff."""
-from enum import Enum, unique
 import logging
 import warnings
-
-from typing import Dict, List, NamedTuple, Optional, Sequence, Union, Tuple
-from weakref import WeakValueDictionary
+from enum import Enum, unique
 from queue import Empty
 from random import randint
+from typing import Dict, List, NamedTuple, Optional, Sequence, Tuple, Union
+from weakref import WeakValueDictionary
 
 import sc3nb.resources as resources
-from sc3nb.process_handling import Process, ProcessTimeout, ALLOWED_PARENTS
-
-from sc3nb.osc.parsing import preprocess_return
 from sc3nb.osc.osc_communication import (
-    build_message,
-    OSCCommunication,
-    OSCCommunicationError,
     MessageQueue,
     MessageQueueCollection,
+    OSCCommunication,
+    OSCCommunicationError,
+    build_message,
 )
-
-from sc3nb.sc_objects.synthdef import SynthDefinitionCommand
+from sc3nb.osc.parsing import preprocess_return
+from sc3nb.process_handling import ALLOWED_PARENTS, Process, ProcessTimeout
 from sc3nb.sc_objects.buffer import BufferCommand, BufferReply
-from sc3nb.sc_objects.bus import ControlBusCommand, BusRate, Bus
+from sc3nb.sc_objects.bus import Bus, BusRate, ControlBusCommand
 from sc3nb.sc_objects.node import (
+    Group,
     GroupCommand,
-    SynthCommand,
-    NodeCommand,
-    NodeReply,
     GroupReply,
     Node,
-    Group,
+    NodeCommand,
+    NodeReply,
     NodeTree,
+    SynthCommand,
 )
-
+from sc3nb.sc_objects.synthdef import SynthDefinitionCommand
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())

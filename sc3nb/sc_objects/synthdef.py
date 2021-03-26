@@ -1,17 +1,16 @@
 """Module to for using SuperCollider SynthDefs and Synths in Python"""
 
-from logging import error
 import re
 import warnings
-
 from enum import Enum, unique
-from typing import Any, Dict, Optional, TYPE_CHECKING
+from logging import error
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 import sc3nb
 
 if TYPE_CHECKING:
-    from sc3nb.sclang import SynthArgument
     from sc3nb.sc import SC
+    from sc3nb.sclang import SynthArgument
 
 
 @unique

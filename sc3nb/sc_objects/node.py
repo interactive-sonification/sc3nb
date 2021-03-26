@@ -2,27 +2,25 @@
 
 import logging
 import warnings
-
 from abc import ABC, abstractmethod
 from enum import Enum, unique
 from functools import reduce
 from operator import iconcat
-
 from typing import (
-    Optional,
-    Union,
-    Any,
-    Sequence,
-    Dict,
-    Tuple,
-    NamedTuple,
     TYPE_CHECKING,
+    Any,
+    Dict,
+    NamedTuple,
+    Optional,
+    Sequence,
+    Tuple,
+    Union,
 )
 
 from pythonosc.osc_message import OscMessage
 
 import sc3nb
-from sc3nb.osc.osc_communication import build_message, OSCCommunicationError
+from sc3nb.osc.osc_communication import OSCCommunicationError, build_message
 from sc3nb.sc_objects.synthdef import SynthDef
 
 if TYPE_CHECKING:
