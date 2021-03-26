@@ -378,41 +378,13 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
-        audio_bus = bus.is_audio_bus()
-        bus_index = bus.idx
-        map_command = NodeCommand.MAPA if audio_bus else NodeCommand.MAP
-        msg = build_message(map_command, [self.nodeid, control, bus_index])
-        if return_msg:
-            return msg
+        msg_args = [self.nodeid, control, bus.idx[0]]
+        if bus.num_channels > 1:
+            map_command = NodeCommand.MAPAN if bus.is_audio_bus() else NodeCommand.MAPN
+            msg_args.append(bus.num_channels)
         else:
-            self.server.send(msg, bundled=True)
-        return self
-
-    def mapn(self, control, bus, num_controls, audio_bus=False, return_msg=False):
-        """Map a node's control to read from a bus using /n_mapn or /n_mapan.
-
-        Parameters
-        ----------
-        control : int or string
-            control index or name
-        bus : Bus
-            control/audio bus
-        num_controls : int
-            number of controls to map
-        audio_bus : bool, optional
-            True if bus is audio, by default False
-        return_msg : bool, optional
-            If True return msg else send it directly, by default False
-
-        Returns
-        -------
-        OscMessage
-            if return_msg else self
-        """
-        audio_bus = bus.is_audio_bus()
-        bus_index = bus.idx
-        map_command = NodeCommand.MAPAN if audio_bus else NodeCommand.MAPN
-        msg = build_message(map_command, [self.nodeid, control, bus_index, num_controls])
+            map_command = NodeCommand.MAPA if bus.is_audio_bus() else NodeCommand.MAP
+        msg = build_message(map_command, msg_args)
         if return_msg:
             return msg
         else:
@@ -750,6 +722,7 @@ class Synth(Node):
             else: # default s_get
                 nodeid, name, ret_val = reply
             if self.nodeid == nodeid and name == argument:
+                self.current_args[argument] = ret_val
                 return ret_val
             else:
                 raise RuntimeError("Received msg with wrong node id")
@@ -783,7 +756,7 @@ class Synth(Node):
                 return self.set(name, value)
         warnings.warn(
                 f"Setting '{name}' as python attribute and not as Synth Parameter. "
-                "SynthDesc is unknown. SC.default.lang must be running for SynthDescs. "
+                "SynthDesc is unknown. sclang must be running and knowing this SynthDef for SynthDescs. "
                 "Use set method when using Synths without SynthDesc to set Synth Parameters.")
         super().__setattr__(name, value)
 

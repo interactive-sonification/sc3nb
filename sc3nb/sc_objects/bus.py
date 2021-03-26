@@ -3,6 +3,7 @@
 from enum import Enum, unique
 
 from typing import Optional, Sequence, Union, TYPE_CHECKING
+from collections.abc import Iterable
 
 import sc3nb
 
@@ -44,10 +45,9 @@ class Bus():
             else:
                 self._bus_idxs = self._server.allocate_control_bus_idx(self._num_channels)
         else:
-            self._bus_idxs = range(index, index + num_channels)
+            self._bus_idxs = list(range(index, index + num_channels))
         if num_channels > 1:
             assert len(self._bus_idxs) == num_channels, "Not enough idxes for number of channels"
-        self._bus_idx = self._bus_idxs[0]
 
     @property
     def rate(self) -> Union[BusRate, str]:
@@ -60,17 +60,27 @@ class Bus():
         """
         return self._rate
 
+    @property
+    def num_channels(self) -> int:
+        """The number of buses.
+
+        Returns
+        -------
+        int
+            number of buses allocated
+        """
+        return self._num_channels
 
     @property
-    def idx(self) -> int:
-        """The (first) bus index.
+    def idx(self) -> Sequence[int]:
+        """The bus index(s).
 
         Returns
         -------
         int
             first bus index
         """
-        return self._bus_idx
+        return self._bus_idxs
 
     def is_audio_bus(self) -> bool:
         """Rate check
@@ -92,32 +102,13 @@ class Bus():
         """
         return self._rate is BusRate.CONTROL
 
-    def set(self, value: Union[int, float]) -> None:
-        """Set bus value
-
-        Parameters
-        ----------
-        value : int or float
-            Value that should be set
-
-        Raises
-        ------
-        RuntimeError
-            If trying to set an Audio Bus
-        """
-        if self._rate is BusRate.AUDIO:
-            raise RuntimeError("Can't set Audio Buses")
-        self._server.msg(ControlBusCommand.SET, [self._bus_idx, value])
-
-    def setn(self, values: Sequence[Union[int, float]], num_buses: Optional[int] = None):
+    def set(self, *values: Sequence[Union[int, float]]) -> None:
         """Set ranges of bus values.
 
         Parameters
         ----------
         values : sequence of int or float
             Values that should be set
-        num_buses : Optional[int], optional
-            how many sequential buses to change, by default same as num_channels
 
         Raises
         ------
@@ -126,21 +117,21 @@ class Bus():
         """
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't setn Audio Buses")
-        if num_buses is None:
-            num_buses = self._num_channels
-        self._server.msg(ControlBusCommand.SETN, [self._bus_idx, num_buses, *values])
+        if self._num_channels > 1:
+            if len(values) != self._num_channels:
+                raise ValueError(f"lenght of values must fit num channels ({self._num_channels})")
+            self._server.msg(ControlBusCommand.SETN,
+                             [self._bus_idxs[0], self._num_channels, *values])
+        else:
+            self._server.msg(ControlBusCommand.SET, [self._bus_idxs[0], *values])
 
-    def fill(self, value: Union[int, float], num_buses: Optional[int] = None):
-        """Fill ranges of buses to one value.
-
-        The range starts at this bus idx
+    def fill(self, value: Union[int, float]) -> None:
+        """Fill bus(es) to one value.
 
         Parameters
         ----------
         value : Union[int, float]
-            [description]
-        num_buses : Optional[int], optional
-            [description], by default None
+            value for the buses
 
         Raises
         ------
@@ -149,9 +140,7 @@ class Bus():
         """
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't fill Audio Buses")
-        if num_buses is None:
-            num_buses = self._num_channels
-        self._server.msg(ControlBusCommand.FILL, [self._bus_idx, num_buses, value])
+        self._server.msg(ControlBusCommand.FILL, [self._bus_idxs[0], self._num_channels, value])
 
     def get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]:
         """Get bus value(s).
@@ -170,16 +159,37 @@ class Bus():
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't get Audio Buses")
         if self._num_channels > 1:
-            return self._server.msg(ControlBusCommand.GETN, [self._bus_idx, self._num_channels])
+            msg_args = [self._bus_idxs[0], self._num_channels]
+            response = self._server.msg(ControlBusCommand.GETN, msg_args)
+            if isinstance(response, Iterable):
+                _, _, *values = response
+                return values
+            raise RuntimeError(f"Failed to get right response, got {response}")
         else:
-            return self._server.msg(ControlBusCommand.GET, [self._bus_idx])
+            response = self._server.msg(ControlBusCommand.GET, [self._bus_idxs[0]])
+            if isinstance(response, Iterable):
+                _, value = response
+                return value
+            raise RuntimeError(f"Failed to get right response, got {response}")
 
-    def free(self) -> None:
-        """Mark this Buses ids as free again"""
+    def free(self, clear: bool = True) -> None:
+        """Mark this Buses ids as free again
+
+        Parameters
+        ----------
+        clear : bool, optional
+            Reset bus value(s) to 0, by default True
+        """
         if self._rate is BusRate.AUDIO:
             self._bus_idxs = self._server.audio_bus_id_allocator.free_ids(self._bus_idxs)
         else:
+            if clear:
+                self.fill(0)
             self._bus_idxs = self._server.control_bus_id_allocator.free_ids(self._bus_idxs)
 
     def __del__(self) -> None:
-        self.free()
+        if self._bus_idxs:
+            self.free()
+
+    def __repr__(self) -> str:
+        return f"Bus({self.rate}, ids={self._bus_idxs})"
