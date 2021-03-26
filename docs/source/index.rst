@@ -22,6 +22,7 @@ Welcome to sc3nb's documentation!
 
 .. toctree::
    :Caption: API Reference
+   :maxdepth: 3
 
    autogen/autoapi/sc3nb/index
 
