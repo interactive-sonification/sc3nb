@@ -1,4 +1,4 @@
-~resourcePath = PathName.new("sc3nb/resources").absolutePath;
+~resourcePath = PathName.new("../sc3nb/resources/synthdefs").absolutePath;
 
 SynthDef("s1",
 	{ | freq=400, dur=0.4, att=0.01, amp=0.3, num=4, pan=0 |
