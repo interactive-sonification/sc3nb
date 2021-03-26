@@ -21,7 +21,6 @@ Welcome to sc3nb's documentation!
    autogen/notebooks/helper-examples
 
 .. toctree::
-   :maxdepth: 4
    :Caption: API Reference
 
    autogen/autoapi/sc3nb/index
