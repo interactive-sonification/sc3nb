@@ -354,6 +354,7 @@ class SCServer(OSCCommunication):
              timeout: float = 3,
              console_logging: bool = True,
              with_blip: bool = True,
+             kill_others: bool = True,
              allowed_parents: Sequence[str] = ALLOWED_PARENTS):
         """Start the Server process.
 
@@ -367,9 +368,11 @@ class SCServer(OSCCommunication):
             If True write process output to console, by default True
         with_blip : bool, optional
             make a sound when booted, by default True
+        kill_others : bool
+            kill other SuperCollider server processes.
         allowed_parents : Sequence[str], optional
             Names of parents that are allowed for other instances of
-            sclang/scsynth processes, by default ALLOWED_PARENTS
+            sclang/scsynth processes that won't be killed, by default ALLOWED_PARENTS
 
         Raises
         ------
@@ -389,6 +392,7 @@ class SCServer(OSCCommunication):
                                args=self.options.args,
                                exec_path=scsynth_path,
                                console_logging=console_logging,
+                               kill_others=kill_others,
                                allowed_parents=allowed_parents)
         try:
             self.process.read(expect="SuperCollider 3 server ready.", timeout=timeout)
