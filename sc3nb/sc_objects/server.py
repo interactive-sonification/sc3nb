@@ -856,10 +856,10 @@ class SCServer(OSCCommunication):
         ----------
         level : int, optional
             Verbosity code, by default 1
-            0	turn dumping OFF.
-            1	print the parsed contents of the message.
-            2	print the contents in hexadecimal.
-            3	print both the parsed and hexadecimal representations.
+            0   turn dumping OFF.
+            1   print the parsed contents of the message.
+            2   print the contents in hexadecimal.
+            3   print both the parsed and hexadecimal representations.
         """
         msg = build_message(MasterControlCommand.DUMP_OSC, [level])
         self.send(msg)
