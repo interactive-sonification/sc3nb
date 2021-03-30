@@ -20,6 +20,8 @@ class SCBaseTest(TestCase):
         )
         cls.sc.server.dump_osc(1)
         cls.sc.server.sync()
+        if cls.start_sclang:
+            cls.sc.server.mute()
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -35,7 +37,7 @@ class SCTest(TestCase):
 
         self.assertIs(supercollider.server.options, options)
         self.assertIsNotNone(supercollider.server)
-        with self.assertRaises(RuntimeWarning):
+        with self.assertRaises(RuntimeError):
             supercollider.lang
 
         supercollider.exit()
@@ -43,7 +45,7 @@ class SCTest(TestCase):
     def test_start_sclang(self):
         supercollider = startup(start_server=False, start_sclang=True)
 
-        with self.assertRaises(RuntimeWarning):
+        with self.assertRaises(RuntimeError):
             supercollider.server
         self.assertIsNotNone(supercollider.lang)
 

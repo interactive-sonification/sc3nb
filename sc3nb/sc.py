@@ -75,15 +75,15 @@ def startup(
         )
     else:
         _LOGGER.info("SC already started")
+        if start_sclang:
+            SC.get_default().start_sclang(
+                sclang_path=sclang_path, allowed_parents=allowed_parents
+            )
         if start_server:
             SC.get_default().start_server(
                 scsynth_options=scsynth_options,
                 scsynth_path=scsynth_path,
                 allowed_parents=allowed_parents,
-            )
-        if start_sclang:
-            SC.get_default().start_sclang(
-                sclang_path=sclang_path, allowed_parents=allowed_parents
             )
     return SC.default
 
@@ -129,13 +129,13 @@ class SC:
 
         Raises
         ------
-        RuntimeWarning
+        RuntimeError
             If there is no default SC instance.
         """
         if cls.default is not None:
             return cls.default
         else:
-            raise RuntimeWarning(
+            raise RuntimeError(
                 "You need to start a SuperCollider SC instance first"
                 " or provide a sclang/server directly."
             )
@@ -151,21 +151,23 @@ class SC:
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
     ):
+        if SC.default is None:
+            SC.default = self
         self._console_logging = console_logging
         self._server = None
         self._sclang = None
+        if start_sclang:
+            self.start_sclang(
+                sclang_path=sclang_path,
+                console_logging=self._console_logging,
+                allowed_parents=allowed_parents,
+            )
         if start_server:
             self.start_server(
                 scsynth_path=scsynth_path,
                 scsynth_options=scsynth_options,
                 console_logging=self._console_logging,
                 with_blip=with_blib,
-                allowed_parents=allowed_parents,
-            )
-        if start_sclang:
-            self.start_sclang(
-                sclang_path=sclang_path,
-                console_logging=self._console_logging,
                 allowed_parents=allowed_parents,
             )
 
@@ -232,12 +234,16 @@ class SC:
         if self._server is None:
             self._server = SCServer(options=scsynth_options)
             try:
+                if self._sclang is not None:
+                    self._sclang.connect_to_server(self._server)
                 self._server.boot(
                     scsynth_path=scsynth_path,
                     console_logging=console_logging,
                     allowed_parents=allowed_parents,
                     with_blip=with_blip,
                 )
+                if self._sclang is not None:
+                    self._sclang.connect_to_server(self._server)
             except ProcessTimeout:
                 self._server = None
                 warnings.warn("starting scsynth failed")
@@ -251,7 +257,7 @@ class SC:
         if self._server is not None:
             return self._server
         else:
-            raise RuntimeWarning("You need to start the SuperCollider Server first")
+            raise RuntimeError("You need to start the SuperCollider Server first")
 
     @property
     def lang(self) -> SCLang:
@@ -259,7 +265,7 @@ class SC:
         if self._sclang is not None:
             return self._sclang
         else:
-            raise RuntimeWarning(
+            raise RuntimeError(
                 "You need to start the SuperCollider Language (sclang) first"
             )
 

@@ -10,7 +10,7 @@ class SynthTest(SCBaseTest):
     __test__ = True
 
     def setUp(self) -> None:
-        with self.assertRaises(RuntimeWarning):
+        with self.assertRaises(RuntimeError):
             SynthTest.sc.lang
         self.custom_nodeid = 42
         self.args = {"amp": 0.0, "num": 3}

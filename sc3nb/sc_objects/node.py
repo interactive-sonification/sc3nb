@@ -95,8 +95,8 @@ class AddAction(Enum):
 
     TO_HEAD = 0  # (the default) add at the head of the group specified by target
     TO_TAIL = 1  # add at the tail of the group specified by target
-    AFTER = 2  # add immediately after target in its server's node order
-    BEFORE = 3  # add immediately before target in its server's node order
+    BEFORE = 2  # add immediately before target in its server's node order
+    AFTER = 3  # add immediately after target in its server's node order
     REPLACE = 4  # replace target and take its place in its server's node order
     # Note: A Synth is not a valid target for \addToHead and \addToTail.
 
@@ -676,7 +676,7 @@ class Synth(Node):
             args = {}
         self._current_args = args
 
-        self._synth_desc = SynthDef.get_desc(name)
+        self._synth_desc = SynthDef.get_description(name)
 
         # attention: this must be after every attribute is set
         self._initialized = True
@@ -690,14 +690,14 @@ class Synth(Node):
     def _update_state(self, name: Optional[str], args: Optional[dict]):
         if name is not None:
             self._name = name
-            self._synth_desc = SynthDef.get_desc(name)
+            self._synth_desc = SynthDef.get_description(name)
         self._update_args(args)
 
     @property
     def synth_desc(self) -> Optional[Dict[str, "SynthArgument"]]:
         """This Synths SynthDef name."""
         if self._synth_desc is None:
-            self._synth_desc = SynthDef.get_desc(self._name)
+            self._synth_desc = SynthDef.get_description(self._name)
         return self._synth_desc
 
     @property
@@ -776,7 +776,7 @@ class Synth(Node):
                 fail = self.server.fails.msg_queues[command].get(timeout=0)
                 print(f"FAIL - {fail} - {f'Node {self.nodeid} not found' in fail}")
                 if f"Node {self.nodeid} not found" in fail:
-                    raise RuntimeWarning(
+                    raise RuntimeError(
                         f"Node {self.nodeid} cannot be found"
                     ) from osc_error
             raise

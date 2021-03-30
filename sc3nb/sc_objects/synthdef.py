@@ -3,13 +3,15 @@
 import re
 import warnings
 from enum import Enum, unique
-from logging import error
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+
+import pkg_resources
 
 import sc3nb
 
 if TYPE_CHECKING:
     from sc3nb.sc import SC
+    from sc3nb.sc_objects.server import SCServer
     from sc3nb.sclang import SynthArgument
 
 
@@ -29,7 +31,7 @@ class SynthDef:
     synth_descs = {}
 
     @classmethod
-    def get_desc(cls, name: str) -> Optional[Dict[str, "SynthArgument"]]:
+    def get_description(cls, name: str) -> Optional[Dict[str, "SynthArgument"]]:
         """Get Synth description
 
         Parameters
@@ -46,7 +48,7 @@ class SynthDef:
             return cls.synth_descs[name]
         try:
             synth_desc = sc3nb.SC.get_default().lang.get_synth_desc(name)
-        except RuntimeWarning:
+        except RuntimeError:
             synth_desc = None
 
         if synth_desc is not None:
@@ -54,12 +56,86 @@ class SynthDef:
         else:
             try:
                 sc3nb.SC.get_default().lang
-            except RuntimeWarning:
+            except RuntimeError:
                 sclang_text = "sclang is not running."
             else:
                 sclang_text = "sclang does not know this SynthDef"
             warnings.warn(f"SynthDesc is unknown. {sclang_text}")
         return synth_desc
+
+    @classmethod
+    def send(
+        cls,
+        synthdef_bytes: bytes,
+        wait: bool = True,
+        server: Optional["SCServer"] = None,
+    ):
+        """Send a SynthDef as bytes.
+
+        Parameters
+        ----------
+        synthdef_bytes : bytes
+            SynthDef bytes
+        wait : bool
+            If True wait for server reply.
+        server : SCServer, optional
+            Server that gets the SynthDefs, by default None
+        """
+        if server is None:
+            server = sc3nb.SC.get_default().server
+        server.msg(SynthDefinitionCommand.RECV, synthdef_bytes, await_reply=wait)
+
+    @classmethod
+    def load(
+        cls, synthdef_path: str, wait: bool = True, server: Optional["SCServer"] = None
+    ):
+        """Load SynthDef file at path.
+
+        Parameters
+        ----------
+        synthdef_path : str
+            Path with the SynthDefs
+        wait : bool
+            If True wait for server reply.
+        server : SCServer, optional
+            Server that gets the SynthDefs, by default None
+        """
+        if server is None:
+            server = sc3nb.SC.get_default().server
+        server.msg(SynthDefinitionCommand.LOAD, synthdef_path, await_reply=wait)
+
+    @classmethod
+    def load_dir(
+        cls,
+        synthdef_dir: Optional[str] = None,
+        completion_msg: Optional[bytes] = None,
+        wait: bool = True,
+        server: Optional["SCServer"] = None,
+    ):
+        """Load all SynthDefs from directory.
+
+        Parameters
+        ----------
+        synthdef_dir : str, optional
+            directory with SynthDefs, by default sc3nb default SynthDefs
+        completion_msg : bytes, optional
+            Message to be executed by the server when loaded, by default None
+        wait : bool, optional
+            If True wait for server reply, by default True
+        server : SCServer, optional
+            Server that gets the SynthDefs, by default None
+        """
+        if server is None:
+            server = sc3nb.SC.get_default().server
+
+        if synthdef_dir is None:
+            synthdef_dir = pkg_resources.resource_filename(
+                "sc3nb.resources", "synthdefs"
+            )
+        args: List[Union[str, bytes]] = [synthdef_dir]
+        if completion_msg is not None:
+            args.append(completion_msg)
+        server.msg(SynthDefinitionCommand.LOAD_DIR, args, await_reply=wait)
 
     def __init__(self, name: str, definition: str, sc: Optional["SC"] = None) -> None:
         """Create a dynamic synth definition in sc.
@@ -77,7 +153,7 @@ class SynthDef:
         sc : SC object
             SC instance where the synthdef should be created
         """
-        self.sc = sc or sc3nb.SC.default
+        self.sc = sc
         self.definition = definition
         self.name = name
         self.current_def = definition
@@ -155,8 +231,13 @@ class SynthDef:
         self.current_def = re.sub(r"{{[^}]+}}", "", self.current_def)
         return self
 
-    def add(self, pyvars=None, name: Optional[str] = None) -> str:
-        """This method will add the current_def to SuperCollider.
+    def add(
+        self,
+        pyvars=None,
+        name: Optional[str] = None,
+        server: Optional["SCServer"] = None,
+    ) -> str:
+        """This method will add the current_def to SuperCollider.s
 
         If a synth with the same definition was already in sc, this method
         will only return the name.
@@ -167,6 +248,8 @@ class SynthDef:
             SC pyvars dict, to inject python variables
         name : str, optional
             name which this SynthDef will get
+        server : SCServer, optional
+            server where this SynthDef will be send to
 
         Returns
         -------
@@ -184,6 +267,8 @@ class SynthDef:
         # TODO should check if there is context/pyvars that can't be set
 
         # Create new SynthDef add it to SynthDescLib and get bytes
+        if self.sc is None:
+            self.sc = sc3nb.SC.get_default()
         synth_def_blob = self.sc.lang.cmdg(
             f"""
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
@@ -196,7 +281,12 @@ class SynthDef:
             print(error)
             raise RuntimeError(f"Adding SynthDef failed. {error}")
         else:
-            self.sc.server.send_synthdef(synth_def_blob)
+            if server is not None:
+                server.send_synthdef(synth_def_blob)
+            else:
+                if self.sc is None:
+                    self.sc = sc3nb.SC.get_default()
+                self.sc.server.send_synthdef(synth_def_blob)
             return self.name
 
     def free(self) -> "SynthDef":
@@ -207,6 +297,8 @@ class SynthDef:
         self : object of type SynthDef
             the SynthDef object
         """
+        if self.sc is None:
+            self.sc = sc3nb.SC.get_default()
         self.sc.server.msg(SynthDefinitionCommand.FREE, [self.name])
         return self
 

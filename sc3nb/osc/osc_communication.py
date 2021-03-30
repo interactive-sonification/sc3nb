@@ -93,7 +93,7 @@ class Bundler:
         else:
             try:
                 self.server = sc3nb.SC.get_default().server
-            except RuntimeWarning:
+            except RuntimeError:
                 self.server = None
         self.contents = []
         self.passed_time = 0.0

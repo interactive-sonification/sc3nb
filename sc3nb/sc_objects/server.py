@@ -4,10 +4,9 @@ import warnings
 from enum import Enum, unique
 from queue import Empty
 from random import randint
-from typing import Dict, List, NamedTuple, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Tuple
 from weakref import WeakValueDictionary
 
-import sc3nb.resources as resources
 from sc3nb.osc.osc_communication import (
     MessageQueue,
     MessageQueueCollection,
@@ -29,7 +28,8 @@ from sc3nb.sc_objects.node import (
     NodeTree,
     SynthCommand,
 )
-from sc3nb.sc_objects.synthdef import SynthDefinitionCommand
+from sc3nb.sc_objects.synthdef import SynthDef, SynthDefinitionCommand
+from sc3nb.sc_objects.volume import Volume
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
@@ -115,8 +115,6 @@ SC3NB_SERVER_CLIENT_ID = 1
 SC3NB_DEFAULT_PORT = 57130
 SCSYNTH_DEFAULT_PORT = 57110
 SC3_SERVER_NAME = "scsynth"
-
-RESOURCES_SYNTH_DEFS = resources.__file__[: -len("__init__.py")]
 
 
 class ServerStatus(NamedTuple):
@@ -392,6 +390,12 @@ class SCServer(OSCCommunication):
 
         self.latency: float = 0.0
 
+        self._server_tree: List[
+            Tuple[Callable[..., None], Optional[Sequence[Any]]]
+        ] = []
+
+        self._volume = Volume(self)
+
     def boot(
         self,
         scsynth_path: Optional[str] = None,
@@ -507,10 +511,37 @@ class SCServer(OSCCommunication):
         self.send_default_groups()
 
         self.sync()
+        self._server_running = True
+
+        # note: init hooks should be last
+        self.execute_init_hooks()
+        self.sync()
+
         if with_blip:
             self.blip()
-
         print("Done.")
+
+    def execute_init_hooks(self) -> None:
+        """Run all init hook functions."""
+        for function, args in self._server_tree:
+            if args is None:
+                function()
+            else:
+                function(args)
+
+    def add_init_hook(
+        self, function: Callable[..., None], args: Optional[Sequence[Any]] = None
+    ) -> None:
+        """Add a function to be executed when the server is initialized
+
+        Parameters
+        ----------
+        function : Callable[..., None]
+            Function to be executed
+        args : Optional[Sequence[Any]], optional
+            Arguments given to function, by default None
+        """
+        self._server_tree.append((function, args))
 
     def bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
@@ -543,6 +574,8 @@ class SCServer(OSCCommunication):
 
     def blip(self) -> None:
         """Make a blip sound"""
+        if self._volume.muted:
+            warnings.warn("SCServer is muted. Blip will also be silent!")
         with self.bundler(0.1) as bundler:
             bundler.add(
                 0.1, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1]
@@ -596,7 +629,9 @@ class SCServer(OSCCommunication):
             pass  # sending failed. scscynth maybe dead already.
         finally:
             super().quit()
+            self._server_running = False
             if self._is_local:
+                self._has_booted = False
                 self.process.kill()
 
     def sync(self, timeout=5):
@@ -623,7 +658,7 @@ class SCServer(OSCCommunication):
         wait : bool
             If True wait for server reply.
         """
-        self.msg(SynthDefinitionCommand.RECV, synthdef_bytes, await_reply=wait)
+        SynthDef.send(synthdef_bytes=synthdef_bytes, wait=wait, server=self)
 
     def load_synthdef(self, synthdef_path: str, wait: bool = True):
         """Load SynthDef file at path.
@@ -635,11 +670,11 @@ class SCServer(OSCCommunication):
         wait : bool
             If True wait for server reply.
         """
-        self.msg(SynthDefinitionCommand.LOAD, synthdef_path, await_reply=wait)
+        SynthDef.load(synthdef_path=synthdef_path, wait=wait, server=self)
 
     def load_synthdefs(
         self,
-        directory: Optional[str] = None,
+        synthdef_dir: Optional[str] = None,
         completion_msg: bytes = None,
         wait: bool = True,
     ) -> None:
@@ -647,19 +682,19 @@ class SCServer(OSCCommunication):
 
         Parameters
         ----------
-        directory : str, optional
+        synthdef_dir : str, optional
             directory with SynthDefs, by default sc3nb default SynthDefs
         completion_msg : bytes, optional
             Message to be executed by the server when loaded, by default None
         wait : bool, optional
             If True wait for server reply, by default True
         """
-        if directory is None:
-            directory = RESOURCES_SYNTH_DEFS
-        args: List[Union[str, bytes]] = [directory]
-        if completion_msg is not None:
-            args.append(completion_msg)
-        self.msg(SynthDefinitionCommand.LOAD_DIR, args, await_reply=wait)
+        SynthDef.load_dir(
+            synthdef_dir=synthdef_dir,
+            completion_msg=completion_msg,
+            wait=wait,
+            server=self,
+        )
 
     def notify(
         self,
@@ -826,23 +861,31 @@ class SCServer(OSCCommunication):
         """This servers output Bus"""
         return self._output_bus
 
-    # Volume Class in Supercollider. Controls Filter Synth
     @property
-    def volume(self):
-        """Server volume in [0, 1]"""
-        raise NotImplementedError
+    def volume(self) -> float:
+        """Volume in dB."""
+        return self._volume.volume
 
     @volume.setter
-    def volume(self):
-        raise NotImplementedError
+    def volume(self, volume):
+        self._volume.volume = volume
 
-    def mute(self):
-        """Set volume to 0"""
-        raise NotImplementedError
+    @property
+    def muted(self) -> bool:
+        """True if audio is muted"""
+        return self._volume.muted
 
-    def unmute(self):
+    @muted.setter
+    def muted(self, muted):
+        self._volume.muted = muted
+
+    def mute(self) -> None:
+        """Mute audio"""
+        self._volume.mute()
+
+    def unmute(self) -> None:
         """Set volume back to volume prior to muting"""
-        raise NotImplementedError
+        self._volume.unmute()
 
     # Information and debugging
     def version(self) -> ServerVersion:
@@ -961,7 +1004,7 @@ class SCServer(OSCCommunication):
         return self._has_booted
 
     @property
-    def server_running(self) -> int:
+    def is_running(self) -> bool:
         """If the server is running"""
         return self._server_running
 

@@ -79,7 +79,7 @@ class Bus:
         return self._num_channels
 
     @property
-    def idx(self) -> Sequence[int]:
+    def idxs(self) -> Sequence[int]:
         """The bus index(s).
 
         Returns

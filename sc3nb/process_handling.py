@@ -96,7 +96,7 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
                 parents = proc.parents()
                 if parents:
                     parent_names = " ".join(
-                        map(" ".join, map(psutil.Process.name, parents))
+                        map("".join, map(psutil.Process.name, parents))
                     )
                     _LOGGER.debug("Parents cmdlines: %s", parent_names)
                     if any(
