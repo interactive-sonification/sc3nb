@@ -165,7 +165,7 @@ class Recorder:
         RuntimeError
             When trying to pause if not recording.
         """
-        if self._state != RecorderState.RECORDING:
+        if self._state != RecorderState.RECORDING or self._record_synth is None:
             raise RuntimeError(f"Recorder state must be RECORDING but is {self._state}")
         with self._server.bundler(timestamp=timestamp):
             self._record_synth.run(False)
@@ -184,7 +184,7 @@ class Recorder:
         RuntimeError
             When trying to resume if not paused.
         """
-        if self._state != RecorderState.PAUSED:
+        if self._state != RecorderState.PAUSED or self._record_synth is None:
             raise RuntimeError(f"Recorder state must be PAUSED but is {self._state}")
         with self._server.bundler(timestamp=timestamp):
             self._record_synth.run(True)
@@ -203,7 +203,10 @@ class Recorder:
         RuntimeError
             When trying to stop if not started.
         """
-        if self._state in [RecorderState.RECORDING, RecorderState.PAUSED]:
+        if (
+            self._state in [RecorderState.RECORDING, RecorderState.PAUSED]
+            and self._record_synth is not None
+        ):
             with self._server.bundler(timestamp=timestamp):
                 self._record_synth.free()
                 self._record_synth = None

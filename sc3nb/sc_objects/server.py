@@ -879,6 +879,8 @@ class SCServer(OSCCommunication):
         str
             If return_tree this is the node tree string.
         """
+        if not self.is_local or self.process is None:
+            warnings.warn("Server is not local or not booted. Use query_all_nodes")
         self.process.read()
         msg = build_message(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
         self.send(msg)
@@ -975,7 +977,7 @@ class SCServer(OSCCommunication):
     @property
     def pid(self):
         """The process id of the local server process"""
-        if self.is_local:
+        if self.is_local and self.process is not None:
             return self.process.popen.pid
         else:
             warnings.warn("Server is not local or not booted.")
