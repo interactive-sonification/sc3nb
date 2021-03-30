@@ -253,7 +253,7 @@ class ServerOptions:
 class IDBlockAllocator:
     """Allows allocating blocks of ids / indexes"""
 
-    def __init__(self, num_ids, offset):
+    def __init__(self, num_ids: int, offset: int) -> None:
         self._offset = offset
         self._free_ids = [i + offset for i in range(num_ids)]
 
@@ -304,7 +304,13 @@ class IDBlockAllocator:
 
 
 class SCServer(OSCCommunication):
-    """SuperCollider audio server representaion."""
+    """SuperCollider audio server representaion.
+
+    Parameters
+    ----------
+    options : Optional[ServerOptions], optional
+        Options used to start the local server, by default None
+    """
 
     def __init__(self, options: Optional[ServerOptions] = None):
         # process
