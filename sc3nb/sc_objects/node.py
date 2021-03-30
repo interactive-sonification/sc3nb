@@ -418,7 +418,7 @@ class Node(ABC):
         OscMessage
             if return_msg else self
         """
-        msg_args = [self.nodeid, control, bus.idx[0]]
+        msg_args = [self.nodeid, control, bus.idxs[0]]
         if bus.num_channels > 1:
             map_command = NodeCommand.MAPAN if bus.is_audio_bus() else NodeCommand.MAPN
             msg_args.append(bus.num_channels)
