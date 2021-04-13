@@ -2,6 +2,6 @@ nbstripout
 Sphinx
 nbsphinx
 nbsphinx-link
-xnumpydoc
+numpydoc
 sphinx-autoapi
 sphinx-rtd-theme
