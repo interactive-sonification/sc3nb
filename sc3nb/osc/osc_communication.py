@@ -69,6 +69,7 @@ class Bundler:
         msg: Optional[Union[OscMessage, str]] = None,
         msg_args: Optional[Sequence[Any]] = None,
         server: Optional["OSCCommunication"] = None,
+        receiver: Optional[Union[str, Tuple[str, int]]] = None,
         send_on_exit: bool = True,
     ) -> None:
         """Create a Bundler
@@ -84,10 +85,13 @@ class Bundler:
             Arguments for the message, by default None
         server : OSCCommunication, optional
             OSC server, by default None
+        receiver : Union[str, Tuple[str, int]], optional
+            Where to send the bundle, by default send to default receiver of server
         send_on_exit : bool, optional
             Wether the bundle is send when using as context manger, by default True
         """
         self.timestamp = timestamp
+        self.default_receiver = receiver
         if server is not None:
             self.server = server
         else:
@@ -214,7 +218,8 @@ class Bundler:
             If None it will use the server from init
             or try to use sc3nb.SC.get_default().server, by default None
         receiver : Tuple[str, int], optional
-            Address (ip, port) to send to, by default None
+            Address (ip, port) to send to, if None it will send the bundle to
+            the default receiver of the Bundler
         bundled : bool, optional
             If True this is allowed to be bundled, by default True
 
@@ -227,6 +232,8 @@ class Bundler:
             server = self.server or sc3nb.SC.get_default().server
         else:
             raise RuntimeError("No server for sending provided.")
+        if receiver is None and self.default_receiver is not None:
+            receiver = server.lookup_receiver(self.default_receiver)
         server.send(self, receiver=receiver, bundled=bundled)
 
     def __enter__(self):
@@ -404,15 +411,15 @@ class MessageQueueCollection(MessageHandler):
         address : str
             first message address
         """
-        address, *args = args
-        if address not in self.msg_queues:
-            self.msg_queues[address] = MessageQueue(address)
+        subaddress, *args = args
+        if subaddress not in self.msg_queues:
+            self.msg_queues[subaddress] = MessageQueue(subaddress)
             _LOGGER.debug(
-                "MessageQueue for %s was created under CollectionHandler %s.",
-                address,
+                "MessageQueue for %s was created under MessageQueueCollection %s.",
+                subaddress,
                 self._address,
             )
-        self.msg_queues[address].put(address, *args)
+        self.msg_queues[subaddress].put(subaddress, *args)
 
     @property
     def map_values(self) -> Tuple[str, Callable]:
@@ -562,12 +569,21 @@ class OSCCommunication:
         """
         return self._msg_queues
 
+    @property
+    def reply_addresses(self) -> Dict[str, str]:
+        """Dict with all addresses and the replies
+
+        Returns
+        -------
+        Dict[str, str]
+            Outgoing address, incoming address
+        """
+        return self._reply_addresses
+
     def _check_sender(self, sender: Tuple[str, int]) -> Union[str, Tuple[str, int]]:
         return self._receivers.get(sender, sender)
 
-    def _get_receiver_address(
-        self, receiver: Union[str, Tuple[str, int]]
-    ) -> Tuple[str, int]:
+    def lookup_receiver(self, receiver: Union[str, Tuple[str, int]]) -> Tuple[str, int]:
         """Reverse lookup the address of a specific receiver
 
         Parameters
@@ -647,8 +663,8 @@ class OSCCommunication:
             Object with `dgram` attribute.
         bundled : bool, optional
             If True it is allowed to bundle the content with bundling, by default False
-        receiver : Optional[Union[str, Tuple[str, int]]], optional
-            Where to send the packet, by default None
+        receiver : str or Tuple[str, int], optional
+            Where to send the packet, by default send to default receiver
         await_reply : bool, optional
             If True and content is a OscMessage send message and wait for reply
             otherwise send the message and return None directly, by default True
@@ -676,7 +692,7 @@ class OSCCommunication:
 
         receiver_address = self._default_receiver
         if receiver is not None:
-            receiver_address = self._get_receiver_address(receiver)
+            receiver_address = self.lookup_receiver(receiver)
 
         try:
             # Bundler needs to be build, this ensures that
@@ -709,8 +725,8 @@ class OSCCommunication:
                     msg_params_str,
                 )
             # handling
+            reply_addr = self.get_reply_address(msg.address)
             try:
-                reply_addr = self.get_reply_address(msg.address)
                 if reply_addr is not None and reply_addr in self._msg_queues:
                     if await_reply:
                         return self._msg_queues[reply_addr].get(timeout, skip=True)
@@ -718,7 +734,10 @@ class OSCCommunication:
                         self._msg_queues[reply_addr].skipped()
             except (Empty, TimeoutError) as error:
                 if isinstance(error, Empty):
-                    message = f"Failed to get reply after '{msg.address}' message to "
+                    message = (
+                        f"Failed to get reply at '{reply_addr}' "
+                        f"after '{msg.address}' message to "
+                    )
                 elif isinstance(error, TimeoutError):
                     message = f"Timed out after '{msg.address}' message to "
                 else:
@@ -771,7 +790,7 @@ class OSCCommunication:
         msg_args : Optional[Sequence], optional
             List of arguments to add to message, by default None
         bundled : bool, optional
-            [description], by default False
+            If True it is allowed to bundle the content with bundling, by default False
         receiver : tuple[str, int], optional
             (IP address, port) to send the message, by default send to default receiver
         await_reply : bool, optional

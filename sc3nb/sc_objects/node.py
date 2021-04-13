@@ -185,8 +185,8 @@ class Node(ABC):
             This Nodes AddAction when created in Server, by default None
         target : Node or int or None, optional
             This Nodes AddActions target, by default None
-        server : [type], optional
-            [description], by default None
+        server : SCServer, optional
+            The Server for this node, by default server
         """
         self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:
@@ -925,7 +925,7 @@ class Group(Node):
         target : Node or int, optional
             add action target, by default 1
         return_msg : bool, optional
-            [description], by default False
+            If ture return the OscMessage instead of sending it, by default False
 
         Returns
         -------

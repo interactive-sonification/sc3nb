@@ -146,7 +146,7 @@ class Bus:
         Raises
         ------
         RuntimeError
-            [description]
+            If fill is used on a Audio Bus
         """
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't fill Audio Buses")
@@ -166,7 +166,7 @@ class Bus:
         Raises
         ------
         RuntimeError
-            [description]
+            If get is used on an Audio Bus
         """
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't get Audio Buses")
