@@ -4,16 +4,16 @@ Welcome to sc3nb's documentation!
 .. toctree::
    :maxdepth: 4
    :Caption: Introduction
-   
+
    autogen/notebooks/sc3nb-examples
-   
+
 
 .. toctree::
    :maxdepth: 2
    :Caption: User Guide
 
    autogen/notebooks/sclang-examples
-   
+
    supercolliderobjects
 
    autogen/notebooks/timedqueue-examples

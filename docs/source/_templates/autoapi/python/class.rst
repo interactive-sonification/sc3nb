@@ -26,7 +26,7 @@
    {% if obj.docstring %}
    {{ obj.docstring|prepare_docstring|indent(3) }}
    {% endif %}
-   
+
    {% if "inherited-members" in autoapi_options %}
    {% set visible_classes = obj.classes|selectattr("display")|list %}
    {% else %}
@@ -35,7 +35,7 @@
    {% for klass in visible_classes %}
    {{ klass.render()|indent(3) }}
    {% endfor %}
-   
+
    {% if "inherited-members" in autoapi_options %}
    {% set visible_attributes = obj.attributes|selectattr("display")|list %}
    {% else %}
@@ -60,11 +60,11 @@
       {% for method in visible_methods %}
          {{ method.id }}
       {% endfor %}
-      
+
    {% for method in visible_methods %}
    {{ method.render()|indent(3) }}
    {% endfor %}
    {% endif %}
-   
+
 
 {% endif %}
