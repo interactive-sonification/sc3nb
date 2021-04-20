@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+src_paths = ["sc3nb", "tests"]
+skip = ["__init__.py", ".tox"]
+
+[tool.check-manifest]
+ignore = [".travis.yml"]
