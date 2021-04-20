@@ -2,10 +2,9 @@
 
 ## What is sc3nb?
 
-sc3nb is a python package that offers a SuperCollider3 interface, which special support to be used within jupyter notebooks.
+sc3nb is a python package that offers a SuperCollider3 interface, whit special support to be used within jupyter notebooks.
 It establishes shortcuts and familiar functions used by sc3 to make it easier to program, interactively try sound synthesis and sonification development.
 
-  * Website: --
   * Documentation: see examples/sc3nb-examples.ipynb and help(sc3nb)
   * Source code: https://github.com/thomas-hermann/sc3nb
 
@@ -30,13 +29,9 @@ sc3nb can be used for
 
 For more information, please read the documentation.
 
-#### Building the Documentation
-
-An introduction howto use sc3nb is available in the ipython notebook examples/sc3nb-examples.ipynb 
-
 #### Installation
 
-**Disclaimer**: I am currently making sure that sc3nb can be uploaded to PyPI, until then clone the master branch and from inside the sc3nb directory install via 
+**Disclaimer**: I am currently making sure that sc3nb can be uploaded to PyPI, until then clone the master branch and from inside the sc3nb directory install via
 ```bash
 pip install -e .
 ```
@@ -59,7 +54,7 @@ Stop the synth via CMD-. (registered jupyter shortcut), or use
 
     %sc s.freeAll
 
-The %scv magic is a verbose version which inlines the sc3 output in the jupyter output cell. 
+The %scv magic is a verbose version which inlines the sc3 output in the jupyter output cell.
 
 Cell magic work in between python code, e.g.
 
@@ -82,10 +77,3 @@ and trigger it like this:
 
     for i in range(100):
         sc.msg("/ding", ["freq", 1000-5*i], sclang=True)
-
-### Learning more
-* Please check the examples/sc3nb-examples.ipynb for more examples and details.
-
-
-## Contributing 
-* Please get in touch with us if you wish to contribute. We are happy to be involved in the discussion of new features and to receive pull requests.
