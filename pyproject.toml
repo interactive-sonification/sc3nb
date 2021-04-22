@@ -10,3 +10,6 @@ skip = ["__init__.py", ".tox"]
 
 [tool.check-manifest]
 ignore = [".travis.yml"]
+
+[tool.pytest.ini_options]
+log_cli_level = "DEBUG"
