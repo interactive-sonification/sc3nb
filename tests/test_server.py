@@ -32,5 +32,6 @@ class ServerTest(TestCase):
         self.assertEqual(len(node_tree.root.children), self.server.max_logins)
         self.assertIn(self.server.default_group, node_tree.root.children)
         group = Group(server=self.server)
+        self.server.sync()
         node_tree = self.server.query_all_nodes()
         self.assertIn(group, self.server.default_group.children)

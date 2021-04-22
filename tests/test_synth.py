@@ -26,6 +26,7 @@ class SynthTest(SCBaseTest):
 
     def test_node_registry(self):
         self.assertIs(self.synth, Synth(nodeid=self.synth.nodeid, new=False))
+        self.assertIs(self.synth, Synth(nodeid=self.custom_nodeid, new=False))
 
     def test_too_many_arguments(self):
         with self.assertRaises(TypeError):
@@ -41,8 +42,8 @@ class SynthTest(SCBaseTest):
         for name, value in {"amp": 0.3, "num": 1}.items():
             self.synth.__setattr__(name, value)
             self.assertAlmostEqual(self.synth.__getattr__(name), value)
-        # with self.assertWarnsRegex(UserWarning, "Setting 'freq' as python attribute"):
-        self.synth.freq = 420
+        with self.assertWarnsRegex(UserWarning, "Setting 'freq' as python attribute"):
+            self.synth.freq = 420
 
     def test_set_get(self):
         with self.assertWarnsRegex(UserWarning, "Setting 'freq' as python attribute"):
