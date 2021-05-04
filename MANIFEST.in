@@ -2,6 +2,7 @@ include tox.ini
 include LICENSE
 
 include *.txt
+include *.yaml
 
 recursive-include sc3nb *.scsyndef
 
