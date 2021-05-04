@@ -4,35 +4,14 @@ from sc3nb.sc import startup
 from sc3nb.sc_objects.server import ServerOptions
 
 
-class SCBaseTest(TestCase):
-
-    __test__ = False
-    sc = None
-    start_sclang = False
-
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.sc = startup(
-            start_server=True,
-            scsynth_options=ServerOptions(udp_port=57777),
-            with_blip=False,
-            start_sclang=cls.start_sclang,
-        )
-        cls.sc.server.dump_osc(1)
-        cls.sc.server.sync()
-        if cls.start_sclang:
-            cls.sc.server.mute()
-
-    @classmethod
-    def tearDownClass(cls) -> None:
-        cls.sc.exit()
-
-
 class SCTest(TestCase):
-    def test_start_synth(self):
-        options = ServerOptions()
+    def test_start_scsynth(self):
+        options = ServerOptions(udp_port=57777)
         supercollider = startup(
-            start_server=True, scsynth_options=options, start_sclang=False
+            start_server=True,
+            scsynth_options=options,
+            start_sclang=False,
+            with_blip=False,
         )
 
         self.assertIs(supercollider.server.options, options)

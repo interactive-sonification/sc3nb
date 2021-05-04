@@ -2,7 +2,7 @@ import time
 import warnings
 
 from sc3nb.sc_objects.node import AddAction, Group, GroupInfo, Synth
-from tests.test_sc import SCBaseTest
+from tests.conftest import SCBaseTest
 
 
 class GroupTest(SCBaseTest):
@@ -18,27 +18,38 @@ class GroupTest(SCBaseTest):
         GroupTest.sc.server.sync()
 
     def tearDown(self) -> None:
+        nodeid = self.group.nodeid
+        self.assertIn(nodeid, self.sc.server.nodes)
         self.group.free()
+        self.group.wait()
+        del self.group  # make sure that group is deleted from registry
+        del self.sc.server.nodes[nodeid]
+        self.assertNotIn(nodeid, self.sc.server.nodes)
 
     def test_node_registry(self):
-        self.assertIs(self.group, Group(nodeid=self.group.nodeid, new=False))
-        self.assertIs(self.group, Group(nodeid=self.custom_nodeid, new=False))
-
-    def test_too_many_arguments(self):
-        with self.assertRaises(TypeError):
-            Group(101, "this is too much!")
+        copy1 = Group(nodeid=self.group.nodeid, new=False)
+        copy2 = Group(nodeid=self.custom_nodeid, new=False)
+        self.assertIs(self.group, copy1)
+        self.assertIs(self.group, copy2)
+        self.assertIs(copy1, copy2)
+        del copy1, copy2
 
     def test_setattr(self):
         with self.assertWarnsRegex(
-            UserWarning, "SynthDesc is unknown", msg="SynthDesc seems to be known"
+            UserWarning, "SynthDesc 's2' is unknown", msg="SynthDesc seems to be known"
         ):
-            synth1 = Synth("s2", target=self.group)
-            synth2 = Synth("s2", target=self.group)
+            synth1 = Synth("s2", controls={"amp": 0.0}, target=self.group)
+        with self.assertWarnsRegex(
+            UserWarning, "SynthDesc 's2' is unknown", msg="SynthDesc seems to be known"
+        ):
+            synth2 = Synth("s2", controls={"amp": 0.0}, target=self.group)
         GroupTest.sc.server.sync()
-        args = {"amp": 0.3, "num": 1}
+        args = {"pan": -1.0, "num": 1}
         for name, value in args.items():
             self.group.set(name, value)
         GroupTest.sc.server.sync()
+        self.assertEqual(synth1.group, self.group.nodeid)
+        self.assertEqual(synth2.group, self.group.nodeid)
         for name, value in args.items():
             self.assertAlmostEqual(synth1.get(name), value)
             self.assertAlmostEqual(synth2.get(name), value)
@@ -46,9 +57,10 @@ class GroupTest(SCBaseTest):
     # TODO does only trigger a warning if the new group is not the old/same group
     # This seems like a SuperCollider Problem
     def test_new_warning(self):
-        with self.assertWarnsRegex(UserWarning, "duplicate node ID"):
+        with self.assertLogs(level="WARNING") as log:
             self.group.new(target=0)
-            time.sleep(0.2)
+            time.sleep(0.1)
+        self.assertTrue("duplicate node ID" in log.output[-1])
 
     def test_query(self):
         query_result = self.group.query()

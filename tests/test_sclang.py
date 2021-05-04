@@ -3,7 +3,7 @@ from unittest import TestCase
 import numpy as np
 
 from sc3nb.sclang import SCLang, SynthArgument
-from tests.test_sc import SCBaseTest
+from tests.conftest import SCBaseTest
 
 
 class SCLangTest(TestCase):

@@ -1,7 +1,7 @@
 import numpy as np
 
 from sc3nb.sc_objects.buffer import Buffer
-from tests.test_sc import SCBaseTest
+from tests.conftest import SCBaseTest
 
 
 class BufferTest(SCBaseTest):

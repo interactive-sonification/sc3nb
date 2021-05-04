@@ -9,7 +9,7 @@ class ServerTest(TestCase):
         self.port = 57777
         options = ServerOptions(udp_port=self.port)
         self.server = SCServer(options=options)
-        self.server.boot(allowed_parents=[])
+        self.server.boot(with_blip=False)
 
     def tearDown(self) -> None:
         self.server.quit()
@@ -28,10 +28,10 @@ class ServerTest(TestCase):
         self.assertTrue(self.server.sync(timeout=10))
 
     def test_node_tree(self):
-        node_tree = self.server.query_all_nodes()
-        self.assertEqual(len(node_tree.root.children), self.server.max_logins)
-        self.assertIn(self.server.default_group, node_tree.root.children)
+        root_group = self.server.query_all_nodes()
+        self.assertEqual(len(root_group.children), self.server.max_logins)
+        self.assertIn(self.server.default_group, root_group.children)
         group = Group(server=self.server)
         self.server.sync()
-        node_tree = self.server.query_all_nodes()
+        root_group = self.server.query_all_nodes()
         self.assertIn(group, self.server.default_group.children)

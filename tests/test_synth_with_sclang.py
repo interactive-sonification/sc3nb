@@ -1,7 +1,7 @@
 import time
 
 from sc3nb.sc_objects.node import Synth
-from tests.test_sc import SCBaseTest
+from tests.conftest import SCBaseTest
 
 
 class SynthTestWithSClang(SCBaseTest):
