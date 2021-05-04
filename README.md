@@ -27,7 +27,7 @@ sc3nb can be used for
 * any usecase that the SuperCollider 3 language supports
 
 
-For more information, please read the documentation.
+For more information and examples, please read the documentation.
 
 #### Installation
 
