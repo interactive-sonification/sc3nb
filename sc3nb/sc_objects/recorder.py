@@ -23,7 +23,7 @@ class RecorderState(Enum):
 class Recorder:
     """Allows to record audio easily."""
 
-    ## TODO rec_header, rec_format with Literal type (py3.8) from Buffer
+    # TODO rec_header, rec_format with Literal type (py3.8) from Buffer
     def __init__(
         self,
         path: Optional[str] = "record.wav",
@@ -98,12 +98,12 @@ class Recorder:
         self._synth_def = SynthDef(
             f"sc3nb_recording_{self._rec_id}",
             r"""{ |bus, bufnum, duration|
-			var tick = Impulse.kr(1);
-			var timer = PulseCount.kr(tick) - 1;
-			Line.kr(0, 0, duration, doneAction: if(duration <= 0, 0, 2));
-			SendReply.kr(tick, '/recordingDuration', timer, ^rec_id);
-			DiskOut.ar(bufnum, In.ar(bus, ^nr_channels))
-		}""",
+            var tick = Impulse.kr(1);
+            var timer = PulseCount.kr(tick) - 1;
+            Line.kr(0, 0, duration, doneAction: if(duration <= 0, 0, 2));
+            SendReply.kr(tick, '/recordingDuration', timer, ^rec_id);
+            DiskOut.ar(bufnum, In.ar(bus, ^nr_channels))
+        }""",
         )
         self._synth_name = self._synth_def.add(
             pyvars={"rec_id": self._rec_id, "nr_channels": nr_channels}
@@ -145,7 +145,7 @@ class Recorder:
         with self._server.bundler(timestamp=timestamp):
             self._record_synth = Synth(
                 self._synth_name,
-                args=args,
+                controls=args,
                 server=self._server,
                 target=node,
                 add_action=AddAction.TO_TAIL,

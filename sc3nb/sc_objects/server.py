@@ -4,7 +4,7 @@ import warnings
 from enum import Enum, unique
 from queue import Empty
 from random import randint
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Set, Tuple
 from weakref import WeakValueDictionary
 
 from sc3nb.osc.osc_communication import (
@@ -25,7 +25,7 @@ from sc3nb.sc_objects.node import (
     Node,
     NodeCommand,
     NodeReply,
-    NodeTree,
+    Synth,
     SynthCommand,
 )
 from sc3nb.sc_objects.synthdef import SynthDef, SynthDefinitionCommand
@@ -150,7 +150,7 @@ class ServerOptions:
     def __init__(
         self,
         udp_port: int = SCSYNTH_DEFAULT_PORT,
-        max_logins: int = 5,
+        max_logins: int = 6,
         num_input_buses: int = 2,
         num_output_buses: int = 2,
         num_audio_buses: int = 1024,
@@ -301,6 +301,39 @@ class IDBlockAllocator:
             self._free_ids.insert(free_id - self._offset, free_id)
 
 
+class NodeWatcher:
+    """The NodeWatcher is used to handle Node Notifications.
+
+    Parameters
+    ----------
+    server : SCServer
+        Server belonging to the notifications
+    """
+
+    def __init__(self, server: "SCServer"):
+        # self.nodes: Set[int] = set()
+        self._server = server
+        self.notification_addresses = ["/n_go", "/n_end", "/n_off", "/n_on", "/n_move"]
+
+    # def register(self, node):
+    #     self.nodes.add(node.nodeid)
+
+    # def unregister(self, node):
+    #     self.nodes.remove(node.nodeid)
+
+    def handle_notification(self, *args):
+        """Handle a Notification"""
+        kind, *info = args
+        nodeid, _, _, _, *rest = info
+        # if nodeid in self.nodes:  # check if node is registered
+        _LOGGER.debug(f"Handling {kind} notification for {nodeid}: {info}")
+        if len(rest) > 1:  # node is group
+            node = Group(nodeid=nodeid, new=False, server=self._server)
+        else:  # node is synth
+            node = Synth(nodeid=nodeid, new=False, server=self._server)
+        node._handle_notification(kind, info)
+
+
 class SCServer(OSCCommunication):
     """SuperCollider audio server representaion.
 
@@ -350,14 +383,20 @@ class SCServer(OSCCommunication):
             ReplyAddress.WILDCARD_ADDR, self._log_message, needs_reply_address=True
         )
 
+        # node managing
+        self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
+
+        self.node_watcher = NodeWatcher(self)
+        for address in self.node_watcher.notification_addresses:
+            self._osc_server.dispatcher.map(
+                address, self.node_watcher.handle_notification
+            )
+
         self.buffer_id_allocator: Optional[IDBlockAllocator] = None
         self.control_bus_id_allocator: Optional[IDBlockAllocator] = None
         self.audio_bus_id_allocator: Optional[IDBlockAllocator] = None
 
-        # node managing
-        self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
-
-        self._root_node = Group(0, group=0, new=False, target=0, server=self)
+        self._root_node = Group(nodeid=0, new=False, target=0, server=self)
         self._default_groups: Dict[int, Group] = {}
         self._is_local: bool = False
 
@@ -576,14 +615,14 @@ class SCServer(OSCCommunication):
         """Make a blip sound"""
         if self._volume.muted:
             warnings.warn("SCServer is muted. Blip will also be silent!")
-        with self.bundler(0.1) as bundler:
+        with self.bundler(0.15) as bundler:
             bundler.add(
-                0.1, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1]
+                0.0, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1]
             )
             bundler.add(
-                0.3, "/s_new", ["s2", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2]
+                0.2, "/s_new", ["s2", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2]
             )
-            bundler.add(0.4, "/n_free", [-1])
+            bundler.add(0.3, "/n_free", [-1])
 
     def remote(self, address: str, port: int, with_blip: bool = True) -> None:
         """Connect to remote Server
@@ -634,7 +673,7 @@ class SCServer(OSCCommunication):
                 self._has_booted = False
                 self.process.kill()
 
-    def sync(self, timeout=5):
+    def sync(self, timeout=5) -> bool:
         """Sync the server with the /sync command.
 
         Parameters
@@ -643,6 +682,10 @@ class SCServer(OSCCommunication):
             Time in seconds that will be waited for sync.
              (Default value = 5)
 
+        Returns
+        -------
+        bool
+            True if sync worked.
         """
         sync_id = randint(1000, 9999)
         msg = build_message(MasterControlCommand.SYNC, sync_id)
@@ -781,14 +824,17 @@ class SCServer(OSCCommunication):
             self.send_default_groups()
         else:
             self.default_group.new()
+        self.execute_init_hooks()
         self.sync()
 
     def send_default_groups(self) -> None:
         """Send the default groups for all clients."""
         client_ids = range(self._max_logins)
 
-        def create_default_group(client_id):
-            return Group(nodeid=2 ** 26 * client_id + 1, target=0, server=self).new()
+        def create_default_group(client_id) -> Group:
+            return Group(
+                nodeid=2 ** 26 * client_id + 1, target=0, server=self, new=True
+            )
 
         self._default_groups = {
             client: create_default_group(client) for client in client_ids
@@ -803,6 +849,8 @@ class SCServer(OSCCommunication):
             node id
         """
         self._num_node_ids += 1
+        if self._num_node_ids >= 2 ** 31:
+            self._num_node_ids = 0
         node_id = self._num_node_ids + 10000 * (self._client_id + 1)
         return node_id
 
@@ -930,6 +978,7 @@ class SCServer(OSCCommunication):
         """
         if not self.is_local or self.process is None:
             warnings.warn("Server is not local or not booted. Use query_all_nodes")
+            return
         self.process.read()
         msg = build_message(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
         self.send(msg)
@@ -938,7 +987,7 @@ class SCServer(OSCCommunication):
         if return_tree:
             return node_tree
 
-    def query_all_nodes(self, include_controls: bool = True) -> NodeTree:
+    def query_all_nodes(self, include_controls: bool = True) -> Group:
         """Query all nodes at the server and return a NodeTree
 
         Parameters
@@ -1041,4 +1090,4 @@ class SCServer(OSCCommunication):
         )
 
     def _warn_fail(self, sender, *args):
-        warnings.warn(f"Error from {self._check_sender(sender)}: {args}")
+        _LOGGER.warning("Error from %s: %s", self._check_sender(sender), args)

@@ -85,9 +85,9 @@ class Volume:
                     }
                     self._synth = Synth(
                         self._synth_name,
-                        group=self._server.default_group,
                         add_action=AddAction.AFTER,
-                        args=args,
+                        target=self._server.default_group,
+                        controls=args,
                         server=self._server,
                     )
                 else:
@@ -104,11 +104,11 @@ class Volume:
             synth_def = SynthDef(
                 f"sc3nb_volumeAmpControl{num_channels}",
                 r"""{ | volumeAmp = 1, volumeLag = 0.1, gate=1, bus |
-					XOut.ar(bus,
-						Linen.kr(gate, releaseTime: 0.05, doneAction:2),
-						In.ar(bus, ^num_channels) * Lag.kr(volumeAmp, volumeLag)
-					);
-				}""",
+                    XOut.ar(bus,
+                        Linen.kr(gate, releaseTime: 0.05, doneAction:2),
+                        In.ar(bus, ^num_channels) * Lag.kr(volumeAmp, volumeLag)
+                    );
+                }""",
             )
             try:
                 self._synth_name = synth_def.add(server=self._server)
