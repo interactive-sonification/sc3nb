@@ -141,7 +141,7 @@ class TimedQueue:
             raised if function is not callable
         """
 
-        if not hasattr(function, "__call__"):
+        if not callable(function):
             raise TypeError("function argument cannot be called")
         if not isinstance(args, tuple):
             args = (args,)
