@@ -247,7 +247,7 @@ class Process:
         RuntimeError
             If writing to process fails
         """
-        _LOGGER.debug(input_str)
+        _LOGGER.debug("Writing: '%s'", input_str)
         try:
             self.stdin.write(input_str)
             self.stdin.flush()  # shouldnt be needed as buffering is disabled.

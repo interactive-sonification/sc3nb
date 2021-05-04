@@ -60,7 +60,7 @@ class SynthDef:
                 sclang_text = "sclang is not running."
             else:
                 sclang_text = "sclang does not know this SynthDef"
-            warnings.warn(f"SynthDesc is unknown. {sclang_text}")
+            warnings.warn(f"SynthDesc '{name}' is unknown. {sclang_text}")
         return synth_desc
 
     @classmethod
@@ -271,6 +271,7 @@ class SynthDef:
             self.sc = sc3nb.SC.get_default()
         synth_def_blob = self.sc.lang.cmdg(
             f"""
+            "sc3nb - Creating SynthDef {name}".postln;
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
             r.tmpSynthDef.asBytes();""",

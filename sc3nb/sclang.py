@@ -266,6 +266,7 @@ class SCLang:
             print("Registering OSC /return callback in sclang...")
             self.cmd(
                 r"""
+                "sc3nb - Registering OSC /return callback".postln;
                 // NetAddr.useDoubles = true;
                 r = r ? ();
                 r.callback = { arg code, ip, port;
@@ -308,7 +309,8 @@ class SCLang:
         path = Path(synthdefs_path)
         if path.exists() and path.is_dir():
             self.cmd(
-                r"""PathName.new(^synthdefs_path).files.collect(
+                r""" "sc3nb - Loading SynthDefs from ^synthdef_path".postln;
+                PathName.new(^synthdefs_path).files.collect(
                 { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
                 );""",
                 pyvars={"synthdefs_path": path.as_posix()},
@@ -326,7 +328,7 @@ class SCLang:
         """
         self.started = False
         try:
-            self.cmd("0.exit;")
+            self.cmd('"sc3nb - exiting sclang".postln; 0.exit;')
         except RuntimeError:
             pass
         else:
@@ -465,7 +467,7 @@ class SCLang:
         return self.cmd(code, get_result=True, **kwargs)
 
     def read(
-        self, expect: Optional[str] = None, timeout: int = 1, print_error: bool = True
+        self, expect: Optional[str] = None, timeout: float = 1, print_error: bool = True
     ) -> str:
         """Reads SuperCollider output from the process output queue.
 
@@ -526,7 +528,8 @@ class SCLang:
         ValueError
             When synthDesc of synthDef can not be found.
         """
-        code = r"""SynthDescLib.global['{{synthDef}}'].controls.collect(
+        code = r""" "sc3nb - Get SynthDesc of {{synthDef}}".postln;
+                SynthDescLib.global['{{synthDef}}'].controls.collect(
                 { arg control;
                 [control.name, control.rate, control.defaultValue]
                 })""".replace(
@@ -578,10 +581,11 @@ class SCLang:
             server = self._server
         if not isinstance(server, SCServer):
             raise ValueError(f"Server must be instance of SCServer, got {type(server)}")
-        code = r"""Server.default=s=Server.remote('remote', NetAddr("{0}",{1}), clientID:{2});"""
+        code = r""" "sc3nb - Connecting sclang to scsynth".postln;
+        Server.default=s=Server.remote('sc3nb_remote', NetAddr("{0}",{1}), clientID:{2});"""
         self.cmd(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
         try:  # if there are 'too many users' we failed. So the Exception is the successful case!
-            self.read(expect="too many users", timeout=2, print_error=False)
+            self.read(expect="too many users", timeout=0.3, print_error=False)
         except ProcessTimeout:
             _LOGGER.info("Updated SC server at sclang")
             self._server = server

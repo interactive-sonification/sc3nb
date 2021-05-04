@@ -125,6 +125,7 @@ class Bundler:
         params : OscMessage or Bundler or Bundler arguments like
                  (timestamp, msg_addr, msg_args)
                  (timestamp, msg_addr)
+                 (timestamp, msg)
 
         Returns
         -------
@@ -156,8 +157,8 @@ class Bundler:
                 timestamp, msg_addr, msg_args = params
                 self.add(Bundler(timestamp, msg_addr, msg_args))
             elif len(params) == 2:
-                timestamp, msg_addr = params
-                self.add(Bundler(timestamp, msg_addr))
+                timestamp, msg = params
+                self.add(Bundler(timestamp, msg))
             else:
                 raise ValueError(f"Invalid parameters {params}")
         return self
@@ -248,7 +249,9 @@ class Bundler:
             raise RuntimeError("Bundler nesting failed.")
         self.server._bundling_lock.release()
         if exc_type:
-            raise RuntimeError("Bundler failed. Check if add is used correctly.")
+            raise RuntimeError(
+                f"Exception raised in bundler: {exc_type.__name__} {exc_value}"
+            )
         if self.send_on_exit:
             self.send(bundled=True)
 
@@ -434,6 +437,9 @@ class MessageQueueCollection(MessageHandler):
 
     def __contains__(self, item) -> bool:
         return item in self.msg_queues
+
+    def __getitem__(self, key):
+        return self.msg_queues[key]
 
 
 class OSCCommunicationError(Exception):
@@ -706,7 +712,9 @@ class OSCCommunication:
                 f"Package '{package}' not supported. It needs a dgram Attribute."
             ) from error
 
-        self._osc_server.socket.sendto(datagram, receiver_address)
+        sent_bytes = self._osc_server.socket.sendto(datagram, receiver_address)
+        if sent_bytes == 0:
+            raise RuntimeError("Could not send data. Socket connection broken.")
 
         if isinstance(package, OscMessage):
             msg = package
@@ -732,6 +740,7 @@ class OSCCommunication:
                         return self._msg_queues[reply_addr].get(timeout, skip=True)
                     else:
                         self._msg_queues[reply_addr].skipped()
+                        return
             except (Empty, TimeoutError) as error:
                 if isinstance(error, Empty):
                     message = (
