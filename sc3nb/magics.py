@@ -111,6 +111,29 @@ class SC3Magics(Magics):
         return sc3nb.SC.get_default().lang.cmdv(cmdstr, pyvars=pyvars)
 
     @line_cell_magic
+    def scs(self, line="", cell=None):
+        """Execute SuperCollider code silently (verbose==False)
+
+        Parameters
+        ----------
+        line : str, optional
+            Line of SuperCollider code, by default ''
+        cell : str, optional
+            Cell of SuperCollider code , by default None
+
+        Returns
+        -------
+        Unknown
+            cmd result
+        """
+        if cell is None:
+            cmdstr = line
+        else:
+            cmdstr = cell
+        pyvars = self._parse_pyvars(cmdstr)
+        return sc3nb.SC.get_default().lang.cmds(cmdstr, pyvars=pyvars)
+
+    @line_cell_magic
     def scg(self, line="", cell=None):
         """Execute SuperCollider code returning output
 

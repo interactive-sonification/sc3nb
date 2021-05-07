@@ -276,6 +276,7 @@ class SynthDef:
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
             r.tmpSynthDef.asBytes();""",
             pyvars=pyvars,
+            verbose=False,
         )
         if synth_def_blob == 0:
             error = self.sc.lang.read()

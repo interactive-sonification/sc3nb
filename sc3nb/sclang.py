@@ -264,7 +264,7 @@ class SCLang:
             print("Done.")
 
             print("Registering OSC /return callback in sclang...")
-            self.cmd(
+            self.cmds(
                 r"""
                 "sc3nb - Registering OSC /return callback".postln;
                 // NetAddr.useDoubles = true;
@@ -308,7 +308,7 @@ class SCLang:
             )
         path = Path(synthdefs_path)
         if path.exists() and path.is_dir():
-            self.cmd(
+            self.cmds(
                 r""" "sc3nb - Loading SynthDefs from ^synthdef_path".postln;
                 PathName.new(^synthdefs_path).files.collect(
                 { |path| (path.extension == "scsyndef").if({SynthDescLib.global.read(path); path;})}
@@ -328,7 +328,7 @@ class SCLang:
         """
         self.started = False
         try:
-            self.cmd('"sc3nb - exiting sclang".postln; 0.exit;')
+            self.cmds('"sc3nb - exiting sclang".postln; 0.exit;')
         except RuntimeError:
             pass
         else:
@@ -342,7 +342,7 @@ class SCLang:
         self,
         code: str,
         pyvars: Optional[dict] = None,
-        verbose: bool = False,
+        verbose: bool = True,
         discard_output: bool = True,
         get_result: bool = False,
         print_error: bool = True,
@@ -361,7 +361,7 @@ class SCLang:
             Dictionary of name and value pairs of python
             variables that can be injected via ^name, by default None
         verbose : bool, optional
-            If True print output, by default False
+            If True print output, by default True
         discard_output : bool, optional
             If True clear output buffer before passing command, by default True
         get_result : bool, optional
@@ -460,6 +460,12 @@ class SCLang:
             kwargs["pyvars"] = parse_pyvars(code)
         return self.cmd(code, verbose=True, **kwargs)
 
+    def cmds(self, code: str, **kwargs) -> Any:
+        """cmd with verbose=False, i.e. silent"""
+        if kwargs.get("pyvars", None) is None:
+            kwargs["pyvars"] = parse_pyvars(code)
+        return self.cmd(code, verbose=False, **kwargs)
+
     def cmdg(self, code: str, **kwargs) -> Any:
         """cmd with get_result=True"""
         if kwargs.get("pyvars", None) is None:
@@ -536,7 +542,7 @@ class SCLang:
             "{{synthDef}}", synth_def
         )
         try:
-            synth_desc = self.cmd(code, get_result=True, print_error=False)
+            synth_desc = self.cmds(code, get_result=True, print_error=False)
         except SCLangError:  # this will fail if sclang does not know this synth
             warnings.warn(
                 f"Couldn't find SynthDef {synth_def} in sclangs global SynthDescLib."
@@ -583,13 +589,13 @@ class SCLang:
             raise ValueError(f"Server must be instance of SCServer, got {type(server)}")
         code = r""" "sc3nb - Connecting sclang to scsynth".postln;
         Server.default=s=Server.remote('sc3nb_remote', NetAddr("{0}",{1}), clientID:{2});"""
-        self.cmd(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
+        self.cmds(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
         try:  # if there are 'too many users' we failed. So the Exception is the successful case!
             self.read(expect="too many users", timeout=0.3, print_error=False)
         except ProcessTimeout:
             _LOGGER.info("Updated SC server at sclang")
             self._server = server
-            self._port = self.cmdg("NetAddr.langPort")
+            self._port = self.cmdg("NetAddr.langPort", verbose=False)
             self._server.add_receiver(name="sclang", ip="127.0.0.1", port=self._port)
             _LOGGER.info(
                 "Updated sclang port on OSCCommunication " "to non default port: %s",

@@ -234,8 +234,6 @@ class SC:
         if self._server is None:
             self._server = SCServer(options=scsynth_options)
             try:
-                if self._sclang is not None:
-                    self._sclang.connect_to_server(self._server)
                 self._server.boot(
                     scsynth_path=scsynth_path,
                     console_logging=console_logging,
