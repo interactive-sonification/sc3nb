@@ -18,9 +18,12 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "sc3nb"
-copyright = "2021, Thomas Hermann"
-author = "Thomas Hermann"
+copyright = "2021, Thomas Hermann, Dennis Reinsch"
+author = "Thomas Hermann, Dennis Reinsch"
 
+# The full version, including alpha/beta/rc tags
+version = "unset"
+html_context = dict(versions=str(version))
 
 # -- General configuration ---------------------------------------------------
 

@@ -1,12 +1,108 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 import argparse
+import errno
+import glob
 import json
 import os
+import shutil
+import stat
 import subprocess
 import sys
+from os.path import basename, dirname, exists
 from pathlib import Path
+from sys import platform
+from typing import Optional
+
+SILENCE = "> /dev/null 2>&1"
+
+# you usually want to run:
+#   python docs/generate --doctree --publish --clean --no-show
+
+
+def main():
+    git_root = subprocess.check_output(
+        f"git -C {dirname(__file__)} rev-parse --show-toplevel".split(" ")
+    )
+    git_root = str(git_root, "utf-8").strip()
+    # checking dir
+    os.chdir(git_root)
+    current_path = Path().resolve()
+    if current_path.parts[-1:] != ("sc3nb",):
+        raise RuntimeWarning(
+            f"Wrong current working dir! {current_path} Have you moved this script? Script must be in sc3nb project folder"
+        )
+    parser = argparse.ArgumentParser(description="Generates Sphinx documentation")
+    parser.add_argument("--doctree", action="store_true", help="build complete doctree")
+    parser.add_argument(
+        "--publish", action="store_true", help="build and publish doctree"
+    )
+    parser.add_argument(
+        "--no-show", action="store_true", help="do not open browser after build"
+    )
+    parser.add_argument(
+        "--branches",
+        nargs="*",
+        default=["master", "develop"],
+        help="limit doctree to these branches",
+    )
+    parser.add_argument(
+        "--tags", nargs="*", default=False, help="limit doctree to these tags"
+    )
+    parser.add_argument(
+        "--input",
+        default=f"{git_root}/docs/source/",
+        help="input folder (ignored for doctree)",
+    )
+    parser.add_argument("--out", default=f"{git_root}/build/", help="output folder")
+    parser.add_argument(
+        "--template-folder",
+        default=f"{git_root}/docs/source/_templates",
+        help="templates used for doctree",
+    )
+    parser.add_argument(
+        "--clean", action="store_true", help="removes out folder before building doc"
+    )
+    args = parser.parse_args()
+    args.doctree = args.doctree if not args.publish else True
+    if args.clean and exists(args.out):
+        print(f"Cleaning {args.out}")
+        shutil.rmtree(args.out, ignore_errors=False, onerror=_handle_remove_readonly)
+    os.makedirs(args.out, exist_ok=True)
+    if not args.doctree:
+        target = "html"
+        build_doc(source=args.input, out=args.out, target=target)
+        if not args.no_show:
+            url = f"{args.out}/{target}/index.{target}"
+            if platform == "darwin":
+                os.system(f"open {url}")
+            elif platform == "win32":
+                os.startfile(url)
+            else:
+                raise NotImplementedError("'show' is not available for your platform")
+
+    else:
+        generate_tree(
+            out_folder=args.out,
+            publish=args.publish,
+            branches=args.branches,
+            tags=args.tags,
+            template_folder=args.template_folder,
+            show=not args.no_show,
+        )
+
+
+def _handle_remove_readonly(func, path, exc):
+    excvalue = exc[1]
+    print(f"handle {func, path, exc}")
+    if (
+        func in (os.rmdir, os.remove, os.unlink, os.scandir)
+        and excvalue.errno == errno.EACCES
+    ):
+        os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)  # 0777
+        func(path)
+    else:
+        raise RuntimeError(f"Failed to remove {path}")
 
 
 def strip_notebooks(path):
@@ -95,55 +191,186 @@ def generate_notebook_links(
         print(f"> Warning: Notebook {nb} is not linked")
 
 
-def make(target, subprocess_args):
-    print(f"make {target}")
-    process = subprocess.Popen(["make", target], **subprocess_args)
-    return process.wait()
+def build_doc(
+    source, out, target, strip=True, link=True, override: Optional[str] = None
+):
+    print(
+        f"Generating documentation for {f'{target}/{override}' if override else f'{target}'}..."
+    )
 
-
-def main():
-    parser = argparse.ArgumentParser(description="Generates documentation sources")
-    parser.add_argument("-a", "--all", action="store_true", help="do all steps")
-    parser.add_argument("-s", "--strip", action="store_true", help="strip notebooks")
-    parser.add_argument("-l", "--link", action="store_true", help="link notebooks")
-    parser.add_argument("-b", "--build", action="store_true", help="build doc")
-    args = parser.parse_args()
-    if not any(vars(args).values()):
-        parser.error("No arguments provided.")
-        sys.exit(1)
-    # checking dir
-    os.chdir(os.path.dirname(sys.argv[0]))
-    current_path = Path().resolve()
-    if current_path.parts[-2:] != ("sc3nb", "docs"):
-        raise RuntimeWarning(f"Wrong current working dir! Have you moved this script?")
-
-    docs_dir = "./source/"
-    notebook_doc_subdir = "autogen/notebooks/"
-    notebooks_dir = "../examples/"
+    # paths relative to gitroot
+    notebooks_dir = "./examples/"
+    notebook_doc_build_subdir = "autogen/notebooks/"
     media_dir = notebooks_dir + "media/"
 
-    retval = 0
-
     # Strip notebooks
-    if args.strip or args.all:
-        retval += strip_notebooks(notebooks_dir)
+    if strip:
+        retval = strip_notebooks(notebooks_dir)
+        if retval > 0:
+            raise RuntimeError("Stripping Notebooks failed.")
 
     # link notebooks
-    if args.link or args.all:
-        notebooks_to_link = extract_notebooks_from_doc(docs_dir, notebook_doc_subdir)
+    if link:
+        notebooks_to_link = extract_notebooks_from_doc(
+            source, subdir=notebook_doc_build_subdir
+        )
         generate_notebook_links(
-            notebooks_to_link, notebooks_dir, docs_dir, notebook_doc_subdir, media_dir
+            notebooks_to_link,
+            notebooks_dir,
+            source,
+            notebook_doc_build_subdir,
+            media_dir,
         )
 
-    # build doc
-    if args.build or args.all:
-        subprocess_args = dict(
-            cwd="../docs/", stdout=sys.stdout, stderr=subprocess.STDOUT, shell=True
+    # PYTHONDONTWRITEBYTECODE=1 prevents __pycache__ files which we don't need when code runs only once.
+    sys.dont_write_bytecode = True
+
+    exec_str = f'sphinx-build -b {target} {f"-D {override}" if override else ""} {source} {out}/{target}'
+    print(exec_str)
+    res = os.system(exec_str)
+    if res != 0:
+        raise RuntimeError(
+            f'Could not generate documentation for {f"{target}/{override}" if override else f"{target}"}. Build returned status code {res}!'
         )
-        retval += make("clean", subprocess_args)
-        retval += make("html", subprocess_args)
-    return retval
+
+
+def generate_tree(
+    out_folder,
+    publish=False,
+    branches=["master", "develop"],
+    tags=None,
+    template_folder=None,
+    show=False,
+):
+    doctree_root = f"{out_folder}gh-pages/sc3nb/"
+    build_folder = f"{out_folder}docs/"
+    os.makedirs(build_folder, exist_ok=True)
+    if not exists(doctree_root):
+        os.system(
+            f"git clone https://github.com/interactive-sonification/sc3nb.git {doctree_root}"
+        )
+    else:
+        # os.system(f'git -C {doctree_root} fetch --all')
+        os.system(f"git -C {doctree_root} pull --all")
+
+    if tags is False:
+        out = subprocess.check_output(
+            f"git -C {doctree_root} show-ref --tags -d".split(" ")
+        )
+        tags = [
+            str(line.split(b" ")[1].split(b"/")[2], "utf-8")
+            for line in out.split(b"\n")[::-1]
+            if len(line)
+        ]
+
+    # first, check which documentation to generate
+    def _has_docs(name, doctree_root):
+        print("_has_docs enter")
+        os.system(f"git -C {doctree_root} checkout -q {name}")
+        print("_has_docs after git")
+        return exists(f"{doctree_root}/docs")
+
+    branches = [b for b in branches if _has_docs(b, doctree_root)]
+    tags = [t for t in tags if _has_docs("tags/" + t, doctree_root)]
+    print(f"Will generate documentation for:\nBranches: {branches}\nTags: {tags}")
+
+    # fix order of dropdown elements (most recent tag first, then branches and older tags)
+    doclist = tags[:1] + branches + tags[1:]
+
+    # generate documentation; all versions have to be known for the dropdown menu
+    for d in doclist:
+        print(f"Generating documentation for {d} ...")
+        target = d if d in branches else "tags/" + d
+        res = os.system(f"git -C {doctree_root} checkout {target} -f")
+        if res != 0:
+            raise RuntimeError(
+                f"Could not checkout {d}. Git returned status code {res}!"
+            )
+        if template_folder:
+            if exists(f"{doctree_root}/docs/source/_templates"):
+                shutil.rmtree(f"{doctree_root}/docs/source/_templates")
+            shutil.copytree(template_folder, f"{doctree_root}/docs/source/_templates")
+
+        # override index and config for versions older than 0.5.0
+        # if d[0] == 'v' and d[1] == '0' and int(d[3]) < 5:
+        #    os.system(f'cp {template_folder}/../conf.py {template_folder}/../index.rst {doctree_root}/docs')
+
+        override = f"version={d} -A versions={','.join(doclist)}"
+        build_doc(
+            source=f"{doctree_root}/docs/source/",
+            out=f"{build_folder}/{d}",
+            target="html",
+            override=override,
+        )
+
+    # create index html to forward to last tagged version
+    if doclist:
+        with open(f"{build_folder}/index.html", "w") as fp:
+            fp.write(
+                f"""<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url={doclist[0]}/">
+  </head>
+</html>
+"""
+            )
+
+    # prepare gh-pages
+    print("Merging documentation...")
+    os.system(f"git -C {doctree_root} checkout -f gh-pages")
+    for doc_path in glob.glob(f"{build_folder}/*"):
+        shutil.copytree(doc_path, doctree_root)
+    print("Current git status:")
+    os.system(f"git -C {doctree_root} status")
+    print(f"Documentation tree has been written to {doctree_root}")
+
+    # commit and push changes when publish has been passed
+    if publish:
+        os.system(f"git -C {doctree_root} add -A")
+        os.system(f'git -C {doctree_root} commit -a -m "update doctree"')
+        os.system(f"git -C {doctree_root} push")
+
+    if show:
+        _run_webserver(doctree_root)
+
+
+def _run_webserver(root):
+    import http.server
+    import socketserver
+    import threading
+    import time
+
+    def _delayed_open():
+        url = f"http://localhost:8181/{basename(root)}/index.html"
+        time.sleep(0.2)
+        if sys.platform == "darwin":
+            os.system(f"open {url}")
+        elif sys.platform == "win32":
+            os.startfile(url)
+        else:
+            raise NotImplementedError("'show' is not available for your platform")
+
+    t = threading.Thread(target=_delayed_open)
+    t.start()
+
+    class Handler(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, directory=root + "/../", **kwargs)
+
+        def log_message(self, format, *args):
+            pass
+
+    socketserver.TCPServer.allow_reuse_address = True
+    with socketserver.TCPServer(("", 8181), Handler) as httpd:
+        try:
+            print("Starting preview webserver (disable with --no-show)...")
+            print("Ctrl+C to kill server")
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("Exiting...")
+            httpd.shutdown()
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
