@@ -487,11 +487,15 @@ class SCServer(OSCCommunication):
         try:
             self.process.read(expect="SuperCollider 3 server ready.", timeout=timeout)
         except ProcessTimeout as process_timeout:
-            if "Exception in World_OpenUDP" in process_timeout.output:
+            if ("Exception in World_OpenUDP" in process_timeout.output) or (
+                "ERROR: failed to open UDP socket" in process_timeout.output
+            ):
                 # ToDo check if string is correct in Linux
                 self.process.kill()
                 self.process = None
-                print("SuperCollider Server port already used.")
+                print(
+                    f"SuperCollider Server port {self.options.udp_port} already used."
+                )
                 if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
                     raise ValueError(
                         f"The specified UDP port {self.options.udp_port} is already used"
