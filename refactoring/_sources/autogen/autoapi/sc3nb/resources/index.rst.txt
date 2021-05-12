@@ -1,0 +1,39 @@
+:mod:`sc3nb.resources`
+======================
+
+.. py:module:: sc3nb.resources
+
+.. autoapi-nested-parse::
+
+   Module for ressources
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 2
+
+   synthdefs/index.rst
+
+

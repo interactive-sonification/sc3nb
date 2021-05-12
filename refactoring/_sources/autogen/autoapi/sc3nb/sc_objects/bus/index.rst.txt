@@ -1,0 +1,509 @@
+:mod:`sc3nb.sc_objects.bus`
+===========================
+
+.. py:module:: sc3nb.sc_objects.bus
+
+.. autoapi-nested-parse::
+
+   Python representation of the scsynth Bus.
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.bus.ControlBusCommand
+   sc3nb.sc_objects.bus.BusRate
+   sc3nb.sc_objects.bus.Bus
+
+
+
+Content
+~~~~~~~
+
+.. class:: ControlBusCommand
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   OSC Commands for Control Buses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: FILL
+      :annotation: = /c_fill
+
+      
+
+   .. attribute:: SET
+      :annotation: = /c_set
+
+      
+
+   .. attribute:: SETN
+      :annotation: = /c_setn
+
+      
+
+   .. attribute:: GET
+      :annotation: = /c_get
+
+      
+
+   .. attribute:: GETN
+      :annotation: = /c_getn
+
+      
+
+
+
+
+
+
+.. class:: BusRate
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   Calculation rate of Buses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: AUDIO
+      :annotation: = audio
+
+      
+
+   .. attribute:: CONTROL
+      :annotation: = control
+
+      
+
+
+
+
+
+
+.. class:: Bus(rate: Union[(BusRate, str)], num_channels: int = 1, index: Optional[int] = None, server: Optional['SCServer'] = None)
+
+
+   Represenation of a Control or Audio Bus on the SuperCollider Server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.bus.Bus.rate
+         sc3nb.sc_objects.bus.Bus.num_channels
+         sc3nb.sc_objects.bus.Bus.idxs
+         sc3nb.sc_objects.bus.Bus.is_audio_bus
+         sc3nb.sc_objects.bus.Bus.is_control_bus
+         sc3nb.sc_objects.bus.Bus.set
+         sc3nb.sc_objects.bus.Bus.fill
+         sc3nb.sc_objects.bus.Bus.get
+         sc3nb.sc_objects.bus.Bus.free
+         sc3nb.sc_objects.bus.Bus.__del__
+         sc3nb.sc_objects.bus.Bus.__repr__
+
+   .. method:: rate(self) -> Union[(BusRate, str)]
+      :property:
+
+      The bus calculation rate.
+
+
+
+      :Returns:
+
+          BusRate
+              the rate of this bus
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: num_channels(self) -> int
+      :property:
+
+      The number of buses.
+
+
+
+      :Returns:
+
+          int
+              number of buses allocated
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: idxs(self) -> Sequence[int]
+      :property:
+
+      The bus index(s).
+
+
+
+      :Returns:
+
+          int
+              first bus index
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: is_audio_bus(self) -> bool
+
+      Rate check
+
+
+
+      :Returns:
+
+          bool
+              True if this is a audio bus
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: is_control_bus(self) -> bool
+
+      Rate check
+
+
+
+      :Returns:
+
+          bool
+              True if this is a control bus
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: set(self, *values: Sequence[Union[int, float]]) -> None
+
+      Set ranges of bus values.
+
+
+      :Parameters:
+
+          **values** : sequence of int or float
+              Values that should be set
+
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If trying to setn an Audio Bus
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: fill(self, value: Union[(int, float)]) -> None
+
+      Fill bus(es) to one value.
+
+
+      :Parameters:
+
+          **value** : Union[int, float]
+              value for the buses
+
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If fill is used on a Audio Bus
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: get(self) -> Union[(Union[int, float], Sequence[Union[int, float]])]
+
+      Get bus value(s).
+
+
+
+      :Returns:
+
+          bus value or sequence of bus values
+              The current value of this bus
+              Multiple values if this bus has num_channels > 1
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If get is used on an Audio Bus
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: free(self, clear: bool = True) -> None
+
+      Mark this Buses ids as free again
+
+
+      :Parameters:
+
+          **clear** : bool, optional
+              Reset bus value(s) to 0, by default True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __del__(self) -> None
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+
+

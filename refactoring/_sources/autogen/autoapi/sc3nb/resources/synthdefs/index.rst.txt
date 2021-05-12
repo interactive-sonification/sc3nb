@@ -1,0 +1,7 @@
+:mod:`sc3nb.resources.synthdefs`
+================================
+
+.. py:module:: sc3nb.resources.synthdefs
+
+
+

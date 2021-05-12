@@ -1,0 +1,354 @@
+:mod:`sc3nb.process_handling`
+=============================
+
+.. py:module:: sc3nb.process_handling
+
+.. autoapi-nested-parse::
+
+   Module for process handling. 
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+Function List
+~~~~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.process_handling.find_executable
+   sc3nb.process_handling.kill_processes
+
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.process_handling.Process
+
+
+
+Content
+~~~~~~~
+
+.. data:: _LOGGER
+   
+
+   
+
+.. data:: ANSI_ESCAPE
+   
+
+   
+
+.. data:: ALLOWED_PARENTS
+   :annotation: = ['scide', 'python']
+
+   
+
+.. function:: find_executable(executable: str, path: str = None, add_to_path: bool = False)
+
+   Looks for executable in os $PATH or specified path
+
+
+   :Parameters:
+
+       **executable** : str
+           Executable to be found
+
+       **path** : str, optional
+           Path at which to look for, by default None
+
+       **add_to_path** : bool, optional
+           Wether to add the provided path to os $PATH or not, by default False
+
+   :Returns:
+
+       str
+           Full path to executable
+
+
+
+
+   :Raises:
+
+       FileNotFoundError
+           Raised if executable cannot be found
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: kill_processes(exec_path, allowed_parents: Optional[tuple] = None)
+
+   Kill processes with the same path for the executable.
+
+   If allowed_parent is provided it will be searched in the names of the
+   parent processes of the process with the executable path before terminating.
+   If it is found the process won't be killed.
+
+   :Parameters:
+
+       **exec_path** : str
+           path of the executable to kill
+
+       **allowed_parent** : str, optional
+           parents name of processes to keep, by default None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. exception:: ProcessTimeout(executable, output, timeout, expected)
+
+
+   **Bases:** :class:`Exception`
+
+   Process Timeout Exception
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+
+
+
+.. class:: Process(executable, args=None, exec_path=None, console_logging=True, kill_others=True, allowed_parents=None)
+
+
+   Class for starting a executable and communication with it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.process_handling.Process._read_loop
+         sc3nb.process_handling.Process.read
+         sc3nb.process_handling.Process.empty
+         sc3nb.process_handling.Process.send
+         sc3nb.process_handling.Process.kill
+         sc3nb.process_handling.Process.__del__
+
+   .. method:: _read_loop(self)
+
+
+   .. method:: read(self, expect: Optional[str] = None, timeout: float = 1) -> str
+
+      Reads current output from output queue or until expect is found
+
+
+      :Parameters:
+
+          **expect** : str, optional
+              str that we expect to find, by default None
+
+          **timeout** : float, optional
+              timeout for waiting for output, by default 1
+
+      :Returns:
+
+          str
+              Output of process.
+
+
+
+
+      :Raises:
+
+          ProcessTimeout
+              If no output or expectation isn't found
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: empty(self) -> None
+
+      Empties output queue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: send(self, input_str: str) -> None
+
+      Send input to process
+
+
+      :Parameters:
+
+          **input_str** : str
+              Input to be send to process
+
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If writing to process fails
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: kill(self) -> int
+
+      Kill the process.
+
+
+
+      :Returns:
+
+          int
+              return code of process
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __del__(self)
+
+
+
+
+
+
+

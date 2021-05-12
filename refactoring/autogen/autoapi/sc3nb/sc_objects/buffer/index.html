@@ -1,0 +1,1583 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sc3nb.sc_objects.buffer &mdash; sc3nb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="sc3nb.sc_objects.bus" href="../bus/index.html" />
+    <link rel="prev" title="sc3nb.sc_objects" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> sc3nb
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                refactoring
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html">sc3nb – SuperCollider3 for python / jupyter notebooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Getting-Started">Getting Started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Installing-sc3nb">Installing sc3nb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Basic-examples">Basic examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Further-informations">Further informations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#How-does-this-work?">How does this work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Caveats-and-Problems">Caveats and Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Contributing">Contributing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Setting-up-the-development-environment">Setting up the development environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Development-Guidelines">Development Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Useful-Ressources">Useful Ressources</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/sclang-examples.html">Usage of sclang in sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../supercolliderobjects.html">SuperCollider objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html">Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/bus-examples.html">Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/recorder-examples.html">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Receiving-OSC">Receiving OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/helper-examples.html">Helper functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#function-list">Function List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#class-list">Class List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#content">Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.startup">startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SC">SC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SCServer">SCServer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.ServerOptions">ServerOptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SCLang">SCLang</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Node">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Synth">Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Group">Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.AddAction">AddAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SynthDef">SynthDef</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Buffer">Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Recorder">Recorder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Bundler">Bundler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.linlin">linlin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.midicps">midicps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.cpsmidi">cpsmidi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.clip">clip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.dbamp">dbamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.ampdb">ampdb</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../osc/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../helpers/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../magics/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../process_handling/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../sc/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../sclang/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">sc3nb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a> &raquo;</li>
+        
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.buffer</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/autogen/autoapi/sc3nb/sc_objects/buffer/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-sc3nb.sc_objects.buffer">
+<span id="sc3nb-sc-objects-buffer"></span><h1><a class="reference internal" href="#module-sc3nb.sc_objects.buffer" title="sc3nb.sc_objects.buffer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.buffer</span></code></a><a class="headerlink" href="#module-sc3nb.sc_objects.buffer" title="Permalink to this headline">¶</a></h1>
+<p>Module for using SuperCollider Buffers in Python</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-list">
+<h3>Class List<a class="headerlink" href="#class-list" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.BufferReply" title="sc3nb.sc_objects.buffer.BufferReply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferReply</span></code></a></p></td>
+<td><p>Buffer Command Replies</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.BufferCommand" title="sc3nb.sc_objects.buffer.BufferCommand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferCommand</span></code></a></p></td>
+<td><p>Buffer OSC Commands for Buffers</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.BufferAllocationMode" title="sc3nb.sc_objects.buffer.BufferAllocationMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocationMode</span></code></a></p></td>
+<td><p>Buffer Allocation Modes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.BufferInfo" title="sc3nb.sc_objects.buffer.BufferInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferInfo</span></code></a></p></td>
+<td><p>Information about the Buffer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Buffer</span></code></a></p></td>
+<td><p>A Buffer object represents a SuperCollider3 Buffer on scsynth</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="content">
+<h3>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="sc3nb.sc_objects.buffer.BufferReply">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.buffer.</span></code><code class="sig-name descname"><span class="pre">BufferReply</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferReply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferReply" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/dev/library/enum.html#enum.Enum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Buffer Command Replies</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferReply.INFO">
+<code class="sig-name descname"><span class="pre">INFO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_info</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferReply.INFO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferReply.INFO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.buffer.</span></code><code class="sig-name descname"><span class="pre">BufferCommand</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/dev/library/enum.html#enum.Enum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Buffer OSC Commands for Buffers</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.ALLOC">
+<code class="sig-name descname"><span class="pre">ALLOC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_alloc</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.ALLOC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.ALLOC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.ALLOC_READ">
+<code class="sig-name descname"><span class="pre">ALLOC_READ</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_allocRead</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.ALLOC_READ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.ALLOC_READ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.ALLOC_READ_CHANNEL">
+<code class="sig-name descname"><span class="pre">ALLOC_READ_CHANNEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_allocReadChannel</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.ALLOC_READ_CHANNEL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.ALLOC_READ_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.READ">
+<code class="sig-name descname"><span class="pre">READ</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_read</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.READ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.READ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.READ_CHANNEL">
+<code class="sig-name descname"><span class="pre">READ_CHANNEL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_readChannel</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.READ_CHANNEL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.READ_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.WRITE">
+<code class="sig-name descname"><span class="pre">WRITE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_write</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.WRITE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.WRITE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.FREE">
+<code class="sig-name descname"><span class="pre">FREE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_free</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.FREE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.FREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.ZERO">
+<code class="sig-name descname"><span class="pre">ZERO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_zero</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.ZERO"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.ZERO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.SET">
+<code class="sig-name descname"><span class="pre">SET</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_set</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.SET"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.SET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.SETN">
+<code class="sig-name descname"><span class="pre">SETN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_setn</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.SETN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.SETN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.FILL">
+<code class="sig-name descname"><span class="pre">FILL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_fill</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.FILL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.FILL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.GEN">
+<code class="sig-name descname"><span class="pre">GEN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_gen</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.GEN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.GEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.CLOSE">
+<code class="sig-name descname"><span class="pre">CLOSE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_close</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.CLOSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.CLOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.QUERY">
+<code class="sig-name descname"><span class="pre">QUERY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_query</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.QUERY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.QUERY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.GET">
+<code class="sig-name descname"><span class="pre">GET</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_get</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.GET"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.GET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferCommand.GETN">
+<code class="sig-name descname"><span class="pre">GETN</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/b_getn</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferCommand.GETN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferCommand.GETN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.buffer.</span></code><code class="sig-name descname"><span class="pre">BufferAllocationMode</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/dev/library/enum.html#enum.Enum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Buffer Allocation Modes</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode.FILE">
+<code class="sig-name descname"><span class="pre">FILE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">file</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode.FILE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode.FILE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode.ALLOC">
+<code class="sig-name descname"><span class="pre">ALLOC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">alloc</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode.ALLOC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode.ALLOC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode.DATA">
+<code class="sig-name descname"><span class="pre">DATA</span></code><em class="property"> <span class="pre">=</span> <span class="pre">data</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode.DATA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode.DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode.EXISTING">
+<code class="sig-name descname"><span class="pre">EXISTING</span></code><em class="property"> <span class="pre">=</span> <span class="pre">existing</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode.EXISTING"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode.EXISTING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode.COPY">
+<code class="sig-name descname"><span class="pre">COPY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">copy</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode.COPY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode.COPY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferAllocationMode.NONE">
+<code class="sig-name descname"><span class="pre">NONE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">none</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferAllocationMode.NONE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferAllocationMode.NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.sc_objects.buffer.BufferInfo">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.buffer.</span></code><code class="sig-name descname"><span class="pre">BufferInfo</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/typing.html#typing.NamedTuple" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">typing.NamedTuple</span></code></a></p>
+<p>Information about the Buffer</p>
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferInfo.bufnum">
+<code class="sig-name descname"><span class="pre">bufnum</span></code><em class="property"> <span class="pre">:int</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferInfo.bufnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferInfo.bufnum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferInfo.num_frames">
+<code class="sig-name descname"><span class="pre">num_frames</span></code><em class="property"> <span class="pre">:int</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferInfo.num_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferInfo.num_frames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferInfo.num_channels">
+<code class="sig-name descname"><span class="pre">num_channels</span></code><em class="property"> <span class="pre">:int</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferInfo.num_channels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferInfo.num_channels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="sc3nb.sc_objects.buffer.BufferInfo.sample_rate">
+<code class="sig-name descname"><span class="pre">sample_rate</span></code><em class="property"> <span class="pre">:float</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#BufferInfo.sample_rate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.BufferInfo.sample_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.sc_objects.buffer.Buffer">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.buffer.</span></code><code class="sig-name descname"><span class="pre">Buffer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bufnum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Buffer object represents a SuperCollider3 Buffer on scsynth
+and provides access to low-level buffer commands of scsynth via
+methods of the Buffer objects.</p>
+<p>The constructor merely initializes a buffer:</p>
+<ul class="simple">
+<li><p>it selects a buffer number using the server’s buffer allocator</p></li>
+<li><p>it initializes attribute variables</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>bufnum</strong><span class="classifier">int</span></dt><dd><p>buffer number to be used on scsynth. Defaults to None
+can be set to enforce a given bufnum</p>
+</dd>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The server instance to establish the Buffer</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For more information on Buffer commands, refer to the Server Command Reference in SC3.
+<a class="reference external" href="https://doc.sccode.org/Reference/Server-Command-Reference.html#Buffer%20Commands">https://doc.sccode.org/Reference/Server-Command-Reference.html#Buffer%20Commands</a></p>
+<p class="rubric">Examples</p>
+<p>(see examples/buffer-examples.ipynb)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_asig</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">use_existing</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">Buffer</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>server</strong><span class="classifier">the SCServer object</span></dt><dd><p>to communicate with scsynth</p>
+</dd>
+<dt><strong>_bufnum</strong><span class="classifier">int</span></dt><dd><p>buffer number = bufnum id on scsynth</p>
+</dd>
+<dt><strong>_sr</strong><span class="classifier">int</span></dt><dd><p>the sampling rate of the buffer</p>
+</dd>
+<dt><strong>_channels</strong><span class="classifier">int</span></dt><dd><p>number of channels of the buffer</p>
+</dd>
+<dt><strong>_samples</strong><span class="classifier">int</span></dt><dd><p>buffer length = number of sample frames</p>
+</dd>
+<dt><strong>_alloc_mode</strong><span class="classifier">str</span></dt><dd><p>[‘file’, ‘alloc’, ‘data’, ‘existing’, ‘copy’]
+according to previously used generator, defaults to None</p>
+</dd>
+<dt><strong>_allocated</strong><span class="classifier">boolean</span></dt><dd><p>True if Buffer has been allocated by
+any of the initialization methods</p>
+</dd>
+<dt><strong>_path</strong><span class="classifier">str</span></dt><dd><p>path to the audio file used in load_file()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.read" title="sc3nb.sc_objects.buffer.Buffer.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a></p></td>
+<td><p>Allocate buffer space and read a sound file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.alloc" title="sc3nb.sc_objects.buffer.Buffer.alloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alloc</span></code></a></p></td>
+<td><p>Allocate buffer space.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.load_data" title="sc3nb.sc_objects.buffer.Buffer.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a></p></td>
+<td><p>Allocate buffer space and read input data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.load_collection" title="sc3nb.sc_objects.buffer.Buffer.load_collection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_collection</span></code></a></p></td>
+<td><p>Wrapper method of <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.load_data" title="sc3nb.sc_objects.buffer.Buffer.load_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">Buffer.load_data()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.load_asig" title="sc3nb.sc_objects.buffer.Buffer.load_asig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_asig</span></code></a></p></td>
+<td><p>Create buffer from asig</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.use_existing" title="sc3nb.sc_objects.buffer.Buffer.use_existing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_existing</span></code></a></p></td>
+<td><p>Creates a buffer object from already existing Buffer bufnum.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.copy_existing" title="sc3nb.sc_objects.buffer.Buffer.copy_existing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_existing</span></code></a></p></td>
+<td><p>Duplicate an existing buffer</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.fill" title="sc3nb.sc_objects.buffer.Buffer.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a></p></td>
+<td><p>Fill range of samples with value(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen" title="sc3nb.sc_objects.buffer.Buffer.gen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen</span></code></a></p></td>
+<td><p>Call a command to fill a buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.zero" title="sc3nb.sc_objects.buffer.Buffer.zero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zero</span></code></a></p></td>
+<td><p>Set buffer data to zero.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine1" title="sc3nb.sc_objects.buffer.Buffer.gen_sine1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_sine1</span></code></a></p></td>
+<td><p>Fill the buffer with sine waves &amp; given amplitude</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine2" title="sc3nb.sc_objects.buffer.Buffer.gen_sine2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_sine2</span></code></a></p></td>
+<td><p>Fill the buffer with sine waves</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine3" title="sc3nb.sc_objects.buffer.Buffer.gen_sine3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_sine3</span></code></a></p></td>
+<td><p>Fill the buffer with sine waves &amp; given a list of</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_cheby" title="sc3nb.sc_objects.buffer.Buffer.gen_cheby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_cheby</span></code></a></p></td>
+<td><p>Fills a buffer with a series of chebyshev polynomials, which can be</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_copy" title="sc3nb.sc_objects.buffer.Buffer.gen_copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_copy</span></code></a></p></td>
+<td><p>Copy samples from the source buffer to the destination buffer</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.play" title="sc3nb.sc_objects.buffer.Buffer.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></p></td>
+<td><p>Play the Buffer using a Synth</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.write" title="sc3nb.sc_objects.buffer.Buffer.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code></a></p></td>
+<td><p>Write buffer data to a sound file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.close" title="sc3nb.sc_objects.buffer.Buffer.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a></p></td>
+<td><p>Close soundfile after using a Buffer with DiskOut</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.to_array" title="sc3nb.sc_objects.buffer.Buffer.to_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_array</span></code></a></p></td>
+<td><p>Return the buffer data as an array representation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.query" title="sc3nb.sc_objects.buffer.Buffer.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query</span></code></a></p></td>
+<td><p>Get buffer info.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer._repr_pretty_" title="sc3nb.sc_objects.buffer.Buffer._repr_pretty_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_repr_pretty_</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.free" title="sc3nb.sc_objects.buffer.Buffer.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p>Free buffer data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.bufnum" title="sc3nb.sc_objects.buffer.Buffer.bufnum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bufnum</span></code></a></p></td>
+<td><p>Buffer number which serves as ID in SuperCollider</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.allocated" title="sc3nb.sc_objects.buffer.Buffer.allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocated</span></code></a></p></td>
+<td><p>Whether this Buffer is allocated by</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.alloc_mode" title="sc3nb.sc_objects.buffer.Buffer.alloc_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alloc_mode</span></code></a></p></td>
+<td><p>Mode of Buffer allocation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.path" title="sc3nb.sc_objects.buffer.Buffer.path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code></a></p></td>
+<td><p>File path that was provided to read.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.channels" title="sc3nb.sc_objects.buffer.Buffer.channels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channels</span></code></a></p></td>
+<td><p>Number of channels in the Buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.samples" title="sc3nb.sc_objects.buffer.Buffer.samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">samples</span></code></a></p></td>
+<td><p>Number of samples in the buffer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.sr" title="sc3nb.sc_objects.buffer.Buffer.sr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sr</span></code></a></p></td>
+<td><p>Sampling rate of the Buffer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.duration" title="sc3nb.sc_objects.buffer.Buffer.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></p></td>
+<td><p>Duration of the Buffer in seconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.server" title="sc3nb.sc_objects.buffer.Buffer.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
+<td><p>The server where this Buffer is placed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer._gen_flags" title="sc3nb.sc_objects.buffer.Buffer._gen_flags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_gen_flags</span></code></a></p></td>
+<td><p>Generate Wave Fill Commands flags from booleans</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.read">
+<code class="sig-name descname"><span class="pre">read</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate buffer space and read a sound file.</p>
+<p>If the number of frames argument is less than or equal to zero,
+the entire file is read.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">string</span></dt><dd><p>path name of a sound file.</p>
+</dd>
+<dt><strong>starting_frame</strong><span class="classifier">int</span></dt><dd><p>starting frame in file</p>
+</dd>
+<dt><strong>num_frames</strong><span class="classifier">int</span></dt><dd><p>number of frames to read</p>
+</dd>
+<dt><strong>channels</strong><span class="classifier">list | int</span></dt><dd><p>channels and order of channels to be read from file.
+if only a int is provided it is loaded as only channel</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is already allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.alloc">
+<code class="sig-name descname"><span class="pre">alloc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.alloc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate buffer space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int</span></dt><dd><p>number of frames</p>
+</dd>
+<dt><strong>sr</strong><span class="classifier">int</span></dt><dd><p>sampling rate in Hz (optional. default = 44100)</p>
+</dd>
+<dt><strong>channels</strong><span class="classifier">int</span></dt><dd><p>number of channels (optional. default = 1 channel)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is already allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.load_data">
+<code class="sig-name descname"><span class="pre">load_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate buffer space and read input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">numpy array</span></dt><dd><p>Data which should inserted</p>
+</dd>
+<dt><strong>mode</strong><span class="classifier">‘file’ or ‘osc’</span></dt><dd><p>Insert data via filemode (‘file’) or n_set OSC commands (‘osc’)</p>
+</dd>
+<dt><strong>sr</strong><span class="classifier">int=44100</span></dt><dd><p>sample rate</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is already allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.load_collection">
+<code class="sig-name descname"><span class="pre">load_collection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.load_collection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.load_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper method of <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.load_data" title="sc3nb.sc_objects.buffer.Buffer.load_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">Buffer.load_data()</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.load_asig">
+<code class="sig-name descname"><span class="pre">load_asig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asig</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pya.Asig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.load_asig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.load_asig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create buffer from asig</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>asig</strong><span class="classifier">pya.Asig</span></dt><dd><p>asig to be loaded in buffer</p>
+</dd>
+<dt><strong>mode</strong><span class="classifier">str, optional</span></dt><dd><p>Insert data via filemode (‘file’) or n_set OSC commands (‘osc’), by default ‘file’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is already allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.use_existing">
+<code class="sig-name descname"><span class="pre">use_existing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufnum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.use_existing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.use_existing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a buffer object from already existing Buffer bufnum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>bufnum</strong><span class="classifier">int</span></dt><dd><p>buffer node id</p>
+</dd>
+<dt><strong>sr</strong><span class="classifier">int</span></dt><dd><p>Sample rate</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is already allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.copy_existing">
+<code class="sig-name descname"><span class="pre">copy_existing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.copy_existing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.copy_existing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicate an existing buffer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>buffer</strong><span class="classifier">Buffer object</span></dt><dd><p>Buffer which should be duplicated</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the newly created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is already allocated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.fill">
+<code class="sig-name descname"><span class="pre">fill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill range of samples with value(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start</strong><span class="classifier">int or list</span></dt><dd><p>int : sample starting index
+list : n*[start, count, value] list</p>
+</dd>
+<dt><strong>count</strong><span class="classifier">int</span></dt><dd><p>number of samples to fill</p>
+</dd>
+<dt><strong>value</strong><span class="classifier">float</span></dt><dd><p>value</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.gen">
+<code class="sig-name descname"><span class="pre">gen</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a command to fill a buffer.
+If you know, what you do -&gt; you can use this method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>command</strong><span class="classifier">str</span></dt><dd><p>What fill command to use.</p>
+</dd>
+<dt><strong>args</strong><span class="classifier">List[Any]</span></dt><dd><p>Arguments for command</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine1" title="sc3nb.sc_objects.buffer.Buffer.gen_sine1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_sine1</span></code></a>, <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine2" title="sc3nb.sc_objects.buffer.Buffer.gen_sine2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_sine2</span></code></a>, <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_cheby" title="sc3nb.sc_objects.buffer.Buffer.gen_cheby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_cheby</span></code></a>, <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_cheby" title="sc3nb.sc_objects.buffer.Buffer.gen_cheby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_cheby</span></code></a>, <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer.gen_copy" title="sc3nb.sc_objects.buffer.Buffer.gen_copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gen_copy</span></code></a></dt><dd></dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.zero">
+<code class="sig-name descname"><span class="pre">zero</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.zero"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set buffer data to zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.gen_sine1">
+<code class="sig-name descname"><span class="pre">gen_sine1</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitudes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavetable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.gen_sine1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the buffer with sine waves &amp; given amplitude</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>amplitudes</strong><span class="classifier">list</span></dt><dd><p>The first float value specifies the amplitude of the first partial,
+the second float value specifies the amplitude of the second
+partial, and so on.</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool</span></dt><dd><p>Normalize peak amplitude of wave to 1.0.</p>
+</dd>
+<dt><strong>wavetable</strong><span class="classifier">bool</span></dt><dd><p>If set, then the buffer is written in wavetable format so that it
+can be read by interpolating oscillators.</p>
+</dd>
+<dt><strong>clear</strong><span class="classifier">bool</span></dt><dd><p>If set then the buffer is cleared before new partials are written
+into it. Otherwise the new partials are summed with the existing
+contents of the buffer</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.gen_sine2">
+<code class="sig-name descname"><span class="pre">gen_sine2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_amps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavetable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.gen_sine2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the buffer with sine waves
+given list of [frequency, amplitude] lists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>freq_amps</strong><span class="classifier">list</span></dt><dd><p>Similar to sine1 except that each partial frequency is specified
+explicitly instead of being an integer multiple of the fundamental.
+Non-integer partial frequencies are possible.</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool</span></dt><dd><p>If set, normalize peak amplitude of wave to 1.0.</p>
+</dd>
+<dt><strong>wavetable</strong><span class="classifier">bool</span></dt><dd><p>If set, the buffer is written in wavetable format so that it
+can be read by interpolating oscillators.</p>
+</dd>
+<dt><strong>clear</strong><span class="classifier">bool</span></dt><dd><p>If set, the buffer is cleared before new partials are written
+into it. Otherwise the new partials are summed with the existing
+contents of the buffer.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.gen_sine3">
+<code class="sig-name descname"><span class="pre">gen_sine3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freqs_amps_phases</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavetable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.gen_sine3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.gen_sine3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill the buffer with sine waves &amp; given a list of
+[frequency, amplitude, phase] entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>freqs_amps_phases</strong><span class="classifier">list</span></dt><dd><p>Similar to sine2 except that each partial may have a
+nonzero starting phase.</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool</span></dt><dd><p>if set, normalize peak amplitude of wave to 1.0.</p>
+</dd>
+<dt><strong>wavetable</strong><span class="classifier">bool</span></dt><dd><p>If set, the buffer is written in wavetable format
+so that it can be read by interpolating oscillators.</p>
+</dd>
+<dt><strong>clear</strong><span class="classifier">bool</span></dt><dd><p>If set, the buffer is cleared before new partials are written
+into it. Otherwise the new partials are summed with the existing
+contents of the buffer.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.gen_cheby">
+<code class="sig-name descname"><span class="pre">gen_cheby</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitudes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavetable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.gen_cheby"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.gen_cheby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills a buffer with a series of chebyshev polynomials, which can be
+defined as cheby(n) = amplitude * cos(n * acos(x))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>amplitudes</strong><span class="classifier">list</span></dt><dd><p>The first float value specifies the amplitude for n = 1,
+the second float value specifies the amplitude
+for n = 2, and so on</p>
+</dd>
+<dt><strong>normalize</strong><span class="classifier">bool</span></dt><dd><p>If set, normalize the peak amplitude of the Buffer to 1.0.</p>
+</dd>
+<dt><strong>wavetable</strong><span class="classifier">bool</span></dt><dd><p>If set, the buffer is written in wavetable format so that it
+can be read by interpolating oscillators.</p>
+</dd>
+<dt><strong>clear</strong><span class="classifier">bool</span></dt><dd><p>If set the buffer is cleared before new partials are written
+into it. Otherwise the new partials are summed with the existing
+contents of the buffer.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.gen_copy">
+<code class="sig-name descname"><span class="pre">gen_copy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_pos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.gen_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.gen_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy samples from the source buffer to the destination buffer
+specified in the b_gen command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>source</strong><span class="classifier">Buffer</span></dt><dd><p>Source buffer object</p>
+</dd>
+<dt><strong>source_pos</strong><span class="classifier">int</span></dt><dd><p>sample position in source</p>
+</dd>
+<dt><strong>dest_pos</strong><span class="classifier">int</span></dt><dd><p>sample position in destination</p>
+</dd>
+<dt><strong>copy_amount</strong><span class="classifier">int</span></dt><dd><p>number of samples to copy. If the number of samples to copy is
+negative, the maximum number of samples
+possible is copied.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the created Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.play">
+<code class="sig-name descname"><span class="pre">play</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pan</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="../node/index.html#sc3nb.sc_objects.node.Synth" title="sc3nb.sc_objects.node.Synth"><span class="pre">sc3nb.sc_objects.node.Synth</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.play" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play the Buffer using a Synth</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rate</strong><span class="classifier">float, optional</span></dt><dd><p>plackback rate, by default 1</p>
+</dd>
+<dt><strong>loop</strong><span class="classifier">bool, optional</span></dt><dd><p>if True loop the playback, by default False</p>
+</dd>
+<dt><strong>pan</strong><span class="classifier">int, optional</span></dt><dd><p>pan position, -1 is left, +1 is right, by default 0</p>
+</dd>
+<dt><strong>amp</strong><span class="classifier">float, optional</span></dt><dd><p>amplitude, by default 0.3</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Synth</dt><dd><p>Synth to control playback.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'float'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leave_open</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write buffer data to a sound file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">string</span></dt><dd><p>path name of a sound file.</p>
+</dd>
+<dt><strong>header</strong><span class="classifier">string</span></dt><dd><p>header format. Header format is one of:
+“aiff”, “next”, “wav”, “ircam””, “raw”</p>
+</dd>
+<dt><strong>sample</strong><span class="classifier">string</span></dt><dd><p>sample format. Sample format is one of:
+“int8”, “int16”, “int24”, “int32”,
+“float”, “double”, “mulaw”, “alaw”</p>
+</dd>
+<dt><strong>num_frames</strong><span class="classifier">int</span></dt><dd><p>number of frames to write.
+-1 means all frames.</p>
+</dd>
+<dt><strong>starting_frame</strong><span class="classifier">int</span></dt><dd><p>starting frame in buffer</p>
+</dd>
+<dt><strong>leave_open</strong><span class="classifier">boolean</span></dt><dd><p>Whether you want the buffer file left open.
+For use with DiskOut you will want this to be true.
+The file is created, but no frames are written until the DiskOut ugen does so.
+The default is false which is the correct value for all other cases.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.close">
+<code class="sig-name descname"><span class="pre">close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close soundfile after using a Buffer with DiskOut</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">Buffer</span></dt><dd><p>the Buffer object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.to_array">
+<code class="sig-name descname"><span class="pre">to_array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.to_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the buffer data as an array representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>np.ndarray:</dt><dd><p>Values of the buffer</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.query">
+<code class="sig-name descname"><span class="pre">query</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.BufferInfo" title="sc3nb.sc_objects.buffer.BufferInfo"><span class="pre">sc3nb.sc_objects.buffer.BufferInfo</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get buffer info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>Tuple:</dt><dd><p>(buffernumber, number of frames, number of channels, sample rate)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer._repr_pretty_">
+<code class="sig-name descname"><span class="pre">_repr_pretty_</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer._repr_pretty_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer._repr_pretty_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.free">
+<code class="sig-name descname"><span class="pre">free</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.free"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.free" title="Permalink to this definition">¶</a></dt>
+<dd><p>Free buffer data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>If the Buffer is not allocated yet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.bufnum">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">bufnum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.bufnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.bufnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffer number which serves as ID in SuperCollider</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>int</dt><dd><p>bufnum</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.allocated">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">allocated</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.allocated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.allocated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this Buffer is allocated by
+any of the initialization methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>bool</dt><dd><p>True if allocated</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.alloc_mode">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">alloc_mode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.BufferAllocationMode" title="sc3nb.sc_objects.buffer.BufferAllocationMode"><span class="pre">sc3nb.sc_objects.buffer.BufferAllocationMode</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.alloc_mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.alloc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mode of Buffer allocation.</p>
+<p>One of [‘file’, ‘alloc’, ‘data’, ‘existing’, ‘copy’]
+according to previously used generator.
+Defaults to None if not allocated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>str</dt><dd><p>allocation mode</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.path">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>File path that was provided to read.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>pathlib.Path</dt><dd><p>buffer file path</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.channels">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">channels</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.channels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of channels in the Buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>int</dt><dd><p>channel number</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.samples">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">samples</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of samples in the buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>int</dt><dd><p>sample number</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.sr">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.sr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.sr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sampling rate of the Buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>float</dt><dd><p>sampling rate</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.duration">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">duration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duration of the Buffer in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>float</dt><dd><p>duration in seconds</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer.server">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">server</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.server" title="Permalink to this definition">¶</a></dt>
+<dd><p>The server where this Buffer is placed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>SCServer</dt><dd><p>The server where this Buffer is placed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.buffer.Buffer._gen_flags">
+<code class="sig-name descname"><span class="pre">_gen_flags</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_wavetable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_clear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer._gen_flags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer._gen_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate Wave Fill Commands flags from booleans
+according to the SuperCollider Server Command Reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>a_normalize</strong><span class="classifier">bool, optional</span></dt><dd><p>Normalize peak amplitude of wave to 1.0, by default False</p>
+</dd>
+<dt><strong>a_wavetable</strong><span class="classifier">bool, optional</span></dt><dd><p>If set, then the buffer is written in wavetable
+format so that it can be read by interpolating
+oscillators, by default False</p>
+</dd>
+<dt><strong>a_clear</strong><span class="classifier">bool, optional</span></dt><dd><p>If set then the buffer is cleared before new partials are written
+into it. Otherwise the new partials are summed with the existing
+contents of the buffer, by default False</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>Wave Fill Commands flags</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../bus/index.html" class="btn btn-neutral float-right" title="sc3nb.sc_objects.bus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="sc3nb.sc_objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
