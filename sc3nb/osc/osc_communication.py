@@ -601,11 +601,21 @@ class OSCCommunication:
         -------
         Tuple[str, int]
             Receiver address (ip, port)
+
+        Raises
+        ------
+        KeyError
+            If receiver is unknown.
+        ValueError
+            If the type of the receiver argument is wrong.
         """
         if isinstance(receiver, str):
-            return next(
-                addr for addr, name in self._receivers.items() if name == receiver
-            )
+            try:
+                return next(
+                    addr for addr, name in self._receivers.items() if name == receiver
+                )
+            except StopIteration as error:
+                raise KeyError from error
         elif isinstance(receiver, tuple):
             return receiver
         else:
