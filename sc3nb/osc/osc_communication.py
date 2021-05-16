@@ -248,11 +248,11 @@ class Bundler:
         if self.server._bundling_bundles.pop() is not self:
             raise RuntimeError("Bundler nesting failed.")
         self.server._bundling_lock.release()
-        if exc_type:
+        if exc_value is not None:
             raise RuntimeError(
-                f"Exception raised in bundler: {exc_type.__name__} {exc_value}"
+                f"Aborting. Exception raised in bundler: {exc_type.__name__} {exc_value}"
             )
-        if self.send_on_exit:
+        elif self.send_on_exit:
             self.send(bundled=True)
 
 
