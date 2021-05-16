@@ -286,8 +286,6 @@ class SynthDef:
             if server is not None:
                 server.send_synthdef(synth_def_blob)
             else:
-                if self.sc is None:
-                    self.sc = sc3nb.SC.get_default()
                 self.sc.server.send_synthdef(synth_def_blob)
             return self.name
 

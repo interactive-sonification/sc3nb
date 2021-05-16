@@ -1,6 +1,7 @@
 """Server Volume controls."""
 
 
+import logging
 import warnings
 from typing import TYPE_CHECKING, Optional
 
@@ -10,6 +11,10 @@ from sc3nb.sc_objects.synthdef import SynthDef
 
 if TYPE_CHECKING:
     from sc3nb.sc_objects.server import SCServer
+
+
+_LOGGER = logging.getLogger(__name__)
+_LOGGER.addHandler(logging.NullHandler())
 
 
 class Volume:
@@ -111,6 +116,11 @@ class Volume:
                 }""",
             )
             try:
+                self._server.lookup_receiver("sclang")
+            except KeyError:
+                _LOGGER.debug(
+                    "Volume SynthDef cannot be send. No sclang receiver known."
+                )
+            else:
                 self._synth_name = synth_def.add(server=self._server)
-            except RuntimeError:
-                pass
+                assert self._synth_name is not None, "Synth name is None"

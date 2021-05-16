@@ -326,12 +326,17 @@ class NodeWatcher:
         kind, *info = args
         nodeid, _, _, _, *rest = info
         # if nodeid in self.nodes:  # check if node is registered
-        _LOGGER.debug(f"Handling {kind} notification for {nodeid}: {info}")
-        if len(rest) > 1:  # node is group
-            node = Group(nodeid=nodeid, new=False, server=self._server)
-        else:  # node is synth
-            node = Synth(nodeid=nodeid, new=False, server=self._server)
-        node._handle_notification(kind, info)
+        _LOGGER.debug("Handling %s notification for %s: %s", kind, nodeid, info)
+        try:
+            node = self._server.nodes[nodeid]
+            if node is None:
+                raise KeyError("weakref is None")
+        except KeyError:
+            # we could create the Node here
+            # but it wouldn't be refered afterwards and then deleted anyway
+            pass
+        else:
+            node._handle_notification(kind, info)
 
 
 class SCServer(OSCCommunication):
@@ -566,6 +571,7 @@ class SCServer(OSCCommunication):
 
     def execute_init_hooks(self) -> None:
         """Run all init hook functions."""
+        _LOGGER.debug("Executing init hooks %s", self._server_tree)
         for function, args in self._server_tree:
             if args is None:
                 function()

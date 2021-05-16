@@ -142,20 +142,31 @@ class Node(ABC):
             try:
                 node = server.nodes[nodeid]
                 if node is not None:
-                    # check here if nodes are compatible
-                    if isinstance(node, cls):
-                        _LOGGER.debug("Returned %s from %s", node, server)
-                        return node
-                    elif node.freed and not node.is_playing:
+                    if node.freed and not node.is_playing:
+                        _LOGGER.debug(
+                            "Removing %s(%s) from %s",
+                            type(node).__name__,
+                            node.nodeid,
+                            repr(server),
+                        )
                         del server.nodes[nodeid]
+                    # check here if nodes types are compatible
+                    elif isinstance(node, cls):
+                        _LOGGER.debug(
+                            "Returned %s(%s) from %s",
+                            type(node).__name__,
+                            node.nodeid,
+                            repr(server),
+                        )
+                        return node
                     else:
                         raise RuntimeError(
                             f"Tried to get {node} from {server}"
-                            f" as {cls} but type is {type(node)}"
+                            f" as {cls.__name__} but type is {type(node).__name__}"
                         )
             except KeyError:
                 pass
-        _LOGGER.debug("Node(%s) not in Server (%s)", nodeid, server)
+        _LOGGER.debug("%s(%s) not in Server (%s)", cls.__name__, nodeid, server)
         return super().__new__(cls)
 
     @abstractmethod
@@ -210,7 +221,9 @@ class Node(ABC):
         # this is state that we cannot really be sure of
         self._current_controls = {}
 
-        _LOGGER.debug("Adding new Node(%s) to %s", self._nodeid, self._server)
+        _LOGGER.debug(
+            "Adding new %s(%s) to %s", type(self).__name__, self._nodeid, self._server
+        )
         self._server.nodes[self._nodeid] = self
 
     @abstractmethod
@@ -661,9 +674,18 @@ class Node(ABC):
         """Callback that is executed when this Synth is freed"""
         raise NotImplementedError()
 
-    def wait(self, timeout: Optional[float] = None):
-        """Wait until this Node is freed"""
-        self._free_event.wait(timeout=timeout)
+    def wait(self, timeout: Optional[float] = None) -> None:
+        """Wait until this Node is freed
+
+        Raises
+        ------
+        TimeoutError
+            If timeout was provided and wait timed out.
+        """
+        # TODO check if self._server is in bundling mode,
+        # This should probably fail if used inside of Bundler
+        if not self._free_event.wait(timeout=timeout):
+            raise TimeoutError("Timed out waiting for synth.")
 
     def _parse_info(
         self,
@@ -822,7 +844,7 @@ class Synth(Node):
             )
 
     def _update_synth_state(self, name: Optional[str], controls: Optional[dict]):
-        _LOGGER.debug("Update Synth (%s)", self.nodeid)
+        _LOGGER.debug("Update Synth(%s)", self.nodeid)
         with self._state_lock:
             if name is not None:
                 self._name = name
@@ -913,7 +935,6 @@ class Synth(Node):
         except OSCCommunicationError as osc_error:
             if command in self.server.fails:
                 fail = self.server.fails.msg_queues[command].get(timeout=0)
-                print(f"FAIL - {fail} - {f'Node {self.nodeid} not found' in fail}")
                 if f"Node {self.nodeid} not found" in fail:
                     raise RuntimeError(
                         f"Node {self.nodeid} cannot be found"
@@ -1035,7 +1056,7 @@ class Group(Node):
         self,
         children: Optional[Sequence[Node]] = None,
     ) -> None:
-        _LOGGER.debug("Update Group (%s)", self.nodeid)
+        _LOGGER.debug("Update Group(%s)", self.nodeid)
         with self._state_lock:
             if children is not None:
                 self._children = children
