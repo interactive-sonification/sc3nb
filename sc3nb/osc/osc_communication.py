@@ -13,7 +13,7 @@ import warnings
 from abc import ABC, abstractmethod
 from queue import Empty, Queue
 from threading import RLock
-from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_bundle import OscBundle
@@ -99,7 +99,7 @@ class Bundler:
                 self.server = sc3nb.SC.get_default().server
             except RuntimeError:
                 self.server = None
-        self.contents = []
+        self.contents: List[Union["Bundler", OscMessage]] = []
         self.passed_time = 0.0
         if msg:
             if not isinstance(msg, OscMessage):
