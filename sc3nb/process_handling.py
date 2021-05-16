@@ -268,3 +268,11 @@ class Process:
 
     def __del__(self):
         self.kill()
+
+    def __repr__(self) -> str:
+        returncode = self.popen.returncode
+        if returncode is None:
+            status = f"pid={self.popen.pid}"
+        else:
+            status = f"returncode={returncode}"
+        return f"<Process '{self.executable}' {status}>"

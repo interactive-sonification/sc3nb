@@ -81,7 +81,7 @@ class Volume:
             if self._server.is_running:
                 if self._synth is None:
                     if self._synth_name is None:
-                        warnings.warn("Volume SynthDef failed. Cannot set volume.")
+                        warnings.warn("Volume SynthDef unknown. Cannot set volume.")
                         return
                     args = {
                         "volumeAmp": amp,

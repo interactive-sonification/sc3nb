@@ -338,6 +338,13 @@ class SCLang:
     def __del__(self):
         self.kill()
 
+    def __repr__(self) -> str:
+        if self.started:
+            status = f"addr={self.addr}, process={self.process}"
+        else:
+            status = "(not started)"
+        return f"<SCLang {status}>"
+
     def cmd(
         self,
         code: str,

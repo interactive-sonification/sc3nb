@@ -465,7 +465,7 @@ class SCServer(OSCCommunication):
             kill other SuperCollider server processes.
         allowed_parents : Sequence[str], optional
             Names of parents that are allowed for other instances of
-            sclang/scsynth processes that won't be killed, by default ALLOWED_PARENTS
+            scsynth processes that won't be killed, by default ALLOWED_PARENTS
 
         Raises
         ------
@@ -1101,3 +1101,10 @@ class SCServer(OSCCommunication):
 
     def _warn_fail(self, sender, *args):
         _LOGGER.warning("Error from %s: %s", self._check_sender(sender), args)
+
+    def __repr__(self) -> str:
+        if self.has_booted:
+            status = f"addr={self.addr}, process={self.process}"
+        else:
+            status = "(not booted)"
+        return f"<SCServer {status}>"
