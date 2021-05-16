@@ -20,6 +20,7 @@ class SynthTest(SCBaseTest):
         ):
             self.synth = Synth("s2", controls=self.args, nodeid=self.custom_nodeid)
         self.assertIsNone(self.synth._synth_desc)
+        self.sc.server.sync()
 
     def tearDown(self) -> None:
         nodeid = self.synth.nodeid
@@ -27,8 +28,9 @@ class SynthTest(SCBaseTest):
         self.synth.free()
         self.synth.wait()
         del self.synth  # make sure that synth is deleted from registry
-        del self.sc.server.nodes[nodeid]
         self.assertNotIn(nodeid, self.sc.server.nodes)
+        with self.assertRaises(KeyError):
+            del self.sc.server.nodes[nodeid]
 
     def test_node_registry(self):
         copy1 = Synth(nodeid=self.synth.nodeid, new=False)

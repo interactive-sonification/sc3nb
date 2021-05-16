@@ -21,10 +21,11 @@ class GroupTest(SCBaseTest):
         nodeid = self.group.nodeid
         self.assertIn(nodeid, self.sc.server.nodes)
         self.group.free()
-        self.group.wait()
+        self.group.wait(timeout=1)
         del self.group  # make sure that group is deleted from registry
-        del self.sc.server.nodes[nodeid]
         self.assertNotIn(nodeid, self.sc.server.nodes)
+        with self.assertRaises(KeyError):
+            del self.sc.server.nodes[nodeid]
 
     def test_node_registry(self):
         copy1 = Group(nodeid=self.group.nodeid, new=False)

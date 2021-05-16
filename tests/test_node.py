@@ -28,7 +28,7 @@ class NodeTest(SCBaseTest):
             self.assertEqual(synth.is_playing, True)
             self.assertEqual(synth.started, True)
             self.assertEqual(synth.freed, False)
-            synth.wait()
+            synth.wait(timeout=1)
             time_played = time.time() - t0
             self.assertEqual(synth.is_playing, False)
             self.assertEqual(synth.started, False)
@@ -64,12 +64,12 @@ class NodeTest(SCBaseTest):
             UserWarning, "SynthDesc 's1' is unknown", msg="SynthDesc seems to be known"
         ):
             s1_synth = Synth("s1", controls={"dur": duration, "amp": 0.0})
-        s1_synth.wait()
+        s1_synth.wait(timeout=1)
         check(s1_synth)
 
         t0 = time.time()
         s1_synth.new()
-        s1_synth.wait()
+        s1_synth.wait(timeout=1)
         check(s1_synth)
 
     def test_too_many_arguments(self):
@@ -85,15 +85,15 @@ class NodeTest(SCBaseTest):
             synth1 = Synth("s2", {"amp": 0.0})
             nodeid = synth1.nodeid
             synth1.free()
-            synth1.wait()
+            synth1.wait(timeout=1)
             group = Group(nodeid=nodeid)
             with self.assertRaisesRegex(RuntimeError, "Tried to get "):
                 Synth("s2", nodeid=nodeid)
             group.free()
-            group.wait()
+            group.wait(timeout=1)
             synth2 = Synth("s2", nodeid=nodeid)
             synth2.free()
-            synth2.wait()
+            synth2.wait(timeout=1)
 
     @pytest.mark.allowloggingwarn
     def test_duplicate(self):
@@ -103,7 +103,7 @@ class NodeTest(SCBaseTest):
             synth1 = Synth("s2", {"amp": 0.0})
             synth1.new()
             synth1.free()
-            synth1.wait()
+            synth1.wait(timeout=1)
             wait_t0 = time.time()
             while not "/s_new" in self.sc.server.fails:
                 self.assertLessEqual(time.time() - wait_t0, 0.2)
@@ -112,4 +112,4 @@ class NodeTest(SCBaseTest):
             with self.assertRaises(Empty):
                 self.sc.server.fails["/s_new"].get()
             synth1.free()
-            synth1.wait()
+            synth1.wait(timeout=1)

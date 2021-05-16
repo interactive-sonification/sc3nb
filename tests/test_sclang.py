@@ -26,6 +26,7 @@ class SCLangPersistentTest(SCBaseTest):
 
     def test_auto_load_synthdefs(self):
         self.assertIsNotNone(self.sc.lang.get_synth_desc("s1"))
+        self.assertIsNotNone(self.sc.lang.get_synth_desc("s2"))
 
     def test_inject_pyvar(self):
         pyvar = "test"
