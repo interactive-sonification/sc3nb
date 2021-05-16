@@ -364,6 +364,22 @@ class SCServer(OSCCommunication):
             default_receiver_port=self.options.udp_port,
         )
 
+        # counter for nextNodeID
+        self._num_node_ids: int = 0
+
+        self.process: Optional[Process] = None
+        self._programm_name = SC3_SERVER_NAME
+
+        self._client_id: int = SC3NB_SERVER_CLIENT_ID
+        self._scsynth_address = LOCALHOST
+        self._scsynth_port = self.options.udp_port
+        self._max_logins = self.options.max_logins
+
+        self._server_running: bool = False
+        self._has_booted: bool = False
+
+        self.latency: float = 0.0
+
         # init msg queues
         self.add_msg_pairs(CMD_PAIRS)
 
@@ -417,22 +433,6 @@ class SCServer(OSCCommunication):
             index=self.options.num_output_buses,
             server=self,
         )
-
-        # counter for nextNodeID
-        self._num_node_ids: int = 0
-
-        self.process: Optional[Process] = None
-        self._programm_name = SC3_SERVER_NAME
-
-        self._client_id: int = SC3NB_SERVER_CLIENT_ID
-        self._scsynth_address = LOCALHOST
-        self._scsynth_port = self.options.udp_port
-        self._max_logins = self.options.max_logins
-
-        self._server_running: bool = False
-        self._has_booted: bool = False
-
-        self.latency: float = 0.0
 
         self._server_tree: List[
             Tuple[Callable[..., None], Optional[Sequence[Any]]]
