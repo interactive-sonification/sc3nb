@@ -578,6 +578,19 @@ class SCServer(OSCCommunication):
             else:
                 function(args)
 
+    def connect_sclang(self, port: int) -> None:
+        """Connect sclang to the server
+
+        This will add the "sclang" receiver and execute the init hooks
+
+        Parameters
+        ----------
+        port : int
+            Port of sclang (NetAddr.langPort)
+        """
+        self.add_receiver(name="sclang", ip="127.0.0.1", port=port)
+        self.execute_init_hooks()
+
     def add_init_hook(
         self, function: Callable[..., None], args: Optional[Sequence[Any]] = None
     ) -> None:

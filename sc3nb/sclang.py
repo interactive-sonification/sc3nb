@@ -600,14 +600,10 @@ class SCLang:
         try:  # if there are 'too many users' we failed. So the Exception is the successful case!
             self.read(expect="too many users", timeout=0.3, print_error=False)
         except ProcessTimeout:
-            _LOGGER.info("Updated SC server at sclang")
             self._server = server
             self._port = self.cmdg("NetAddr.langPort", verbose=False)
-            self._server.add_receiver(name="sclang", ip="127.0.0.1", port=self._port)
-            _LOGGER.info(
-                "Updated sclang port on OSCCommunication " "to non default port: %s",
-                self._port,
-            )
+            _LOGGER.info("Connecting %s with %s", self._server, self)
+            self._server.connect_sclang(port=self._port)
         else:
             raise SCLangError(
                 "failed to register to the server (too many users)\n"
