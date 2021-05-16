@@ -9,7 +9,6 @@ import shutil
 import stat
 import subprocess
 import sys
-from os.path import basename, dirname, exists
 from pathlib import Path
 from sys import platform
 from typing import Optional
@@ -22,7 +21,7 @@ SILENCE = "> /dev/null 2>&1"
 
 def main():
     git_root = subprocess.check_output(
-        f"git -C {dirname(__file__)} rev-parse --show-toplevel".split(" ")
+        f"git -C {os.path.dirname(__file__)} rev-parse --show-toplevel".split(" ")
     )
     git_root = str(git_root, "utf-8").strip()
     # checking dir
@@ -47,7 +46,7 @@ def main():
         help="limit doctree to these branches",
     )
     parser.add_argument(
-        "--tags", nargs="*", default=False, help="limit doctree to these tags"
+        "--tags", nargs="*", default=None, help="limit doctree to these tags"
     )
     parser.add_argument(
         "--input",
@@ -65,7 +64,7 @@ def main():
     )
     args = parser.parse_args()
     args.doctree = args.doctree if not args.publish else True
-    if args.clean and exists(args.out):
+    if args.clean and os.path.exists(args.out):
         print(f"Cleaning {args.out}")
         shutil.rmtree(args.out, ignore_errors=False, onerror=_handle_remove_readonly)
     os.makedirs(args.out, exist_ok=True)
@@ -82,7 +81,7 @@ def main():
                 raise NotImplementedError("'show' is not available for your platform")
 
     else:
-        generate_tree(
+        generate_gh_pages(
             out_folder=args.out,
             publish=args.publish,
             branches=args.branches,
@@ -94,7 +93,6 @@ def main():
 
 def _handle_remove_readonly(func, path, exc):
     excvalue = exc[1]
-    print(f"handle {func, path, exc}")
     if (
         func in (os.rmdir, os.remove, os.unlink, os.scandir)
         and excvalue.errno == errno.EACCES
@@ -222,9 +220,8 @@ def build_doc(
             media_dir,
         )
 
-    # PYTHONDONTWRITEBYTECODE=1 prevents __pycache__ files which we don't need when code runs only once.
+    # prevents __pycache__ files which we don't need when code runs only once.
     sys.dont_write_bytecode = True
-
     exec_str = f'sphinx-build -b {target} {f"-D {override}" if override else ""} {source} {out}/{target}'
     print(exec_str)
     res = os.system(exec_str)
@@ -234,7 +231,7 @@ def build_doc(
         )
 
 
-def generate_tree(
+def generate_gh_pages(
     out_folder,
     publish=False,
     branches=["master", "develop"],
@@ -242,21 +239,34 @@ def generate_tree(
     template_folder=None,
     show=False,
 ):
-    doctree_root = f"{out_folder}gh-pages/sc3nb/"
-    build_folder = f"{out_folder}docs/"
+    print("Generate github pages")
+    gh_pages_root = f"{out_folder}gh-pages/"
+    build_folder = f"{gh_pages_root}out/"
     os.makedirs(build_folder, exist_ok=True)
-    if not exists(doctree_root):
+
+    repo = f"{gh_pages_root}sc3nb/"
+    print(f"Check repo ({repo})")
+
+    # update or clone repo
+    if not os.path.exists(repo):
         os.system(
-            f"git clone https://github.com/interactive-sonification/sc3nb.git {doctree_root}"
+            f"git clone https://github.com/interactive-sonification/sc3nb.git {repo}"
         )
     else:
-        # os.system(f'git -C {doctree_root} fetch --all')
-        os.system(f"git -C {doctree_root} pull --all")
-
-    if tags is False:
-        out = subprocess.check_output(
-            f"git -C {doctree_root} show-ref --tags -d".split(" ")
+        if os.system(f"git -C {repo} checkout master") != 0:
+            raise RuntimeError("Checking out master failed")
+        if os.system(f"git -C {repo} pull --all") != 0:
+            raise RuntimeError("Pulling {repo} failed")
+        status = str(
+            subprocess.check_output(f"git -C {repo} status --porcelain".split(" ")),
+            "utf8",
         )
+        if status != "":
+            print(status)
+            raise RuntimeError("Repo is dirty")
+
+    if tags is None:
+        out = subprocess.check_output(f"git -C {repo} show-ref --tags".split(" "))
         tags = [
             str(line.split(b" ")[1].split(b"/")[2], "utf-8")
             for line in out.split(b"\n")[::-1]
@@ -264,41 +274,36 @@ def generate_tree(
         ]
 
     # first, check which documentation to generate
-    def _has_docs(name, doctree_root):
-        print("_has_docs enter")
-        os.system(f"git -C {doctree_root} checkout -q {name}")
-        print("_has_docs after git")
-        return exists(f"{doctree_root}/docs")
+    def _has_docs(name):
+        if os.system(f"git -C {repo} checkout -q {name}") != 0:
+            raise RuntimeError("checking for docs failed")
+        return os.path.exists(f"{repo}/docs")
 
-    branches = [b for b in branches if _has_docs(b, doctree_root)]
-    tags = [t for t in tags if _has_docs("tags/" + t, doctree_root)]
-    print(f"Will generate documentation for:\nBranches: {branches}\nTags: {tags}")
+    branches = [b for b in branches if _has_docs(b)]
+    tags = [t for t in tags if _has_docs("tags/" + t)]
+    print(f"Will generate documentation for:\n  Branches: {branches}\n  Tags: {tags}")
 
     # fix order of dropdown elements (most recent tag first, then branches and older tags)
     doclist = tags[:1] + branches + tags[1:]
-
+    print("doclist={doclist}")
     # generate documentation; all versions have to be known for the dropdown menu
     for d in doclist:
         print(f"Generating documentation for {d} ...")
         target = d if d in branches else "tags/" + d
-        res = os.system(f"git -C {doctree_root} checkout {target} -f")
+        res = os.system(f"git -C {repo} checkout {target} -f")
         if res != 0:
             raise RuntimeError(
                 f"Could not checkout {d}. Git returned status code {res}!"
             )
         if template_folder:
-            if exists(f"{doctree_root}/docs/source/_templates"):
-                shutil.rmtree(f"{doctree_root}/docs/source/_templates")
-            shutil.copytree(template_folder, f"{doctree_root}/docs/source/_templates")
-
-        # override index and config for versions older than 0.5.0
-        # if d[0] == 'v' and d[1] == '0' and int(d[3]) < 5:
-        #    os.system(f'cp {template_folder}/../conf.py {template_folder}/../index.rst {doctree_root}/docs')
+            if os.path.exists(f"{repo}/docs/source/_templates"):
+                shutil.rmtree(f"{repo}/docs/source/_templates")
+            shutil.copytree(template_folder, f"{repo}/docs/source/_templates")
 
         override = f"version={d} -A versions={','.join(doclist)}"
         build_doc(
-            source=f"{doctree_root}/docs/source/",
-            out=f"{build_folder}/{d}",
+            source=os.path.join(repo, "docs/source/"),
+            out=os.path.join(build_folder, d),
             target="html",
             override=override,
         )
@@ -317,22 +322,31 @@ def generate_tree(
             )
 
     # prepare gh-pages
+    os.system(f'git -C {repo} checkout -f "gh-pages"')
     print("Merging documentation...")
-    os.system(f"git -C {doctree_root} checkout -f gh-pages")
-    for doc_path in glob.glob(f"{build_folder}/*"):
-        shutil.copytree(doc_path, doctree_root)
+    for item in os.listdir(build_folder):
+        s = os.path.join(build_folder, item)
+        d = os.path.join(repo, item)
+        print(f"Copying {item}")
+        if os.path.isdir(s):
+            s = os.path.join(s, "html")
+            if os.path.exists(d):
+                shutil.rmtree(d, ignore_errors=True)
+            shutil.copytree(s, d)
+        else:
+            shutil.copy2(s, d)
+    print(f"Documentation tree has been written to {repo}")
     print("Current git status:")
-    os.system(f"git -C {doctree_root} status")
-    print(f"Documentation tree has been written to {doctree_root}")
+    os.system(f"git -C {repo} status")
 
     # commit and push changes when publish has been passed
     if publish:
-        os.system(f"git -C {doctree_root} add -A")
-        os.system(f'git -C {doctree_root} commit -a -m "update doctree"')
-        os.system(f"git -C {doctree_root} push")
+        os.system(f"git -C {repo} add -A")
+        os.system(f'git -C {repo} commit -a -m "Update docs"')
+        os.system(f"git -C {repo} push")
 
     if show:
-        _run_webserver(doctree_root)
+        _run_webserver(os.path.normpath(repo))
 
 
 def _run_webserver(root):
@@ -342,7 +356,7 @@ def _run_webserver(root):
     import time
 
     def _delayed_open():
-        url = f"http://localhost:8181/{basename(root)}/index.html"
+        url = f"http://localhost:8181/{os.path.basename(root)}/index.html"
         time.sleep(0.2)
         if sys.platform == "darwin":
             os.system(f"open {url}")
