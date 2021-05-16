@@ -221,6 +221,7 @@ Content
          sc3nb.process_handling.Process.send
          sc3nb.process_handling.Process.kill
          sc3nb.process_handling.Process.__del__
+         sc3nb.process_handling.Process.__repr__
 
    .. method:: _read_loop(self)
 
@@ -345,6 +346,29 @@ Content
 
 
    .. method:: __del__(self)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

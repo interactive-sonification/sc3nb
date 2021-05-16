@@ -32,6 +32,11 @@ Class List
 Content
 ~~~~~~~
 
+.. data:: _LOGGER
+   
+
+   
+
 .. class:: Volume(server: sc3nb.sc_objects.server.SCServer, min_: int = -90, max_: int = 6)
 
 

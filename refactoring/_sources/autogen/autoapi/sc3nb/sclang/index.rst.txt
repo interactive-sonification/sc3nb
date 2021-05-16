@@ -369,6 +369,7 @@ Content
          sc3nb.sclang.SCLang.load_synthdefs
          sc3nb.sclang.SCLang.kill
          sc3nb.sclang.SCLang.__del__
+         sc3nb.sclang.SCLang.__repr__
          sc3nb.sclang.SCLang.cmd
          sc3nb.sclang.SCLang.cmdv
          sc3nb.sclang.SCLang.cmds
@@ -474,6 +475,29 @@ Content
 
 
    .. method:: __del__(self)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: cmd(self, code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any

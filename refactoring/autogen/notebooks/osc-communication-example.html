@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Helper functions" href="helper-examples.html" />
-    <link rel="prev" title="TimedQueue Basics" href="timedqueue-examples.html" /> 
+    <link rel="prev" title="Recorder" href="supercollider-objects/recorder-examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -186,13 +186,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="timedqueue-examples.html">TimedQueue Basics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
-</ul>
-</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OSC communication</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Sending-OSC">Sending OSC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Messages">Messages</a></li>
@@ -220,6 +213,13 @@
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
 </ul>
 </li>
 </ul>
@@ -756,9 +756,9 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 26
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 335544321, 0, -1, 268435457, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 402653185, 0, -1, 335544321, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 469762049, 0, -1, 402653185, 1, -1, -1)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 8111)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 1058)
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1F430C8&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 3180)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 6873)
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F478B88&gt;
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -774,9 +774,10 @@ Done.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sclang:Updated SC server at sclang
-INFO:sc3nb.sc_objects.server:osc msg received from (&#39;127.0.0.1&#39;, 57120): (&#39;/return&#39;, 57120)
-INFO:sc3nb.sclang:Updated sclang port on OSCCommunication to non default port: 57120
+INFO:sc3nb.sc_objects.server:osc msg received from (&#39;127.0.0.1&#39;, 57123): (&#39;/return&#39;, 57123)
+INFO:sc3nb.sclang:Connecting &lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; pid=15216&gt;&gt; with &lt;SCLang addr=(&#39;127.0.0.1&#39;, 57123), process=&lt;Process &#39;sclang&#39; pid=14768&gt;&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x17sc3nb_vol..
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#39;/d_recv&#39;)
 </pre></div></div>
 </div>
 <p>sc3nb serves as OSC server and as client of the SuperCollider server <code class="docutils literal notranslate"><span class="pre">scsynth</span></code>. You can also communicate with the SuperCollider interpreter <code class="docutils literal notranslate"><span class="pre">sclang</span></code> via OSC.</p>
@@ -795,9 +796,9 @@ INFO:sc3nb.sclang:Updated sclang port on OSCCommunication to non default port: 5
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57130),
+This instance is at (&#39;127.0.0.1&#39;, 57133),
 Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
-                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57120)
+                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57123)
 
 </pre></div></div>
 </div>
@@ -816,8 +817,8 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57130),
- {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57120): &#39;sclang&#39;})
+((&#39;127.0.0.1&#39;, 57133),
+ {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57123): &#39;sclang&#39;})
 </pre></div></div>
 </div>
 <p>If you want to communicate via OSC with another receiver you could add it’s name via <code class="docutils literal notranslate"><span class="pre">sc.server.add_receiver(name:</span> <span class="pre">str,</span> <span class="pre">ip:</span> <span class="pre">str,</span> <span class="pre">port:</span> <span class="pre">int)</span></code> or you can pass a custom receiver when sending OSC</p>
@@ -844,10 +845,10 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57130),
+This instance is at (&#39;127.0.0.1&#39;, 57133),
 Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
-                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57120)
-                 &#34;sc3nb&#34; at (&#39;127.0.0.1&#39;, 57130)
+                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57123)
+                 &#34;sc3nb&#34; at (&#39;127.0.0.1&#39;, 57133)
 
 </pre></div></div>
 </div>
@@ -857,10 +858,10 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57130),
+((&#39;127.0.0.1&#39;, 57133),
  {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;,
-  (&#39;127.0.0.1&#39;, 57120): &#39;sclang&#39;,
-  (&#39;127.0.0.1&#39;, 57130): &#39;sc3nb&#39;})
+  (&#39;127.0.0.1&#39;, 57123): &#39;sclang&#39;,
+  (&#39;127.0.0.1&#39;, 57133): &#39;sc3nb&#39;})
 </pre></div></div>
 </div>
 <div class="section" id="Sending-OSC">
@@ -898,7 +899,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 </div>
 <p>A shortcut for sending Messages is</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
@@ -906,6 +907,14 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 <span></span>sc.server.msg<span class="o">?</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
@@ -934,18 +943,17 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
 WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4E}{\x04\xfb\x94`\x00\x00\x..
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1, 0, 67108865, -24, 1, 1001, 1001)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/d_removed&#39;, &#39;sc3nb_volumeAmpControl2&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1, 0, 67108865, -40, 1, 1001, 1001)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 67108865, 0, 134217729, 1, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 134217729, 0, 201326593, 67108865, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 201326593, 0, 268435457, 134217729, 1, -1, -1..
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 268435457, 0, 335544321, 201326593, 1, -1, -1..
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 335544321, 0, 402653185, 268435457, 1, -1, -1..
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 402653185, 0, 469762049, 335544321, 1, -1, -1..
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 469762049, 0, -1, 402653185, 1, -1, -1)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 469762049, 0, -24, 402653185, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1001, 1, -1, -1, 0)
 </pre></div></div>
 </div>
@@ -988,7 +996,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1
 </pre></div>
 </div>
 </div>
-<p>This will add the <code class="docutils literal notranslate"><span class="pre">sc.server.latency</span></code> time to the timestamp</p>
+<p>This will add the <code class="docutils literal notranslate"><span class="pre">sc.server.latency</span></code> time to the timestamp. By default this is <code class="docutils literal notranslate"><span class="pre">0.0</span></code> but you can set it.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -1007,9 +1015,28 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1
 0.0
 </pre></div></div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">latency</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">latency</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.1
+</pre></div></div>
+</div>
 <p>A Bundler lets you add Messages with</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1018,7 +1045,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1033,13 +1060,13 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1F5BDC8&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F798708&gt;
 </pre></div></div>
 </div>
 <p>Simpler is the usage of the context manager:</p>
 <p>This means you can use <code class="docutils literal notranslate"><span class="pre">with</span></code> for better handling</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1054,53 +1081,123 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D320A508&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F78F888&gt;
 </pre></div></div>
 </div>
-<p>Here are some different styles of writing the same Bundler content</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<p>Here are some different styles of writing the same Sound with the Bundler features</p>
+<ul class="simple">
+<li><p>server Bundler with add</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
+<span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">send_on_exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
     <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
     <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1001</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D320AC08&gt;
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
+<span></span><span class="n">dg1</span> <span class="o">=</span> <span class="n">bundler</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">time_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dgram</span>  <span class="c1"># we set the time_offset explicitly so all Bundle datagrams are the same</span>
+<span class="n">dg1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+b&#39;#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x004#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x00 /s_new\x00\x00,siii\x00\x00\x00s2\x00\x00\x00\x00\x03\xe9\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00$#bundle\x00\x83\xaa~\x80ffh\x00\x00\x00\x00\x10/n_free\x00,i\x00\x00\x00\x00\x03\xe9&#39;
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>Bundler with explict latency set and using add</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">with</span> <span class="n">Bundler</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">latency</span><span class="p">,</span> <span class="n">send_on_exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
+    <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1001</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dg2</span> <span class="o">=</span> <span class="n">bundler</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">time_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dgram</span>
+<span class="n">dg2</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+b&#39;#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x004#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x00 /s_new\x00\x00,siii\x00\x00\x00s2\x00\x00\x00\x00\x03\xe9\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00$#bundle\x00\x83\xaa~\x80ffh\x00\x00\x00\x00\x10/n_free\x00,i\x00\x00\x00\x00\x03\xe9&#39;
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>server Bundler with implicit latency and using bundled messages</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">send_on_exit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
     <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,],</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">bundler</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
     <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1001</span><span class="p">],</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
 </div>
-<div class="output_area stderr docutils container">
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">dg3</span> <span class="o">=</span> <span class="n">bundler</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">time_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dgram</span>
+<span class="n">dg3</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D32011C8&gt;
+b&#39;#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x004#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x00 /s_new\x00\x00,siii\x00\x00\x00s2\x00\x00\x00\x00\x03\xe9\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00$#bundle\x00\x83\xaa~\x80ffh\x00\x00\x00\x00\x10/n_free\x00,i\x00\x00\x00\x00\x03\xe9&#39;
 </pre></div></div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">dg1</span> <span class="o">==</span> <span class="n">dg2</span> <span class="ow">and</span> <span class="n">dg1</span> <span class="o">==</span> <span class="n">dg2</span><span class="p">,</span> <span class="s2">&quot;The datagrams are not the same&quot;</span>
+</pre></div>
+</div>
+</div>
 <p>Note that you can use the Bundler with the Synth and Group for easier Message creation.</p>
-<p>Make sure to look at the <a class="reference external" href="#Automatic-Bundling">Automatic Bundling Feature</a></p>
+<p>Also make sure to look at the <a class="reference external" href="#Automatic-Bundling">Automatic Bundling Feature</a> which is using the bundled messages (<code class="docutils literal notranslate"><span class="pre">msg(...,</span> <span class="pre">bundled=True</span></code>)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1118,15 +1215,15 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4E}|\x04\xfb\x94`\x00\x00\x..
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D318CE48&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4K\xc5\xa3\xe4\xb0\xe8j\x00..
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F5244C8&gt;
 </pre></div></div>
 </div>
 <div class="section" id="Bundler-Timestamp">
 <h4>Bundler Timestamp<a class="headerlink" href="#Bundler-Timestamp" title="Permalink to this headline">¶</a></h4>
 <p>small numbers are times in seconds relative to <code class="docutils literal notranslate"><span class="pre">time.time()</span></code> evaluated at the time of sending</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1140,8 +1237,8 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1F55288&gt;
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1F55288&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F790908&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F52F808&gt;
 </pre></div></div>
 </div>
 <p><strong>Attention:</strong></p>
@@ -1152,7 +1249,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </ul>
 <p>One Bundler with multiple messages</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1168,12 +1265,12 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D320A508&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F7C5648&gt;
 </pre></div></div>
 </div>
 <p>using <code class="docutils literal notranslate"><span class="pre">time.time()+timeoffset</span></code> for absolute times</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1188,12 +1285,12 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1F62C88&gt;
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1F62C88&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F7C33C8&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F7C33C8&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1212,7 +1309,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D320AC48&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F7C5408&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1220,7 +1317,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 <h4>Nesting Bundlers<a class="headerlink" href="#Nesting-Bundlers" title="Permalink to this headline">¶</a></h4>
 <p>You can even nest bundler. This will recalculate the time relative to the sending time of the outermost bundler</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1239,7 +1336,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D320A848&gt;
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F53C148&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1249,12 +1346,12 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 <p>Probably the most convenient way of sending OSC is by using the Automatic Bundling Feature.</p>
 <p>This allows you to simply use the SuperCollider Objects Synth and Group in the Context Manager of a Bundler and they will be automatically captured and stored.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
-    <span class="n">synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">)</span>
+    <span class="n">synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">)</span>
     <span class="n">bundler</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
     <span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
     <span class="n">bundler</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
@@ -1268,31 +1365,39 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D1ED3848&gt;
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
+WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4K\xc5\xa2\xe4\xb0\xe8j\x00..
+INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F7C9AC8&gt;
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20011, 67108865, -1, -1, 0)
+WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1001, 1, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
+WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
+WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 20011, 67108865, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1001, 1, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20006, 67108865, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20001, 67108865, -1, 20006, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20007, 67108865, -1, 20001, 0)
 </pre></div></div>
 </div>
 <p><strong>Note</strong> that it is important that we only wait on the Synth after the context of the Bundler is closed.</p>
-<p>If you would call <code class="docutils literal notranslate"><span class="pre">synth.wait()</span></code> in the Bundler context it would wait before sending the /s_new Message to the server and then wait forever for the /n_end notification.</p>
-</div>
-</div>
-<div class="section" id="Receiving-OSC">
-<h2>Receiving OSC<a class="headerlink" href="#Receiving-OSC" title="Permalink to this headline">¶</a></h2>
-<p>sc3nb is receiving OSC messages with the help of queues, for each OSC address where we want to receive messages there is a AddressQueue</p>
+<p>If you would call <code class="docutils literal notranslate"><span class="pre">synth.wait()</span></code> in the Bundler context it would wait before sending the /s_new Message to the server and then wait forever (or until timeout) for the /n_end notification.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg_queues</span>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
+        <span class="n">synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">)</span>
+        <span class="n">bundler</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="n">bundler</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># without a timeout this would hang forever</span>
+<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1301,12 +1406,36 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20003, 67108865, -1, 20008, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20005, 67108865, -1, 20003, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1001, 1, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20002, 67108865, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20010, 67108865, -1, 20002, 0)
 </pre></div></div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Aborting. Exception raised in bundler: TimeoutError Timed out waiting for synth.
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Receiving-OSC">
+<h2>Receiving OSC<a class="headerlink" href="#Receiving-OSC" title="Permalink to this headline">¶</a></h2>
+<p>sc3nb is receiving OSC messages with the help of queues, for each OSC address where we want to receive messages there is a AddressQueue</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg_queues</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1341,24 +1470,13 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20
  &#39;/done/b_close&#39;: AddressQueue /b_close : []}
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20002, 67108865, -1, 20005, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20009, 67108865, -1, 20002, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20004, 67108865, -1, 20009, 0)
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-</pre></div></div>
-</div>
 <div class="section" id="Getting-replies">
 <h3>Getting replies<a class="headerlink" href="#Getting-replies" title="Permalink to this headline">¶</a></h3>
 <p>For some outgoing Messages there is a incoming Message defined.</p>
 <p>This means sending such a message will automatically wait for the incoming Message at the corresponding Queue and return the result.</p>
 <p>An example for this is <code class="docutils literal notranslate"><span class="pre">/sync</span> <span class="pre">{sync_id}</span> <span class="pre">-&gt;</span> <span class="pre">/synced</span> <span class="pre">{sync_id}</span></code></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1371,25 +1489,11 @@ WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_ne
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 12345)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1399,7 +1503,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 <p>See all <code class="docutils literal notranslate"><span class="pre">(outgoing</span> <span class="pre">message,</span> <span class="pre">incoming</span> <span class="pre">message)</span></code> pairs:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1408,7 +1512,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1444,7 +1548,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 <p>You can get the reply address via</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1453,7 +1557,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1463,7 +1567,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 <p>or</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1472,7 +1576,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1482,7 +1586,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 <p>If we specify <code class="docutils literal notranslate"><span class="pre">await_reply=False</span></code> the message will be kept in the queue</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1491,7 +1595,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1499,8 +1603,8 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1508,16 +1612,8 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 AddressQueue /synced : []
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 1)
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1525,8 +1621,17 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20006, 67108865, -1, 20010, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 1)
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1535,16 +1640,16 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-AddressQueue /synced : [1, 2]
+AddressQueue /synced : [1]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1552,8 +1657,16 @@ AddressQueue /synced : [1, 2]
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 2)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1563,7 +1676,7 @@ AddressQueue /synced : [1, 2]
 </div>
 <p>You can see how many values were hold.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1572,7 +1685,7 @@ AddressQueue /synced : [1, 2]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1582,7 +1695,7 @@ AddressQueue /synced : [1, 2]
 </div>
 <p>Notice that these hold messages will be skipped.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1601,7 +1714,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1610,7 +1723,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1619,7 +1732,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1629,7 +1742,7 @@ AddressQueue /synced : []
 </div>
 <p>Therefore you should retrieve them with <code class="docutils literal notranslate"><span class="pre">get</span></code> and set <code class="docutils literal notranslate"><span class="pre">skip=False</span></code> if you care for old values in the queue and dont want them to be skipped.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1647,7 +1760,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1660,7 +1773,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 <h3>Custom Message Queues<a class="headerlink" href="#Custom-Message-Queues" title="Permalink to this headline">¶</a></h3>
 <p>If you want to get additional OSC Messages you need to create a custom MessageQueue</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1669,7 +1782,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1678,7 +1791,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1687,7 +1800,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1696,7 +1809,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1713,7 +1826,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sc3nb: (&#39;/test&#39;, &#39
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1721,8 +1834,16 @@ INFO:sc3nb.sc_objects.server:osc msg received from sc3nb: (&#39;/test&#39;, &#39
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20009, 67108865, -1, 20006, 0)
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1731,7 +1852,7 @@ AddressQueue /test : [&#39;Hi!&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1748,7 +1869,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sc3nb: (&#39;/test&#39;, &#39
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1757,7 +1878,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sc3nb: (&#39;/test&#39;, &#39
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1766,7 +1887,7 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1775,7 +1896,7 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1784,7 +1905,7 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1793,7 +1914,7 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1803,7 +1924,7 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </div>
 <p>If you want to create a pair of a outgoing message that will receive a certain incomming message you need to specify it via the <code class="docutils literal notranslate"><span class="pre">out_addr</span></code> arugment of <code class="docutils literal notranslate"><span class="pre">add_msg_queue</span></code> or you could use the shortcut for this <code class="docutils literal notranslate"><span class="pre">add_msg_pairs</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1811,8 +1932,8 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1820,9 +1941,17 @@ AddressQueue /test : [&#39;Hi!&#39;, &#39;Hello!&#39;]
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20008, 67108865, -1, 20009, 0)
+</pre></div></div>
+</div>
 <p>Lets use <code class="docutils literal notranslate"><span class="pre">OSCdef</span></code> in sclang to send us replies.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1840,7 +1969,7 @@ OSCdef.newMatching(&quot;say_hi&quot;, {|msg, time, addr, recvPort| addr.sendMsg
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1857,7 +1986,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1876,7 +2005,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 <p>There is also the class MessageQueueCollection, this allows to create multiple MessageQueues for a multiple <code class="docutils literal notranslate"><span class="pre">addess/subaddresses</span></code> combination</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1885,7 +2014,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1894,7 +2023,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1904,7 +2033,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1914,7 +2043,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1923,7 +2052,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1961,7 +2090,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1970,7 +2099,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -2010,7 +2139,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/hi.reply&#39;,
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2028,7 +2157,7 @@ OSCdef.newMatching(&quot;ab&quot;, {|msg, time, addr, recvPort| addr.sendMsg(&#3
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2046,7 +2175,7 @@ OSCdef.newMatching(&quot;ab&quot;, {|msg, time, addr, recvPort| addr.sendMsg(&#3
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2059,20 +2188,20 @@ OSCdef.newMatching(&quot;ab&quot;, {|msg, time, addr, recvPort| addr.sendMsg(&#3
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address1&#39;, &#39;saott&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address1&#39;, &#39;atsto&#39;)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;saott&#39;
+&#39;atsto&#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2085,16 +2214,16 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, 
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address2&#39;, &#39;inoanfscitoi&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address2&#39;, &#39;noincoifasti&#39;)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;inoanfscitoi&#39;
+&#39;noincoifasti&#39;
 </pre></div></div>
 </div>
 </div>
@@ -2104,7 +2233,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, 
 <div class="section" id="Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">
 <h3>Creating an OSC responder and msg to sclang for synthesis<a class="headerlink" href="#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[76]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2125,7 +2254,7 @@ OSCdef(\dinger, { | msg, time, addr, recvPort |
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[77]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2140,11 +2269,11 @@ OSCdef(\dinger, { | msg, time, addr, recvPort |
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to (&#39;127.0.0.1&#39;, 57120) : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000159D3223948&gt;
+INFO:sc3nb.osc.osc_communication:send to (&#39;127.0.0.1&#39;, 57123) : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001457F7DB3C8&gt;
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[78]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2153,16 +2282,8 @@ INFO:sc3nb.osc.osc_communication:send to (&#39;127.0.0.1&#39;, 57120) : &lt;sc3n
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1000, 1, -1, -1, 0)
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[79]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2170,16 +2291,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 10
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, 1000, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1002, 1, -1, 1001, 0)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -2187,19 +2299,8 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 10
 -&gt; OSCdef
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1003, 1, -1, 1002, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1004, 1, -1, 1003, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1005, 1, -1, 1004, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1006, 1, -1, 1005, 0)
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[80]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2212,9 +2313,14 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1000, 1, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, 1000, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1002, 1, -1, 1001, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1003, 1, -1, 1002, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1004, 1, -1, 1003, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1005, 1, -1, 1004, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1006, 1, -1, 1005, 0)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1007, 1, -1, 1006, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1008, 1, -1, 1007, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1009, 1, -1, 1008, 0)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#39;/quit&#39;)
 </pre></div></div>
 </div>
@@ -2238,7 +2344,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="helper-examples.html" class="btn btn-neutral float-right" title="Helper functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="timedqueue-examples.html" class="btn btn-neutral float-left" title="TimedQueue Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="supercollider-objects/recorder-examples.html" class="btn btn-neutral float-left" title="Recorder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

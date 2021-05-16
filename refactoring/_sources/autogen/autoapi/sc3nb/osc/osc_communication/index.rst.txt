@@ -1096,6 +1096,13 @@ Content
 
 
 
+      :Raises:
+
+          KeyError
+              If receiver is unknown.
+
+          ValueError
+              If the type of the receiver argument is wrong.
 
 
 

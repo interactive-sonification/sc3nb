@@ -512,6 +512,7 @@ Content
          sc3nb.SCServer.boot
          sc3nb.SCServer.init
          sc3nb.SCServer.execute_init_hooks
+         sc3nb.SCServer.connect_sclang
          sc3nb.SCServer.add_init_hook
          sc3nb.SCServer.bundler
          sc3nb.SCServer.blip
@@ -561,6 +562,7 @@ Content
          sc3nb.SCServer.pid
          sc3nb.SCServer._log_message
          sc3nb.SCServer._warn_fail
+         sc3nb.SCServer.__repr__
 
    .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 3, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
 
@@ -586,7 +588,7 @@ Content
 
           **allowed_parents** : Sequence[str], optional
               Names of parents that are allowed for other instances of
-              sclang/scsynth processes that won't be killed, by default ALLOWED_PARENTS
+              scsynth processes that won't be killed, by default ALLOWED_PARENTS
 
 
 
@@ -645,6 +647,34 @@ Content
       Run all init hook functions.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: connect_sclang(self, port: int) -> None
+
+      Connect sclang to the server
+
+      This will add the "sclang" receiver and execute the init hooks
+
+      :Parameters:
+
+          **port** : int
+              Port of sclang (NetAddr.langPort)
 
 
 
@@ -1889,6 +1919,29 @@ Content
    .. method:: _warn_fail(self, sender, *args)
 
 
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
 
 
 
@@ -2063,6 +2116,7 @@ Content
          sc3nb.SCLang.load_synthdefs
          sc3nb.SCLang.kill
          sc3nb.SCLang.__del__
+         sc3nb.SCLang.__repr__
          sc3nb.SCLang.cmd
          sc3nb.SCLang.cmdv
          sc3nb.SCLang.cmds
@@ -2168,6 +2222,29 @@ Content
 
 
    .. method:: __del__(self)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: cmd(self, code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any
@@ -3227,7 +3304,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: wait(self, timeout: Optional[float] = None)
+   .. method:: wait(self, timeout: Optional[float] = None) -> None
 
       Wait until this Node is freed
 
@@ -3237,6 +3314,10 @@ Content
 
 
 
+      :Raises:
+
+          TimeoutError
+              If timeout was provided and wait timed out.
 
 
 

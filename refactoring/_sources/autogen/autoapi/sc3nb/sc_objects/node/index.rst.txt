@@ -1332,7 +1332,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: wait(self, timeout: Optional[float] = None)
+   .. method:: wait(self, timeout: Optional[float] = None) -> None
 
       Wait until this Node is freed
 
@@ -1342,6 +1342,10 @@ Content
 
 
 
+      :Raises:
+
+          TimeoutError
+              If timeout was provided and wait timed out.
 
 
 

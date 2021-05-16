@@ -13,12 +13,10 @@ Welcome to sc3nb's documentation!
    :Caption: User Guide
 
    autogen/notebooks/sclang-examples
-
    supercolliderobjects
-
-   autogen/notebooks/timedqueue-examples
    autogen/notebooks/osc-communication-example
    autogen/notebooks/helper-examples
+   autogen/notebooks/timedqueue-examples
 
 .. toctree::
    :Caption: API Reference

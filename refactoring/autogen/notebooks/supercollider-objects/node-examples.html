@@ -186,13 +186,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue Basics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../osc-communication-example.html">OSC communication</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Messages">Messages</a></li>
@@ -220,6 +213,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
 </ul>
 </li>
 </ul>
@@ -720,8 +720,6 @@ Done.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
-   -16 s1
-     freq: 500 dur: 0.10000000149012 att: 0.0099999997764826 amp: 0.30000001192093 num: 1 pan: 0
    469762049 group
    402653185 group
    335544321 group
@@ -751,6 +749,7 @@ NODE TREE Group 0
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
+  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -839,6 +838,7 @@ Group(67108865) ~ {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
+  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -978,7 +978,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; - {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
 </pre></div></div>
 </div>
 <p>You can also wait for a Synth</p>
@@ -1017,7 +1017,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1035,7 +1035,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1053,7 +1053,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
 </pre></div></div>
 </div>
 <p>The Synth does save its current control arguments in <code class="docutils literal notranslate"><span class="pre">current_controls</span></code></p>
@@ -1092,7 +1092,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1300,7 +1300,7 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;pythonosc.osc_message.OscMessage at 0x1cfd879f208&gt;
+&lt;pythonosc.osc_message.OscMessage at 0x2162c9b3148&gt;
 </pre></div></div>
 </div>
 <p>Refer to the <a class="reference internal" href="../osc-communication-example.html"><span class="doc">OSC communication example notebook</span></a> if you want to learn more about messages and bundles.</p>
@@ -1403,6 +1403,8 @@ NODE TREE Group 0
    134217729 group
    67108865 group
       20003 group
+      20001 s2
+        freq: 594 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012
    1 group
 
 </pre></div></div>
@@ -1450,7 +1452,7 @@ NODE TREE Group 0
    134217729 group
    67108865 group
       20001 s2
-        freq: 594 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012
+        freq: 588.05999755859 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012
    1 group
 
 </pre></div></div>
@@ -1498,7 +1500,7 @@ Group(0)  {} children=[
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
     Group(20003) ~ {} children=[],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 594.0, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1519,7 +1521,7 @@ Group(0)  {} children=[
 <div class="highlight"><pre>
 Group(67108865) ~ {} children=[
   Group(20003) ~ {} children=[],
-  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 594.0, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;]
+  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;]
 </pre></div></div>
 </div>
 <p>Create a Group in our new Group</p>
@@ -1567,7 +1569,7 @@ Group(0)  {} children=[
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
     Group(20003) ~ {} children=[ Group(20004) ~ {} children=[]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 588.0599975585938, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1653,7 +1655,7 @@ Group(0)  {} children=[
   Group(201326593) ~ {} children=[],
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1788,7 +1790,7 @@ Group(0)  {} children=[
       &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       Group(20006) ~ {} children=[
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 570.5940551757812, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1839,7 +1841,7 @@ Group(0)  {} children=[
       Group(20006) ~ {} children=[
         &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 564.8880615234375, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1996,7 +1998,7 @@ NODE TREE Group 0
            out: 0 freq: 100 amp: 0.10000000149012 pan: 0 gate: 1
          20006 group
       20001 s2
-        freq: 564.88806152344 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012
+        freq: 553.64678955078 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012
    1 group
 
 </pre></div></div>
@@ -2050,7 +2052,7 @@ Group(0)  {} children=[
       Group(20006) ~ {} children=[
         &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 559.2391967773438, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 548.1103515625, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -2181,7 +2183,7 @@ Group(67108865) ~ {} children=[
     Group(20006) ~ {&#39;freq&#39;: 800} children=[
       &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 800.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
     &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
-  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 559.2391967773438, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;]
+  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 548.1103515625, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612}&gt;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
