@@ -557,11 +557,10 @@ class SCServer(OSCCommunication):
 
         # create default groups
         self.send_default_groups()
-
         self.sync()
         self._server_running = True
 
-        # note: init hooks should be last
+        # note: init hooks should be last init step
         self.execute_init_hooks()
         self.sync()
 

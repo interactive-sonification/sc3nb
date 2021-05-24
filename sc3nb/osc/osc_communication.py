@@ -29,7 +29,7 @@ _LOGGER.addHandler(logging.NullHandler())
 
 
 def build_message(
-    msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None
+    msg_addr: str, msg_args: Optional[Union[Sequence]] = None
 ) -> OscMessage:
     """Builds pythonsosc OSC message.
 
@@ -37,7 +37,7 @@ def build_message(
     ----------
     msg_addr : str
         SuperCollider address.
-    msg_args : None or list or dict
+    msg_args : list, optional
         List of arguments to add to message.
 
     Returns
@@ -48,7 +48,7 @@ def build_message(
     """
     if msg_args is None:
         msg_args = []
-    elif not hasattr(msg_args, "__iter__") or isinstance(msg_args, (str, bytes)):
+    elif not isinstance(msg_args, Sequence) or isinstance(msg_args, (str, bytes)):
         msg_args = [msg_args]
 
     if not msg_addr.startswith("/"):
