@@ -1309,7 +1309,6 @@ Content
 
 
    .. method:: on_free(self, func)
-      :abstractmethod:
 
       Callback that is executed when this Synth is freed
 

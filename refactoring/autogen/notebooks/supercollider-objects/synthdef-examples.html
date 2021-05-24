@@ -712,11 +712,15 @@ Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth_def</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;{ |out|</span>
-<span class="s2">    Out.ar(out,</span>
-<span class="s2">        SinOsc.ar(Rand(400, 800), 0, 0.2) * Line.kr(1, 0, 1, doneAction: Done.freeSelf)</span>
-<span class="s2">    )</span>
-<span class="s2">}&quot;&quot;&quot;</span><span class="p">)</span>
+<span></span><span class="n">synth_def</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="p">(</span>
+    <span class="s1">&#39;random&#39;</span><span class="p">,</span>
+<span class="sd">&quot;&quot;&quot;{ |out|</span>
+<span class="sd">    var osc, env, freq;</span>
+<span class="sd">    freq = Rand(400, 800);</span>
+<span class="sd">    osc = SinOsc.ar(freq, 0, 0.2);</span>
+<span class="sd">    env = Line.kr(1, 0, 1, doneAction: Done.freeSelf);</span>
+<span class="sd">    Out.ar(out, osc * env);</span>
+<span class="sd">}&quot;&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -737,9 +741,11 @@ Done.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 SynthDef(&#39;random&#39;, { |out|
-    Out.ar(out,
-        SinOsc.ar(Rand(400, 800), 0, 0.2) * Line.kr(1, 0, 1, doneAction: Done.freeSelf)
-    )
+    var osc, env, freq;
+    freq = Rand(400, 800);
+    osc = SinOsc.ar(freq, 0, 0.2);
+    env = Line.kr(1, 0, 1, doneAction: Done.freeSelf);
+    Out.ar(out, osc * env);
 })
 </pre></div></div>
 </div>
@@ -853,9 +859,9 @@ SynthDef(&#39;random&#39;, { |out|
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-c:\users\dennis\dev\soni\sc3nb\sc3nb\sclang.py:555: UserWarning: Couldn&#39;t find SynthDef supriya_synth in sclangs global SynthDescLib.
+c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sclang.py:555: UserWarning: Couldn&#39;t find SynthDef supriya_synth in sclangs global SynthDescLib.
   f&#34;Couldn&#39;t find SynthDef {synth_def} in sclangs global SynthDescLib.&#34;
-c:\users\dennis\dev\soni\sc3nb\sc3nb\sc_objects\synthdef.py:63: UserWarning: SynthDesc &#39;supriya_synth&#39; is unknown. sclang does not know this SynthDef
+c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:63: UserWarning: SynthDesc &#39;supriya_synth&#39; is unknown. sclang does not know this SynthDef
   warnings.warn(f&#34;SynthDesc &#39;{name}&#39; is unknown. {sclang_text}&#34;)
 </pre></div></div>
 </div>
@@ -1260,7 +1266,8 @@ myKlank
  &#39;amp&#39;: SynthArgument(name=&#39;amp&#39;, rate=&#39;control&#39;, default=0.30000001192092896),
  &#39;num&#39;: SynthArgument(name=&#39;num&#39;, rate=&#39;control&#39;, default=4.0),
  &#39;pan&#39;: SynthArgument(name=&#39;pan&#39;, rate=&#39;control&#39;, default=0.0),
- &#39;lg&#39;: SynthArgument(name=&#39;lg&#39;, rate=&#39;control&#39;, default=0.10000000149011612)}
+ &#39;lg&#39;: SynthArgument(name=&#39;lg&#39;, rate=&#39;control&#39;, default=0.10000000149011612),
+ &#39;gate&#39;: SynthArgument(name=&#39;gate&#39;, rate=&#39;control&#39;, default=1.0)}
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

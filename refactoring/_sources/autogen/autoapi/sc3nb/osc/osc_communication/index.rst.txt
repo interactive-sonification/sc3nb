@@ -53,7 +53,7 @@ Content
 
    
 
-.. function:: build_message(msg_addr: str, msg_args: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
+.. function:: build_message(msg_addr: str, msg_args: Optional[Union[Sequence]] = None) -> pythonosc.osc_message.OscMessage
 
    Builds pythonsosc OSC message.
 
@@ -63,7 +63,7 @@ Content
        **msg_addr** : str
            SuperCollider address.
 
-       **msg_args** : None or list or dict
+       **msg_args** : list, optional
            List of arguments to add to message.
 
    :Returns:

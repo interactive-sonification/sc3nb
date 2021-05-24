@@ -564,6 +564,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_state_lock</span> <span class="o">=</span> <span class="n">RLock</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_free_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_free_callback</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_started</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_freed</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -1031,15 +1032,15 @@
 
 <div class="viewcode-block" id="Node.register"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.Node.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Register to be watched.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Currently all nodes are being watched on default&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Node.unregister"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.Node.unregister">[docs]</a>    <span class="k">def</span> <span class="nf">unregister</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Unregister to stop being watched.&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Currently all nodes are being watched on default&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Node.on_free"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.Node.on_free">[docs]</a>    <span class="k">def</span> <span class="nf">on_free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Callback that is executed when this Synth is freed&quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_free_callback</span> <span class="o">=</span> <span class="n">func</span></div>
 
 <div class="viewcode-block" id="Node.wait"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.Node.wait">[docs]</a>    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Wait until this Node is freed</span>
@@ -1087,6 +1088,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_freed</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_group</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_free_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_free_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_on_free_callback</span><span class="p">()</span>
             <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;/n_on&quot;</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_freed</span> <span class="o">=</span> <span class="kc">False</span>

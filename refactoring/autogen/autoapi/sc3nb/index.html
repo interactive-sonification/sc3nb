@@ -2244,7 +2244,7 @@ If node is a group then print the node IDs and names of each node.</p>
 
 <dl class="py method">
 <dt id="sc3nb.Node.on_free">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">on_free</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Node.on_free" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">on_free</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Node.on_free" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback that is executed when this Synth is freed</p>
 </dd></dl>
 
@@ -4575,14 +4575,14 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 
 <dl class="py function">
 <dt id="sc3nb.build_message">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">build_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg_addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_message.OscMessage</span><a class="reference internal" href="../../../_modules/sc3nb/osc/osc_communication.html#build_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.build_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">build_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg_addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_message.OscMessage</span><a class="reference internal" href="../../../_modules/sc3nb/osc/osc_communication.html#build_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.build_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds pythonsosc OSC message.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>msg_addr</strong><span class="classifier">str</span></dt><dd><p>SuperCollider address.</p>
 </dd>
-<dt><strong>msg_args</strong><span class="classifier">None or list or dict</span></dt><dd><p>List of arguments to add to message.</p>
+<dt><strong>msg_args</strong><span class="classifier">list, optional</span></dt><dd><p>List of arguments to add to message.</p>
 </dd>
 </dl>
 </dd>
