@@ -197,6 +197,7 @@ class Node(ABC):
 
         self._state_lock = RLock()
         self._free_event = Event()
+        self._on_free_callback = None
         self._started = False
         self._freed = False
 
@@ -664,15 +665,15 @@ class Node(ABC):
 
     def register(self):
         """Register to be watched."""
-        raise NotImplementedError()
+        raise NotImplementedError("Currently all nodes are being watched on default")
 
     def unregister(self):
         """Unregister to stop being watched."""
-        raise NotImplementedError()
+        raise NotImplementedError("Currently all nodes are being watched on default")
 
     def on_free(self, func):
         """Callback that is executed when this Synth is freed"""
-        raise NotImplementedError()
+        self._on_free_callback = func
 
     def wait(self, timeout: Optional[float] = None) -> None:
         """Wait until this Node is freed
@@ -720,6 +721,8 @@ class Node(ABC):
                 self._freed = True
                 self._group = None
                 self._free_event.set()
+                if self._on_free_callback is not None:
+                    self._on_free_callback()
             elif kind == "/n_on":
                 self._is_running = True
                 self._freed = False
