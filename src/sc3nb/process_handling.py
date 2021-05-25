@@ -1,10 +1,11 @@
 """ Module for process handling. """
 
+import glob
 import logging
 import os
+import platform
 import re
 import subprocess
-import sys
 import threading
 import time
 import warnings
@@ -20,14 +21,16 @@ ANSI_ESCAPE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
 ALLOWED_PARENTS = ("scide", "python")
 
 
-def find_executable(executable: str, path: str = None, add_to_path: bool = False):
+def find_executable(
+    executable: str, search_path: str = None, add_to_path: bool = False
+):
     """Looks for executable in os $PATH or specified path
 
     Parameters
     ----------
     executable : str
         Executable to be found
-    path : str, optional
+    search_path : str, optional
         Path at which to look for, by default None
     add_to_path : bool, optional
         Wether to add the provided path to os $PATH or not, by default False
@@ -42,16 +45,26 @@ def find_executable(executable: str, path: str = None, add_to_path: bool = False
     FileNotFoundError
         Raised if executable cannot be found
     """
-    if path is not None:
-        head, tail = os.path.split(path)
-        if executable in tail:
-            path = head
-        if path not in os.environ["PATH"] and add_to_path:
-            os.environ["PATH"] += os.pathsep + path
+    paths = os.environ["PATH"].split(os.pathsep)
 
-    if not path:
-        path = os.environ["PATH"]
-    paths = path.split(os.pathsep)
+    if search_path is not None:
+        head, tail = os.path.split(search_path)
+        if executable == os.path.splitext(tail):
+            search_path = head
+        if search_path not in os.environ["PATH"] and add_to_path:
+            os.environ["PATH"] += os.pathsep + search_path
+        paths.insert(0, search_path)
+
+    if platform.system() == "Darwin" and executable == "sclang":
+        for directory in ["/Applications/SuperCollider/", "/Applications/"]:
+            if executable == "sclang":
+                paths.append(directory + "SuperCollider.app/Contents/MacOS/")
+            elif executable == "scsynth":
+                paths.append(directory + "SuperCollider.app/Contents/Resources/")
+    elif platform.system() == "Windows":
+        paths.extend(glob.glob("/Program Files/SuperCollider-*/"))
+    # elif platform.system() == "Linux":
+
     extlist = [""]
     if os.name == "os2":
         _, ext = os.path.splitext(executable)
@@ -59,20 +72,19 @@ def find_executable(executable: str, path: str = None, add_to_path: bool = False
         # .exe is automatically appended if no dot is present in the name
         if not ext:
             executable = executable + ".exe"
-    elif sys.platform == "win32":
+    elif platform.system() == "Windows":
         pathext = os.environ["PATHEXT"].lower().split(os.pathsep)
         _, ext = os.path.splitext(executable)
         if ext.lower() not in pathext:
             extlist = pathext
+
     for ext in extlist:
         execname = executable + ext
-        if os.path.isfile(execname):
-            return execname
         for path in paths:
             file = os.path.join(path, execname)
             if os.path.isfile(file):
                 return file
-    raise FileNotFoundError("Unable to find executable")
+    raise FileNotFoundError(f"Unable to find '{executable}' executable in {paths}")
 
 
 def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
@@ -140,7 +152,7 @@ class Process:
         allowed_parents=None,
     ):
         self.executable = executable
-        self.exec_path = find_executable(self.executable, path=exec_path)
+        self.exec_path = find_executable(self.executable, search_path=exec_path)
         self.console_logging = console_logging
         self.popen_args = [self.exec_path]
         if args is not None:
