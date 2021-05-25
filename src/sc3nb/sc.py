@@ -197,7 +197,7 @@ class SC:
                     console_logging=console_logging,
                     allowed_parents=allowed_parents,
                 )
-            except ProcessTimeout:
+            except Exception:
                 self._sclang = None
                 warnings.warn("starting sclang failed")
                 raise
@@ -242,7 +242,7 @@ class SC:
                 )
                 if self._sclang is not None:
                     self._sclang.connect_to_server(self._server)
-            except ProcessTimeout:
+            except Exception:
                 self._server = None
                 warnings.warn("starting scsynth failed")
                 raise
