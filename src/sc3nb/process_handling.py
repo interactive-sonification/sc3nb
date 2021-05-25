@@ -55,7 +55,7 @@ def find_executable(
             os.environ["PATH"] += os.pathsep + search_path
         paths.insert(0, search_path)
 
-    if platform.system() == "Darwin" and executable == "sclang":
+    if platform.system() == "Darwin":
         for directory in ["/Applications/SuperCollider/", "/Applications/"]:
             if executable == "sclang":
                 paths.append(directory + "SuperCollider.app/Contents/MacOS/")
