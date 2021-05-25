@@ -186,7 +186,7 @@ class Process:
     def _read_loop(self):
         os.write(1, f"{self.executable} start reading\n".encode())
         for line in iter(self.popen.stdout.readline, ""):
-            ANSI_ESCAPE.sub("", line)
+            line = ANSI_ESCAPE.sub("", line)
             if self.console_logging:
                 # print to jupyter console...
                 os.write(1, f"{self.executable}:  {line}".encode())
@@ -235,7 +235,7 @@ class Process:
                 if expect and not expect_found:
                     pass
                 else:
-                    return out
+                    return out.strip()
             time.sleep(0.001)
 
     def empty(self) -> None:

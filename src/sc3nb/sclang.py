@@ -28,8 +28,6 @@ _LOGGER.addHandler(logging.NullHandler())
 SCLANG_DEFAULT_PORT = 57120
 SC3NB_SCLANG_CLIENT_ID = 0
 
-ANSI_ESCAPE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
-
 
 class SynthArgument(NamedTuple):
     """Synth Argument rate and default value"""
@@ -461,11 +459,6 @@ class SCLang:
         if verbose or get_output:
             # get output after current command
             out = self.read(expect=self.prompt_str)
-            if sys.platform != "win32":
-                out = ANSI_ESCAPE.sub("", out)  # remove ansi chars
-                out = out.replace("sc3>", "")  # remove prompt
-                out = out[out.find(";\n") + 2 :]  # skip code echo
-            out = out.strip()
             if verbose:
                 print(out)
             if not get_result and get_output:
