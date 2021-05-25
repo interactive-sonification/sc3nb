@@ -1,13 +1,21 @@
 """Module to for using SuperCollider SynthDefs and Synths in Python"""
 
 import re
+import sys
 import warnings
 from enum import Enum, unique
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-import pkg_resources
+if sys.version_info < (3, 9):
+    # `importlib.resources` backported to PY<37 as `importlib_resources`.
+    import importlib_resources as libresources
+else:
+    # only PY>=39 `importlib.resources` offers .files.
+    import importlib.resources as libresources
 
 import sc3nb
+import sc3nb.resources
 
 if TYPE_CHECKING:
     from sc3nb.sc import SC
@@ -109,7 +117,6 @@ class SynthDef:
         cls,
         synthdef_dir: Optional[str] = None,
         completion_msg: Optional[bytes] = None,
-        wait: bool = True,
         server: Optional["SCServer"] = None,
     ):
         """Load all SynthDefs from directory.
@@ -120,22 +127,28 @@ class SynthDef:
             directory with SynthDefs, by default sc3nb default SynthDefs
         completion_msg : bytes, optional
             Message to be executed by the server when loaded, by default None
-        wait : bool, optional
-            If True wait for server reply, by default True
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
         """
         if server is None:
             server = sc3nb.SC.get_default().server
 
+        def _load_synthdef(path):
+            args: List[Union[str, bytes]] = [path.as_posix()]
+            if completion_msg is not None:
+                args.append(completion_msg)
+            server.msg(SynthDefinitionCommand.LOAD_DIR, args, await_reply=True)
+
         if synthdef_dir is None:
-            synthdef_dir = pkg_resources.resource_filename(
-                "sc3nb.resources", "synthdefs"
-            )
-        args: List[Union[str, bytes]] = [synthdef_dir]
-        if completion_msg is not None:
-            args.append(completion_msg)
-        server.msg(SynthDefinitionCommand.LOAD_DIR, args, await_reply=wait)
+            ref = libresources.files(sc3nb.resources) / "synthdefs"
+            with libresources.as_file(ref) as path:
+                _load_synthdef(path)
+        else:
+            path = Path(synthdef_dir)
+            if path.exists() and path.is_dir():
+                _load_synthdef(path)
+            else:
+                raise ValueError(f"Provided path {path} does not exist or is not a dir")
 
     def __init__(self, name: str, definition: str, sc: Optional["SC"] = None) -> None:
         """Create a dynamic synth definition in sc.

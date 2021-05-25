@@ -725,23 +725,20 @@ class SCServer(OSCCommunication):
         """
         SynthDef.send(synthdef_bytes=synthdef_bytes, wait=wait, server=self)
 
-    def load_synthdef(self, synthdef_path: str, wait: bool = True):
+    def load_synthdef(self, synthdef_path: str):
         """Load SynthDef file at path.
 
         Parameters
         ----------
         synthdef_path : str
             Path with the SynthDefs
-        wait : bool
-            If True wait for server reply.
         """
-        SynthDef.load(synthdef_path=synthdef_path, wait=wait, server=self)
+        SynthDef.load(synthdef_path=synthdef_path, server=self)
 
     def load_synthdefs(
         self,
         synthdef_dir: Optional[str] = None,
         completion_msg: bytes = None,
-        wait: bool = True,
     ) -> None:
         """Load all SynthDefs from directory.
 
@@ -757,7 +754,6 @@ class SCServer(OSCCommunication):
         SynthDef.load_dir(
             synthdef_dir=synthdef_dir,
             completion_msg=completion_msg,
-            wait=wait,
             server=self,
         )
 

@@ -10,8 +10,15 @@ from queue import Empty
 from typing import Any, NamedTuple, Optional, Sequence, Tuple
 
 import numpy as np
-import pkg_resources
 
+if sys.version_info < (3, 9):
+    # `importlib.resources` backported to PY<37 as `importlib_resources`.
+    import importlib_resources as libresources
+else:
+    # only PY>=39 `importlib.resources` offers .files.
+    import importlib.resources as libresources
+
+import sc3nb.resources
 from sc3nb.process_handling import ALLOWED_PARENTS, Process, ProcessTimeout
 from sc3nb.sc_objects.server import ReplyAddress, SCServer
 
@@ -302,12 +309,8 @@ class SCLang:
             Path where the SynthDef files are located.
             If no path provided, load default sc3nb SynthDefs.
         """
-        if synthdefs_path is None:
-            synthdefs_path = pkg_resources.resource_filename(
-                "sc3nb.resources", "synthdefs"
-            )
-        path = Path(synthdefs_path)
-        if path.exists() and path.is_dir():
+
+        def _load_synthdef(path):
             self.cmds(
                 r""" "sc3nb - Loading SynthDefs from ^synthdef_path".postln;
                 PathName.new(^synthdefs_path).files.collect(
@@ -315,8 +318,17 @@ class SCLang:
                 );""",
                 pyvars={"synthdefs_path": path.as_posix()},
             )
+
+        if synthdefs_path is None:
+            ref = libresources.files(sc3nb.resources) / "synthdefs"
+            with libresources.as_file(ref) as path:
+                _load_synthdef(path)
         else:
-            raise ValueError(f"Provided path {path} does not exist or is not a dir")
+            path = Path(synthdefs_path)
+            if path.exists() and path.is_dir():
+                _load_synthdef(path)
+            else:
+                raise ValueError(f"Provided path {path} does not exist or is not a dir")
 
     def kill(self) -> int:
         """Kill this sclang instance.
