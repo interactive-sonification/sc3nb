@@ -2,4 +2,6 @@
 # See https://setuptools.readthedocs.io/en/latest/userguide/quickstart.html#development-mode
 import setuptools
 
-setuptools.setup()
+setuptools.setup(
+    use_scm_version=True,
+)

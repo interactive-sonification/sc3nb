@@ -1,6 +1,9 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "src/sc3nb/version.py"
 
 [tool.isort]
 profile = "black"
@@ -9,7 +12,7 @@ src_paths = ["src", "tests"]
 skip = ["__init__.py", ".tox"]
 
 [tool.check-manifest]
-ignore = [".travis.yml"]
+ignore = [".travis.yml", "src/sc3nb/version.py"]
 
 [tool.pytest.ini_options]
 log_cli_level = "DEBUG"
