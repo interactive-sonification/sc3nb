@@ -4,19 +4,15 @@ include LICENSE
 include *.txt
 include *.yaml
 
-recursive-include sc3nb *.scsyndef
-
-recursive-include tests *.py
+graft src
+graft tests
+graft examples
 
 recursive-include sccode *.scd
 
-recursive-include examples *.ipynb
-recursive-include examples *.wav
-recursive-exclude examples .ipynb_checkpoints/*.ipynb
-
-recursive-include docs Makefile
-recursive-include docs *.bat
-recursive-include docs *.css
-recursive-include docs *.py
-recursive-include docs *.rst
+graft docs
+recursive-exclude docs/source/autogen *
 recursive-exclude docs/build *
+
+global-exclude *.py[cod]
+global-exclude .ipynb_checkpoints/*
