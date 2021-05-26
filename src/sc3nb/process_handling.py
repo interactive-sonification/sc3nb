@@ -176,7 +176,6 @@ class Process:
         )
         # init queue for reading subprocess output queue
         self.output_queue = Queue()
-        self.stdin = self.popen.stdin
         # output reading worker thread
         self.output_reader_thread = threading.Thread(
             target=self._read_loop, daemon=True
@@ -261,8 +260,8 @@ class Process:
         """
         _LOGGER.debug("Writing: '%s'", input_str)
         try:
-            self.stdin.write(input_str)
-            self.stdin.flush()  # shouldnt be needed as buffering is disabled.
+            self.popen.stdin.write(input_str)
+            self.popen.stdin.flush()  # shouldnt be needed as buffering is disabled.
         except OSError as error:
             raise RuntimeError("Write to stdin failed") from error
 
@@ -284,7 +283,11 @@ class Process:
     def __repr__(self) -> str:
         returncode = self.popen.returncode
         if returncode is None:
-            status = f"pid={self.popen.pid}"
+            process_status = f"pid={self.popen.pid}"
         else:
-            status = f"returncode={returncode}"
-        return f"<Process '{self.executable}' {status}>"
+            process_status = f"returncode={returncode}"
+        if self.output_reader_thread.is_alive():
+            thread_status = "running"
+        else:
+            thread_status = "died"
+        return f"<Process '{self.executable}' ({thread_status}) {process_status}>"

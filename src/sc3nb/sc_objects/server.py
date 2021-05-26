@@ -504,7 +504,7 @@ class SCServer(OSCCommunication):
                 if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
                     raise ValueError(
                         f"The specified UDP port {self.options.udp_port} is already used"
-                    )
+                    ) from process_timeout
                 else:
                     print("Trying to connect.")
                     self.remote(

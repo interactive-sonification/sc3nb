@@ -226,6 +226,7 @@ class SCLang:
         sclang_path: Optional[str] = None,
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+        timeout: float = 3,
     ) -> None:
         """Start and initilize the sclang process.
 
@@ -239,6 +240,8 @@ class SCLang:
             If True log sclang output to console, by default True
         allowed_parents : Sequence[str], optional
             parents name of processes to keep, by default ALLOWED_PARENTS
+        timeout : float, optional
+            timeout for starting the executable, by default 3
 
         Raises
         ------
@@ -256,17 +259,18 @@ class SCLang:
             allowed_parents=allowed_parents,
         )
         try:
-            self.read(expect="Welcome to SuperCollider", timeout=10)
-        except ProcessTimeout as timeout:
-            if timeout.output:
-                if "Primitive '_GetLangPort' failed" in timeout.output:
-                    raise SCLangError(
-                        "sclang could not bind udp socket. "
-                        "Try killing old sclang processes.",
-                        timeout.output,
-                    ) from timeout
-            else:
-                raise
+            self.read(expect="Welcome to SuperCollider", timeout=timeout)
+        except ProcessTimeout as process_timeout:
+            if (
+                process_timeout.output
+                and "Primitive '_GetLangPort' failed" in process_timeout.output
+            ):
+                raise SCLangError(
+                    "sclang could not bind udp socket. "
+                    "Try killing old sclang processes.",
+                    process_timeout.output,
+                ) from process_timeout
+            raise process_timeout
         else:
             self.started = True
             print("Done.")
@@ -353,11 +357,7 @@ class SCLang:
             self.kill()
 
     def __repr__(self) -> str:
-        if self.started:
-            status = f"addr={self.addr}, process={self.process}"
-        else:
-            status = "(not started)"
-        return f"<SCLang {status}>"
+        return f"<SCLang process={self.process}>"
 
     def cmd(
         self,
@@ -499,7 +499,7 @@ class SCLang:
         ----------
         expect : Optional[str], optional
             Try to read this expected string, by default None
-        timeout : int, optional
+        timeout : float, optional
             How long we try to read expected string, by default 1
         print_error : bool, optional
             If True this will print a message when timed out, by default True

@@ -27,6 +27,7 @@ def startup(
     with_blip: bool = True,
     console_logging: bool = True,
     allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+    timeout: float = 3,
 ) -> "SC":
     """Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
 
@@ -51,6 +52,8 @@ def startup(
     allowed_parents : Sequence[str], optional
         Names of parents that are allowed for other instances of
         sclang/scsynth processes, by default ALLOWED_PARENTS
+    timeout : float, optional
+        timeout for starting the executable, by default 3
 
     Returns
     -------
@@ -72,18 +75,22 @@ def startup(
             with_blib=with_blip,
             console_logging=console_logging,
             allowed_parents=allowed_parents,
+            timeout=timeout,
         )
     else:
-        _LOGGER.info("SC already started")
+        _LOGGER.warning("SC already started")
         if start_sclang:
             SC.get_default().start_sclang(
-                sclang_path=sclang_path, allowed_parents=allowed_parents
+                sclang_path=sclang_path,
+                allowed_parents=allowed_parents,
+                timeout=timeout,
             )
         if start_server:
             SC.get_default().start_server(
                 scsynth_options=scsynth_options,
                 scsynth_path=scsynth_path,
                 allowed_parents=allowed_parents,
+                timeout=timeout,
             )
     return SC.default
 
@@ -110,6 +117,8 @@ class SC:
     allowed_parents : Sequence[str], optional
         Names of parents that are allowed for other instances of
         sclang/scsynth processes, by default ALLOWED_PARENTS.
+    timeout : float, optional
+            timeout for starting the executables, by default 3
     """
 
     default: Optional["SC"] = None
@@ -142,6 +151,7 @@ class SC:
 
     def __init__(
         self,
+        *,
         start_server: bool = True,
         scsynth_path: Optional[str] = None,
         start_sclang: bool = True,
@@ -150,32 +160,41 @@ class SC:
         with_blib: bool = True,
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+        timeout: float = 3,
     ):
         if SC.default is None:
             SC.default = self
         self._console_logging = console_logging
         self._server = None
         self._sclang = None
-        if start_sclang:
-            self.start_sclang(
-                sclang_path=sclang_path,
-                console_logging=self._console_logging,
-                allowed_parents=allowed_parents,
-            )
-        if start_server:
-            self.start_server(
-                scsynth_path=scsynth_path,
-                scsynth_options=scsynth_options,
-                console_logging=self._console_logging,
-                with_blip=with_blib,
-                allowed_parents=allowed_parents,
-            )
+        try:
+            if start_sclang:
+                self.start_sclang(
+                    sclang_path=sclang_path,
+                    console_logging=self._console_logging,
+                    allowed_parents=allowed_parents,
+                    timeout=timeout,
+                )
+            if start_server:
+                self.start_server(
+                    scsynth_path=scsynth_path,
+                    scsynth_options=scsynth_options,
+                    console_logging=self._console_logging,
+                    with_blip=with_blib,
+                    allowed_parents=allowed_parents,
+                    timeout=timeout,
+                )
+        except Exception:
+            if SC.default is self:
+                SC.default = None
+            raise
 
     def start_sclang(
         self,
         sclang_path: Optional[str] = None,
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+        timeout: float = 3,
     ):
         """Start this SuperCollider language
 
@@ -188,6 +207,8 @@ class SC:
         allowed_parents : Sequence[str], optional
             Names of parents that are allowed for other instances of
             sclang/scsynth processes, by default ALLOWED_PARENTS
+        timeout : float, optional
+            timeout for starting the executable, by default 3
         """
         if self._sclang is None:
             self._sclang = SCLang()
@@ -196,16 +217,15 @@ class SC:
                     sclang_path=sclang_path,
                     console_logging=console_logging,
                     allowed_parents=allowed_parents,
+                    timeout=timeout,
                 )
-            except Exception:
+            except Exception as excep:
                 self._sclang = None
-                warnings.warn("starting sclang failed")
-                raise
+                raise RuntimeError("starting scsynth failed") from excep
             else:
-                if self._server is not None:
-                    self._sclang.connect_to_server(self._server)
+                self._try_to_connect()
         else:
-            _LOGGER.info("sclang already started")
+            _LOGGER.warning("sclang already started")
 
     def start_server(
         self,
@@ -214,6 +234,7 @@ class SC:
         console_logging: bool = True,
         with_blip: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
+        timeout: float = 3,
     ):
         """Start this SuperCollider server
 
@@ -230,6 +251,8 @@ class SC:
         allowed_parents : Sequence[str], optional
             Names of parents that are allowed for other instances of
             sclang/scsynth processes, by default ALLOWED_PARENTS
+        timeout : float, optional
+            timeout for starting the executable, by default 3
         """
         if self._server is None:
             self._server = SCServer(options=scsynth_options)
@@ -239,19 +262,24 @@ class SC:
                     console_logging=console_logging,
                     allowed_parents=allowed_parents,
                     with_blip=with_blip,
+                    timeout=timeout,
                 )
             except Exception as excep:
                 self._server = None
                 raise RuntimeError("starting scsynth failed") from excep
+            else:
+                self._try_to_connect()
+        else:
+            _LOGGER.warning("scsynth already started")
+
+    def _try_to_connect(self):
+        if self._sclang is not None and self._server is not None:
             try:
-                if self._sclang is not None:
-                    self._sclang.connect_to_server(self._server)
+                self._sclang.connect_to_server(self._server)
             except Exception as excep:
                 raise RuntimeError(
                     f"connecting {self._sclang} to {self._server} failed"
                 ) from excep
-        else:
-            _LOGGER.info("scsynth already started")
 
     @property
     def server(self) -> SCServer:
@@ -288,11 +316,13 @@ class SC:
 
     def exit(self) -> None:
         """Closes SuperCollider and shuts down server"""
-        if self._server is not None:
-            self._server.quit()
+        try:
+            if self._server is not None:
+                self._server.quit()
+            if self._sclang is not None:
+                self._sclang.kill()
+        finally:
             self._server = None
-        if self._sclang is not None:
-            self._sclang.kill()
             self._sclang = None
-        if self is SC.default:
-            SC.default = None
+            if self is SC.default:
+                SC.default = None
