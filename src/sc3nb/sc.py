@@ -240,12 +240,16 @@ class SC:
                     allowed_parents=allowed_parents,
                     with_blip=with_blip,
                 )
+            except Exception as excep:
+                self._server = None
+                raise RuntimeError("starting scsynth failed") from excep
+            try:
                 if self._sclang is not None:
                     self._sclang.connect_to_server(self._server)
-            except Exception:
-                self._server = None
-                warnings.warn("starting scsynth failed")
-                raise
+            except Exception as excep:
+                raise RuntimeError(
+                    f"connecting {self._sclang} to {self._server} failed"
+                ) from excep
         else:
             _LOGGER.info("scsynth already started")
 
@@ -284,11 +288,7 @@ class SC:
 
     def exit(self) -> None:
         """Closes SuperCollider and shuts down server"""
-        if (
-            self._server is not None
-            and self._server.has_booted
-            and self._server.is_local
-        ):
+        if self._server is not None:
             self._server.quit()
             self._server = None
         if self._sclang is not None:

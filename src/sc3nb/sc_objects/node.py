@@ -380,7 +380,7 @@ class Node(ABC):
         with self._state_lock:
             self._freed = True
         msg = build_message(NodeCommand.FREE, [self.nodeid])
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -397,7 +397,7 @@ class Node(ABC):
             self for chaining or OscMessage when return_msg=True
         """
         msg = build_message(NodeCommand.RUN, [self.nodeid, 0 if flag is False else 1])
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -448,7 +448,7 @@ class Node(ABC):
                     self._update_control(argument, values)
                 msg_args.extend([argument] + list(values))
         msg = build_message(NodeCommand.SET, msg_args)
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -497,12 +497,12 @@ class Node(ABC):
         Returns
         -------
         OscMessage
-            if return_msg else self
+            if return_msg is True else self
         """
         msg = build_message(
             NodeCommand.FILL, [self.nodeid, control, num_controls, value]
         )
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -525,7 +525,7 @@ class Node(ABC):
         Returns
         -------
         OscMessage
-            if return_msg else self
+            if return_msg is True else self
         """
         msg_args = [self.nodeid, control, bus.idxs[0]]
         if bus.num_channels > 1:
@@ -534,7 +534,7 @@ class Node(ABC):
         else:
             map_command = NodeCommand.MAPA if bus.is_audio_bus() else NodeCommand.MAP
         msg = build_message(map_command, msg_args)
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -559,7 +559,7 @@ class Node(ABC):
         Returns
         -------
         OscMessage
-            if return_msg else self
+            if return_msg is True else self
         """
         if release_time is not None:
             if release_time <= 0:
@@ -570,7 +570,7 @@ class Node(ABC):
             release_time = 0
 
         msg = build_message(NodeCommand.SET, [self.nodeid, "gate", release_time])
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -615,10 +615,10 @@ class Node(ABC):
         Returns
         -------
         OscMessage or Node
-            if return_msg else self
+            if return_msg is True else self
         """
         msg = build_message(NodeCommand.TRACE, [self.nodeid])
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -641,7 +641,7 @@ class Node(ABC):
         Returns
         -------
         OscMessage or Node
-            if return_msg this will be the OscMessage, else self
+            if return_msg is True this will be the OscMessage, else self
 
         Raises
         ------
@@ -655,7 +655,7 @@ class Node(ABC):
         msg = build_message(
             NodeCommand.ORDER, [add_action.value, another_node.nodeid, self.nodeid]
         )
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -895,7 +895,7 @@ class Synth(Node):
             [self._name, self.nodeid, self._add_action.value, self._target_id]
             + flatten_args,
         )
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True, await_reply=False)
@@ -1105,7 +1105,7 @@ class Group(Node):
         msg = build_message(
             new_command, [self.nodeid, self._add_action.value, self._target_id]
         )
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True, await_reply=False)
@@ -1167,11 +1167,11 @@ class Group(Node):
         Returns
         -------
         OscMessage
-            if return_msg else self
+            if return_msg is True else self
         """
         self._children = []
         msg = build_message(GroupCommand.FREE_ALL, [self.nodeid])
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -1190,12 +1190,12 @@ class Group(Node):
         Returns
         -------
         OscMessage
-            if return_msg else self
+            if return_msg is True else self
         """
         with self._state_lock:
             self._children = [c for c in self._children if isinstance(c, Group)]
         msg = build_message(GroupCommand.DEEP_FREE, [self.nodeid])
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -1214,12 +1214,12 @@ class Group(Node):
         Returns
         -------
         OscMessage
-            if return_msg else self
+            if return_msg is True else self
         """
         msg = build_message(
             GroupCommand.DUMP_TREE, [self.nodeid, 1 if post_controls else 0]
         )
-        if return_msg:
+        if return_msg is True:
             return msg
         else:
             self.server.send(msg, bundled=True)

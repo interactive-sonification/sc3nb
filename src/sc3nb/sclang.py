@@ -205,16 +205,19 @@ class SCLang:
         NotImplementedError
             When an unsupported OS was found.
         """
-        self.process: Process
+        self.process: Process = None
         self._server: Optional[SCServer] = None
         self.started: bool = False
         self._port: int = SCLANG_DEFAULT_PORT
-        if sys.platform == "linux" or sys.platform == "linux2":
+        if sys.platform.startswith("linux"):
             self.prompt_str = "sc3>"
+            self.ending = "\n"
         elif sys.platform == "darwin":
-            self.prompt_str = "sc3>"
+            self.prompt_str = "->"
+            self.ending = "\n"
         elif sys.platform == "win32":
             self.prompt_str = "->"
+            self.ending = "\n\f"
         else:
             raise NotImplementedError("Unsupported OS {}".format(sys.platform))
 
@@ -346,7 +349,8 @@ class SCLang:
         return self.process.kill()
 
     def __del__(self):
-        self.kill()
+        if self.started:
+            self.kill()
 
     def __repr__(self) -> str:
         if self.started:
@@ -441,7 +445,7 @@ class SCLang:
         # write command to sclang pipe \f
         if code and code[-1] != ";":
             code += ";"
-        self.process.send(code + "\n\f")
+        self.process.send(code + self.ending)
 
         return_val = None
         if get_result:
@@ -459,6 +463,8 @@ class SCLang:
         if verbose or get_output:
             # get output after current command
             out = self.read(expect=self.prompt_str)
+            if sys.platform == "darwin":
+                out = out[out.find(";\n") + 2 :]  # skip code echo
             if verbose:
                 print(out)
             if not get_result and get_output:
