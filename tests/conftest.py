@@ -1,4 +1,5 @@
 import logging
+from random import randrange
 from unittest import TestCase
 
 import pytest
@@ -39,14 +40,18 @@ class SCBaseTest(TestCase):
     def setUpClass(cls) -> None:
         cls.sc = startup(
             start_server=True,
-            scsynth_options=ServerOptions(udp_port=57777, max_logins=3),
+            scsynth_options=ServerOptions(
+                udp_port=57777,  # randrange(57777, 58888), # can be useful for debugging tests
+                max_logins=3,
+            ),
             with_blip=False,
             start_sclang=cls.start_sclang,
         )
         cls.sc.server.dump_osc(1)
-        cls.sc.server.sync()
+        assert cls.sc.server.sync(), "Syncing scsynth failed"
         if cls.start_sclang:
             cls.sc.server.mute()
+            assert cls.sc.lang.started, "Starting sclang failed"
 
     @classmethod
     def tearDownClass(cls) -> None:

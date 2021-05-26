@@ -100,16 +100,16 @@ class NodeTest(SCBaseTest):
         with self.assertWarnsRegex(
             UserWarning, "SynthDesc 's2' is unknown", msg="SynthDesc seems to be known"
         ):
-            synth1 = Synth("s2", {"amp": 0.0})
-            synth1.new()
-            synth1.free()
-            synth1.wait(timeout=1)
+            synth1 = Synth("s2", controls={"amp": 0.0})
             wait_t0 = time.time()
+            synth1.new(controls={"amp": 0.0})
             while not "/s_new" in self.sc.server.fails:
                 self.assertLessEqual(time.time() - wait_t0, 0.2)
             self.assertEqual(self.sc.server.fails["/s_new"].get(), "duplicate node ID")
-            synth1.new()
-            with self.assertRaises(Empty):
-                self.sc.server.fails["/s_new"].get()
             synth1.free()
             synth1.wait(timeout=1)
+            synth1.new({"amp": 0.0})
+            synth1.free()
+            synth1.wait(timeout=1)
+            with self.assertRaises(Empty):
+                self.sc.server.fails["/s_new"].get(timeout=0.5)

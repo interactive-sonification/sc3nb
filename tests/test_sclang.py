@@ -8,14 +8,13 @@ from tests.conftest import SCBaseTest
 
 class SCLangTest(TestCase):
     def setUp(self) -> None:
-        self.port = 57777
         self.sclang = SCLang()
-        self.sclang.start()
 
     def tearDown(self) -> None:
         self.sclang.kill()
 
     def test_started(self):
+        self.sclang.start()
         self.assertTrue(self.sclang.started)
 
 

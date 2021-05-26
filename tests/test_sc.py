@@ -27,5 +27,6 @@ class SCTest(TestCase):
         with self.assertRaises(RuntimeError):
             supercollider.server
         self.assertIsNotNone(supercollider.lang)
+        self.assertTrue(supercollider.lang.started)
 
         supercollider.exit()
