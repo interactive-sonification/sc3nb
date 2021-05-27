@@ -443,7 +443,7 @@ class SCServer(OSCCommunication):
     def boot(
         self,
         scsynth_path: Optional[str] = None,
-        timeout: float = 3,
+        timeout: float = 5,
         console_logging: bool = True,
         with_blip: bool = True,
         kill_others: bool = True,
@@ -456,7 +456,7 @@ class SCServer(OSCCommunication):
         scsynth_path : str, optional
             Path of scscynth executable, by default None
         timeout : float, optional
-            Timeout for starting the executable, by default 3
+            Timeout for starting the executable, by default 5
         console_logging : bool, optional
             If True write process output to console, by default True
         with_blip : bool, optional
@@ -761,7 +761,7 @@ class SCServer(OSCCommunication):
         self,
         receive_notifications: bool = True,
         client_id: Optional[int] = None,
-        timeout: float = 1.0,
+        timeout: float = 1,
     ) -> None:
         """Notify the server about this client.
 

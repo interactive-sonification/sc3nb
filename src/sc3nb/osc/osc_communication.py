@@ -339,17 +339,15 @@ class MessageQueue(MessageHandler):
         """
         return self._address, self.put
 
-    def get(self, timeout: float = 5.0, skip: bool = True) -> Any:
+    def get(self, timeout: float = 5, skip: bool = True) -> Any:
         """Returns a value from the queue
 
         Parameters
         ----------
         timeout : int, optional
-            Time in seconds that will be waited on the queue.
-             (Default value = 5)
+            Time in seconds that will be waited on the queue, by default 5
         skip : bool, optional
-            If True the queue will skip as many values as `skips`
-             (Default value = True)
+            If True the queue will skip as many values as `skips`, by default True
 
         Returns
         -------
@@ -669,7 +667,7 @@ class OSCCommunication:
         bundled: bool = False,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
         await_reply: bool = True,
-        timeout: float = 5.0,
+        timeout: float = 5,
     ) -> Any:
         """Sends OSC packet
 

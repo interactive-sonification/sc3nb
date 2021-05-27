@@ -226,7 +226,7 @@ class SCLang:
         sclang_path: Optional[str] = None,
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
-        timeout: float = 3,
+        timeout: float = 5,
     ) -> None:
         """Start and initilize the sclang process.
 
@@ -241,7 +241,7 @@ class SCLang:
         allowed_parents : Sequence[str], optional
             parents name of processes to keep, by default ALLOWED_PARENTS
         timeout : float, optional
-            timeout for starting the executable, by default 3
+            timeout for starting the executable, by default 5
 
         Raises
         ------
