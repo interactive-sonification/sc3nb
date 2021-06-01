@@ -2,7 +2,6 @@
 
 import argparse
 import errno
-import glob
 import json
 import os
 import shutil
@@ -12,8 +11,6 @@ import sys
 from pathlib import Path
 from sys import platform
 from typing import Optional
-
-SILENCE = "> /dev/null 2>&1"
 
 # you usually want to run:
 #   python docs/generate --doctree --publish --clean --no-show
@@ -285,7 +282,7 @@ def generate_gh_pages(
 
     # fix order of dropdown elements (most recent tag first, then branches and older tags)
     doclist = tags[:1] + branches + tags[1:]
-    print("doclist={doclist}")
+    print(f"doclist={doclist}")
     # generate documentation; all versions have to be known for the dropdown menu
     for d in doclist:
         print(f"Generating documentation for {d} ...")
