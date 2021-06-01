@@ -51,10 +51,12 @@ numpydoc_validation_checks = {"all", "GL01", "GL02", "GL05"}
 intersphinx_mapping = {"python": ("https://docs.python.org/dev", None)}
 
 autoapi_type = "python"  # autoapi
-autoapi_dirs = ["../../sc3nb"]
+autoapi_dirs = ["../../src"]
 autoapi_root = "autogen/autoapi"
 autoapi_add_toctree_entry = False
-autoapi_python_class_content = "both"
+autoapi_python_class_content = (
+    "both"  # TODO remove this when all classes have the right doc style
+)
 autoapi_template_dir = "./_templates/autoapi/"
 
 # nbsphinx_allow_errors = True
