@@ -1,12 +1,11 @@
 # sc3nb
 
-## What is sc3nb?
-
 sc3nb is a python package that offers a SuperCollider3 interface, whit special support to be used within jupyter notebooks.
 It establishes shortcuts and familiar functions used by sc3 to make it easier to program, interactively try sound synthesis and sonification development.
 
-  * Documentation: see examples/sc3nb-examples.ipynb and help(sc3nb)
-  * Source code: https://github.com/thomas-hermann/sc3nb
+  * Documentation: https://interactive-sonification.github.io/sc3nb
+  * Source code: https://github.com/interactive-sonification/sc3nb
+  * Bug reports: https://github.com/interactive-sonification/sc3nb/issues
 
 It provides:
   * helper functions such as linlin, cpsmidi, midicps, clip, ampdb, dbamp which work like their sc3 counterparts.
@@ -29,15 +28,16 @@ sc3nb can be used for
 
 For more information and examples, please read the documentation.
 
-#### Installation
+## Installation
 
-**Disclaimer**: I am currently making sure that sc3nb can be uploaded to PyPI, until then clone the master branch and from inside the sc3nb directory install via
+**Disclaimer**: We are currently making sure that sc3nb can be uploaded to PyPI, until then clone the master branch and from inside the sc3nb directory install via
 ```bash
 pip install -e .
 ```
 
 This will install the library in development mode (i.e. changes to sc3nb code will automatically be "re-installed").
 For more information, please refer to the documentation.
+
 
 ## A simple example
 
@@ -76,4 +76,4 @@ For example, to create an osc responder
 and trigger it like this:
 
     for i in range(100):
-        sc.msg("/ding", ["freq", 1000-5*i], sclang=True)
+        sc.server.msg("/ding", ["freq", 1000-5*i], receiver="sclang")
