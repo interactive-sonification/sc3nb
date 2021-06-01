@@ -21,13 +21,21 @@ jobs:
       - name: Install SuperCollider
         # choco only offers an ancient version of SC.
         run: |
+          #!/bin/bash -eE
+          :<<"::batch"
+          @echo off
+          choco install supercollider
+          goto :end
+          ::batch
           if [ "$RUNNER_OS" == "Linux" ]; then
               sudo apt install supercollider
           elif [ "$RUNNER_OS" == "macOS" ]; then
               brew install --cask supercollider
-          elif [ "$RUNNER_OS" == "Windows" ]; then
-              choco install supercollider
           fi
+          exit $?
+          :<<"::done"
+          :end
+          ::done
       - name: Install tox
         run: |
           python -m pip install tox
