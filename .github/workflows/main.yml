@@ -23,7 +23,6 @@ jobs:
         run: |
           #!/bin/bash -eE
           :<<"::batch"
-          @echo off
           choco install supercollider
           goto :end
           ::batch
