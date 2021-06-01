@@ -27,6 +27,7 @@ jobs:
               brew install --cask supercollider
           elif [ "$RUNNER_OS" == "Windows" ]; then
               choco install supercollider
+          fi
       - name: Install tox
         run: |
           python -m pip install tox
