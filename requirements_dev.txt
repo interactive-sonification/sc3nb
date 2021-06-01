@@ -1,5 +1,0 @@
-pre-commit
-nbstripout
-check-manifest
-black
-isort
