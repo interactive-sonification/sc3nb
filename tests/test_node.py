@@ -26,9 +26,8 @@ class NodeTest(SCBaseTest):
             self.assertEqual(synth.group, self.sc.server.default_group.nodeid)
             t_wait_for_notification = time.time()
             while not synth.is_playing:
-                time.sleep(0.025)
-                if time.time() - t_wait_for_notification > 0.200:
-                    break
+                if time.time() - t_wait_for_notification > 0.15:
+                    self.fail("Waiting for /n_go notification took too long.")
             self.assertEqual(synth.is_playing, True)
             self.assertEqual(synth.started, True)
             self.assertEqual(synth.freed, False)
