@@ -62,9 +62,9 @@ def find_executable(
             elif executable == "scsynth":
                 paths.append(directory + "SuperCollider.app/Contents/Resources/")
     elif platform.system() == "Windows":
-        paths.extend(glob.glob("/Program Files/SuperCollider-*/"))
+        paths.extend(glob.glob("C:/Program Files/SuperCollider-*/"))
     # elif platform.system() == "Linux":
-
+    _LOGGER.debug("Searching executable in paths: %s", paths)
     extlist = [""]
     if os.name == "os2":
         _, ext = os.path.splitext(executable)
@@ -84,7 +84,9 @@ def find_executable(
             file = os.path.join(path, execname)
             if os.path.isfile(file):
                 return file
-    raise FileNotFoundError(f"Unable to find '{executable}' executable in {paths}")
+    raise FileNotFoundError(
+        f"Unable to find '{executable}' executable in {paths} (platform.system={platform.system()})"
+    )
 
 
 def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
