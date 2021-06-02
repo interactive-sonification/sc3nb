@@ -70,10 +70,10 @@ class SCLangPersistentTest(SCBaseTest):
         self.assertIsInstance(sc_val, str)
         self.assertEqual(sc_val, soni + fication)
 
-    def test_cmdg_range(self):
-        sc_val = self.sc.lang.cmdg("""(1,1.1..2)""")
+    def test_cmdg_array(self):
+        sc_val = self.sc.lang.cmdg("""Array.interpolation(11, 1.0, 2.0)""")
         self.assertIsInstance(sc_val, list)
-        self.assertTrue(np.allclose(sc_val, np.arange(1.0, 2.0, 0.1)))
+        self.assertTrue(np.allclose(sc_val, np.linspace(1.0, 2.0, 11)))
 
     def test_cmdg_list(self):
         pylist = [[1]]
