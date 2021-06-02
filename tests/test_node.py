@@ -24,7 +24,11 @@ class NodeTest(SCBaseTest):
             self.assertEqual(synth.started, True)
             self.assertEqual(synth.freed, False)
             self.assertEqual(synth.group, self.sc.server.default_group.nodeid)
-            time.sleep(0.075)
+            t_wait_for_notification = time.time()
+            while not synth.is_playing:
+                time.sleep(0.025)
+                if time.time() - t_wait_for_notification > 0.200:
+                    break
             self.assertEqual(synth.is_playing, True)
             self.assertEqual(synth.started, True)
             self.assertEqual(synth.freed, False)
