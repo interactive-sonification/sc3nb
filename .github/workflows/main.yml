@@ -27,10 +27,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-              sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FABAEF95
-              sudo add-apt-repository ppa:supercollider/ppa
-              sudo apt-get update --yes
-              sudo apt-get install --yes supercollider-ide
+              sudo apt-get install --yes supercollider
               # start jack
               jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
