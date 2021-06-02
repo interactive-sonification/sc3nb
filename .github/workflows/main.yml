@@ -40,4 +40,6 @@ jobs:
         run: |
           python -m pip install tox
       - name: Run tests
-        run: QT_DEBUG_PLUGINS=1 tox
+        env:
+          QT_DEBUG_PLUGINS: 1
+        run: tox
