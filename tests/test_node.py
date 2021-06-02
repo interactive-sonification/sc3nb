@@ -107,7 +107,7 @@ class NodeTest(SCBaseTest):
             wait_t0 = time.time()
             synth1.new(controls={"amp": 0.0})
             while not "/s_new" in self.sc.server.fails:
-                self.assertLessEqual(time.time() - wait_t0, 0.2)
+                self.assertLessEqual(time.time() - wait_t0, 0.5)
             self.assertEqual(self.sc.server.fails["/s_new"].get(), "duplicate node ID")
             synth1.free()
             synth1.wait(timeout=1)
