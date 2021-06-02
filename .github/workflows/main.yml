@@ -47,4 +47,4 @@ jobs:
         if: runner.os == 'Linux'
         env:
           QT_DEBUG_PLUGINS: 1
-        run: xvfb-run --server-args="-screen 0, 1280x720x24" -a tox
+        run: tox
