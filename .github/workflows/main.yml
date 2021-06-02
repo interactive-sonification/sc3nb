@@ -28,8 +28,9 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
               sudo apt-get update --yes
-              sudo apt-get install --yes --reinstall qt5-default qt5-qmake qttools5-dev qttools5-dev-tools qtdeclarative5-dev libqt5svg5-dev libqt5websockets5-dev qtwebengine5-dev
-              sudo apt-get install --yes --reinstall supercollider libsndfile1 libavahi-client-dev libfftw3-dev libicu-dev libudev-dev jackd1 libxcb1 libxcb-xinerama0
+              #sudo apt-get install --yes --reinstall qt5-default qt5-qmake qttools5-dev qttools5-dev-tools qtdeclarative5-dev libqt5svg5-dev libqt5websockets5-dev qtwebengine5-dev
+              #sudo apt-get install --yes --reinstall supercollider libsndfile1 libavahi-client-dev libfftw3-dev libicu-dev libudev-dev jackd1 libxcb1 libxcb-xinerama0
+              sudo apt-get install --yes supercollider
               # start jack
               jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -42,7 +43,4 @@ jobs:
         run: |
           python -m pip install tox
       - name: Run tests
-        env:
-          QT_DEBUG_PLUGINS: 1
-          QT_QPA_PLATFORM_PLUGIN_PATH: '/usr/lib/x86_64-linux-gnu/qt5/plugins'
-        run: tox
+        run: QT_DEBUG_PLUGINS=1 tox
