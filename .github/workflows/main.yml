@@ -30,6 +30,8 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
               sudo apt install supercollider
+              # start jack
+              jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
               brew install --cask supercollider
           elif [ "$RUNNER_OS" == "Windows" ]; then
