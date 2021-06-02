@@ -27,10 +27,10 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
+              sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FABAEF95
+              sudo add-apt-repository ppa:supercollider/ppa
               sudo apt-get update --yes
-              #sudo apt-get install --yes --reinstall qt5-default qt5-qmake qttools5-dev qttools5-dev-tools qtdeclarative5-dev libqt5svg5-dev libqt5websockets5-dev qtwebengine5-dev
-              #sudo apt-get install --yes --reinstall supercollider libsndfile1 libavahi-client-dev libfftw3-dev libicu-dev libudev-dev jackd1 libxcb1 libxcb-xinerama0
-              sudo apt-get install --yes supercollider
+              sudo apt-get install --yes supercollider-ide
               # start jack
               jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
