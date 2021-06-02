@@ -28,6 +28,11 @@ class SynthTest(SCBaseTest):
         self.synth.free()
         self.synth.wait()
         del self.synth  # make sure that synth is deleted from registry
+        t0 = time.time()
+        while nodeid in self.sc.server.nodes:
+            time.sleep(0.005)
+            if time.time() - t0 > 0.2:
+                self.fail("NodeID is still in server.nodes")
         self.assertNotIn(nodeid, self.sc.server.nodes)
         with self.assertRaises(KeyError):
             del self.sc.server.nodes[nodeid]

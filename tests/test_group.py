@@ -23,6 +23,11 @@ class GroupTest(SCBaseTest):
         self.group.free()
         self.group.wait(timeout=1)
         del self.group  # make sure that group is deleted from registry
+        t0 = time.time()
+        while nodeid in self.sc.server.nodes:
+            time.sleep(0.005)
+            if time.time() - t0 > 0.2:
+                self.fail("NodeID is still in server.nodes")
         self.assertNotIn(nodeid, self.sc.server.nodes)
         with self.assertRaises(KeyError):
             del self.sc.server.nodes[nodeid]
