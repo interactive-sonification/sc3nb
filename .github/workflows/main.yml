@@ -29,7 +29,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-              sudo apt install supercollider
+              sudo apt-get install supercollider
               # start jack
               jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
