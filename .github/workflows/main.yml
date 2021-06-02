@@ -41,5 +41,9 @@ jobs:
       - name: Install tox
         run: |
           python -m pip install tox
-      - name: Run tests
+      - name: Run tests on macOS/Windows
+        if: runnner.os != 'Linux'
         run: tox
+      - name: Run tests on Linux
+        if: runnner.os == 'Linux'
+        run: xvfb-run --server-args="-screen 0, 1280x720x24" -a tox
