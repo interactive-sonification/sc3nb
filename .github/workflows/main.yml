@@ -25,13 +25,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v2
       - name: Install SuperCollider
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-              sudo apt-get install supercollider
+              sudo apt-get install supercollider xvfb x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0
               # start jack
               jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
