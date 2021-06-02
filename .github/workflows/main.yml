@@ -28,7 +28,7 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
               sudo apt-get update
-              sudo apt-get install --yes supercollider libsndfile1 libavahi-client-dev libfftw3-dev libicu-dev libudev-dev qt5-default qtwebengine5-dev jackd1
+              sudo apt-get install --yes --reinstall supercollider qt5-default qtwebengine5-dev jackd1  libxcb libxcb-devel xcb-util xcb-util-devel
               # start jack
               jackd --no-realtime -d dummy &
           elif [ "$RUNNER_OS" == "macOS" ]; then
@@ -40,11 +40,7 @@ jobs:
       - name: Install tox
         run: |
           python -m pip install tox
-      - name: Run tests on macOS/Windows
-        if: runner.os != 'Linux'
-        run: tox
-      - name: Run tests on Linux
-        if: runner.os == 'Linux'
+      - name: Run tests
         env:
           QT_DEBUG_PLUGINS: 1
         run: tox
