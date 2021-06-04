@@ -1,3 +1,7 @@
+import logging
+import time
+
+from sc3nb import Synth
 from sc3nb.osc.osc_communication import Bundler
 from tests.conftest import SCBaseTest
 
@@ -42,3 +46,36 @@ class BundlerTest(SCBaseTest):
 
         self.assertEqual(server_bundle, bundle)
         self.assertEqual(server_auto_bundle, bundle)
+
+    def test_bundler_message_skip(self):
+        value = 1337
+        with Bundler() as bundler:
+            bundler.add(0, "/sync", value)
+        t0 = time.time()
+        while self.sc.server.msg_queues["/synced"].size <= 0:
+            self.assertLess(time.time() - t0, 0.2)
+        with self.assertLogs(level=logging.WARNING) as log:
+            sync_val = BundlerTest.sc.server.sync()
+        self.assertTrue("skipped value 1337" in log.output[-1])
+        self.assertTrue(sync_val)
+
+    def test_bundler_messages(self):
+        start = 2
+        stop = 7
+        with self.assertWarnsRegex(
+            UserWarning, "SynthDesc 's.' is unknown", msg="SynthDesc seems to be known"
+        ):
+            with Bundler(send_on_exit=False) as bundler:
+                for n in range(start, stop):
+                    dur = 0.25
+                    Synth("s1", dict(freq=150 * n, dur=dur))
+                    temp = Synth("s2", dict(freq=100 * n))
+                    bundler.wait(dur * n)
+                    temp.release(dur)
+                    print(n)
+
+        msgs = bundler.messages()
+        self.assertEqual(len(msgs), stop - start + 1)
+        self.assertEqual(
+            list(map(len, list(msgs.values()))), [2] + (stop - start - 1) * [3] + [1]
+        )

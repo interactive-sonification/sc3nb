@@ -103,6 +103,9 @@ class OSCMessage:
             builder.add_arg(msg_arg)
         return builder.build()
 
+    def __repr__(self) -> str:
+        return f'<OSCMessage("{self.address}", {self.arguments}>'
+
 
 class Bundler:
     """Class for creating OSCBundles and Bundling of Messages"""
@@ -213,6 +216,19 @@ class Bundler:
         new_bundler.contents = copy.deepcopy(self.contents)
         return new_bundler
 
+    def _calc_timeoffset(self, time_offset: Optional[float]):
+        # if time_offset is None this is the root bundler
+        if time_offset is None:
+            time_offset = time.time()
+        # time to unix time when relative
+        if self.timestamp <= 1e6:
+            # new time = relative offset (start time) + relative timestamp
+            time_offset = time_offset + self.timestamp
+        else:
+            # absolute time
+            time_offset = self.timestamp
+        return time_offset
+
     def build(self, time_offset: Optional[float] = None) -> OscBundle:
         """Build this bundle.
 
@@ -226,16 +242,7 @@ class Bundler:
         OscBundle
             bundle instance for sending
         """
-        # if time_offset is None this is the root bundler
-        if time_offset is None:
-            time_offset = time.time()
-        # time to unix time when relative
-        if self.timestamp <= 1e6:
-            # new time = relative offset (start time) + relative timestamp
-            time_offset = time_offset + self.timestamp
-        else:
-            # absolute time
-            time_offset = self.timestamp
+        time_offset = self._calc_timeoffset(time_offset)
         # build bundle
         builder = OscBundleBuilder(time_offset)
         # add contents
@@ -247,6 +254,21 @@ class Bundler:
             else:
                 ValueError("Couldn't build with unsupported content: {content}")
         return builder.build()
+
+    def messages(
+        self, time_offset: Optional[float] = None
+    ) -> Dict[float, List[OSCMessage]]:
+        time_offset = self._calc_timeoffset(time_offset)
+        messages = {}
+        for content in self.contents:
+            if isinstance(content, Bundler):
+                for timestamp, cont in content.messages().items():
+                    messages.setdefault(timestamp, [])
+                    messages[timestamp].extend(cont)
+            elif isinstance(content, OSCMessage):
+                messages.setdefault(self.timestamp, [])
+                messages[self.timestamp].append(content)
+        return messages
 
     def send(
         self,
@@ -300,7 +322,7 @@ class Bundler:
             self.send(bundled=True)
 
 
-def get_raw_osc(package: Union[OscMessage, Bundler, OscBundle]) -> bytes:
+def get_raw_osc(package: Union[OSCMessage, Bundler, OscMessage, OscBundle]) -> bytes:
     """Get binary OSC representation
 
     Parameters
@@ -399,6 +421,11 @@ class MessageQueue(MessageHandler):
         """Counts how many times this queue was not synced"""
         return self._skips
 
+    @property
+    def size(self) -> int:
+        """How many items are in this queue"""
+        return self._queue.qsize()
+
     def skipped(self):
         """Skipp one queue value"""
         self._skips += 1
@@ -438,7 +465,9 @@ class MessageQueue(MessageHandler):
         if skip:
             while self._skips > 0:
                 skipped_value = self._queue.get(block=True, timeout=timeout)
-                _LOGGER.warning("AddressQueue: skipped value %s", skipped_value)
+                _LOGGER.warning(
+                    "AddressQueue %s: skipped value %s", self._address, skipped_value
+                )
                 self._skips -= 1
         if self._skips > 0:
             self._skips -= 1
@@ -806,6 +835,9 @@ class OSCCommunication:
                 )
             # handling
             # for each message we should skip queues here
+            for _, msgs in package.messages().items():
+                for msg in msgs:
+                    self._handle_outgoing_message(msg, receiver_address, False, timeout)
         else:
             _LOGGER.info("send to %s : %s", receiver, package)
 

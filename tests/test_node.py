@@ -100,6 +100,7 @@ class NodeTest(SCBaseTest):
 
     @pytest.mark.allowloggingwarn
     def test_duplicate(self):
+        self.assertNotIn("/s_new", self.sc.server.fails)
         with self.assertWarnsRegex(
             UserWarning, "SynthDesc 's2' is unknown", msg="SynthDesc seems to be known"
         ):
