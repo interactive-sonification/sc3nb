@@ -12,7 +12,7 @@ from sc3nb.osc.osc_communication import (
     MessageQueueCollection,
     OSCCommunication,
     OSCCommunicationError,
-    build_message,
+    OSCMessage,
 )
 from sc3nb.osc.parsing import preprocess_return
 from sc3nb.process_handling import ALLOWED_PARENTS, Process, ProcessTimeout
@@ -685,7 +685,7 @@ class SCServer(OSCCommunication):
     def quit(self) -> None:
         """Quits and tries to kill the server."""
         try:
-            self.send(build_message(MasterControlCommand.QUIT))
+            self.send(OSCMessage(MasterControlCommand.QUIT))
         except OSCCommunicationError:
             pass  # sending failed. scscynth maybe dead already.
         finally:
@@ -710,7 +710,7 @@ class SCServer(OSCCommunication):
             True if sync worked.
         """
         sync_id = randint(1000, 9999)
-        msg = build_message(MasterControlCommand.SYNC, sync_id)
+        msg = OSCMessage(MasterControlCommand.SYNC, sync_id)
         return sync_id == self.send(msg, timeout=timeout)
 
     def send_synthdef(self, synthdef_bytes: bytes, wait: bool = True):
@@ -785,7 +785,7 @@ class SCServer(OSCCommunication):
         """
         flag = 1 if receive_notifications else 0
         client_id = client_id if client_id else self._client_id
-        msg = build_message(
+        msg = OSCMessage(
             MasterControlCommand.NOTIFY, [flag, client_id]
         )  # flag, clientID
         try:
@@ -956,12 +956,12 @@ class SCServer(OSCCommunication):
     # Information and debugging
     def version(self) -> ServerVersion:
         """Server version information"""
-        msg = build_message(MasterControlCommand.VERSION)
+        msg = OSCMessage(MasterControlCommand.VERSION)
         return ServerVersion._make(self.send(msg))
 
     def status(self) -> ServerStatus:
         """Server status information"""
-        msg = build_message(MasterControlCommand.STATUS)
+        msg = OSCMessage(MasterControlCommand.STATUS)
         return ServerStatus._make(self.send(msg)[1:])
 
     def dump_osc(self, level: int = 1) -> None:
@@ -976,7 +976,7 @@ class SCServer(OSCCommunication):
             2   print the contents in hexadecimal.
             3   print both the parsed and hexadecimal representations.
         """
-        msg = build_message(MasterControlCommand.DUMP_OSC, [level])
+        msg = OSCMessage(MasterControlCommand.DUMP_OSC, [level])
         self.send(msg)
 
     def dump_tree(self, controls: bool = True, return_tree=False) -> Optional[str]:
@@ -998,7 +998,7 @@ class SCServer(OSCCommunication):
             warnings.warn("Server is not local or not booted. Use query_all_nodes")
             return
         self.process.read()
-        msg = build_message(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
+        msg = OSCMessage(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
         self.send(msg)
         node_tree = self.process.read(expect="NODE TREE")
         print(node_tree)

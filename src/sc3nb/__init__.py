@@ -23,7 +23,7 @@ from sc3nb.sc_objects.bus import Bus
 from sc3nb.sc_objects.recorder import Recorder
 
 from sc3nb.timed_queue import TimedQueue, TimedQueueSC
-from sc3nb.osc.osc_communication import build_message, Bundler
+from sc3nb.osc.osc_communication import OSCMessage, Bundler
 
 from sc3nb.helpers import linlin, midicps, cpsmidi, clip, dbamp, ampdb
 
@@ -33,7 +33,7 @@ __all__ = [
     "SC",
     "TimedQueue",
     "TimedQueueSC",
-    "build_message",
+    "OSCMessage",
     "Bundler",
     "SCLang",
     "linlin",

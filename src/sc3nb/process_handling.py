@@ -190,7 +190,7 @@ class Process:
             line = ANSI_ESCAPE.sub("", line)
             if self.console_logging:
                 # print to jupyter console...
-                os.write(1, f"{self.executable}:  {line}".encode())
+                os.write(1, f"[{self.executable}]  {line}".encode())
             self.output_queue.put(line)
         os.write(1, f"{self.executable} reached EOF\n".encode())
         return

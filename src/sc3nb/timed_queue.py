@@ -5,10 +5,9 @@ import time
 from typing import Any, Callable, Iterable, NoReturn, Union
 
 import numpy as np
-from pythonosc.osc_message import OscMessage
 
 import sc3nb
-from sc3nb.osc.osc_communication import Bundler, OSCCommunication
+from sc3nb.osc.osc_communication import Bundler, OSCCommunication, OSCMessage
 
 
 class Event:
@@ -264,7 +263,7 @@ class TimedQueueSC(TimedQueue):
         self.put(onset, bundler.send)
 
     def put_msg(
-        self, onset: int, msg: Union[OscMessage, str], args: Iterable[Any]
+        self, onset: int, msg: Union[OSCMessage, str], args: Iterable[Any]
     ) -> None:
         """Add a message to queue
 
@@ -272,10 +271,10 @@ class TimedQueueSC(TimedQueue):
         ----------
         onset : int
             Sending timetag of the message
-        msg : Union[OscMessage, str]
-            OscMessage or OSC address
+        msg : Union[OSCMessage, str]
+            OSCMessage or OSC address
         args : Iterable[Any]
-            If msg is str, this will be the arguments of the created OscMessage
+            If msg is str, this will be the arguments of the created OSCMessage
         """
         if isinstance(msg, str):
             self.put(onset, self.server.msg, args=(msg, args))

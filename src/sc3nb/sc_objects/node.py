@@ -1,7 +1,6 @@
 """Implements Node and subclasses Synth and Group."""
 
 import logging
-import time
 import warnings
 from abc import ABC, abstractmethod
 from enum import Enum, unique
@@ -20,10 +19,8 @@ from typing import (
     Union,
 )
 
-from pythonosc.osc_message import OscMessage
-
 import sc3nb
-from sc3nb.osc.osc_communication import OSCCommunicationError, build_message
+from sc3nb.osc.osc_communication import OSCCommunicationError, OSCMessage
 from sc3nb.sc_objects.synthdef import SynthDef
 
 if TYPE_CHECKING:
@@ -235,7 +232,7 @@ class Node(ABC):
         target: Optional[Union["Node", int]] = None,
         return_msg: bool = False,
         **kwargs,
-    ) -> Union["Node", OscMessage]:
+    ) -> Union["Node", OSCMessage]:
         """Create a new Node
 
         Parameters
@@ -365,7 +362,7 @@ class Node(ABC):
         """
         return self._started
 
-    def free(self, return_msg: bool = False) -> Union[OscMessage, "Node"]:
+    def free(self, return_msg: bool = False) -> Union["Node", OSCMessage]:
         """Free the node with /n_free.
 
         This will set is_running and is_playing to false.
@@ -374,12 +371,12 @@ class Node(ABC):
 
         Returns
         -------
-        OscMessage or Node
-            self for chaining or OscMessage when return_msg=True
+        Node or OSCMessage
+            self for chaining or OSCMessage when return_msg=True
         """
         with self._state_lock:
             self._freed = True
-        msg = build_message(NodeCommand.FREE, [self.nodeid])
+        msg = OSCMessage(NodeCommand.FREE, [self.nodeid])
         if return_msg is True:
             return msg
         else:
@@ -388,15 +385,15 @@ class Node(ABC):
 
     def run(
         self, flag: bool = True, return_msg: bool = False
-    ) -> Union[OscMessage, "Node"]:
+    ) -> Union["Node", OSCMessage]:
         """Turn node on or off with /n_run.
 
         Returns
         -------
-        OscMessage or Node
-            self for chaining or OscMessage when return_msg=True
+        Node or OSCMessage
+            self for chaining or OSCMessage when return_msg=True
         """
-        msg = build_message(NodeCommand.RUN, [self.nodeid, 0 if flag is False else 1])
+        msg = OSCMessage(NodeCommand.RUN, [self.nodeid, 0 if flag is False else 1])
         if return_msg is True:
             return msg
         else:
@@ -408,7 +405,7 @@ class Node(ABC):
         argument: Union[str, Dict, List],
         *values: Any,
         return_msg: bool = False,
-    ) -> Union[OscMessage, "Node"]:
+    ) -> Union["Node", OSCMessage]:
         """Set a control value(s) of the node with n_set.
 
         Parameters
@@ -447,7 +444,7 @@ class Node(ABC):
                 else:
                     self._update_control(argument, values)
                 msg_args.extend([argument] + list(values))
-        msg = build_message(NodeCommand.SET, msg_args)
+        msg = OSCMessage(NodeCommand.SET, msg_args)
         if return_msg is True:
             return msg
         else:
@@ -480,7 +477,7 @@ class Node(ABC):
         num_controls: int,
         value: Any,
         return_msg: bool = False,
-    ) -> Union[OscMessage, "Node"]:
+    ) -> Union["Node", OSCMessage]:
         """Fill ranges of control values with n_fill.
 
         Parameters
@@ -496,12 +493,10 @@ class Node(ABC):
 
         Returns
         -------
-        OscMessage
+        OSCMessage
             if return_msg is True else self
         """
-        msg = build_message(
-            NodeCommand.FILL, [self.nodeid, control, num_controls, value]
-        )
+        msg = OSCMessage(NodeCommand.FILL, [self.nodeid, control, num_controls, value])
         if return_msg is True:
             return msg
         else:
@@ -510,7 +505,7 @@ class Node(ABC):
 
     def map(
         self, control: Union[str, int], bus: "Bus", return_msg: bool = False
-    ) -> Union[OscMessage, "Node"]:
+    ) -> Union["Node", OSCMessage]:
         """Map a node's control to read from a bus using /n_map or /n_mapa.
 
         Parameters
@@ -524,7 +519,7 @@ class Node(ABC):
 
         Returns
         -------
-        OscMessage
+        OSCMessage
             if return_msg is True else self
         """
         msg_args = [self.nodeid, control, bus.idxs[0]]
@@ -533,7 +528,7 @@ class Node(ABC):
             msg_args.append(bus.num_channels)
         else:
             map_command = NodeCommand.MAPA if bus.is_audio_bus() else NodeCommand.MAP
-        msg = build_message(map_command, msg_args)
+        msg = OSCMessage(map_command, msg_args)
         if return_msg is True:
             return msg
         else:
@@ -542,7 +537,7 @@ class Node(ABC):
 
     def release(
         self, release_time: Optional[float] = None, return_msg: bool = False
-    ) -> Union[OscMessage, "Node"]:
+    ) -> Union["Node", OSCMessage]:
         """Set gate as specified.
 
         https://doc.sccode.org/Classes/Node.html#-release
@@ -558,7 +553,7 @@ class Node(ABC):
 
         Returns
         -------
-        OscMessage
+        OSCMessage
             if return_msg is True else self
         """
         if release_time is not None:
@@ -569,7 +564,7 @@ class Node(ABC):
         else:
             release_time = 0
 
-        msg = build_message(NodeCommand.SET, [self.nodeid, "gate", release_time])
+        msg = OSCMessage(NodeCommand.SET, [self.nodeid, "gate", release_time])
         if return_msg is True:
             return msg
         else:
@@ -597,11 +592,11 @@ class Node(ABC):
         SynthInfo or GroupInfo
             n_info answer. See above for content description
         """
-        msg = build_message(NodeCommand.QUERY, [self.nodeid])
+        msg = OSCMessage(NodeCommand.QUERY, [self.nodeid])
         result = self.server.send(msg)
         return self._parse_info(*result)
 
-    def trace(self, return_msg: bool = False) -> Union[OscMessage, "Node"]:
+    def trace(self, return_msg: bool = False) -> Union["Node", OSCMessage]:
         """Trace a node.
 
         Print out values of the inputs and outputs for one control period.
@@ -614,10 +609,10 @@ class Node(ABC):
 
         Returns
         -------
-        OscMessage or Node
+        Node or OSCMessage
             if return_msg is True else self
         """
-        msg = build_message(NodeCommand.TRACE, [self.nodeid])
+        msg = OSCMessage(NodeCommand.TRACE, [self.nodeid])
         if return_msg is True:
             return msg
         else:
@@ -626,7 +621,7 @@ class Node(ABC):
 
     def move(
         self, add_action: AddAction, another_node: "Node", return_msg: bool = False
-    ) -> Union[OscMessage, "Node"]:
+    ) -> Union["Node", OSCMessage]:
         """Move this node
 
         Parameters
@@ -640,8 +635,8 @@ class Node(ABC):
 
         Returns
         -------
-        OscMessage or Node
-            if return_msg is True this will be the OscMessage, else self
+        Node or OSCMessage
+            if return_msg is True this will be the OSCMessage, else self
 
         Raises
         ------
@@ -652,7 +647,7 @@ class Node(ABC):
             raise ValueError(
                 "add_action needs to be in [TO_HEAD, TO_TAIL, AFTER, BEFORE]"
             )
-        msg = build_message(
+        msg = OSCMessage(
             NodeCommand.ORDER, [add_action.value, another_node.nodeid, self.nodeid]
         )
         if return_msg is True:
@@ -879,7 +874,7 @@ class Synth(Node):
         target: Optional[Union[Node, int]] = None,
         *,
         return_msg: bool = False,
-    ) -> Union["Synth", OscMessage]:
+    ) -> Union["Synth", OSCMessage]:
         """Creates the synth on the server with s_new.
 
         Attention: Here you create an identical synth! Same nodeID etc.
@@ -890,7 +885,7 @@ class Synth(Node):
             self._update_controls(controls)
             flatten_args = reduce(iconcat, self._current_controls.items(), [])
 
-        msg = build_message(
+        msg = OSCMessage(
             SynthCommand.NEW,
             [self._name, self.nodeid, self._add_action.value, self._target_id]
             + flatten_args,
@@ -932,7 +927,7 @@ class Synth(Node):
             command = SynthCommand.S_GET
             msg_args = [self.nodeid, control]
 
-        msg = build_message(command, msg_args)
+        msg = OSCMessage(command, msg_args)
         try:
             reply = self.server.send(msg)
         except OSCCommunicationError as osc_error:
@@ -1071,7 +1066,7 @@ class Group(Node):
         *,
         parallel=None,
         return_msg=False,
-    ) -> Union["Group", OscMessage]:
+    ) -> Union["Group", OSCMessage]:
         """Creates the synth on the server with g_new / p_new.
 
         Attention: Here you create an identical group! Same nodeID etc.
@@ -1086,7 +1081,7 @@ class Group(Node):
         parallel : bool, optional
             If True use p_new, by default False
         return_msg : bool, optional
-            If ture return the OscMessage instead of sending it, by default False
+            If ture return the OSCMessage instead of sending it, by default False
 
         Returns
         -------
@@ -1102,7 +1097,7 @@ class Group(Node):
             else:
                 new_command = GroupCommand.G_NEW
 
-        msg = build_message(
+        msg = OSCMessage(
             new_command, [self.nodeid, self._add_action.value, self._target_id]
         )
         if return_msg is True:
@@ -1135,7 +1130,7 @@ class Group(Node):
         Group
             self
         """
-        msg = build_message(GroupCommand.HEAD, [self.nodeid, node.nodeid])
+        msg = OSCMessage(GroupCommand.HEAD, [self.nodeid, node.nodeid])
         self.server.send(msg, bundled=True)
         return self
 
@@ -1152,7 +1147,7 @@ class Group(Node):
         Group
             self
         """
-        msg = build_message(GroupCommand.TAIL, [self.nodeid, node.nodeid])
+        msg = OSCMessage(GroupCommand.TAIL, [self.nodeid, node.nodeid])
         self.server.send(msg, bundled=True)
         return self
 
@@ -1166,11 +1161,11 @@ class Group(Node):
 
         Returns
         -------
-        OscMessage
+        OSCMessage
             if return_msg is True else self
         """
         self._children = []
-        msg = build_message(GroupCommand.FREE_ALL, [self.nodeid])
+        msg = OSCMessage(GroupCommand.FREE_ALL, [self.nodeid])
         if return_msg is True:
             return msg
         else:
@@ -1189,12 +1184,12 @@ class Group(Node):
 
         Returns
         -------
-        OscMessage
+        OSCMessage
             if return_msg is True else self
         """
         with self._state_lock:
             self._children = [c for c in self._children if isinstance(c, Group)]
-        msg = build_message(GroupCommand.DEEP_FREE, [self.nodeid])
+        msg = OSCMessage(GroupCommand.DEEP_FREE, [self.nodeid])
         if return_msg is True:
             return msg
         else:
@@ -1213,10 +1208,10 @@ class Group(Node):
 
         Returns
         -------
-        OscMessage
+        OSCMessage
             if return_msg is True else self
         """
-        msg = build_message(
+        msg = OSCMessage(
             GroupCommand.DUMP_TREE, [self.nodeid, 1 if post_controls else 0]
         )
         if return_msg is True:
@@ -1240,7 +1235,7 @@ class Group(Node):
         tuple
             /g_queryTree.reply
         """
-        msg = build_message(
+        msg = OSCMessage(
             GroupCommand.QUERY_TREE, [self.nodeid, 1 if include_controls else 0]
         )
         _, *nodes_info = self.server.send(msg)

@@ -28,36 +28,80 @@ _LOGGER = logging.getLogger(__name__)
 _LOGGER.addHandler(logging.NullHandler())
 
 
-def build_message(
-    msg_addr: str, msg_args: Optional[Union[Sequence]] = None
-) -> OscMessage:
-    """Builds pythonsosc OSC message.
+class OSCMessage:
+    def __init__(
+        self,
+        msg_address: str,
+        msg_arguments: Optional[Union[Sequence]] = None,
+        reply_address: Optional[str] = None,
+        callback: Callable[..., None] = None,
+    ) -> None:
+        self._content: OscMessage = OSCMessage._build_message(
+            msg_address, msg_arguments
+        )
+        self._reply_addr = reply_address
+        self._callback = callback
 
-    Parameters
-    ----------
-    msg_addr : str
-        SuperCollider address.
-    msg_args : list, optional
-        List of arguments to add to message.
+    @property
+    def dgram(self) -> bytes:
+        return self._content.dgram
 
-    Returns
-    -------
-    OscMessage
-        Message ready to be sent.
+    @property
+    def raw_osc(self) -> bytes:
+        return self.dgram
 
-    """
-    if msg_args is None:
-        msg_args = []
-    elif not isinstance(msg_args, Sequence) or isinstance(msg_args, (str, bytes)):
-        msg_args = [msg_args]
+    @property
+    def arguments(self) -> List[Any]:
+        return self._content.params
 
-    if not msg_addr.startswith("/"):
-        msg_addr = "/" + msg_addr
+    @property
+    def address(self) -> str:
+        return self._content.address
 
-    builder = OscMessageBuilder(address=msg_addr)
-    for msg_arg in msg_args:
-        builder.add_arg(msg_arg)
-    return builder.build()
+    @property
+    def reply_address(self) -> Optional[str]:
+        return self._content.address
+
+    @property
+    def callback(self) -> Optional[Callable[..., None]]:
+        return self._callback
+
+    def to_pythonosc(self) -> OscMessage:
+        return self._content
+
+    @staticmethod
+    def _build_message(
+        msg_address: str, msg_arguments: Optional[Union[Sequence]] = None
+    ) -> OscMessage:
+        """Builds pythonsosc OSC message.
+
+        Parameters
+        ----------
+        msg_addr : str
+            SuperCollider address.
+        msg_args : list, optional
+            List of arguments to add to message.
+
+        Returns
+        -------
+        OscMessage
+            Message ready to be sent.
+
+        """
+        if msg_arguments is None:
+            msg_arguments = []
+        elif not isinstance(msg_arguments, Sequence) or isinstance(
+            msg_arguments, (str, bytes)
+        ):
+            msg_arguments = [msg_arguments]
+
+        if not msg_address.startswith("/"):
+            msg_address = "/" + msg_address
+
+        builder = OscMessageBuilder(address=msg_address)
+        for msg_arg in msg_arguments:
+            builder.add_arg(msg_arg)
+        return builder.build()
 
 
 class Bundler:
@@ -66,7 +110,7 @@ class Bundler:
     def __init__(
         self,
         timestamp: float = 0,
-        msg: Optional[Union[OscMessage, str]] = None,
+        msg: Optional[Union[OSCMessage, str]] = None,
         msg_args: Optional[Sequence[Any]] = None,
         server: Optional["OSCCommunication"] = None,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
@@ -79,8 +123,8 @@ class Bundler:
         timestamp : float, optional
             Starting time at which bundle content should be executed.
             If timestamp <= 1e6 it is added to time.time(), by default 0
-        msg : OscMessage or str, optional
-            OscMessage or message address, by default None
+        msg : OSCMessage or str, optional
+            OSCMessage or message address, by default None
         msg_args : sequence of any type, optional
             Arguments for the message, by default None
         server : OSCCommunication, optional
@@ -99,11 +143,11 @@ class Bundler:
                 self.server = sc3nb.SC.get_default().server
             except RuntimeError:
                 self.server = None
-        self.contents: List[Union["Bundler", OscMessage]] = []
+        self.contents: List[Union["Bundler", OSCMessage]] = []
         self.passed_time = 0.0
         if msg:
-            if not isinstance(msg, OscMessage):
-                msg = build_message(msg, msg_args)
+            if not isinstance(msg, OSCMessage):
+                msg = OSCMessage(msg, msg_args)
             self.contents.append(msg)
         self.send_on_exit = send_on_exit
 
@@ -117,24 +161,24 @@ class Bundler:
         """
         self.passed_time += time_passed
 
-    def add(self, *params) -> "Bundler":
-        """Add a pythonosc OscMessage or OscBundle to this bundle.
+    def add(self, *args) -> "Bundler":
+        """Add content to this Bundler.
 
         Parameters
         ----------
-        params : OscMessage or Bundler or Bundler arguments like
-                 (timestamp, msg_addr, msg_args)
-                 (timestamp, msg_addr)
-                 (timestamp, msg)
+        args : OSCMessage or Bundler or Bundler arguments like
+               (timestamp, msg_addr, msg_args)
+               (timestamp, msg_addr)
+               (timestamp, msg)
 
         Returns
         -------
         Bundler
             self for chaining
         """
-        if len(params) == 1:
-            content = params[0]
-            if isinstance(content, OscMessage):
+        if len(args) == 1:
+            content = args[0]
+            if isinstance(content, OSCMessage):
                 bundler = Bundler(self.passed_time, content)
             elif isinstance(content, Bundler):
                 bundler = copy.deepcopy(content)
@@ -143,7 +187,7 @@ class Bundler:
             else:
                 raise ValueError(
                     f"Cannot add {content} of type {type(content)}. "
-                    f"Needing {OscMessage} or {Bundler}"
+                    f"Needing {OSCMessage} or {Bundler} if len(args)==1"
                 )
             _LOGGER.debug(
                 "%s Appending %s to Bundler with time %s",
@@ -153,14 +197,14 @@ class Bundler:
             )
             self.contents.append(bundler)
         else:
-            if len(params) == 3:
-                timestamp, msg_addr, msg_args = params
+            if len(args) == 3:
+                timestamp, msg_addr, msg_args = args
                 self.add(Bundler(timestamp, msg_addr, msg_args))
-            elif len(params) == 2:
-                timestamp, msg = params
+            elif len(args) == 2:
+                timestamp, msg = args
                 self.add(Bundler(timestamp, msg))
             else:
-                raise ValueError(f"Invalid parameters {params}")
+                raise ValueError(f"Invalid parameters {args}")
         return self
 
     def __deepcopy__(self, memo) -> "Bundler":
@@ -198,8 +242,8 @@ class Bundler:
         for content in self.contents:
             if isinstance(content, Bundler):
                 builder.add_content(content.build(time_offset=time_offset))
-            elif isinstance(content, OscMessage):
-                builder.add_content(content)
+            elif isinstance(content, OSCMessage):
+                builder.add_content(content.to_pythonosc())
             else:
                 ValueError("Couldn't build with unsupported content: {content}")
         return builder.build()
@@ -694,7 +738,7 @@ class OSCCommunication:
 
     def send(
         self,
-        package: Union[OscMessage, Bundler, OscBundle],
+        package: Union[OSCMessage, Bundler],
         bundled: bool = False,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
         await_reply: bool = True,
@@ -704,14 +748,14 @@ class OSCCommunication:
 
         Parameters
         ----------
-        package : OscMessage or OscBundle or Bundler
+        package : OSCMessage or Bundler
             Object with `dgram` attribute.
         bundled : bool, optional
-            If True it is allowed to bundle the content with bundling, by default False
+            If True it is allowed to bundle the package with bundling, by default False
         receiver : str or Tuple[str, int], optional
             Where to send the packet, by default send to default receiver
         await_reply : bool, optional
-            If True and content is a OscMessage send message and wait for reply
+            If True and package is a OSCMessage send message and wait for reply
             otherwise send the message and return None directly, by default True
         timeout : int, optional
             timeout in seconds for reply, by default 5
@@ -728,6 +772,7 @@ class OSCCommunication:
         OSCCommunicationError
             When the handling of a package fails.
         """
+        # TODO we could use a typing.Protocol for sendableOSC (.dgram), ..
         # bundling
         if bundled:
             with self._bundling_lock:
@@ -740,24 +785,24 @@ class OSCCommunication:
         else:
             receiver_address = self._default_receiver
 
-        datagram = get_raw_osc(package)
-
-        sent_bytes = self._osc_server.socket.sendto(datagram, receiver_address)
+        sent_bytes = self._osc_server.socket.sendto(
+            get_raw_osc(package), receiver_address
+        )
         if sent_bytes == 0:
             raise RuntimeError("Could not send data. Socket connection broken.")
 
-        if isinstance(package, OscMessage):
+        if isinstance(package, OSCMessage):
             return self._handle_outgoing_message(
                 package, receiver_address, await_reply, timeout
             )
-        elif isinstance(package, OscBundle):
+        elif isinstance(package, Bundler):
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):
                 _LOGGER.info(
                     "send to %s : %s contents size %s ",
                     self._check_sender(receiver_address),
                     package,
-                    len(package._contents),
+                    len(package.contents),
                 )
             # handling
             # for each message we should skip queues here
@@ -766,24 +811,21 @@ class OSCCommunication:
 
     def _handle_outgoing_message(
         self,
-        message: OscMessage,
+        message: OSCMessage,
         receiver_address: Tuple[str, int],
         await_reply: bool,
         timeout: float,
     ) -> Any:
         # logging
         if _LOGGER.isEnabledFor(logging.INFO):
-            msg_params_str = str(message.params)
-            if (
-                not _LOGGER.isEnabledFor(logging.DEBUG)
-                and len(str(message.params)) > 55
-            ):
-                msg_params_str = str(message.params)[:55] + ".."
+            msg_arguments_str = str(message.arguments)
+            if not _LOGGER.isEnabledFor(logging.DEBUG) and len(msg_arguments_str) > 55:
+                msg_arguments_str = msg_arguments_str[:55] + ".."
             _LOGGER.debug(
                 "send to %s : %s %s",
                 self._check_sender(receiver_address),
                 message.address,
-                msg_params_str,
+                msg_arguments_str,
             )
         # handling
         reply_addr = self.get_reply_address(message.address)
@@ -855,7 +897,7 @@ class OSCCommunication:
             reply if await_reply and there is a reply for this
         """
         return self.send(
-            build_message(msg_addr, msg_args),
+            OSCMessage(msg_addr, msg_args),
             bundled=bundled,
             receiver=receiver,
             await_reply=await_reply,
@@ -865,7 +907,7 @@ class OSCCommunication:
     def bundler(
         self,
         timestamp: float = 0,
-        msg: Optional[Union[OscMessage, str]] = None,
+        msg: Optional[Union[OSCMessage, str]] = None,
         msg_args: Optional[Sequence[Any]] = None,
         send_on_exit: bool = True,
     ) -> Bundler:
@@ -878,8 +920,8 @@ class OSCCommunication:
         timestamp : int
             Time at which bundle content should be executed.
             If timestamp <= 1e6 it is added to time.time().
-        msg : OscMessage or str, optional
-            OscMessage or message address, by default None
+        msg : OSCMessage or str, optional
+            OSCMessage or message address, by default None
         msg_args : sequence of any type, optional
             Arguments for the message, by default None
         send_on_exit : bool, optional
