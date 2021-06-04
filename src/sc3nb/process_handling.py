@@ -247,7 +247,7 @@ class Process:
             except Empty:
                 return
 
-    def send(self, input_str: str) -> None:
+    def write(self, input_str: str) -> None:
         """Send input to process
 
         Parameters

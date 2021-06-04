@@ -445,7 +445,7 @@ class SCLang:
         # write command to sclang pipe \f
         if code and code[-1] != ";":
             code += ";"
-        self.process.send(code + self.ending)
+        self.process.write(code + self.ending)
 
         return_val = None
         if get_result:
