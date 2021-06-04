@@ -60,11 +60,6 @@ Content
 
    
 
-.. data:: ANSI_ESCAPE
-   
-
-   
-
 .. class:: SynthArgument
 
    **Bases:** :class:`typing.NamedTuple`
@@ -381,7 +376,7 @@ Content
          sc3nb.sclang.SCLang.server
          sc3nb.sclang.SCLang.connect_to_server
 
-   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> None
+   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5) -> None
 
       Start and initilize the sclang process.
 
@@ -397,6 +392,9 @@ Content
 
           **allowed_parents** : Sequence[str], optional
               parents name of processes to keep, by default ALLOWED_PARENTS
+
+          **timeout** : float, optional
+              timeout for starting the executable, by default 5
 
 
 
@@ -652,7 +650,7 @@ Content
           **expect** : Optional[str], optional
               Try to read this expected string, by default None
 
-          **timeout** : int, optional
+          **timeout** : float, optional
               How long we try to read expected string, by default 1
 
           **print_error** : bool, optional

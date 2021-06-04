@@ -57,7 +57,7 @@ Content
 
    
 
-.. function:: find_executable(executable: str, path: str = None, add_to_path: bool = False)
+.. function:: find_executable(executable: str, search_path: str = None, add_to_path: bool = False)
 
    Looks for executable in os $PATH or specified path
 
@@ -67,7 +67,7 @@ Content
        **executable** : str
            Executable to be found
 
-       **path** : str, optional
+       **search_path** : str, optional
            Path at which to look for, by default None
 
        **add_to_path** : bool, optional
@@ -218,7 +218,7 @@ Content
          sc3nb.process_handling.Process._read_loop
          sc3nb.process_handling.Process.read
          sc3nb.process_handling.Process.empty
-         sc3nb.process_handling.Process.send
+         sc3nb.process_handling.Process.write
          sc3nb.process_handling.Process.kill
          sc3nb.process_handling.Process.__del__
          sc3nb.process_handling.Process.__repr__
@@ -287,7 +287,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, input_str: str) -> None
+   .. method:: write(self, input_str: str) -> None
 
       Send input to process
 

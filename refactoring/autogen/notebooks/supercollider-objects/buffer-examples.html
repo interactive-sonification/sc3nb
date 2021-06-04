@@ -801,12 +801,16 @@ Buffer 129 on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 5000 Hz –&gt; allocate
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pya</span> <span class="kn">import</span> <span class="n">Ugen</span>
-<span class="n">a1</span> <span class="o">=</span> <span class="n">Ugen</span><span class="p">()</span><span class="o">.</span><span class="n">sine</span><span class="p">(</span><span class="mi">440</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fade_out</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># 1.0s sine tone of 440 Hz</span>
-<span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
-<span class="n">buf1</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_asig</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
-<span class="n">buf1</span>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">pya</span> <span class="kn">import</span> <span class="n">Ugen</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">Ugen</span><span class="p">()</span><span class="o">.</span><span class="n">sine</span><span class="p">(</span><span class="mi">440</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fade_out</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># 1.0s sine tone of 440 Hz</span>
+    <span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+    <span class="n">buf1</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_asig</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+    <span class="n">buf1</span>
 </pre></div>
 </div>
 </div>
@@ -818,20 +822,11 @@ Buffer 129 on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 5000 Hz –&gt; allocate
 Asig(&#39;sine_fadeout&#39;): 2 x 2000 @ 2000Hz = 1.000s cn=[&#39;0&#39;, &#39;1&#39;]
 </pre></div></div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Buffer 130 on (&#39;127.0.0.1&#39;, 57110): 2 x 2000 @ 2000 Hz –&gt; allocated using mode &#39;data&#39;
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_14_2.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_14_2.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_14_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_14_1.svg" /></div>
 </div>
 <p>Again, default transport method is mode=‘file’, i.e. using a temporary file and fill the buffer on sc with this content. * use mode=“osc” to select the direct transfer of data via OSC messages</p>
 </div>
@@ -1282,8 +1277,8 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48d0f4948&gt;,
- &lt;matplotlib.lines.Line2D at 0x1f48d0f4c88&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112be7039c8&gt;,
+ &lt;matplotlib.lines.Line2D at 0x112be465588&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1341,7 +1336,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48e1df7c8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112bf769788&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1378,7 +1373,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48e1269c8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112bf7eb948&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1404,7 +1399,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48e25d8c8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112bf868648&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1441,7 +1436,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48f2b1448&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112c08bc1c8&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1478,7 +1473,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48ce55e88&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112bf812908&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1516,7 +1511,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48e1d1ec8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112be4fe888&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1559,7 +1554,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x1f48cea33c8&gt;
+&lt;matplotlib.legend.Legend at 0x112be7032c8&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1606,7 +1601,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x1f48f3abe88&gt;]
+[&lt;matplotlib.lines.Line2D at 0x112c09a9948&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">

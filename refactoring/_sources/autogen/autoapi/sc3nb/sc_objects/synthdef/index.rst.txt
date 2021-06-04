@@ -288,7 +288,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, wait: bool = True, server: Optional['SCServer'] = None)
+   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional['SCServer'] = None)
       :classmethod:
 
       Load all SynthDefs from directory.
@@ -301,9 +301,6 @@ Content
 
           **completion_msg** : bytes, optional
               Message to be executed by the server when loaded, by default None
-
-          **wait** : bool, optional
-              If True wait for server reply, by default True
 
           **server** : SCServer, optional
               Server that gets the SynthDefs, by default None

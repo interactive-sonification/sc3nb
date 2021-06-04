@@ -368,13 +368,21 @@
 <span></span><span class="sd">&quot;&quot;&quot;Module to for using SuperCollider SynthDefs and Synths in Python&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">unique</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+    <span class="c1"># `importlib.resources` backported to PY&lt;37 as `importlib_resources`.</span>
+    <span class="kn">import</span> <span class="nn">importlib_resources</span> <span class="k">as</span> <span class="nn">libresources</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># only PY&gt;=39 `importlib.resources` offers .files.</span>
+    <span class="kn">import</span> <span class="nn">importlib.resources</span> <span class="k">as</span> <span class="nn">libresources</span>
 
 <span class="kn">import</span> <span class="nn">sc3nb</span>
+<span class="kn">import</span> <span class="nn">sc3nb.resources</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sc3nb.sc</span> <span class="kn">import</span> <span class="n">SC</span>
@@ -476,7 +484,6 @@
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">synthdef_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">completion_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">wait</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">server</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SCServer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load all SynthDefs from directory.</span>
@@ -487,22 +494,28 @@
 <span class="sd">            directory with SynthDefs, by default sc3nb default SynthDefs</span>
 <span class="sd">        completion_msg : bytes, optional</span>
 <span class="sd">            Message to be executed by the server when loaded, by default None</span>
-<span class="sd">        wait : bool, optional</span>
-<span class="sd">            If True wait for server reply, by default True</span>
 <span class="sd">        server : SCServer, optional</span>
 <span class="sd">            Server that gets the SynthDefs, by default None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">server</span> <span class="o">=</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
 
+        <span class="k">def</span> <span class="nf">_load_synthdef</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()]</span>
+            <span class="k">if</span> <span class="n">completion_msg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">completion_msg</span><span class="p">)</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">SynthDefinitionCommand</span><span class="o">.</span><span class="n">LOAD_DIR</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">await_reply</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">synthdef_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">synthdef_dir</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span>
-                <span class="s2">&quot;sc3nb.resources&quot;</span><span class="p">,</span> <span class="s2">&quot;synthdefs&quot;</span>
-            <span class="p">)</span>
-        <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">synthdef_dir</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">completion_msg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">completion_msg</span><span class="p">)</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">SynthDefinitionCommand</span><span class="o">.</span><span class="n">LOAD_DIR</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">await_reply</span><span class="o">=</span><span class="n">wait</span><span class="p">)</span></div>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">libresources</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">sc3nb</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;synthdefs&quot;</span>
+            <span class="k">with</span> <span class="n">libresources</span><span class="o">.</span><span class="n">as_file</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="k">as</span> <span class="n">path</span><span class="p">:</span>
+                <span class="n">_load_synthdef</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">synthdef_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="n">_load_synthdef</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Provided path </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> does not exist or is not a dir&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">definition</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Create a dynamic synth definition in sc.</span>

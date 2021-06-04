@@ -640,7 +640,6 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="sc3nb-–-SuperCollider3-for-python-/-jupyter-notebooks">
 <h1>sc3nb – SuperCollider3 for python / jupyter notebooks<a class="headerlink" href="#sc3nb-–-SuperCollider3-for-python-/-jupyter-notebooks" title="Permalink to this headline">¶</a></h1>
-<p>© 2017-2021 by Thomas Hermann, contributions from: Ferdinand Schlatt, Fabian Kaupmann, Dennis Reinsch, Micha Steffen Vosse</p>
 <hr class="docutils" />
 <p>sc3nb is a python package that offers an interface to SuperCollider3.</p>
 <p>The goal of sc3nb is to facilitate the programming of auditory displays and interactive sonifications by - teaming up python (and particularly numpy, scipy, pandas, matplotlib etc.) for data science - and SuperCollider3 for interactive real-time sound rendering.</p>
@@ -962,7 +961,7 @@ array([[-0.00189209, -0.00189209],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; sgge
+-&gt; gseg
 </pre></div></div>
 </div>
 <p>Get results from SuperCollider Language in python</p>
@@ -1061,13 +1060,14 @@ allowed for sclang/scsynth processes with the <code class="docutils literal notr
 <div class="section" id="Contributing">
 <h2>Contributing<a class="headerlink" href="#Contributing" title="Permalink to this headline">¶</a></h2>
 <p>Please get in touch with us if you wish to contribute. We are happy to be involved in the discussion of new features and to receive pull requests.</p>
+<p>Contributions from: Ferdinand Schlatt, Fabian Kaupmann, Micha Steffen Vosse</p>
 <div class="section" id="Setting-up-the-development-environment">
 <h3>Setting up the development environment<a class="headerlink" href="#Setting-up-the-development-environment" title="Permalink to this headline">¶</a></h3>
-<p>Additional dependencies for development and building docs, etc. can be installed via the following</p>
+<p>Additional dependencies for can be installed via the following extras tests, development, building docs, running test. can be installed via the respec</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 70%" />
-<col style="width: 30%" />
+<col style="width: 17%" />
+<col style="width: 83%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Install</p></th>
@@ -1075,14 +1075,17 @@ allowed for sclang/scsynth processes with the <code class="docutils literal notr
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements_dev.txt</span></code></p></td>
-<td><p>making commits</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
+<td><p>running tox for tests and other things</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements_test.txt</span></code></p></td>
-<td><p>executing tests</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
+<td><p>using the pre-commit hooks and installing other useful tools for development</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements_doc.txt</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
 <td><p>building the docs</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[localtests]</span></code></p></td>
+<td><p>running pytest directly without tox</p></td>
 </tr>
 </tbody>
 </table>
@@ -1090,12 +1093,8 @@ allowed for sclang/scsynth processes with the <code class="docutils literal notr
 <div class="section" id="Development-Guidelines">
 <h3>Development Guidelines<a class="headerlink" href="#Development-Guidelines" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://pre-commit.com/"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a> <a class="reference external" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
-<ul class="simple">
-<li><p>Use <a class="reference external" href="https://github.com/psf/black">black</a> formatting</p></li>
-<li><p>Use <a class="reference external" href="https://docs.python.org/3/library/typing.html">python type hints</a></p></li>
-<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">How to Document</a></p></li>
-<li><p>To ensure standards are followed we use <a class="reference external" href="https://pre-commit.com/">pre-commit</a></p></li>
-</ul>
+<p>To ensure standards are followed install <a class="reference external" href="https://pre-commit.com/">pre-commit</a></p>
+<p>We use: * <a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> for formatting code * <a class="reference external" href="https://docs.python.org/3/library/typing.html">python type hints</a> * <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">How to Document</a></p>
 </div>
 </div>
 <div class="section" id="Useful-Ressources">
@@ -1129,15 +1128,6 @@ allowed for sclang/scsynth processes with the <code class="docutils literal notr
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>  <span class="c1"># To shut down the server and sclang subprocesses</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
 </pre></div>
 </div>
 </div>

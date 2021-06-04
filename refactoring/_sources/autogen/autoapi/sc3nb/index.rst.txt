@@ -83,7 +83,7 @@ Class List
 Content
 ~~~~~~~
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> SC
+.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5) -> SC
 
    Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
 
@@ -118,6 +118,9 @@ Content
            Names of parents that are allowed for other instances of
            sclang/scsynth processes, by default ALLOWED_PARENTS
 
+       **timeout** : float, optional
+           timeout for starting the executable, by default 5
+
    :Returns:
 
        SC
@@ -139,7 +142,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. class:: SC(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[ServerOptions] = None, with_blib: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+.. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[ServerOptions] = None, with_blib: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
 
    Create a SuperCollider Wrapper object.
@@ -171,6 +174,9 @@ Content
        **allowed_parents** : Sequence[str], optional
            Names of parents that are allowed for other instances of
            sclang/scsynth processes, by default ALLOWED_PARENTS.
+
+       **timeout** : float, optional
+           timeout for starting the executables, by default 5
 
 
 
@@ -225,6 +231,7 @@ Content
          sc3nb.SC.get_default
          sc3nb.SC.start_sclang
          sc3nb.SC.start_server
+         sc3nb.SC._try_to_connect
          sc3nb.SC.server
          sc3nb.SC.lang
          sc3nb.SC.console_logging
@@ -263,7 +270,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start_sclang(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. method:: start_sclang(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
       Start this SuperCollider language
 
@@ -279,6 +286,9 @@ Content
           **allowed_parents** : Sequence[str], optional
               Names of parents that are allowed for other instances of
               sclang/scsynth processes, by default ALLOWED_PARENTS
+
+          **timeout** : float, optional
+              timeout for starting the executable, by default 5
 
 
 
@@ -297,7 +307,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start_server(self, scsynth_options: Optional[ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. method:: start_server(self, scsynth_options: Optional[ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
       Start this SuperCollider server
 
@@ -320,6 +330,9 @@ Content
               Names of parents that are allowed for other instances of
               sclang/scsynth processes, by default ALLOWED_PARENTS
 
+          **timeout** : float, optional
+              timeout for starting the executable, by default 5
+
 
 
 
@@ -335,6 +348,9 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _try_to_connect(self)
 
 
    .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
@@ -564,7 +580,7 @@ Content
          sc3nb.SCServer._warn_fail
          sc3nb.SCServer.__repr__
 
-   .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 3, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 5, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
 
       Start the Server process.
 
@@ -575,7 +591,7 @@ Content
               Path of scscynth executable, by default None
 
           **timeout** : float, optional
-              Timeout for starting the executable, by default 3
+              Timeout for starting the executable, by default 5
 
           **console_logging** : bool, optional
               If True write process output to console, by default True
@@ -956,7 +972,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_synthdef(self, synthdef_path: str, wait: bool = True)
+   .. method:: load_synthdef(self, synthdef_path: str)
 
       Load SynthDef file at path.
 
@@ -965,9 +981,6 @@ Content
 
           **synthdef_path** : str
               Path with the SynthDefs
-
-          **wait** : bool
-              If True wait for server reply.
 
 
 
@@ -986,7 +999,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: bytes = None, wait: bool = True) -> None
+   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: bytes = None) -> None
 
       Load all SynthDefs from directory.
 
@@ -1019,7 +1032,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: notify(self, receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1.0) -> None
+   .. method:: notify(self, receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1) -> None
 
       Notify the server about this client.
 
@@ -2128,7 +2141,7 @@ Content
          sc3nb.SCLang.server
          sc3nb.SCLang.connect_to_server
 
-   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> None
+   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5) -> None
 
       Start and initilize the sclang process.
 
@@ -2144,6 +2157,9 @@ Content
 
           **allowed_parents** : Sequence[str], optional
               parents name of processes to keep, by default ALLOWED_PARENTS
+
+          **timeout** : float, optional
+              timeout for starting the executable, by default 5
 
 
 
@@ -2399,7 +2415,7 @@ Content
           **expect** : Optional[str], optional
               Try to read this expected string, by default None
 
-          **timeout** : int, optional
+          **timeout** : float, optional
               How long we try to read expected string, by default 1
 
           **print_error** : bool, optional
@@ -3027,7 +3043,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -3064,7 +3080,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -3101,7 +3117,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -3173,7 +3189,7 @@ Content
       :Returns:
 
           OscMessage or Node
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -3210,7 +3226,7 @@ Content
       :Returns:
 
           OscMessage or Node
-              if return_msg this will be the OscMessage, else self
+              if return_msg is True this will be the OscMessage, else self
 
 
 
@@ -3930,7 +3946,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -3962,7 +3978,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -3996,7 +4012,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -4315,7 +4331,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, wait: bool = True, server: Optional['SCServer'] = None)
+   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional['SCServer'] = None)
       :classmethod:
 
       Load all SynthDefs from directory.
@@ -4328,9 +4344,6 @@ Content
 
           **completion_msg** : bytes, optional
               Message to be executed by the server when loaded, by default None
-
-          **wait** : bool, optional
-              If True wait for server reply, by default True
 
           **server** : SCServer, optional
               Server that gets the SynthDefs, by default None

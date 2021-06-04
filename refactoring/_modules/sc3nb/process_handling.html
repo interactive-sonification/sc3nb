@@ -367,11 +367,12 @@
   <h1>Source code for sc3nb.process_handling</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Module for process handling. &quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -387,14 +388,16 @@
 <div class="viewcode-block" id="ALLOWED_PARENTS"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ALLOWED_PARENTS">[docs]</a><span class="n">ALLOWED_PARENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;scide&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="find_executable"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.find_executable">[docs]</a><span class="k">def</span> <span class="nf">find_executable</span><span class="p">(</span><span class="n">executable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">add_to_path</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="find_executable"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.find_executable">[docs]</a><span class="k">def</span> <span class="nf">find_executable</span><span class="p">(</span>
+    <span class="n">executable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">search_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">add_to_path</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Looks for executable in os $PATH or specified path</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    executable : str</span>
 <span class="sd">        Executable to be found</span>
-<span class="sd">    path : str, optional</span>
+<span class="sd">    search_path : str, optional</span>
 <span class="sd">        Path at which to look for, by default None</span>
 <span class="sd">    add_to_path : bool, optional</span>
 <span class="sd">        Wether to add the provided path to os $PATH or not, by default False</span>
@@ -409,16 +412,26 @@
 <span class="sd">    FileNotFoundError</span>
 <span class="sd">        Raised if executable cannot be found</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">head</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">executable</span> <span class="ow">in</span> <span class="n">tail</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="n">head</span>
-        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">add_to_path</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">pathsep</span> <span class="o">+</span> <span class="n">path</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">]</span>
-    <span class="n">paths</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">search_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">head</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">search_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">executable</span> <span class="o">==</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">tail</span><span class="p">):</span>
+            <span class="n">search_path</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="k">if</span> <span class="n">search_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">add_to_path</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATH&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">pathsep</span> <span class="o">+</span> <span class="n">search_path</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">search_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;/Applications/SuperCollider/&quot;</span><span class="p">,</span> <span class="s2">&quot;/Applications/&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">executable</span> <span class="o">==</span> <span class="s2">&quot;sclang&quot;</span><span class="p">:</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">directory</span> <span class="o">+</span> <span class="s2">&quot;SuperCollider.app/Contents/MacOS/&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">executable</span> <span class="o">==</span> <span class="s2">&quot;scsynth&quot;</span><span class="p">:</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">directory</span> <span class="o">+</span> <span class="s2">&quot;SuperCollider.app/Contents/Resources/&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;C:/Program Files/SuperCollider-*/&quot;</span><span class="p">))</span>
+    <span class="c1"># elif platform.system() == &quot;Linux&quot;:</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Searching executable in paths: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">paths</span><span class="p">)</span>
     <span class="n">extlist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;os2&quot;</span><span class="p">:</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">executable</span><span class="p">)</span>
@@ -426,20 +439,21 @@
         <span class="c1"># .exe is automatically appended if no dot is present in the name</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ext</span><span class="p">:</span>
             <span class="n">executable</span> <span class="o">=</span> <span class="n">executable</span> <span class="o">+</span> <span class="s2">&quot;.exe&quot;</span>
-    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
         <span class="n">pathext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATHEXT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">executable</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pathext</span><span class="p">:</span>
             <span class="n">extlist</span> <span class="o">=</span> <span class="n">pathext</span>
+
     <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">extlist</span><span class="p">:</span>
         <span class="n">execname</span> <span class="o">=</span> <span class="n">executable</span> <span class="o">+</span> <span class="n">ext</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">execname</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">execname</span>
         <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
             <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">execname</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">file</span>
-    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;Unable to find executable&quot;</span><span class="p">)</span></div>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Unable to find &#39;</span><span class="si">{</span><span class="n">executable</span><span class="si">}</span><span class="s2">&#39; executable in </span><span class="si">{</span><span class="n">paths</span><span class="si">}</span><span class="s2"> (platform.system=</span><span class="si">{</span><span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+    <span class="p">)</span>
 
 
 <div class="viewcode-block" id="kill_processes"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.kill_processes">[docs]</a><span class="k">def</span> <span class="nf">kill_processes</span><span class="p">(</span><span class="n">exec_path</span><span class="p">,</span> <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -507,7 +521,7 @@
         <span class="n">allowed_parents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">executable</span> <span class="o">=</span> <span class="n">executable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exec_path</span> <span class="o">=</span> <span class="n">find_executable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">exec_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exec_path</span> <span class="o">=</span> <span class="n">find_executable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">search_path</span><span class="o">=</span><span class="n">exec_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console_logging</span> <span class="o">=</span> <span class="n">console_logging</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">popen_args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">exec_path</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -531,7 +545,6 @@
         <span class="p">)</span>
         <span class="c1"># init queue for reading subprocess output queue</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stdin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdin</span>
         <span class="c1"># output reading worker thread</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_reader_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
             <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_read_loop</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span>
@@ -541,7 +554,7 @@
 <div class="viewcode-block" id="Process._read_loop"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process._read_loop">[docs]</a>    <span class="k">def</span> <span class="nf">_read_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2"> start reading</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-            <span class="n">ANSI_ESCAPE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">ANSI_ESCAPE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_logging</span><span class="p">:</span>
                 <span class="c1"># print to jupyter console...</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
@@ -590,7 +603,7 @@
                 <span class="k">if</span> <span class="n">expect</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">expect_found</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="n">out</span>
+                    <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Process.empty"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.empty">[docs]</a>    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -601,7 +614,7 @@
             <span class="k">except</span> <span class="n">Empty</span><span class="p">:</span>
                 <span class="k">return</span></div>
 
-<div class="viewcode-block" id="Process.send"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Process.write"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Send input to process</span>
 
 <span class="sd">        Parameters</span>
@@ -616,8 +629,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Writing: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">input_str</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>  <span class="c1"># shouldnt be needed as buffering is disabled.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>  <span class="c1"># shouldnt be needed as buffering is disabled.</span>
         <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Write to stdin failed&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span></div>
 
@@ -639,10 +652,14 @@
 <div class="viewcode-block" id="Process.__repr__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">returncode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">returncode</span>
         <span class="k">if</span> <span class="n">returncode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">process_status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;returncode=</span><span class="si">{</span><span class="n">returncode</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Process &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">&#39; </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div></div>
+            <span class="n">process_status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;returncode=</span><span class="si">{</span><span class="n">returncode</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_reader_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+            <span class="n">thread_status</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">thread_status</span> <span class="o">=</span> <span class="s2">&quot;died&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Process &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">thread_status</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">process_status</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div></div>
 </pre></div>
 
            </div>

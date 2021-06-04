@@ -1055,7 +1055,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -1092,7 +1092,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -1129,7 +1129,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -1201,7 +1201,7 @@ Content
       :Returns:
 
           OscMessage or Node
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -1238,7 +1238,7 @@ Content
       :Returns:
 
           OscMessage or Node
-              if return_msg this will be the OscMessage, else self
+              if return_msg is True this will be the OscMessage, else self
 
 
 
@@ -1958,7 +1958,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -1990,7 +1990,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 
@@ -2024,7 +2024,7 @@ Content
       :Returns:
 
           OscMessage
-              if return_msg else self
+              if return_msg is True else self
 
 
 

@@ -835,7 +835,7 @@ Content
          sc3nb.sc_objects.server.SCServer._warn_fail
          sc3nb.sc_objects.server.SCServer.__repr__
 
-   .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 3, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 5, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
 
       Start the Server process.
 
@@ -846,7 +846,7 @@ Content
               Path of scscynth executable, by default None
 
           **timeout** : float, optional
-              Timeout for starting the executable, by default 3
+              Timeout for starting the executable, by default 5
 
           **console_logging** : bool, optional
               If True write process output to console, by default True
@@ -1227,7 +1227,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_synthdef(self, synthdef_path: str, wait: bool = True)
+   .. method:: load_synthdef(self, synthdef_path: str)
 
       Load SynthDef file at path.
 
@@ -1236,9 +1236,6 @@ Content
 
           **synthdef_path** : str
               Path with the SynthDefs
-
-          **wait** : bool
-              If True wait for server reply.
 
 
 
@@ -1257,7 +1254,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: bytes = None, wait: bool = True) -> None
+   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: bytes = None) -> None
 
       Load all SynthDefs from directory.
 
@@ -1290,7 +1287,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: notify(self, receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1.0) -> None
+   .. method:: notify(self, receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1) -> None
 
       Notify the server about this client.
 

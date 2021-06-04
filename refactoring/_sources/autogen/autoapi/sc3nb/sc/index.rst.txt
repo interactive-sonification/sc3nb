@@ -47,7 +47,7 @@ Content
 
    
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS) -> SC
+.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5) -> SC
 
    Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
 
@@ -82,6 +82,9 @@ Content
            Names of parents that are allowed for other instances of
            sclang/scsynth processes, by default ALLOWED_PARENTS
 
+       **timeout** : float, optional
+           timeout for starting the executable, by default 5
+
    :Returns:
 
        SC
@@ -103,7 +106,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. class:: SC(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[ServerOptions] = None, with_blib: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+.. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[ServerOptions] = None, with_blib: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
 
    Create a SuperCollider Wrapper object.
@@ -135,6 +138,9 @@ Content
        **allowed_parents** : Sequence[str], optional
            Names of parents that are allowed for other instances of
            sclang/scsynth processes, by default ALLOWED_PARENTS.
+
+       **timeout** : float, optional
+           timeout for starting the executables, by default 5
 
 
 
@@ -189,6 +195,7 @@ Content
          sc3nb.sc.SC.get_default
          sc3nb.sc.SC.start_sclang
          sc3nb.sc.SC.start_server
+         sc3nb.sc.SC._try_to_connect
          sc3nb.sc.SC.server
          sc3nb.sc.SC.lang
          sc3nb.sc.SC.console_logging
@@ -227,7 +234,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start_sclang(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. method:: start_sclang(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
       Start this SuperCollider language
 
@@ -243,6 +250,9 @@ Content
           **allowed_parents** : Sequence[str], optional
               Names of parents that are allowed for other instances of
               sclang/scsynth processes, by default ALLOWED_PARENTS
+
+          **timeout** : float, optional
+              timeout for starting the executable, by default 5
 
 
 
@@ -261,7 +271,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start_server(self, scsynth_options: Optional[ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. method:: start_server(self, scsynth_options: Optional[ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
       Start this SuperCollider server
 
@@ -284,6 +294,9 @@ Content
               Names of parents that are allowed for other instances of
               sclang/scsynth processes, by default ALLOWED_PARENTS
 
+          **timeout** : float, optional
+              timeout for starting the executable, by default 5
+
 
 
 
@@ -299,6 +312,9 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _try_to_connect(self)
 
 
    .. method:: server(self) -> sc3nb.sc_objects.server.SCServer

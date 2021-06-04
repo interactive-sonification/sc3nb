@@ -394,6 +394,7 @@
     <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">console_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SC&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Inits SuperCollider (scsynth, sclang) and registers Jupyter magics</span>
 
@@ -418,6 +419,8 @@
 <span class="sd">    allowed_parents : Sequence[str], optional</span>
 <span class="sd">        Names of parents that are allowed for other instances of</span>
 <span class="sd">        sclang/scsynth processes, by default ALLOWED_PARENTS</span>
+<span class="sd">    timeout : float, optional</span>
+<span class="sd">        timeout for starting the executable, by default 5</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -439,18 +442,22 @@
             <span class="n">with_blib</span><span class="o">=</span><span class="n">with_blip</span><span class="p">,</span>
             <span class="n">console_logging</span><span class="o">=</span><span class="n">console_logging</span><span class="p">,</span>
             <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SC already started&quot;</span><span class="p">)</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;SC already started&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_sclang</span><span class="p">:</span>
             <span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">start_sclang</span><span class="p">(</span>
-                <span class="n">sclang_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span> <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span>
+                <span class="n">sclang_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span>
+                <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">start_server</span><span class="p">:</span>
             <span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span>
                 <span class="n">scsynth_options</span><span class="o">=</span><span class="n">scsynth_options</span><span class="p">,</span>
                 <span class="n">scsynth_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span>
                 <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
             <span class="p">)</span>
     <span class="k">return</span> <span class="n">SC</span><span class="o">.</span><span class="n">default</span></div>
 
@@ -477,6 +484,8 @@
 <span class="sd">    allowed_parents : Sequence[str], optional</span>
 <span class="sd">        Names of parents that are allowed for other instances of</span>
 <span class="sd">        sclang/scsynth processes, by default ALLOWED_PARENTS.</span>
+<span class="sd">    timeout : float, optional</span>
+<span class="sd">            timeout for starting the executables, by default 5</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SC.default"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sc/index.html#sc3nb.SC.default">[docs]</a>    <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
@@ -509,6 +518,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">start_server</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">scsynth_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">start_sclang</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -517,32 +527,41 @@
         <span class="n">with_blib</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">console_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">SC</span><span class="o">.</span><span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">SC</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_console_logging</span> <span class="o">=</span> <span class="n">console_logging</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">start_sclang</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start_sclang</span><span class="p">(</span>
-                <span class="n">sclang_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span>
-                <span class="n">console_logging</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_console_logging</span><span class="p">,</span>
-                <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">if</span> <span class="n">start_server</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span>
-                <span class="n">scsynth_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span>
-                <span class="n">scsynth_options</span><span class="o">=</span><span class="n">scsynth_options</span><span class="p">,</span>
-                <span class="n">console_logging</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_console_logging</span><span class="p">,</span>
-                <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blib</span><span class="p">,</span>
-                <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">start_sclang</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start_sclang</span><span class="p">(</span>
+                    <span class="n">sclang_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span>
+                    <span class="n">console_logging</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_console_logging</span><span class="p">,</span>
+                    <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">start_server</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span>
+                    <span class="n">scsynth_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span>
+                    <span class="n">scsynth_options</span><span class="o">=</span><span class="n">scsynth_options</span><span class="p">,</span>
+                    <span class="n">console_logging</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_console_logging</span><span class="p">,</span>
+                    <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blib</span><span class="p">,</span>
+                    <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">SC</span><span class="o">.</span><span class="n">default</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">SC</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">raise</span>
 
 <div class="viewcode-block" id="SC.start_sclang"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sc/index.html#sc3nb.SC.start_sclang">[docs]</a>    <span class="k">def</span> <span class="nf">start_sclang</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">sclang_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">console_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start this SuperCollider language</span>
 
@@ -555,6 +574,8 @@
 <span class="sd">        allowed_parents : Sequence[str], optional</span>
 <span class="sd">            Names of parents that are allowed for other instances of</span>
 <span class="sd">            sclang/scsynth processes, by default ALLOWED_PARENTS</span>
+<span class="sd">        timeout : float, optional</span>
+<span class="sd">            timeout for starting the executable, by default 5</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="o">=</span> <span class="n">SCLang</span><span class="p">()</span>
@@ -563,16 +584,15 @@
                     <span class="n">sclang_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span>
                     <span class="n">console_logging</span><span class="o">=</span><span class="n">console_logging</span><span class="p">,</span>
                     <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
                 <span class="p">)</span>
-            <span class="k">except</span> <span class="n">ProcessTimeout</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">excep</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;starting sclang failed&quot;</span><span class="p">)</span>
-                <span class="k">raise</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting scsynth failed - </span><span class="si">{</span><span class="n">excep</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">excep</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span><span class="o">.</span><span class="n">connect_to_server</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_try_to_connect</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;sclang already started&quot;</span><span class="p">)</span></div>
+            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;sclang already started&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SC.start_server"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sc/index.html#sc3nb.SC.start_server">[docs]</a>    <span class="k">def</span> <span class="nf">start_server</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -581,6 +601,7 @@
         <span class="n">console_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Start this SuperCollider server</span>
 
@@ -597,6 +618,8 @@
 <span class="sd">        allowed_parents : Sequence[str], optional</span>
 <span class="sd">            Names of parents that are allowed for other instances of</span>
 <span class="sd">            sclang/scsynth processes, by default ALLOWED_PARENTS</span>
+<span class="sd">        timeout : float, optional</span>
+<span class="sd">            timeout for starting the executable, by default 5</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">SCServer</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">scsynth_options</span><span class="p">)</span>
@@ -606,15 +629,24 @@
                     <span class="n">console_logging</span><span class="o">=</span><span class="n">console_logging</span><span class="p">,</span>
                     <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
                     <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span><span class="p">,</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
                 <span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span><span class="o">.</span><span class="n">connect_to_server</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="p">)</span>
-            <span class="k">except</span> <span class="n">ProcessTimeout</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">excep</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;starting scsynth failed&quot;</span><span class="p">)</span>
-                <span class="k">raise</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting scsynth failed - </span><span class="si">{</span><span class="n">excep</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">excep</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_try_to_connect</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;scsynth already started&quot;</span><span class="p">)</span></div>
+            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;scsynth already started&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SC._try_to_connect"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sc/index.html#sc3nb.SC._try_to_connect">[docs]</a>    <span class="k">def</span> <span class="nf">_try_to_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span><span class="o">.</span><span class="n">connect_to_server</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">excep</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;connecting </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="si">}</span><span class="s2"> failed&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">excep</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="SC.server"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sc/index.html#sc3nb.SC.server">[docs]</a>    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SCServer</span><span class="p">:</span>
@@ -651,18 +683,16 @@
 
 <div class="viewcode-block" id="SC.exit"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sc/index.html#sc3nb.SC.exit">[docs]</a>    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Closes SuperCollider and shuts down server&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">has_booted</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">is_local</span>
-        <span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sclang</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">SC</span><span class="o">.</span><span class="n">default</span><span class="p">:</span>
-            <span class="n">SC</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="kc">None</span></div></div>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">SC</span><span class="o">.</span><span class="n">default</span><span class="p">:</span>
+                <span class="n">SC</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="kc">None</span></div></div>
 </pre></div>
 
            </div>

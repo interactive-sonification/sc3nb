@@ -724,7 +724,7 @@ Starting sclang process...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.process_handling:Popen args: [&#39;C:\\Program Files\\SuperCollider-3.11.0\\sclang.exe&#39;]
+INFO:sc3nb.process_handling:Popen args: [&#39;C:/Program Files\\SuperCollider-3.11.0\\sclang.exe&#39;]
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -745,7 +745,7 @@ Booting SuperCollider Server...
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.process_handling:Popen args: [&#39;C:\\Program Files\\SuperCollider-3.11.0\\scsynth.exe&#39;, &#39;-u&#39;, &#39;57110&#39;, &#39;-l&#39;, &#39;6&#39;, &#39;-i&#39;, &#39;2&#39;, &#39;-o&#39;, &#39;2&#39;, &#39;-a&#39;, &#39;1024&#39;, &#39;-c&#39;, &#39;4096&#39;, &#39;-b&#39;, &#39;1024&#39;, &#39;-R&#39;, &#39;0&#39;]
+INFO:sc3nb.process_handling:Popen args: [&#39;C:/Program Files\\SuperCollider-3.11.0\\scsynth.exe&#39;, &#39;-u&#39;, &#39;57110&#39;, &#39;-l&#39;, &#39;6&#39;, &#39;-i&#39;, &#39;2&#39;, &#39;-o&#39;, &#39;2&#39;, &#39;-a&#39;, &#39;1024&#39;, &#39;-c&#39;, &#39;4096&#39;, &#39;-b&#39;, &#39;1024&#39;, &#39;-R&#39;, &#39;0&#39;]
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#39;/notify&#39;, 1, 8)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#39;/d_loadDir&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1, 0, -1, -1, 1, -1, -1)
@@ -756,9 +756,9 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 26
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 335544321, 0, -1, 268435457, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 402653185, 0, -1, 335544321, 1, -1, -1)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 469762049, 0, -1, 402653185, 1, -1, -1)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 7759)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 6677)
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC498B2048&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 7016)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 4113)
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFD9C348&gt; contents size 3
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
@@ -774,8 +774,8 @@ Done.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from (&#39;127.0.0.1&#39;, 57123): (&#39;/return&#39;, 57123)
-INFO:sc3nb.sclang:Connecting &lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; pid=23904&gt;&gt; with &lt;SCLang addr=(&#39;127.0.0.1&#39;, 57123), process=&lt;Process &#39;sclang&#39; pid=16516&gt;&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from (&#39;127.0.0.1&#39;, 57129): (&#39;/return&#39;, 57129)
+INFO:sc3nb.sclang:Connecting &lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=23568&gt;&gt; with &lt;SCLang process=&lt;Process &#39;sclang&#39; (running) pid=4864&gt;&gt;
 INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;SCgf\x00\x00\x00\x02\x00\x01\x17sc3nb_vol..
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#39;/d_recv&#39;)
 </pre></div></div>
@@ -796,9 +796,9 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57133),
+This instance is at (&#39;127.0.0.1&#39;, 57130),
 Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
-                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57123)
+                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57129)
 
 </pre></div></div>
 </div>
@@ -817,8 +817,8 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57133),
- {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57123): &#39;sclang&#39;})
+((&#39;127.0.0.1&#39;, 57130),
+ {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57129): &#39;sclang&#39;})
 </pre></div></div>
 </div>
 <p>If you want to communicate via OSC with another receiver you could add it’s name via <code class="docutils literal notranslate"><span class="pre">sc.server.add_receiver(name:</span> <span class="pre">str,</span> <span class="pre">ip:</span> <span class="pre">str,</span> <span class="pre">port:</span> <span class="pre">int)</span></code> or you can pass a custom receiver when sending OSC</p>
@@ -845,10 +845,10 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57133),
+This instance is at (&#39;127.0.0.1&#39;, 57130),
 Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
-                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57123)
-                 &#34;sc3nb&#34; at (&#39;127.0.0.1&#39;, 57133)
+                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57129)
+                 &#34;sc3nb&#34; at (&#39;127.0.0.1&#39;, 57130)
 
 </pre></div></div>
 </div>
@@ -858,10 +858,10 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57133),
+((&#39;127.0.0.1&#39;, 57130),
  {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;,
-  (&#39;127.0.0.1&#39;, 57123): &#39;sclang&#39;,
-  (&#39;127.0.0.1&#39;, 57133): &#39;sc3nb&#39;})
+  (&#39;127.0.0.1&#39;, 57129): &#39;sclang&#39;,
+  (&#39;127.0.0.1&#39;, 57130): &#39;sc3nb&#39;})
 </pre></div></div>
 </div>
 <div class="section" id="Sending-OSC">
@@ -878,13 +878,13 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="section" id="Messages">
 <h3>Messages<a class="headerlink" href="#Messages" title="Permalink to this headline">¶</a></h3>
-<p>Use the <code class="docutils literal notranslate"><span class="pre">build_message</span></code> or the <code class="docutils literal notranslate"><span class="pre">pythonosc</span></code> package to build a OscMessage</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">OSCMessage</span></code> or the <code class="docutils literal notranslate"><span class="pre">python-osc</span></code> package to build a OscMessage</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.build_message<span class="o">?</span>
+<span></span>scn.OSCMessage<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -893,7 +893,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msg</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">build_message</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
+<span></span><span class="n">msg</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">OSCMessage</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1049,8 +1049,8 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">msg1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">build_message</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
-<span class="n">msg2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">build_message</span><span class="p">(</span><span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1001</span><span class="p">])</span>
+<span></span><span class="n">msg1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">OSCMessage</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
+<span class="n">msg2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">OSCMessage</span><span class="p">(</span><span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1001</span><span class="p">])</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">msg1</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">msg2</span><span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1060,7 +1060,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4AB921C8&gt;
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFF5BE48&gt; contents size 2
 </pre></div></div>
 </div>
 <p>Simpler is the usage of the context manager:</p>
@@ -1081,7 +1081,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4AB934C8&gt;
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFF76148&gt; contents size 2
 </pre></div></div>
 </div>
 <p>Here are some different styles of writing the same Sound with the Bundler features</p>
@@ -1215,8 +1215,8 @@ b&#39;#bundle\x00\x83\xaa~\x80\x19\x99\x98\x00\x00\x00\x004#bundle\x00\x83\xaa~\
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4V8\x08\xdex1i\x00\x00\x00 ..
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4A911C48&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4d\xb4\xb0\xcc%\xb2@\x00\x0..
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114E0F68F08&gt; contents size 10
 </pre></div></div>
 </div>
 <div class="section" id="Bundler-Timestamp">
@@ -1237,8 +1237,8 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4A92B448&gt;
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4A92B048&gt;
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFF491C8&gt; contents size 1
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114E0F65C08&gt; contents size 1
 </pre></div></div>
 </div>
 <p><strong>Attention:</strong></p>
@@ -1265,7 +1265,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4ABB9F48&gt;
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFF49B88&gt; contents size 2
 </pre></div></div>
 </div>
 <p>using <code class="docutils literal notranslate"><span class="pre">time.time()+timeoffset</span></code> for absolute times</p>
@@ -1285,8 +1285,8 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4ABB9608&gt;
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4ABB9608&gt;
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114E0F81B48&gt; contents size 1
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114E0F81B48&gt; contents size 1
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1309,7 +1309,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4ABB9B88&gt;
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114E0F62808&gt; contents size 100
 </pre></div></div>
 </div>
 </div>
@@ -1336,8 +1336,7 @@ INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4A918248&gt;
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFF43288&gt; contents size 2
 </pre></div></div>
 </div>
 </div>
@@ -1366,19 +1365,21 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
 WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4V8\x08\xdex1i\x00\x00\x00 ..
-INFO:sc3nb.osc.osc_communication:send to None : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4ABBE908&gt;
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/return&#39;, b&#39;#bundle\x00\xe4d\xb4\xb0\xcc%\xb2@\x00\x0..
+INFO:sc3nb.osc.osc_communication:send to scsynth : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114DFF5DB08&gt; contents size 3
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20011, 67108865, -1, -1, 0)
 WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1001, 1, -1, -1, 0)
 WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20009, 67108865, -1, 20011, 0)
 WARNING:sc3nb.sc_objects.server:Error from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/fail&#39;, &#39;/n_free&#39;, &#39;Node 1001 not found&#39;)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 20011, 67108865, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 20011, 67108865, 20009, -1, 0)
 </pre></div></div>
 </div>
 <p><strong>Note</strong> that it is important that we only wait on the Synth after the context of the Bundler is closed.</p>
@@ -1407,12 +1408,14 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 2
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20010, 67108865, -1, 20009, 0)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 1001, 1, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20008, 67108865, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20005, 67108865, -1, 20008, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20006, 67108865, -1, 20005, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20002, 67108865, -1, 20006, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20010, 67108865, -1, 20002, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20006, 67108865, -1, 20010, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20001, 67108865, -1, 20006, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20003, 67108865, -1, 20001, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 20009, 67108865, 20010, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_end&#39;, 20010, 67108865, 20006, -1, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20008, 67108865, -1, 20003, 0)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1606,13 +1609,21 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 AddressQueue /synced : []
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 1)
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1633,13 +1644,21 @@ AddressQueue /synced : []
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-AddressQueue /synced : []
+AddressQueue /synced : [1]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 2)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1657,7 +1676,7 @@ AddressQueue /synced : []
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-AddressQueue /synced : []
+AddressQueue /synced : [1, 2]
 </pre></div></div>
 </div>
 <p>You can see how many values were hold.</p>
@@ -1670,29 +1689,13 @@ AddressQueue /synced : []
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 1)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 2
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 2)
 </pre></div></div>
 </div>
 <p>Notice that these hold messages will be skipped.</p>
@@ -1758,9 +1761,8 @@ AddressQueue /synced : []
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20005, 67108865, -1, 20008, 0)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/synced&#39;, 42)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20009, 67108865, -1, 20010, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 20004, 67108865, -1, 20009, 0)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2176,7 +2178,7 @@ OSCdef.newMatching(&quot;ab&quot;, {|msg, time, addr, recvPort| addr.sendMsg(&#3
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address1&#39;, &#39;stoat&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address1&#39;, &#39;attso&#39;)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2185,7 +2187,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;stoat&#39;
+&#39;attso&#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2202,7 +2204,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, 
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address2&#39;, &#39;aisoontiicnf&#39;)
+INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, &#39;/address2&#39;, &#39;ntinaoiisfoc&#39;)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2211,7 +2213,7 @@ INFO:sc3nb.sc_objects.server:osc msg received from sclang: (&#39;/collect&#39;, 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;aisoontiicnf&#39;
+&#39;ntinaoiisfoc&#39;
 </pre></div></div>
 </div>
 </div>
@@ -2257,7 +2259,8 @@ OSCdef(\dinger, { | msg, time, addr, recvPort |
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.osc.osc_communication:send to (&#39;127.0.0.1&#39;, 57123) : &lt;sc3nb.osc.osc_communication.Bundler object at 0x000001BC4A918A88&gt;
+INFO:sc3nb.osc.osc_communication:send to sclang : &lt;sc3nb.osc.osc_communication.Bundler object at 0x00000114E0F9F248&gt; contents size 5
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1000, 1, -1, -1, 0)
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -2282,6 +2285,15 @@ INFO:sc3nb.osc.osc_communication:send to (&#39;127.0.0.1&#39;, 57123) : &lt;sc3n
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1002, 1, -1, 1001, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1003, 1, -1, 1002, 0)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 -&gt; OSCdef
@@ -2292,8 +2304,9 @@ INFO:sc3nb.osc.osc_communication:send to (&#39;127.0.0.1&#39;, 57123) : &lt;sc3n
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1000, 1, -1, -1, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1001, 1, -1, 1000, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1004, 1, -1, 1003, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1005, 1, -1, 1004, 0)
+INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1006, 1, -1, 1005, 0)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2310,11 +2323,6 @@ INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 10
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1003, 1, -1, 1002, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1004, 1, -1, 1003, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1005, 1, -1, 1004, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1006, 1, -1, 1005, 0)
-INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/n_go&#39;, 1007, 1, -1, 1006, 0)
 INFO:sc3nb.sc_objects.server:osc msg received from scsynth: (&#39;/done&#39;, &#39;/quit&#39;)
 </pre></div></div>
 </div>
