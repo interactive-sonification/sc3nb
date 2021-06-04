@@ -735,9 +735,10 @@ class OSCCommunication:
                     self._bundling_bundles[-1].add(package)
                     return
 
-        receiver_address = self._default_receiver
         if receiver is not None:
             receiver_address = self.lookup_receiver(receiver)
+        else:
+            receiver_address = self._default_receiver
 
         datagram = get_raw_osc(package)
 
@@ -746,43 +747,9 @@ class OSCCommunication:
             raise RuntimeError("Could not send data. Socket connection broken.")
 
         if isinstance(package, OscMessage):
-            msg = package
-            # logging
-            if _LOGGER.isEnabledFor(logging.INFO):
-                msg_params_str = str(msg.params)
-                if (
-                    not _LOGGER.isEnabledFor(logging.DEBUG)
-                    and len(str(msg.params)) > 55
-                ):
-                    msg_params_str = str(msg.params)[:55] + ".."
-                _LOGGER.debug(
-                    "send to %s : %s %s",
-                    self._check_sender(receiver_address),
-                    msg.address,
-                    msg_params_str,
-                )
-            # handling
-            reply_addr = self.get_reply_address(msg.address)
-            try:
-                if reply_addr is not None and reply_addr in self._msg_queues:
-                    if await_reply:
-                        return self._msg_queues[reply_addr].get(timeout, skip=True)
-                    else:
-                        self._msg_queues[reply_addr].skipped()
-                        return
-            except (Empty, TimeoutError) as error:
-                if isinstance(error, Empty):
-                    message = (
-                        f"Failed to get reply at '{reply_addr}' "
-                        f"after '{msg.address}' message to "
-                    )
-                elif isinstance(error, TimeoutError):
-                    message = f"Timed out after '{msg.address}' message to "
-                else:
-                    message = f"Error when sending '{msg.address}' message to "
-                message += f"{self._check_sender(receiver_address)}"
-                raise OSCCommunicationError(message, msg) from error
-
+            return self._handle_outgoing_message(
+                package, receiver_address, await_reply, timeout
+            )
         elif isinstance(package, OscBundle):
             # logging
             if _LOGGER.isEnabledFor(logging.INFO):
@@ -792,8 +759,53 @@ class OSCCommunication:
                     package,
                     len(package._contents),
                 )
+            # handling
+            # for each message we should skip queues here
         else:
             _LOGGER.info("send to %s : %s", receiver, package)
+
+    def _handle_outgoing_message(
+        self,
+        message: OscMessage,
+        receiver_address: Tuple[str, int],
+        await_reply: bool,
+        timeout: float,
+    ) -> Any:
+        # logging
+        if _LOGGER.isEnabledFor(logging.INFO):
+            msg_params_str = str(message.params)
+            if (
+                not _LOGGER.isEnabledFor(logging.DEBUG)
+                and len(str(message.params)) > 55
+            ):
+                msg_params_str = str(message.params)[:55] + ".."
+            _LOGGER.debug(
+                "send to %s : %s %s",
+                self._check_sender(receiver_address),
+                message.address,
+                msg_params_str,
+            )
+        # handling
+        reply_addr = self.get_reply_address(message.address)
+        try:
+            if reply_addr is not None and reply_addr in self._msg_queues:
+                if await_reply:
+                    return self._msg_queues[reply_addr].get(timeout, skip=True)
+                else:
+                    self._msg_queues[reply_addr].skipped()
+                    return
+        except (Empty, TimeoutError) as error:
+            if isinstance(error, Empty):
+                error_msg = (
+                    f"Failed to get reply at '{reply_addr}' "
+                    f"after '{message.address}' message to "
+                )
+            elif isinstance(error, TimeoutError):
+                error_msg = f"Timed out after '{message.address}' message to "
+            else:
+                error_msg = f"Error when sending '{message.address}' message to "
+            error_msg += f"{self._check_sender(receiver_address)}"
+            raise OSCCommunicationError(error_msg, message) from error
 
     def get_reply_address(self, msg_address: str) -> Optional[str]:
         """Get the corresponding reply address for the given address
