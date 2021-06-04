@@ -256,6 +256,37 @@ class Bundler:
             self.send(bundled=True)
 
 
+def get_raw_osc(package: Union[OscMessage, Bundler, OscBundle]) -> bytes:
+    """Get binary OSC representation
+
+    Parameters
+    ----------
+    package : Union[OscMessage, Bundler, OscBundle]
+        OSC Package object
+
+    Returns
+    -------
+    bytes
+        raw OSC binary representation of OSC Package
+
+    Raises
+    ------
+    ValueError
+        If package is not supported
+    """
+    if isinstance(package, Bundler):
+        # Bundler needs to be build, this ensures that
+        # relative timings are calculated just now
+        return package.build().dgram
+    else:
+        try:
+            return package.dgram
+        except AttributeError as error:
+            raise ValueError(
+                f"Package '{package}' not supported. It needs a dgram Attribute."
+            ) from error
+
+
 class MessageHandler(ABC):
     """Base class for Message Handling"""
 
@@ -695,7 +726,7 @@ class OSCCommunication:
         ValueError
             When the provided package is not supported.
         OSCCommunicationError
-            When the handling of a message fails.
+            When the handling of a package fails.
         """
         # bundling
         if bundled:
@@ -708,17 +739,7 @@ class OSCCommunication:
         if receiver is not None:
             receiver_address = self.lookup_receiver(receiver)
 
-        try:
-            # Bundler needs to be build, this ensures that
-            # relative timings are calculated just now
-            if isinstance(package, Bundler):
-                datagram = package.build().dgram
-            else:
-                datagram = package.dgram
-        except AttributeError as error:
-            raise ValueError(
-                f"Package '{package}' not supported. It needs a dgram Attribute."
-            ) from error
+        datagram = get_raw_osc(package)
 
         sent_bytes = self._osc_server.socket.sendto(datagram, receiver_address)
         if sent_bytes == 0:
