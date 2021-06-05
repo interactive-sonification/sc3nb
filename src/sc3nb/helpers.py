@@ -35,6 +35,32 @@ def linlin(
     return (value - x1) / (x2 - x1) * (y2 - y1) + y1
 
 
+def clip(
+    value: float, minimum: float = -float("inf"), maximum: float = float("inf")
+) -> float:
+    """Clips a value to a certain range
+
+    Parameters
+    ----------
+    value : float
+        Value to clip
+    minimum : float, optional
+        Minimum output value, by default -float("inf")
+    maximum : float, optional
+        Maximum output value, by default float("inf")
+
+    Returns
+    -------
+    float
+        clipped value
+    """
+    if value < minimum:
+        return minimum
+    if value > maximum:
+        return maximum
+    return value
+
+
 def midicps(midi_note: float) -> float:
     """Convert MIDI note to cycles per second
 
@@ -65,32 +91,6 @@ def cpsmidi(cps: float) -> float:
         corresponding MIDI note
     """
     return 69 + 12 * np.log2(cps / 440.0)
-
-
-def clip(
-    value: float, minimum: float = -float("inf"), maximum: float = float("inf")
-) -> float:
-    """Clips a value to a certain range
-
-    Parameters
-    ----------
-    value : float
-        Value to clip
-    minimum : float, optional
-        Minimum output value, by default -float("inf")
-    maximum : float, optional
-        Maximum output value, by default float("inf")
-
-    Returns
-    -------
-    float
-        clipped value
-    """
-    if value < minimum:
-        return minimum
-    if value > maximum:
-        return maximum
-    return value
 
 
 def dbamp(decibels: float) -> float:
