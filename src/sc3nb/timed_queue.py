@@ -263,7 +263,7 @@ class TimedQueueSC(TimedQueue):
         self.put(onset, bundler.send)
 
     def put_msg(
-        self, onset: int, msg: Union[OSCMessage, str], args: Iterable[Any]
+        self, onset: int, msg: Union[OSCMessage, str], msg_params: Iterable[Any]
     ) -> None:
         """Add a message to queue
 
@@ -273,10 +273,10 @@ class TimedQueueSC(TimedQueue):
             Sending timetag of the message
         msg : Union[OSCMessage, str]
             OSCMessage or OSC address
-        args : Iterable[Any]
-            If msg is str, this will be the arguments of the created OSCMessage
+        msg_params : Iterable[Any]
+            If msg is str, this will be the parameters of the created OSCMessage
         """
         if isinstance(msg, str):
-            self.put(onset, self.server.msg, args=(msg, args))
+            self.put(onset, self.server.msg, args=(msg, msg_params))
         else:
             self.put(onset, self.server.send, args=(msg,))

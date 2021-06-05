@@ -254,7 +254,7 @@ class SCLang:
         print("Starting sclang process...")
         self.process = Process(
             executable="sclang",
-            exec_path=sclang_path,
+            executable_path=sclang_path,
             console_logging=console_logging,
             allowed_parents=allowed_parents,
         )

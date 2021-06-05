@@ -13,12 +13,14 @@ class SynthTest(SCBaseTest):
         with self.assertRaises(RuntimeError):
             SynthTest.sc.lang
         self.custom_nodeid = 42
-        self.args = {"amp": 0.0, "num": 3}
+        self.synth_args = {"amp": 0.0, "num": 3}
         warnings.simplefilter("always", UserWarning)
         with self.assertWarnsRegex(
             UserWarning, "SynthDesc 's2' is unknown", msg="SynthDesc seems to be known"
         ):
-            self.synth = Synth("s2", controls=self.args, nodeid=self.custom_nodeid)
+            self.synth = Synth(
+                "s2", controls=self.synth_args, nodeid=self.custom_nodeid
+            )
         self.assertIsNone(self.synth._synth_desc)
         self.sc.server.sync()
 
@@ -68,7 +70,7 @@ class SynthTest(SCBaseTest):
         self.synth.freq = 300
         self.assertAlmostEqual(self.synth.get("freq"), 300)
 
-        for name, value in self.args.items():
+        for name, value in self.synth_args.items():
             self.assertAlmostEqual(self.synth.__getattr__(name), value)
 
     def test_new_warning(self):

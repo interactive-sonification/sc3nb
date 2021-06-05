@@ -10,7 +10,7 @@ import threading
 import time
 import warnings
 from queue import Empty, Queue
-from typing import Optional
+from typing import Optional, Sequence
 
 import psutil
 
@@ -142,23 +142,41 @@ class ProcessTimeout(Exception):
 
 
 class Process:
-    """Class for starting a executable and communication with it."""
+    """Class for starting a executable and communication with it.
+
+    Parameters
+    ----------
+    executable : str
+        Name of executable to start
+    programm_args : Optional[Sequence[str]], optional
+        Arguments to program start with Popen, by default None
+    executable_path : str, optional
+        Path with executalbe, by default system PATH
+    console_logging : bool, optional
+        Flag for controlling console logging, by default True
+    kill_others : bool, optional
+        Flag for controlling killing of other executables with the same name.
+        This is useful when processes where left over, by default True
+    allowed_parents : Sequence[str], optional
+        Sequence of parent names that won't be killed
+        when kill_others is True, by default None
+    """
 
     def __init__(
         self,
-        executable,
-        args=None,
-        exec_path=None,
-        console_logging=True,
-        kill_others=True,
-        allowed_parents=None,
+        executable: str,
+        programm_args: Optional[Sequence[str]] = None,
+        executable_path: str = None,
+        console_logging: bool = True,
+        kill_others: bool = True,
+        allowed_parents: Sequence[str] = None,
     ):
         self.executable = executable
-        self.exec_path = find_executable(self.executable, search_path=exec_path)
+        self.exec_path = find_executable(self.executable, search_path=executable_path)
         self.console_logging = console_logging
         self.popen_args = [self.exec_path]
-        if args is not None:
-            self.popen_args += args
+        if programm_args is not None:
+            self.popen_args += programm_args
 
         # kill other (leftover) subprocesses
         # https://github.com/jupyter/jupyter_client/issues/104

@@ -4,7 +4,7 @@ import warnings
 from enum import Enum, unique
 from queue import Empty
 from random import randint
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Set, Tuple
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Tuple
 from weakref import WeakValueDictionary
 
 from sc3nb.osc.osc_communication import (
@@ -25,7 +25,6 @@ from sc3nb.sc_objects.node import (
     Node,
     NodeCommand,
     NodeReply,
-    Synth,
     SynthCommand,
 )
 from sc3nb.sc_objects.synthdef import SynthDef, SynthDefinitionCommand
@@ -164,12 +163,12 @@ class ServerOptions:
         hardware_output_device: Optional[str] = None,
         other_options: Optional[Sequence[str]] = None,
     ):
-        # arguments as sequence as wanted by subprocess.Popen
-        self.args = []
+        # options as sequence as wanted by subprocess.Popen
+        self.options = []
 
         # UDP port
         self.udp_port = udp_port
-        self.args += ["-u", f"{self.udp_port}"]
+        self.options += ["-u", f"{self.udp_port}"]
 
         # max logins
         if 3 <= max_logins <= 32:
@@ -178,41 +177,41 @@ class ServerOptions:
             # max_logins must be between 3 (sc3nb, sclang (sc3nb), sclang (scide)) and 32
             # see https://scsynth.org/t/how-do-i-connect-sclang-to-an-already-running-server/2498/6
             raise ValueError("max logins must be between 3 and 32")
-        self.args += ["-l", f"{self.max_logins}"]
+        self.options += ["-l", f"{self.max_logins}"]
 
         # audio bus options
         self.num_input_buses = num_input_buses
-        self.args += ["-i", f"{self.num_input_buses}"]
+        self.options += ["-i", f"{self.num_input_buses}"]
         self.num_output_buses = num_output_buses
-        self.args += ["-o", f"{self.num_output_buses}"]
+        self.options += ["-o", f"{self.num_output_buses}"]
         if num_audio_buses < num_input_buses + num_output_buses:
             raise ValueError(
                 f"You need at least {num_input_buses + num_output_buses} audio buses"
             )
         self.num_audio_buses = num_audio_buses
-        self.args += ["-a", f"{self.num_audio_buses}"]
+        self.options += ["-a", f"{self.num_audio_buses}"]
 
         self.num_control_buses = num_control_buses
-        self.args += ["-c", f"{self.num_control_buses}"]
+        self.options += ["-c", f"{self.num_control_buses}"]
 
         self.num_sample_buffers = num_sample_buffers
-        self.args += ["-b", f"{self.num_sample_buffers}"]
+        self.options += ["-b", f"{self.num_sample_buffers}"]
 
         # publish to Rendezvous
         self.publish_rendezvous = 1 if publish_rendezvous else 0
-        self.args += ["-R", f"{self.publish_rendezvous}"]
+        self.options += ["-R", f"{self.publish_rendezvous}"]
 
         if block_size is not None:
             self.block_size = block_size
-            self.args += ["-z", f"{self.block_size}"]
+            self.options += ["-z", f"{self.block_size}"]
 
         if hardware_buffer_size is not None:
             self.hardware_buffer_size = hardware_buffer_size
-            self.args += ["-Z", f"{self.hardware_buffer_size}"]
+            self.options += ["-Z", f"{self.hardware_buffer_size}"]
 
         if hardware_sample_size is not None:
             self.hardware_sample_size = hardware_sample_size
-            self.args += ["-S", f"{self.hardware_sample_size}"]
+            self.options += ["-S", f"{self.hardware_sample_size}"]
 
         # hardware in/out device
         if not hardware_input_device:
@@ -224,7 +223,7 @@ class ServerOptions:
         else:
             self.hardware_output_device = hardware_output_device
         if hardware_input_device or hardware_output_device:
-            self.args += [
+            self.options += [
                 "-H",
                 f"{self.hardware_input_device} {self.hardware_output_device}".strip(),
             ]
@@ -232,7 +231,7 @@ class ServerOptions:
         # misc. options
         self.other_options = other_options
         if self.other_options:
-            self.args += self.other_options
+            self.options += self.other_options
 
     @property
     def first_private_bus(self) -> int:
@@ -245,7 +244,7 @@ class ServerOptions:
         return self.num_audio_buses - (self.num_output_buses + self.num_input_buses)
 
     def __repr__(self):
-        return f"<ServerOptions {self.args}>"
+        return f"<ServerOptions {self.options}>"
 
 
 class IDBlockAllocator:
@@ -483,8 +482,8 @@ class SCServer(OSCCommunication):
         self._scsynth_port = self.options.udp_port
         self.process = Process(
             executable=self._programm_name,
-            args=self.options.args,
-            exec_path=scsynth_path,
+            programm_args=self.options.options,
+            executable_path=scsynth_path,
             console_logging=console_logging,
             kill_others=kill_others,
             allowed_parents=allowed_parents,
@@ -587,7 +586,7 @@ class SCServer(OSCCommunication):
         port : int
             Port of sclang (NetAddr.langPort)
         """
-        self.add_receiver(name="sclang", ip="127.0.0.1", port=port)
+        self.add_receiver(name="sclang", ip_address="127.0.0.1", port=port)
         self.execute_init_hooks()
 
     def add_init_hook(
@@ -604,7 +603,7 @@ class SCServer(OSCCommunication):
         """
         self._server_tree.append((function, args))
 
-    def bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True):
+    def bundler(self, timestamp=0, msg=None, msg_params=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
 
         This allows the user to easly add messages/bundles and send it.
@@ -617,8 +616,8 @@ class SCServer(OSCCommunication):
             If timestamp <= 1e6 it is added to time.time().
         msg_addr : str
             SuperCollider address.
-        msg_args : list, optional
-            List of arguments to add to message.
+        msg_params : list, optional
+            List of parameters to add to message.
              (Default value = None)
 
         Returns
@@ -629,7 +628,7 @@ class SCServer(OSCCommunication):
         return super().bundler(
             timestamp=timestamp + self.latency,
             msg=msg,
-            msg_args=msg_args,
+            msg_params=msg_params,
             send_on_exit=send_on_exit,
         )
 
@@ -1098,17 +1097,14 @@ class SCServer(OSCCommunication):
         else:
             warnings.warn("Server is not local or not booted.")
 
-    def _log_message(self, sender, *args):
-        if len(str(args)) > 55:
-            args_str = str(args)[:55] + ".."
-        else:
-            args_str = str(args)
-        _LOGGER.info(
-            "osc msg received from %s: %s", self._check_sender(sender), args_str
-        )
+    def _log_message(self, sender, *params):
+        params = str(params)
+        if len(params) > 55:
+            params = params[:55] + ".."
+        _LOGGER.info("OSC msg received from %s: %s", self._check_sender(sender), params)
 
-    def _warn_fail(self, sender, *args):
-        _LOGGER.warning("Error from %s: %s", self._check_sender(sender), args)
+    def _warn_fail(self, sender, *params):
+        _LOGGER.warning("Error from %s: %s", self._check_sender(sender), params)
 
     def __repr__(self) -> str:
         if self.has_booted:

@@ -127,8 +127,7 @@ class Node(ABC):
 
     def __new__(
         cls,
-        name: Optional[str] = None,
-        controls: Dict[str, Any] = None,
+        *args: Any,
         nodeid: Optional[int] = None,
         server: Optional["SCServer"] = None,
         **kwargs: Any,
@@ -427,24 +426,24 @@ class Node(ABC):
         """
         # update cached current_control values
         with self._state_lock:
-            msg_args: List[Any] = [self.nodeid]
+            msg_params: List[Any] = [self.nodeid]
             if isinstance(argument, dict):
                 for arg, val in argument.items():
-                    msg_args.append(arg)
-                    msg_args.append(val)
+                    msg_params.append(arg)
+                    msg_params.append(val)
                     self._update_control(arg, val)
             elif isinstance(argument, list):
                 for arg_idx, arg in enumerate(argument):
                     if isinstance(arg, str):
                         self._update_control(arg, argument[arg_idx + 1])
-                msg_args.extend(argument)
+                msg_params.extend(argument)
             else:
                 if len(values) == 1:
                     self._update_control(argument, values[0])
                 else:
                     self._update_control(argument, values)
-                msg_args.extend([argument] + list(values))
-        msg = OSCMessage(NodeCommand.SET, msg_args)
+                msg_params.extend([argument] + list(values))
+        msg = OSCMessage(NodeCommand.SET, msg_params)
         if return_msg is True:
             return msg
         else:
@@ -522,13 +521,13 @@ class Node(ABC):
         OSCMessage
             if return_msg is True else self
         """
-        msg_args = [self.nodeid, control, bus.idxs[0]]
+        msg_params = [self.nodeid, control, bus.idxs[0]]
         if bus.num_channels > 1:
             map_command = NodeCommand.MAPAN if bus.is_audio_bus() else NodeCommand.MAPN
-            msg_args.append(bus.num_channels)
+            msg_params.append(bus.num_channels)
         else:
             map_command = NodeCommand.MAPA if bus.is_audio_bus() else NodeCommand.MAP
-        msg = OSCMessage(map_command, msg_args)
+        msg = OSCMessage(map_command, msg_params)
         if return_msg is True:
             return msg
         else:
@@ -922,12 +921,12 @@ class Synth(Node):
         # if we know they type of the argument and its list we use s_getn
         if default_value is not None and isinstance(default_value, list):
             command = SynthCommand.S_GETN
-            msg_args = [self.nodeid, control, len(default_value)]
+            msg_params = [self.nodeid, control, len(default_value)]
         else:
             command = SynthCommand.S_GET
-            msg_args = [self.nodeid, control]
+            msg_params = [self.nodeid, control]
 
-        msg = OSCMessage(command, msg_args)
+        msg = OSCMessage(command, msg_params)
         try:
             reply = self.server.send(msg)
         except OSCCommunicationError as osc_error:
@@ -1248,20 +1247,20 @@ class Group(Node):
         )
         return self
 
-    def _repr_pretty_(self, p, cylce):
+    def _repr_pretty_(self, printer, cylce):
         status = self._get_status_repr()
         if cylce:
-            p.text(f"Group({self.nodeid}) {status}>")
+            printer.text(f"Group({self.nodeid}) {status}>")
         else:
-            p.text(f"Group({self.nodeid}) {status} {self._current_controls}")
-            with p.group(2, " children=[", "]"):
+            printer.text(f"Group({self.nodeid}) {status} {self._current_controls}")
+            with printer.group(2, " children=[", "]"):
                 if self._children:
-                    p.breakable()
+                    printer.breakable()
                     for idx, child in enumerate(self._children):
                         if idx:
-                            p.text(",")
-                            p.breakable()
-                        p.pretty(child)
+                            printer.text(",")
+                            printer.breakable()
+                        printer.pretty(child)
 
     def __repr__(self) -> str:
         status = self._get_status_repr()
@@ -1346,9 +1345,9 @@ class NodeTree:
         group._update_group_state(children=children)
         return pos, group
 
-    def _repr_pretty_(self, p, cylce):
+    def _repr_pretty_(self, printer, cylce):
         if cylce:
-            p.text(f"NodeTree root={self.root_nodeid}")
+            printer.text(f"NodeTree root={self.root_nodeid}")
         else:
-            p.text("NodeTree root=")
-            p.pretty(self.root)
+            printer.text("NodeTree root=")
+            printer.pretty(self.root)

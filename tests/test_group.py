@@ -50,13 +50,13 @@ class GroupTest(SCBaseTest):
         ):
             synth2 = Synth("s2", controls={"amp": 0.0}, target=self.group)
         GroupTest.sc.server.sync()
-        args = {"pan": -1.0, "num": 1}
-        for name, value in args.items():
+        cmd_args = {"pan": -1.0, "num": 1}
+        for name, value in cmd_args.items():
             self.group.set(name, value)
         GroupTest.sc.server.sync()
         self.assertEqual(synth1.group, self.group.nodeid)
         self.assertEqual(synth2.group, self.group.nodeid)
-        for name, value in args.items():
+        for name, value in cmd_args.items():
             self.assertAlmostEqual(synth1.get(name), value)
             self.assertAlmostEqual(synth2.get(name), value)
 

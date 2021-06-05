@@ -83,7 +83,7 @@ class Volume:
                     if self._synth_name is None:
                         warnings.warn("Volume SynthDef unknown. Cannot set volume.")
                         return
-                    args = {
+                    controls = {
                         "volumeAmp": amp,
                         "volumeLag": self._lag,
                         "bus": self._server.output_bus.idxs[0],
@@ -92,7 +92,7 @@ class Volume:
                         self._synth_name,
                         add_action=AddAction.AFTER,
                         target=self._server.default_group,
-                        controls=args,
+                        controls=controls,
                         server=self._server,
                     )
                 else:

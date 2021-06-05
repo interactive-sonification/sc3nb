@@ -134,10 +134,10 @@ class SynthDef:
             server = sc3nb.SC.get_default().server
 
         def _load_synthdef(path):
-            args: List[Union[str, bytes]] = [path.as_posix()]
+            cmd_args: List[Union[str, bytes]] = [path.as_posix()]
             if completion_msg is not None:
-                args.append(completion_msg)
-            server.msg(SynthDefinitionCommand.LOAD_DIR, args, await_reply=True)
+                cmd_args.append(completion_msg)
+            server.msg(SynthDefinitionCommand.LOAD_DIR, cmd_args, await_reply=True)
 
         if synthdef_dir is None:
             ref = libresources.files(sc3nb.resources) / "synthdefs"
