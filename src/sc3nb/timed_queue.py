@@ -16,7 +16,7 @@ class Event:
 
     Parameters
     ----------
-    timetag : int
+    timestamp : float
         Time event should be executed
     function : Callable[..., None]
         Function to be executed
@@ -28,7 +28,7 @@ class Event:
 
     def __init__(
         self,
-        timetag: int,
+        timestamp: float,
         function: Callable[..., None],
         args: Iterable[Any],
         spawn: bool = False,
@@ -37,7 +37,7 @@ class Event:
             thread = threading.Thread(target=function, args=args)
             function = thread.start
             args = ()
-        self.timetag = timetag
+        self.timestamp = timestamp
         self.function = function
         self.args = args
 
@@ -46,16 +46,16 @@ class Event:
         self.function(*self.args)
 
     def __eq__(self, other):
-        return self.timetag == other.timetag
+        return self.timestamp == other.timestamp
 
     def __lt__(self, other):
-        return self.timetag < other.timetag
+        return self.timestamp < other.timestamp
 
     def __le__(self, other):
-        return self.timetag <= other.timetag
+        return self.timestamp <= other.timestamp
 
     def __repr__(self):
-        return "%s: %s" % (self.timetag, self.function.__name__)
+        return "%s: %s" % (self.timestamp, self.function.__name__)
 
 
 class TimedQueue:
@@ -112,7 +112,7 @@ class TimedQueue:
 
     def put(
         self,
-        timetag: int,
+        timestamp: float,
         function: Callable[..., None],
         args: Iterable[Any] = (),
         spawn: bool = False,
@@ -121,7 +121,7 @@ class TimedQueue:
 
         Parameters
         ----------
-        timetag : int
+        timestamp : float
             Time when event should be executed
         function : Callable[..., None]
             Function to be executed
@@ -140,16 +140,16 @@ class TimedQueue:
             raise TypeError("function argument cannot be called")
         if not isinstance(args, tuple):
             args = (args,)
-        new_event = Event(timetag, function, args, spawn)
+        new_event = Event(timestamp, function, args, spawn)
         with self.lock:
             self.event_list.append(new_event)
             evlen = len(self.event_list)
             if not self.onset_idx.any():
                 idx = 0
             else:
-                idx = np.searchsorted(self.onset_idx[:, 0], timetag)
+                idx = np.searchsorted(self.onset_idx[:, 0], timestamp)
             self.onset_idx = np.insert(
-                self.onset_idx, idx, [timetag, evlen - 1], axis=0
+                self.onset_idx, idx, [timestamp, evlen - 1], axis=0
             )
 
     def get(self) -> Event:
@@ -202,12 +202,12 @@ class TimedQueue:
                 break
             if self.event_list:
                 event = self.peek()
-                if event.timetag <= time.time() - self.start:
+                if event.timestamp <= time.time() - self.start:
                     # execute only if not too old
-                    if event.timetag > time.time() - self.start - self.drop_time_thr:
+                    if event.timestamp > time.time() - self.start - self.drop_time_thr:
                         event.execute()
                     self.pop()
-                # sleep_time = event_list[0].timetag - (time.time() - self.start) - 0.001
+                # sleep_time = event_list[0].timestamp - (time.time() - self.start) - 0.001
             time.sleep(sleep_time)
 
     def __repr__(self):

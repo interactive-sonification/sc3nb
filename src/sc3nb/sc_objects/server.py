@@ -603,17 +603,17 @@ class SCServer(OSCCommunication):
         """
         self._server_tree.append((function, args))
 
-    def bundler(self, timestamp=0, msg=None, msg_params=None, send_on_exit=True):
+    def bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
 
         This allows the user to easly add messages/bundles and send it.
 
         Parameters
         ----------
-        timestamp : int
+        timetag : float
             Time at which bundle content should be executed.
             This servers latency will be added upon this.
-            If timestamp <= 1e6 it is added to time.time().
+            If timetag <= 1e6 it is added to time.time().
         msg_addr : str
             SuperCollider address.
         msg_params : list, optional
@@ -626,7 +626,7 @@ class SCServer(OSCCommunication):
             bundler for OSC bundling.
         """
         return super().bundler(
-            timestamp=timestamp + self.latency,
+            timetag=timetag + self.latency,
             msg=msg,
             msg_params=msg_params,
             send_on_exit=send_on_exit,

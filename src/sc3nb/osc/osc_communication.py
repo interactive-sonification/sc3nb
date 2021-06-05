@@ -20,6 +20,7 @@ from pythonosc.osc_bundle import OscBundle
 from pythonosc.osc_bundle_builder import OscBundleBuilder
 from pythonosc.osc_message import OscMessage
 from pythonosc.osc_message_builder import OscMessageBuilder
+from pythonosc.osc_packet import OscPacket, ParseError
 from pythonosc.osc_server import OSCUDPServer, ThreadingOSCUDPServer
 
 import sc3nb
@@ -134,7 +135,7 @@ class Bundler:
 
     def __init__(
         self,
-        timestamp: float = 0,
+        timetag: float = 0,
         msg: Optional[Union[OSCMessage, str]] = None,
         msg_params: Optional[Sequence[Any]] = None,
         server: Optional["OSCCommunication"] = None,
@@ -145,9 +146,9 @@ class Bundler:
 
         Parameters
         ----------
-        timestamp : float, optional
+        timetag : float, optional
             Starting time at which bundle content should be executed.
-            If timestamp <= 1e6 it is assumed to be relativ
+            If timetag <= 1e6 it is assumed to be relativ
             and is added to time.time(), by default 0
         msg : OSCMessage or str, optional
             OSCMessage or message address, by default None
@@ -160,7 +161,7 @@ class Bundler:
         send_on_exit : bool, optional
             Wether the bundle is send when using as context manger, by default True
         """
-        self.timestamp = timestamp
+        self.timetag = timetag
         self.default_receiver = receiver
         if server is not None:
             self.server = server
@@ -176,6 +177,12 @@ class Bundler:
                 msg = OSCMessage(msg, msg_params)
             self.contents.append(msg)
         self.send_on_exit = send_on_exit
+
+    @property
+    def dgram(self) -> bytes:
+        # Bundler needs to be build, this ensures that
+        # relative timings are calculated just now
+        return self.to_pythonosc().dgram
 
     def wait(self, time_passed: float) -> None:
         """Add time to internal time
@@ -193,9 +200,9 @@ class Bundler:
         Parameters
         ----------
         args : OSCMessage or Bundler or Bundler arguments like
-               (timestamp, msg_addr, msg_params)
-               (timestamp, msg_addr)
-               (timestamp, msg)
+               (timetag, msg_addr, msg_params)
+               (timetag, msg_addr)
+               (timetag, msg)
 
         Returns
         -------
@@ -208,8 +215,8 @@ class Bundler:
                 bundler = Bundler(self.passed_time, content)
             elif isinstance(content, Bundler):
                 bundler = copy.deepcopy(content)
-                if bundler.timestamp < 1e6:
-                    bundler.timestamp += self.passed_time
+                if bundler.timetag < 1e6:
+                    bundler.timetag += self.passed_time
             else:
                 raise ValueError(
                     f"Cannot add {content} of type {type(content)}. "
@@ -219,64 +226,19 @@ class Bundler:
                 "%s Appending %s to Bundler with time %s",
                 self.passed_time,
                 bundler,
-                bundler.timestamp,
+                bundler.timetag,
             )
             self.contents.append(bundler)
         else:
             if len(args) == 3:
-                timestamp, msg_addr, msg_params = args
-                self.add(Bundler(timestamp, msg_addr, msg_params))
+                timetag, msg_addr, msg_params = args
+                self.add(Bundler(timetag, msg_addr, msg_params))
             elif len(args) == 2:
-                timestamp, msg = args
-                self.add(Bundler(timestamp, msg))
+                timetag, msg = args
+                self.add(Bundler(timetag, msg))
             else:
                 raise ValueError(f"Invalid parameters {args}")
         return self
-
-    def __deepcopy__(self, memo) -> "Bundler":
-        timestamp = self.timestamp
-        new_bundler = Bundler(timestamp, server=self.server)
-        new_bundler.contents = copy.deepcopy(self.contents)
-        return new_bundler
-
-    def _calc_timetag(self, start_time: Optional[float]):
-        if self.timestamp > 1e6:
-            # absolute time
-            return self.timestamp
-        # use relativ timing
-        # if start_time is None use just now
-        if start_time is None:
-            start_time = time.time()
-        # time tag = relative offset (start time) + relative timestamp
-        return start_time + self.timestamp
-
-    def build(
-        self, start_time: Optional[float] = None, delay: Optional[float] = None
-    ) -> OscBundle:
-        """Build this bundle.
-
-        Parameters
-        ----------
-        start_time : Optional[float], optional
-            used as start time when using relativ timing, by default time.time()
-
-        Returns
-        -------
-        OscBundle
-            bundle instance for sending
-        """
-        start_time = self._calc_timetag(start_time)
-        # build bundle
-        builder = OscBundleBuilder(start_time + (delay if delay is not None else 0))
-        # add contents
-        for content in self.contents:
-            if isinstance(content, Bundler):
-                builder.add_content(content.build(start_time=start_time, delay=delay))
-            elif isinstance(content, OSCMessage):
-                builder.add_content(content.to_pythonosc())
-            else:
-                ValueError("Couldn't build with unsupported content: {content}")
-        return builder.build()
 
     def messages(
         self, start_time: Optional[float] = 0.0, delay: Optional[float] = None
@@ -299,9 +261,9 @@ class Bundler:
         messages = {}
         for content in self.contents:
             if isinstance(content, Bundler):
-                for timestamp, cont in content.messages(start_time, delay).items():
-                    messages.setdefault(timestamp, [])
-                    messages[timestamp].extend(cont)
+                for timetag, cont in content.messages(start_time, delay).items():
+                    messages.setdefault(timetag, [])
+                    messages[timetag].extend(cont)
             elif isinstance(content, OSCMessage):
                 timetag = start_time + (delay if delay is not None else 0)
                 messages.setdefault(timetag, [])
@@ -341,6 +303,52 @@ class Bundler:
             receiver = server.lookup_receiver(self.default_receiver)
         server.send(self, receiver=receiver, bundled=bundled)
 
+    def to_pythonosc(
+        self, start_time: Optional[float] = None, delay: Optional[float] = None
+    ) -> OscBundle:
+        """Build this bundle.
+
+        Parameters
+        ----------
+        start_time : Optional[float], optional
+            used as start time when using relativ timing, by default time.time()
+
+        Returns
+        -------
+        OscBundle
+            bundle instance for sending
+        """
+        start_time = self._calc_timetag(start_time)
+        # build bundle
+        builder = OscBundleBuilder(start_time + (delay if delay is not None else 0))
+        # add contents
+        for content in self.contents:
+            if isinstance(content, Bundler):
+                builder.add_content(
+                    content.to_pythonosc(start_time=start_time, delay=delay)
+                )
+            elif isinstance(content, OSCMessage):
+                builder.add_content(content.to_pythonosc())
+            else:
+                ValueError("Couldn't build with unsupported content: {content}")
+        return builder.build()
+
+    def _calc_timetag(self, start_time: Optional[float]):
+        if self.timetag > 1e6:
+            # absolute time
+            return self.timetag
+        # use relativ timing
+        # if start_time is None use just now
+        if start_time is None:
+            start_time = time.time()
+        # time tag = relative offset (start time) + relative timetag
+        return start_time + self.timetag
+
+    def __deepcopy__(self, memo) -> "Bundler":
+        new_bundler = Bundler(self.timetag, server=self.server)
+        new_bundler.contents = copy.deepcopy(self.contents)
+        return new_bundler
+
     def __enter__(self):
         self.server._bundling_lock.acquire(timeout=1)
         # if there is already a bundling bundle set when we have
@@ -360,7 +368,9 @@ class Bundler:
             self.send(bundled=True)
 
 
-def get_raw_osc(package: Union[OSCMessage, Bundler, OscMessage, OscBundle]) -> bytes:
+def convert_to_sc3nb_osc(
+    data: Union[OSCMessage, Bundler, OscMessage, OscBundle, bytes]
+) -> Union[OSCMessage, Bundler]:
     """Get binary OSC representation
 
     Parameters
@@ -378,17 +388,30 @@ def get_raw_osc(package: Union[OSCMessage, Bundler, OscMessage, OscBundle]) -> b
     ValueError
         If package is not supported
     """
-    if isinstance(package, Bundler):
-        # Bundler needs to be build, this ensures that
-        # relative timings are calculated just now
-        return package.build().dgram
+    if isinstance(data, (OSCMessage, Bundler)):
+        return data
+
+    if isinstance(data, bytes):
+        dgram = data
     else:
         try:
-            return package.dgram
-        except AttributeError as error:
+            dgram = data.dgram
+            packet = OscPacket(dgram)
+        except (AttributeError, ParseError) as error:
             raise ValueError(
-                f"Package '{package}' not supported. It needs a dgram Attribute."
+                f"Unsupported data of type {type(data)} : {data}"
             ) from error
+        if OscMessage.dgram_is_message(dgram) and len(packet.messages) == 1:
+            message = packet.messages[0]
+            return OSCMessage(message.address, message.params)
+
+        bundler = Bundler()
+        for timed_msg in packet.messages:
+            bundler.add(
+                timed_msg.time,
+                OSCMessage(timed_msg.message.address, timed_msg.message.params),
+            )
+        return bundler
 
 
 class MessageHandler(ABC):
@@ -852,9 +875,8 @@ class OSCCommunication:
         else:
             receiver_address = self._default_receiver
 
-        sent_bytes = self._osc_server.socket.sendto(
-            get_raw_osc(package), receiver_address
-        )
+        package = convert_to_sc3nb_osc(package)
+        sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
         if sent_bytes == 0:
             raise RuntimeError("Could not send data. Socket connection broken.")
 
@@ -976,7 +998,7 @@ class OSCCommunication:
 
     def bundler(
         self,
-        timestamp: float = 0,
+        timetag: float = 0,
         msg: Optional[Union[OSCMessage, str]] = None,
         msg_params: Optional[Sequence[Any]] = None,
         send_on_exit: bool = True,
@@ -987,9 +1009,9 @@ class OSCCommunication:
 
         Parameters
         ----------
-        timestamp : int
+        timetag : int
             Time at which bundle content should be executed.
-            If timestamp <= 1e6 it is added to time.time().
+            If timetag <= 1e6 it is added to time.time().
         msg : OSCMessage or str, optional
             OSCMessage or message address, by default None
         msg_params : sequence of any type, optional
@@ -1003,7 +1025,7 @@ class OSCCommunication:
             bundler for OSC bundling.
         """
         return Bundler(
-            timestamp=timestamp,
+            timetag=timetag,
             msg=msg,
             msg_params=msg_params,
             server=self,

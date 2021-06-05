@@ -1,4 +1,3 @@
-import logging
 import time
 
 from sc3nb import Synth
@@ -34,30 +33,18 @@ class BundlerTest(SCBaseTest):
             server_bundler_add.add(0.0, "/status")
             server_bundler_add.add(time_between, "/status")
 
-        with Bundler(
-            timestamp=self.sc.server.latency, send_on_exit=False
-        ) as bundler_add:
+        with Bundler(timetag=self.sc.server.latency, send_on_exit=False) as bundler_add:
             bundler_add.add(0.0, "/status")
             bundler_add.add(time_between, "/status")
 
-        server_auto_bundle = server_bundler_auto_bundling.build(start_time=0).dgram
-        server_bundle = server_bundler_add.build(start_time=0).dgram
-        bundle = bundler_add.build(start_time=0).dgram
+        server_auto_bundle = server_bundler_auto_bundling.to_pythonosc(
+            start_time=0
+        ).dgram
+        server_bundle = server_bundler_add.to_pythonosc(start_time=0).dgram
+        bundle = bundler_add.to_pythonosc(start_time=0).dgram
 
         self.assertEqual(server_bundle, bundle)
         self.assertEqual(server_auto_bundle, bundle)
-
-    def test_bundler_message_skip(self):
-        value = 1337
-        with Bundler() as bundler:
-            bundler.add(0, "/sync", value)
-        t0 = time.time()
-        while self.sc.server.msg_queues["/synced"].size <= 0:
-            self.assertLess(time.time() - t0, 0.2)
-        with self.assertLogs(level=logging.WARNING) as log:
-            sync_val = BundlerTest.sc.server.sync()
-        self.assertTrue("skipped value 1337" in log.output[-1])
-        self.assertTrue(sync_val)
 
     def test_bundler_messages(self):
         start = 2

@@ -112,7 +112,7 @@ class Recorder:
 
     def start(
         self,
-        timestamp: Optional[float] = 0,
+        timetag: Optional[float] = 0,
         duration: Optional[float] = None,
         node: Union[Node, int] = 0,
         bus: Optional[int] = 0,
@@ -121,7 +121,7 @@ class Recorder:
 
         Parameters
         ----------
-        timestamp : Optional[float], optional
+        timetag : Optional[float], optional
             Time (or time offset when <1e6) to start, by default 0
         duration : Optional[float], optional
             Length of the recording, by default until stopped.
@@ -139,7 +139,7 @@ class Recorder:
             raise RuntimeError(f"Recorder state must be PREPARED but is {self._state}")
         args = dict(bus=bus, duration=duration or -1, bufnum=self._record_buffer.bufnum)
 
-        with self._server.bundler(timestamp=timestamp):
+        with self._server.bundler(timetag=timetag):
             self._record_synth = Synth(
                 self._synth_name,
                 controls=args,
@@ -149,12 +149,12 @@ class Recorder:
             )
         self._state = RecorderState.RECORDING
 
-    def pause(self, timestamp: Optional[float] = 0):
+    def pause(self, timetag: Optional[float] = 0):
         """Pause the recording.
 
         Parameters
         ----------
-        timestamp : Optional[float], optional
+        timetag : Optional[float], optional
             Time (or time offset when <1e6) to pause, by default 0
 
         Raises
@@ -164,16 +164,16 @@ class Recorder:
         """
         if self._state != RecorderState.RECORDING or self._record_synth is None:
             raise RuntimeError(f"Recorder state must be RECORDING but is {self._state}")
-        with self._server.bundler(timestamp=timestamp):
+        with self._server.bundler(timetag=timetag):
             self._record_synth.run(False)
         self._state = RecorderState.PAUSED
 
-    def resume(self, timestamp: Optional[float] = 0):
+    def resume(self, timetag: Optional[float] = 0):
         """Resume the recording
 
         Parameters
         ----------
-        timestamp : Optional[float], optional
+        timetag : Optional[float], optional
             Time (or time offset when <1e6) to resume, by default 0
 
         Raises
@@ -183,16 +183,16 @@ class Recorder:
         """
         if self._state != RecorderState.PAUSED or self._record_synth is None:
             raise RuntimeError(f"Recorder state must be PAUSED but is {self._state}")
-        with self._server.bundler(timestamp=timestamp):
+        with self._server.bundler(timetag=timetag):
             self._record_synth.run(True)
         self._state = RecorderState.RECORDING
 
-    def stop(self, timestamp: Optional[float] = 0):
+    def stop(self, timetag: Optional[float] = 0):
         """Stop the recording.
 
         Parameters
         ----------
-        timestamp : Optional[float], optional
+        timetag : Optional[float], optional
             Time (or time offset when <1e6) to stop, by default 0
 
         Raises
@@ -208,7 +208,7 @@ class Recorder:
                 f"Recorder state must be RECORDING or PAUSED but is {self._state}"
             )
 
-        with self._server.bundler(timestamp=timestamp):
+        with self._server.bundler(timetag=timetag):
             self._record_synth.free()
             self._record_synth = None
             self._record_buffer.close()
