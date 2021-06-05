@@ -1,4 +1,4 @@
-name: tests
+name: ci
 
 on:
   push:
@@ -10,6 +10,17 @@ on:
     - master
     - develop
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup
+      - uses: actions/setup-python@v2
+      - run: |
+          python -m pip install tox
+      - name: Run Linter
+      - run: |
+          tox -e pre-commit,check-manifest
   test:
     strategy:
       matrix:
