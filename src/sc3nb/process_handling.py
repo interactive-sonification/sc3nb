@@ -71,7 +71,7 @@ def find_executable(
         # executable files on OS/2 can have an arbitrary extension, but
         # .exe is automatically appended if no dot is present in the name
         if not ext:
-            executable = executable + ".exe"
+            executable += ".exe"
     elif platform.system() == "Windows":
         pathext = os.environ["PATHEXT"].lower().split(os.pathsep)
         _, ext = os.path.splitext(executable)
@@ -114,10 +114,8 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
                     )
                     _LOGGER.debug("Parents cmdlines: %s", parent_names)
                     if any(
-                        [
-                            allowed_parent in parent_names
-                            for allowed_parent in allowed_parents
-                        ]
+                        allowed_parent in parent_names
+                        for allowed_parent in allowed_parents
                     ):
                         continue
             _LOGGER.debug("Terminating %s parents: %s", proc, proc.parents())
@@ -251,9 +249,7 @@ class Process:
                     if expect is not None and re.search(expect, out):
                         expect_found = True
             except Empty:
-                if expect and not expect_found:
-                    pass
-                else:
+                if expect is None or expect_found:
                     return out.strip()
             time.sleep(0.001)
 
@@ -306,8 +302,5 @@ class Process:
             process_status = f"pid={self.popen.pid}"
         else:
             process_status = f"returncode={returncode}"
-        if self.output_reader_thread.is_alive():
-            thread_status = "running"
-        else:
-            thread_status = "died"
+        thread_status = "running" if self.output_reader_thread.is_alive() else "died"
         return f"<Process '{self.executable}' ({thread_status}) {process_status}>"

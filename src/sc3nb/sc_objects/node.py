@@ -200,10 +200,7 @@ class Node(ABC):
         self._nodeid = nodeid if nodeid is not None else self._server.allocate_node_id()
         self._group = None
 
-        if target is not None:
-            self._target_id = Node._get_nodeid(target)
-        else:
-            self._target_id = None
+        self._target_id = Node._get_nodeid(target) if target is not None else None
         if add_action is not None:
             self._add_action = AddAction(add_action)
         else:
@@ -250,11 +247,11 @@ class Node(ABC):
             self._set_node_attrs(target=target, add_action=add_action)
 
     def _get_status_repr(self) -> str:
-        running_symbol = "~" if self.is_running else "-"
         status = ""
         if self.started and not self.is_playing:
             status += "s"
         if self.is_playing:
+            running_symbol = "~" if self.is_running else "-"
             status += running_symbol
         if self.freed:
             status += "f"
@@ -376,24 +373,29 @@ class Node(ABC):
         with self._state_lock:
             self._freed = True
         msg = OSCMessage(NodeCommand.FREE, [self.nodeid])
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
         return self
 
     def run(
-        self, flag: bool = True, return_msg: bool = False
+        self, on: bool = True, return_msg: bool = False
     ) -> Union["Node", OSCMessage]:
         """Turn node on or off with /n_run.
+
+        Parameters
+        ----------
+        on : bool
+            True for on, False for off, by default True
 
         Returns
         -------
         Node or OSCMessage
             self for chaining or OSCMessage when return_msg=True
         """
-        msg = OSCMessage(NodeCommand.RUN, [self.nodeid, 0 if flag is False else 1])
-        if return_msg is True:
+        msg = OSCMessage(NodeCommand.RUN, [self.nodeid, 1 if on else 1])
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -444,7 +446,7 @@ class Node(ABC):
                     self._update_control(argument, values)
                 msg_params.extend([argument] + list(values))
         msg = OSCMessage(NodeCommand.SET, msg_params)
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -493,10 +495,10 @@ class Node(ABC):
         Returns
         -------
         OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         msg = OSCMessage(NodeCommand.FILL, [self.nodeid, control, num_controls, value])
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -519,7 +521,7 @@ class Node(ABC):
         Returns
         -------
         OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         msg_params = [self.nodeid, control, bus.idxs[0]]
         if bus.num_channels > 1:
@@ -528,7 +530,7 @@ class Node(ABC):
         else:
             map_command = NodeCommand.MAPA if bus.is_audio_bus() else NodeCommand.MAP
         msg = OSCMessage(map_command, msg_params)
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -553,18 +555,15 @@ class Node(ABC):
         Returns
         -------
         OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         if release_time is not None:
-            if release_time <= 0:
-                release_time = 1
-            else:
-                release_time = -1 * (release_time + 1)
+            release_time = 1 if release_time <= 0 else -1 * (release_time + 1)
         else:
             release_time = 0
 
         msg = OSCMessage(NodeCommand.SET, [self.nodeid, "gate", release_time])
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -609,10 +608,10 @@ class Node(ABC):
         Returns
         -------
         Node or OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         msg = OSCMessage(NodeCommand.TRACE, [self.nodeid])
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -635,7 +634,7 @@ class Node(ABC):
         Returns
         -------
         Node or OSCMessage
-            if return_msg is True this will be the OSCMessage, else self
+            if return_msg this will be the OSCMessage, else self
 
         Raises
         ------
@@ -649,7 +648,7 @@ class Node(ABC):
         msg = OSCMessage(
             NodeCommand.ORDER, [add_action.value, another_node.nodeid, self.nodeid]
         )
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -889,7 +888,7 @@ class Synth(Node):
             [self._name, self.nodeid, self._add_action.value, self._target_id]
             + flatten_args,
         )
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True, await_reply=False)
@@ -980,18 +979,18 @@ class Synth(Node):
         # and then it is false until Synth instance is done with __init__
         if name in ["_server", "_initialized"] or not self._initialized:
             return super().__setattr__(name, value)
-        elif self._initialized:
-            with self._state_lock:
-                if name in self._current_controls or (
-                    self._synth_desc and name in self._synth_desc
-                ):
-                    return self.set(name, value)
-            warnings.warn(
-                f"Setting '{name}' as python attribute and not as Synth Parameter. "
-                "SynthDesc is unknown. sclang must be running and knowing this SynthDef "
-                "Use set method when using Synths without SynthDesc to set Synth Parameters."
-            )
-            super().__setattr__(name, value)
+        # if initialized try setting current controls
+        with self._state_lock:
+            if name in self._current_controls or (
+                self._synth_desc and name in self._synth_desc
+            ):
+                return self.set(name, value)
+        warnings.warn(
+            f"Setting '{name}' as python attribute and not as Synth Parameter. "
+            "SynthDesc is unknown. sclang must be running and knowing this SynthDef "
+            "Use set method when using Synths without SynthDesc to set Synth Parameters."
+        )
+        super().__setattr__(name, value)
 
     def __repr__(self) -> str:
         status = self._get_status_repr()
@@ -1091,15 +1090,11 @@ class Group(Node):
             super().new(target=target, add_action=add_action)
             if parallel is not None:
                 self._parallel = parallel
-            if self._parallel:
-                new_command = GroupCommand.P_NEW
-            else:
-                new_command = GroupCommand.G_NEW
-
+            new_command = GroupCommand.P_NEW if self._parallel else GroupCommand.G_NEW
         msg = OSCMessage(
             new_command, [self.nodeid, self._add_action.value, self._target_id]
         )
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True, await_reply=False)
@@ -1161,11 +1156,11 @@ class Group(Node):
         Returns
         -------
         OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         self._children = []
         msg = OSCMessage(GroupCommand.FREE_ALL, [self.nodeid])
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -1184,12 +1179,12 @@ class Group(Node):
         Returns
         -------
         OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         with self._state_lock:
             self._children = [c for c in self._children if isinstance(c, Group)]
         msg = OSCMessage(GroupCommand.DEEP_FREE, [self.nodeid])
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)
@@ -1208,12 +1203,12 @@ class Group(Node):
         Returns
         -------
         OSCMessage
-            if return_msg is True else self
+            if return_msg else self
         """
         msg = OSCMessage(
             GroupCommand.DUMP_TREE, [self.nodeid, 1 if post_controls else 0]
         )
-        if return_msg is True:
+        if return_msg:
             return msg
         else:
             self.server.send(msg, bundled=True)

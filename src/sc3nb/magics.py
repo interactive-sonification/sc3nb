@@ -80,10 +80,7 @@ class SC3Magics(Magics):
         Unknown
             cmd result
         """
-        if cell is None:
-            cmdstr = line
-        else:
-            cmdstr = cell
+        cmdstr = line if cell is None else cell
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.get_default().lang.cmd(cmdstr, pyvars=pyvars)
 
@@ -103,10 +100,7 @@ class SC3Magics(Magics):
         Unknown
             cmd result
         """
-        if cell is None:
-            cmdstr = line
-        else:
-            cmdstr = cell
+        cmdstr = line if cell is None else cell
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.get_default().lang.cmdv(cmdstr, pyvars=pyvars)
 
@@ -126,10 +120,7 @@ class SC3Magics(Magics):
         Unknown
             cmd result
         """
-        if cell is None:
-            cmdstr = line
-        else:
-            cmdstr = cell
+        cmdstr = line if cell is None else cell
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.get_default().lang.cmds(cmdstr, pyvars=pyvars)
 
@@ -153,10 +144,7 @@ class SC3Magics(Magics):
             pythonosc.osc_message.Message for list
             of supported types
         """
-        if cell is None:
-            cmdstr = line
-        else:
-            cmdstr = cell
+        cmdstr = line if cell is None else cell
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.get_default().lang.cmdg(cmdstr, pyvars=pyvars)
 
@@ -180,10 +168,7 @@ class SC3Magics(Magics):
             pythonosc.osc_message.Message for list
             of supported types
         """
-        if cell is None:
-            cmdstr = line
-        else:
-            cmdstr = cell
+        cmdstr = line if cell is None else cell
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.get_default().lang.cmdg(cmdstr, pyvars=pyvars, verbose=True)
 

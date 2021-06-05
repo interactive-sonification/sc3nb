@@ -176,13 +176,13 @@ class Bus:
             if isinstance(response, Iterable):
                 _, _, *values = response
                 return values
-            raise RuntimeError(f"Failed to get right response, got {response}")
         else:
             response = self._server.msg(ControlBusCommand.GET, [self._bus_idxs[0]])
             if isinstance(response, Iterable):
                 _, value = response
                 return value
-            raise RuntimeError(f"Failed to get right response, got {response}")
+
+        raise RuntimeError(f"Failed to get right response, got {response}")
 
     def free(self, clear: bool = True) -> None:
         """Mark this Buses ids as free again

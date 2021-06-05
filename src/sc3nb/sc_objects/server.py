@@ -783,7 +783,7 @@ class SCServer(OSCCommunication):
             If OSC communication fails.
         """
         flag = 1 if receive_notifications else 0
-        client_id = client_id if client_id else self._client_id
+        client_id = client_id if client_id is not None else self._client_id
         msg = OSCMessage(
             MasterControlCommand.NOTIFY, [flag, client_id]
         )  # flag, clientID
@@ -831,10 +831,7 @@ class SCServer(OSCCommunication):
         root : bool, optional
             If False free only the default group of this client, by default True
         """
-        if root:
-            group = self._root_node
-        else:
-            group = self.default_group
+        group = self._root_node if root else self.default_group
         group.free_all()
         self.msg(MasterControlCommand.CLEAR_SCHED)
         if root:
@@ -868,8 +865,7 @@ class SCServer(OSCCommunication):
         self._num_node_ids += 1
         if self._num_node_ids >= 2 ** 31:
             self._num_node_ids = 0
-        node_id = self._num_node_ids + 10000 * (self._client_id + 1)
-        return node_id
+        return self._num_node_ids + 10000 * (self._client_id + 1)
 
     def allocate_buffer_id(self, num: int = 1) -> Sequence[int]:
         """Get the next free buffer id.

@@ -178,10 +178,9 @@ def convert_to_sc(obj: Any) -> str:
             return "{}".format(obj[4:])
         if obj.startswith(r"\\") and not obj.startswith(r"\\\\"):
             return "'{}'".format(obj[1:])  # 'x' will be interpreted as symbol
-        else:
-            if obj.startswith(r"\\\\"):
-                obj = obj[1:]
-            return '"{}"'.format(obj)  # "x" will be interpreted as string
+        if obj.startswith(r"\\\\"):
+            obj = obj[1:]
+        return '"{}"'.format(obj)  # "x" will be interpreted as string
     # further type conversion can be added in the future
     return obj.__repr__()
 
@@ -266,18 +265,20 @@ class SCLang:
                 and "Primitive '_GetLangPort' failed" in process_timeout.output
             ):
                 raise SCLangError(
-                    "sclang could not bind udp socket. "
-                    "Try killing old sclang processes.",
+                    "sclang could not bind udp socket. Try killing old sclang processes.",
                     process_timeout.output,
                 ) from process_timeout
+
             raise process_timeout
         else:
             self.started = True
             print("Done.")
+            self._init()
 
-            print("Registering OSC /return callback in sclang...")
-            self.cmds(
-                r"""
+    def _init(self):
+        print("Registering OSC /return callback in sclang...")
+        self.cmds(
+            r"""
                 "sc3nb - Registering OSC /return callback".postln;
                 // NetAddr.useDoubles = true;
                 r = r ? ();
@@ -295,15 +296,15 @@ class SCLang:
                     addr.sendMsg(^replyAddress, msgContent);
                     result;  // result should be returned
                 };""",
-                pyvars={"replyAddress": ReplyAddress.RETURN_ADDR},
-            )
-            self.read(expect=self.prompt_str)
-            print("Done.")
+            pyvars={"replyAddress": ReplyAddress.RETURN_ADDR},
+        )
+        self.read(expect=self.prompt_str)
+        print("Done.")
 
-            print("Loading default SynthDescs")
-            self.load_synthdefs()
-            self.read(expect=self.prompt_str)
-            print("Done.")
+        print("Loading default SynthDescs")
+        self.load_synthdefs()
+        self.read(expect=self.prompt_str)
+        print("Done.")
 
     def load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None:
         """Load SynthDef files from path.
@@ -451,7 +452,7 @@ class SCLang:
         if get_result:
             try:
                 return_val = self._server.returns.get(timeout)
-            except Empty:
+            except Empty as empty_exception:
                 out = self.read()
                 if print_error:
                     print("ERROR: unable to receive /return message from sclang")
@@ -459,15 +460,14 @@ class SCLang:
                     print(out)
                 raise SCLangError(
                     "unable to receive /return message from sclang", sclang_output=out
-                )
+                ) from empty_exception
         if verbose or get_output:
             # get output after current command
             out = self.read(expect=self.prompt_str)
             if sys.platform == "darwin":
                 out = out[out.find(";\n") + 2 :]  # skip code echo
-            if verbose:
-                print(out)
-            if not get_result and get_output:
+            print(out)
+            if get_output and not get_result:
                 return_val = out
 
         return return_val

@@ -81,11 +81,7 @@ class TimedQueue:
         drop_time_threshold: float = 0.5,
     ) -> None:
         self.drop_time_thr = drop_time_threshold
-        if relative_time:
-            self.start = time.time()
-        else:
-            self.start = 0
-
+        self.start = time.time() if relative_time else 0
         self.onset_idx = np.empty((0, 2))
         self.event_list = []
         self.close_event = threading.Event()

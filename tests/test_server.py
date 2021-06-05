@@ -16,9 +16,9 @@ class ServerTest(TestCase):
 
     def test_connection_info(self):
         _, receivers = self.server.connection_info()
-        ip, port = next(iter(receivers.keys()))
+        ip_address, port = next(iter(receivers.keys()))
         self.assertEqual(len(receivers), 1)
-        self.assertEqual(ip, "127.0.0.1")
+        self.assertEqual(ip_address, "127.0.0.1")
         self.assertEqual(port, self.port)
 
     def test_is_local(self):

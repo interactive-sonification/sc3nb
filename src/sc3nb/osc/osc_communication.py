@@ -777,9 +777,10 @@ class OSCCommunication:
 
         """
         if print_info:
-            receivers_str = ""
-            for addr, name in self._receivers.items():
-                receivers_str += f'"{name}" at {addr}\n                 '
+            receivers_str = "".join(
+                f'"{name}" at {addr}\n                 '
+                for addr, name in self._receivers.items()
+            )
             print(
                 f"This instance is at {self._osc_server.server_address},\n"
                 f"Known receivers: {receivers_str}"

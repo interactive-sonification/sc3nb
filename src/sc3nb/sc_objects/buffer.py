@@ -192,15 +192,9 @@ class Buffer:
                 f"Sample rate of file ({self._sr}) does not "
                 f"match the SC Server sample rate ({server_sr})"
             )
-        if num_frames <= 0:
-            self._samples = data.shape[0]
-        else:
-            self._samples = num_frames
+        self._samples = data.shape[0] if num_frames <= 0 else num_frames
         if channels is None:
-            if len(data.shape) == 1:
-                channels = [0]
-            else:
-                channels = range(data.shape[1])
+            channels = [0] if len(data.shape) == 1 else range(data.shape[1])
         elif isinstance(channels, int):
             channels = [channels]
         self._channels = len(channels)
@@ -449,10 +443,7 @@ class Buffer:
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
 
-        if not isinstance(start, list):
-            values = [start, count, value]
-        else:
-            values = start
+        values = [start, count, value] if not isinstance(start, list) else start
         self._server.msg(BufferCommand.FILL, [self._bufnum] + values)
         return self
 
@@ -723,16 +714,15 @@ class Buffer:
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
 
-        playbuf_def = """
-        { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
-                var sig = PlayBuf.ar(^num_channels, bufnum,
-                    rate*BufRateScale.kr(bufnum),
-                    loop: loop,
-                    doneAction: Done.freeSelf);
-                Out.ar(out, Pan2.ar(sig, pan, amp))
-        }"""
-
         if self._synth_def is None:
+            playbuf_def = """
+            { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
+                    var sig = PlayBuf.ar(^num_channels, bufnum,
+                        rate*BufRateScale.kr(bufnum),
+                        loop: loop,
+                        doneAction: Done.freeSelf);
+                    Out.ar(out, Pan2.ar(sig, pan, amp))
+            }"""
             self._synth_def = SynthDef(
                 name=f"sc3nb_playbuf_{self.bufnum}", definition=playbuf_def
             )

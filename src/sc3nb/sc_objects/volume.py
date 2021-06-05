@@ -72,10 +72,7 @@ class Volume:
 
     def update_synth(self) -> None:
         """Update volume Synth"""
-        if self._muted:
-            amp = 0.0
-        else:
-            amp = dbamp(self._volume)
+        amp = 0.0 if self._muted else dbamp(self._volume)
         active = amp != 1.0
         if active:
             if self._server.is_running:

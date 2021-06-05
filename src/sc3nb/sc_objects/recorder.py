@@ -137,11 +137,8 @@ class Recorder:
         """
         if self._state != RecorderState.PREPARED:
             raise RuntimeError(f"Recorder state must be PREPARED but is {self._state}")
-        args = dict(
-            bus=bus,
-            duration=duration if duration else -1,
-            bufnum=self._record_buffer.bufnum,
-        )
+        args = dict(bus=bus, duration=duration or -1, bufnum=self._record_buffer.bufnum)
+
         with self._server.bundler(timestamp=timestamp):
             self._record_synth = Synth(
                 self._synth_name,
@@ -204,18 +201,18 @@ class Recorder:
             When trying to stop if not started.
         """
         if (
-            self._state in [RecorderState.RECORDING, RecorderState.PAUSED]
-            and self._record_synth is not None
+            self._state not in [RecorderState.RECORDING, RecorderState.PAUSED]
+            or self._record_synth is None
         ):
-            with self._server.bundler(timestamp=timestamp):
-                self._record_synth.free()
-                self._record_synth = None
-                self._record_buffer.close()
-            self._state = RecorderState.UNPREPARED
-        else:
             raise RuntimeError(
                 f"Recorder state must be RECORDING or PAUSED but is {self._state}"
             )
+
+        with self._server.bundler(timestamp=timestamp):
+            self._record_synth.free()
+            self._record_synth = None
+            self._record_buffer.close()
+        self._state = RecorderState.UNPREPARED
 
     def __repr__(self) -> str:
         return f"<Recorder [{self._state.value}]>"
