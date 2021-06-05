@@ -19,7 +19,7 @@ jobs:
         run: |
           python -m pip install tox
       - name: Run Linter
-      - run: |
+        run: |
           tox -e pre-commit,check-manifest
   test:
     strategy:
