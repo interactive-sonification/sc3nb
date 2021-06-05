@@ -147,7 +147,8 @@ class Bundler:
         ----------
         timestamp : float, optional
             Starting time at which bundle content should be executed.
-            If timestamp <= 1e6 it is added to time.time(), by default 0
+            If timestamp <= 1e6 it is assumed to be relativ
+            and is added to time.time(), by default 0
         msg : OSCMessage or str, optional
             OSCMessage or message address, by default None
         msg_params : sequence of any type, optional
@@ -238,25 +239,25 @@ class Bundler:
         new_bundler.contents = copy.deepcopy(self.contents)
         return new_bundler
 
-    def _calc_timeoffset(self, time_offset: Optional[float]):
-        # if time_offset is None this is the root bundler
-        if time_offset is None:
-            time_offset = time.time()
-        # time to unix time when relative
-        if self.timestamp <= 1e6:
-            # new time = relative offset (start time) + relative timestamp
-            time_offset = time_offset + self.timestamp
-        else:
+    def _calc_timetag(self, start_time: Optional[float]):
+        if self.timestamp > 1e6:
             # absolute time
-            time_offset = self.timestamp
-        return time_offset
+            return self.timestamp
+        # use relativ timing
+        # if start_time is None use just now
+        if start_time is None:
+            start_time = time.time()
+        # time tag = relative offset (start time) + relative timestamp
+        return start_time + self.timestamp
 
-    def build(self, time_offset: Optional[float] = None) -> OscBundle:
+    def build(
+        self, start_time: Optional[float] = None, delay: Optional[float] = None
+    ) -> OscBundle:
         """Build this bundle.
 
         Parameters
         ----------
-        time_offset : Optional[float], optional
+        start_time : Optional[float], optional
             used as start time when using relativ timing, by default time.time()
 
         Returns
@@ -264,13 +265,13 @@ class Bundler:
         OscBundle
             bundle instance for sending
         """
-        time_offset = self._calc_timeoffset(time_offset)
+        start_time = self._calc_timetag(start_time)
         # build bundle
-        builder = OscBundleBuilder(time_offset)
+        builder = OscBundleBuilder(start_time + (delay if delay is not None else 0))
         # add contents
         for content in self.contents:
             if isinstance(content, Bundler):
-                builder.add_content(content.build(time_offset=time_offset))
+                builder.add_content(content.build(start_time=start_time, delay=delay))
             elif isinstance(content, OSCMessage):
                 builder.add_content(content.to_pythonosc())
             else:
@@ -278,7 +279,7 @@ class Bundler:
         return builder.build()
 
     def messages(
-        self, time_offset: Optional[float] = None
+        self, start_time: Optional[float] = 0.0, delay: Optional[float] = None
     ) -> Dict[float, List[OSCMessage]]:
         """Generate a dict with all messages in this Bundler.
 
@@ -286,24 +287,25 @@ class Bundler:
 
         Parameters
         ----------
-        time_offset : Optional[float], optional
-            used as start time when using relativ timing, by default time.time()
+        start_time : Optional[float], optional
+            start time when using relativ timing, by default 0.0
 
         Returns
         -------
         Dict[float, List[OSCMessage]]
             dict containg all OSCMessages
         """
-        time_offset = self._calc_timeoffset(time_offset)
+        start_time = self._calc_timetag(start_time)
         messages = {}
         for content in self.contents:
             if isinstance(content, Bundler):
-                for timestamp, cont in content.messages().items():
+                for timestamp, cont in content.messages(start_time, delay).items():
                     messages.setdefault(timestamp, [])
                     messages[timestamp].extend(cont)
             elif isinstance(content, OSCMessage):
-                messages.setdefault(self.timestamp, [])
-                messages[self.timestamp].append(content)
+                timetag = start_time + (delay if delay is not None else 0)
+                messages.setdefault(timetag, [])
+                messages[timetag].append(content)
         return messages
 
     def send(
