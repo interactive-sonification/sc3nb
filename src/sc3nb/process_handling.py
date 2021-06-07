@@ -276,8 +276,12 @@ class Process:
         """
         _LOGGER.debug("Writing: '%s'", input_str)
         try:
-            self.popen.stdin.write(input_str)
+            written = self.popen.stdin.write(input_str)
             self.popen.stdin.flush()  # shouldnt be needed as buffering is disabled.
+            if written != len(input_str):
+                raise RuntimeError(
+                    f"Only written {written}/{len(input_str)} of input: '{input_str}'"
+                )
         except OSError as error:
             raise RuntimeError("Write to stdin failed") from error
 
