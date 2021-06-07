@@ -737,7 +737,8 @@ class SCServer(OSCCommunication):
     def load_synthdefs(
         self,
         synthdef_dir: Optional[str] = None,
-        completion_msg: bytes = None,
+        completion_msg: Optional[bytes] = None,
+        bundled: bool = False,
     ) -> None:
         """Load all SynthDefs from directory.
 
@@ -749,11 +750,15 @@ class SCServer(OSCCommunication):
             Message to be executed by the server when loaded, by default None
         wait : bool, optional
             If True wait for server reply, by default True
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
         """
         SynthDef.load_dir(
             synthdef_dir=synthdef_dir,
             completion_msg=completion_msg,
             server=self,
+            bundled=bundled,
         )
 
     def notify(

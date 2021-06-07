@@ -118,6 +118,7 @@ class SynthDef:
         synthdef_dir: Optional[str] = None,
         completion_msg: Optional[bytes] = None,
         server: Optional["SCServer"] = None,
+        bundled: bool = False,
     ):
         """Load all SynthDefs from directory.
 
@@ -129,24 +130,32 @@ class SynthDef:
             Message to be executed by the server when loaded, by default None
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
             server = sc3nb.SC.get_default().server
 
-        def _load_synthdef(path):
+        def _load_synthdefs(path):
             cmd_args: List[Union[str, bytes]] = [path.as_posix()]
             if completion_msg is not None:
                 cmd_args.append(completion_msg)
-            server.msg(SynthDefinitionCommand.LOAD_DIR, cmd_args, await_reply=True)
+            server.msg(
+                SynthDefinitionCommand.LOAD_DIR,
+                cmd_args,
+                await_reply=not bundled,
+                bundled=bundled,
+            )
 
         if synthdef_dir is None:
             ref = libresources.files(sc3nb.resources) / "synthdefs"
             with libresources.as_file(ref) as path:
-                _load_synthdef(path)
+                _load_synthdefs(path)
         else:
             path = Path(synthdef_dir)
             if path.exists() and path.is_dir():
-                _load_synthdef(path)
+                _load_synthdefs(path)
             else:
                 raise ValueError(f"Provided path {path} does not exist or is not a dir")
 
