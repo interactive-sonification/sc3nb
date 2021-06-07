@@ -75,8 +75,8 @@ class SynthDef:
     def send(
         cls,
         synthdef_bytes: bytes,
-        wait: bool = True,
         server: Optional["SCServer"] = None,
+        bundled: bool = False,
     ):
         """Send a SynthDef as bytes.
 
@@ -88,14 +88,25 @@ class SynthDef:
             If True wait for server reply.
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
             server = sc3nb.SC.get_default().server
-        server.msg(SynthDefinitionCommand.RECV, synthdef_bytes, await_reply=wait)
+        server.msg(
+            SynthDefinitionCommand.RECV,
+            synthdef_bytes,
+            await_reply=not bundled,
+            bundled=bundled,
+        )
 
     @classmethod
     def load(
-        cls, synthdef_path: str, wait: bool = True, server: Optional["SCServer"] = None
+        cls,
+        synthdef_path: str,
+        server: Optional["SCServer"] = None,
+        bundled: bool = False,
     ):
         """Load SynthDef file at path.
 
@@ -103,14 +114,20 @@ class SynthDef:
         ----------
         synthdef_path : str
             Path with the SynthDefs
-        wait : bool
-            If True wait for server reply.
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
             server = sc3nb.SC.get_default().server
-        server.msg(SynthDefinitionCommand.LOAD, synthdef_path, await_reply=wait)
+        server.msg(
+            SynthDefinitionCommand.LOAD,
+            synthdef_path,
+            await_reply=not bundled,
+            bundled=bundled,
+        )
 
     @classmethod
     def load_dir(
