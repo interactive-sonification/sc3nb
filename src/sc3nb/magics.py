@@ -172,6 +172,30 @@ class SC3Magics(Magics):
         pyvars = self._parse_pyvars(cmdstr)
         return sc3nb.SC.get_default().lang.cmdg(cmdstr, pyvars=pyvars, verbose=True)
 
+    @line_cell_magic
+    def scgs(self, line="", cell=None):
+        """Execute SuperCollider code returning output
+
+        Parameters
+        ----------
+        line : str, optional
+            Line of SuperCollider code, by default ''
+        cell : str, optional
+            Cell of SuperCollider code , by default None
+
+        Returns
+        -------
+        Unknown
+            cmd result
+            Output from SuperCollider code, not
+            all SC types supported, see
+            pythonosc.osc_message.Message for list
+            of supported types
+        """
+        cmdstr = line if cell is None else cell
+        pyvars = self._parse_pyvars(cmdstr)
+        return sc3nb.SC.get_default().lang.cmdg(cmdstr, pyvars=pyvars, verbose=False)
+
     def _parse_pyvars(self, code: str) -> Dict[str, Any]:
         """Parses SuperCollider code for python variables and their values
 
