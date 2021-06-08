@@ -275,6 +275,7 @@ class SynthDef:
         pyvars=None,
         name: Optional[str] = None,
         server: Optional["SCServer"] = None,
+        bundled: bool = False,
     ) -> str:
         """This method will add the current_def to SuperCollider.s
 
@@ -289,6 +290,9 @@ class SynthDef:
             name which this SynthDef will get
         server : SCServer, optional
             server where this SynthDef will be send to
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
 
         Returns
         -------
@@ -323,9 +327,9 @@ class SynthDef:
             raise RuntimeError(f"Adding SynthDef failed. {error}")
         else:
             if server is not None:
-                server.send_synthdef(synth_def_blob)
+                server.send_synthdef(synth_def_blob, bundled=bundled)
             else:
-                self.sc.server.send_synthdef(synth_def_blob)
+                self.sc.server.send_synthdef(synth_def_blob, bundled=bundled)
             return self.name
 
     def free(self) -> "SynthDef":

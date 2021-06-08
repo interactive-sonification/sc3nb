@@ -712,7 +712,7 @@ class SCServer(OSCCommunication):
         msg = OSCMessage(MasterControlCommand.SYNC, sync_id)
         return sync_id == self.send(msg, timeout=timeout)
 
-    def send_synthdef(self, synthdef_bytes: bytes, wait: bool = True):
+    def send_synthdef(self, synthdef_bytes: bytes, bundled: bool = False):
         """Send a SynthDef as bytes.
 
         Parameters
@@ -721,18 +721,24 @@ class SCServer(OSCCommunication):
             SynthDef bytes
         wait : bool
             If True wait for server reply.
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
         """
-        SynthDef.send(synthdef_bytes=synthdef_bytes, wait=wait, server=self)
+        SynthDef.send(synthdef_bytes=synthdef_bytes, server=self, bundled=bundled)
 
-    def load_synthdef(self, synthdef_path: str):
+    def load_synthdef(self, synthdef_path: str, bundled: bool = False):
         """Load SynthDef file at path.
 
         Parameters
         ----------
         synthdef_path : str
             Path with the SynthDefs
+        bundled : bool
+            Wether the OSC Messages can be bundled or not.
+            If True sc3nb will not wait for the server response, by default False
         """
-        SynthDef.load(synthdef_path=synthdef_path, server=self)
+        SynthDef.load(synthdef_path=synthdef_path, server=self, bundled=bundled)
 
     def load_synthdefs(
         self,
@@ -748,8 +754,6 @@ class SCServer(OSCCommunication):
             directory with SynthDefs, by default sc3nb default SynthDefs
         completion_msg : bytes, optional
             Message to be executed by the server when loaded, by default None
-        wait : bool, optional
-            If True wait for server reply, by default True
         bundled : bool
             Wether the OSC Messages can be bundled or not.
             If True sc3nb will not wait for the server response, by default False
