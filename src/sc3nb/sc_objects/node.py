@@ -376,7 +376,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def run(
@@ -398,7 +398,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def set(
@@ -449,7 +449,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def _update_control(self, control: str, value: Any) -> None:
@@ -501,7 +501,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def map(
@@ -533,7 +533,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def release(
@@ -566,7 +566,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def query(self) -> Union[SynthInfo, GroupInfo]:
@@ -614,7 +614,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def move(
@@ -651,7 +651,7 @@ class Node(ABC):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     # NodeWatcher needed
@@ -891,7 +891,7 @@ class Synth(Node):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True, await_reply=False)
+            self.server.send(msg, bundle=True, await_reply=False)
         return self
 
     def get(self, control: str) -> Any:
@@ -1097,7 +1097,7 @@ class Group(Node):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True, await_reply=False)
+            self.server.send(msg, bundle=True, await_reply=False)
         return self
 
     @property
@@ -1125,7 +1125,7 @@ class Group(Node):
             self
         """
         msg = OSCMessage(GroupCommand.HEAD, [self.nodeid, node.nodeid])
-        self.server.send(msg, bundable=True)
+        self.server.send(msg, bundle=True)
         return self
 
     def move_node_to_tail(self, node):
@@ -1142,7 +1142,7 @@ class Group(Node):
             self
         """
         msg = OSCMessage(GroupCommand.TAIL, [self.nodeid, node.nodeid])
-        self.server.send(msg, bundable=True)
+        self.server.send(msg, bundle=True)
         return self
 
     def free_all(self, return_msg=False):
@@ -1163,7 +1163,7 @@ class Group(Node):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def deep_free(self, return_msg=False):
@@ -1187,7 +1187,7 @@ class Group(Node):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def dump_tree(self, post_controls=True, return_msg=False):
@@ -1211,7 +1211,7 @@ class Group(Node):
         if return_msg:
             return msg
         else:
-            self.server.send(msg, bundable=True)
+            self.server.send(msg, bundle=True)
         return self
 
     def query_tree(self, include_controls=False) -> "Group":

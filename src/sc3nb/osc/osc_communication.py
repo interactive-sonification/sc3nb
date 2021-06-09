@@ -274,7 +274,7 @@ class Bundler:
         self,
         server: Optional["OSCCommunication"] = None,
         receiver: Tuple[str, int] = None,
-        bundable: bool = True,
+        bundle: bool = True,
     ):
         """Send this Bundler.
 
@@ -287,7 +287,7 @@ class Bundler:
         receiver : Tuple[str, int], optional
             Address (ip, port) to send to, if None it will send the bundle to
             the default receiver of the Bundler
-        bundable : bool, optional
+        bundle : bool, optional
             If True this is allowed to be bundled, by default True
 
         Raises
@@ -301,7 +301,7 @@ class Bundler:
             raise RuntimeError("No server for sending provided.")
         if receiver is None and self.default_receiver is not None:
             receiver = server.lookup_receiver(self.default_receiver)
-        server.send(self, receiver=receiver, bundable=bundable)
+        server.send(self, receiver=receiver, bundle=bundle)
 
     def to_pythonosc(
         self, start_time: Optional[float] = None, delay: Optional[float] = None
@@ -365,7 +365,7 @@ class Bundler:
                 f"Aborting. Exception raised in bundler: {exc_type.__name__} {exc_value}"
             )
         elif self.send_on_exit:
-            self.send(bundable=True)
+            self.send(bundle=True)
 
 
 def convert_to_sc3nb_osc(
@@ -829,7 +829,7 @@ class OSCCommunication:
     def send(
         self,
         package: Union[OSCMessage, Bundler],
-        bundable: bool = False,
+        bundle: bool = False,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
         await_reply: bool = True,
         timeout: float = 5,
@@ -840,7 +840,7 @@ class OSCCommunication:
         ----------
         package : OSCMessage or Bundler
             Object with `dgram` attribute.
-        bundable : bool, optional
+        bundle : bool, optional
             If True it is allowed to bundle the package with bundling, by default False.
         receiver : str or Tuple[str, int], optional
             Where to send the packet, by default send to default receiver
@@ -865,7 +865,7 @@ class OSCCommunication:
         """
         # TODO we could use a typing.Protocol for sendableOSC (.dgram), ..
         # bundling
-        if bundable:
+        if bundle:
             with self._bundling_lock:
                 if self._bundling_bundles:
                     self._bundling_bundles[-1].add(package)
@@ -961,7 +961,7 @@ class OSCCommunication:
         self,
         msg_addr: str,
         msg_params: Optional[Sequence] = None,
-        bundable: bool = False,
+        bundle: bool = False,
         receiver: Optional[Tuple[str, int]] = None,
         await_reply: bool = True,
         timeout: float = 5,
@@ -974,7 +974,7 @@ class OSCCommunication:
             SuperCollider address of the OSC message
         msg_params : Optional[Sequence], optional
             List of paramters of the OSC message, by default None
-        bundable : bool, optional
+        bundle : bool, optional
             If True it is allowed to bundle the content with bundling, by default False
         receiver : tuple[str, int], optional
             (IP address, port) to send the message, by default send to default receiver
@@ -991,7 +991,7 @@ class OSCCommunication:
         """
         return self.send(
             OSCMessage(msg_addr, msg_params),
-            bundable=bundable,
+            bundle=bundle,
             receiver=receiver,
             await_reply=await_reply,
             timeout=timeout,
