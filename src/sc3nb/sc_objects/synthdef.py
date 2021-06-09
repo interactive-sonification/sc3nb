@@ -76,7 +76,7 @@ class SynthDef:
         cls,
         synthdef_bytes: bytes,
         server: Optional["SCServer"] = None,
-        bundled: bool = False,
+        bundable: bool = False,
     ):
         """Send a SynthDef as bytes.
 
@@ -88,8 +88,8 @@ class SynthDef:
             If True wait for server reply.
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
-        bundled : bool
-            Wether the OSC Messages can be bundled or not.
+        bundable : bool
+            Wether the OSC Messages can be bundable or not.
             If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
@@ -97,8 +97,8 @@ class SynthDef:
         server.msg(
             SynthDefinitionCommand.RECV,
             synthdef_bytes,
-            await_reply=not bundled,
-            bundled=bundled,
+            await_reply=not bundable,
+            bundable=bundable,
         )
 
     @classmethod
@@ -106,7 +106,7 @@ class SynthDef:
         cls,
         synthdef_path: str,
         server: Optional["SCServer"] = None,
-        bundled: bool = False,
+        bundable: bool = False,
     ):
         """Load SynthDef file at path.
 
@@ -116,8 +116,8 @@ class SynthDef:
             Path with the SynthDefs
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
-        bundled : bool
-            Wether the OSC Messages can be bundled or not.
+        bundable : bool
+            Wether the OSC Messages can be bundable or not.
             If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
@@ -125,8 +125,8 @@ class SynthDef:
         server.msg(
             SynthDefinitionCommand.LOAD,
             synthdef_path,
-            await_reply=not bundled,
-            bundled=bundled,
+            await_reply=not bundable,
+            bundable=bundable,
         )
 
     @classmethod
@@ -135,7 +135,7 @@ class SynthDef:
         synthdef_dir: Optional[str] = None,
         completion_msg: Optional[bytes] = None,
         server: Optional["SCServer"] = None,
-        bundled: bool = False,
+        bundable: bool = False,
     ):
         """Load all SynthDefs from directory.
 
@@ -147,8 +147,8 @@ class SynthDef:
             Message to be executed by the server when loaded, by default None
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
-        bundled : bool
-            Wether the OSC Messages can be bundled or not.
+        bundable : bool
+            Wether the OSC Messages can be bundable or not.
             If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
@@ -161,8 +161,8 @@ class SynthDef:
             server.msg(
                 SynthDefinitionCommand.LOAD_DIR,
                 cmd_args,
-                await_reply=not bundled,
-                bundled=bundled,
+                await_reply=not bundable,
+                bundable=bundable,
             )
 
         if synthdef_dir is None:
@@ -275,7 +275,7 @@ class SynthDef:
         pyvars=None,
         name: Optional[str] = None,
         server: Optional["SCServer"] = None,
-        bundled: bool = False,
+        bundable: bool = False,
     ) -> str:
         """This method will add the current_def to SuperCollider.s
 
@@ -290,8 +290,8 @@ class SynthDef:
             name which this SynthDef will get
         server : SCServer, optional
             server where this SynthDef will be send to
-        bundled : bool
-            Wether the OSC Messages can be bundled or not.
+        bundable : bool
+            Wether the OSC Messages can be bundable or not.
             If True sc3nb will not wait for the server response, by default False
 
         Returns
@@ -327,9 +327,9 @@ class SynthDef:
             raise RuntimeError(f"Adding SynthDef failed. {error}")
         else:
             if server is not None:
-                server.send_synthdef(synth_def_blob, bundled=bundled)
+                server.send_synthdef(synth_def_blob, bundable=bundable)
             else:
-                self.sc.server.send_synthdef(synth_def_blob, bundled=bundled)
+                self.sc.server.send_synthdef(synth_def_blob, bundable=bundable)
             return self.name
 
     def free(self) -> "SynthDef":

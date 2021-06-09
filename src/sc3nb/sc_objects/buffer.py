@@ -819,7 +819,7 @@ class Buffer:
         """
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
-        self._server.msg(BufferCommand.CLOSE, [self._bufnum], bundled=True)
+        self._server.msg(BufferCommand.CLOSE, [self._bufnum], bundable=True)
         return self
 
     def to_array(self) -> np.ndarray:

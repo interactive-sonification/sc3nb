@@ -712,7 +712,7 @@ class SCServer(OSCCommunication):
         msg = OSCMessage(MasterControlCommand.SYNC, sync_id)
         return sync_id == self.send(msg, timeout=timeout)
 
-    def send_synthdef(self, synthdef_bytes: bytes, bundled: bool = False):
+    def send_synthdef(self, synthdef_bytes: bytes, bundable: bool = False):
         """Send a SynthDef as bytes.
 
         Parameters
@@ -721,30 +721,30 @@ class SCServer(OSCCommunication):
             SynthDef bytes
         wait : bool
             If True wait for server reply.
-        bundled : bool
+        bundable : bool
             Wether the OSC Messages can be bundled or not.
             If True sc3nb will not wait for the server response, by default False
         """
-        SynthDef.send(synthdef_bytes=synthdef_bytes, server=self, bundled=bundled)
+        SynthDef.send(synthdef_bytes=synthdef_bytes, server=self, bundable=bundable)
 
-    def load_synthdef(self, synthdef_path: str, bundled: bool = False):
+    def load_synthdef(self, synthdef_path: str, bundable: bool = False):
         """Load SynthDef file at path.
 
         Parameters
         ----------
         synthdef_path : str
             Path with the SynthDefs
-        bundled : bool
-            Wether the OSC Messages can be bundled or not.
+        bundable : bool
+            Wether the OSC Messages can be bundable or not.
             If True sc3nb will not wait for the server response, by default False
         """
-        SynthDef.load(synthdef_path=synthdef_path, server=self, bundled=bundled)
+        SynthDef.load(synthdef_path=synthdef_path, server=self, bundable=bundable)
 
     def load_synthdefs(
         self,
         synthdef_dir: Optional[str] = None,
         completion_msg: Optional[bytes] = None,
-        bundled: bool = False,
+        bundable: bool = False,
     ) -> None:
         """Load all SynthDefs from directory.
 
@@ -754,15 +754,15 @@ class SCServer(OSCCommunication):
             directory with SynthDefs, by default sc3nb default SynthDefs
         completion_msg : bytes, optional
             Message to be executed by the server when loaded, by default None
-        bundled : bool
-            Wether the OSC Messages can be bundled or not.
+        bundable : bool
+            Wether the OSC Messages can be bundable or not.
             If True sc3nb will not wait for the server response, by default False
         """
         SynthDef.load_dir(
             synthdef_dir=synthdef_dir,
             completion_msg=completion_msg,
             server=self,
-            bundled=bundled,
+            bundable=bundable,
         )
 
     def notify(

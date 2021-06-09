@@ -12,10 +12,10 @@ class BundlerTest(SCBaseTest):
     def test_context_manager(self):
         time_passed = 3.0
         with Bundler(send_on_exit=False) as bundler:
-            BundlerTest.sc.server.msg("/status", bundled=True)
-            BundlerTest.sc.server.msg("/status", bundled=False)
+            BundlerTest.sc.server.msg("/status", bundable=True)
+            BundlerTest.sc.server.msg("/status", bundable=False)
             bundler.wait(time_passed)
-            BundlerTest.sc.server.msg("/status", bundled=True)
+            BundlerTest.sc.server.msg("/status", bundable=True)
         self.assertEqual(len(bundler.contents), 2)
         self.assertEqual(bundler.passed_time, time_passed)
 
@@ -25,9 +25,9 @@ class BundlerTest(SCBaseTest):
         with BundlerTest.sc.server.bundler(
             send_on_exit=False
         ) as server_bundler_auto_bundling:
-            BundlerTest.sc.server.msg("/status", bundled=True)
+            BundlerTest.sc.server.msg("/status", bundable=True)
             server_bundler_auto_bundling.wait(time_between)
-            BundlerTest.sc.server.msg("/status", bundled=True)
+            BundlerTest.sc.server.msg("/status", bundable=True)
 
         with BundlerTest.sc.server.bundler(send_on_exit=False) as server_bundler_add:
             server_bundler_add.add(0.0, "/status")

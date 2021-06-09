@@ -33,7 +33,7 @@ class ScoreTest(SCBaseTest):
         }""",
         )
         with ScoreTest.sc.server.bundler(send_on_exit=False) as bundler:
-            synthdef.add(bundled=True)
+            synthdef.add(bundable=True)
             bundler.add(0.0, "/s_new", ["test", 1003, 0, 0, "freq", 440])
             bundler.add(0.1, "/s_new", ["test", 1000, 0, 0, "freq", 440])
             bundler.add(0.1, "/s_new", ["test", 1004, 0, 0, "freq", 440])

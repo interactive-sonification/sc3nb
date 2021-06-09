@@ -274,7 +274,7 @@ class Bundler:
         self,
         server: Optional["OSCCommunication"] = None,
         receiver: Tuple[str, int] = None,
-        bundled: bool = True,
+        bundable: bool = True,
     ):
         """Send this Bundler.
 
@@ -287,7 +287,7 @@ class Bundler:
         receiver : Tuple[str, int], optional
             Address (ip, port) to send to, if None it will send the bundle to
             the default receiver of the Bundler
-        bundled : bool, optional
+        bundable : bool, optional
             If True this is allowed to be bundled, by default True
 
         Raises
@@ -301,7 +301,7 @@ class Bundler:
             raise RuntimeError("No server for sending provided.")
         if receiver is None and self.default_receiver is not None:
             receiver = server.lookup_receiver(self.default_receiver)
-        server.send(self, receiver=receiver, bundled=bundled)
+        server.send(self, receiver=receiver, bundable=bundable)
 
     def to_pythonosc(
         self, start_time: Optional[float] = None, delay: Optional[float] = None
@@ -365,7 +365,7 @@ class Bundler:
                 f"Aborting. Exception raised in bundler: {exc_type.__name__} {exc_value}"
             )
         elif self.send_on_exit:
-            self.send(bundled=True)
+            self.send(bundable=True)
 
 
 def convert_to_sc3nb_osc(
@@ -829,7 +829,7 @@ class OSCCommunication:
     def send(
         self,
         package: Union[OSCMessage, Bundler],
-        bundled: bool = False,
+        bundable: bool = False,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
         await_reply: bool = True,
         timeout: float = 5,
@@ -840,13 +840,14 @@ class OSCCommunication:
         ----------
         package : OSCMessage or Bundler
             Object with `dgram` attribute.
-        bundled : bool, optional
-            If True it is allowed to bundle the package with bundling, by default False
+        bundable : bool, optional
+            If True it is allowed to bundle the package with bundling, by default False.
         receiver : str or Tuple[str, int], optional
             Where to send the packet, by default send to default receiver
         await_reply : bool, optional
-            If True and package is a OSCMessage send message and wait for reply
-            otherwise send the message and return None directly, by default True
+            If True for reply from the server and return it,
+            otherwise send the message and return None directly, by default True.
+            If the package is bundled None will be returned.
         timeout : int, optional
             timeout in seconds for reply, by default 5
 
@@ -864,7 +865,7 @@ class OSCCommunication:
         """
         # TODO we could use a typing.Protocol for sendableOSC (.dgram), ..
         # bundling
-        if bundled:
+        if bundable:
             with self._bundling_lock:
                 if self._bundling_bundles:
                     self._bundling_bundles[-1].add(package)
@@ -960,7 +961,7 @@ class OSCCommunication:
         self,
         msg_addr: str,
         msg_params: Optional[Sequence] = None,
-        bundled: bool = False,
+        bundable: bool = False,
         receiver: Optional[Tuple[str, int]] = None,
         await_reply: bool = True,
         timeout: float = 5,
@@ -973,7 +974,7 @@ class OSCCommunication:
             SuperCollider address of the OSC message
         msg_params : Optional[Sequence], optional
             List of paramters of the OSC message, by default None
-        bundled : bool, optional
+        bundable : bool, optional
             If True it is allowed to bundle the content with bundling, by default False
         receiver : tuple[str, int], optional
             (IP address, port) to send the message, by default send to default receiver
@@ -990,7 +991,7 @@ class OSCCommunication:
         """
         return self.send(
             OSCMessage(msg_addr, msg_params),
-            bundled=bundled,
+            bundable=bundable,
             receiver=receiver,
             await_reply=await_reply,
             timeout=timeout,
