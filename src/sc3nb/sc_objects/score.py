@@ -137,7 +137,11 @@ class Score:
         if options:
             args.extend(options.options)
         completed_process = subprocess.run(
-            args=args, check=True, capture_output=True, text=True
+            args=args,
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,  # py>=3.7 capture_output=True
+            stderr=subprocess.PIPE,
         )
         print(completed_process.stdout)
         print(completed_process.stderr)
