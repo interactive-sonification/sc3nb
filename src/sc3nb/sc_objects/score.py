@@ -139,7 +139,7 @@ class Score:
         completed_process = subprocess.run(
             args=args,
             check=True,
-            text=True,
+            universal_newlines=True,  # py>=3.7 text=True
             stdout=subprocess.PIPE,  # py>=3.7 capture_output=True
             stderr=subprocess.PIPE,
         )
