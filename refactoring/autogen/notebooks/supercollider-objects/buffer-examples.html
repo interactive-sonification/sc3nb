@@ -1170,13 +1170,13 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:187: WavFileWarnin
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 SynthDef(&#39;sc3nb_playbuf_136&#39;,
-        { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
-                var sig = PlayBuf.ar(^num_channels, bufnum,
-                    rate*BufRateScale.kr(bufnum),
-                    loop: loop,
-                    doneAction: Done.freeSelf);
-                Out.ar(out, Pan2.ar(sig, pan, amp))
-        })
+            { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
+                    var sig = PlayBuf.ar(^num_channels, bufnum,
+                        rate*BufRateScale.kr(bufnum),
+                        loop: loop,
+                        doneAction: Done.freeSelf);
+                    Out.ar(out, Pan2.ar(sig, pan, amp))
+            })
 </pre></div></div>
 </div>
 <p>As you can see the SC synth will free itself when done if you are not using the loop argument.</p>
@@ -1277,8 +1277,8 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112be7039c8&gt;,
- &lt;matplotlib.lines.Line2D at 0x112be465588&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b427ff3d88&gt;,
+ &lt;matplotlib.lines.Line2D at 0x2b427d58a08&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1336,7 +1336,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112bf769788&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b4290dab48&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1373,7 +1373,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112bf7eb948&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b429060d48&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1399,7 +1399,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112bf868648&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b42915ba48&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1436,7 +1436,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112c08bc1c8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b42a1af5c8&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1473,7 +1473,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112bf812908&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b427f6b2c8&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1511,7 +1511,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112be4fe888&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b427e0bf48&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1554,7 +1554,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x112be7032c8&gt;
+&lt;matplotlib.legend.Legend at 0x2b426983d48&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1601,7 +1601,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x112c09a9948&gt;]
+[&lt;matplotlib.lines.Line2D at 0x2b42a29bd08&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">

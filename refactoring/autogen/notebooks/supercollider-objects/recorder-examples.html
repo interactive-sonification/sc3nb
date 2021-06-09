@@ -743,12 +743,12 @@ class Recorder(builtins.object)
  |  __repr__(self) -&gt; str
  |      Return repr(self).
  |
- |  pause(self, timestamp: Union[float, NoneType] = 0)
+ |  pause(self, timetag: Union[float, NoneType] = 0)
  |      Pause the recording.
  |
  |      Parameters
  |      ----------
- |      timestamp : Optional[float], optional
+ |      timetag : Optional[float], optional
  |          Time (or time offset when &lt;1e6) to pause, by default 0
  |
  |      Raises
@@ -777,12 +777,12 @@ class Recorder(builtins.object)
  |      RuntimeError
  |          When Recorder does not needs to be prepared.
  |
- |  resume(self, timestamp: Union[float, NoneType] = 0)
+ |  resume(self, timetag: Union[float, NoneType] = 0)
  |      Resume the recording
  |
  |      Parameters
  |      ----------
- |      timestamp : Optional[float], optional
+ |      timetag : Optional[float], optional
  |          Time (or time offset when &lt;1e6) to resume, by default 0
  |
  |      Raises
@@ -790,12 +790,12 @@ class Recorder(builtins.object)
  |      RuntimeError
  |          When trying to resume if not paused.
  |
- |  start(self, timestamp: Union[float, NoneType] = 0, duration: Union[float, NoneType] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: Union[int, NoneType] = 0)
+ |  start(self, timetag: Union[float, NoneType] = 0, duration: Union[float, NoneType] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: Union[int, NoneType] = 0)
  |      Start the recording.
  |
  |      Parameters
  |      ----------
- |      timestamp : Optional[float], optional
+ |      timetag : Optional[float], optional
  |          Time (or time offset when &lt;1e6) to start, by default 0
  |      duration : Optional[float], optional
  |          Length of the recording, by default until stopped.
@@ -809,12 +809,12 @@ class Recorder(builtins.object)
  |      RuntimeError
  |          When trying to start a recording unprepared.
  |
- |  stop(self, timestamp: Union[float, NoneType] = 0)
+ |  stop(self, timetag: Union[float, NoneType] = 0)
  |      Stop the recording.
  |
  |      Parameters
  |      ----------
- |      timestamp : Optional[float], optional
+ |      timetag : Optional[float], optional
  |          Time (or time offset when &lt;1e6) to stop, by default 0
  |
  |      Raises

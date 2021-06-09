@@ -818,21 +818,21 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |      ProcessTimeout
  |          If the process fails to start.
  |
- |  bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True)
+ |  bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True)
  |      Generate a Bundler with added server latency.
  |
  |      This allows the user to easly add messages/bundles and send it.
  |
  |      Parameters
  |      ----------
- |      timestamp : int
+ |      timetag : float
  |          Time at which bundle content should be executed.
  |          This servers latency will be added upon this.
- |          If timestamp &lt;= 1e6 it is added to time.time().
+ |          If timetag &lt;= 1e6 it is added to time.time().
  |      msg_addr : str
  |          SuperCollider address.
- |      msg_args : list, optional
- |          List of arguments to add to message.
+ |      msg_params : list, optional
+ |          List of parameters to add to message.
  |           (Default value = None)
  |
  |      Returns
@@ -898,15 +898,18 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |      with_blip : bool, optional
  |          make a sound when initialized, by default True
  |
- |  load_synthdef(self, synthdef_path: str)
+ |  load_synthdef(self, synthdef_path: str, bundle: bool = False)
  |      Load SynthDef file at path.
  |
  |      Parameters
  |      ----------
  |      synthdef_path : str
  |          Path with the SynthDefs
+ |      bundle : bool
+ |          Wether the OSC Messages can be bundle or not.
+ |          If True sc3nb will not wait for the server response, by default False
  |
- |  load_synthdefs(self, synthdef_dir: Union[str, NoneType] = None, completion_msg: bytes = None) -&gt; None
+ |  load_synthdefs(self, synthdef_dir: Union[str, NoneType] = None, completion_msg: Union[bytes, NoneType] = None, bundle: bool = False) -&gt; None
  |      Load all SynthDefs from directory.
  |
  |      Parameters
@@ -915,8 +918,9 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |          directory with SynthDefs, by default sc3nb default SynthDefs
  |      completion_msg : bytes, optional
  |          Message to be executed by the server when loaded, by default None
- |      wait : bool, optional
- |          If True wait for server reply, by default True
+ |      bundle : bool
+ |          Wether the OSC Messages can be bundle or not.
+ |          If True sc3nb will not wait for the server response, by default False
  |
  |  mute(self) -&gt; None
  |      Mute audio
@@ -984,7 +988,7 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |  send_default_groups(self) -&gt; None
  |      Send the default groups for all clients.
  |
- |  send_synthdef(self, synthdef_bytes: bytes, wait: bool = True)
+ |  send_synthdef(self, synthdef_bytes: bytes, bundle: bool = False)
  |      Send a SynthDef as bytes.
  |
  |      Parameters
@@ -993,6 +997,9 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |          SynthDef bytes
  |      wait : bool
  |          If True wait for server reply.
+ |      bundle : bool
+ |          Wether the OSC Messages can be bundled or not.
+ |          If True sc3nb will not wait for the server response, by default False
  |
  |  status(self) -&gt; sc3nb.sc_objects.server.ServerStatus
  |      Server status information
@@ -1113,14 +1120,14 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |      msg_queue_collection : MessageQueueCollection
  |          MessageQueueCollection to be added
  |
- |  add_receiver(self, name: str, ip: str, port: int)
+ |  add_receiver(self, name: str, ip_address: str, port: int)
  |      Adds a receiver with the specified address.
  |
  |      Parameters
  |      ----------
  |      name : str
  |          Name of receiver.
- |      ip : str
+ |      ip_address : str
  |          IP address of receiver (e.g. &#34;127.0.0.1&#34;)
  |      port : int
  |          Port of the receiver
@@ -1173,16 +1180,16 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |      ValueError
  |          If the type of the receiver argument is wrong.
  |
- |  msg(self, msg_addr: str, msg_args: Union[Sequence, NoneType] = None, bundled: bool = False, receiver: Union[Tuple[str, int], NoneType] = None, await_reply: bool = True, timeout: float = 5) -&gt; Union[Any, NoneType]
+ |  msg(self, msg_addr: str, msg_params: Union[Sequence, NoneType] = None, bundle: bool = False, receiver: Union[Tuple[str, int], NoneType] = None, await_reply: bool = True, timeout: float = 5) -&gt; Union[Any, NoneType]
  |      Creates and sends OSC message over UDP.
  |
  |      Parameters
  |      ----------
  |      msg_addr : str
- |          SuperCollider address
- |      msg_args : Optional[Sequence], optional
- |          List of arguments to add to message, by default None
- |      bundled : bool, optional
+ |          SuperCollider address of the OSC message
+ |      msg_params : Optional[Sequence], optional
+ |          List of paramters of the OSC message, by default None
+ |      bundle : bool, optional
  |          If True it is allowed to bundle the content with bundling, by default False
  |      receiver : tuple[str, int], optional
  |          (IP address, port) to send the message, by default send to default receiver
@@ -1197,20 +1204,21 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
  |      obj
  |          reply if await_reply and there is a reply for this
  |
- |  send(self, package: Union[sc3nb.osc.osc_communication.OSCMessage, sc3nb.osc.osc_communication.Bundler], bundled: bool = False, receiver: Union[str, Tuple[str, int], NoneType] = None, await_reply: bool = True, timeout: float = 5) -&gt; Any
+ |  send(self, package: Union[sc3nb.osc.osc_communication.OSCMessage, sc3nb.osc.osc_communication.Bundler], bundle: bool = False, receiver: Union[str, Tuple[str, int], NoneType] = None, await_reply: bool = True, timeout: float = 5) -&gt; Any
  |      Sends OSC packet
  |
  |      Parameters
  |      ----------
  |      package : OSCMessage or Bundler
  |          Object with `dgram` attribute.
- |      bundled : bool, optional
- |          If True it is allowed to bundle the package with bundling, by default False
+ |      bundle : bool, optional
+ |          If True it is allowed to bundle the package with bundling, by default False.
  |      receiver : str or Tuple[str, int], optional
  |          Where to send the packet, by default send to default receiver
  |      await_reply : bool, optional
- |          If True and package is a OSCMessage send message and wait for reply
- |          otherwise send the message and return None directly, by default True
+ |          If True for reply from the server and return it,
+ |          otherwise send the message and return None directly, by default True.
+ |          If the package is bundled None will be returned.
  |      timeout : int, optional
  |          timeout in seconds for reply, by default 5
  |
