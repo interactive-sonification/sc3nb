@@ -38,25 +38,38 @@ class OSCMessage:
         OSC message address
     msg_parameters : Optional[Union[Sequence]], optional
         OSC message parameters, by default None
-    reply_address : Optional[str], optional
-        OSC address of the reply to this message, by default None
-    callback : Callable[..., None], optional
-        Callback for reply handling, by default None
     """
+
+    # TODO add reply_address and callback functionality to osc_com
+    # reply_address : Optional[str], optional
+    #     OSC address of the reply to this message, by default None
+    # callback : Callable[..., None], optional
+    #     Callback for reply handling, by default None
+
+    #     reply_address: Optional[str] = None,
+    #     callback: Callable[..., None] = None,
+
+    # self._reply_addr = reply_address
+    #     self._callback = callback
+
+    # @property
+    # def reply_address(self) -> Optional[str]:
+    #     """OSC message reply address"""
+    #     return self._content.address
+
+    # @property
+    # def callback(self) -> Optional[Callable[..., None]]:
+    #     """OSC message reply handler"""
+    #     return self._callback
 
     def __init__(
         self,
         msg_address: str,
         msg_parameters: Optional[Union[Sequence]] = None,
-        reply_address: Optional[str] = None,
-        callback: Callable[..., None] = None,
     ) -> None:
-
         self._content: OscMessage = OSCMessage._build_message(
             msg_address, msg_parameters
         )
-        self._reply_addr = reply_address
-        self._callback = callback
 
     @property
     def dgram(self) -> bytes:
@@ -77,16 +90,6 @@ class OSCMessage:
     def address(self) -> str:
         """OSC message address"""
         return self._content.address
-
-    @property
-    def reply_address(self) -> Optional[str]:
-        """OSC message reply address"""
-        return self._content.address
-
-    @property
-    def callback(self) -> Optional[Callable[..., None]]:
-        """OSC message reply handler"""
-        return self._callback
 
     def to_pythonosc(self) -> OscMessage:
         """Return python-osc OscMessage"""
@@ -127,7 +130,7 @@ class OSCMessage:
         return builder.build()
 
     def __repr__(self) -> str:
-        return f'<OSCMessage("{self.address}", {self.parameters}>'
+        return f'<OSCMessage("{self.address}", {self.parameters})>'
 
 
 class Bundler:
