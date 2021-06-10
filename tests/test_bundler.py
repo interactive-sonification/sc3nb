@@ -37,11 +37,9 @@ class BundlerTest(SCBaseTest):
             bundler_add.add(0.0, "/status")
             bundler_add.add(time_between, "/status")
 
-        server_auto_bundle = server_bundler_auto_bundling.to_pythonosc(
-            start_time=0
-        ).dgram
-        server_bundle = server_bundler_add.to_pythonosc(start_time=0).dgram
-        bundle = bundler_add.to_pythonosc(start_time=0).dgram
+        server_auto_bundle = server_bundler_auto_bundling.to_raw_osc(start_time=0)
+        server_bundle = server_bundler_add.to_raw_osc(start_time=0)
+        bundle = bundler_add.to_raw_osc(start_time=0)
 
         self.assertEqual(server_bundle, bundle)
         self.assertEqual(server_auto_bundle, bundle)

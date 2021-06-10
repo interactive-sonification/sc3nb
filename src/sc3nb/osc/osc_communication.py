@@ -306,6 +306,25 @@ class Bundler:
             receiver = server.lookup_receiver(self.default_receiver)
         server.send(self, receiver=receiver, bundle=bundle)
 
+    def to_raw_osc(
+        self, start_time: Optional[float] = None, delay: Optional[float] = None
+    ) -> bytes:
+        """Create a raw OSC Bundle from this bundler.
+
+        Parameters
+        ----------
+        start_time : Optional[float], optional
+            used as start time when using relativ timing, by default time.time()
+        delay: float, optinal
+            used to delay the timing.
+
+        Returns
+        -------
+        OscBundle
+            bundle instance for sending
+        """
+        return self.to_pythonosc(start_time, delay).dgram
+
     def to_pythonosc(
         self, start_time: Optional[float] = None, delay: Optional[float] = None
     ) -> OscBundle:
@@ -315,6 +334,8 @@ class Bundler:
         ----------
         start_time : Optional[float], optional
             used as start time when using relativ timing, by default time.time()
+        delay: float, optinal
+            used to delay the timing.
 
         Returns
         -------
