@@ -5,6 +5,7 @@ from enum import Enum, unique
 from typing import TYPE_CHECKING, Optional, Sequence, Union
 
 import sc3nb
+from sc3nb.osc.osc_communication import OSCMessage
 
 if TYPE_CHECKING:
     from sc3nb.sc_objects.server import SCServer
@@ -109,13 +110,17 @@ class Bus:
         """
         return self._rate is BusRate.CONTROL
 
-    def set(self, *values: Sequence[Union[int, float]]) -> None:
+    def set(
+        self, *values: Sequence[Union[int, float]], return_msg=False
+    ) -> Union["Bus", OSCMessage]:
         """Set ranges of bus values.
 
         Parameters
         ----------
         values : sequence of int or float
             Values that should be set
+        return_msg : bool, optional
+            If True return msg else send it directly, by default False
 
         Raises
         ------
@@ -129,19 +134,28 @@ class Bus:
                 raise ValueError(
                     f"lenght of values must fit num channels ({self._num_channels})"
                 )
-            self._server.msg(
+            msg = OSCMessage(
                 ControlBusCommand.SETN, [self._bus_idxs[0], self._num_channels, *values]
             )
         else:
-            self._server.msg(ControlBusCommand.SET, [self._bus_idxs[0], *values])
+            msg = OSCMessage(ControlBusCommand.SET, [self._bus_idxs[0], *values])
+        if return_msg:
+            return msg
+        else:
+            self._server.send(msg, bundle=True)
+        return self
 
-    def fill(self, value: Union[int, float]) -> None:
+    def fill(
+        self, value: Union[int, float], return_msg=False
+    ) -> Union["Bus", OSCMessage]:
         """Fill bus(es) to one value.
 
         Parameters
         ----------
         value : Union[int, float]
             value for the buses
+        return_msg : bool, optional
+            If True return msg else send it directly, by default False
 
         Raises
         ------
@@ -150,9 +164,14 @@ class Bus:
         """
         if self._rate is BusRate.AUDIO:
             raise RuntimeError("Can't fill Audio Buses")
-        self._server.msg(
+        msg = OSCMessage(
             ControlBusCommand.FILL, [self._bus_idxs[0], self._num_channels, value]
         )
+        if return_msg:
+            return msg
+        else:
+            self._server.send(msg, bundle=True)
+        return self
 
     def get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]:
         """Get bus value(s).

@@ -654,8 +654,6 @@ class Node(ABC):
             self.server.send(msg, bundle=True)
         return self
 
-    # NodeWatcher needed
-
     def register(self):
         """Register to be watched."""
         raise NotImplementedError("Currently all nodes are being watched on default")
@@ -1111,13 +1109,15 @@ class Group(Node):
         """
         return self._children
 
-    def move_node_to_head(self, node):
+    def move_node_to_head(self, node, return_msg=False):
         """Move node to this groups head with g_head.
 
         Parameters
         ----------
         node : Node
             node to move
+        return_msg : bool, optional
+            If True return msg else send it directly, by default False
 
         Returns
         -------
@@ -1126,15 +1126,21 @@ class Group(Node):
         """
         msg = OSCMessage(GroupCommand.HEAD, [self.nodeid, node.nodeid])
         self.server.send(msg, bundle=True)
+        if return_msg:
+            return msg
+        else:
+            self.server.send(msg, bundle=True)
         return self
 
-    def move_node_to_tail(self, node):
+    def move_node_to_tail(self, node, return_msg=False):
         """Move node to this groups tail with g_tail.
 
         Parameters
         ----------
         node : Node
             node to move
+        return_msg : bool, optional
+            If True return msg else send it directly, by default False
 
         Returns
         -------
@@ -1142,7 +1148,10 @@ class Group(Node):
             self
         """
         msg = OSCMessage(GroupCommand.TAIL, [self.nodeid, node.nodeid])
-        self.server.send(msg, bundle=True)
+        if return_msg:
+            return msg
+        else:
+            self.server.send(msg, bundle=True)
         return self
 
     def free_all(self, return_msg=False):
