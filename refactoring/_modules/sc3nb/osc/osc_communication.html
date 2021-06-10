@@ -673,6 +673,25 @@
             <span class="n">receiver</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">lookup_receiver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_receiver</span><span class="p">)</span>
         <span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">receiver</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="n">bundle</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="Bundler.to_raw_osc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.to_raw_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_raw_osc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create a raw OSC Bundle from this bundler.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start_time : Optional[float], optional</span>
+<span class="sd">            used as start time when using relativ timing, by default time.time()</span>
+<span class="sd">        delay: float, optinal</span>
+<span class="sd">            used to delay the timing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        OscBundle</span>
+<span class="sd">            bundle instance for sending</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_pythonosc</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span><span class="o">.</span><span class="n">dgram</span></div>
+
 <div class="viewcode-block" id="Bundler.to_pythonosc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.to_pythonosc">[docs]</a>    <span class="k">def</span> <span class="nf">to_pythonosc</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscBundle</span><span class="p">:</span>
@@ -682,6 +701,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        start_time : Optional[float], optional</span>
 <span class="sd">            used as start time when using relativ timing, by default time.time()</span>
+<span class="sd">        delay: float, optinal</span>
+<span class="sd">            used to delay the timing.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

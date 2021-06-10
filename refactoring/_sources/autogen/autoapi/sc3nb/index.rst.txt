@@ -7282,6 +7282,7 @@ Content
          sc3nb.Bundler.add
          sc3nb.Bundler.messages
          sc3nb.Bundler.send
+         sc3nb.Bundler.to_raw_osc
          sc3nb.Bundler.to_pythonosc
          sc3nb.Bundler._calc_timetag
          sc3nb.Bundler.__deepcopy__
@@ -7424,6 +7425,40 @@ Content
           !! processed by numpydoc !!
 
 
+   .. method:: to_raw_osc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> bytes
+
+      Create a raw OSC Bundle from this bundler.
+
+
+      :Parameters:
+
+          **start_time** : Optional[float], optional
+              used as start time when using relativ timing, by default time.time()
+
+          **delay: float, optinal**
+              used to delay the timing.
+
+      :Returns:
+
+          OscBundle
+              bundle instance for sending
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: to_pythonosc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
 
       Build this bundle.
@@ -7433,6 +7468,9 @@ Content
 
           **start_time** : Optional[float], optional
               used as start time when using relativ timing, by default time.time()
+
+          **delay: float, optinal**
+              used to delay the timing.
 
       :Returns:
 

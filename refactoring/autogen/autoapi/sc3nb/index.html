@@ -4772,19 +4772,22 @@ and is added to time.time(), by default 0</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler.send" title="sc3nb.Bundler.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
 <td><p>Send this Bundler.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler.to_pythonosc" title="sc3nb.Bundler.to_pythonosc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pythonosc</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler.to_raw_osc" title="sc3nb.Bundler.to_raw_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_raw_osc</span></code></a></p></td>
+<td><p>Create a raw OSC Bundle from this bundler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler.to_pythonosc" title="sc3nb.Bundler.to_pythonosc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pythonosc</span></code></a></p></td>
 <td><p>Build this bundle.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler._calc_timetag" title="sc3nb.Bundler._calc_timetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_calc_timetag</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler._calc_timetag" title="sc3nb.Bundler._calc_timetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_calc_timetag</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler.__deepcopy__" title="sc3nb.Bundler.__deepcopy__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__deepcopy__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler.__deepcopy__" title="sc3nb.Bundler.__deepcopy__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__deepcopy__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler.__enter__" title="sc3nb.Bundler.__enter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__enter__</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler.__enter__" title="sc3nb.Bundler.__enter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__enter__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler.__exit__" title="sc3nb.Bundler.__exit__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__exit__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler.__exit__" title="sc3nb.Bundler.__exit__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__exit__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -4879,6 +4882,28 @@ the default receiver of the Bundler</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="sc3nb.Bundler.to_raw_osc">
+<code class="sig-name descname"><span class="pre">to_raw_osc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><a class="headerlink" href="#sc3nb.Bundler.to_raw_osc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a raw OSC Bundle from this bundler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relativ timing, by default time.time()</p>
+</dd>
+<dt><strong>delay: float, optinal</strong></dt><dd><p>used to delay the timing.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>OscBundle</dt><dd><p>bundle instance for sending</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="sc3nb.Bundler.to_pythonosc">
 <code class="sig-name descname"><span class="pre">to_pythonosc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_bundle.OscBundle</span><a class="headerlink" href="#sc3nb.Bundler.to_pythonosc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build this bundle.</p>
@@ -4886,6 +4911,8 @@ the default receiver of the Bundler</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relativ timing, by default time.time()</p>
+</dd>
+<dt><strong>delay: float, optinal</strong></dt><dd><p>used to delay the timing.</p>
 </dd>
 </dl>
 </dd>
