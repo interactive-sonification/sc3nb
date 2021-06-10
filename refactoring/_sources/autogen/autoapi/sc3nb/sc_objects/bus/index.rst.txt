@@ -355,7 +355,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, *values: Sequence[Union[int, float]]) -> None
+   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[('Bus', OSCMessage)]
 
       Set ranges of bus values.
 
@@ -364,6 +364,9 @@ Content
 
           **values** : sequence of int or float
               Values that should be set
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
 
 
@@ -386,7 +389,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: fill(self, value: Union[(int, float)]) -> None
+   .. method:: fill(self, value: Union[(int, float)], return_msg=False) -> Union[('Bus', OSCMessage)]
 
       Fill bus(es) to one value.
 
@@ -395,6 +398,9 @@ Content
 
           **value** : Union[int, float]
               value for the buses
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
 
 

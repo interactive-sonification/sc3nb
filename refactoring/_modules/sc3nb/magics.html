@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -447,10 +447,7 @@
 <span class="sd">        Unknown</span>
 <span class="sd">            cmd result</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
         <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
 
@@ -470,10 +467,7 @@
 <span class="sd">        Unknown</span>
 <span class="sd">            cmd result</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
         <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdv</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
 
@@ -493,10 +487,7 @@
 <span class="sd">        Unknown</span>
 <span class="sd">            cmd result</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
         <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmds</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
 
@@ -520,10 +511,7 @@
 <span class="sd">            pythonosc.osc_message.Message for list</span>
 <span class="sd">            of supported types</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
         <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
 
@@ -547,12 +535,33 @@
 <span class="sd">            pythonosc.osc_message.Message for list</span>
 <span class="sd">            of supported types</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">cell</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
         <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.scgs"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgs">[docs]</a>    <span class="k">def</span> <span class="nf">scgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute SuperCollider code returning output</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default &#39;&#39;</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">            Output from SuperCollider code, not</span>
+<span class="sd">            all SC types supported, see</span>
+<span class="sd">            pythonosc.osc_message.Message for list</span>
+<span class="sd">            of supported types</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SC3Magics._parse_pyvars"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics._parse_pyvars">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_pyvars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Parses SuperCollider code for python variables and their values</span>

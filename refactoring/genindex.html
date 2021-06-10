@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -463,6 +463,10 @@
       <ul>
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.__repr__">(sc3nb.Group method)</a>
 </li>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.__repr__">(sc3nb.osc.osc_communication.OSCMessage method)</a>
+</li>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.__repr__">(sc3nb.OSCMessage method)</a>
+</li>
         <li><a href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.__repr__">(sc3nb.process_handling.Process method)</a>
 </li>
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.__repr__">(sc3nb.Recorder method)</a>
@@ -512,6 +516,18 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.__worker">(sc3nb.TimedQueue method)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage._build_message">_build_message() (sc3nb.osc.osc_communication.OSCMessage static method)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage._build_message">(sc3nb.OSCMessage static method)</a>
+</li>
+      </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler._calc_timetag">_calc_timetag() (sc3nb.Bundler method)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler._calc_timetag">(sc3nb.osc.osc_communication.Bundler method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication._check_sender">_check_sender() (sc3nb.osc.osc_communication.OSCCommunication method)</a>
@@ -546,6 +562,14 @@
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._handle_notification">(sc3nb.sc_objects.node.Node method)</a>
+</li>
+      </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message">_handle_outgoing_message() (sc3nb.osc.osc_communication.OSCCommunication method)</a>
+</li>
+      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang._init">_init() (sc3nb.SCLang method)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang._init">(sc3nb.sclang.SCLang method)</a>
 </li>
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer._log_message">_log_message() (sc3nb.sc_objects.server.SCServer method)</a>
@@ -700,6 +724,12 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.addr">(sc3nb.SCServer property)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.address">address() (sc3nb.osc.osc_communication.OSCMessage property)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.address">(sc3nb.OSCMessage property)</a>
+</li>
+      </ul></li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.AFTER">AFTER (sc3nb.AddAction attribute)</a>
 
       <ul>
@@ -712,14 +742,14 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.ALLOC">(sc3nb.sc_objects.buffer.BufferCommand attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.alloc">alloc() (sc3nb.Buffer method)</a>
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.alloc">(sc3nb.sc_objects.buffer.Buffer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.alloc_mode">alloc_mode() (sc3nb.Buffer property)</a>
 
       <ul>
@@ -822,26 +852,14 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferReply">BufferReply (class in sc3nb.sc_objects.buffer)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo.bufnum">bufnum (sc3nb.sc_objects.buffer.BufferInfo attribute)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.bufnum">bufnum() (sc3nb.Buffer property)</a>
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.bufnum">(sc3nb.sc_objects.buffer.Buffer property)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.build">build() (sc3nb.Bundler method)</a>
-
-      <ul>
-        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.build">(sc3nb.osc.osc_communication.Bundler method)</a>
-</li>
-      </ul></li>
-      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message() (in module sc3nb)</a>
-
-      <ul>
-        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.build_message">(in module sc3nb.osc.osc_communication)</a>
 </li>
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler (class in sc3nb)</a>
@@ -888,6 +906,12 @@
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.CLEAR_SCHED">CLEAR_SCHED (sc3nb.sc_objects.server.MasterControlCommand attribute)</a>
 </li>
+      <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.clear_schedule">clear_schedule() (sc3nb.sc_objects.server.SCServer method)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.clear_schedule">(sc3nb.SCServer method)</a>
+</li>
+      </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.client_id">client_id() (sc3nb.sc_objects.server.SCServer property)</a>
 
       <ul>
@@ -974,6 +998,8 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.convert_to_sc">convert_to_sc() (in module sc3nb.sclang)</a>
 </li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.convert_to_sc3nb_osc">convert_to_sc3nb_osc() (in module sc3nb.osc.osc_communication)</a>
+</li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.COPY">COPY (sc3nb.sc_objects.buffer.BufferAllocationMode attribute)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.copy_existing">copy_existing() (sc3nb.Buffer method)</a>
@@ -1028,6 +1054,16 @@
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.default_group">(sc3nb.SCServer property)</a>
+</li>
+      </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.dgram">dgram() (sc3nb.Bundler property)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.dgram">(sc3nb.osc.osc_communication.Bundler property)</a>
+</li>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.dgram">(sc3nb.osc.osc_communication.OSCMessage property)</a>
+</li>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.dgram">(sc3nb.OSCMessage property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1486,6 +1522,8 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.load_dir">(sc3nb.SynthDef class method)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.load_file">load_file() (sc3nb.sc_objects.score.Score class method)</a>
+</li>
       <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.load_ipython_extension">load_ipython_extension() (in module sc3nb.magics)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.load_synthdef">load_synthdef() (sc3nb.sc_objects.server.SCServer method)</a>
@@ -1554,6 +1592,12 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueueCollection">MessageQueueCollection (class in sc3nb.osc.osc_communication)</a>
 </li>
+      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.messages">messages() (sc3nb.Bundler method)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.messages">(sc3nb.osc.osc_communication.Bundler method)</a>
+</li>
+      </ul></li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps() (in module sc3nb)</a>
 
       <ul>
@@ -1595,6 +1639,8 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#module-sc3nb.sc_objects.node">sc3nb.sc_objects.node</a>
 </li>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#module-sc3nb.sc_objects.recorder">sc3nb.sc_objects.recorder</a>
+</li>
+        <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#module-sc3nb.sc_objects.score">sc3nb.sc_objects.score</a>
 </li>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#module-sc3nb.sc_objects.server">sc3nb.sc_objects.server</a>
 </li>
@@ -1713,10 +1759,10 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.NodeWatcher">NodeWatcher (class in sc3nb.sc_objects.server)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.nominal_sr">nominal_sr (sc3nb.sc_objects.server.ServerStatus attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.NONE">NONE (sc3nb.sc_objects.buffer.BufferAllocationMode attribute)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.NOTIFY">NOTIFY (sc3nb.sc_objects.server.MasterControlCommand attribute)</a>
@@ -1727,6 +1773,8 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.notify">(sc3nb.SCServer method)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.NRT_SERVER_OPTIONS">NRT_SERVER_OPTIONS (in module sc3nb.sc_objects.score)</a>
+</li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo.num_channels">num_channels (sc3nb.sc_objects.buffer.BufferInfo attribute)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.num_channels">num_channels() (sc3nb.Bus property)</a>
@@ -1793,12 +1841,18 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.osc_server">osc_server() (sc3nb.osc.osc_communication.OSCCommunication property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication">OSCCommunication (class in sc3nb.osc.osc_communication)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunicationError">OSCCommunicationError</a>
 </li>
+      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage (class in sc3nb)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage">(class in sc3nb.osc.osc_communication)</a>
+</li>
+      </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.output_bus">output_bus() (sc3nb.sc_objects.server.SCServer property)</a>
 
       <ul>
@@ -1813,6 +1867,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.P_NEW">P_NEW (sc3nb.sc_objects.node.GroupCommand attribute)</a>
 </li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.parameters">parameters() (sc3nb.osc.osc_communication.OSCMessage property)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.parameters">(sc3nb.OSCMessage property)</a>
+</li>
+      </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeTree.parse_nodes">parse_nodes() (sc3nb.sc_objects.node.NodeTree static method)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.parse_pyvars">parse_pyvars() (in module sc3nb.sclang)</a>
@@ -1985,6 +2045,12 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.rate">(sc3nb.sc_objects.bus.Bus property)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.raw_osc">raw_osc() (sc3nb.osc.osc_communication.OSCMessage property)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.raw_osc">(sc3nb.OSCMessage property)</a>
+</li>
+      </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.READ">READ (sc3nb.sc_objects.buffer.BufferCommand attribute)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.read">read() (sc3nb.Buffer method)</a>
@@ -2007,6 +2073,8 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.reboot">(sc3nb.SCServer method)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.record_nrt">record_nrt() (sc3nb.sc_objects.score.Score class method)</a>
+</li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder (class in sc3nb)</a>
 
       <ul>
@@ -2019,14 +2087,14 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV">RECV (sc3nb.sc_objects.synthdef.SynthDefinitionCommand attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.register">register() (sc3nb.Node method)</a>
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.register">(sc3nb.sc_objects.node.Node method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.release">release() (sc3nb.Node method)</a>
 
       <ul>
@@ -2217,6 +2285,13 @@
 </li>
       </ul></li>
       <li>
+    sc3nb.sc_objects.score
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#module-sc3nb.sc_objects.score">module</a>
+</li>
+      </ul></li>
+      <li>
     sc3nb.sc_objects.server
 
       <ul>
@@ -2259,6 +2334,8 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scg">scg() (sc3nb.magics.SC3Magics method)</a>
 </li>
+      <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgs">scgs() (sc3nb.magics.SC3Magics method)</a>
+</li>
       <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgv">scgv() (sc3nb.magics.SC3Magics method)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang">SCLang (class in sc3nb)</a>
@@ -2270,6 +2347,8 @@
       <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLANG_DEFAULT_PORT">SCLANG_DEFAULT_PORT (in module sc3nb.sclang)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLangError">SCLangError</a>
+</li>
+      <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score">Score (class in sc3nb.sc_objects.score)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scs">scs() (sc3nb.magics.SC3Magics method)</a>
 </li>
@@ -2295,14 +2374,14 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.send">(sc3nb.SynthDef class method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.send_default_groups">send_default_groups() (sc3nb.sc_objects.server.SCServer method)</a>
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.send_default_groups">(sc3nb.SCServer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.send_synthdef">send_synthdef() (sc3nb.sc_objects.server.SCServer method)</a>
 
       <ul>
@@ -2384,6 +2463,8 @@
 </li>
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.show">show() (sc3nb.osc.osc_communication.MessageQueue method)</a>
+</li>
+      <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.size">size() (sc3nb.osc.osc_communication.MessageQueue property)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.skipped">skipped() (sc3nb.osc.osc_communication.MessageQueue method)</a>
 </li>
@@ -2517,12 +2598,22 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.to_array">(sc3nb.sc_objects.buffer.Buffer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.TO_HEAD">TO_HEAD (sc3nb.AddAction attribute)</a>
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.TO_HEAD">(sc3nb.sc_objects.node.AddAction attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.to_pythonosc">to_pythonosc() (sc3nb.Bundler method)</a>
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.to_pythonosc">(sc3nb.osc.osc_communication.Bundler method)</a>
+</li>
+        <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.to_pythonosc">(sc3nb.osc.osc_communication.OSCMessage method)</a>
+</li>
+        <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.to_pythonosc">(sc3nb.OSCMessage method)</a>
 </li>
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.TO_TAIL">TO_TAIL (sc3nb.AddAction attribute)</a>
@@ -2631,10 +2722,10 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.wait">(sc3nb.sc_objects.node.Node method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ReplyAddress.WILDCARD_ADDR">WILDCARD_ADDR (sc3nb.sc_objects.server.ReplyAddress attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.WRITE">WRITE (sc3nb.sc_objects.buffer.BufferCommand attribute)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.write">write() (sc3nb.Buffer method)</a>
@@ -2645,6 +2736,8 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.write">(sc3nb.sc_objects.buffer.Buffer method)</a>
 </li>
       </ul></li>
+      <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.write_file">write_file() (sc3nb.sc_objects.score.Score class method)</a>
+</li>
   </ul></td>
 </tr></table>
 

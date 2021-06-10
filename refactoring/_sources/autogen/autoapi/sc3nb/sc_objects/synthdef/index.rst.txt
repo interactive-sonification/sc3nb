@@ -220,7 +220,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(cls, synthdef_bytes: bytes, wait: bool = True, server: Optional['SCServer'] = None)
+   .. method:: send(cls, synthdef_bytes: bytes, server: Optional['SCServer'] = None)
       :classmethod:
 
       Send a SynthDef as bytes.
@@ -254,7 +254,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load(cls, synthdef_path: str, wait: bool = True, server: Optional['SCServer'] = None)
+   .. method:: load(cls, synthdef_path: str, server: Optional['SCServer'] = None)
       :classmethod:
 
       Load SynthDef file at path.
@@ -264,9 +264,6 @@ Content
 
           **synthdef_path** : str
               Path with the SynthDefs
-
-          **wait** : bool
-              If True wait for server reply.
 
           **server** : SCServer, optional
               Server that gets the SynthDefs, by default None

@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -439,10 +439,7 @@
 
 <div class="viewcode-block" id="Volume.update_synth"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.update_synth">[docs]</a>    <span class="k">def</span> <span class="nf">update_synth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Update volume Synth&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_muted</span><span class="p">:</span>
-            <span class="n">amp</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">amp</span> <span class="o">=</span> <span class="n">dbamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="p">)</span>
+        <span class="n">amp</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_muted</span> <span class="k">else</span> <span class="n">dbamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="p">)</span>
         <span class="n">active</span> <span class="o">=</span> <span class="n">amp</span> <span class="o">!=</span> <span class="mf">1.0</span>
         <span class="k">if</span> <span class="n">active</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
@@ -450,7 +447,7 @@
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synth_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Volume SynthDef unknown. Cannot set volume.&quot;</span><span class="p">)</span>
                         <span class="k">return</span>
-                    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">controls</span> <span class="o">=</span> <span class="p">{</span>
                         <span class="s2">&quot;volumeAmp&quot;</span><span class="p">:</span> <span class="n">amp</span><span class="p">,</span>
                         <span class="s2">&quot;volumeLag&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lag</span><span class="p">,</span>
                         <span class="s2">&quot;bus&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">output_bus</span><span class="o">.</span><span class="n">idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
@@ -459,7 +456,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">_synth_name</span><span class="p">,</span>
                         <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">AFTER</span><span class="p">,</span>
                         <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">default_group</span><span class="p">,</span>
-                        <span class="n">controls</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                        <span class="n">controls</span><span class="o">=</span><span class="n">controls</span><span class="p">,</span>
                         <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>

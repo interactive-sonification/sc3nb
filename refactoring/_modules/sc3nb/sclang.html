@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -545,10 +545,9 @@
             <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
         <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>  <span class="c1"># &#39;x&#39; will be interpreted as symbol</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">):</span>
-                <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-            <span class="k">return</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># &quot;x&quot; will be interpreted as string</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># &quot;x&quot; will be interpreted as string</span>
     <span class="c1"># further type conversion can be added in the future</span>
     <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
 
@@ -621,7 +620,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting sclang process...&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span>
             <span class="n">executable</span><span class="o">=</span><span class="s2">&quot;sclang&quot;</span><span class="p">,</span>
-            <span class="n">exec_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span>
+            <span class="n">executable_path</span><span class="o">=</span><span class="n">sclang_path</span><span class="p">,</span>
             <span class="n">console_logging</span><span class="o">=</span><span class="n">console_logging</span><span class="p">,</span>
             <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
         <span class="p">)</span>
@@ -633,18 +632,20 @@
                 <span class="ow">and</span> <span class="s2">&quot;Primitive &#39;_GetLangPort&#39; failed&quot;</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="n">SCLangError</span><span class="p">(</span>
-                    <span class="s2">&quot;sclang could not bind udp socket. &quot;</span>
-                    <span class="s2">&quot;Try killing old sclang processes.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;sclang could not bind udp socket. Try killing old sclang processes.&quot;</span><span class="p">,</span>
                     <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
                 <span class="p">)</span> <span class="kn">from</span> <span class="nn">process_timeout</span>
+
             <span class="k">raise</span> <span class="n">process_timeout</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">()</span></div>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Registering OSC /return callback in sclang...&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">cmds</span><span class="p">(</span>
-                <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SCLang._init"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SCLang._init">[docs]</a>    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Registering OSC /return callback in sclang...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmds</span><span class="p">(</span>
+            <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                &quot;sc3nb - Registering OSC /return callback&quot;.postln;</span>
 <span class="sd">                // NetAddr.useDoubles = true;</span>
 <span class="sd">                r = r ? ();</span>
@@ -662,15 +663,15 @@
 <span class="sd">                    addr.sendMsg(^replyAddress, msgContent);</span>
 <span class="sd">                    result;  // result should be returned</span>
 <span class="sd">                };&quot;&quot;&quot;</span><span class="p">,</span>
-                <span class="n">pyvars</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;replyAddress&quot;</span><span class="p">:</span> <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">RETURN_ADDR</span><span class="p">},</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">expect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prompt_str</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
+            <span class="n">pyvars</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;replyAddress&quot;</span><span class="p">:</span> <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">RETURN_ADDR</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">expect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prompt_str</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span>
 
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading default SynthDescs&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">load_synthdefs</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">expect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prompt_str</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading default SynthDescs&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_synthdefs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">expect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prompt_str</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SCLang.load_synthdefs"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SCLang.load_synthdefs">[docs]</a>    <span class="k">def</span> <span class="nf">load_synthdefs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">synthdefs_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Load SynthDef files from path.</span>
@@ -818,7 +819,7 @@
         <span class="k">if</span> <span class="n">get_result</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">return_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">returns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
-            <span class="k">except</span> <span class="n">Empty</span><span class="p">:</span>
+            <span class="k">except</span> <span class="n">Empty</span> <span class="k">as</span> <span class="n">empty_exception</span><span class="p">:</span>
                 <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">print_error</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: unable to receive /return message from sclang&quot;</span><span class="p">)</span>
@@ -826,15 +827,14 @@
                     <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="n">SCLangError</span><span class="p">(</span>
                     <span class="s2">&quot;unable to receive /return message from sclang&quot;</span><span class="p">,</span> <span class="n">sclang_output</span><span class="o">=</span><span class="n">out</span>
-                <span class="p">)</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="nn">empty_exception</span>
         <span class="k">if</span> <span class="n">verbose</span> <span class="ow">or</span> <span class="n">get_output</span><span class="p">:</span>
             <span class="c1"># get output after current command</span>
             <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">expect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prompt_str</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
                 <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">out</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">:]</span>  <span class="c1"># skip code echo</span>
-            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">get_result</span> <span class="ow">and</span> <span class="n">get_output</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">get_output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">get_result</span><span class="p">:</span>
                 <span class="n">return_val</span> <span class="o">=</span> <span class="n">out</span>
 
         <span class="k">return</span> <span class="n">return_val</span></div>

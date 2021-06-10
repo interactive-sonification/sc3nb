@@ -245,7 +245,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.midicps">midicps</a></li>
@@ -513,7 +513,10 @@ instance.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.magics.SC3Magics.scgv" title="sc3nb.magics.SC3Magics.scgv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scgv</span></code></a></p></td>
 <td><p>Execute SuperCollider code returning output</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.magics.SC3Magics._parse_pyvars" title="sc3nb.magics.SC3Magics._parse_pyvars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parse_pyvars</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.magics.SC3Magics.scgs" title="sc3nb.magics.SC3Magics.scgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scgs</span></code></a></p></td>
+<td><p>Execute SuperCollider code returning output</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.magics.SC3Magics._parse_pyvars" title="sc3nb.magics.SC3Magics._parse_pyvars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_parse_pyvars</span></code></a></p></td>
 <td><p>Parses SuperCollider code for python variables and their values</p></td>
 </tr>
 </tbody>
@@ -613,6 +616,32 @@ of supported types</p>
 <dl class="py method">
 <dt id="sc3nb.magics.SC3Magics.scgv">
 <code class="sig-name descname"><span class="pre">scgv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/magics.html#SC3Magics.scgv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.magics.SC3Magics.scgv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute SuperCollider code returning output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>line</strong><span class="classifier">str, optional</span></dt><dd><p>Line of SuperCollider code, by default ‘’</p>
+</dd>
+<dt><strong>cell</strong><span class="classifier">str, optional</span></dt><dd><p>Cell of SuperCollider code , by default None</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Unknown</dt><dd><p>cmd result
+Output from SuperCollider code, not
+all SC types supported, see
+pythonosc.osc_message.Message for list
+of supported types</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.magics.SC3Magics.scgs">
+<code class="sig-name descname"><span class="pre">scgs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/magics.html#SC3Magics.scgs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.magics.SC3Magics.scgs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute SuperCollider code returning output</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -245,7 +245,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.midicps">midicps</a></li>
@@ -826,16 +826,19 @@ if only a int is provided it is loaded as only channel</p>
 
 <dl class="py method">
 <dt id="sc3nb.sc_objects.buffer.Buffer.load_data">
-<code class="sig-name descname"><span class="pre">load_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.load_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">load_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/buffer.html#Buffer.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.buffer.Buffer.load_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allocate buffer space and read input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>data</strong><span class="classifier">numpy array</span></dt><dd><p>Data which should inserted</p>
 </dd>
-<dt><strong>mode</strong><span class="classifier">‘file’ or ‘osc’</span></dt><dd><p>Insert data via filemode (‘file’) or n_set OSC commands (‘osc’)</p>
+<dt><strong>sr</strong><span class="classifier">int, default: 44100</span></dt><dd><p>sample rate</p>
 </dd>
-<dt><strong>sr</strong><span class="classifier">int=44100</span></dt><dd><p>sample rate</p>
+<dt><strong>mode</strong><span class="classifier">‘file’ or ‘osc’</span></dt><dd><p>Insert data via filemode (‘file’) or n_set OSC commands (‘osc’)
+Bundling is only supported for ‘osc’ mode and if sync is False.</p>
+</dd>
+<dt><strong>sync: bool, default: True</strong></dt><dd><p>Use SCServer.sync after sending messages when mode = ‘osc’</p>
 </dd>
 </dl>
 </dd>

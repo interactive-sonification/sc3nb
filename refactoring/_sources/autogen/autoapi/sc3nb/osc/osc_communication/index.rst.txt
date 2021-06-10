@@ -26,7 +26,7 @@ Function List
 .. autoapisummary::
    :nosignatures:
 
-   sc3nb.osc.osc_communication.build_message
+   sc3nb.osc.osc_communication.convert_to_sc3nb_osc
 
 
 
@@ -37,6 +37,7 @@ Class List
 .. autoapisummary::
    :nosignatures:
 
+   sc3nb.osc.osc_communication.OSCMessage
    sc3nb.osc.osc_communication.Bundler
    sc3nb.osc.osc_communication.MessageHandler
    sc3nb.osc.osc_communication.MessageQueue
@@ -53,23 +54,20 @@ Content
 
    
 
-.. function:: build_message(msg_addr: str, msg_args: Optional[Union[Sequence]] = None) -> pythonosc.osc_message.OscMessage
+.. class:: OSCMessage(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None)
 
-   Builds pythonsosc OSC message.
+
+   Class for creating messages to send over OSC
 
 
    :Parameters:
 
-       **msg_addr** : str
-           SuperCollider address.
+       **msg_address** : str
+           OSC message address
 
-       **msg_args** : list, optional
-           List of arguments to add to message.
+       **msg_parameters** : Optional[Union[Sequence]], optional
+           OSC message parameters, by default None
 
-   :Returns:
-
-       OscMessage
-           Message ready to be sent.
 
 
 
@@ -87,7 +85,203 @@ Content
        !! processed by numpydoc !!
 
 
-.. class:: Bundler(timestamp: float = 0, msg: Optional[Union[OscMessage, str]] = None, msg_args: Optional[Sequence[Any]] = None, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.osc.osc_communication.OSCMessage.dgram
+         sc3nb.osc.osc_communication.OSCMessage.raw_osc
+         sc3nb.osc.osc_communication.OSCMessage.parameters
+         sc3nb.osc.osc_communication.OSCMessage.address
+         sc3nb.osc.osc_communication.OSCMessage.to_pythonosc
+         sc3nb.osc.osc_communication.OSCMessage._build_message
+         sc3nb.osc.osc_communication.OSCMessage.__repr__
+
+   .. method:: dgram(self) -> bytes
+      :property:
+
+      datagram of OSC message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: raw_osc(self) -> bytes
+      :property:
+
+      raw OSC representation - same as :py:attr:`~dgram`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: parameters(self) -> List[Any]
+      :property:
+
+      OSC message parameters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: address(self) -> str
+      :property:
+
+      OSC message address
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: to_pythonosc(self) -> pythonosc.osc_message.OscMessage
+
+      Return python-osc OscMessage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _build_message(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
+      :staticmethod:
+
+      Builds pythonsosc OSC message.
+
+
+      :Parameters:
+
+          **msg_address** : str
+              SuperCollider address.
+
+          **msg_parameters** : list, optional
+              List of parameters to add to message.
+
+      :Returns:
+
+          OscMessage
+              Message ready to be sent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
    Class for creating OSCBundles and Bundling of Messages
@@ -115,15 +309,16 @@ Content
 
    :Parameters:
 
-       **timestamp** : float, optional
+       **timetag** : float, optional
            Starting time at which bundle content should be executed.
-           If timestamp <= 1e6 it is added to time.time(), by default 0
+           If timetag <= 1e6 it is assumed to be relativ
+           and is added to time.time(), by default 0
 
-       **msg** : OscMessage or str, optional
-           OscMessage or message address, by default None
+       **msg** : OSCMessage or str, optional
+           OSCMessage or message address, by default None
 
-       **msg_args** : sequence of any type, optional
-           Arguments for the message, by default None
+       **msg_params** : sequence of any type, optional
+           Parameters for the message, by default None
 
        **server** : OSCCommunication, optional
            OSC server, by default None
@@ -159,13 +354,20 @@ Content
    .. autoapisummary::
       :nosignatures:
 
+         sc3nb.osc.osc_communication.Bundler.dgram
          sc3nb.osc.osc_communication.Bundler.wait
          sc3nb.osc.osc_communication.Bundler.add
-         sc3nb.osc.osc_communication.Bundler.__deepcopy__
-         sc3nb.osc.osc_communication.Bundler.build
+         sc3nb.osc.osc_communication.Bundler.messages
          sc3nb.osc.osc_communication.Bundler.send
+         sc3nb.osc.osc_communication.Bundler.to_pythonosc
+         sc3nb.osc.osc_communication.Bundler._calc_timetag
+         sc3nb.osc.osc_communication.Bundler.__deepcopy__
          sc3nb.osc.osc_communication.Bundler.__enter__
          sc3nb.osc.osc_communication.Bundler.__exit__
+
+   .. method:: dgram(self) -> bytes
+      :property:
+
 
    .. method:: wait(self, time_passed: float) -> None
 
@@ -194,17 +396,17 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add(self, *params) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: add(self, *args) -> sc3nb.osc.osc_communication.Bundler
 
-      Add a pythonosc OscMessage or OscBundle to this bundle.
+      Add content to this Bundler.
 
 
       :Parameters:
 
-          **params** : OscMessage or Bundler or Bundler arguments like
-              (timestamp, msg_addr, msg_args)
-              (timestamp, msg_addr)
-              (timestamp, msg)
+          **args** : OSCMessage or Bundler or Bundler arguments like
+              (timetag, msg_addr, msg_params)
+              (timetag, msg_addr)
+              (timetag, msg)
 
       :Returns:
 
@@ -227,23 +429,21 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: __deepcopy__(self, memo) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[(float, List[OSCMessage])]
 
+      Generate a dict with all messages in this Bundler.
 
-   .. method:: build(self, time_offset: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
-
-      Build this bundle.
-
+      They dict key is the time tag of the messages.
 
       :Parameters:
 
-          **time_offset** : Optional[float], optional
-              used for recursion, by default None
+          **start_time** : Optional[float], optional
+              start time when using relativ timing, by default 0.0
 
       :Returns:
 
-          OscBundle
-              bundle instance for sending
+          Dict[float, List[OSCMessage]]
+              dict containg all OSCMessages
 
 
 
@@ -261,7 +461,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, server: Optional['OSCCommunication'] = None, receiver: Tuple[(str, int)] = None, bundled: bool = True)
+   .. method:: send(self, server: Optional['OSCCommunication'] = None, receiver: Tuple[(str, int)] = None, bundle: bool = True)
 
       Send this Bundler.
 
@@ -277,7 +477,7 @@ Content
               Address (ip, port) to send to, if None it will send the bundle to
               the default receiver of the Bundler
 
-          **bundled** : bool, optional
+          **bundle** : bool, optional
               If True this is allowed to be bundled, by default True
 
 
@@ -301,6 +501,43 @@ Content
           !! processed by numpydoc !!
 
 
+   .. method:: to_pythonosc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
+
+      Build this bundle.
+
+
+      :Parameters:
+
+          **start_time** : Optional[float], optional
+              used as start time when using relativ timing, by default time.time()
+
+      :Returns:
+
+          OscBundle
+              bundle instance for sending
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _calc_timetag(self, start_time: Optional[float])
+
+
+   .. method:: __deepcopy__(self, memo) -> sc3nb.osc.osc_communication.Bundler
+
+
    .. method:: __enter__(self)
 
 
@@ -308,6 +545,41 @@ Content
 
 
 
+
+
+.. function:: convert_to_sc3nb_osc(data: Union[(OSCMessage, Bundler, OscMessage, OscBundle, bytes)]) -> Union[(OSCMessage, Bundler)]
+
+   Get binary OSC representation
+
+
+   :Parameters:
+
+       **package** : Union[OscMessage, Bundler, OscBundle]
+           OSC Package object
+
+   :Returns:
+
+       bytes
+           raw OSC binary representation of OSC Package
+
+
+
+
+   :Raises:
+
+       ValueError
+           If package is not supported
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
 
 
 .. class:: MessageHandler
@@ -469,6 +741,7 @@ Content
 
          sc3nb.osc.osc_communication.MessageQueue.put
          sc3nb.osc.osc_communication.MessageQueue.skips
+         sc3nb.osc.osc_communication.MessageQueue.size
          sc3nb.osc.osc_communication.MessageQueue.skipped
          sc3nb.osc.osc_communication.MessageQueue.map_values
          sc3nb.osc.osc_communication.MessageQueue.get
@@ -506,6 +779,30 @@ Content
       :property:
 
       Counts how many times this queue was not synced
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: size(self) -> int
+      :property:
+
+      How many items are in this queue
 
 
 
@@ -638,7 +935,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _repr_pretty_(self, p, cycle) -> None
+   .. method:: _repr_pretty_(self, printer, cycle) -> None
 
 
 
@@ -903,6 +1200,7 @@ Content
          sc3nb.osc.osc_communication.OSCCommunication.connection_info
          sc3nb.osc.osc_communication.OSCCommunication.add_receiver
          sc3nb.osc.osc_communication.OSCCommunication.send
+         sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message
          sc3nb.osc.osc_communication.OSCCommunication.get_reply_address
          sc3nb.osc.osc_communication.OSCCommunication.msg
          sc3nb.osc.osc_communication.OSCCommunication.bundler
@@ -1147,7 +1445,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add_receiver(self, name: str, ip: str, port: int)
+   .. method:: add_receiver(self, name: str, ip_address: str, port: int)
 
       Adds a receiver with the specified address.
 
@@ -1157,7 +1455,7 @@ Content
           **name** : str
               Name of receiver.
 
-          **ip** : str
+          **ip_address** : str
               IP address of receiver (e.g. "127.0.0.1")
 
           **port** : int
@@ -1180,25 +1478,26 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, package: Union[(OscMessage, Bundler, OscBundle)], bundled: bool = False, receiver: Optional[Union[str, Tuple[str, int]]] = None, await_reply: bool = True, timeout: float = 5) -> Any
+   .. method:: send(self, package: Union[(OSCMessage, Bundler)], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = True, await_reply: bool = True, timeout: float = 5) -> Any
 
       Sends OSC packet
 
 
       :Parameters:
 
-          **package** : OscMessage or OscBundle or Bundler
+          **package** : OSCMessage or Bundler
               Object with `dgram` attribute.
-
-          **bundled** : bool, optional
-              If True it is allowed to bundle the content with bundling, by default False
 
           **receiver** : str or Tuple[str, int], optional
               Where to send the packet, by default send to default receiver
 
+          **bundle** : bool, optional
+              If True it is allowed to bundle the package with bundling, by default True.
+
           **await_reply** : bool, optional
-              If True and content is a OscMessage send message and wait for reply
-              otherwise send the message and return None directly, by default True
+              If True for reply from the server and return it,
+              otherwise send the message and return None directly, by default True.
+              If the package is bundled None will be returned.
 
           **timeout** : int, optional
               timeout in seconds for reply, by default 5
@@ -1217,7 +1516,7 @@ Content
               When the provided package is not supported.
 
           OSCCommunicationError
-              When the handling of a message fails.
+              When the handling of a package fails.
 
 
 
@@ -1229,6 +1528,9 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _handle_outgoing_message(self, message: sc3nb.osc.osc_communication.OSCMessage, receiver_address: Tuple[(str, int)], await_reply: bool, timeout: float) -> Any
 
 
    .. method:: get_reply_address(self, msg_address: str) -> Optional[str]
@@ -1262,7 +1564,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: msg(self, msg_addr: str, msg_args: Optional[Sequence] = None, bundled: bool = False, receiver: Optional[Tuple[str, int]] = None, await_reply: bool = True, timeout: float = 5) -> Optional[Any]
+   .. method:: msg(self, msg_addr: str, msg_params: Optional[Sequence] = None, *, bundle: bool = True, receiver: Optional[Tuple[str, int]] = None, await_reply: bool = True, timeout: float = 5) -> Optional[Any]
 
       Creates and sends OSC message over UDP.
 
@@ -1270,13 +1572,13 @@ Content
       :Parameters:
 
           **msg_addr** : str
-              SuperCollider address
+              SuperCollider address of the OSC message
 
-          **msg_args** : Optional[Sequence], optional
-              List of arguments to add to message, by default None
+          **msg_params** : Optional[Sequence], optional
+              List of paramters of the OSC message, by default None
 
-          **bundled** : bool, optional
-              If True it is allowed to bundle the content with bundling, by default False
+          **bundle** : bool, optional
+              If True it is allowed to bundle the content with bundling, by default True
 
           **receiver** : tuple[str, int], optional
               (IP address, port) to send the message, by default send to default receiver
@@ -1309,7 +1611,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: bundler(self, timestamp: float = 0, msg: Optional[Union[OscMessage, str]] = None, msg_args: Optional[Sequence[Any]] = None, send_on_exit: bool = True) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: bundler(self, timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, send_on_exit: bool = True) -> sc3nb.osc.osc_communication.Bundler
 
       Generate a Bundler.
 
@@ -1317,15 +1619,15 @@ Content
 
       :Parameters:
 
-          **timestamp** : int
+          **timetag** : int
               Time at which bundle content should be executed.
-              If timestamp <= 1e6 it is added to time.time().
+              If timetag <= 1e6 it is added to time.time().
 
-          **msg** : OscMessage or str, optional
-              OscMessage or message address, by default None
+          **msg** : OSCMessage or str, optional
+              OSCMessage or message address, by default None
 
-          **msg_args** : sequence of any type, optional
-              Arguments for the message, by default None
+          **msg_params** : sequence of any type, optional
+              Parameters for the message, by default None
 
           **send_on_exit** : bool, optional
               Wether the bundle is send when using as context manger, by default True

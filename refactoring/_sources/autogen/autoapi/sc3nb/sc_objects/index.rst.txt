@@ -38,6 +38,7 @@ Submodules
    bus/index.rst
    node/index.rst
    recorder/index.rst
+   score/index.rst
    server/index.rst
    synthdef/index.rst
    volume/index.rst

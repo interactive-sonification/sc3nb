@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -387,6 +387,7 @@
 <span class="kn">from</span> <span class="nn">pythonosc.osc_bundle_builder</span> <span class="kn">import</span> <span class="n">OscBundleBuilder</span>
 <span class="kn">from</span> <span class="nn">pythonosc.osc_message</span> <span class="kn">import</span> <span class="n">OscMessage</span>
 <span class="kn">from</span> <span class="nn">pythonosc.osc_message_builder</span> <span class="kn">import</span> <span class="n">OscMessageBuilder</span>
+<span class="kn">from</span> <span class="nn">pythonosc.osc_packet</span> <span class="kn">import</span> <span class="n">OscPacket</span><span class="p">,</span> <span class="n">ParseError</span>
 <span class="kn">from</span> <span class="nn">pythonosc.osc_server</span> <span class="kn">import</span> <span class="n">OSCUDPServer</span><span class="p">,</span> <span class="n">ThreadingOSCUDPServer</span>
 
 <span class="kn">import</span> <span class="nn">sc3nb</span>
@@ -395,36 +396,108 @@
 <span class="n">_LOGGER</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
 
 
-<div class="viewcode-block" id="build_message"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.build_message">[docs]</a><span class="k">def</span> <span class="nf">build_message</span><span class="p">(</span>
-    <span class="n">msg_addr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscMessage</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Builds pythonsosc OSC message.</span>
+<div class="viewcode-block" id="OSCMessage"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage">[docs]</a><span class="k">class</span> <span class="nc">OSCMessage</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class for creating messages to send over OSC</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    msg_addr : str</span>
-<span class="sd">        SuperCollider address.</span>
-<span class="sd">    msg_args : list, optional</span>
-<span class="sd">        List of arguments to add to message.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    OscMessage</span>
-<span class="sd">        Message ready to be sent.</span>
-
+<span class="sd">    msg_address : str</span>
+<span class="sd">        OSC message address</span>
+<span class="sd">    msg_parameters : Optional[Union[Sequence]], optional</span>
+<span class="sd">        OSC message parameters, by default None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">msg_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg_args</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg_args</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg_args</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)):</span>
-        <span class="n">msg_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">msg_args</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">msg_addr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
-        <span class="n">msg_addr</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">msg_addr</span>
+    <span class="c1"># TODO add reply_address and callback functionality to osc_com</span>
+    <span class="c1"># reply_address : Optional[str], optional</span>
+    <span class="c1">#     OSC address of the reply to this message, by default None</span>
+    <span class="c1"># callback : Callable[..., None], optional</span>
+    <span class="c1">#     Callback for reply handling, by default None</span>
 
-    <span class="n">builder</span> <span class="o">=</span> <span class="n">OscMessageBuilder</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">msg_addr</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">msg_arg</span> <span class="ow">in</span> <span class="n">msg_args</span><span class="p">:</span>
-        <span class="n">builder</span><span class="o">.</span><span class="n">add_arg</span><span class="p">(</span><span class="n">msg_arg</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span></div>
+    <span class="c1">#     reply_address: Optional[str] = None,</span>
+    <span class="c1">#     callback: Callable[..., None] = None,</span>
+
+    <span class="c1"># self._reply_addr = reply_address</span>
+    <span class="c1">#     self._callback = callback</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def reply_address(self) -&gt; Optional[str]:</span>
+    <span class="c1">#     &quot;&quot;&quot;OSC message reply address&quot;&quot;&quot;</span>
+    <span class="c1">#     return self._content.address</span>
+
+    <span class="c1"># @property</span>
+    <span class="c1"># def callback(self) -&gt; Optional[Callable[..., None]]:</span>
+    <span class="c1">#     &quot;&quot;&quot;OSC message reply handler&quot;&quot;&quot;</span>
+    <span class="c1">#     return self._callback</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">msg_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">msg_parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_content</span><span class="p">:</span> <span class="n">OscMessage</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="o">.</span><span class="n">_build_message</span><span class="p">(</span>
+            <span class="n">msg_address</span><span class="p">,</span> <span class="n">msg_parameters</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="OSCMessage.dgram"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage.dgram">[docs]</a>    <span class="k">def</span> <span class="nf">dgram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;datagram of OSC message&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_content</span><span class="o">.</span><span class="n">dgram</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="OSCMessage.raw_osc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage.raw_osc">[docs]</a>    <span class="k">def</span> <span class="nf">raw_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;raw OSC representation - same as :py:attr:`~dgram`&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dgram</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="OSCMessage.parameters"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage.parameters">[docs]</a>    <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;OSC message parameters&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_content</span><span class="o">.</span><span class="n">params</span></div>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="OSCMessage.address"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage.address">[docs]</a>    <span class="k">def</span> <span class="nf">address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;OSC message address&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_content</span><span class="o">.</span><span class="n">address</span></div>
+
+<div class="viewcode-block" id="OSCMessage.to_pythonosc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage.to_pythonosc">[docs]</a>    <span class="k">def</span> <span class="nf">to_pythonosc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscMessage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return python-osc OscMessage&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_content</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="OSCMessage._build_message"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage._build_message">[docs]</a>    <span class="k">def</span> <span class="nf">_build_message</span><span class="p">(</span>
+        <span class="n">msg_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">msg_parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscMessage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds pythonsosc OSC message.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        msg_address : str</span>
+<span class="sd">            SuperCollider address.</span>
+<span class="sd">        msg_parameters : list, optional</span>
+<span class="sd">            List of parameters to add to message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        OscMessage</span>
+<span class="sd">            Message ready to be sent.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">msg_parameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg_parameters</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">msg_parameters</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">msg_parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">msg_parameters</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">msg_address</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+            <span class="n">msg_address</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">msg_address</span>
+
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">OscMessageBuilder</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">msg_address</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">msg_arg</span> <span class="ow">in</span> <span class="n">msg_parameters</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">add_arg</span><span class="p">(</span><span class="n">msg_arg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="OSCMessage.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCMessage.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;OSCMessage(&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s1">&quot;, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="si">}</span><span class="s1">)&gt;&#39;</span></div></div>
 
 
 <div class="viewcode-block" id="Bundler"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler">[docs]</a><span class="k">class</span> <span class="nc">Bundler</span><span class="p">:</span>
@@ -432,9 +505,9 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">OscMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">msg_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timetag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">msg_params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">server</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;OSCCommunication&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">send_on_exit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -443,13 +516,14 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timestamp : float, optional</span>
+<span class="sd">        timetag : float, optional</span>
 <span class="sd">            Starting time at which bundle content should be executed.</span>
-<span class="sd">            If timestamp &lt;= 1e6 it is added to time.time(), by default 0</span>
-<span class="sd">        msg : OscMessage or str, optional</span>
-<span class="sd">            OscMessage or message address, by default None</span>
-<span class="sd">        msg_args : sequence of any type, optional</span>
-<span class="sd">            Arguments for the message, by default None</span>
+<span class="sd">            If timetag &lt;= 1e6 it is assumed to be relativ</span>
+<span class="sd">            and is added to time.time(), by default 0</span>
+<span class="sd">        msg : OSCMessage or str, optional</span>
+<span class="sd">            OSCMessage or message address, by default None</span>
+<span class="sd">        msg_params : sequence of any type, optional</span>
+<span class="sd">            Parameters for the message, by default None</span>
 <span class="sd">        server : OSCCommunication, optional</span>
 <span class="sd">            OSC server, by default None</span>
 <span class="sd">        receiver : Union[str, Tuple[str, int]], optional</span>
@@ -457,7 +531,7 @@
 <span class="sd">        send_on_exit : bool, optional</span>
 <span class="sd">            Wether the bundle is send when using as context manger, by default True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span> <span class="o">=</span> <span class="n">timetag</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_receiver</span> <span class="o">=</span> <span class="n">receiver</span>
         <span class="k">if</span> <span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span>
@@ -466,13 +540,19 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
             <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Bundler&quot;</span><span class="p">,</span> <span class="n">OscMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Bundler&quot;</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">passed_time</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">OscMessage</span><span class="p">):</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="n">build_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_params</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send_on_exit</span> <span class="o">=</span> <span class="n">send_on_exit</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Bundler.dgram"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.dgram">[docs]</a>    <span class="k">def</span> <span class="nf">dgram</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="c1"># Bundler needs to be build, this ensures that</span>
+        <span class="c1"># relative timings are calculated just now</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_pythonosc</span><span class="p">()</span><span class="o">.</span><span class="n">dgram</span></div>
 
 <div class="viewcode-block" id="Bundler.wait"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.wait">[docs]</a>    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_passed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Add time to internal time</span>
@@ -484,98 +564,87 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">passed_time</span> <span class="o">+=</span> <span class="n">time_passed</span></div>
 
-<div class="viewcode-block" id="Bundler.add"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Bundler&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add a pythonosc OscMessage or OscBundle to this bundle.</span>
+<div class="viewcode-block" id="Bundler.add"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Bundler&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Add content to this Bundler.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        params : OscMessage or Bundler or Bundler arguments like</span>
-<span class="sd">                 (timestamp, msg_addr, msg_args)</span>
-<span class="sd">                 (timestamp, msg_addr)</span>
-<span class="sd">                 (timestamp, msg)</span>
+<span class="sd">        args : OSCMessage or Bundler or Bundler arguments like</span>
+<span class="sd">               (timetag, msg_addr, msg_params)</span>
+<span class="sd">               (timetag, msg_addr)</span>
+<span class="sd">               (timetag, msg)</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Bundler</span>
 <span class="sd">            self for chaining</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">OscMessage</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">):</span>
                 <span class="n">bundler</span> <span class="o">=</span> <span class="n">Bundler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">passed_time</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">):</span>
                 <span class="n">bundler</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">bundler</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="mf">1e6</span><span class="p">:</span>
-                    <span class="n">bundler</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed_time</span>
+                <span class="k">if</span> <span class="n">bundler</span><span class="o">.</span><span class="n">timetag</span> <span class="o">&lt;</span> <span class="mf">1e6</span><span class="p">:</span>
+                    <span class="n">bundler</span><span class="o">.</span><span class="n">timetag</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed_time</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Cannot add </span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2"> of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2">. &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;Needing </span><span class="si">{</span><span class="n">OscMessage</span><span class="si">}</span><span class="s2"> or </span><span class="si">{</span><span class="n">Bundler</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Needing </span><span class="si">{</span><span class="n">OSCMessage</span><span class="si">}</span><span class="s2"> or </span><span class="si">{</span><span class="n">Bundler</span><span class="si">}</span><span class="s2"> if len(args)==1&quot;</span>
                 <span class="p">)</span>
             <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                 <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Appending </span><span class="si">%s</span><span class="s2"> to Bundler with time </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">passed_time</span><span class="p">,</span>
                 <span class="n">bundler</span><span class="p">,</span>
-                <span class="n">bundler</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="n">bundler</span><span class="o">.</span><span class="n">timetag</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bundler</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="n">timestamp</span><span class="p">,</span> <span class="n">msg_addr</span><span class="p">,</span> <span class="n">msg_args</span> <span class="o">=</span> <span class="n">params</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">msg_addr</span><span class="p">,</span> <span class="n">msg_args</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">timestamp</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">params</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">timetag</span><span class="p">,</span> <span class="n">msg_addr</span><span class="p">,</span> <span class="n">msg_params</span> <span class="o">=</span> <span class="n">args</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Bundler</span><span class="p">(</span><span class="n">timetag</span><span class="p">,</span> <span class="n">msg_addr</span><span class="p">,</span> <span class="n">msg_params</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">timetag</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Bundler</span><span class="p">(</span><span class="n">timetag</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid parameters </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid parameters </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Bundler.__deepcopy__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.__deepcopy__">[docs]</a>    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Bundler&quot;</span><span class="p">:</span>
-        <span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
-        <span class="n">new_bundler</span> <span class="o">=</span> <span class="n">Bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
-        <span class="n">new_bundler</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_bundler</span></div>
+<div class="viewcode-block" id="Bundler.messages"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.messages">[docs]</a>    <span class="k">def</span> <span class="nf">messages</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Generate a dict with all messages in this Bundler.</span>
 
-<div class="viewcode-block" id="Bundler.build"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_offset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscBundle</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Build this bundle.</span>
+<span class="sd">        They dict key is the time tag of the messages.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        time_offset : Optional[float], optional</span>
-<span class="sd">            used for recursion, by default None</span>
+<span class="sd">        start_time : Optional[float], optional</span>
+<span class="sd">            start time when using relativ timing, by default 0.0</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        OscBundle</span>
-<span class="sd">            bundle instance for sending</span>
+<span class="sd">        Dict[float, List[OSCMessage]]</span>
+<span class="sd">            dict containg all OSCMessages</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># if time_offset is None this is the root bundler</span>
-        <span class="k">if</span> <span class="n">time_offset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">time_offset</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="c1"># time to unix time when relative</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="mf">1e6</span><span class="p">:</span>
-            <span class="c1"># new time = relative offset (start time) + relative timestamp</span>
-            <span class="n">time_offset</span> <span class="o">=</span> <span class="n">time_offset</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># absolute time</span>
-            <span class="n">time_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span>
-        <span class="c1"># build bundle</span>
-        <span class="n">builder</span> <span class="o">=</span> <span class="n">OscBundleBuilder</span><span class="p">(</span><span class="n">time_offset</span><span class="p">)</span>
-        <span class="c1"># add contents</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_timetag</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">):</span>
-                <span class="n">builder</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">time_offset</span><span class="o">=</span><span class="n">time_offset</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">OscMessage</span><span class="p">):</span>
-                <span class="n">builder</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t build with unsupported content: </span><span class="si">{content}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span></div>
+                <span class="k">for</span> <span class="n">timetag</span><span class="p">,</span> <span class="n">cont</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">messages</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">messages</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">timetag</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="n">messages</span><span class="p">[</span><span class="n">timetag</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">):</span>
+                <span class="n">timetag</span> <span class="o">=</span> <span class="n">start_time</span> <span class="o">+</span> <span class="p">(</span><span class="n">delay</span> <span class="k">if</span> <span class="n">delay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">timetag</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">messages</span><span class="p">[</span><span class="n">timetag</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">messages</span></div>
 
 <div class="viewcode-block" id="Bundler.send"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">server</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;OSCCommunication&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">receiver</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">bundled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">bundle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Send this Bundler.</span>
 
@@ -588,7 +657,7 @@
 <span class="sd">        receiver : Tuple[str, int], optional</span>
 <span class="sd">            Address (ip, port) to send to, if None it will send the bundle to</span>
 <span class="sd">            the default receiver of the Bundler</span>
-<span class="sd">        bundled : bool, optional</span>
+<span class="sd">        bundle : bool, optional</span>
 <span class="sd">            If True this is allowed to be bundled, by default True</span>
 
 <span class="sd">        Raises</span>
@@ -602,7 +671,53 @@
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No server for sending provided.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">receiver</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_receiver</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">receiver</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">lookup_receiver</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_receiver</span><span class="p">)</span>
-        <span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">receiver</span><span class="p">,</span> <span class="n">bundled</span><span class="o">=</span><span class="n">bundled</span><span class="p">)</span></div>
+        <span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">receiver</span><span class="o">=</span><span class="n">receiver</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="n">bundle</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bundler.to_pythonosc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.to_pythonosc">[docs]</a>    <span class="k">def</span> <span class="nf">to_pythonosc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscBundle</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Build this bundle.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start_time : Optional[float], optional</span>
+<span class="sd">            used as start time when using relativ timing, by default time.time()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        OscBundle</span>
+<span class="sd">            bundle instance for sending</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_timetag</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="c1"># build bundle</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">OscBundleBuilder</span><span class="p">(</span><span class="n">start_time</span> <span class="o">+</span> <span class="p">(</span><span class="n">delay</span> <span class="k">if</span> <span class="n">delay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="c1"># add contents</span>
+        <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">):</span>
+                <span class="n">builder</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span>
+                    <span class="n">content</span><span class="o">.</span><span class="n">to_pythonosc</span><span class="p">(</span><span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">):</span>
+                <span class="n">builder</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">to_pythonosc</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t build with unsupported content: </span><span class="si">{content}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Bundler._calc_timetag"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler._calc_timetag">[docs]</a>    <span class="k">def</span> <span class="nf">_calc_timetag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span> <span class="o">&gt;</span> <span class="mf">1e6</span><span class="p">:</span>
+            <span class="c1"># absolute time</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span>
+        <span class="c1"># use relativ timing</span>
+        <span class="c1"># if start_time is None use just now</span>
+        <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="c1"># time tag = relative offset (start time) + relative timetag</span>
+        <span class="k">return</span> <span class="n">start_time</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span></div>
+
+<div class="viewcode-block" id="Bundler.__deepcopy__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.__deepcopy__">[docs]</a>    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Bundler&quot;</span><span class="p">:</span>
+        <span class="n">new_bundler</span> <span class="o">=</span> <span class="n">Bundler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timetag</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="n">new_bundler</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_bundler</span></div>
 
 <div class="viewcode-block" id="Bundler.__enter__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.Bundler.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_bundling_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -620,7 +735,53 @@
                 <span class="sa">f</span><span class="s2">&quot;Aborting. Exception raised in bundler: </span><span class="si">{</span><span class="n">exc_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">exc_value</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_on_exit</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="convert_to_sc3nb_osc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.convert_to_sc3nb_osc">[docs]</a><span class="k">def</span> <span class="nf">convert_to_sc3nb_osc</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">,</span> <span class="n">OscMessage</span><span class="p">,</span> <span class="n">OscBundle</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get binary OSC representation</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    package : Union[OscMessage, Bundler, OscBundle]</span>
+<span class="sd">        OSC Package object</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bytes</span>
+<span class="sd">        raw OSC binary representation of OSC Package</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If package is not supported</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="n">dgram</span> <span class="o">=</span> <span class="n">data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dgram</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dgram</span>
+            <span class="n">packet</span> <span class="o">=</span> <span class="n">OscPacket</span><span class="p">(</span><span class="n">dgram</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="n">ParseError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unsupported data of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
+        <span class="k">if</span> <span class="n">OscMessage</span><span class="o">.</span><span class="n">dgram_is_message</span><span class="p">(</span><span class="n">dgram</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">packet</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">packet</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="n">bundler</span> <span class="o">=</span> <span class="n">Bundler</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">timed_msg</span> <span class="ow">in</span> <span class="n">packet</span><span class="o">.</span><span class="n">messages</span><span class="p">:</span>
+            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">timed_msg</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+                <span class="n">OSCMessage</span><span class="p">(</span><span class="n">timed_msg</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">timed_msg</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">params</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">bundler</span></div>
 
 
 <div class="viewcode-block" id="MessageHandler"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.MessageHandler">[docs]</a><span class="k">class</span> <span class="nc">MessageHandler</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
@@ -691,6 +852,11 @@
         <span class="sd">&quot;&quot;&quot;Counts how many times this queue was not synced&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skips</span></div>
 
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MessageQueue.size"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.MessageQueue.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;How many items are in this queue&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="MessageQueue.skipped"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.MessageQueue.skipped">[docs]</a>    <span class="k">def</span> <span class="nf">skipped</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Skipp one queue value&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_skips</span> <span class="o">+=</span> <span class="mi">1</span></div>
@@ -730,7 +896,9 @@
         <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
             <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skips</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">skipped_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
-                <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;AddressQueue: skipped value </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">skipped_value</span><span class="p">)</span>
+                <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;AddressQueue </span><span class="si">%s</span><span class="s2">: skipped value </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="p">,</span> <span class="n">skipped_value</span>
+                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_skips</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skips</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_skips</span> <span class="o">-=</span> <span class="mi">1</span>
@@ -742,11 +910,11 @@
         <span class="sd">&quot;&quot;&quot;Print the content of the queue.&quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">queue</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="MessageQueue._repr_pretty_"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.MessageQueue._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="MessageQueue._repr_pretty_"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.MessageQueue._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">printer</span><span class="p">,</span> <span class="n">cycle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">cycle</span><span class="p">:</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;AddressQueue&quot;</span><span class="p">)</span>
+            <span class="n">printer</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;AddressQueue&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AddressQueue </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
+            <span class="n">printer</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AddressQueue </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_address</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="MessageQueueCollection"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.MessageQueueCollection">[docs]</a><span class="k">class</span> <span class="nc">MessageQueueCollection</span><span class="p">(</span><span class="n">MessageHandler</span><span class="p">):</span>
@@ -839,7 +1007,7 @@
 <span class="sd">        default_receiver_port : int</span>
 <span class="sd">            port used for sending by default</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_default_receiver</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">default_receiver_ip</span><span class="p">,</span>
             <span class="n">default_receiver_port</span><span class="p">,</span>
@@ -850,11 +1018,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_bundling_bundles</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># create server</span>
-        <span class="n">osc_server_dispatcher</span> <span class="o">=</span> <span class="n">Dispatcher</span><span class="p">()</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span> <span class="o">=</span> <span class="n">ThreadingOSCUDPServer</span><span class="p">(</span>
-                    <span class="p">(</span><span class="n">server_ip</span><span class="p">,</span> <span class="n">server_port</span><span class="p">),</span> <span class="n">osc_server_dispatcher</span>
+                    <span class="p">(</span><span class="n">server_ip</span><span class="p">,</span> <span class="n">server_port</span><span class="p">),</span> <span class="n">Dispatcher</span><span class="p">()</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server_running</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
@@ -1005,34 +1172,36 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">print_info</span><span class="p">:</span>
-            <span class="n">receivers_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">receivers_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; at </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="se">\n</span><span class="s1">                 &#39;</span>
+            <span class="n">receivers_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; at </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="se">\n</span><span class="s1">                 &#39;</span>
+                <span class="k">for</span> <span class="n">addr</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;This instance is at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">server_address</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;Known receivers: </span><span class="si">{</span><span class="n">receivers_str</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">server_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OSCCommunication.add_receiver"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication.add_receiver">[docs]</a>    <span class="k">def</span> <span class="nf">add_receiver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="OSCCommunication.add_receiver"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication.add_receiver">[docs]</a>    <span class="k">def</span> <span class="nf">add_receiver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ip_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Adds a receiver with the specified address.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        name : str</span>
 <span class="sd">            Name of receiver.</span>
-<span class="sd">        ip : str</span>
+<span class="sd">        ip_address : str</span>
 <span class="sd">            IP address of receiver (e.g. &quot;127.0.0.1&quot;)</span>
 <span class="sd">        port : int</span>
 <span class="sd">            Port of the receiver</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="p">[(</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">)]</span> <span class="o">=</span> <span class="n">name</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span><span class="p">[(</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">port</span><span class="p">)]</span> <span class="o">=</span> <span class="n">name</span></div>
 
 <div class="viewcode-block" id="OSCCommunication.send"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication.send">[docs]</a>    <span class="k">def</span> <span class="nf">send</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">package</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OscMessage</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">,</span> <span class="n">OscBundle</span><span class="p">],</span>
-        <span class="n">bundled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">package</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">],</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bundle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">await_reply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -1040,15 +1209,16 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        package : OscMessage or OscBundle or Bundler</span>
+<span class="sd">        package : OSCMessage or Bundler</span>
 <span class="sd">            Object with `dgram` attribute.</span>
-<span class="sd">        bundled : bool, optional</span>
-<span class="sd">            If True it is allowed to bundle the content with bundling, by default False</span>
 <span class="sd">        receiver : str or Tuple[str, int], optional</span>
 <span class="sd">            Where to send the packet, by default send to default receiver</span>
+<span class="sd">        bundle : bool, optional</span>
+<span class="sd">            If True it is allowed to bundle the package with bundling, by default True.</span>
 <span class="sd">        await_reply : bool, optional</span>
-<span class="sd">            If True and content is a OscMessage send message and wait for reply</span>
-<span class="sd">            otherwise send the message and return None directly, by default True</span>
+<span class="sd">            If True for reply from the server and return it,</span>
+<span class="sd">            otherwise send the message and return None directly, by default True.</span>
+<span class="sd">            If the package is bundled None will be returned.</span>
 <span class="sd">        timeout : int, optional</span>
 <span class="sd">            timeout in seconds for reply, by default 5</span>
 
@@ -1062,84 +1232,86 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            When the provided package is not supported.</span>
 <span class="sd">        OSCCommunicationError</span>
-<span class="sd">            When the handling of a message fails.</span>
+<span class="sd">            When the handling of a package fails.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO we could use a typing.Protocol for sendableOSC (.dgram), ..</span>
         <span class="c1"># bundling</span>
-        <span class="k">if</span> <span class="n">bundled</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bundle</span><span class="p">:</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bundling_lock</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bundling_bundles</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_bundling_bundles</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
                     <span class="k">return</span>
 
-        <span class="n">receiver_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_receiver</span>
         <span class="k">if</span> <span class="n">receiver</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">receiver_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup_receiver</span><span class="p">(</span><span class="n">receiver</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">receiver_address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_receiver</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Bundler needs to be build, this ensures that</span>
-            <span class="c1"># relative timings are calculated just now</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">):</span>
-                <span class="n">datagram</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="n">build</span><span class="p">()</span><span class="o">.</span><span class="n">dgram</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">datagram</span> <span class="o">=</span> <span class="n">package</span><span class="o">.</span><span class="n">dgram</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Package &#39;</span><span class="si">{</span><span class="n">package</span><span class="si">}</span><span class="s2">&#39; not supported. It needs a dgram Attribute.&quot;</span>
-            <span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
-
-        <span class="n">sent_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">datagram</span><span class="p">,</span> <span class="n">receiver_address</span><span class="p">)</span>
+        <span class="n">package</span> <span class="o">=</span> <span class="n">convert_to_sc3nb_osc</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
+        <span class="n">sent_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">package</span><span class="o">.</span><span class="n">dgram</span><span class="p">,</span> <span class="n">receiver_address</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">sent_bytes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Could not send data. Socket connection broken.&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">OscMessage</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="n">package</span>
-            <span class="c1"># logging</span>
-            <span class="k">if</span> <span class="n">_LOGGER</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
-                <span class="n">msg_params_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="ow">not</span> <span class="n">_LOGGER</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">params</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">55</span>
-                <span class="p">):</span>
-                    <span class="n">msg_params_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">params</span><span class="p">)[:</span><span class="mi">55</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;..&quot;</span>
-                <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="s2">&quot;send to </span><span class="si">%s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">receiver_address</span><span class="p">),</span>
-                    <span class="n">msg</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
-                    <span class="n">msg_params_str</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="c1"># handling</span>
-            <span class="n">reply_addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reply_address</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">reply_addr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">reply_addr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msg_queues</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">await_reply</span><span class="p">:</span>
-                        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msg_queues</span><span class="p">[</span><span class="n">reply_addr</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_msg_queues</span><span class="p">[</span><span class="n">reply_addr</span><span class="p">]</span><span class="o">.</span><span class="n">skipped</span><span class="p">()</span>
-                        <span class="k">return</span>
-            <span class="k">except</span> <span class="p">(</span><span class="n">Empty</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">Empty</span><span class="p">):</span>
-                    <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;Failed to get reply at &#39;</span><span class="si">{</span><span class="n">reply_addr</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;after &#39;</span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">&#39; message to &quot;</span>
-                    <span class="p">)</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">):</span>
-                    <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Timed out after &#39;</span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">&#39; message to &quot;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error when sending &#39;</span><span class="si">{</span><span class="n">msg</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">&#39; message to &quot;</span>
-                <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">receiver_address</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="k">raise</span> <span class="n">OSCCommunicationError</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span>
-
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">OscBundle</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_outgoing_message</span><span class="p">(</span>
+                <span class="n">package</span><span class="p">,</span> <span class="n">receiver_address</span><span class="p">,</span> <span class="n">await_reply</span><span class="p">,</span> <span class="n">timeout</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">Bundler</span><span class="p">):</span>
             <span class="c1"># logging</span>
             <span class="k">if</span> <span class="n">_LOGGER</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
                 <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                     <span class="s2">&quot;send to </span><span class="si">%s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2"> contents size </span><span class="si">%s</span><span class="s2"> &quot;</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">receiver_address</span><span class="p">),</span>
                     <span class="n">package</span><span class="p">,</span>
-                    <span class="nb">len</span><span class="p">(</span><span class="n">package</span><span class="o">.</span><span class="n">_contents</span><span class="p">),</span>
+                    <span class="nb">len</span><span class="p">(</span><span class="n">package</span><span class="o">.</span><span class="n">contents</span><span class="p">),</span>
                 <span class="p">)</span>
+            <span class="c1"># handling</span>
+            <span class="c1"># for each message we should skip queues here</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">msgs</span> <span class="ow">in</span> <span class="n">package</span><span class="o">.</span><span class="n">messages</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">msgs</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_outgoing_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">receiver_address</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;send to </span><span class="si">%s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">package</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OSCCommunication._handle_outgoing_message"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication._handle_outgoing_message">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_outgoing_message</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="n">OSCMessage</span><span class="p">,</span>
+        <span class="n">receiver_address</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">await_reply</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="c1"># logging</span>
+        <span class="k">if</span> <span class="n">_LOGGER</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">msg_params_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_LOGGER</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg_params_str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">55</span><span class="p">:</span>
+                <span class="n">msg_params_str</span> <span class="o">=</span> <span class="n">msg_params_str</span><span class="p">[:</span><span class="mi">55</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;..&quot;</span>
+            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;send to </span><span class="si">%s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">receiver_address</span><span class="p">),</span>
+                <span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+                <span class="n">msg_params_str</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># handling</span>
+        <span class="n">reply_addr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reply_address</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">reply_addr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">reply_addr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msg_queues</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">await_reply</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msg_queues</span><span class="p">[</span><span class="n">reply_addr</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_msg_queues</span><span class="p">[</span><span class="n">reply_addr</span><span class="p">]</span><span class="o">.</span><span class="n">skipped</span><span class="p">()</span>
+                    <span class="k">return</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">Empty</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">Empty</span><span class="p">):</span>
+                <span class="n">error_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Failed to get reply at &#39;</span><span class="si">{</span><span class="n">reply_addr</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;after &#39;</span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">&#39; message to &quot;</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">):</span>
+                <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Timed out after &#39;</span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">&#39; message to &quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error when sending &#39;</span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">&#39; message to &quot;</span>
+            <span class="n">error_msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">receiver_address</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="n">OSCCommunicationError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span></div>
 
 <div class="viewcode-block" id="OSCCommunication.get_reply_address"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication.get_reply_address">[docs]</a>    <span class="k">def</span> <span class="nf">get_reply_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_address</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Get the corresponding reply address for the given address</span>
@@ -1159,8 +1331,9 @@
 <div class="viewcode-block" id="OSCCommunication.msg"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication.msg">[docs]</a>    <span class="k">def</span> <span class="nf">msg</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">msg_addr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">msg_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">bundled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">msg_params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">bundle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">await_reply</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
@@ -1170,11 +1343,11 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        msg_addr : str</span>
-<span class="sd">            SuperCollider address</span>
-<span class="sd">        msg_args : Optional[Sequence], optional</span>
-<span class="sd">            List of arguments to add to message, by default None</span>
-<span class="sd">        bundled : bool, optional</span>
-<span class="sd">            If True it is allowed to bundle the content with bundling, by default False</span>
+<span class="sd">            SuperCollider address of the OSC message</span>
+<span class="sd">        msg_params : Optional[Sequence], optional</span>
+<span class="sd">            List of paramters of the OSC message, by default None</span>
+<span class="sd">        bundle : bool, optional</span>
+<span class="sd">            If True it is allowed to bundle the content with bundling, by default True</span>
 <span class="sd">        receiver : tuple[str, int], optional</span>
 <span class="sd">            (IP address, port) to send the message, by default send to default receiver</span>
 <span class="sd">        await_reply : bool, optional</span>
@@ -1189,8 +1362,8 @@
 <span class="sd">            reply if await_reply and there is a reply for this</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span>
-            <span class="n">build_message</span><span class="p">(</span><span class="n">msg_addr</span><span class="p">,</span> <span class="n">msg_args</span><span class="p">),</span>
-            <span class="n">bundled</span><span class="o">=</span><span class="n">bundled</span><span class="p">,</span>
+            <span class="n">OSCMessage</span><span class="p">(</span><span class="n">msg_addr</span><span class="p">,</span> <span class="n">msg_params</span><span class="p">),</span>
+            <span class="n">bundle</span><span class="o">=</span><span class="n">bundle</span><span class="p">,</span>
             <span class="n">receiver</span><span class="o">=</span><span class="n">receiver</span><span class="p">,</span>
             <span class="n">await_reply</span><span class="o">=</span><span class="n">await_reply</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span></div>
@@ -1198,9 +1371,9 @@
 
 <div class="viewcode-block" id="OSCCommunication.bundler"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.OSCCommunication.bundler">[docs]</a>    <span class="k">def</span> <span class="nf">bundler</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">OscMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">msg_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timetag</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">msg_params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">send_on_exit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bundler</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate a Bundler.</span>
@@ -1209,13 +1382,13 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timestamp : int</span>
+<span class="sd">        timetag : int</span>
 <span class="sd">            Time at which bundle content should be executed.</span>
-<span class="sd">            If timestamp &lt;= 1e6 it is added to time.time().</span>
-<span class="sd">        msg : OscMessage or str, optional</span>
-<span class="sd">            OscMessage or message address, by default None</span>
-<span class="sd">        msg_args : sequence of any type, optional</span>
-<span class="sd">            Arguments for the message, by default None</span>
+<span class="sd">            If timetag &lt;= 1e6 it is added to time.time().</span>
+<span class="sd">        msg : OSCMessage or str, optional</span>
+<span class="sd">            OSCMessage or message address, by default None</span>
+<span class="sd">        msg_params : sequence of any type, optional</span>
+<span class="sd">            Parameters for the message, by default None</span>
 <span class="sd">        send_on_exit : bool, optional</span>
 <span class="sd">            Wether the bundle is send when using as context manger, by default True</span>
 
@@ -1225,9 +1398,9 @@
 <span class="sd">            bundler for OSC bundling.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Bundler</span><span class="p">(</span>
-            <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+            <span class="n">timetag</span><span class="o">=</span><span class="n">timetag</span><span class="p">,</span>
             <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
-            <span class="n">msg_args</span><span class="o">=</span><span class="n">msg_args</span><span class="p">,</span>
+            <span class="n">msg_params</span><span class="o">=</span><span class="n">msg_params</span><span class="p">,</span>
             <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">send_on_exit</span><span class="o">=</span><span class="n">send_on_exit</span><span class="p">,</span></div>
         <span class="p">)</span>

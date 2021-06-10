@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -372,10 +372,9 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">NoReturn</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">pythonosc.osc_message</span> <span class="kn">import</span> <span class="n">OscMessage</span>
 
 <span class="kn">import</span> <span class="nn">sc3nb</span>
-<span class="kn">from</span> <span class="nn">sc3nb.osc.osc_communication</span> <span class="kn">import</span> <span class="n">Bundler</span><span class="p">,</span> <span class="n">OSCCommunication</span>
+<span class="kn">from</span> <span class="nn">sc3nb.osc.osc_communication</span> <span class="kn">import</span> <span class="n">Bundler</span><span class="p">,</span> <span class="n">OSCCommunication</span><span class="p">,</span> <span class="n">OSCMessage</span>
 
 
 <div class="viewcode-block" id="Event"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event">[docs]</a><span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
@@ -384,7 +383,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    timetag : int</span>
+<span class="sd">    timestamp : float</span>
 <span class="sd">        Time event should be executed</span>
 <span class="sd">    function : Callable[..., None]</span>
 <span class="sd">        Function to be executed</span>
@@ -396,7 +395,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">timetag</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
         <span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
         <span class="n">spawn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -405,7 +404,7 @@
             <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
             <span class="n">function</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">start</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span> <span class="o">=</span> <span class="n">timetag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
 
@@ -414,16 +413,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Event.__eq__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">timetag</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">timestamp</span></div>
 
 <div class="viewcode-block" id="Event.__lt__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.__lt__">[docs]</a>    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">timetag</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">timestamp</span></div>
 
 <div class="viewcode-block" id="Event.__le__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.__le__">[docs]</a>    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timetag</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">timetag</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">timestamp</span></div>
 
 <div class="viewcode-block" id="Event.__repr__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timetag</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="TimedQueue"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue">[docs]</a><span class="k">class</span> <span class="nc">TimedQueue</span><span class="p">:</span>
@@ -449,11 +448,7 @@
         <span class="n">drop_time_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drop_time_thr</span> <span class="o">=</span> <span class="n">drop_time_threshold</span>
-        <span class="k">if</span> <span class="n">relative_time</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="k">if</span> <span class="n">relative_time</span> <span class="k">else</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close_event</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
@@ -484,7 +479,7 @@
 
 <div class="viewcode-block" id="TimedQueue.put"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">timetag</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
         <span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
         <span class="n">spawn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -493,7 +488,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timetag : int</span>
+<span class="sd">        timestamp : float</span>
 <span class="sd">            Time when event should be executed</span>
 <span class="sd">        function : Callable[..., None]</span>
 <span class="sd">            Function to be executed</span>
@@ -512,16 +507,16 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;function argument cannot be called&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">,)</span>
-        <span class="n">new_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">timetag</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">spawn</span><span class="p">)</span>
+        <span class="n">new_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">spawn</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_event</span><span class="p">)</span>
             <span class="n">evlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">timetag</span><span class="p">)</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">timestamp</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">[</span><span class="n">timetag</span><span class="p">,</span> <span class="n">evlen</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="p">[</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">evlen</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span></div>
             <span class="p">)</span>
 
 <div class="viewcode-block" id="TimedQueue.get"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
@@ -574,12 +569,12 @@
                 <span class="k">break</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="p">:</span>
                 <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">peek</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">timetag</span> <span class="o">&lt;=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
                     <span class="c1"># execute only if not too old</span>
-                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">timetag</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_time_thr</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_time_thr</span><span class="p">:</span>
                         <span class="n">event</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="c1"># sleep_time = event_list[0].timetag - (time.time() - self.start) - 0.001</span>
+                <span class="c1"># sleep_time = event_list[0].timestamp - (time.time() - self.start) - 0.001</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TimedQueue.__repr__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -631,7 +626,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">bundler</span><span class="o">.</span><span class="n">send</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TimedQueueSC.put_msg"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC.put_msg">[docs]</a>    <span class="k">def</span> <span class="nf">put_msg</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OscMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">msg_params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Add a message to queue</span>
 
@@ -639,13 +634,13 @@
 <span class="sd">        ----------</span>
 <span class="sd">        onset : int</span>
 <span class="sd">            Sending timetag of the message</span>
-<span class="sd">        msg : Union[OscMessage, str]</span>
-<span class="sd">            OscMessage or OSC address</span>
-<span class="sd">        args : Iterable[Any]</span>
-<span class="sd">            If msg is str, this will be the arguments of the created OscMessage</span>
+<span class="sd">        msg : Union[OSCMessage, str]</span>
+<span class="sd">            OSCMessage or OSC address</span>
+<span class="sd">        msg_params : Iterable[Any]</span>
+<span class="sd">            If msg is str, this will be the parameters of the created OSCMessage</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_params</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="p">,))</span></div></div>
 </pre></div>

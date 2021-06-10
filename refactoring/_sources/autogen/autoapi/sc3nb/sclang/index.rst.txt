@@ -361,6 +361,7 @@ Content
       :nosignatures:
 
          sc3nb.sclang.SCLang.start
+         sc3nb.sclang.SCLang._init
          sc3nb.sclang.SCLang.load_synthdefs
          sc3nb.sclang.SCLang.kill
          sc3nb.sclang.SCLang.__del__
@@ -415,6 +416,9 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _init(self)
 
 
    .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None

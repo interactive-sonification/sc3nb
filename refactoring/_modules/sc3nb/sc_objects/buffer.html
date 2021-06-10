@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -559,21 +559,16 @@
                 <span class="sa">f</span><span class="s2">&quot;Sample rate of file (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_sr</span><span class="si">}</span><span class="s2">) does not &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;match the SC Server sample rate (</span><span class="si">{</span><span class="n">server_sr</span><span class="si">}</span><span class="s2">)&quot;</span>
             <span class="p">)</span>
-        <span class="k">if</span> <span class="n">num_frames</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_samples</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_samples</span> <span class="o">=</span> <span class="n">num_frames</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_samples</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">num_frames</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">num_frames</span>
         <span class="k">if</span> <span class="n">channels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">channels</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">channels</span> <span class="o">=</span> <span class="p">[</span><span class="n">channels</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_channels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
             <span class="n">BufferCommand</span><span class="o">.</span><span class="n">ALLOC_READ_CHANNEL</span><span class="p">,</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">),</span> <span class="n">starting_frame</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">,</span> <span class="o">*</span><span class="n">channels</span><span class="p">],</span>
+            <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span></div>
@@ -608,12 +603,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_mode</span> <span class="o">=</span> <span class="n">BufferAllocationMode</span><span class="o">.</span><span class="n">ALLOC</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_channels</span> <span class="o">=</span> <span class="n">channels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">ALLOC</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">channels</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
+            <span class="n">BufferCommand</span><span class="o">.</span><span class="n">ALLOC</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">channels</span><span class="p">],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.load_data"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="n">sr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">44100</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">sr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+        <span class="n">sync</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Buffer&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Allocate buffer space and read input data.</span>
 
@@ -621,10 +622,13 @@
 <span class="sd">        ----------</span>
 <span class="sd">        data : numpy array</span>
 <span class="sd">            Data which should inserted</span>
+<span class="sd">        sr : int, default: 44100</span>
+<span class="sd">            sample rate</span>
 <span class="sd">        mode : &#39;file&#39; or &#39;osc&#39;</span>
 <span class="sd">            Insert data via filemode (&#39;file&#39;) or n_set OSC commands (&#39;osc&#39;)</span>
-<span class="sd">        sr : int=44100</span>
-<span class="sd">            sample rate</span>
+<span class="sd">            Bundling is only supported for &#39;osc&#39; mode and if sync is False.</span>
+<span class="sd">        sync: bool, default: True</span>
+<span class="sd">            Use SCServer.sync after sending messages when mode = &#39;osc&#39;</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -658,7 +662,9 @@
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;osc&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">ALLOC</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
+                <span class="n">BufferCommand</span><span class="o">.</span><span class="n">ALLOC</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
             <span class="n">blocksize</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># array size compatible with OSC packet size</span>
             <span class="c1"># TODO: check how this depends on datagram size</span>
             <span class="c1"># TODO: put into Buffer header as const if needed elsewhere...</span>
@@ -668,6 +674,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
                     <span class="n">BufferCommand</span><span class="o">.</span><span class="n">SETN</span><span class="p">,</span>
                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">()]],</span>
+                    <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># For datasets larger than {blocksize} entries,</span>
@@ -678,8 +685,10 @@
                         <span class="n">BufferCommand</span><span class="o">.</span><span class="n">SETN</span><span class="p">,</span>
                         <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">blocksize</span><span class="p">,</span> <span class="n">chunk</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chunk</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span>
                         <span class="n">await_reply</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">sync</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported mode &#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span> <span class="o">=</span> <span class="kc">True</span>
@@ -689,7 +698,7 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="n">sr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">44100</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Buffer&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Wrapper method of :func:`Buffer.load_data`&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">sr</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Buffer.load_asig"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.load_asig">[docs]</a>    <span class="k">def</span> <span class="nf">load_asig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asig</span><span class="p">:</span> <span class="s2">&quot;pya.Asig&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Buffer&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Create buffer from asig</span>
@@ -713,7 +722,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is already initialized!&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">asig</span><span class="o">.</span><span class="n">sig</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">asig</span><span class="o">.</span><span class="n">sr</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">asig</span><span class="o">.</span><span class="n">sig</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">asig</span><span class="o">.</span><span class="n">sr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Buffer.use_existing"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.use_existing">[docs]</a>    <span class="k">def</span> <span class="nf">use_existing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bufnum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Buffer&quot;</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates a buffer object from already existing Buffer bufnum.</span>
@@ -775,7 +784,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">samples</span><span class="p">,</span> <span class="n">buffer</span><span class="o">.</span><span class="n">sr</span><span class="p">,</span> <span class="n">buffer</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">gen_copy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># both sc instance must have the same file server</span>
+            <span class="c1"># both sc instances must have the same file server</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sr</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">sr</span>
             <span class="n">tempfile</span> <span class="o">=</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">tempfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -816,11 +825,8 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is not initialized!&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="n">start</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">FILL</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">]</span> <span class="o">+</span> <span class="n">values</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">FILL</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">]</span> <span class="o">+</span> <span class="n">values</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.gen"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.gen">[docs]</a>    <span class="k">def</span> <span class="nf">gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Buffer&quot;</span><span class="p">:</span>
@@ -850,7 +856,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is not initialized!&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">GEN</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">command</span><span class="p">]</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">GEN</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">command</span><span class="p">]</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.zero"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.zero">[docs]</a>    <span class="k">def</span> <span class="nf">zero</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Buffer&quot;</span><span class="p">:</span>
@@ -868,7 +874,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is not initialized!&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">ZERO</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">ZERO</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.gen_sine1"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.gen_sine1">[docs]</a>    <span class="k">def</span> <span class="nf">gen_sine1</span><span class="p">(</span>
@@ -1090,16 +1096,15 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is not initialized!&quot;</span><span class="p">)</span>
 
-        <span class="n">playbuf_def</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |</span>
-<span class="s2">                var sig = PlayBuf.ar(^num_channels, bufnum,</span>
-<span class="s2">                    rate*BufRateScale.kr(bufnum),</span>
-<span class="s2">                    loop: loop,</span>
-<span class="s2">                    doneAction: Done.freeSelf);</span>
-<span class="s2">                Out.ar(out, Pan2.ar(sig, pan, amp))</span>
-<span class="s2">        }&quot;&quot;&quot;</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synth_def</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">playbuf_def</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |</span>
+<span class="s2">                    var sig = PlayBuf.ar(^num_channels, bufnum,</span>
+<span class="s2">                        rate*BufRateScale.kr(bufnum),</span>
+<span class="s2">                        loop: loop,</span>
+<span class="s2">                        doneAction: Done.freeSelf);</span>
+<span class="s2">                    Out.ar(out, Pan2.ar(sig, pan, amp))</span>
+<span class="s2">            }&quot;&quot;&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_synth_def</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="p">(</span>
                 <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;sc3nb_playbuf_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bufnum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="n">playbuf_def</span>
             <span class="p">)</span>
@@ -1178,6 +1183,7 @@
                 <span class="n">starting_frame</span><span class="p">,</span>
                 <span class="n">leave_open_val</span><span class="p">,</span>
             <span class="p">],</span>
+            <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -1196,7 +1202,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is not initialized!&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">],</span> <span class="n">bundled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.to_array"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer.to_array">[docs]</a>    <span class="k">def</span> <span class="nf">to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -1220,7 +1226,9 @@
         <span class="n">num_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_samples</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channels</span>
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_samples</span><span class="p">:</span>
             <span class="n">bs</span> <span class="o">=</span> <span class="n">blocksize</span> <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="n">blocksize</span> <span class="o">&lt;</span> <span class="n">num_samples</span> <span class="k">else</span> <span class="n">num_samples</span> <span class="o">-</span> <span class="n">i</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">bs</span><span class="p">])</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
+                <span class="n">BufferCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">bs</span><span class="p">],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
             <span class="n">data</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tmp</span><span class="p">)[</span><span class="mi">3</span><span class="p">:]</span>  <span class="c1"># skip first 3 els [bufnum, startidx, size]</span>
             <span class="n">i</span> <span class="o">+=</span> <span class="n">bs</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channels</span><span class="p">))</span>
@@ -1242,7 +1250,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Buffer object is not initialized!&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">BufferInfo</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">QUERY</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">]))</span></div>
+        <span class="k">return</span> <span class="n">BufferInfo</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">QUERY</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="Buffer._repr_pretty_"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.Buffer._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">cycle</span><span class="p">:</span>
@@ -1271,7 +1281,7 @@
             <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bufnum_set_manually</span>
         <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">buffer_id_allocator</span><span class="o">.</span><span class="n">free_ids</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">FREE</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">BufferCommand</span><span class="o">.</span><span class="n">FREE</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bufnum</span><span class="p">],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_allocated</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_alloc_mode</span> <span class="o">=</span> <span class="n">BufferAllocationMode</span><span class="o">.</span><span class="n">NONE</span></div>
 

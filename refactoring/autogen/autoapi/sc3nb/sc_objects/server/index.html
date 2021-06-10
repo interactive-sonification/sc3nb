@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
     <link rel="next" title="sc3nb.sc_objects.synthdef" href="../synthdef/index.html" />
-    <link rel="prev" title="sc3nb.sc_objects.recorder" href="../recorder/index.html" /> 
+    <link rel="prev" title="sc3nb.sc_objects.score" href="../score/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -245,7 +245,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.midicps">midicps</a></li>
@@ -878,112 +878,115 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.free_all" title="sc3nb.sc_objects.server.SCServer.free_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free_all</span></code></a></p></td>
 <td><p>Free all node ids.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.send_default_groups" title="sc3nb.sc_objects.server.SCServer.send_default_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_default_groups</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.clear_schedule" title="sc3nb.sc_objects.server.SCServer.clear_schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_schedule</span></code></a></p></td>
+<td><p>Send /clearSched to the server.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.send_default_groups" title="sc3nb.sc_objects.server.SCServer.send_default_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_default_groups</span></code></a></p></td>
 <td><p>Send the default groups for all clients.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_node_id" title="sc3nb.sc_objects.server.SCServer.allocate_node_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_node_id</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_node_id" title="sc3nb.sc_objects.server.SCServer.allocate_node_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_node_id</span></code></a></p></td>
 <td><p>Get a node id.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_buffer_id" title="sc3nb.sc_objects.server.SCServer.allocate_buffer_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_buffer_id</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_buffer_id" title="sc3nb.sc_objects.server.SCServer.allocate_buffer_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_buffer_id</span></code></a></p></td>
 <td><p>Get the next free buffer id.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_control_bus_idx" title="sc3nb.sc_objects.server.SCServer.allocate_control_bus_idx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_control_bus_idx</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_control_bus_idx" title="sc3nb.sc_objects.server.SCServer.allocate_control_bus_idx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_control_bus_idx</span></code></a></p></td>
 <td><p>Get the next free bus id.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_audio_bus_idx" title="sc3nb.sc_objects.server.SCServer.allocate_audio_bus_idx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_audio_bus_idx</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.allocate_audio_bus_idx" title="sc3nb.sc_objects.server.SCServer.allocate_audio_bus_idx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_audio_bus_idx</span></code></a></p></td>
 <td><p>Get the next free bus id.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.client_id" title="sc3nb.sc_objects.server.SCServer.client_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client_id</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.client_id" title="sc3nb.sc_objects.server.SCServer.client_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">client_id</span></code></a></p></td>
 <td><p>The client id for this server</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.max_logins" title="sc3nb.sc_objects.server.SCServer.max_logins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_logins</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.max_logins" title="sc3nb.sc_objects.server.SCServer.max_logins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_logins</span></code></a></p></td>
 <td><p>Maximum number of possible logins at server</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.default_group" title="sc3nb.sc_objects.server.SCServer.default_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_group</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.default_group" title="sc3nb.sc_objects.server.SCServer.default_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_group</span></code></a></p></td>
 <td><p>This clients default group</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.input_bus" title="sc3nb.sc_objects.server.SCServer.input_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_bus</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.input_bus" title="sc3nb.sc_objects.server.SCServer.input_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_bus</span></code></a></p></td>
 <td><p>This servers input Bus</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.output_bus" title="sc3nb.sc_objects.server.SCServer.output_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_bus</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.output_bus" title="sc3nb.sc_objects.server.SCServer.output_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_bus</span></code></a></p></td>
 <td><p>This servers output Bus</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.volume" title="sc3nb.sc_objects.server.SCServer.volume"><code class="xref py py-obj docutils literal notranslate"><span class="pre">volume</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.volume" title="sc3nb.sc_objects.server.SCServer.volume"><code class="xref py py-obj docutils literal notranslate"><span class="pre">volume</span></code></a></p></td>
 <td><p>Volume in dB.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.muted" title="sc3nb.sc_objects.server.SCServer.muted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">muted</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.muted" title="sc3nb.sc_objects.server.SCServer.muted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">muted</span></code></a></p></td>
 <td><p>True if audio is muted</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.mute" title="sc3nb.sc_objects.server.SCServer.mute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mute</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.mute" title="sc3nb.sc_objects.server.SCServer.mute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mute</span></code></a></p></td>
 <td><p>Mute audio</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.unmute" title="sc3nb.sc_objects.server.SCServer.unmute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unmute</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.unmute" title="sc3nb.sc_objects.server.SCServer.unmute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unmute</span></code></a></p></td>
 <td><p>Set volume back to volume prior to muting</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.version" title="sc3nb.sc_objects.server.SCServer.version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.version" title="sc3nb.sc_objects.server.SCServer.version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code></a></p></td>
 <td><p>Server version information</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.status" title="sc3nb.sc_objects.server.SCServer.status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">status</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.status" title="sc3nb.sc_objects.server.SCServer.status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">status</span></code></a></p></td>
 <td><p>Server status information</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.dump_osc" title="sc3nb.sc_objects.server.SCServer.dump_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_osc</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.dump_osc" title="sc3nb.sc_objects.server.SCServer.dump_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_osc</span></code></a></p></td>
 <td><p>Enable dumping incoming OSC messages at the server process</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.dump_tree" title="sc3nb.sc_objects.server.SCServer.dump_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_tree</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.dump_tree" title="sc3nb.sc_objects.server.SCServer.dump_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_tree</span></code></a></p></td>
 <td><p>Server process prints out current nodes</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.query_all_nodes" title="sc3nb.sc_objects.server.SCServer.query_all_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_all_nodes</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.query_all_nodes" title="sc3nb.sc_objects.server.SCServer.query_all_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_all_nodes</span></code></a></p></td>
 <td><p>Query all nodes at the server and return a NodeTree</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.peak_cpu" title="sc3nb.sc_objects.server.SCServer.peak_cpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peak_cpu</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.peak_cpu" title="sc3nb.sc_objects.server.SCServer.peak_cpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peak_cpu</span></code></a></p></td>
 <td><p>Peak cpu usage of server process</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.avg_cpu" title="sc3nb.sc_objects.server.SCServer.avg_cpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_cpu</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.avg_cpu" title="sc3nb.sc_objects.server.SCServer.avg_cpu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">avg_cpu</span></code></a></p></td>
 <td><p>Average cpu usage of server process</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.sample_rate" title="sc3nb.sc_objects.server.SCServer.sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_rate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.sample_rate" title="sc3nb.sc_objects.server.SCServer.sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_rate</span></code></a></p></td>
 <td><p>Nominal sample rate of server process</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.actual_sample_rate" title="sc3nb.sc_objects.server.SCServer.actual_sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">actual_sample_rate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.actual_sample_rate" title="sc3nb.sc_objects.server.SCServer.actual_sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">actual_sample_rate</span></code></a></p></td>
 <td><p>Actual sample rate of server process</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_synths" title="sc3nb.sc_objects.server.SCServer.num_synths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_synths</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_synths" title="sc3nb.sc_objects.server.SCServer.num_synths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_synths</span></code></a></p></td>
 <td><p>Number of Synths in server tree</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_groups" title="sc3nb.sc_objects.server.SCServer.num_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_groups</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_groups" title="sc3nb.sc_objects.server.SCServer.num_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_groups</span></code></a></p></td>
 <td><p>Number of Groups in server tree</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_ugens" title="sc3nb.sc_objects.server.SCServer.num_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_ugens</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_ugens" title="sc3nb.sc_objects.server.SCServer.num_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_ugens</span></code></a></p></td>
 <td><p>Number of UGens in server tree</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_synthdefs" title="sc3nb.sc_objects.server.SCServer.num_synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_synthdefs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.num_synthdefs" title="sc3nb.sc_objects.server.SCServer.num_synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_synthdefs</span></code></a></p></td>
 <td><p>Number of SynthDefs known by server</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.addr" title="sc3nb.sc_objects.server.SCServer.addr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addr</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.addr" title="sc3nb.sc_objects.server.SCServer.addr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addr</span></code></a></p></td>
 <td><p>Address (ip, port) of server</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.has_booted" title="sc3nb.sc_objects.server.SCServer.has_booted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_booted</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.has_booted" title="sc3nb.sc_objects.server.SCServer.has_booted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_booted</span></code></a></p></td>
 <td><p>If the server is booted</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.is_running" title="sc3nb.sc_objects.server.SCServer.is_running"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_running</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.is_running" title="sc3nb.sc_objects.server.SCServer.is_running"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_running</span></code></a></p></td>
 <td><p>If the server is running</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.unresponsive" title="sc3nb.sc_objects.server.SCServer.unresponsive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unresponsive</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.unresponsive" title="sc3nb.sc_objects.server.SCServer.unresponsive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unresponsive</span></code></a></p></td>
 <td><p>If the server process is unresponsive</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.is_local" title="sc3nb.sc_objects.server.SCServer.is_local"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_local</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.is_local" title="sc3nb.sc_objects.server.SCServer.is_local"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_local</span></code></a></p></td>
 <td><p>If the server process is local</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.pid" title="sc3nb.sc_objects.server.SCServer.pid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pid</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.pid" title="sc3nb.sc_objects.server.SCServer.pid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pid</span></code></a></p></td>
 <td><p>The process id of the local server process</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer._log_message" title="sc3nb.sc_objects.server.SCServer._log_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_log_message</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer._log_message" title="sc3nb.sc_objects.server.SCServer._log_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_log_message</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer._warn_fail" title="sc3nb.sc_objects.server.SCServer._warn_fail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_warn_fail</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer._warn_fail" title="sc3nb.sc_objects.server.SCServer._warn_fail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_warn_fail</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.__repr__" title="sc3nb.sc_objects.server.SCServer.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.server.SCServer.__repr__" title="sc3nb.sc_objects.server.SCServer.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
 <td><p>Return repr(self).</p></td>
 </tr>
 </tbody>
@@ -1075,20 +1078,20 @@ scsynth processes that won’t be killed, by default ALLOWED_PARENTS</p>
 
 <dl class="py method">
 <dt id="sc3nb.sc_objects.server.SCServer.bundler">
-<code class="sig-name descname"><span class="pre">bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_on_exit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.bundler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.bundler" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_on_exit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.bundler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.bundler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a Bundler with added server latency.</p>
 <p>This allows the user to easly add messages/bundles and send it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>timestamp</strong><span class="classifier">int</span></dt><dd><p>Time at which bundle content should be executed.
+<dt><strong>timetag</strong><span class="classifier">float</span></dt><dd><p>Time at which bundle content should be executed.
 This servers latency will be added upon this.
-If timestamp &lt;= 1e6 it is added to time.time().</p>
+If timetag &lt;= 1e6 it is added to time.time().</p>
 </dd>
 <dt><strong>msg_addr</strong><span class="classifier">str</span></dt><dd><p>SuperCollider address.</p>
 </dd>
-<dt><strong>msg_args</strong><span class="classifier">list, optional</span></dt><dd><dl class="simple">
-<dt>List of arguments to add to message.</dt><dd><p>(Default value = None)</p>
+<dt><strong>msg_params</strong><span class="classifier">list, optional</span></dt><dd><dl class="simple">
+<dt>List of parameters to add to message.</dt><dd><p>(Default value = None)</p>
 </dd>
 </dl>
 </dd>
@@ -1178,7 +1181,7 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
 
 <dl class="py method">
 <dt id="sc3nb.sc_objects.server.SCServer.send_synthdef">
-<code class="sig-name descname"><span class="pre">send_synthdef</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_bytes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.send_synthdef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.send_synthdef" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">send_synthdef</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_bytes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.send_synthdef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.send_synthdef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a SynthDef as bytes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1201,6 +1204,9 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>synthdef_path</strong><span class="classifier">str</span></dt><dd><p>Path with the SynthDefs</p>
 </dd>
+<dt><strong>bundle</strong><span class="classifier">bool</span></dt><dd><p>Wether the OSC Messages can be bundle or not.
+If True sc3nb will not wait for the server response, by default False</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -1208,7 +1214,7 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
 
 <dl class="py method">
 <dt id="sc3nb.sc_objects.server.SCServer.load_synthdefs">
-<code class="sig-name descname"><span class="pre">load_synthdefs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completion_msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.load_synthdefs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.load_synthdefs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">load_synthdefs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completion_msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.load_synthdefs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.load_synthdefs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load all SynthDefs from directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1216,8 +1222,6 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
 <dt><strong>synthdef_dir</strong><span class="classifier">str, optional</span></dt><dd><p>directory with SynthDefs, by default sc3nb default SynthDefs</p>
 </dd>
 <dt><strong>completion_msg</strong><span class="classifier">bytes, optional</span></dt><dd><p>Message to be executed by the server when loaded, by default None</p>
-</dd>
-<dt><strong>wait</strong><span class="classifier">bool, optional</span></dt><dd><p>If True wait for server reply, by default True</p>
 </dd>
 </dl>
 </dd>
@@ -1268,6 +1272,13 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc_objects.server.SCServer.clear_schedule">
+<code class="sig-name descname"><span class="pre">clear_schedule</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer.clear_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer.clear_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send /clearSched to the server.</p>
+<p>This clears all scheduled bundles and removes all bundles from the scheduling queue.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1544,12 +1555,12 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
 
 <dl class="py method">
 <dt id="sc3nb.sc_objects.server.SCServer._log_message">
-<code class="sig-name descname"><span class="pre">_log_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer._log_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer._log_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_log_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer._log_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer._log_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="sc3nb.sc_objects.server.SCServer._warn_fail">
-<code class="sig-name descname"><span class="pre">_warn_fail</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer._warn_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer._warn_fail" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_warn_fail</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/server.html#SCServer._warn_fail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.server.SCServer._warn_fail" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1571,7 +1582,7 @@ If timestamp &lt;= 1e6 it is added to time.time().</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../synthdef/index.html" class="btn btn-neutral float-right" title="sc3nb.sc_objects.synthdef" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../recorder/index.html" class="btn btn-neutral float-left" title="sc3nb.sc_objects.recorder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../score/index.html" class="btn btn-neutral float-left" title="sc3nb.sc_objects.score" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

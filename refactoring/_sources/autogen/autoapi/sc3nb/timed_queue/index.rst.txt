@@ -34,7 +34,7 @@ Class List
 Content
 ~~~~~~~
 
-.. class:: Event(timetag: int, function: Callable[(..., None)], args: Iterable[Any], spawn: bool = False)
+.. class:: Event(timestamp: float, function: Callable[(..., None)], args: Iterable[Any], spawn: bool = False)
 
 
    Stores a timestamp, function and arguments for that function.
@@ -43,7 +43,7 @@ Content
 
    :Parameters:
 
-       **timetag** : int
+       **timestamp** : float
            Time event should be executed
 
        **function** : Callable[..., None]
@@ -329,14 +329,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put(self, timetag: int, function: Callable[(..., None)], args: Iterable[Any] = (), spawn: bool = False) -> None
+   .. method:: put(self, timestamp: float, function: Callable[(..., None)], args: Iterable[Any] = (), spawn: bool = False) -> None
 
       Adds event to queue
 
 
       :Parameters:
 
-          **timetag** : int
+          **timestamp** : float
               Time when event should be executed
 
           **function** : Callable[..., None]
@@ -626,7 +626,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put_msg(self, onset: int, msg: Union[(OscMessage, str)], args: Iterable[Any]) -> None
+   .. method:: put_msg(self, onset: int, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
 
       Add a message to queue
 
@@ -636,11 +636,11 @@ Content
           **onset** : int
               Sending timetag of the message
 
-          **msg** : Union[OscMessage, str]
-              OscMessage or OSC address
+          **msg** : Union[OSCMessage, str]
+              OSCMessage or OSC address
 
-          **args** : Iterable[Any]
-              If msg is str, this will be the arguments of the created OscMessage
+          **msg_params** : Iterable[Any]
+              If msg is str, this will be the parameters of the created OSCMessage
 
 
 

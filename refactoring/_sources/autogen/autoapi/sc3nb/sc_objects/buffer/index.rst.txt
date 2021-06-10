@@ -566,7 +566,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_data(self, data: numpy.ndarray, mode: str = 'file', sr: float = 44100) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_data(self, data: numpy.ndarray, sr: float = 44100, mode: str = 'file', sync: bool = True) -> sc3nb.sc_objects.buffer.Buffer
 
       Allocate buffer space and read input data.
 
@@ -576,11 +576,15 @@ Content
           **data** : numpy array
               Data which should inserted
 
+          **sr** : int, default: 44100
+              sample rate
+
           **mode** : 'file' or 'osc'
               Insert data via filemode ('file') or n_set OSC commands ('osc')
+              Bundling is only supported for 'osc' mode and if sync is False.
 
-          **sr** : int=44100
-              sample rate
+          **sync: bool, default: True**
+              Use SCServer.sync after sending messages when mode = 'osc'
 
       :Returns:
 

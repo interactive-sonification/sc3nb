@@ -699,7 +699,7 @@ Content
          sc3nb.sc_objects.node.Node.__eq__
          sc3nb.sc_objects.node.Node._get_nodeid
 
-   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OscMessage)]
+   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OSCMessage)]
       :abstractmethod:
 
       Create a new Node
@@ -933,7 +933,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: free(self, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: free(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Free the node with /n_free.
 
@@ -944,8 +944,8 @@ Content
 
       :Returns:
 
-          OscMessage or Node
-              self for chaining or OscMessage when return_msg=True
+          Node or OSCMessage
+              self for chaining or OSCMessage when return_msg=True
 
 
 
@@ -963,16 +963,20 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: run(self, flag: bool = True, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Turn node on or off with /n_run.
 
 
+      :Parameters:
+
+          **on** : bool
+              True for on, False for off, by default True
 
       :Returns:
 
-          OscMessage or Node
-              self for chaining or OscMessage when return_msg=True
+          Node or OSCMessage
+              self for chaining or OSCMessage when return_msg=True
 
 
 
@@ -990,7 +994,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Set a control value(s) of the node with n_set.
 
@@ -1033,7 +1037,7 @@ Content
    .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
 
 
-   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Fill ranges of control values with n_fill.
 
@@ -1054,8 +1058,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -1073,7 +1077,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Map a node's control to read from a bus using /n_map or /n_mapa.
 
@@ -1091,8 +1095,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -1110,7 +1114,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Set gate as specified.
 
@@ -1128,8 +1132,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -1186,7 +1190,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: trace(self, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: trace(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Trace a node.
 
@@ -1200,8 +1204,8 @@ Content
 
       :Returns:
 
-          OscMessage or Node
-              if return_msg is True else self
+          Node or OSCMessage
+              if return_msg else self
 
 
 
@@ -1219,7 +1223,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Move this node
 
@@ -1237,8 +1241,8 @@ Content
 
       :Returns:
 
-          OscMessage or Node
-              if return_msg is True this will be the OscMessage, else self
+          Node or OSCMessage
+              if return_msg this will be the OSCMessage, else self
 
 
 
@@ -1596,7 +1600,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OscMessage)]
+   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OSCMessage)]
 
       Creates the synth on the server with s_new.
 
@@ -1813,7 +1817,7 @@ Content
    .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
 
 
-   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OscMessage)]
+   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OSCMessage)]
 
       Creates the synth on the server with g_new / p_new.
 
@@ -1832,7 +1836,7 @@ Content
               If True use p_new, by default False
 
           **return_msg** : bool, optional
-              If ture return the OscMessage instead of sending it, by default False
+              If ture return the OSCMessage instead of sending it, by default False
 
       :Returns:
 
@@ -1883,7 +1887,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move_node_to_head(self, node)
+   .. method:: move_node_to_head(self, node, return_msg=False)
 
       Move node to this groups head with g_head.
 
@@ -1892,6 +1896,9 @@ Content
 
           **node** : Node
               node to move
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
       :Returns:
 
@@ -1914,7 +1921,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move_node_to_tail(self, node)
+   .. method:: move_node_to_tail(self, node, return_msg=False)
 
       Move node to this groups tail with g_tail.
 
@@ -1923,6 +1930,9 @@ Content
 
           **node** : Node
               node to move
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
       :Returns:
 
@@ -1957,8 +1967,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -1989,8 +1999,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -2023,8 +2033,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -2074,7 +2084,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _repr_pretty_(self, p, cylce)
+   .. method:: _repr_pretty_(self, printer, cylce)
 
 
    .. method:: __repr__(self) -> str
@@ -2178,7 +2188,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _repr_pretty_(self, p, cylce)
+   .. method:: _repr_pretty_(self, printer, cylce)
 
 
 

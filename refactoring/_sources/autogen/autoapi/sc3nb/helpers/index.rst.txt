@@ -24,9 +24,9 @@ Function List
    :nosignatures:
 
    sc3nb.helpers.linlin
+   sc3nb.helpers.clip
    sc3nb.helpers.midicps
    sc3nb.helpers.cpsmidi
-   sc3nb.helpers.clip
    sc3nb.helpers.dbamp
    sc3nb.helpers.ampdb
 
@@ -68,6 +68,43 @@ Content
 
        float
            the mapping result
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: clip(value: float, minimum: float = -float('inf'), maximum: float = float('inf')) -> float
+
+   Clips a value to a certain range
+
+
+   :Parameters:
+
+       **value** : float
+           Value to clip
+
+       **minimum** : float, optional
+           Minimum output value, by default -float("inf")
+
+       **maximum** : float, optional
+           Maximum output value, by default float("inf")
+
+   :Returns:
+
+       float
+           clipped value
 
 
 
@@ -130,43 +167,6 @@ Content
 
        float
            corresponding MIDI note
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-.. function:: clip(value: float, minimum: float = -float('inf'), maximum: float = float('inf')) -> float
-
-   Clips a value to a certain range
-
-
-   :Parameters:
-
-       **value** : float
-           Value to clip
-
-       **minimum** : float, optional
-           Minimum output value, by default -float("inf")
-
-       **maximum** : float, optional
-           Maximum output value, by default float("inf")
-
-   :Returns:
-
-       float
-           clipped value
 
 
 

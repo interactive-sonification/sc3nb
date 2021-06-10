@@ -245,7 +245,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.midicps">midicps</a></li>
@@ -614,46 +614,49 @@ else it will be inserted as string</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.start" title="sc3nb.sclang.SCLang.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a></p></td>
 <td><p>Start and initilize the sclang process.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.load_synthdefs" title="sc3nb.sclang.SCLang.load_synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_synthdefs</span></code></a></p></td>
-<td><p>Load SynthDef files from path.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.kill" title="sc3nb.sclang.SCLang.kill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kill</span></code></a></p></td>
-<td><p>Kill this sclang instance.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.__del__" title="sc3nb.sclang.SCLang.__del__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__del__</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang._init" title="sc3nb.sclang.SCLang._init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_init</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.__repr__" title="sc3nb.sclang.SCLang.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.load_synthdefs" title="sc3nb.sclang.SCLang.load_synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_synthdefs</span></code></a></p></td>
+<td><p>Load SynthDef files from path.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.kill" title="sc3nb.sclang.SCLang.kill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kill</span></code></a></p></td>
+<td><p>Kill this sclang instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.__del__" title="sc3nb.sclang.SCLang.__del__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__del__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.__repr__" title="sc3nb.sclang.SCLang.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
 <td><p>Return repr(self).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmd" title="sc3nb.sclang.SCLang.cmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmd</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmd" title="sc3nb.sclang.SCLang.cmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmd</span></code></a></p></td>
 <td><p>Send code to sclang to execute it.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmdv" title="sc3nb.sclang.SCLang.cmdv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmdv</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmdv" title="sc3nb.sclang.SCLang.cmdv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmdv</span></code></a></p></td>
 <td><p>cmd with verbose=True</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmds" title="sc3nb.sclang.SCLang.cmds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmds</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmds" title="sc3nb.sclang.SCLang.cmds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmds</span></code></a></p></td>
 <td><p>cmd with verbose=False, i.e. silent</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmdg" title="sc3nb.sclang.SCLang.cmdg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmdg</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.cmdg" title="sc3nb.sclang.SCLang.cmdg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cmdg</span></code></a></p></td>
 <td><p>cmd with get_result=True</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.read" title="sc3nb.sclang.SCLang.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.read" title="sc3nb.sclang.SCLang.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a></p></td>
 <td><p>Reads SuperCollider output from the process output queue.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.empty" title="sc3nb.sclang.SCLang.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.empty" title="sc3nb.sclang.SCLang.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></p></td>
 <td><p>Empties sc output queue.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.get_synth_desc" title="sc3nb.sclang.SCLang.get_synth_desc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_synth_desc</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.get_synth_desc" title="sc3nb.sclang.SCLang.get_synth_desc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_synth_desc</span></code></a></p></td>
 <td><p>Get SynthDesc via sclangs global SynthDescLib.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.addr" title="sc3nb.sclang.SCLang.addr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addr</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.addr" title="sc3nb.sclang.SCLang.addr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addr</span></code></a></p></td>
 <td><p>The address of this sclang</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.server" title="sc3nb.sclang.SCLang.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.server" title="sc3nb.sclang.SCLang.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
 <td><p>The SuperCollider server connected to this sclang instance.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.connect_to_server" title="sc3nb.sclang.SCLang.connect_to_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_to_server</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.connect_to_server" title="sc3nb.sclang.SCLang.connect_to_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_to_server</span></code></a></p></td>
 <td><p>Connect this sclang instance to the SuperCollider Server.</p></td>
 </tr>
 </tbody>
@@ -684,6 +687,11 @@ else it will be inserted as string</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sclang.SCLang._init">
+<code class="sig-name descname"><span class="pre">_init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/sclang.html#SCLang._init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sclang.SCLang._init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="sc3nb.sclang.SCLang.load_synthdefs">

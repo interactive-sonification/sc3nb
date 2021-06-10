@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -479,7 +479,7 @@
 
 <div class="viewcode-block" id="Recorder.start"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">timestamp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">timetag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">duration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">node</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Node</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">bus</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -488,7 +488,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timestamp : Optional[float], optional</span>
+<span class="sd">        timetag : Optional[float], optional</span>
 <span class="sd">            Time (or time offset when &lt;1e6) to start, by default 0</span>
 <span class="sd">        duration : Optional[float], optional</span>
 <span class="sd">            Length of the recording, by default until stopped.</span>
@@ -504,12 +504,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">!=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">PREPARED</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recorder state must be PREPARED but is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-            <span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">,</span>
-            <span class="n">duration</span><span class="o">=</span><span class="n">duration</span> <span class="k">if</span> <span class="n">duration</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">bufnum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span><span class="o">.</span><span class="n">bufnum</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">duration</span> <span class="ow">or</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bufnum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span><span class="o">.</span><span class="n">bufnum</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timetag</span><span class="o">=</span><span class="n">timetag</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_synth_name</span><span class="p">,</span>
                 <span class="n">controls</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
@@ -519,12 +516,12 @@
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">RECORDING</span></div>
 
-<div class="viewcode-block" id="Recorder.pause"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="Recorder.pause"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Pause the recording.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timestamp : Optional[float], optional</span>
+<span class="sd">        timetag : Optional[float], optional</span>
 <span class="sd">            Time (or time offset when &lt;1e6) to pause, by default 0</span>
 
 <span class="sd">        Raises</span>
@@ -534,16 +531,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">!=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">RECORDING</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recorder state must be RECORDING but is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timetag</span><span class="o">=</span><span class="n">timetag</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">PAUSED</span></div>
 
-<div class="viewcode-block" id="Recorder.resume"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="Recorder.resume"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resume the recording</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timestamp : Optional[float], optional</span>
+<span class="sd">        timetag : Optional[float], optional</span>
 <span class="sd">            Time (or time offset when &lt;1e6) to resume, by default 0</span>
 
 <span class="sd">        Raises</span>
@@ -553,16 +550,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">!=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">PAUSED</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recorder state must be PAUSED but is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timetag</span><span class="o">=</span><span class="n">timetag</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">RECORDING</span></div>
 
-<div class="viewcode-block" id="Recorder.stop"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="Recorder.stop"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetag</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Stop the recording.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        timestamp : Optional[float], optional</span>
+<span class="sd">        timetag : Optional[float], optional</span>
 <span class="sd">            Time (or time offset when &lt;1e6) to stop, by default 0</span>
 
 <span class="sd">        Raises</span>
@@ -571,18 +568,18 @@
 <span class="sd">            When trying to stop if not started.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">in</span> <span class="p">[</span><span class="n">RecorderState</span><span class="o">.</span><span class="n">RECORDING</span><span class="p">,</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">PAUSED</span><span class="p">]</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">RecorderState</span><span class="o">.</span><span class="n">RECORDING</span><span class="p">,</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">PAUSED</span><span class="p">]</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="p">):</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">UNPREPARED</span>
-        <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Recorder state must be RECORDING or PAUSED but is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="s2">&quot;</span></div>
+                <span class="sa">f</span><span class="s2">&quot;Recorder state must be RECORDING or PAUSED but is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="n">timetag</span><span class="o">=</span><span class="n">timetag</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_record_synth</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">UNPREPARED</span></div>
 
 <div class="viewcode-block" id="Recorder.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.Recorder.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Recorder [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">]&gt;&quot;</span></div>

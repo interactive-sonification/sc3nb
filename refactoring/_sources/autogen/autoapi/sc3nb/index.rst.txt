@@ -45,7 +45,6 @@ Function List
    :nosignatures:
 
    sc3nb.startup
-   sc3nb.build_message
    sc3nb.linlin
    sc3nb.midicps
    sc3nb.cpsmidi
@@ -76,6 +75,7 @@ Class List
    sc3nb.Recorder
    sc3nb.TimedQueue
    sc3nb.TimedQueueSC
+   sc3nb.OSCMessage
    sc3nb.Bundler
 
 
@@ -543,6 +543,7 @@ Content
          sc3nb.SCServer.notify
          sc3nb.SCServer._get_errors_for_address
          sc3nb.SCServer.free_all
+         sc3nb.SCServer.clear_schedule
          sc3nb.SCServer.send_default_groups
          sc3nb.SCServer.allocate_node_id
          sc3nb.SCServer.allocate_buffer_id
@@ -739,7 +740,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True)
+   .. method:: bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True)
 
       Generate a Bundler with added server latency.
 
@@ -747,16 +748,16 @@ Content
 
       :Parameters:
 
-          **timestamp** : int
+          **timetag** : float
               Time at which bundle content should be executed.
               This servers latency will be added upon this.
-              If timestamp <= 1e6 it is added to time.time().
+              If timetag <= 1e6 it is added to time.time().
 
           **msg_addr** : str
               SuperCollider address.
 
-          **msg_args** : list, optional
-              List of arguments to add to message.
+          **msg_params** : list, optional
+              List of parameters to add to message.
                (Default value = None)
 
       :Returns:
@@ -942,7 +943,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send_synthdef(self, synthdef_bytes: bytes, wait: bool = True)
+   .. method:: send_synthdef(self, synthdef_bytes: bytes)
 
       Send a SynthDef as bytes.
 
@@ -982,6 +983,10 @@ Content
           **synthdef_path** : str
               Path with the SynthDefs
 
+          **bundle** : bool
+              Wether the OSC Messages can be bundle or not.
+              If True sc3nb will not wait for the server response, by default False
+
 
 
 
@@ -999,7 +1004,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: bytes = None) -> None
+   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None) -> None
 
       Load all SynthDefs from directory.
 
@@ -1011,9 +1016,6 @@ Content
 
           **completion_msg** : bytes, optional
               Message to be executed by the server when loaded, by default None
-
-          **wait** : bool, optional
-              If True wait for server reply, by default True
 
 
 
@@ -1085,6 +1087,30 @@ Content
 
           **root** : bool, optional
               If False free only the default group of this client, by default True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: clear_schedule(self)
+
+      Send /clearSched to the server.
+
+      This clears all scheduled bundles and removes all bundles from the scheduling queue.
+
 
 
 
@@ -1926,10 +1952,10 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _log_message(self, sender, *args)
+   .. method:: _log_message(self, sender, *params)
 
 
-   .. method:: _warn_fail(self, sender, *args)
+   .. method:: _warn_fail(self, sender, *params)
 
 
    .. method:: __repr__(self) -> str
@@ -2126,6 +2152,7 @@ Content
       :nosignatures:
 
          sc3nb.SCLang.start
+         sc3nb.SCLang._init
          sc3nb.SCLang.load_synthdefs
          sc3nb.SCLang.kill
          sc3nb.SCLang.__del__
@@ -2180,6 +2207,9 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _init(self)
 
 
    .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None
@@ -2687,7 +2717,7 @@ Content
          sc3nb.Node.__eq__
          sc3nb.Node._get_nodeid
 
-   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OscMessage)]
+   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OSCMessage)]
       :abstractmethod:
 
       Create a new Node
@@ -2921,7 +2951,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: free(self, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: free(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Free the node with /n_free.
 
@@ -2932,8 +2962,8 @@ Content
 
       :Returns:
 
-          OscMessage or Node
-              self for chaining or OscMessage when return_msg=True
+          Node or OSCMessage
+              self for chaining or OSCMessage when return_msg=True
 
 
 
@@ -2951,16 +2981,20 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: run(self, flag: bool = True, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Turn node on or off with /n_run.
 
 
+      :Parameters:
+
+          **on** : bool
+              True for on, False for off, by default True
 
       :Returns:
 
-          OscMessage or Node
-              self for chaining or OscMessage when return_msg=True
+          Node or OSCMessage
+              self for chaining or OSCMessage when return_msg=True
 
 
 
@@ -2978,7 +3012,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Set a control value(s) of the node with n_set.
 
@@ -3021,7 +3055,7 @@ Content
    .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
 
 
-   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Fill ranges of control values with n_fill.
 
@@ -3042,8 +3076,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -3061,7 +3095,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Map a node's control to read from a bus using /n_map or /n_mapa.
 
@@ -3079,8 +3113,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -3098,7 +3132,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Set gate as specified.
 
@@ -3116,8 +3150,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -3174,7 +3208,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: trace(self, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: trace(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Trace a node.
 
@@ -3188,8 +3222,8 @@ Content
 
       :Returns:
 
-          OscMessage or Node
-              if return_msg is True else self
+          Node or OSCMessage
+              if return_msg else self
 
 
 
@@ -3207,7 +3241,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[(OscMessage, 'Node')]
+   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[('Node', OSCMessage)]
 
       Move this node
 
@@ -3225,8 +3259,8 @@ Content
 
       :Returns:
 
-          OscMessage or Node
-              if return_msg is True this will be the OscMessage, else self
+          Node or OSCMessage
+              if return_msg this will be the OSCMessage, else self
 
 
 
@@ -3584,7 +3618,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OscMessage)]
+   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OSCMessage)]
 
       Creates the synth on the server with s_new.
 
@@ -3801,7 +3835,7 @@ Content
    .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
 
 
-   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OscMessage)]
+   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OSCMessage)]
 
       Creates the synth on the server with g_new / p_new.
 
@@ -3820,7 +3854,7 @@ Content
               If True use p_new, by default False
 
           **return_msg** : bool, optional
-              If ture return the OscMessage instead of sending it, by default False
+              If ture return the OSCMessage instead of sending it, by default False
 
       :Returns:
 
@@ -3871,7 +3905,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move_node_to_head(self, node)
+   .. method:: move_node_to_head(self, node, return_msg=False)
 
       Move node to this groups head with g_head.
 
@@ -3880,6 +3914,9 @@ Content
 
           **node** : Node
               node to move
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
       :Returns:
 
@@ -3902,7 +3939,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move_node_to_tail(self, node)
+   .. method:: move_node_to_tail(self, node, return_msg=False)
 
       Move node to this groups tail with g_tail.
 
@@ -3911,6 +3948,9 @@ Content
 
           **node** : Node
               node to move
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
       :Returns:
 
@@ -3945,8 +3985,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -3977,8 +4017,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -4011,8 +4051,8 @@ Content
 
       :Returns:
 
-          OscMessage
-              if return_msg is True else self
+          OSCMessage
+              if return_msg else self
 
 
 
@@ -4062,7 +4102,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _repr_pretty_(self, p, cylce)
+   .. method:: _repr_pretty_(self, printer, cylce)
 
 
    .. method:: __repr__(self) -> str
@@ -4263,7 +4303,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(cls, synthdef_bytes: bytes, wait: bool = True, server: Optional['SCServer'] = None)
+   .. method:: send(cls, synthdef_bytes: bytes, server: Optional['SCServer'] = None)
       :classmethod:
 
       Send a SynthDef as bytes.
@@ -4297,7 +4337,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load(cls, synthdef_path: str, wait: bool = True, server: Optional['SCServer'] = None)
+   .. method:: load(cls, synthdef_path: str, server: Optional['SCServer'] = None)
       :classmethod:
 
       Load SynthDef file at path.
@@ -4307,9 +4347,6 @@ Content
 
           **synthdef_path** : str
               Path with the SynthDefs
-
-          **wait** : bool
-              If True wait for server reply.
 
           **server** : SCServer, optional
               Server that gets the SynthDefs, by default None
@@ -4793,7 +4830,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_data(self, data: numpy.ndarray, mode: str = 'file', sr: float = 44100) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_data(self, data: numpy.ndarray, sr: float = 44100, mode: str = 'file', sync: bool = True) -> sc3nb.sc_objects.buffer.Buffer
 
       Allocate buffer space and read input data.
 
@@ -4803,11 +4840,15 @@ Content
           **data** : numpy array
               Data which should inserted
 
+          **sr** : int, default: 44100
+              sample rate
+
           **mode** : 'file' or 'osc'
               Insert data via filemode ('file') or n_set OSC commands ('osc')
+              Bundling is only supported for 'osc' mode and if sync is False.
 
-          **sr** : int=44100
-              sample rate
+          **sync: bool, default: True**
+              Use SCServer.sync after sending messages when mode = 'osc'
 
       :Returns:
 
@@ -6037,7 +6078,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, *values: Sequence[Union[int, float]]) -> None
+   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[('Bus', OSCMessage)]
 
       Set ranges of bus values.
 
@@ -6046,6 +6087,9 @@ Content
 
           **values** : sequence of int or float
               Values that should be set
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
 
 
@@ -6068,7 +6112,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: fill(self, value: Union[(int, float)]) -> None
+   .. method:: fill(self, value: Union[(int, float)], return_msg=False) -> Union[('Bus', OSCMessage)]
 
       Fill bus(es) to one value.
 
@@ -6077,6 +6121,9 @@ Content
 
           **value** : Union[int, float]
               value for the buses
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
 
 
 
@@ -6310,14 +6357,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start(self, timestamp: Optional[float] = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: Optional[int] = 0)
+   .. method:: start(self, timetag: Optional[float] = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: Optional[int] = 0)
 
       Start the recording.
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to start, by default 0
 
           **duration** : Optional[float], optional
@@ -6350,14 +6397,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: pause(self, timestamp: Optional[float] = 0)
+   .. method:: pause(self, timetag: Optional[float] = 0)
 
       Pause the recording.
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to pause, by default 0
 
 
@@ -6381,14 +6428,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: resume(self, timestamp: Optional[float] = 0)
+   .. method:: resume(self, timetag: Optional[float] = 0)
 
       Resume the recording
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to resume, by default 0
 
 
@@ -6412,14 +6459,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: stop(self, timestamp: Optional[float] = 0)
+   .. method:: stop(self, timetag: Optional[float] = 0)
 
       Stop the recording.
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to stop, by default 0
 
 
@@ -6597,14 +6644,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put(self, timetag: int, function: Callable[(..., None)], args: Iterable[Any] = (), spawn: bool = False) -> None
+   .. method:: put(self, timestamp: float, function: Callable[(..., None)], args: Iterable[Any] = (), spawn: bool = False) -> None
 
       Adds event to queue
 
 
       :Parameters:
 
-          **timetag** : int
+          **timestamp** : float
               Time when event should be executed
 
           **function** : Callable[..., None]
@@ -6894,7 +6941,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put_msg(self, onset: int, msg: Union[(OscMessage, str)], args: Iterable[Any]) -> None
+   .. method:: put_msg(self, onset: int, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
 
       Add a message to queue
 
@@ -6904,11 +6951,11 @@ Content
           **onset** : int
               Sending timetag of the message
 
-          **msg** : Union[OscMessage, str]
-              OscMessage or OSC address
+          **msg** : Union[OSCMessage, str]
+              OSCMessage or OSC address
 
-          **args** : Iterable[Any]
-              If msg is str, this will be the arguments of the created OscMessage
+          **msg_params** : Iterable[Any]
+              If msg is str, this will be the parameters of the created OSCMessage
 
 
 
@@ -6930,23 +6977,20 @@ Content
 
 
 
-.. function:: build_message(msg_addr: str, msg_args: Optional[Union[Sequence]] = None) -> pythonosc.osc_message.OscMessage
+.. class:: OSCMessage(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None)
 
-   Builds pythonsosc OSC message.
+
+   Class for creating messages to send over OSC
 
 
    :Parameters:
 
-       **msg_addr** : str
-           SuperCollider address.
+       **msg_address** : str
+           OSC message address
 
-       **msg_args** : list, optional
-           List of arguments to add to message.
+       **msg_parameters** : Optional[Union[Sequence]], optional
+           OSC message parameters, by default None
 
-   :Returns:
-
-       OscMessage
-           Message ready to be sent.
 
 
 
@@ -6964,7 +7008,203 @@ Content
        !! processed by numpydoc !!
 
 
-.. class:: Bundler(timestamp: float = 0, msg: Optional[Union[OscMessage, str]] = None, msg_args: Optional[Sequence[Any]] = None, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.OSCMessage.dgram
+         sc3nb.OSCMessage.raw_osc
+         sc3nb.OSCMessage.parameters
+         sc3nb.OSCMessage.address
+         sc3nb.OSCMessage.to_pythonosc
+         sc3nb.OSCMessage._build_message
+         sc3nb.OSCMessage.__repr__
+
+   .. method:: dgram(self) -> bytes
+      :property:
+
+      datagram of OSC message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: raw_osc(self) -> bytes
+      :property:
+
+      raw OSC representation - same as :py:attr:`~dgram`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: parameters(self) -> List[Any]
+      :property:
+
+      OSC message parameters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: address(self) -> str
+      :property:
+
+      OSC message address
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: to_pythonosc(self) -> pythonosc.osc_message.OscMessage
+
+      Return python-osc OscMessage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _build_message(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
+      :staticmethod:
+
+      Builds pythonsosc OSC message.
+
+
+      :Parameters:
+
+          **msg_address** : str
+              SuperCollider address.
+
+          **msg_parameters** : list, optional
+              List of parameters to add to message.
+
+      :Returns:
+
+          OscMessage
+              Message ready to be sent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
    Class for creating OSCBundles and Bundling of Messages
@@ -6992,15 +7232,16 @@ Content
 
    :Parameters:
 
-       **timestamp** : float, optional
+       **timetag** : float, optional
            Starting time at which bundle content should be executed.
-           If timestamp <= 1e6 it is added to time.time(), by default 0
+           If timetag <= 1e6 it is assumed to be relativ
+           and is added to time.time(), by default 0
 
-       **msg** : OscMessage or str, optional
-           OscMessage or message address, by default None
+       **msg** : OSCMessage or str, optional
+           OSCMessage or message address, by default None
 
-       **msg_args** : sequence of any type, optional
-           Arguments for the message, by default None
+       **msg_params** : sequence of any type, optional
+           Parameters for the message, by default None
 
        **server** : OSCCommunication, optional
            OSC server, by default None
@@ -7036,13 +7277,20 @@ Content
    .. autoapisummary::
       :nosignatures:
 
+         sc3nb.Bundler.dgram
          sc3nb.Bundler.wait
          sc3nb.Bundler.add
-         sc3nb.Bundler.__deepcopy__
-         sc3nb.Bundler.build
+         sc3nb.Bundler.messages
          sc3nb.Bundler.send
+         sc3nb.Bundler.to_pythonosc
+         sc3nb.Bundler._calc_timetag
+         sc3nb.Bundler.__deepcopy__
          sc3nb.Bundler.__enter__
          sc3nb.Bundler.__exit__
+
+   .. method:: dgram(self) -> bytes
+      :property:
+
 
    .. method:: wait(self, time_passed: float) -> None
 
@@ -7071,17 +7319,17 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add(self, *params) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: add(self, *args) -> sc3nb.osc.osc_communication.Bundler
 
-      Add a pythonosc OscMessage or OscBundle to this bundle.
+      Add content to this Bundler.
 
 
       :Parameters:
 
-          **params** : OscMessage or Bundler or Bundler arguments like
-              (timestamp, msg_addr, msg_args)
-              (timestamp, msg_addr)
-              (timestamp, msg)
+          **args** : OSCMessage or Bundler or Bundler arguments like
+              (timetag, msg_addr, msg_params)
+              (timetag, msg_addr)
+              (timetag, msg)
 
       :Returns:
 
@@ -7104,18 +7352,87 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: __deepcopy__(self, memo) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[(float, List[OSCMessage])]
+
+      Generate a dict with all messages in this Bundler.
+
+      They dict key is the time tag of the messages.
+
+      :Parameters:
+
+          **start_time** : Optional[float], optional
+              start time when using relativ timing, by default 0.0
+
+      :Returns:
+
+          Dict[float, List[OSCMessage]]
+              dict containg all OSCMessages
 
 
-   .. method:: build(self, time_offset: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: send(self, server: Optional['OSCCommunication'] = None, receiver: Tuple[(str, int)] = None, bundle: bool = True)
+
+      Send this Bundler.
+
+
+      :Parameters:
+
+          **server** : OSCCommunication, optional
+              Server instance for sending the bundle.
+              If None it will use the server from init
+              or try to use sc3nb.SC.get_default().server, by default None
+
+          **receiver** : Tuple[str, int], optional
+              Address (ip, port) to send to, if None it will send the bundle to
+              the default receiver of the Bundler
+
+          **bundle** : bool, optional
+              If True this is allowed to be bundled, by default True
+
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              When no server could be found.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: to_pythonosc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
 
       Build this bundle.
 
 
       :Parameters:
 
-          **time_offset** : Optional[float], optional
-              used for recursion, by default None
+          **start_time** : Optional[float], optional
+              used as start time when using relativ timing, by default time.time()
 
       :Returns:
 
@@ -7138,44 +7455,10 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, server: Optional['OSCCommunication'] = None, receiver: Tuple[(str, int)] = None, bundled: bool = True)
-
-      Send this Bundler.
+   .. method:: _calc_timetag(self, start_time: Optional[float])
 
 
-      :Parameters:
-
-          **server** : OSCCommunication, optional
-              Server instance for sending the bundle.
-              If None it will use the server from init
-              or try to use sc3nb.SC.get_default().server, by default None
-
-          **receiver** : Tuple[str, int], optional
-              Address (ip, port) to send to, if None it will send the bundle to
-              the default receiver of the Bundler
-
-          **bundled** : bool, optional
-              If True this is allowed to be bundled, by default True
-
-
-
-
-
-      :Raises:
-
-          RuntimeError
-              When no server could be found.
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
+   .. method:: __deepcopy__(self, memo) -> sc3nb.osc.osc_communication.Bundler
 
 
    .. method:: __enter__(self)

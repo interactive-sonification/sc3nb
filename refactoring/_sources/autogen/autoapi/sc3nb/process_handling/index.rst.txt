@@ -183,12 +183,33 @@ Content
 
 
 
-.. class:: Process(executable, args=None, exec_path=None, console_logging=True, kill_others=True, allowed_parents=None)
+.. class:: Process(executable: str, programm_args: Optional[Sequence[str]] = None, executable_path: str = None, console_logging: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = None)
 
 
    Class for starting a executable and communication with it.
 
 
+   :Parameters:
+
+       **executable** : str
+           Name of executable to start
+
+       **programm_args** : Optional[Sequence[str]], optional
+           Arguments to program start with Popen, by default None
+
+       **executable_path** : str, optional
+           Path with executalbe, by default system PATH
+
+       **console_logging** : bool, optional
+           Flag for controlling console logging, by default True
+
+       **kill_others** : bool, optional
+           Flag for controlling killing of other executables with the same name.
+           This is useful when processes where left over, by default True
+
+       **allowed_parents** : Sequence[str], optional
+           Sequence of parent names that won't be killed
+           when kill_others is True, by default None
 
 
 

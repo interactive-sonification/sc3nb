@@ -207,14 +207,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start(self, timestamp: Optional[float] = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: Optional[int] = 0)
+   .. method:: start(self, timetag: Optional[float] = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: Optional[int] = 0)
 
       Start the recording.
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to start, by default 0
 
           **duration** : Optional[float], optional
@@ -247,14 +247,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: pause(self, timestamp: Optional[float] = 0)
+   .. method:: pause(self, timetag: Optional[float] = 0)
 
       Pause the recording.
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to pause, by default 0
 
 
@@ -278,14 +278,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: resume(self, timestamp: Optional[float] = 0)
+   .. method:: resume(self, timetag: Optional[float] = 0)
 
       Resume the recording
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to resume, by default 0
 
 
@@ -309,14 +309,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: stop(self, timestamp: Optional[float] = 0)
+   .. method:: stop(self, timetag: Optional[float] = 0)
 
       Stop the recording.
 
 
       :Parameters:
 
-          **timestamp** : Optional[float], optional
+          **timetag** : Optional[float], optional
               Time (or time offset when <1e6) to stop, by default 0
 
 

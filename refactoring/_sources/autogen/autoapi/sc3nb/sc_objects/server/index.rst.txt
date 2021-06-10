@@ -798,6 +798,7 @@ Content
          sc3nb.sc_objects.server.SCServer.notify
          sc3nb.sc_objects.server.SCServer._get_errors_for_address
          sc3nb.sc_objects.server.SCServer.free_all
+         sc3nb.sc_objects.server.SCServer.clear_schedule
          sc3nb.sc_objects.server.SCServer.send_default_groups
          sc3nb.sc_objects.server.SCServer.allocate_node_id
          sc3nb.sc_objects.server.SCServer.allocate_buffer_id
@@ -994,7 +995,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: bundler(self, timestamp=0, msg=None, msg_args=None, send_on_exit=True)
+   .. method:: bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True)
 
       Generate a Bundler with added server latency.
 
@@ -1002,16 +1003,16 @@ Content
 
       :Parameters:
 
-          **timestamp** : int
+          **timetag** : float
               Time at which bundle content should be executed.
               This servers latency will be added upon this.
-              If timestamp <= 1e6 it is added to time.time().
+              If timetag <= 1e6 it is added to time.time().
 
           **msg_addr** : str
               SuperCollider address.
 
-          **msg_args** : list, optional
-              List of arguments to add to message.
+          **msg_params** : list, optional
+              List of parameters to add to message.
                (Default value = None)
 
       :Returns:
@@ -1197,7 +1198,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send_synthdef(self, synthdef_bytes: bytes, wait: bool = True)
+   .. method:: send_synthdef(self, synthdef_bytes: bytes)
 
       Send a SynthDef as bytes.
 
@@ -1237,6 +1238,10 @@ Content
           **synthdef_path** : str
               Path with the SynthDefs
 
+          **bundle** : bool
+              Wether the OSC Messages can be bundle or not.
+              If True sc3nb will not wait for the server response, by default False
+
 
 
 
@@ -1254,7 +1259,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: bytes = None) -> None
+   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None) -> None
 
       Load all SynthDefs from directory.
 
@@ -1266,9 +1271,6 @@ Content
 
           **completion_msg** : bytes, optional
               Message to be executed by the server when loaded, by default None
-
-          **wait** : bool, optional
-              If True wait for server reply, by default True
 
 
 
@@ -1340,6 +1342,30 @@ Content
 
           **root** : bool, optional
               If False free only the default group of this client, by default True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: clear_schedule(self)
+
+      Send /clearSched to the server.
+
+      This clears all scheduled bundles and removes all bundles from the scheduling queue.
+
 
 
 
@@ -2181,10 +2207,10 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _log_message(self, sender, *args)
+   .. method:: _log_message(self, sender, *params)
 
 
-   .. method:: _warn_fail(self, sender, *args)
+   .. method:: _warn_fail(self, sender, *params)
 
 
    .. method:: __repr__(self) -> str

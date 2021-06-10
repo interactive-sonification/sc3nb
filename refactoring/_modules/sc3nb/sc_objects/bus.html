@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -372,6 +372,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">sc3nb</span>
+<span class="kn">from</span> <span class="nn">sc3nb.osc.osc_communication</span> <span class="kn">import</span> <span class="n">OSCMessage</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.server</span> <span class="kn">import</span> <span class="n">SCServer</span>
@@ -476,13 +477,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span> <span class="ow">is</span> <span class="n">BusRate</span><span class="o">.</span><span class="n">CONTROL</span></div>
 
-<div class="viewcode-block" id="Bus.set"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Bus.set"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">return_msg</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Bus&quot;</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Set ranges of bus values.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        values : sequence of int or float</span>
 <span class="sd">            Values that should be set</span>
+<span class="sd">        return_msg : bool, optional</span>
+<span class="sd">            If True return msg else send it directly, by default False</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -496,19 +501,28 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;lenght of values must fit num channels (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="si">}</span><span class="s2">)&quot;</span>
                 <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span>
                 <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">SETN</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">]</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">SET</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">values</span><span class="p">])</span></div>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">SET</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">values</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">return_msg</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">msg</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Bus.fill"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Bus.fill"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">return_msg</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Bus&quot;</span><span class="p">,</span> <span class="n">OSCMessage</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Fill bus(es) to one value.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        value : Union[int, float]</span>
 <span class="sd">            value for the buses</span>
+<span class="sd">        return_msg : bool, optional</span>
+<span class="sd">            If True return msg else send it directly, by default False</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -517,9 +531,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span> <span class="ow">is</span> <span class="n">BusRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t fill Audio Buses&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
-            <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">FILL</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span></div>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span>
+            <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">FILL</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span>
         <span class="p">)</span>
+        <span class="k">if</span> <span class="n">return_msg</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">msg</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Bus.get"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
         <span class="sd">&quot;&quot;&quot;Get bus value(s).</span>
@@ -538,18 +557,22 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span> <span class="ow">is</span> <span class="n">BusRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get Audio Buses&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">msg_args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="p">]</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">,</span> <span class="n">msg_args</span><span class="p">)</span>
+            <span class="n">msg_params</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="p">]</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
+                <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">,</span> <span class="n">msg_params</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
                 <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span> <span class="o">=</span> <span class="n">response</span>
                 <span class="k">return</span> <span class="n">values</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get right response, got </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span>
+                <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
                 <span class="n">_</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">response</span>
                 <span class="k">return</span> <span class="n">value</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get right response, got </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to get right response, got </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Bus.free"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Mark this Buses ids as free again</span>

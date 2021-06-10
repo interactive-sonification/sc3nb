@@ -245,7 +245,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../index.html#sc3nb.midicps">midicps</a></li>
@@ -410,14 +410,14 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.helpers.linlin" title="sc3nb.helpers.linlin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linlin</span></code></a></p></td>
 <td><p>Map value linearly so that [x1, x2] is mapped to [y1, y2]</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.helpers.midicps" title="sc3nb.helpers.midicps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">midicps</span></code></a></p></td>
-<td><p>Convert MIDI note to cycles per second</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.helpers.cpsmidi" title="sc3nb.helpers.cpsmidi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></p></td>
-<td><p>Convert cycles per second to MIDI note</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.helpers.clip" title="sc3nb.helpers.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip</span></code></a></p></td>
 <td><p>Clips a value to a certain range</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.helpers.midicps" title="sc3nb.helpers.midicps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">midicps</span></code></a></p></td>
+<td><p>Convert MIDI note to cycles per second</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.helpers.cpsmidi" title="sc3nb.helpers.cpsmidi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></p></td>
+<td><p>Convert cycles per second to MIDI note</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.helpers.dbamp" title="sc3nb.helpers.dbamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dbamp</span></code></a></p></td>
 <td><p>Convert a decibels to a linear amplitude.</p></td>
@@ -463,6 +463,30 @@ of them as a range [x1,x2]</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="sc3nb.helpers.clip">
+<code class="sig-prename descclassname"><span class="pre">sc3nb.helpers.</span></code><code class="sig-name descname"><span class="pre">clip</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">float('inf')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">float('inf')</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><a class="reference internal" href="../../../../_modules/sc3nb/helpers.html#clip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.helpers.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clips a value to a certain range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>value</strong><span class="classifier">float</span></dt><dd><p>Value to clip</p>
+</dd>
+<dt><strong>minimum</strong><span class="classifier">float, optional</span></dt><dd><p>Minimum output value, by default -float(“inf”)</p>
+</dd>
+<dt><strong>maximum</strong><span class="classifier">float, optional</span></dt><dd><p>Maximum output value, by default float(“inf”)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>clipped value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="sc3nb.helpers.midicps">
 <code class="sig-prename descclassname"><span class="pre">sc3nb.helpers.</span></code><code class="sig-name descname"><span class="pre">midicps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">midi_note</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><a class="reference internal" href="../../../../_modules/sc3nb/helpers.html#midicps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.helpers.midicps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert MIDI note to cycles per second</p>
@@ -496,30 +520,6 @@ of them as a range [x1,x2]</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
 <dt>float</dt><dd><p>corresponding MIDI note</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="sc3nb.helpers.clip">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.helpers.</span></code><code class="sig-name descname"><span class="pre">clip</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">float('inf')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">float('inf')</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><a class="reference internal" href="../../../../_modules/sc3nb/helpers.html#clip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.helpers.clip" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clips a value to a certain range</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>value</strong><span class="classifier">float</span></dt><dd><p>Value to clip</p>
-</dd>
-<dt><strong>minimum</strong><span class="classifier">float, optional</span></dt><dd><p>Minimum output value, by default -float(“inf”)</p>
-</dd>
-<dt><strong>maximum</strong><span class="classifier">float, optional</span></dt><dd><p>Maximum output value, by default float(“inf”)</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>float</dt><dd><p>clipped value</p>
 </dd>
 </dl>
 </dd>

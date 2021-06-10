@@ -243,7 +243,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.build_message">build_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
@@ -377,7 +377,7 @@
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Empty</span><span class="p">,</span> <span class="n">Queue</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span>
 
 <span class="kn">import</span> <span class="nn">psutil</span>
 
@@ -438,7 +438,7 @@
         <span class="c1"># executable files on OS/2 can have an arbitrary extension, but</span>
         <span class="c1"># .exe is automatically appended if no dot is present in the name</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">ext</span><span class="p">:</span>
-            <span class="n">executable</span> <span class="o">=</span> <span class="n">executable</span> <span class="o">+</span> <span class="s2">&quot;.exe&quot;</span>
+            <span class="n">executable</span> <span class="o">+=</span> <span class="s2">&quot;.exe&quot;</span>
     <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
         <span class="n">pathext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PATHEXT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">executable</span><span class="p">)</span>
@@ -481,10 +481,8 @@
                     <span class="p">)</span>
                     <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parents cmdlines: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">parent_names</span><span class="p">)</span>
                     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
-                        <span class="p">[</span>
-                            <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">parent_names</span>
-                            <span class="k">for</span> <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">allowed_parents</span>
-                        <span class="p">]</span>
+                        <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">parent_names</span>
+                        <span class="k">for</span> <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">allowed_parents</span>
                     <span class="p">):</span>
                         <span class="k">continue</span>
             <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Terminating </span><span class="si">%s</span><span class="s2"> parents: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">proc</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">parents</span><span class="p">())</span>
@@ -509,23 +507,41 @@
 
 
 <div class="viewcode-block" id="Process"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process">[docs]</a><span class="k">class</span> <span class="nc">Process</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Class for starting a executable and communication with it.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Class for starting a executable and communication with it.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    executable : str</span>
+<span class="sd">        Name of executable to start</span>
+<span class="sd">    programm_args : Optional[Sequence[str]], optional</span>
+<span class="sd">        Arguments to program start with Popen, by default None</span>
+<span class="sd">    executable_path : str, optional</span>
+<span class="sd">        Path with executalbe, by default system PATH</span>
+<span class="sd">    console_logging : bool, optional</span>
+<span class="sd">        Flag for controlling console logging, by default True</span>
+<span class="sd">    kill_others : bool, optional</span>
+<span class="sd">        Flag for controlling killing of other executables with the same name.</span>
+<span class="sd">        This is useful when processes where left over, by default True</span>
+<span class="sd">    allowed_parents : Sequence[str], optional</span>
+<span class="sd">        Sequence of parent names that won&#39;t be killed</span>
+<span class="sd">        when kill_others is True, by default None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">executable</span><span class="p">,</span>
-        <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">exec_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">console_logging</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">kill_others</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">allowed_parents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">executable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">programm_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">executable_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">console_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">kill_others</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">executable</span> <span class="o">=</span> <span class="n">executable</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">exec_path</span> <span class="o">=</span> <span class="n">find_executable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">search_path</span><span class="o">=</span><span class="n">exec_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exec_path</span> <span class="o">=</span> <span class="n">find_executable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="n">search_path</span><span class="o">=</span><span class="n">executable_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">console_logging</span> <span class="o">=</span> <span class="n">console_logging</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">popen_args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">exec_path</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">popen_args</span> <span class="o">+=</span> <span class="n">args</span>
+        <span class="k">if</span> <span class="n">programm_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">popen_args</span> <span class="o">+=</span> <span class="n">programm_args</span>
 
         <span class="c1"># kill other (leftover) subprocesses</span>
         <span class="c1"># https://github.com/jupyter/jupyter_client/issues/104</span>
@@ -557,7 +573,7 @@
             <span class="n">line</span> <span class="o">=</span> <span class="n">ANSI_ESCAPE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">console_logging</span><span class="p">:</span>
                 <span class="c1"># print to jupyter console...</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">]  </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2"> reached EOF</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
         <span class="k">return</span></div>
@@ -600,9 +616,7 @@
                     <span class="k">if</span> <span class="n">expect</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">expect</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
                         <span class="n">expect_found</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">except</span> <span class="n">Empty</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">expect</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">expect_found</span><span class="p">:</span>
-                    <span class="k">pass</span>
-                <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">expect</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">expect_found</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span></div>
 
@@ -629,8 +643,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Writing: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">input_str</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span>
+            <span class="n">written</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>  <span class="c1"># shouldnt be needed as buffering is disabled.</span>
+            <span class="k">if</span> <span class="n">written</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_str</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Only written </span><span class="si">{</span><span class="n">written</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span><span class="si">}</span><span class="s2"> of input: &#39;</span><span class="si">{</span><span class="n">input_str</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                <span class="p">)</span>
         <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Write to stdin failed&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">error</span></div>
 
@@ -655,10 +673,7 @@
             <span class="n">process_status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">process_status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;returncode=</span><span class="si">{</span><span class="n">returncode</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_reader_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
-            <span class="n">thread_status</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">thread_status</span> <span class="o">=</span> <span class="s2">&quot;died&quot;</span>
+        <span class="n">thread_status</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_reader_thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;died&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Process &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">thread_status</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">process_status</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div></div>
 </pre></div>
 

@@ -179,6 +179,7 @@ Content
          sc3nb.magics.SC3Magics.scs
          sc3nb.magics.SC3Magics.scg
          sc3nb.magics.SC3Magics.scgv
+         sc3nb.magics.SC3Magics.scgs
          sc3nb.magics.SC3Magics._parse_pyvars
 
    .. method:: sc(self, line='', cell=None)
@@ -322,6 +323,44 @@ Content
 
 
    .. method:: scgv(self, line='', cell=None)
+
+      Execute SuperCollider code returning output
+
+
+      :Parameters:
+
+          **line** : str, optional
+              Line of SuperCollider code, by default ''
+
+          **cell** : str, optional
+              Cell of SuperCollider code , by default None
+
+      :Returns:
+
+          Unknown
+              cmd result
+              Output from SuperCollider code, not
+              all SC types supported, see
+              pythonosc.osc_message.Message for list
+              of supported types
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: scgs(self, line='', cell=None)
 
       Execute SuperCollider code returning output
 
