@@ -768,7 +768,7 @@ Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.004996061325073242
+0.00599980354309082
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -869,7 +869,7 @@ Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-time used: 0.023996829986572266
+time used: 0.023999929428100586
 </pre></div></div>
 </div>
 </div>
@@ -1013,7 +1013,7 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
 
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
@@ -1029,29 +1029,6 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
 <span class="n">pldataR</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plots</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-Exception in thread Thread-34:
-Traceback (most recent call last):
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 926, in _bootstrap_inner
-    self.run()
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 870, in run
-    self._target(*self._args, **self._kwargs)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 208, in __worker
-    event.execute()
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
-    self.function(*self.args)
-  File &#34;&lt;ipython-input-1-6ae806878fe3&gt;&#34;, line 4, in update_plot
-    ax.draw_artist(ax.patch)
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\matplotlib\axes\_base.py&#34;, line 2760, in draw_artist
-    raise AttributeError(&#34;draw_artist can only be used after an &#34;
-AttributeError: draw_artist can only be used after an initial draw which caches the renderer
-
-</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
@@ -1122,6 +1099,22 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
 <div class="highlight"><pre>
 C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\ipykernel_launcher.py:18: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+Exception in thread Thread-34:
+Traceback (most recent call last):
+  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 926, in _bootstrap_inner
+    self.run()
+  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 208, in __worker
+    event.execute()
+  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
+    self.function(*self.args)
+  File &#34;&lt;ipython-input-1-6ae806878fe3&gt;&#34;, line 4, in update_plot
+    ax.draw_artist(ax.patch)
+  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\matplotlib\axes\_base.py&#34;, line 2760, in draw_artist
+    raise AttributeError(&#34;draw_artist can only be used after an &#34;
+AttributeError: draw_artist can only be used after an initial draw which caches the renderer
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1129,7 +1122,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.2949995994567871
+0.2869999408721924
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -1167,9 +1160,9 @@ Traceback (most recent call last):
     event.execute()
   File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
     self.function(*self.args)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 304, in send
+  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 307, in send
     server.send(self, receiver=receiver, bundle=bundle)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 880, in send
+  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 884, in send
     sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
 OSError: [WinError 10038] An operation was attempted on something that is not a socket
 
