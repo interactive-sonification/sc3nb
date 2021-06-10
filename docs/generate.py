@@ -292,6 +292,9 @@ def generate_gh_pages(
             raise RuntimeError(
                 f"Could not checkout {d}. Git returned status code {res}!"
             )
+        res = os.system(f"git -C {repo} pull")
+        if res != 0:
+            raise RuntimeError(f"Could not pull {d}. Git returned status code {res}!")
         if template_folder:
             if os.path.exists(f"{repo}/docs/source/_templates"):
                 shutil.rmtree(f"{repo}/docs/source/_templates")
