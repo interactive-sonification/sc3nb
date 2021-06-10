@@ -65,7 +65,7 @@ class OSCMessage:
     def __init__(
         self,
         msg_address: str,
-        msg_parameters: Optional[Union[Sequence]] = None,
+        msg_parameters: Optional[Union[Sequence, Any]] = None,
     ) -> None:
         self._content: OscMessage = OSCMessage._build_message(
             msg_address, msg_parameters
@@ -97,7 +97,7 @@ class OSCMessage:
 
     @staticmethod
     def _build_message(
-        msg_address: str, msg_parameters: Optional[Union[Sequence]] = None
+        msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None
     ) -> OscMessage:
         """Builds pythonsosc OSC message.
 
@@ -964,6 +964,7 @@ class OSCCommunication:
         self,
         msg_addr: str,
         msg_params: Optional[Sequence] = None,
+        *,
         bundle: bool = False,
         receiver: Optional[Tuple[str, int]] = None,
         await_reply: bool = True,
