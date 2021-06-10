@@ -842,13 +842,20 @@ class SCServer(OSCCommunication):
         """
         group = self._root_node if root else self.default_group
         group.free_all()
-        self.msg(MasterControlCommand.CLEAR_SCHED)
+        self.clear_schedule()
         if root:
             self.send_default_groups()
         else:
             self.default_group.new()
         self.execute_init_hooks()
         self.sync()
+
+    def clear_schedule(self):
+        """Send /clearSched to the server.
+
+        This clears all scheduled bundles and removes all bundles from the scheduling queue.
+        """
+        self.msg(MasterControlCommand.CLEAR_SCHED)
 
     def send_default_groups(self) -> None:
         """Send the default groups for all clients."""
