@@ -58,16 +58,6 @@ autoapi_python_class_content = (
     "both"  # TODO remove this when all classes have the right doc style
 )
 autoapi_template_dir = "./_templates/autoapi/"
-autoapi_options = [
-    "members",
-    "inherited-members",
-    "undoc-members",
-    "private-members",
-    "show-inheritance",
-    "show-module-summary",
-    "special-members",
-    "imported-members",
-]
 
 # nbsphinx_allow_errors = True
 nbsphinx_execute_arguments = [
