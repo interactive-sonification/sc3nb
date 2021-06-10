@@ -859,7 +859,9 @@ class Buffer:
         num_samples = self._samples * self._channels
         while i < num_samples:
             bs = blocksize if i + blocksize < num_samples else num_samples - i
-            tmp = self._server.msg(BufferCommand.GETN, [self._bufnum, i, bs])
+            tmp = self._server.msg(
+                BufferCommand.GETN, [self._bufnum, i, bs], bundle=False
+            )
             data += list(tmp)[3:]  # skip first 3 els [bufnum, startidx, size]
             i += bs
         data = np.array(data).reshape((-1, self._channels))
@@ -881,7 +883,9 @@ class Buffer:
         """
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
-        return BufferInfo._make(self._server.msg(BufferCommand.QUERY, [self._bufnum]))
+        return BufferInfo._make(
+            self._server.msg(BufferCommand.QUERY, [self._bufnum], bundle=False)
+        )
 
     def _repr_pretty_(self, p, cycle) -> None:
         if cycle:

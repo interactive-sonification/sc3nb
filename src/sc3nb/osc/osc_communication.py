@@ -832,8 +832,9 @@ class OSCCommunication:
     def send(
         self,
         package: Union[OSCMessage, Bundler],
-        bundle: bool = False,
+        *,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
+        bundle: bool = True,
         await_reply: bool = True,
         timeout: float = 5,
     ) -> Any:
@@ -843,10 +844,10 @@ class OSCCommunication:
         ----------
         package : OSCMessage or Bundler
             Object with `dgram` attribute.
-        bundle : bool, optional
-            If True it is allowed to bundle the package with bundling, by default False.
         receiver : str or Tuple[str, int], optional
             Where to send the packet, by default send to default receiver
+        bundle : bool, optional
+            If True it is allowed to bundle the package with bundling, by default True.
         await_reply : bool, optional
             If True for reply from the server and return it,
             otherwise send the message and return None directly, by default True.
@@ -965,7 +966,7 @@ class OSCCommunication:
         msg_addr: str,
         msg_params: Optional[Sequence] = None,
         *,
-        bundle: bool = False,
+        bundle: bool = True,
         receiver: Optional[Tuple[str, int]] = None,
         await_reply: bool = True,
         timeout: float = 5,
@@ -979,7 +980,7 @@ class OSCCommunication:
         msg_params : Optional[Sequence], optional
             List of paramters of the OSC message, by default None
         bundle : bool, optional
-            If True it is allowed to bundle the content with bundling, by default False
+            If True it is allowed to bundle the content with bundling, by default True
         receiver : tuple[str, int], optional
             (IP address, port) to send the message, by default send to default receiver
         await_reply : bool, optional

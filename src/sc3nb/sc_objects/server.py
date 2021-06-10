@@ -684,7 +684,7 @@ class SCServer(OSCCommunication):
     def quit(self) -> None:
         """Quits and tries to kill the server."""
         try:
-            self.send(OSCMessage(MasterControlCommand.QUIT))
+            self.msg(MasterControlCommand.QUIT, bundle=False)
         except OSCCommunicationError:
             pass  # sending failed. scscynth maybe dead already.
         finally:
@@ -710,9 +710,9 @@ class SCServer(OSCCommunication):
         """
         sync_id = randint(1000, 9999)
         msg = OSCMessage(MasterControlCommand.SYNC, sync_id)
-        return sync_id == self.send(msg, timeout=timeout)
+        return sync_id == self.send(msg, timeout=timeout, bundle=False)
 
-    def send_synthdef(self, synthdef_bytes: bytes, bundle: bool = False):
+    def send_synthdef(self, synthdef_bytes: bytes):
         """Send a SynthDef as bytes.
 
         Parameters
@@ -721,13 +721,10 @@ class SCServer(OSCCommunication):
             SynthDef bytes
         wait : bool
             If True wait for server reply.
-        bundle : bool
-            Wether the OSC Messages can be bundled or not.
-            If True sc3nb will not wait for the server response, by default False
         """
-        SynthDef.send(synthdef_bytes=synthdef_bytes, server=self, bundle=bundle)
+        SynthDef.send(synthdef_bytes=synthdef_bytes, server=self)
 
-    def load_synthdef(self, synthdef_path: str, bundle: bool = False):
+    def load_synthdef(self, synthdef_path: str):
         """Load SynthDef file at path.
 
         Parameters
@@ -738,13 +735,12 @@ class SCServer(OSCCommunication):
             Wether the OSC Messages can be bundle or not.
             If True sc3nb will not wait for the server response, by default False
         """
-        SynthDef.load(synthdef_path=synthdef_path, server=self, bundle=bundle)
+        SynthDef.load(synthdef_path=synthdef_path, server=self)
 
     def load_synthdefs(
         self,
         synthdef_dir: Optional[str] = None,
         completion_msg: Optional[bytes] = None,
-        bundle: bool = False,
     ) -> None:
         """Load all SynthDefs from directory.
 
@@ -754,15 +750,11 @@ class SCServer(OSCCommunication):
             directory with SynthDefs, by default sc3nb default SynthDefs
         completion_msg : bytes, optional
             Message to be executed by the server when loaded, by default None
-        bundle : bool
-            Wether the OSC Messages can be bundle or not.
-            If True sc3nb will not wait for the server response, by default False
         """
         SynthDef.load_dir(
             synthdef_dir=synthdef_dir,
             completion_msg=completion_msg,
             server=self,
-            bundle=bundle,
         )
 
     def notify(
@@ -797,7 +789,7 @@ class SCServer(OSCCommunication):
             MasterControlCommand.NOTIFY, [flag, client_id]
         )  # flag, clientID
         try:
-            return_val = self.send(msg, timeout=timeout)
+            return_val = self.send(msg, timeout=timeout, bundle=False)
         except OSCCommunicationError as error:
             errors = self._get_errors_for_address(msg.address)
             if len(errors) > 0:
@@ -968,12 +960,12 @@ class SCServer(OSCCommunication):
     def version(self) -> ServerVersion:
         """Server version information"""
         msg = OSCMessage(MasterControlCommand.VERSION)
-        return ServerVersion._make(self.send(msg))
+        return ServerVersion._make(self.send(msg, bundle=False))
 
     def status(self) -> ServerStatus:
         """Server status information"""
         msg = OSCMessage(MasterControlCommand.STATUS)
-        return ServerStatus._make(self.send(msg)[1:])
+        return ServerStatus._make(self.send(msg, bundle=False)[1:])
 
     def dump_osc(self, level: int = 1) -> None:
         """Enable dumping incoming OSC messages at the server process
@@ -1010,7 +1002,7 @@ class SCServer(OSCCommunication):
             return
         self.process.read()
         msg = OSCMessage(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
-        self.send(msg)
+        self.send(msg, bundle=False)
         node_tree = self.process.read(expect="NODE TREE")
         print(node_tree)
         if return_tree:

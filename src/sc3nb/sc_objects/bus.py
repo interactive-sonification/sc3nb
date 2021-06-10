@@ -191,12 +191,16 @@ class Bus:
             raise RuntimeError("Can't get Audio Buses")
         if self._num_channels > 1:
             msg_params = [self._bus_idxs[0], self._num_channels]
-            response = self._server.msg(ControlBusCommand.GETN, msg_params)
+            response = self._server.msg(
+                ControlBusCommand.GETN, msg_params, bundle=False
+            )
             if isinstance(response, Iterable):
                 _, _, *values = response
                 return values
         else:
-            response = self._server.msg(ControlBusCommand.GET, [self._bus_idxs[0]])
+            response = self._server.msg(
+                ControlBusCommand.GET, [self._bus_idxs[0]], bundle=False
+            )
             if isinstance(response, Iterable):
                 _, value = response
                 return value

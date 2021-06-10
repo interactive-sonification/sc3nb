@@ -76,7 +76,6 @@ class SynthDef:
         cls,
         synthdef_bytes: bytes,
         server: Optional["SCServer"] = None,
-        bundle: bool = False,
     ):
         """Send a SynthDef as bytes.
 
@@ -88,17 +87,14 @@ class SynthDef:
             If True wait for server reply.
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
-        bundle : bool
-            Wether the OSC Messages can be bundle or not.
-            If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
             server = sc3nb.SC.get_default().server
         server.msg(
             SynthDefinitionCommand.RECV,
             synthdef_bytes,
-            await_reply=not bundle,
-            bundle=bundle,
+            await_reply=True,
+            bundle=True,
         )
 
     @classmethod
@@ -106,7 +102,6 @@ class SynthDef:
         cls,
         synthdef_path: str,
         server: Optional["SCServer"] = None,
-        bundle: bool = False,
     ):
         """Load SynthDef file at path.
 
@@ -116,17 +111,14 @@ class SynthDef:
             Path with the SynthDefs
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
-        bundle : bool
-            Wether the OSC Messages can be bundle or not.
-            If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
             server = sc3nb.SC.get_default().server
         server.msg(
             SynthDefinitionCommand.LOAD,
             synthdef_path,
-            await_reply=not bundle,
-            bundle=bundle,
+            await_reply=True,
+            bundle=True,
         )
 
     @classmethod
@@ -135,7 +127,6 @@ class SynthDef:
         synthdef_dir: Optional[str] = None,
         completion_msg: Optional[bytes] = None,
         server: Optional["SCServer"] = None,
-        bundle: bool = False,
     ):
         """Load all SynthDefs from directory.
 
@@ -147,9 +138,6 @@ class SynthDef:
             Message to be executed by the server when loaded, by default None
         server : SCServer, optional
             Server that gets the SynthDefs, by default None
-        bundle : bool
-            Wether the OSC Messages can be bundle or not.
-            If True sc3nb will not wait for the server response, by default False
         """
         if server is None:
             server = sc3nb.SC.get_default().server
@@ -161,8 +149,8 @@ class SynthDef:
             server.msg(
                 SynthDefinitionCommand.LOAD_DIR,
                 cmd_args,
-                await_reply=not bundle,
-                bundle=bundle,
+                await_reply=True,
+                bundle=True,
             )
 
         if synthdef_dir is None:
@@ -275,7 +263,6 @@ class SynthDef:
         pyvars=None,
         name: Optional[str] = None,
         server: Optional["SCServer"] = None,
-        bundle: bool = False,
     ) -> str:
         """This method will add the current_def to SuperCollider.s
 
@@ -290,9 +277,6 @@ class SynthDef:
             name which this SynthDef will get
         server : SCServer, optional
             server where this SynthDef will be send to
-        bundle : bool
-            Wether the OSC Messages can be bundle or not.
-            If True sc3nb will not wait for the server response, by default False
 
         Returns
         -------
@@ -327,9 +311,9 @@ class SynthDef:
             raise RuntimeError(f"Adding SynthDef failed. {error}")
         else:
             if server is not None:
-                server.send_synthdef(synth_def_blob, bundle=bundle)
+                server.send_synthdef(synth_def_blob)
             else:
-                self.sc.server.send_synthdef(synth_def_blob, bundle=bundle)
+                self.sc.server.send_synthdef(synth_def_blob)
             return self.name
 
     def free(self) -> "SynthDef":
@@ -342,7 +326,7 @@ class SynthDef:
         """
         if self.sc is None:
             self.sc = sc3nb.SC.get_default()
-        self.sc.server.msg(SynthDefinitionCommand.FREE, [self.name])
+        self.sc.server.msg(SynthDefinitionCommand.FREE, [self.name], bundle=True)
         return self
 
     def __repr__(self):

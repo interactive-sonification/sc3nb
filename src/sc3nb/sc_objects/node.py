@@ -591,7 +591,7 @@ class Node(ABC):
             n_info answer. See above for content description
         """
         msg = OSCMessage(NodeCommand.QUERY, [self.nodeid])
-        result = self.server.send(msg)
+        result = self.server.send(msg, bundle=False)
         return self._parse_info(*result)
 
     def trace(self, return_msg: bool = False) -> Union["Node", OSCMessage]:
@@ -925,7 +925,7 @@ class Synth(Node):
 
         msg = OSCMessage(command, msg_params)
         try:
-            reply = self.server.send(msg)
+            reply = self.server.send(msg, bundle=False)
         except OSCCommunicationError as osc_error:
             if command in self.server.fails:
                 fail = self.server.fails.msg_queues[command].get(timeout=0)
