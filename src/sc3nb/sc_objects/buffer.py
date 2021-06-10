@@ -201,6 +201,7 @@ class Buffer:
         self._server.msg(
             BufferCommand.ALLOC_READ_CHANNEL,
             [self._bufnum, str(self._path), starting_frame, num_frames, *channels],
+            bundle=True,
         )
         self._allocated = True
         return self
@@ -235,12 +236,18 @@ class Buffer:
         self._alloc_mode = BufferAllocationMode.ALLOC
         self._channels = channels
         self._samples = int(size)
-        self._server.msg(BufferCommand.ALLOC, [self._bufnum, size, channels])
+        self._server.msg(
+            BufferCommand.ALLOC, [self._bufnum, size, channels], bundle=True
+        )
         self._allocated = True
         return self
 
     def load_data(
-        self, data: np.ndarray, mode: str = "file", sr: float = 44100
+        self,
+        data: np.ndarray,
+        sr: float = 44100,
+        mode: str = "file",
+        sync: bool = True,
     ) -> "Buffer":
         """Allocate buffer space and read input data.
 
@@ -248,10 +255,13 @@ class Buffer:
         ----------
         data : numpy array
             Data which should inserted
+        sr : int, default: 44100
+            sample rate
         mode : 'file' or 'osc'
             Insert data via filemode ('file') or n_set OSC commands ('osc')
-        sr : int=44100
-            sample rate
+            Bundling is only supported for 'osc' mode and if sync is False.
+        sync: bool, default: True
+            Use SCServer.sync after sending messages when mode = 'osc'
 
         Returns
         -------
@@ -285,7 +295,9 @@ class Buffer:
             if os.path.exists(tempfile.name):
                 os.remove(tempfile.name)
         elif mode == "osc":
-            self._server.msg(BufferCommand.ALLOC, [self._bufnum, data.shape[0]])
+            self._server.msg(
+                BufferCommand.ALLOC, [self._bufnum, data.shape[0]], bundle=True
+            )
             blocksize = 1000  # array size compatible with OSC packet size
             # TODO: check how this depends on datagram size
             # TODO: put into Buffer header as const if needed elsewhere...
@@ -295,6 +307,7 @@ class Buffer:
                 self._server.msg(
                     BufferCommand.SETN,
                     [self._bufnum, [0, data.shape[0], data.tolist()]],
+                    bundle=True,
                 )
             else:
                 # For datasets larger than {blocksize} entries,
@@ -305,8 +318,10 @@ class Buffer:
                         BufferCommand.SETN,
                         [self._bufnum, i * blocksize, chunk.shape[0], chunk.tolist()],
                         await_reply=False,
+                        bundle=True,
                     )
-                self._server.sync()
+                if sync:
+                    self._server.sync()
         else:
             raise ValueError(f"Unsupported mode '{mode}'.")
         self._allocated = True
@@ -316,7 +331,7 @@ class Buffer:
         self, data: np.ndarray, mode: str = "file", sr: float = 44100
     ) -> "Buffer":
         """Wrapper method of :func:`Buffer.load_data`"""
-        return self.load_data(data, mode, sr)
+        return self.load_data(data, sr=sr, mode=mode)
 
     def load_asig(self, asig: "pya.Asig", mode: str = "file") -> "Buffer":
         """Create buffer from asig
@@ -340,7 +355,7 @@ class Buffer:
         """
         if self._allocated:
             raise RuntimeError("Buffer object is already initialized!")
-        return self.load_data(asig.sig, mode, sr=asig.sr)
+        return self.load_data(asig.sig, sr=asig.sr, mode=mode)
 
     def use_existing(self, bufnum: int, sr: float = 44100) -> "Buffer":
         """Creates a buffer object from already existing Buffer bufnum.
@@ -402,7 +417,7 @@ class Buffer:
             self.alloc(buffer.samples, buffer.sr, buffer.channels)
             self.gen_copy(buffer, 0, 0, -1)
         else:
-            # both sc instance must have the same file server
+            # both sc instances must have the same file server
             self._sr = buffer.sr
             tempfile = NamedTemporaryFile(delete=False)
             tempfile.close()
@@ -444,7 +459,7 @@ class Buffer:
             raise RuntimeError("Buffer object is not initialized!")
 
         values = [start, count, value] if not isinstance(start, list) else start
-        self._server.msg(BufferCommand.FILL, [self._bufnum] + values)
+        self._server.msg(BufferCommand.FILL, [self._bufnum] + values, bundle=True)
         return self
 
     def gen(self, command: str, args: List[Any]) -> "Buffer":
@@ -474,7 +489,7 @@ class Buffer:
         """
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
-        self._server.msg(BufferCommand.GEN, [self._bufnum, command] + args)
+        self._server.msg(BufferCommand.GEN, [self._bufnum, command] + args, bundle=True)
         return self
 
     def zero(self) -> "Buffer":
@@ -492,7 +507,7 @@ class Buffer:
         """
         if not self._allocated:
             raise RuntimeError("Buffer object is not initialized!")
-        self._server.msg(BufferCommand.ZERO, [self._bufnum])
+        self._server.msg(BufferCommand.ZERO, [self._bufnum], bundle=True)
         return self
 
     def gen_sine1(
@@ -801,6 +816,7 @@ class Buffer:
                 starting_frame,
                 leave_open_val,
             ],
+            bundle=True,
         )
         return self
 
@@ -894,7 +910,7 @@ class Buffer:
             and not self._bufnum_set_manually
         ):
             self._server.buffer_id_allocator.free_ids([self._bufnum])
-        self._server.msg(BufferCommand.FREE, [self._bufnum])
+        self._server.msg(BufferCommand.FREE, [self._bufnum], bundle=True)
         self._allocated = False
         self._alloc_mode = BufferAllocationMode.NONE
 
