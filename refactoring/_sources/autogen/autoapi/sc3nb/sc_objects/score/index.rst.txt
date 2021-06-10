@@ -1,0 +1,180 @@
+:mod:`sc3nb.sc_objects.score`
+=============================
+
+.. py:module:: sc3nb.sc_objects.score
+
+.. autoapi-nested-parse::
+
+   Module for creating SuperCollider OSC files that can be used for non-realtime synthesis
+
+   `SuperCollider Guide - Non-Realtime Synthesis <http://doc.sccode.org/Guides/Non-Realtime-Synthesis.html>`_
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.score.Score
+
+
+
+Content
+~~~~~~~
+
+.. data:: NRT_SERVER_OPTIONS
+   
+
+   
+
+.. class:: Score
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.score.Score.load_file
+         sc3nb.sc_objects.score.Score.write_file
+         sc3nb.sc_objects.score.Score.record_nrt
+
+   .. method:: load_file(cls, path: Union[(str, bytes, os.PathLike)]) -> Dict[(float, List[OSCMessage])]
+      :classmethod:
+
+      Load a OSC file into a dict.
+
+
+      :Parameters:
+
+          **path** : Union[str, bytes, os.PathLike]
+              Path of the OSC file.
+
+      :Returns:
+
+          Dict[float, List[OSCMessage]]
+              dict with time tag as keys and lists of OSCMessages as values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: write_file(cls, messages: Dict[(float, List[OSCMessage])], path: Union[(str, bytes, os.PathLike)], tempo: float = 1)
+      :classmethod:
+
+      Write this score as binary OSC file for NRT synthesis.
+
+
+      :Parameters:
+
+          **messages** : Dict[float, List[OSCMessage]]
+              Dict with times as key and lists of OSC messages as values
+
+          **path** : Union[str, bytes, os.PathLike]
+              output path for the binary OSC file
+
+          **tempo** : float
+              Times will be multiplied by 1/tempo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: record_nrt(cls, messages: Dict[(float, List[OSCMessage])], osc_path: str, out_file: str, in_file: Optional[str] = None, sample_rate: int = 44100, header_format: str = 'AIFF', sample_format: str = 'int16', options: Optional[ServerOptions] = None)
+      :classmethod:
+
+      Write an OSC file from the messages and wri
+
+
+      :Parameters:
+
+          **messages** : Dict[float, List[OSCMessage]]
+              Dict with times as key and lists of OSC messages as values.
+
+          **osc_path** : str
+              Path of the binary OSC file.
+
+          **out_file** : str
+              Path of the resulting sound file.
+
+          **in_file** : Optional[str], optional
+              Path of input soundfile, by default None.
+
+          **sample_rate** : int, optional
+              sample rate for synthesis, by default 44100.
+
+          **header_format** : str, optional
+              header format of the output file, by default "AIFF".
+
+          **sample_format** : str, optional
+              sample format of the output file, by default "int16".
+
+          **options** : Optional[ServerOptions], optional
+              instance of server options to specify server options, by default None
+
+      :Returns:
+
+          subprocess.CompletedProcess
+              Completed scsynth non-realtime process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+
+
