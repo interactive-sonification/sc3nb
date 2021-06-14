@@ -1,11 +1,16 @@
 """Collection of helper functions for the user"""
-from typing import Union
+from typing import Optional, Union
 
 import numpy as np
 
 
 def linlin(
-    value: Union[float, np.ndarray], x1: float, x2: float, y1: float, y2: float
+    value: Union[float, np.ndarray],
+    x1: float,
+    x2: float,
+    y1: float,
+    y2: float,
+    clip: Optional[str] = None,
 ) -> Union[float, np.ndarray]:
     """Map value linearly so that [x1, x2] is mapped to [y1, y2]
 
@@ -26,13 +31,26 @@ def linlin(
         destination value to be reached for value == x1
     y2 : float
         destination value to be reached for value == x2
+    clip: None or string
+        None extrapolates, "min" or "max" clip at floor resp. ceiling
+        of the destination range
 
     Returns
     -------
-    float
+    float or np.ndarray
         the mapping result
     """
-    return (value - x1) / (x2 - x1) * (y2 - y1) + y1
+    z = (value - x1) / (x2 - x1) * (y2 - y1) + y1
+    if clip is None:
+        return z
+    if y1 > y2:
+        x1, x2, y1, y2 = x2, x1, y2, y1
+    if clip == "max":
+        return np.minimum(z, y2)
+    elif clip == "min":
+        return np.maximum(z, y1)
+    else:  # imply clip to be "minmax"
+        return np.minimum(np.maximum(z, y1), y2)
 
 
 def clip(
