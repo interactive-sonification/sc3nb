@@ -572,7 +572,7 @@ class MessageQueue(MessageHandler):
 
 
 class MessageQueueCollection(MessageHandler):
-    """A collection of MessageQueues that all are send to the same first address."""
+    """A collection of MessageQueues that are all sent to one and the same first address."""
 
     def __init__(self, address: str, sub_addrs: Optional[Sequence[str]] = None):
         """Create a collection of MessageQueues under the same first address
@@ -870,7 +870,7 @@ class OSCCommunication:
         bundle : bool, optional
             If True it is allowed to bundle the package with bundling, by default True.
         await_reply : bool, optional
-            If True for reply from the server and return it,
+            If True ask for reply from the server and return it,
             otherwise send the message and return None directly, by default True.
             If the package is bundled None will be returned.
         timeout : int, optional
