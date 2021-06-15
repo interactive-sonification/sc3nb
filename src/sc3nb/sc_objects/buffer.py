@@ -83,7 +83,7 @@ class Buffer:
     Parameters
     ----------
     bufnum : int
-        buffer number to be used on scsynth. Defaults to None
+        buffer number to be used on scsynth. Defaults to None,
         can be set to enforce a given bufnum
     server : SCServer, optional
         The server instance to establish the Buffer
@@ -150,9 +150,9 @@ class Buffer:
         num_frames: int = -1,
         channels: Optional[Union[int, Sequence[int]]] = None,
     ) -> "Buffer":
-        """Allocate buffer space and read a sound file.
+        """Allocate buffer memory and read a sound file.
 
-        If the number of frames argument is less than or equal to zero,
+        If the number of frames argument num_frames is negative or zero,
         the entire file is read.
 
         Parameters
@@ -207,7 +207,7 @@ class Buffer:
         return self
 
     def alloc(self, size: int, sr: float = 44100, channels: int = 1) -> "Buffer":
-        """Allocate buffer space.
+        """Allocate buffer memory.
 
         Parameters
         ----------
@@ -249,7 +249,7 @@ class Buffer:
         mode: str = "file",
         sync: bool = True,
     ) -> "Buffer":
-        """Allocate buffer space and read input data.
+        """Allocate buffer memory and read input data.
 
         Parameters
         ----------
@@ -788,7 +788,7 @@ class Buffer:
         leave_open : boolean
             Whether you want the buffer file left open.
             For use with DiskOut you will want this to be true.
-            The file is created, but no frames are written until the DiskOut ugen does so.
+            The file is created, but no frames are written until the DiskOut UGen does so.
             The default is false which is the correct value for all other cases.
 
         Returns
@@ -874,7 +874,7 @@ class Buffer:
         Returns
         -------
         Tuple:
-            (buffernumber, number of frames, number of channels, sample rate)
+            (buffer number, number of frames, number of channels, sampling rate)
 
         Raises
         ------
