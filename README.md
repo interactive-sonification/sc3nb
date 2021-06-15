@@ -1,7 +1,7 @@
 # sc3nb
 
-sc3nb is a python package that offers a SuperCollider3 interface, whit special support to be used within jupyter notebooks.
-It establishes shortcuts and familiar functions used by sc3 to make it easier to program, interactively try sound synthesis and sonification development.
+sc3nb is a python package that offers a SuperCollider3 (sc3)interface, with special support to be used within jupyter notebooks.
+It establishes shortcuts and familiar functions used by sc3 to make it easier to program and interactively try sound synthesis, and for sonification development.
 
   * Documentation: https://interactive-sonification.github.io/sc3nb
   * Source code: https://github.com/interactive-sonification/sc3nb
@@ -22,15 +22,14 @@ sc3nb can be used for
 * sound synthesis experiment
 * audio applications in general such as games or GUI-enhancements
 * signal analysis and plotting
-* computer music and just in time music control
+* computer music and just-in-time music control
 * any usecase that the SuperCollider 3 language supports
-
 
 For more information and examples, please read the documentation.
 
 ## Installation
 
-**Disclaimer**: We are currently making sure that sc3nb can be uploaded to PyPI, until then clone the master branch and from inside the sc3nb directory install via
+**Disclaimer**: We are currently making sure that sc3nb can be uploaded to PyPI, until then - or if you prefer a manual installation - clone the master branch and from inside the sc3nb directory install via
 ```bash
 pip install -e .
 ```
@@ -54,17 +53,17 @@ Stop the synth via CMD-. (registered jupyter shortcut), or use
 
     %sc s.freeAll
 
-The %scv magic is a verbose version which inlines the sc3 output in the jupyter output cell.
+The %sc shortcut is now the same as the %scv magic, a verbose version which inlines the sc3 output in the jupyter output cell. Suppress the output by using the %scs magic.
 
 Cell magic work in between python code, e.g.
 
     %sc x = Synth.new(\default, [\freq, 100])
     for p in range(1, 10):  # a bouncing ball
         time.sleep(1/p)
-        %sc Synth.new(\s1, [\freq, 200])  // this is sc cell so use sc3 comments instead of #
+        %scs Synth.new(\s1, [\freq, 200]) // %sc line so sc3 comments instead of #
     %sc x.free
 
-Create a sc3 cell with the cell magic %%sc resp. %%scv
+Create an sc3 cell with the cell magic %%sc resp. %%scv or %%scs.
 For example, to create an osc responder
 
     %%scv
