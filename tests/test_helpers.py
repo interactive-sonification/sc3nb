@@ -9,6 +9,7 @@ def test_linlin():
     assert 50 == linlin(1, 0, 2, 0, 100)
     assert 100 == linlin(2, 0, 2, 0, 100)
     assert 200 == linlin(4, 0, 2, 0, 100)
+    assert 100 == linlin(3, 5, 105, 100, 1000, "min")
 
 
 def test_clip():
