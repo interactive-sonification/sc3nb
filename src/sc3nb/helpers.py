@@ -33,7 +33,8 @@ def linlin(
         destination value to be reached for value == x2
     clip: None or string
         None extrapolates, "min" or "max" clip at floor resp. ceiling
-        of the destination range
+        of the destination range, any other value defaults to "minmax",
+        i.e. it clips on both sides.
 
     Returns
     -------
