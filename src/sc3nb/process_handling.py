@@ -211,15 +211,15 @@ class Process:
         os.write(1, f"{self.executable} reached EOF\n".encode())
         return
 
-    def read(self, expect: Optional[str] = None, timeout: float = 1) -> str:
-        """Reads current output from output queue or until expect is found
+    def read(self, expect: Optional[str] = None, timeout: float = 3) -> str:
+        """Reads current output from output queue until expect is found
 
         Parameters
         ----------
         expect : str, optional
             str that we expect to find, by default None
         timeout : float, optional
-            timeout for waiting for output, by default 1
+            timeout in seconds for waiting for output, by default 3
 
         Returns
         -------
@@ -229,7 +229,7 @@ class Process:
         Raises
         ------
         ProcessTimeout
-            If no output or expectation isn't found
+            If neither output nor expect is found
         """
         timeout_time = time.time() + timeout
         out = ""

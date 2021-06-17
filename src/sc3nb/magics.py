@@ -1,4 +1,4 @@
-"""This Module adds the Jupyter specialties as Magics and Keyboard Shortcuts"""
+"""This module adds the Jupyter specialties such as Magics and Keyboard Shortcuts"""
 import re
 import sys
 import warnings
@@ -22,14 +22,14 @@ def load_ipython_extension(ipython) -> None:
 
 
 def add_shortcut(ipython, shortcut: str = None) -> None:
-    """Add the server free all shortcut.
+    """Add the server 'free all' shortcut.
 
     Parameters
     ----------
     ipython : IPython
         IPython object
     shortcut : str, optional
-        shortcut for free all, by default it is "cmd-." or "Ctrl-."
+        shortcut for 'free all', by default it is "cmd-." or "Ctrl-."
     """
     try:
         if shortcut is None:
@@ -62,7 +62,7 @@ def add_shortcut(ipython, shortcut: str = None) -> None:
 
 @magics_class
 class SC3Magics(Magics):
-    """Jupyter magics for SC class"""
+    """IPython magics for SC class"""
 
     @line_cell_magic
     def sc(self, line="", cell=None):
@@ -207,7 +207,7 @@ class SC3Magics(Magics):
         Returns
         -------
         Dict[str, Any]
-            Dict with variable names and thier values.
+            Dict with variable names and their values.
 
         Raises
         ------

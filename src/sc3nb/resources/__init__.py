@@ -1,1 +1,1 @@
-"""Module for ressources"""
+"""Module for resources"""

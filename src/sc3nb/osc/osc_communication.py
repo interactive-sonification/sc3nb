@@ -134,7 +134,7 @@ class OSCMessage:
 
 
 class Bundler:
-    """Class for creating OSCBundles and Bundling of Messages"""
+    """Class for creating OSCBundles and bundling of messages"""
 
     def __init__(
         self,
@@ -151,8 +151,9 @@ class Bundler:
         ----------
         timetag : float, optional
             Starting time at which bundle content should be executed.
-            If timetag <= 1e6 it is assumed to be relativ
-            and is added to time.time(), by default 0
+            If timetag > 1e6 it is interpreted as POSIX time.
+            If timetag <= 1e6 it is assumed to be relative value in seconds
+            and is added to time.time(), by default 0, i.e. 'now'.
         msg : OSCMessage or str, optional
             OSCMessage or message address, by default None
         msg_params : sequence of any type, optional
@@ -162,7 +163,7 @@ class Bundler:
         receiver : Union[str, Tuple[str, int]], optional
             Where to send the bundle, by default send to default receiver of server
         send_on_exit : bool, optional
-            Wether the bundle is send when using as context manger, by default True
+            Whether the bundle is sent when using as context manager, by default True
         """
         self.timetag = timetag
         self.default_receiver = receiver
@@ -193,7 +194,7 @@ class Bundler:
         Parameters
         ----------
         time_passed : float
-            How much secounds should be passed.
+            How much seconds should be passed.
         """
         self.passed_time += time_passed
 
@@ -253,7 +254,7 @@ class Bundler:
         Parameters
         ----------
         start_time : Optional[float], optional
-            start time when using relativ timing, by default 0.0
+            start time when using relative timing, by default 0.0
 
         Returns
         -------
@@ -314,7 +315,7 @@ class Bundler:
         Parameters
         ----------
         start_time : Optional[float], optional
-            used as start time when using relativ timing, by default time.time()
+            used as start time when using relative timing, by default time.time()
         delay: float, optinal
             used to delay the timing.
 
@@ -333,7 +334,7 @@ class Bundler:
         Parameters
         ----------
         start_time : Optional[float], optional
-            used as start time when using relativ timing, by default time.time()
+            used as start time when using relative timing, by default time.time()
         delay: float, optinal
             used to delay the timing.
 
@@ -648,7 +649,7 @@ class OSCCommunication:
         default_receiver_ip: str,
         default_receiver_port: int,
     ) -> None:
-        """Create a OSC communication server
+        """Create an OSC communication server
 
         Parameters
         ----------
@@ -822,7 +823,7 @@ class OSCCommunication:
         -------
         tuple
             containing the address of this sc3nb OSC Server
-            and known receivers addresses in a dict with thier names as values
+            and known receivers addresses in a dict with their names as values
 
         """
         if print_info:
@@ -1044,7 +1045,7 @@ class OSCCommunication:
         msg_params : sequence of any type, optional
             Parameters for the message, by default None
         send_on_exit : bool, optional
-            Wether the bundle is send when using as context manger, by default True
+            Whether the bundle is sent when using as context manager, by default True
 
         Returns
         -------

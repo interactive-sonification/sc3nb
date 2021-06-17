@@ -26,9 +26,9 @@ def startup(
     with_blip: bool = True,
     console_logging: bool = True,
     allowed_parents: Sequence[str] = ALLOWED_PARENTS,
-    timeout: float = 5,
+    timeout: float = 10,
 ) -> "SC":
-    """Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
+    """Inits SuperCollider (scsynth, sclang) and registers ipython magics
 
     Parameters
     ----------
@@ -41,7 +41,7 @@ def startup(
     sclang_path : Optional[str], optional
         Path of sclang executable, by default None
     magic : bool, optional
-        If True register magics to Jupyter, by default True
+        If True register magics to ipython, by default True
     scsynth_options : Optional[ServerOptions], optional
         Options for the server, by default None
     with_blip : bool, optional
@@ -52,7 +52,7 @@ def startup(
         Names of parents that are allowed for other instances of
         sclang/scsynth processes, by default ALLOWED_PARENTS
     timeout : float, optional
-        timeout for starting the executable, by default 5
+        timeout in seconds for starting the executable, by default 10
 
     Returns
     -------
@@ -117,7 +117,7 @@ class SC:
         Names of parents that are allowed for other instances of
         sclang/scsynth processes, by default ALLOWED_PARENTS.
     timeout : float, optional
-            timeout for starting the executables, by default 5
+        timeout in seconds for starting the executables, by default 5
     """
 
     default: Optional["SC"] = None
@@ -145,7 +145,7 @@ class SC:
         else:
             raise RuntimeError(
                 "You need to start a SuperCollider SC instance first"
-                " or provide a sclang/server directly."
+                " or provide an sclang/server directly."
             )
 
     def __init__(
@@ -207,7 +207,7 @@ class SC:
             Names of parents that are allowed for other instances of
             sclang/scsynth processes, by default ALLOWED_PARENTS
         timeout : float, optional
-            timeout for starting the executable, by default 5
+            timeout in seconds for starting the executable, by default 5
         """
         if self._sclang is None:
             self._sclang = SCLang()
@@ -251,7 +251,7 @@ class SC:
             Names of parents that are allowed for other instances of
             sclang/scsynth processes, by default ALLOWED_PARENTS
         timeout : float, optional
-            timeout for starting the executable, by default 5
+            timeout in seconds for starting the executable, by default 5
         """
         if self._server is None:
             self._server = SCServer(options=scsynth_options)

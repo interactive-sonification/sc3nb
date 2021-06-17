@@ -30,7 +30,7 @@ SC3NB_SCLANG_CLIENT_ID = 0
 
 
 class SynthArgument(NamedTuple):
-    """Synth Argument rate and default value"""
+    """Synth argument, rate and default value"""
 
     name: str
     rate: str
@@ -225,7 +225,7 @@ class SCLang:
         sclang_path: Optional[str] = None,
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
-        timeout: float = 5,
+        timeout: float = 10,
     ) -> None:
         """Start and initilize the sclang process.
 
@@ -240,7 +240,7 @@ class SCLang:
         allowed_parents : Sequence[str], optional
             parents name of processes to keep, by default ALLOWED_PARENTS
         timeout : float, optional
-            timeout for starting the executable, by default 5
+            timeout in seconds for starting the executable, by default 10
 
         Raises
         ------
@@ -396,7 +396,7 @@ class SCLang:
             If True return output. Does not override get_result
             If verbose this will be True, by default False
         timeout : int, optional
-            Timeout for code execution return result, by default 1
+            Timeout in seconds for code execution return result, by default 1
 
         Returns
         -------
@@ -535,7 +535,7 @@ class SCLang:
         self.process.empty()
 
     def get_synth_desc(self, synth_def):
-        """Get SynthDesc via sclangs global SynthDescLib.
+        """Get SynthDesc via sclang's global SynthDescLib.
 
         Parameters
         ----------
@@ -585,19 +585,19 @@ class SCLang:
         return self._server
 
     def connect_to_server(self, server: Optional[SCServer] = None):
-        """Connect this sclang instance to the SuperCollider Server.
+        """Connect this sclang instance to the SuperCollider server.
 
-        This will set Server.default and s to a the provided remote Server.
+        This will set Server.default and s to the provided remote server.
 
         Parameters
         ----------
         server : Optional[SCServer], optional
-            SuperCollider Server to connect. If None try to reconnect.
+            SuperCollider server to connect. If None try to reconnect.
 
         Raises
         ------
         ValueError
-            If something different from a SCServer or None was provided
+            If something different from an SCServer or None was provided
         SCLangError
             If sclang failed to register to the server.
         """

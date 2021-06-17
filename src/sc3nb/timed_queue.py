@@ -68,9 +68,9 @@ class TimedQueue:
     relative_time : bool, optional
         If True, use relative time, by default False
     thread_sleep_time : float, optional
-        Sleep time for worker thread, by default 0.001
+        Sleep time in seconds for worker thread, by default 0.001
     drop_time_threshold : float, optional
-        Threshold for execution time of events.
+        Threshold for execution time of events in seconds.
         If this is exceeded the event will be dropped, by default 0.5
     """
 
@@ -122,7 +122,7 @@ class TimedQueue:
         Parameters
         ----------
         timestamp : float
-            Time when event should be executed
+            Time (POSIX) when event should be executed
         function : Callable[..., None]
             Function to be executed
         args : Iterable[Any], optional
@@ -234,7 +234,7 @@ class TimedQueueSC(TimedQueue):
     relative_time : bool, optional
         If True, use relative time, by default False
     thread_sleep_time : float, optional
-        Sleep time for worker thread, by default 0.001
+        Sleep time in seconds for worker thread, by default 0.001
     """
 
     def __init__(
@@ -254,7 +254,7 @@ class TimedQueueSC(TimedQueue):
         onset : int
             Sending timetag of the Bundler
         bundler : Bundler
-            Bundler that will be send
+            Bundler that will be sent
         """
         self.put(onset, bundler.send)
 

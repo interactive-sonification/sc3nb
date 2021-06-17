@@ -1,6 +1,6 @@
-"""Module for parsing the OSC packets from sclang.
+"""Module for parsing OSC packets from sclang.
 
-This implements a extension of the OSC protocol.
+This implements an extension of the OSC protocol.
 A bundle is now allowed to consist of other bundles or
 lists.
 
@@ -108,9 +108,9 @@ def _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]:
 def _parse_osc_bundle_element(
     dgram: bytes, start_index: int
 ) -> Tuple[Union[Sequence[Any], bytes], int]:
-    """Parse an element from a osc bundle.
+    """Parse an element from an OSC bundle.
 
-    The element needs to be either a osc bundle or a list
+    The element needs to be either an OSC bundle or a list
 
     Parameters
     ----------
@@ -131,7 +131,7 @@ def _parse_osc_bundle_element(
     """
     elem_size, start_index = osc_types.get_int(dgram, start_index)
     _LOGGER.debug(
-        ">> parse osc bundle element (size: %d): %s ",
+        ">> parse OSC bundle element (size: %d): %s ",
         elem_size,
         dgram[start_index : start_index + elem_size],
     )
@@ -205,7 +205,7 @@ def parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]:
     Parameters
     ----------
     data : bytes
-        bytes send by sclang
+        bytes sent by sclang
 
     Returns
     -------
