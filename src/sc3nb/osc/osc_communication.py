@@ -393,6 +393,12 @@ class Bundler:
         elif self.send_on_exit:
             self.send(bundle=True)
 
+    def __repr__(self) -> str:
+        messages_str = repr(self.messages())
+        if len(messages_str) > 330:
+            messages_str = messages_str[:150] + "  ...  " + messages_str[-150:]
+        return f"<Bundler {messages_str}>"
+
 
 def convert_to_sc3nb_osc(
     data: Union[OSCMessage, Bundler, OscMessage, OscBundle, bytes]
