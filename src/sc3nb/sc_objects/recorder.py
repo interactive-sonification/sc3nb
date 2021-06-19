@@ -26,11 +26,11 @@ class Recorder:
     # TODO rec_header, rec_format with Literal type (py3.8) from Buffer
     def __init__(
         self,
-        path: Optional[str] = "record.wav",
-        nr_channels: Optional[int] = 2,
-        rec_header="wav",
-        rec_format="int16",
-        bufsize: Optional[int] = 65536,
+        path: str = "record.wav",
+        nr_channels: int = 2,
+        rec_header: str = "wav",
+        rec_format: str = "int16",
+        bufsize: int = 65536,
         server: Optional[SCServer] = None,
     ):
         """Create and prepare a recorder.
@@ -57,7 +57,14 @@ class Recorder:
         self._record_synth: Optional[Synth] = None
         self.prepare(path, nr_channels, rec_header, rec_format, bufsize)
 
-    def prepare(self, path, nr_channels, rec_header, rec_format, bufsize):
+    def prepare(
+        self,
+        path: str = "record.wav",
+        nr_channels: int = 2,
+        rec_header: str = "wav",
+        rec_format: str = "int16",
+        bufsize: int = 65536,
+    ):
         """Pepare the recorder.
 
         Parameters
@@ -112,23 +119,23 @@ class Recorder:
 
     def start(
         self,
-        timetag: Optional[float] = 0,
+        timetag: float = 0,
         duration: Optional[float] = None,
         node: Union[Node, int] = 0,
-        bus: Optional[int] = 0,
+        bus: int = 0,
     ):
         """Start the recording.
 
         Parameters
         ----------
-        timetag : Optional[float], optional
-            Time (or time offset when <1e6) to start, by default 0
-        duration : Optional[float], optional
+        timetag : float, by default 0 (immediately)
+            Time (or time offset when <1e6) to start
+        duration : float, optional
             Length of the recording, by default until stopped.
         node : Union[Node, int], optional
             Node that should be recorded, by default 0
-        bus : Optional[int], optional
-            Bus that should be recorded, by default 0
+        bus : int, by default 0
+            Bus that should be recorded
 
         Raises
         ------
@@ -149,13 +156,13 @@ class Recorder:
             )
         self._state = RecorderState.RECORDING
 
-    def pause(self, timetag: Optional[float] = 0):
+    def pause(self, timetag: float = 0):
         """Pause the recording.
 
         Parameters
         ----------
-        timetag : Optional[float], optional
-            Time (or time offset when <1e6) to pause, by default 0
+        timetag : float, by default 0 (immediately)
+            Time (or time offset when <1e6) to pause
 
         Raises
         ------
@@ -168,13 +175,13 @@ class Recorder:
             self._record_synth.run(False)
         self._state = RecorderState.PAUSED
 
-    def resume(self, timetag: Optional[float] = 0):
+    def resume(self, timetag: float = 0):
         """Resume the recording
 
         Parameters
         ----------
-        timetag : Optional[float], optional
-            Time (or time offset when <1e6) to resume, by default 0
+        timetag : float, by default 0 (immediately)
+            Time (or time offset when <1e6) to resume
 
         Raises
         ------
@@ -187,13 +194,13 @@ class Recorder:
             self._record_synth.run(True)
         self._state = RecorderState.RECORDING
 
-    def stop(self, timetag: Optional[float] = 0):
+    def stop(self, timetag: float = 0):
         """Stop the recording.
 
         Parameters
         ----------
-        timetag : Optional[float], optional
-            Time (or time offset when <1e6) to stop, by default 0
+        timetag : float, by default 0 (immediately)
+            Time (or time offset when <1e6) to stop
 
         Raises
         ------
