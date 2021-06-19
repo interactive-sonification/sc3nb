@@ -141,6 +141,7 @@ class Bundler:
         timetag: float = 0,
         msg: Optional[Union[OSCMessage, str]] = None,
         msg_params: Optional[Sequence[Any]] = None,
+        *,
         server: Optional["OSCCommunication"] = None,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
         send_on_exit: bool = True,
@@ -856,7 +857,7 @@ class OSCCommunication:
         package: Union[OSCMessage, Bundler],
         *,
         receiver: Optional[Union[str, Tuple[str, int]]] = None,
-        bundle: bool = True,
+        bundle: bool = False,
         await_reply: bool = True,
         timeout: float = 5,
     ) -> Any:
@@ -869,7 +870,7 @@ class OSCCommunication:
         receiver : str or Tuple[str, int], optional
             Where to send the packet, by default send to default receiver
         bundle : bool, optional
-            If True it is allowed to bundle the package with bundling, by default True.
+            If True it is allowed to bundle the package with bundling, by default False.
         await_reply : bool, optional
             If True ask for reply from the server and return it,
             otherwise send the message and return None directly, by default True.
@@ -988,7 +989,7 @@ class OSCCommunication:
         msg_addr: str,
         msg_params: Optional[Sequence] = None,
         *,
-        bundle: bool = True,
+        bundle: bool = False,
         receiver: Optional[Tuple[str, int]] = None,
         await_reply: bool = True,
         timeout: float = 5,
@@ -1002,7 +1003,7 @@ class OSCCommunication:
         msg_params : Optional[Sequence], optional
             List of paramters of the OSC message, by default None
         bundle : bool, optional
-            If True it is allowed to bundle the content with bundling, by default True
+            If True it is allowed to bundle the content with bundling, by default False
         receiver : tuple[str, int], optional
             (IP address, port) to send the message, by default send to default receiver
         await_reply : bool, optional
