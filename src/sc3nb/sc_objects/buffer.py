@@ -206,7 +206,7 @@ class Buffer:
         self._allocated = True
         return self
 
-    def alloc(self, size: int, sr: float = 44100, channels: int = 1) -> "Buffer":
+    def alloc(self, size: int, sr: int = 44100, channels: int = 1) -> "Buffer":
         """Allocate buffer memory.
 
         Parameters
@@ -245,7 +245,7 @@ class Buffer:
     def load_data(
         self,
         data: np.ndarray,
-        sr: float = 44100,
+        sr: int = 44100,
         mode: str = "file",
         sync: bool = True,
     ) -> "Buffer":
@@ -328,7 +328,7 @@ class Buffer:
         return self
 
     def load_collection(
-        self, data: np.ndarray, mode: str = "file", sr: float = 44100
+        self, data: np.ndarray, mode: str = "file", sr: int = 44100
     ) -> "Buffer":
         """Wrapper method of :func:`Buffer.load_data`"""
         return self.load_data(data, sr=sr, mode=mode)
@@ -357,7 +357,7 @@ class Buffer:
             raise RuntimeError("Buffer object is already initialized!")
         return self.load_data(asig.sig, sr=asig.sr, mode=mode)
 
-    def use_existing(self, bufnum: int, sr: float = 44100) -> "Buffer":
+    def use_existing(self, bufnum: int, sr: int = 44100) -> "Buffer":
         """Creates a buffer object from already existing Buffer bufnum.
 
         Parameters
@@ -891,7 +891,7 @@ class Buffer:
         if self.samples is None or self.sr is None:
             duration = 0
         else:
-            duration = float(self.samples) / float(self.sr)
+            duration = self.samples / self.sr
         return (
             f"<Buffer({self.bufnum}) on {self._server.addr}:"
             + f" {self.channels} x {self.samples} @ {self.sr} Hz = {duration:.3f}s"
@@ -992,12 +992,12 @@ class Buffer:
         return self._samples
 
     @property
-    def sr(self) -> Optional[float]:
+    def sr(self) -> Optional[int]:
         """Sampling rate of the Buffer.
 
         Returns
         -------
-        float
+        int
             sampling rate
         """
         return self._sr
