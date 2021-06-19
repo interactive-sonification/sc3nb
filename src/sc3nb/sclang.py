@@ -463,7 +463,7 @@ class SCLang:
                 ) from empty_exception
         if verbose or get_output:
             # get output after current command
-            out = self.read(expect=self.prompt_str)
+            out = self.read(expect=self.prompt_str, timeout=timeout)
             if sys.platform == "darwin":
                 out = out[out.find(";\n") + 2 :]  # skip code echo
             print(out)
@@ -500,7 +500,7 @@ class SCLang:
         expect : Optional[str], optional
             Try to read this expected string, by default None
         timeout : float, optional
-            How long we try to read expected string, by default 1
+            How long we try to read the expected string in seconds, by default 1
         print_error : bool, optional
             If True this will print a message when timed out, by default True
 
