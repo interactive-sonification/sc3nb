@@ -887,16 +887,17 @@ class Buffer:
             self._server.msg(BufferCommand.QUERY, [self._bufnum], bundle=False)
         )
 
-    def _repr_pretty_(self, p, cycle) -> None:
-        if cycle:
-            p.text("Buffer {self.bufnum}")
+    def __repr__(self) -> str:
+        if self.samples is None or self.sr is None:
+            duration = 0
         else:
-            p.text(
-                f"Buffer {self.bufnum} on {self._server.addr}: "
-                + f"{self.channels} x {self.samples} @ {self.sr} Hz –> "
-                + f"""{["not loaded", "allocated"][self.allocated]} """
-                + f"using mode '{self._alloc_mode}'"
-            )
+            duration = float(self.samples) / float(self.sr)
+        return (
+            f"<Buffer({self.bufnum}) on {self._server.addr}:"
+            + f" {self.channels} x {self.samples} @ {self.sr} Hz = {duration:.3f}s"
+            + f""" {["not loaded", "allocated"][self.allocated]}"""
+            + f" using mode '{self._alloc_mode}'>"
+        )
 
     # Section: Methods to delete / free Buffers
     def free(self) -> None:
