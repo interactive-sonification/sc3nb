@@ -313,6 +313,11 @@ class SC:
     def __del__(self):
         self.exit()
 
+    def __repr__(self) -> str:
+        server = self._server if self._server is not None else "SCServer not started"
+        lang = self._sclang if self._sclang is not None else "SCLang not started"
+        return f"<SC {server},\n    {lang}>"
+
     def exit(self) -> None:
         """Closes SuperCollider and shuts down server"""
         try:
