@@ -211,7 +211,7 @@ class TimedQueue:
             time.sleep(sleep_time)
 
     def __repr__(self):
-        return self.event_list.__repr__()
+        return f"<TimedQueue {self.event_list.__repr__()}>"
 
     def elapse(self, time_delta: float) -> None:
         """Add time delta to the current queue time.

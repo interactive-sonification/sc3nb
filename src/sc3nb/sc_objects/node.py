@@ -249,12 +249,12 @@ class Node(ABC):
     def _get_status_repr(self) -> str:
         status = ""
         if self.started and not self.is_playing:
-            status += "s"
+            status = "s"
         if self.is_playing:
             running_symbol = "~" if self.is_running else "-"
-            status += running_symbol
+            status = running_symbol
         if self.freed:
-            status += "f"
+            status = "f"
         return status
 
     def _set_node_attrs(
