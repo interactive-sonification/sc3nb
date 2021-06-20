@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb – SuperCollider3 for python / jupyter notebooks &mdash; sc3nb  documentation</title>
+  <title>sc3nb – SuperCollider3 for python / jupyter notebooks &mdash; sc3nb 0.1.1.dev105+ge1bb777.d20210620 documentation</title>
   
 
   
@@ -103,12 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Further-informations">Further informations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#How-does-this-work?">How does this work?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Caveats-and-Problems">Caveats and Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Contributing">Contributing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Setting-up-the-development-environment">Setting up the development environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#Development-Guidelines">Development Guidelines</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#Useful-Ressources">Useful Ressources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Useful-Resources">Useful Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -197,7 +192,7 @@
 <li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC">Receiving OSC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Getting-replies">Getting replies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
@@ -209,13 +204,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#linlin(x,-x1,-x2,-y1,-y2)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
@@ -299,6 +296,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#id1">Contributors</a></li>
 </ul>
 </li>
 </ul>
@@ -669,7 +681,7 @@ div.rendered_html tbody tr:hover {
 <li><p>any usecase that the SuperCollider 3 language supports</p></li>
 </ul>
 <p>It is meant to grow into a backend for a sonification package, and can be used both from jupyter and in standard python software development.</p>
-<p>sc3nb is hosted at GitHub <a class="reference external" href="https://github.com/thomas-hermann/sc3nb">https://github.com/thomas-hermann/sc3nb</a></p>
+<p>sc3nb is hosted at GitHub <a class="reference external" href="https://github.com/interactive-sonification/sc3nb">https://github.com/interactive-sonification/sc3nb</a></p>
 <div class="section" id="Getting-Started">
 <h2>Getting Started<a class="headerlink" href="#Getting-Started" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Installing-sc3nb">
@@ -680,11 +692,11 @@ div.rendered_html tbody tr:hover {
 <ul>
 <li><p>install it locally in editable mode (i.e. changes to sc3nb code will automatically be “re-installed”).</p>
 <ul>
-<li><p>clone the repository from <a class="reference external" href="https://github.com/thomas-hermann/sc3nb">https://github.com/thomas-hermann/sc3nb</a></p></li>
+<li><p>clone the repository from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb">https://github.com/interactive-sonification/sc3nb</a></p></li>
 <li><p>from inside the sc3nb directory run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code></p></li>
 </ul>
 </li>
-<li><p>or install it directly from GitHub using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+git://github.com/thomas-hermann/sc3nb&#64;master</span></code></p></li>
+<li><p>or install it directly from GitHub using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+git://github.com/interactive-sonification/sc3nb&#64;master</span></code></p></li>
 </ul>
 </li>
 </ul>
@@ -764,7 +776,7 @@ Done.
 </ul>
 <p><strong>Configuration of sc3nb startup</strong>:</p>
 <ul class="simple">
-<li><p>If the executables are not in <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, you can specify them with <code class="docutils literal notranslate"><span class="pre">sclang_path</span></code> / <code class="docutils literal notranslate"><span class="pre">scsynth_path</span></code> f.e. <code class="docutils literal notranslate"><span class="pre">sclang_path=&quot;/path/to/sclang-containing-dir/sclang&quot;</span></code></p>
+<li><p>If the executables are not in <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, you can specify them with <code class="docutils literal notranslate"><span class="pre">sclang_path</span></code> / <code class="docutils literal notranslate"><span class="pre">scsynth_path</span></code> e.g. <code class="docutils literal notranslate"><span class="pre">sclang_path=&quot;/path/to/sclang-containing-dir/sclang&quot;</span></code></p>
 <ul>
 <li><p>On macOS they reside in <code class="docutils literal notranslate"><span class="pre">/Applications/SuperCollider.app/Contents</span></code> in the folders MacOS and Resources. To add these paths to your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, simply add to your ~/.profile, e.g. (please adapt to your installation): <code class="docutils literal notranslate"><span class="pre">PATH=$PATH:/Applications/SuperCollider.app/Contents/MacOS:/Applications/SuperCollider.app/Contents/Resources</span></code></p></li>
 <li><p>On Windows they reside in your Installation folder f.e <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\SuperCollider-3.x.x</span></code></p></li>
@@ -773,13 +785,22 @@ Done.
 <li><p>You could also only use <strong>scsynth</strong> and don’t start <strong>sclang</strong> with <code class="docutils literal notranslate"><span class="pre">start_sclang=False</span></code></p></li>
 <li><p>See <code class="docutils literal notranslate"><span class="pre">help(scn.startup)</span></code> for all options</p></li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># help(scn.startup)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="Basic-examples">
 <h2>Basic examples<a class="headerlink" href="#Basic-examples" title="Permalink to this headline">¶</a></h2>
 <p>Create and control SuperCollider Synths</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -789,7 +810,7 @@ Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -798,7 +819,7 @@ Done.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -808,7 +829,7 @@ Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -817,7 +838,7 @@ Done.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -826,17 +847,17 @@ Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;default&#39; sf {&#39;freq&#39;: 800}&gt;
+&lt;Synth(20001) &#39;default&#39; f {&#39;freq&#39;: 800}&gt;
 </pre></div></div>
 </div>
 <p>Send SynthDefs with python code injection</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -851,7 +872,7 @@ Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -861,7 +882,7 @@ Done.
 </div>
 <p>Load File as Buffer and play it</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -871,16 +892,16 @@ Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocated using mode &#39;file&#39;
+&lt;Buffer(128) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -889,7 +910,7 @@ Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -898,7 +919,7 @@ Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocat
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -917,7 +938,7 @@ Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocat
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -933,7 +954,7 @@ array([[-0.00189209, -0.00189209],
 </div>
 <p>Create OSC Bundles</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -947,7 +968,7 @@ array([[-0.00189209, -0.00189209],
 </div>
 <p>Execute SuperCollider Language Code</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -961,12 +982,12 @@ array([[-0.00189209, -0.00189209],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; gegs
+-&gt; esgg
 </pre></div></div>
 </div>
 <p>Get results from SuperCollider Language in python</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -985,9 +1006,9 @@ array([[-0.00189209, -0.00189209],
 received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </pre></div></div>
 </div>
-<p>OSC messaging : f.e. free sclang Synth with OSC message</p>
+<p>OSC messaging : e.g. free sclang Synth with OSC message</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1004,7 +1025,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1035,13 +1056,13 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 <div class="section" id="How-does-this-work?">
 <h2>How does this work?<a class="headerlink" href="#How-does-this-work?" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><strong>sclang</strong> and <strong>scsynth</strong> are started as subprocesses and thier outputs is collected.</p></li>
+<li><p><strong>sclang</strong> and <strong>scsynth</strong> are started as subprocesses and their outputs are collected.</p></li>
 <li><p><strong>scsynth</strong> is then controlled via OSC</p>
 <ul>
-<li><p>Direct control of the server shortcuts a detour via sclang and is both more efficient and promises a lower latency</p></li>
+<li><p>Direct control of the server shortcuts the detour via sclang and is both more efficient and promises a lower latency</p></li>
 </ul>
 </li>
-<li><p><strong>sclang</strong> communication is done with pipes and OSC for receiving return values</p></li>
+<li><p><strong>sclang</strong> communication is done with pipes (bi-directional) and with OSC for receiving return values</p></li>
 </ul>
 </div>
 <div class="section" id="Caveats-and-Problems">
@@ -1049,57 +1070,17 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 <p>We strongly encourage you to share any problems that arise using sc3nb with us.</p>
 <p>There are some things to consider when using sc3nb.</p>
 <ul class="simple">
-<li><p>The shortcut <code class="docutils literal notranslate"><span class="pre">ctrl/cmd</span> <span class="pre">+</span> <span class="pre">.</span></code> does currently only works in classic Jupyter notebooks not in JupyterLab. It also will import sc3nb as <code class="docutils literal notranslate"><span class="pre">sc3nb</span></code> and thus you should avoid variables with the name <code class="docutils literal notranslate"><span class="pre">sc3nb</span></code>.</p></li>
-<li><p>We depend on the output to stdout of sclang and scsynth in some cases like the startup of the server or more obviously for the sclang output when using cmd with verbosity. This means if some language settings or updates of sclang/scsynth change the outputs to something that we don’t expect stuff will fail. However this should be quite easy to patch.</p></li>
-<li><p>There is a bug in Jupyter (<a class="reference external" href="https://github.com/jupyter/jupyter_client/issues/104">https://github.com/jupyter/jupyter_client/issues/104</a>) that does leave sclang and scsynth running when restarting the Jupyter kernel. However calling <code class="docutils literal notranslate"><span class="pre">exit()</span></code> on the SC instance will kill them. To aviod conflicts with orphaned sclangs/scsynths we also look for leftover sclang/scsynth processes on the start of each and will try to kill them. This might lead to killing sclang or scsynth processes that you wanted to keep. You can specify which parent processes are
-allowed for sclang/scsynth processes with the <code class="docutils literal notranslate"><span class="pre">allowed_parents</span></code> paramter.</p></li>
-<li><p>The SuperCollider Objects are currently not guaranteed to be thread safe.</p></li>
-<li><p>Another thing about SuperCollider in general is to keep in mind that there are limits in the network communication. Currently we only support UDP and therefore have the corresponding limits. As an example a Bundler will fail when you try to send too many messages.</p></li>
+<li><p>The shortcut <code class="docutils literal notranslate"><span class="pre">ctrl/cmd</span> <span class="pre">+</span> <span class="pre">.</span></code> does currently only work in classic Jupyter notebooks, yet not in JupyterLab. It also will import sc3nb as <code class="docutils literal notranslate"><span class="pre">sc3nb</span></code> and thus you should avoid variables with the name <code class="docutils literal notranslate"><span class="pre">sc3nb</span></code>.</p></li>
+<li><p>We depend on the output to stdout of sclang and scsynth in some cases such as the startup of the server - or more obviously - for the sclang output when using <code class="docutils literal notranslate"><span class="pre">cmd()</span></code> with verbosity. This means if some language settings or updates of sclang/scsynth change the outputs to something that we don’t expect, stuff will fail. However this should be quite easy to patch.</p></li>
+<li><p>There is a bug in Jupyter (<a class="reference external" href="https://github.com/jupyter/jupyter_client/issues/104">https://github.com/jupyter/jupyter_client/issues/104</a>) that does leave sclang and scsynth running when restarting the Jupyter kernel. However calling <code class="docutils literal notranslate"><span class="pre">exit()</span></code> on the SC instance will kill them. To avoid conflicts with orphaned sclangs/scsynths we also look for leftover sclang/scsynth processes on starting either of them and we try to kill them. This might lead to killing sclang or scsynth processes that you wanted to keep alive. However, you can specify which
+parent processes are allowed for sclang/scsynth processes using the <code class="docutils literal notranslate"><span class="pre">allowed_parents</span></code> parameter.</p></li>
+<li><p>The SuperCollider objects are currently not guaranteed to be thread-safe, with the exception of Node (Synth &amp; Group)</p></li>
+<li><p>Another thing about SuperCollider in general is, to keep in mind that there are limits in the network communication: currently we only support UDP and therefore have the corresponding limits. As an example, a Bundler will simply fail when you try to send too many messages.</p></li>
 </ul>
 </div>
-<div class="section" id="Contributing">
-<h2>Contributing<a class="headerlink" href="#Contributing" title="Permalink to this headline">¶</a></h2>
-<p>Please get in touch with us if you wish to contribute. We are happy to be involved in the discussion of new features and to receive pull requests.</p>
-<p>Contributions from: Ferdinand Schlatt, Fabian Kaupmann, Micha Steffen Vosse</p>
-<div class="section" id="Setting-up-the-development-environment">
-<h3>Setting up the development environment<a class="headerlink" href="#Setting-up-the-development-environment" title="Permalink to this headline">¶</a></h3>
-<p>Additional dependencies for can be installed via the following extras tests, development, building docs, running test. can be installed via the respec</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 83%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Install</p></th>
-<th class="head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
-<td><p>running tox for tests and other things</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
-<td><p>using the pre-commit hooks and installing other useful tools for development</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
-<td><p>building the docs</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[localtests]</span></code></p></td>
-<td><p>running pytest directly without tox</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="Development-Guidelines">
-<h3>Development Guidelines<a class="headerlink" href="#Development-Guidelines" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pre-commit.com/"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a> <a class="reference external" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
-<p>To ensure standards are followed install <a class="reference external" href="https://pre-commit.com/">pre-commit</a></p>
-<p>We use: * <a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> for formatting code * <a class="reference external" href="https://docs.python.org/3/library/typing.html">python type hints</a> * <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">How to Document</a></p>
-</div>
-</div>
-<div class="section" id="Useful-Ressources">
-<h2>Useful Ressources<a class="headerlink" href="#Useful-Ressources" title="Permalink to this headline">¶</a></h2>
-<p>If you are looking for more information about SuperCollider you should checkout the following links</p>
+<div class="section" id="Useful-Resources">
+<h2>Useful Resources<a class="headerlink" href="#Useful-Resources" title="Permalink to this headline">¶</a></h2>
+<p>For more information about SuperCollider, check out the following links:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://supercollider.github.io/">SuperCollider website</a></p></li>
 <li><p><a class="reference external" href="https://github.com/supercollider/supercollider">SuperCollider on GitHub</a></p></li>
@@ -1123,7 +1104,7 @@ allowed for sclang/scsynth processes with the <code class="docutils literal notr
 </li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>

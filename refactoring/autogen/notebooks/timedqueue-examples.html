@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>TimedQueue Basics &mdash; sc3nb  documentation</title>
+  <title>TimedQueue &mdash; sc3nb 0.1.1.dev105+ge1bb777.d20210620 documentation</title>
   
 
   
@@ -103,12 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Further-informations">Further informations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#How-does-this-work?">How does this work?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Caveats-and-Problems">Caveats and Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Contributing">Contributing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Setting-up-the-development-environment">Setting up the development environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Development-Guidelines">Development Guidelines</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Useful-Ressources">Useful Ressources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Useful-Resources">Useful Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -197,7 +192,7 @@
 <li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC">Receiving OSC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Getting-replies">Getting replies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
@@ -209,13 +204,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#linlin(x,-x1,-x2,-y1,-y2)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">TimedQueue Basics</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC">TimedQueueSC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
@@ -302,6 +299,21 @@
 </ul>
 </li>
 </ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#id1">Contributors</a></li>
+</ul>
+</li>
+</ul>
 
             
           
@@ -349,7 +361,7 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>TimedQueue Basics</li>
+      <li>TimedQueue</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -638,20 +650,24 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="TimedQueue-Basics">
-<h1>TimedQueue Basics<a class="headerlink" href="#TimedQueue-Basics" title="Permalink to this headline">¶</a></h1>
-<p>Motivation:</p>
+<div class="section" id="TimedQueue">
+<h1>TimedQueue<a class="headerlink" href="#TimedQueue" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Motivation:">
+<h2>Motivation:<a class="headerlink" href="#Motivation:" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>for sonifications with precise timing, thousends of events need to be spawn at the exact time.</p></li>
+<li><p>for sonifications (or any sound composition) with precise timing, usually a large number of events need to be spawned at the exact time.</p></li>
 <li><p>doing this with bundles doesn’t work as the OSC buffer of scsynth is limited</p></li>
 <li><p>it needs a TimedQueue where events can be added for time-precise dispatching</p></li>
-<li><p>a thread then simply checks what items are due and executes them</p></li>
-<li><p>using arbitrary functions as objects for the queue allows to use it both for sonification (e.g. sending OSC messages/bundles) and even visualization</p></li>
-<li><p>however, the functions should complete really quickly as otherwise the queue would run late and fail to process due events</p></li>
-<li><p>hence, it is the responsibility of the user to be careful</p></li>
-<li><p>if, however, longer programs are needed, they can be spawn as threads on execution</p></li>
-<li><p>The following demos illustrate the core functionality with console print and sound</p></li>
+<li><p>In TimedQueue, a thread then simply checks what items are due and executes them</p></li>
+<li><p>allowing arbitrary functions as objects to be queued for execution enables both sound-specific usecases (e.g. sending OSC messages/bundles) and also other things such as visualization</p></li>
+<li><p>However, the functions should complete really quickly as otherwise the queue would run late and fail to process due events</p></li>
+<li><p>hence, it remains in the user’s responsibility to be careful</p></li>
+<li><p>If, however, longer programs are needed, functions can be spawned as threads on execution</p></li>
 </ul>
+</div>
+<div class="section" id="Basic-Demo-of-TimedQueue">
+<h2>Basic Demo of TimedQueue<a class="headerlink" href="#Basic-Demo-of-TimedQueue" title="Permalink to this headline">¶</a></h2>
+<p>The following demo illustrate the core functionality with console print and sound. Please check the console / shell from which you have launched jupyter-notebook (i.e. your stdout)</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -737,7 +753,7 @@ Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">myfun</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span></span><span class="n">myfun</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># the number is written to stdout</span>
 </pre></div>
 </div>
 </div>
@@ -746,7 +762,7 @@ Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">myblip</span><span class="p">(</span><span class="mi">700</span><span class="p">)</span>
+<span></span><span class="n">myblip</span><span class="p">(</span><span class="mi">700</span><span class="p">)</span> <span class="c1"># a tone should play</span>
 </pre></div>
 </div>
 </div>
@@ -768,9 +784,10 @@ Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.0065975189208984375
+0.005998849868774414
 </pre></div></div>
 </div>
+<p>Note that the code returns immediately, allowing you to interact with jupyter. All executions are then done by means of the TimedQueue</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -778,6 +795,7 @@ Done.
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">queue</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="TimedQueueSC">
@@ -811,7 +829,7 @@ Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># load data</span>
+<span></span><span class="c1"># create some test data</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mf">3.5</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -821,7 +839,7 @@ Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create figure, axis, plots</span>
+<span></span><span class="c1"># create figure, axis, plots -&gt; a window should open depicting two clusters</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># create figure</span>
 <span class="n">mngr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_current_fig_manager</span><span class="p">();</span> <span class="n">mngr</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 <span class="n">pldata</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># create plots</span>
@@ -869,17 +887,14 @@ Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-time used: 0.023999691009521484
+time used: 0.029001951217651367
 </pre></div></div>
 </div>
+<p>Notice that any data point is turned red the moment its sound starts.</p>
 </div>
 <div class="section" id="TimedQueueSC-PMSon-with-matplotlib-highlights">
 <h2>TimedQueueSC PMSon with matplotlib highlights<a class="headerlink" href="#TimedQueueSC-PMSon-with-matplotlib-highlights" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>this example illustrates how to use TimedQueues to maintain a ‘currently playing selection’ of data points, so that the GUI highlight gets deactivated as the corresponding sound stops</p></li>
-<li><p>this is achieved by scheduling a select and unselect function invocation at the time stamps where the corresponding sound starts and ends</p></li>
-<li><p>Note that herre the actual plot update is in a second loop of scheduled ‘update_plot’ invocations at an independent user controlled frame rate</p></li>
-</ul>
+<p>The following example illustrates how to use TimedQueues to maintain a ‘currently playing selection’ of data points, so that the GUI highlighting is deactivated when the corresponding sound stops * this is achieved by scheduling a select and an unselect function at corresponding sound onset and stop time * Note that here the plot update is done within a second loop of scheduled ‘update_plot’ invocations, at an frame rate independent of the sound events.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -896,7 +911,8 @@ time used: 0.023999691009521484
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># create figure</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># create figure</span>
-<span class="n">mngr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_current_fig_manager</span><span class="p">();</span> <span class="n">mngr</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">mngr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_current_fig_manager</span><span class="p">()</span>
+<span class="n">mngr</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># create the queue</span>
@@ -915,7 +931,7 @@ time used: 0.023999691009521484
 <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>  <span class="c1">#  highlight selection</span>
     <span class="n">selected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
-<span class="k">def</span> <span class="nf">unselect</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">unselect</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="c1"># lowlight selection</span>
     <span class="n">selected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">):</span>
@@ -972,12 +988,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 <div class="section" id="TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">
 <h2>TimedQueueSC PMSon with timeseries data and matplotlib<a class="headerlink" href="#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot</p></li>
-<li><p>This presumes time-indexable data</p></li>
-<li><p>a maximum onset variable is maintained to shutdown the continuously playing synths when done</p></li>
-<li><p>note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p></li>
-</ul>
+<p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot * This presumes time-indexable data * a ‘maximum onset’ variable is maintained to shutdown the continuously playing synths when done * note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
@@ -1005,7 +1016,7 @@ Traceback (most recent call last):
     event.execute()
   File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
     self.function(*self.args)
-  File &#34;&lt;ipython-input-1-99c82af2c230&gt;&#34;, line 13, in update_plot
+  File &#34;&lt;ipython-input-1-a1fc966c9644&gt;&#34;, line 13, in update_plot
     ax.draw_artist(ax.patch)
   File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\matplotlib\axes\_base.py&#34;, line 2760, in draw_artist
     raise AttributeError(&#34;draw_artist can only be used after an &#34;
@@ -1025,8 +1036,8 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
 <span class="c1"># create axis, plots</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">plmarked</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">pldata</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plots</span>
-<span class="n">pldataR</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plots</span>
+<span class="n">pldata1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plot 1</span>
+<span class="n">pldata2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plot 2</span>
 </pre></div>
 </div>
 </div>
@@ -1042,11 +1053,11 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
     <span class="k">return</span> <span class="n">scn</span><span class="o">.</span><span class="n">linlin</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">stats</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">stats</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">val_from</span><span class="p">,</span> <span class="n">val_to</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">pldata</span><span class="p">,</span> <span class="n">plmarked</span><span class="p">,</span> <span class="n">selected</span>
+    <span class="k">global</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">pldata1</span><span class="p">,</span> <span class="n">pldata2</span><span class="p">,</span> <span class="n">plmarked</span><span class="p">,</span> <span class="n">selected</span>
     <span class="n">plmarked</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patch</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldataR</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata2</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">plmarked</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
     <span class="c1"># fig.canvas.flush_events()</span>
@@ -1122,22 +1133,11 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.2949998378753662
+0.3230001926422119
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">])</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;/n_set&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1200</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="mi">1200</span><span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1160,22 +1160,13 @@ Traceback (most recent call last):
     event.execute()
   File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
     self.function(*self.args)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 307, in send
+  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 309, in send
     server.send(self, receiver=receiver, bundle=bundle)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 905, in send
+  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 913, in send
     sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
 OSError: [WinError 10038] An operation was attempted on something that is not a socket
 
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>

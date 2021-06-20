@@ -247,9 +247,9 @@ Content
    .. method:: _read_loop(self)
 
 
-   .. method:: read(self, expect: Optional[str] = None, timeout: float = 1) -> str
+   .. method:: read(self, expect: Optional[str] = None, timeout: float = 3) -> str
 
-      Reads current output from output queue or until expect is found
+      Reads current output from output queue until expect is found
 
 
       :Parameters:
@@ -258,7 +258,7 @@ Content
               str that we expect to find, by default None
 
           **timeout** : float, optional
-              timeout for waiting for output, by default 1
+              timeout in seconds for waiting for output, by default 3
 
       :Returns:
 
@@ -271,7 +271,7 @@ Content
       :Raises:
 
           ProcessTimeout
-              If no output or expectation isn't found
+              If neither output nor expect is found
 
 
 

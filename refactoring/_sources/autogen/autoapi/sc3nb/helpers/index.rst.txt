@@ -38,7 +38,7 @@ Function List
 Content
 ~~~~~~~
 
-.. function:: linlin(value: Union[(float, np.ndarray)], x1: float, x2: float, y1: float, y2: float) -> Union[(float, np.ndarray)]
+.. function:: linlin(value: Union[(float, np.ndarray)], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[(float, np.ndarray)]
 
    Map value linearly so that [x1, x2] is mapped to [y1, y2]
 
@@ -64,9 +64,14 @@ Content
        **y2** : float
            destination value to be reached for value == x2
 
+       **clip: None or string**
+           None extrapolates, "min" or "max" clip at floor resp. ceiling
+           of the destination range, any other value defaults to "minmax",
+           i.e. it clips on both sides.
+
    :Returns:
 
-       float
+       float or np.ndarray
            the mapping result
 
 

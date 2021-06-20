@@ -1,1 +1,1 @@
-{"path": "../../../../../../../../examples/supercollider-objects/server-examples.ipynb", "extra-media": ["../../../../../../../../examples/media"]}
+{"path": "../../../../../examples/supercollider-objects/server-examples.ipynb", "extra-media": ["../../../../../examples/media"]}

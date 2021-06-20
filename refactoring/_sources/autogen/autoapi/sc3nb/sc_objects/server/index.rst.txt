@@ -738,7 +738,7 @@ Content
    ..
        !! processed by numpydoc !!
 
-   Create a OSC communication server
+   Create an OSC communication server
 
 
    :Parameters:

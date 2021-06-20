@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   Module for ressources
+   Module for resources
 
 
 

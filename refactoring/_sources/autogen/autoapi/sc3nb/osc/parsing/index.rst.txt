@@ -5,9 +5,9 @@
 
 .. autoapi-nested-parse::
 
-   Module for parsing the OSC packets from sclang.
+   Module for parsing OSC packets from sclang.
 
-   This implements a extension of the OSC protocol.
+   This implements an extension of the OSC protocol.
    A bundle is now allowed to consist of other bundles or
    lists.
 
@@ -202,9 +202,9 @@ Content
 
 .. function:: _parse_osc_bundle_element(dgram: bytes, start_index: int) -> Tuple[(Union[Sequence[Any], bytes], int)]
 
-   Parse an element from a osc bundle.
+   Parse an element from an OSC bundle.
 
-   The element needs to be either a osc bundle or a list
+   The element needs to be either an OSC bundle or a list
 
    :Parameters:
 
@@ -285,7 +285,7 @@ Content
    :Parameters:
 
        **data** : bytes
-           bytes send by sclang
+           bytes sent by sclang
 
    :Returns:
 

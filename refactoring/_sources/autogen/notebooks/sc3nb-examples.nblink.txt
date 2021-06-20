@@ -1,1 +1,1 @@
-{"path": "../../../../../../../examples/sc3nb-examples.ipynb", "extra-media": ["../../../../../../../examples/media"]}
+{"path": "../../../../examples/sc3nb-examples.ipynb", "extra-media": ["../../../../examples/media"]}

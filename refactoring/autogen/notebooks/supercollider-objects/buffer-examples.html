@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Buffer &mdash; sc3nb  documentation</title>
+  <title>Buffer &mdash; sc3nb 0.1.1.dev105+ge1bb777.d20210620 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
         <script src="../../../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -105,12 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Further-informations">Further informations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#How-does-this-work?">How does this work?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Caveats-and-Problems">Caveats and Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Contributing">Contributing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Setting-up-the-development-environment">Setting up the development environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Development-Guidelines">Development Guidelines</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Useful-Ressources">Useful Ressources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Useful-Resources">Useful Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -199,7 +194,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Receiving-OSC">Receiving OSC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Getting-replies">Getting replies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
@@ -211,13 +206,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#linlin(x,-x1,-x2,-y1,-y2)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
@@ -301,6 +298,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#id1">Contributors</a></li>
 </ul>
 </li>
 </ul>
@@ -715,10 +727,10 @@ Done.
 <h1>Buffer<a class="headerlink" href="#Buffer" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>Buffer is a python class in the sc3nb package to interface with Buffers on the SuperCollider3 server.</p></li>
-<li><p>A buffer can be created with sc3nb.Buffer(sc)</p></li>
+<li><p>A Buffer can be created with sc3nb.Buffer(sc)</p></li>
 <li><p>The constructor is also invoked by the method sc3nb.SC.Buffer(), a method of a booted SC instance, i.e.  buf = sc.Buffer() to allocate a buffer on the sound server booted from the SC instance.</p></li>
-<li><p>On buffer methods, the buffer instance is returned so that subsequent buffer methods (such as read, load_existing, etc.) can be directly invoked</p></li>
-<li><p>This notebook demonstrates with some examples how to work with sc3nb.Buffer</p></li>
+<li><p>On Buffer methods, the Buffer instance is returned so that subsequent Buffer methods (such as read, load_existing, etc.) can be directly invoked</p></li>
+<li><p>This notebook demonstrates how to work with sc3nb.Buffer at hand of some examples.</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -757,7 +769,7 @@ Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 44100 Hz –&gt; allocated using mode &#39;data&#39;
+&lt;Buffer(128) on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 44100 Hz = 0.680s allocated using mode &#39;data&#39;&gt;
 </pre></div></div>
 </div>
 <p>In this case a default buffer with default sample rate (44100) and default insert mode is created.</p>
@@ -771,7 +783,7 @@ Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 44100 Hz –&gt; allocat
 </pre></div>
 </div>
 </div>
-<p>Attention: the OSC insertion is only useful for small datasets (less than 1000 entries). For larger datasets the default file mode is much faster</p>
+<p>Attention: insertion via OSC is particularly useful for small datasets (e.g. less than 1000 entries). For larger datasets the default ‘file’ mode is much faster.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -789,7 +801,7 @@ Buffer 128 on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 129 on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 5000 Hz –&gt; allocated using mode &#39;data&#39;
+&lt;Buffer(129) on (&#39;127.0.0.1&#39;, 57110): 1 x 30000 @ 5000 Hz = 6.000s allocated using mode &#39;data&#39;&gt;
 </pre></div></div>
 </div>
 </div>
@@ -848,7 +860,7 @@ Asig(&#39;sine_fadeout&#39;): 2 x 2000 @ 2000Hz = 1.000s cn=[&#39;0&#39;, &#39;1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 131 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocated using mode &#39;file&#39;
+&lt;Buffer(131) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 <p>The buffer method will automatically read the sample reate of the file and set it to Buffer.sr</p>
@@ -878,7 +890,7 @@ Buffer 131 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 132 on (&#39;127.0.0.1&#39;, 57110): 1 x 20000 @ 44100 Hz –&gt; allocated using mode &#39;file&#39;
+&lt;Buffer(132) on (&#39;127.0.0.1&#39;, 57110): 1 x 20000 @ 44100 Hz = 0.454s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 </div>
@@ -900,13 +912,13 @@ Buffer 132 on (&#39;127.0.0.1&#39;, 57110): 1 x 20000 @ 44100 Hz –&gt; allocat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 133 on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz –&gt; allocated using mode &#39;alloc&#39;
+&lt;Buffer(133) on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode &#39;alloc&#39;&gt;
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="Reuse-an-existing-SC-buffer">
 <h2>Reuse an existing SC buffer<a class="headerlink" href="#Reuse-an-existing-SC-buffer" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Buffer.use_existing(bufnum)</span></code> will force the Buffer to use an already existing buffer of buffer number bufnum on the scsynth.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Buffer.use_existing(bufnum)</span></code> will force the Buffer to (re-)use a buffer that already exists on the server, identified via its bufnum on the scsynth.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -968,7 +980,7 @@ Buffer 133 on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz –&gt; alloca
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer None on (&#39;127.0.0.1&#39;, 57110): None x None @ None Hz –&gt; not loaded using mode &#39;none&#39;
+&lt;Buffer(None) on (&#39;127.0.0.1&#39;, 57110): None x None @ None Hz = 0.000s not loaded using mode &#39;none&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -987,7 +999,7 @@ Buffer None on (&#39;127.0.0.1&#39;, 57110): None x None @ None Hz –&gt; not l
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 0 on (&#39;127.0.0.1&#39;, 57110): 1 x 188893 @ 44100 Hz –&gt; allocated using mode &#39;existing&#39;
+&lt;Buffer(0) on (&#39;127.0.0.1&#39;, 57110): 1 x 188893 @ 44100 Hz = 4.283s allocated using mode &#39;existing&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1022,7 +1034,7 @@ Buffer 0 on (&#39;127.0.0.1&#39;, 57110): 1 x 188893 @ 44100 Hz –&gt; allocate
 </pre></div>
 </div>
 </div>
-<p>This method will automatically use an intern SuperCollider copy method, if both buffer objects use the same sc instance. Otherwise the buffer will be loaded via filesystem. For this both sc instance should use the same filesystem.</p>
+<p>This method will automatically use an intern SuperCollider copy method, if both buffer objects use the same sc instance. Otherwise the buffer will be loaded via filesystem. For this to happen, both sc instance should use the same filesystem.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -1111,7 +1123,7 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:187: WavFileWarnin
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">440</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">44100</span><span class="p">)</span><span class="o">**</span><span class="mf">0.9</span><span class="p">)</span>
+<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">440</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">44100</span><span class="p">)</span><span class="o">**</span><span class="mf">0.9</span><span class="p">)</span>
 <span class="n">buf7</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1152,7 +1164,7 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:187: WavFileWarnin
 &lt;Synth(20002) &#39;sc3nb_playbuf_136&#39; s {&#39;rate&#39;: 2, &#39;loop&#39;: 0, &#39;pan&#39;: 1, &#39;amp&#39;: 0.15}&gt;
 </pre></div></div>
 </div>
-<p>As you can see this is returning a sc3nb Synth object for the Buffer. It is a custom playbuf Synth defined on demand specific for this Buffer using the sc3nb SynthDef class.</p>
+<p>As you can see play() returns an sc3nb Synth object for the Buffer. It is a custom playbuf Synth defined on demand, specific for this Buffer using the sc3nb SynthDef class.</p>
 <p>You can see the SynthDef here:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
@@ -1181,7 +1193,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 <p>As you can see the SC synth will free itself when done if you are not using the loop argument.</p>
 <p>However with loop enabled you need to free the synth manually.</p>
-<p>For more information regarding the sc3nb Synth please refer to the synth-examples notebook.</p>
+<p>For more information regarding the sc3nb.Synth, please refer to the synth-examples notebook.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
@@ -1191,8 +1203,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># change controls as needed</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1201,12 +1222,12 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20002) &#39;sc3nb_playbuf_136&#39; sf {&#39;rate&#39;: -4, &#39;loop&#39;: 1, &#39;pan&#39;: 0, &#39;amp&#39;: 0.3}&gt;
+&lt;Synth(20002) &#39;sc3nb_playbuf_136&#39; f {&#39;rate&#39;: 1, &#39;loop&#39;: 1, &#39;pan&#39;: 0, &#39;amp&#39;: 0.3}&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1214,7 +1235,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 <h2>Write Buffer content to file<a class="headerlink" href="#Write-Buffer-content-to-file" title="Permalink to this headline">¶</a></h2>
 <p>Write the content of a buffer into a file. By default it is a .wav File with float as sample. You can change it via parameters “header” and “sample”.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1223,28 +1244,37 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf8</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;./output.wav&quot;</span><span class="p">)</span>
+<span></span><span class="n">buf8</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;../media/output.wav&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocated using mode &#39;data&#39;
+&lt;Buffer(137) on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz = 0.227s allocated using mode &#39;data&#39;&gt;
 </pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># !ls -la ../media # uncomment if your shell offers ls</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="Fetch-Buffer-content-to-array">
 <h2>Fetch Buffer content to array<a class="headerlink" href="#Fetch-Buffer-content-to-array" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1254,7 +1284,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1263,7 +1293,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1272,23 +1302,23 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x2230349e048&gt;,
- &lt;matplotlib.lines.Line2D at 0x223034b0d88&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b6186988&gt;,
+ &lt;matplotlib.lines.Line2D at 0x169b5ee8588&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_56_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_56_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_58_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_58_1.svg" /></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1297,7 +1327,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1311,7 +1341,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 <div class="section" id="Fill-a-Buffer-with-zeros:">
 <h3>Fill a Buffer with zeros:<a class="headerlink" href="#Fill-a-Buffer-with-zeros:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1320,7 +1350,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1331,25 +1361,25 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x223045a4fc8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b71ae808&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_61_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_61_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_63_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_63_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-a-Buffer-range-with-values:">
 <h3>Fill a Buffer range with values:<a class="headerlink" href="#Fill-a-Buffer-range-with-values:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1358,7 +1388,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1368,23 +1398,23 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x223045f1288&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b72b39c8&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_64_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_64_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_66_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_66_1.svg" /></div>
 </div>
 <p>Alternatively: fill buffer with single fill statement using multiple value triplets</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1394,25 +1424,25 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x22304623f48&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b72ef6c8&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_66_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_66_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_68_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_68_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">
 <h3>Fill Buffer with sine wave harmonics of given amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes." title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1421,7 +1451,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1431,25 +1461,25 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x223056776c8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b8338e88&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_69_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_69_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_71_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_71_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">
 <h3>Fill Buffer with sine wave partials using specified frequencies and amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes." title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1458,7 +1488,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1468,25 +1498,25 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x22304541808&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b71fcb08&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_72_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_72_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_74_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_74_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">
 <h3>Fill Buffer with sinus waves and given frequency, amplitude, phase<a class="headerlink" href="#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1495,7 +1525,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1506,25 +1536,25 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x223034e77c8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b71aea88&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_75_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_75_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-series-of-chebyshev-polynomials:">
 <h3>Fill Buffer with series of chebyshev polynomials:<a class="headerlink" href="#Fill-Buffer-with-series-of-chebyshev-polynomials:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1534,7 +1564,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 <p><span class="math notranslate nohighlight">\(\textrm{cheby}(n) = \textrm{amplitude} \cdot \cos(n \cdot \arccos(x))\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1549,26 +1579,26 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x22303212188&gt;
+&lt;matplotlib.legend.Legend at 0x169b720d548&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_79_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_79_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_81_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_81_1.svg" /></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gen_sine1</span></code> to <code class="docutils literal notranslate"><span class="pre">gen_sine3</span></code> and <code class="docutils literal notranslate"><span class="pre">gen_cheby</span></code> have the optional parameters: * <strong>normalize</strong>: Normalize peak amplitude of wave to 1.0. * <strong>wavetable</strong>: If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators. * <strong>clear</strong>: if set then the buffer is cleared before new partials are written into it. Otherwise the new partials are summed with the existing contents of the buffer.</p>
 </div>
 <div class="section" id="Copy-data-of-another-Buffer:">
 <h3>Copy data of another Buffer:<a class="headerlink" href="#Copy-data-of-another-Buffer:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1577,7 +1607,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1596,19 +1626,19 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x22305764fc8&gt;]
+[&lt;matplotlib.lines.Line2D at 0x169b8430548&gt;]
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_83_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_83_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_85_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_85_1.svg" /></div>
 </div>
 <p>Here we copy 100 samples of <code class="docutils literal notranslate"><span class="pre">buf2</span></code> at starting pos 1 to buf3 at position 2. Use a negative amount of samples to copy all available samples</p>
 </div>
@@ -1617,7 +1647,7 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 <h2>Get information about the Buffer<a class="headerlink" href="#Get-information-about-the-Buffer" title="Permalink to this headline">¶</a></h2>
 <p>Information about the buffer object:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1626,17 +1656,17 @@ Buffer 137 on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 133 on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz –&gt; allocated using mode &#39;alloc&#39;
+&lt;Buffer(133) on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode &#39;alloc&#39;&gt;
 </pre></div></div>
 </div>
 <p>Information about the buffer in SC</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1645,7 +1675,7 @@ Buffer 133 on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz –&gt; alloca
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1654,7 +1684,7 @@ Buffer 133 on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz –&gt; alloca
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1667,7 +1697,7 @@ BufferInfo(bufnum=133, num_frames=110250, num_channels=1, sample_rate=44100.0)
 <h2>Free Buffers<a class="headerlink" href="#Free-Buffers" title="Permalink to this headline">¶</a></h2>
 <p>start with a buffer</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1677,16 +1707,16 @@ BufferInfo(bufnum=133, num_frames=110250, num_channels=1, sample_rate=44100.0)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 147 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocated using mode &#39;file&#39;
+&lt;Buffer(147) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1695,7 +1725,7 @@ Buffer 147 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; allocat
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1704,7 +1734,7 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1713,7 +1743,7 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1722,16 +1752,16 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Buffer 147 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; not loaded using mode &#39;none&#39;
+&lt;Buffer(147) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s not loaded using mode &#39;none&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1745,7 +1775,7 @@ Buffer 147 on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz –&gt; not loa
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>

@@ -47,9 +47,9 @@ Content
 
    
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5) -> SC
+.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
 
-   Inits SuperCollider (scsynth, sclang) and registers Jupyter magics
+   Inits SuperCollider (scsynth, sclang) and registers ipython magics
 
 
    :Parameters:
@@ -67,7 +67,7 @@ Content
            Path of sclang executable, by default None
 
        **magic** : bool, optional
-           If True register magics to Jupyter, by default True
+           If True register magics to ipython, by default True
 
        **scsynth_options** : Optional[ServerOptions], optional
            Options for the server, by default None
@@ -83,7 +83,7 @@ Content
            sclang/scsynth processes, by default ALLOWED_PARENTS
 
        **timeout** : float, optional
-           timeout for starting the executable, by default 5
+           timeout in seconds for starting the executable, by default 10
 
    :Returns:
 
@@ -140,7 +140,7 @@ Content
            sclang/scsynth processes, by default ALLOWED_PARENTS.
 
        **timeout** : float, optional
-           timeout for starting the executables, by default 5
+           timeout in seconds for starting the executables, by default 5
 
 
 
@@ -200,6 +200,7 @@ Content
          sc3nb.sc.SC.lang
          sc3nb.sc.SC.console_logging
          sc3nb.sc.SC.__del__
+         sc3nb.sc.SC.__repr__
          sc3nb.sc.SC.exit
 
    .. method:: get_default(cls) -> sc3nb.sc.SC
@@ -252,7 +253,7 @@ Content
               sclang/scsynth processes, by default ALLOWED_PARENTS
 
           **timeout** : float, optional
-              timeout for starting the executable, by default 5
+              timeout in seconds for starting the executable, by default 5
 
 
 
@@ -295,7 +296,7 @@ Content
               sclang/scsynth processes, by default ALLOWED_PARENTS
 
           **timeout** : float, optional
-              timeout for starting the executable, by default 5
+              timeout in seconds for starting the executable, by default 5
 
 
 
@@ -390,6 +391,29 @@ Content
 
 
    .. method:: __del__(self)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: exit(self) -> None

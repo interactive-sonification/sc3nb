@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb &mdash; sc3nb  documentation</title>
+  <title>sc3nb &mdash; sc3nb 0.1.1.dev105+ge1bb777.d20210620 documentation</title>
   
 
   
@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="sc3nb.osc" href="osc/index.html" />
-    <link rel="prev" title="TimedQueue Basics" href="../../notebooks/timedqueue-examples.html" /> 
+    <link rel="prev" title="TimedQueue" href="../../notebooks/timedqueue-examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,12 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Further-informations">Further informations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#How-does-this-work?">How does this work?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Caveats-and-Problems">Caveats and Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Contributing">Contributing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Setting-up-the-development-environment">Setting up the development environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Development-Guidelines">Development Guidelines</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Useful-Ressources">Useful Ressources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/sc3nb-examples.html#Useful-Resources">Useful Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -197,7 +192,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/osc-communication-example.html#Receiving-OSC">Receiving OSC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
@@ -209,13 +204,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../notebooks/timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
@@ -299,6 +296,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#id1">Contributors</a></li>
 </ul>
 </li>
 </ul>
@@ -411,7 +423,7 @@ as well as playing recording and visualizing audio.</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.startup" title="sc3nb.startup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">startup</span></code></a></p></td>
-<td><p>Inits SuperCollider (scsynth, sclang) and registers Jupyter magics</p></td>
+<td><p>Inits SuperCollider (scsynth, sclang) and registers ipython magics</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.linlin" title="sc3nb.linlin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linlin</span></code></a></p></td>
 <td><p>Map value linearly so that [x1, x2] is mapped to [y1, y2]</p></td>
@@ -488,7 +500,7 @@ as well as playing recording and visualizing audio.</p>
 <td><p>Class for creating messages to send over OSC</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler" title="sc3nb.Bundler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bundler</span></code></a></p></td>
-<td><p>Class for creating OSCBundles and Bundling of Messages</p></td>
+<td><p>Class for creating OSCBundles and bundling of messages</p></td>
 </tr>
 </tbody>
 </table>
@@ -497,8 +509,8 @@ as well as playing recording and visualizing audio.</p>
 <h3>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt id="sc3nb.startup">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">startup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_sclang</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sclang_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.ServerOptions" title="sc3nb.ServerOptions"><span class="pre">ServerOptions</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_blip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">ALLOWED_PARENTS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.SC" title="sc3nb.SC"><span class="pre">SC</span></a><a class="reference internal" href="../../../_modules/sc3nb/sc.html#startup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.startup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inits SuperCollider (scsynth, sclang) and registers Jupyter magics</p>
+<code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">startup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_sclang</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sclang_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.ServerOptions" title="sc3nb.ServerOptions"><span class="pre">ServerOptions</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_blip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">ALLOWED_PARENTS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.SC" title="sc3nb.SC"><span class="pre">SC</span></a><a class="reference internal" href="../../../_modules/sc3nb/sc.html#startup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.startup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inits SuperCollider (scsynth, sclang) and registers ipython magics</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -510,7 +522,7 @@ as well as playing recording and visualizing audio.</p>
 </dd>
 <dt><strong>sclang_path</strong><span class="classifier">Optional[str], optional</span></dt><dd><p>Path of sclang executable, by default None</p>
 </dd>
-<dt><strong>magic</strong><span class="classifier">bool, optional</span></dt><dd><p>If True register magics to Jupyter, by default True</p>
+<dt><strong>magic</strong><span class="classifier">bool, optional</span></dt><dd><p>If True register magics to ipython, by default True</p>
 </dd>
 <dt><strong>scsynth_options</strong><span class="classifier">Optional[ServerOptions], optional</span></dt><dd><p>Options for the server, by default None</p>
 </dd>
@@ -521,7 +533,7 @@ as well as playing recording and visualizing audio.</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 10</p>
 </dd>
 </dl>
 </dd>
@@ -558,7 +570,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS.</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executables, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executables, by default 5</p>
 </dd>
 </dl>
 </dd>
@@ -601,7 +613,10 @@ sclang/scsynth processes, by default ALLOWED_PARENTS.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.SC.__del__" title="sc3nb.SC.__del__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__del__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.SC.exit" title="sc3nb.SC.exit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.SC.__repr__" title="sc3nb.SC.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.SC.exit" title="sc3nb.SC.exit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit</span></code></a></p></td>
 <td><p>Closes SuperCollider and shuts down server</p></td>
 </tr>
 </tbody>
@@ -640,7 +655,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS.</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 5</p>
 </dd>
 </dl>
 </dd>
@@ -665,7 +680,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 5</p>
 </dd>
 </dl>
 </dd>
@@ -701,6 +716,12 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="sc3nb.SC.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="headerlink" href="#sc3nb.SC.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="sc3nb.SC.exit">
 <code class="sig-name descname"><span class="pre">exit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.SC.exit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closes SuperCollider and shuts down server</p>
@@ -721,7 +742,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dl>
 </dd>
 </dl>
-<p>Create a OSC communication server</p>
+<p>Create an OSC communication server</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -1590,7 +1611,7 @@ If True sc3nb will not wait for the server response, by default False</p>
 <td><p>Empties sc output queue.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.SCLang.get_synth_desc" title="sc3nb.SCLang.get_synth_desc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_synth_desc</span></code></a></p></td>
-<td><p>Get SynthDesc via sclangs global SynthDescLib.</p></td>
+<td><p>Get SynthDesc via sclang’s global SynthDescLib.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.SCLang.addr" title="sc3nb.SCLang.addr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addr</span></code></a></p></td>
 <td><p>The address of this sclang</p></td>
@@ -1599,13 +1620,13 @@ If True sc3nb will not wait for the server response, by default False</p>
 <td><p>The SuperCollider server connected to this sclang instance.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.SCLang.connect_to_server" title="sc3nb.SCLang.connect_to_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_to_server</span></code></a></p></td>
-<td><p>Connect this sclang instance to the SuperCollider Server.</p></td>
+<td><p>Connect this sclang instance to the SuperCollider server.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt id="sc3nb.SCLang.start">
-<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sclang_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">ALLOWED_PARENTS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.SCLang.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sclang_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">ALLOWED_PARENTS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.SCLang.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start and initilize the sclang process.</p>
 <p>This will also kill sclang processes that does not have allowed parents.</p>
 <dl class="field-list simple">
@@ -1617,7 +1638,7 @@ If True sc3nb will not wait for the server response, by default False</p>
 </dd>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>parents name of processes to keep, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 10</p>
 </dd>
 </dl>
 </dd>
@@ -1701,7 +1722,7 @@ the output from sclang will be printed.</p>
 <dt><strong>get_output</strong><span class="classifier">bool, optional</span></dt><dd><p>If True return output. Does not override get_result
 If verbose this will be True, by default False</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">int, optional</span></dt><dd><p>Timeout for code execution return result, by default 1</p>
+<dt><strong>timeout</strong><span class="classifier">int, optional</span></dt><dd><p>Timeout in seconds for code execution return result, by default 1</p>
 </dd>
 </dl>
 </dd>
@@ -1760,7 +1781,7 @@ OSC packet.</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>expect</strong><span class="classifier">Optional[str], optional</span></dt><dd><p>Try to read this expected string, by default None</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>How long we try to read expected string, by default 1</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>How long we try to read the expected string in seconds, by default 1</p>
 </dd>
 <dt><strong>print_error</strong><span class="classifier">bool, optional</span></dt><dd><p>If True this will print a message when timed out, by default True</p>
 </dd>
@@ -1790,7 +1811,7 @@ OSC packet.</p>
 <dl class="py method">
 <dt id="sc3nb.SCLang.get_synth_desc">
 <code class="sig-name descname"><span class="pre">get_synth_desc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synth_def</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.SCLang.get_synth_desc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get SynthDesc via sclangs global SynthDescLib.</p>
+<dd><p>Get SynthDesc via sclang’s global SynthDescLib.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -1828,18 +1849,18 @@ OSC packet.</p>
 <dl class="py method">
 <dt id="sc3nb.SCLang.connect_to_server">
 <code class="sig-name descname"><span class="pre">connect_to_server</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.SCServer" title="sc3nb.SCServer"><span class="pre">SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.SCLang.connect_to_server" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connect this sclang instance to the SuperCollider Server.</p>
-<p>This will set Server.default and s to a the provided remote Server.</p>
+<dd><p>Connect this sclang instance to the SuperCollider server.</p>
+<p>This will set Server.default and s to the provided remote server.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>server</strong><span class="classifier">Optional[SCServer], optional</span></dt><dd><p>SuperCollider Server to connect. If None try to reconnect.</p>
+<dt><strong>server</strong><span class="classifier">Optional[SCServer], optional</span></dt><dd><p>SuperCollider server to connect. If None try to reconnect.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><dl class="simple">
-<dt>ValueError</dt><dd><p>If something different from a SCServer or None was provided</p>
+<dt>ValueError</dt><dd><p>If something different from an SCServer or None was provided</p>
 </dd>
 <dt>SCLangError</dt><dd><p>If sclang failed to register to the server.</p>
 </dd>
@@ -3062,7 +3083,7 @@ methods of the Buffer objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>bufnum</strong><span class="classifier">int</span></dt><dd><p>buffer number to be used on scsynth. Defaults to None
+<dt><strong>bufnum</strong><span class="classifier">int</span></dt><dd><p>buffer number to be used on scsynth. Defaults to None,
 can be set to enforce a given bufnum</p>
 </dd>
 <dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The server instance to establish the Buffer</p>
@@ -3115,13 +3136,13 @@ any of the initialization methods</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Buffer.read" title="sc3nb.Buffer.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a></p></td>
-<td><p>Allocate buffer space and read a sound file.</p></td>
+<td><p>Allocate buffer memory and read a sound file.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Buffer.alloc" title="sc3nb.Buffer.alloc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alloc</span></code></a></p></td>
-<td><p>Allocate buffer space.</p></td>
+<td><p>Allocate buffer memory.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Buffer.load_data" title="sc3nb.Buffer.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a></p></td>
-<td><p>Allocate buffer space and read input data.</p></td>
+<td><p>Allocate buffer memory and read input data.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Buffer.load_collection" title="sc3nb.Buffer.load_collection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_collection</span></code></a></p></td>
 <td><p>Wrapper method of <a class="reference internal" href="#sc3nb.Buffer.load_data" title="sc3nb.Buffer.load_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">Buffer.load_data()</span></code></a></p></td>
@@ -3174,8 +3195,8 @@ any of the initialization methods</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Buffer.query" title="sc3nb.Buffer.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query</span></code></a></p></td>
 <td><p>Get buffer info.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Buffer._repr_pretty_" title="sc3nb.Buffer._repr_pretty_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_repr_pretty_</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Buffer.__repr__" title="sc3nb.Buffer.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Buffer.free" title="sc3nb.Buffer.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
 <td><p>Free buffer data.</p></td>
@@ -3215,8 +3236,8 @@ any of the initialization methods</p>
 <dl class="py method">
 <dt id="sc3nb.Buffer.read">
 <code class="sig-name descname"><span class="pre">read</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_frame</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allocate buffer space and read a sound file.</p>
-<p>If the number of frames argument is less than or equal to zero,
+<dd><p>Allocate buffer memory and read a sound file.</p>
+<p>If the number of frames argument num_frames is negative or zero,
 the entire file is read.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3249,8 +3270,8 @@ if only a int is provided it is loaded as only channel</p>
 
 <dl class="py method">
 <dt id="sc3nb.Buffer.alloc">
-<code class="sig-name descname"><span class="pre">alloc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.alloc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allocate buffer space.</p>
+<code class="sig-name descname"><span class="pre">alloc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.alloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate buffer memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -3279,8 +3300,8 @@ if only a int is provided it is loaded as only channel</p>
 
 <dl class="py method">
 <dt id="sc3nb.Buffer.load_data">
-<code class="sig-name descname"><span class="pre">load_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.load_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allocate buffer space and read input data.</p>
+<code class="sig-name descname"><span class="pre">load_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sync</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocate buffer memory and read input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -3312,7 +3333,7 @@ Bundling is only supported for ‘osc’ mode and if sync is False.</p>
 
 <dl class="py method">
 <dt id="sc3nb.Buffer.load_collection">
-<code class="sig-name descname"><span class="pre">load_collection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.load_collection" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">load_collection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.load_collection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper method of <a class="reference internal" href="#sc3nb.Buffer.load_data" title="sc3nb.Buffer.load_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">Buffer.load_data()</span></code></a></p>
 </dd></dl>
 
@@ -3346,7 +3367,7 @@ Bundling is only supported for ‘osc’ mode and if sync is False.</p>
 
 <dl class="py method">
 <dt id="sc3nb.Buffer.use_existing">
-<code class="sig-name descname"><span class="pre">use_existing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufnum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.use_existing" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">use_existing</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufnum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer" title="sc3nb.sc_objects.buffer.Buffer"><span class="pre">sc3nb.sc_objects.buffer.Buffer</span></a><a class="headerlink" href="#sc3nb.Buffer.use_existing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a buffer object from already existing Buffer bufnum.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3724,7 +3745,7 @@ possible is copied.</p>
 </dd>
 <dt><strong>leave_open</strong><span class="classifier">boolean</span></dt><dd><p>Whether you want the buffer file left open.
 For use with DiskOut you will want this to be true.
-The file is created, but no frames are written until the DiskOut ugen does so.
+The file is created, but no frames are written until the DiskOut UGen does so.
 The default is false which is the correct value for all other cases.</p>
 </dd>
 </dl>
@@ -3791,7 +3812,7 @@ The default is false which is the correct value for all other cases.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><dl class="simple">
-<dt>Tuple:</dt><dd><p>(buffernumber, number of frames, number of channels, sample rate)</p>
+<dt>Tuple:</dt><dd><p>(buffer number, number of frames, number of channels, sampling rate)</p>
 </dd>
 </dl>
 </dd>
@@ -3805,9 +3826,10 @@ The default is false which is the correct value for all other cases.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.Buffer._repr_pretty_">
-<code class="sig-name descname"><span class="pre">_repr_pretty_</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.Buffer._repr_pretty_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="sc3nb.Buffer.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="headerlink" href="#sc3nb.Buffer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="sc3nb.Buffer.free">
@@ -3913,12 +3935,12 @@ Defaults to None if not allocated.</p>
 
 <dl class="py method">
 <dt id="sc3nb.Buffer.sr">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#sc3nb.Buffer.sr" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">sr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#sc3nb.Buffer.sr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sampling rate of the Buffer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><dl class="simple">
-<dt>float</dt><dd><p>sampling rate</p>
+<dt>int</dt><dd><p>sampling rate</p>
 </dd>
 </dl>
 </dd>
@@ -4194,7 +4216,7 @@ Multiple values if this bus has num_channels &gt; 1</p>
 
 <dl class="py class">
 <dt id="sc3nb.Recorder">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">Recorder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'record.wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'int16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufsize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">65536</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.SCServer" title="sc3nb.SCServer"><span class="pre">SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/sc3nb/sc_objects/recorder.html#Recorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Recorder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">Recorder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'record.wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'int16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufsize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">65536</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.SCServer" title="sc3nb.SCServer"><span class="pre">SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/sc3nb/sc_objects/recorder.html#Recorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Recorder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows to record audio easily.</p>
 <p>Create and prepare a recorder.</p>
 <dl class="field-list simple">
@@ -4248,7 +4270,7 @@ if None it will use sc3nb.SC.get_default().server</p>
 </table>
 <dl class="py method">
 <dt id="sc3nb.Recorder.prepare">
-<code class="sig-name descname"><span class="pre">prepare</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_format</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufsize</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.prepare" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">prepare</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'record.wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'int16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufsize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">65536</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.prepare" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pepare the recorder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -4276,18 +4298,18 @@ if None it will use sc3nb.SC.get_default().server</p>
 
 <dl class="py method">
 <dt id="sc3nb.Recorder.start">
-<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.Node" title="sc3nb.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.Node" title="sc3nb.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the recording.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>timetag</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>Time (or time offset when &lt;1e6) to start, by default 0</p>
+<dt><strong>timetag</strong><span class="classifier">float, by default 0 (immediately)</span></dt><dd><p>Time (or time offset when &lt;1e6) to start</p>
 </dd>
-<dt><strong>duration</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>Length of the recording, by default until stopped.</p>
+<dt><strong>duration</strong><span class="classifier">float, optional</span></dt><dd><p>Length of the recording, by default until stopped.</p>
 </dd>
 <dt><strong>node</strong><span class="classifier">Union[Node, int], optional</span></dt><dd><p>Node that should be recorded, by default 0</p>
 </dd>
-<dt><strong>bus</strong><span class="classifier">Optional[int], optional</span></dt><dd><p>Bus that should be recorded, by default 0</p>
+<dt><strong>bus</strong><span class="classifier">int, by default 0</span></dt><dd><p>Bus that should be recorded</p>
 </dd>
 </dl>
 </dd>
@@ -4302,12 +4324,12 @@ if None it will use sc3nb.SC.get_default().server</p>
 
 <dl class="py method">
 <dt id="sc3nb.Recorder.pause">
-<code class="sig-name descname"><span class="pre">pause</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.pause" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">pause</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pause the recording.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>timetag</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>Time (or time offset when &lt;1e6) to pause, by default 0</p>
+<dt><strong>timetag</strong><span class="classifier">float, by default 0 (immediately)</span></dt><dd><p>Time (or time offset when &lt;1e6) to pause</p>
 </dd>
 </dl>
 </dd>
@@ -4322,12 +4344,12 @@ if None it will use sc3nb.SC.get_default().server</p>
 
 <dl class="py method">
 <dt id="sc3nb.Recorder.resume">
-<code class="sig-name descname"><span class="pre">resume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.resume" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">resume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.resume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resume the recording</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>timetag</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>Time (or time offset when &lt;1e6) to resume, by default 0</p>
+<dt><strong>timetag</strong><span class="classifier">float, by default 0 (immediately)</span></dt><dd><p>Time (or time offset when &lt;1e6) to resume</p>
 </dd>
 </dl>
 </dd>
@@ -4342,12 +4364,12 @@ if None it will use sc3nb.SC.get_default().server</p>
 
 <dl class="py method">
 <dt id="sc3nb.Recorder.stop">
-<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.stop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Recorder.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop the recording.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>timetag</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>Time (or time offset when &lt;1e6) to stop, by default 0</p>
+<dt><strong>timetag</strong><span class="classifier">float, by default 0 (immediately)</span></dt><dd><p>Time (or time offset when &lt;1e6) to stop</p>
 </dd>
 </dl>
 </dd>
@@ -4383,9 +4405,9 @@ if None it will use sc3nb.SC.get_default().server</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>relative_time</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use relative time, by default False</p>
 </dd>
-<dt><strong>thread_sleep_time</strong><span class="classifier">float, optional</span></dt><dd><p>Sleep time for worker thread, by default 0.001</p>
+<dt><strong>thread_sleep_time</strong><span class="classifier">float, optional</span></dt><dd><p>Sleep time in seconds for worker thread, by default 0.001</p>
 </dd>
-<dt><strong>drop_time_threshold</strong><span class="classifier">float, optional</span></dt><dd><p>Threshold for execution time of events.
+<dt><strong>drop_time_threshold</strong><span class="classifier">float, optional</span></dt><dd><p>Threshold for execution time of events in seconds.
 If this is exceeded the event will be dropped, by default 0.5</p>
 </dd>
 </dl>
@@ -4458,7 +4480,7 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>timestamp</strong><span class="classifier">float</span></dt><dd><p>Time when event should be executed</p>
+<dt><strong>timestamp</strong><span class="classifier">float</span></dt><dd><p>Time (POSIX) when event should be executed</p>
 </dd>
 <dt><strong>function</strong><span class="classifier">Callable[…, None]</span></dt><dd><p>Function to be executed</p>
 </dd>
@@ -4565,7 +4587,7 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 </dd>
 <dt><strong>relative_time</strong><span class="classifier">bool, optional</span></dt><dd><p>If True, use relative time, by default False</p>
 </dd>
-<dt><strong>thread_sleep_time</strong><span class="classifier">float, optional</span></dt><dd><p>Sleep time for worker thread, by default 0.001</p>
+<dt><strong>thread_sleep_time</strong><span class="classifier">float, optional</span></dt><dd><p>Sleep time in seconds for worker thread, by default 0.001</p>
 </dd>
 </dl>
 </dd>
@@ -4594,7 +4616,7 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>onset</strong><span class="classifier">int</span></dt><dd><p>Sending timetag of the Bundler</p>
 </dd>
-<dt><strong>bundler</strong><span class="classifier">Bundler</span></dt><dd><p>Bundler that will be send</p>
+<dt><strong>bundler</strong><span class="classifier">Bundler</span></dt><dd><p>Bundler that will be sent</p>
 </dd>
 </dl>
 </dd>
@@ -4727,15 +4749,16 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 
 <dl class="py class">
 <dt id="sc3nb.Bundler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">Bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.OSCMessage" title="sc3nb.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘OSCCommunication’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_on_exit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/sc3nb/osc/osc_communication.html#Bundler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Bundler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for creating OSCBundles and Bundling of Messages</p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">Bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.OSCMessage" title="sc3nb.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘OSCCommunication’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_on_exit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/sc3nb/osc/osc_communication.html#Bundler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Bundler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for creating OSCBundles and bundling of messages</p>
 <p>Create a Bundler</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>timetag</strong><span class="classifier">float, optional</span></dt><dd><p>Starting time at which bundle content should be executed.
-If timetag &lt;= 1e6 it is assumed to be relativ
-and is added to time.time(), by default 0</p>
+If timetag &gt; 1e6 it is interpreted as POSIX time.
+If timetag &lt;= 1e6 it is assumed to be relative value in seconds
+and is added to time.time(), by default 0, i.e. ‘now’.</p>
 </dd>
 <dt><strong>msg</strong><span class="classifier">OSCMessage or str, optional</span></dt><dd><p>OSCMessage or message address, by default None</p>
 </dd>
@@ -4745,7 +4768,7 @@ and is added to time.time(), by default 0</p>
 </dd>
 <dt><strong>receiver</strong><span class="classifier">Union[str, Tuple[str, int]], optional</span></dt><dd><p>Where to send the bundle, by default send to default receiver of server</p>
 </dd>
-<dt><strong>send_on_exit</strong><span class="classifier">bool, optional</span></dt><dd><p>Wether the bundle is send when using as context manger, by default True</p>
+<dt><strong>send_on_exit</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether the bundle is sent when using as context manager, by default True</p>
 </dd>
 </dl>
 </dd>
@@ -4790,6 +4813,9 @@ and is added to time.time(), by default 0</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler.__exit__" title="sc3nb.Bundler.__exit__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__exit__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler.__repr__" title="sc3nb.Bundler.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
 </tbody>
 </table>
 <dl class="py method">
@@ -4804,7 +4830,7 @@ and is added to time.time(), by default 0</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>time_passed</strong><span class="classifier">float</span></dt><dd><p>How much secounds should be passed.</p>
+<dt><strong>time_passed</strong><span class="classifier">float</span></dt><dd><p>How much seconds should be passed.</p>
 </dd>
 </dl>
 </dd>
@@ -4841,7 +4867,7 @@ and is added to time.time(), by default 0</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>start time when using relativ timing, by default 0.0</p>
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>start time when using relative timing, by default 0.0</p>
 </dd>
 </dl>
 </dd>
@@ -4888,7 +4914,7 @@ the default receiver of the Bundler</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relativ timing, by default time.time()</p>
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relative timing, by default time.time()</p>
 </dd>
 <dt><strong>delay: float, optinal</strong></dt><dd><p>used to delay the timing.</p>
 </dd>
@@ -4910,7 +4936,7 @@ the default receiver of the Bundler</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relativ timing, by default time.time()</p>
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relative timing, by default time.time()</p>
 </dd>
 <dt><strong>delay: float, optinal</strong></dt><dd><p>used to delay the timing.</p>
 </dd>
@@ -4945,11 +4971,17 @@ the default receiver of the Bundler</p>
 <code class="sig-name descname"><span class="pre">__exit__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_traceback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Bundler.__exit__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt id="sc3nb.Bundler.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="headerlink" href="#sc3nb.Bundler.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
 <dt id="sc3nb.linlin">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">linlin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">np.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">np.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/sc3nb/helpers.html#linlin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.linlin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">linlin</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">np.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">np.ndarray</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../_modules/sc3nb/helpers.html#linlin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.linlin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Map value linearly so that [x1, x2] is mapped to [y1, y2]</p>
 <p>linlin is implemented in analogy to the SC3 linlin, yet this
 function extrapolates by default.
@@ -4968,11 +5000,15 @@ of them as a range [x1,x2]</p>
 </dd>
 <dt><strong>y2</strong><span class="classifier">float</span></dt><dd><p>destination value to be reached for value == x2</p>
 </dd>
+<dt><strong>clip: None or string</strong></dt><dd><p>None extrapolates, “min” or “max” clip at floor resp. ceiling
+of the destination range, any other value defaults to “minmax”,
+i.e. it clips on both sides.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>float</dt><dd><p>the mapping result</p>
+<dt>float or np.ndarray</dt><dd><p>the mapping result</p>
 </dd>
 </dl>
 </dd>
@@ -5134,7 +5170,7 @@ of them as a range [x1,x2]</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="osc/index.html" class="btn btn-neutral float-right" title="sc3nb.osc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../notebooks/timedqueue-examples.html" class="btn btn-neutral float-left" title="TimedQueue Basics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../notebooks/timedqueue-examples.html" class="btn btn-neutral float-left" title="TimedQueue" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

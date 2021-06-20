@@ -64,7 +64,7 @@ Content
 
    **Bases:** :class:`typing.NamedTuple`
 
-   Synth Argument rate and default value
+   Synth argument, rate and default value
 
 
 
@@ -377,7 +377,7 @@ Content
          sc3nb.sclang.SCLang.server
          sc3nb.sclang.SCLang.connect_to_server
 
-   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5) -> None
+   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> None
 
       Start and initilize the sclang process.
 
@@ -395,7 +395,7 @@ Content
               parents name of processes to keep, by default ALLOWED_PARENTS
 
           **timeout** : float, optional
-              timeout for starting the executable, by default 5
+              timeout in seconds for starting the executable, by default 10
 
 
 
@@ -536,7 +536,7 @@ Content
               If verbose this will be True, by default False
 
           **timeout** : int, optional
-              Timeout for code execution return result, by default 1
+              Timeout in seconds for code execution return result, by default 1
 
       :Returns:
 
@@ -655,7 +655,7 @@ Content
               Try to read this expected string, by default None
 
           **timeout** : float, optional
-              How long we try to read expected string, by default 1
+              How long we try to read the expected string in seconds, by default 1
 
           **print_error** : bool, optional
               If True this will print a message when timed out, by default True
@@ -710,7 +710,7 @@ Content
 
    .. method:: get_synth_desc(self, synth_def)
 
-      Get SynthDesc via sclangs global SynthDescLib.
+      Get SynthDesc via sclang's global SynthDescLib.
 
 
       :Parameters:
@@ -793,14 +793,14 @@ Content
 
    .. method:: connect_to_server(self, server: Optional[SCServer] = None)
 
-      Connect this sclang instance to the SuperCollider Server.
+      Connect this sclang instance to the SuperCollider server.
 
-      This will set Server.default and s to a the provided remote Server.
+      This will set Server.default and s to the provided remote server.
 
       :Parameters:
 
           **server** : Optional[SCServer], optional
-              SuperCollider Server to connect. If None try to reconnect.
+              SuperCollider server to connect. If None try to reconnect.
 
 
 
@@ -809,7 +809,7 @@ Content
       :Raises:
 
           ValueError
-              If something different from a SCServer or None was provided
+              If something different from an SCServer or None was provided
 
           SCLangError
               If sclang failed to register to the server.

@@ -281,10 +281,10 @@ Content
 
 
 
-.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
+.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
-   Class for creating OSCBundles and Bundling of Messages
+   Class for creating OSCBundles and bundling of messages
 
 
 
@@ -311,8 +311,9 @@ Content
 
        **timetag** : float, optional
            Starting time at which bundle content should be executed.
-           If timetag <= 1e6 it is assumed to be relativ
-           and is added to time.time(), by default 0
+           If timetag > 1e6 it is interpreted as POSIX time.
+           If timetag <= 1e6 it is assumed to be relative value in seconds
+           and is added to time.time(), by default 0, i.e. 'now'.
 
        **msg** : OSCMessage or str, optional
            OSCMessage or message address, by default None
@@ -327,7 +328,7 @@ Content
            Where to send the bundle, by default send to default receiver of server
 
        **send_on_exit** : bool, optional
-           Wether the bundle is send when using as context manger, by default True
+           Whether the bundle is sent when using as context manager, by default True
 
 
 
@@ -365,6 +366,7 @@ Content
          sc3nb.osc.osc_communication.Bundler.__deepcopy__
          sc3nb.osc.osc_communication.Bundler.__enter__
          sc3nb.osc.osc_communication.Bundler.__exit__
+         sc3nb.osc.osc_communication.Bundler.__repr__
 
    .. method:: dgram(self) -> bytes
       :property:
@@ -378,7 +380,7 @@ Content
       :Parameters:
 
           **time_passed** : float
-              How much secounds should be passed.
+              How much seconds should be passed.
 
 
 
@@ -439,7 +441,7 @@ Content
       :Parameters:
 
           **start_time** : Optional[float], optional
-              start time when using relativ timing, by default 0.0
+              start time when using relative timing, by default 0.0
 
       :Returns:
 
@@ -510,7 +512,7 @@ Content
       :Parameters:
 
           **start_time** : Optional[float], optional
-              used as start time when using relativ timing, by default time.time()
+              used as start time when using relative timing, by default time.time()
 
           **delay: float, optinal**
               used to delay the timing.
@@ -544,7 +546,7 @@ Content
       :Parameters:
 
           **start_time** : Optional[float], optional
-              used as start time when using relativ timing, by default time.time()
+              used as start time when using relative timing, by default time.time()
 
           **delay: float, optinal**
               used to delay the timing.
@@ -580,6 +582,29 @@ Content
 
 
    .. method:: __exit__(self, exc_type, exc_value, exc_traceback)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 
@@ -984,7 +1009,7 @@ Content
 
    **Bases:** :class:`sc3nb.osc.osc_communication.MessageHandler`
 
-   A collection of MessageQueues that all are send to the same first address.
+   A collection of MessageQueues that are all sent to one and the same first address.
 
 
 
@@ -1185,7 +1210,7 @@ Content
    ..
        !! processed by numpydoc !!
 
-   Create a OSC communication server
+   Create an OSC communication server
 
 
    :Parameters:
@@ -1465,7 +1490,7 @@ Content
 
           tuple
               containing the address of this sc3nb OSC Server
-              and known receivers addresses in a dict with thier names as values
+              and known receivers addresses in a dict with their names as values
 
 
 
@@ -1516,7 +1541,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, package: Union[(OSCMessage, Bundler)], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = True, await_reply: bool = True, timeout: float = 5) -> Any
+   .. method:: send(self, package: Union[(OSCMessage, Bundler)], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = False, await_reply: bool = True, timeout: float = 5) -> Any
 
       Sends OSC packet
 
@@ -1530,10 +1555,10 @@ Content
               Where to send the packet, by default send to default receiver
 
           **bundle** : bool, optional
-              If True it is allowed to bundle the package with bundling, by default True.
+              If True it is allowed to bundle the package with bundling, by default False.
 
           **await_reply** : bool, optional
-              If True for reply from the server and return it,
+              If True ask for reply from the server and return it,
               otherwise send the message and return None directly, by default True.
               If the package is bundled None will be returned.
 
@@ -1602,7 +1627,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: msg(self, msg_addr: str, msg_params: Optional[Sequence] = None, *, bundle: bool = True, receiver: Optional[Tuple[str, int]] = None, await_reply: bool = True, timeout: float = 5) -> Optional[Any]
+   .. method:: msg(self, msg_addr: str, msg_params: Optional[Sequence] = None, *, bundle: bool = False, receiver: Optional[Tuple[str, int]] = None, await_reply: bool = True, timeout: float = 5) -> Optional[Any]
 
       Creates and sends OSC message over UDP.
 
@@ -1616,7 +1641,7 @@ Content
               List of paramters of the OSC message, by default None
 
           **bundle** : bool, optional
-              If True it is allowed to bundle the content with bundling, by default True
+              If True it is allowed to bundle the content with bundling, by default False
 
           **receiver** : tuple[str, int], optional
               (IP address, port) to send the message, by default send to default receiver
@@ -1668,7 +1693,7 @@ Content
               Parameters for the message, by default None
 
           **send_on_exit** : bool, optional
-              Wether the bundle is send when using as context manger, by default True
+              Whether the bundle is sent when using as context manager, by default True
 
       :Returns:
 

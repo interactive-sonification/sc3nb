@@ -84,7 +84,7 @@ Content
 
 
 
-.. class:: Recorder(path: Optional[str] = 'record.wav', nr_channels: Optional[int] = 2, rec_header='wav', rec_format='int16', bufsize: Optional[int] = 65536, server: Optional[SCServer] = None)
+.. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[SCServer] = None)
 
 
    Allows to record audio easily.
@@ -164,7 +164,7 @@ Content
          sc3nb.sc_objects.recorder.Recorder.__repr__
          sc3nb.sc_objects.recorder.Recorder.__del__
 
-   .. method:: prepare(self, path, nr_channels, rec_header, rec_format, bufsize)
+   .. method:: prepare(self, path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536)
 
       Pepare the recorder.
 
@@ -207,24 +207,24 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start(self, timetag: Optional[float] = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: Optional[int] = 0)
+   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: int = 0)
 
       Start the recording.
 
 
       :Parameters:
 
-          **timetag** : Optional[float], optional
-              Time (or time offset when <1e6) to start, by default 0
+          **timetag** : float, by default 0 (immediately)
+              Time (or time offset when <1e6) to start
 
-          **duration** : Optional[float], optional
+          **duration** : float, optional
               Length of the recording, by default until stopped.
 
           **node** : Union[Node, int], optional
               Node that should be recorded, by default 0
 
-          **bus** : Optional[int], optional
-              Bus that should be recorded, by default 0
+          **bus** : int, by default 0
+              Bus that should be recorded
 
 
 
@@ -247,15 +247,15 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: pause(self, timetag: Optional[float] = 0)
+   .. method:: pause(self, timetag: float = 0)
 
       Pause the recording.
 
 
       :Parameters:
 
-          **timetag** : Optional[float], optional
-              Time (or time offset when <1e6) to pause, by default 0
+          **timetag** : float, by default 0 (immediately)
+              Time (or time offset when <1e6) to pause
 
 
 
@@ -278,15 +278,15 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: resume(self, timetag: Optional[float] = 0)
+   .. method:: resume(self, timetag: float = 0)
 
       Resume the recording
 
 
       :Parameters:
 
-          **timetag** : Optional[float], optional
-              Time (or time offset when <1e6) to resume, by default 0
+          **timetag** : float, by default 0 (immediately)
+              Time (or time offset when <1e6) to resume
 
 
 
@@ -309,15 +309,15 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: stop(self, timetag: Optional[float] = 0)
+   .. method:: stop(self, timetag: float = 0)
 
       Stop the recording.
 
 
       :Parameters:
 
-          **timetag** : Optional[float], optional
-              Time (or time offset when <1e6) to stop, by default 0
+          **timetag** : float, by default 0 (immediately)
+              Time (or time offset when <1e6) to stop
 
 
 

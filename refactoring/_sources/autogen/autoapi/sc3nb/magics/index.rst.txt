@@ -5,7 +5,7 @@
 
 .. autoapi-nested-parse::
 
-   This Module adds the Jupyter specialties as Magics and Keyboard Shortcuts
+   This module adds the Jupyter specialties such as Magics and Keyboard Shortcuts
 
    ..
        !! processed by numpydoc !!
@@ -71,7 +71,7 @@ Content
 
 .. function:: add_shortcut(ipython, shortcut: str = None) -> None
 
-   Add the server free all shortcut.
+   Add the server 'free all' shortcut.
 
 
    :Parameters:
@@ -80,7 +80,7 @@ Content
            IPython object
 
        **shortcut** : str, optional
-           shortcut for free all, by default it is "cmd-." or "Ctrl-."
+           shortcut for 'free all', by default it is "cmd-." or "Ctrl-."
 
 
 
@@ -104,7 +104,7 @@ Content
 
    **Bases:** :class:`IPython.core.magic.Magics`
 
-   Jupyter magics for SC class
+   IPython magics for SC class
 
 
 
@@ -411,7 +411,7 @@ Content
       :Returns:
 
           Dict[str, Any]
-              Dict with variable names and thier values.
+              Dict with variable names and their values.
 
 
 

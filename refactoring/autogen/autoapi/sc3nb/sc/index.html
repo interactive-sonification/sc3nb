@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc &mdash; sc3nb  documentation</title>
+  <title>sc3nb.sc &mdash; sc3nb 0.1.1.dev105+ge1bb777.d20210620 documentation</title>
   
 
   
@@ -103,12 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Further-informations">Further informations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#How-does-this-work?">How does this work?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Caveats-and-Problems">Caveats and Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Contributing">Contributing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Setting-up-the-development-environment">Setting up the development environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Development-Guidelines">Development Guidelines</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Useful-Ressources">Useful Ressources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Useful-Resources">Useful Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -197,7 +192,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/osc-communication-example.html#Receiving-OSC">Receiving OSC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
@@ -209,13 +204,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../notebooks/helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html">TimedQueue Basics</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
@@ -299,6 +296,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTORS.html#id1">Contributors</a></li>
 </ul>
 </li>
 </ul>
@@ -409,7 +421,7 @@ within jupyter notebooks</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc.startup" title="sc3nb.sc.startup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">startup</span></code></a></p></td>
-<td><p>Inits SuperCollider (scsynth, sclang) and registers Jupyter magics</p></td>
+<td><p>Inits SuperCollider (scsynth, sclang) and registers ipython magics</p></td>
 </tr>
 </tbody>
 </table>
@@ -437,8 +449,8 @@ within jupyter notebooks</p>
 
 <dl class="py function">
 <dt id="sc3nb.sc.startup">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.sc.</span></code><code class="sig-name descname"><span class="pre">startup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_sclang</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sclang_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ServerOptions</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_blip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">ALLOWED_PARENTS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc.SC" title="sc3nb.sc.SC"><span class="pre">SC</span></a><a class="reference internal" href="../../../../_modules/sc3nb/sc.html#startup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc.startup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inits SuperCollider (scsynth, sclang) and registers Jupyter magics</p>
+<code class="sig-prename descclassname"><span class="pre">sc3nb.sc.</span></code><code class="sig-name descname"><span class="pre">startup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_sclang</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sclang_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scsynth_options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ServerOptions</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_blip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">ALLOWED_PARENTS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc.SC" title="sc3nb.sc.SC"><span class="pre">SC</span></a><a class="reference internal" href="../../../../_modules/sc3nb/sc.html#startup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc.startup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inits SuperCollider (scsynth, sclang) and registers ipython magics</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -450,7 +462,7 @@ within jupyter notebooks</p>
 </dd>
 <dt><strong>sclang_path</strong><span class="classifier">Optional[str], optional</span></dt><dd><p>Path of sclang executable, by default None</p>
 </dd>
-<dt><strong>magic</strong><span class="classifier">bool, optional</span></dt><dd><p>If True register magics to Jupyter, by default True</p>
+<dt><strong>magic</strong><span class="classifier">bool, optional</span></dt><dd><p>If True register magics to ipython, by default True</p>
 </dd>
 <dt><strong>scsynth_options</strong><span class="classifier">Optional[ServerOptions], optional</span></dt><dd><p>Options for the server, by default None</p>
 </dd>
@@ -461,7 +473,7 @@ within jupyter notebooks</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 10</p>
 </dd>
 </dl>
 </dd>
@@ -498,7 +510,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS.</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executables, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executables, by default 5</p>
 </dd>
 </dl>
 </dd>
@@ -541,7 +553,10 @@ sclang/scsynth processes, by default ALLOWED_PARENTS.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc.SC.__del__" title="sc3nb.sc.SC.__del__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__del__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc.SC.exit" title="sc3nb.sc.SC.exit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc.SC.__repr__" title="sc3nb.sc.SC.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc.SC.exit" title="sc3nb.sc.SC.exit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exit</span></code></a></p></td>
 <td><p>Closes SuperCollider and shuts down server</p></td>
 </tr>
 </tbody>
@@ -580,7 +595,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS.</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 5</p>
 </dd>
 </dl>
 </dd>
@@ -605,7 +620,7 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 <dt><strong>allowed_parents</strong><span class="classifier">Sequence[str], optional</span></dt><dd><p>Names of parents that are allowed for other instances of
 sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 </dd>
-<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout for starting the executable, by default 5</p>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for starting the executable, by default 5</p>
 </dd>
 </dl>
 </dd>
@@ -639,6 +654,12 @@ sclang/scsynth processes, by default ALLOWED_PARENTS</p>
 <dt id="sc3nb.sc.SC.__del__">
 <code class="sig-name descname"><span class="pre">__del__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/sc.html#SC.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc.SC.__del__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.sc.SC.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../_modules/sc3nb/sc.html#SC.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc.SC.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="sc3nb.sc.SC.exit">
