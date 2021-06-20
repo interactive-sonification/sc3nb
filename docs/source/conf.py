@@ -1,10 +1,11 @@
 # Configuration file for the Sphinx documentation builder.
 #
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
+# For a full list of options see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Path setup --------------------------------------------------------------
+
+import json
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -12,8 +13,11 @@
 #
 import os
 import sys
+from pathlib import Path
 
-sys.path.insert(0, os.path.abspath("../.."))
+from pkg_resources import get_distribution
+
+sys.path.insert(0, os.path.abspath(os.path.join("..", "..")))
 
 # -- Project information -----------------------------------------------------
 
@@ -22,7 +26,9 @@ copyright = "2021, Thomas Hermann, Dennis Reinsch"
 author = "Thomas Hermann, Dennis Reinsch"
 
 # The full version, including alpha/beta/rc tags
-version = "unset"
+release = get_distribution("sc3nb").version
+# for example take major/minor
+version = ".".join(release.split(".")[:2])
 html_context = dict(versions=str(version))
 
 # -- General configuration ---------------------------------------------------
@@ -38,10 +44,11 @@ extensions = [
     "sphinx.ext.intersphinx",  # allows linking to other projects
     "numpydoc",  # numpy docstring support
     "nbsphinx",  # include notebooks in doc
-    "sphinx.ext.mathjax",
     "nbsphinx_link",  # support notebooks outside of doc/source via .nblink files
+    "sphinx.ext.mathjax",
     "autoapi.extension",  # autoapi from https://github.com/readthedocs/sphinx-autoapi
     "sphinx_rtd_theme",  # read the docs theme
+    "myst_parser",  # for supporting markdown
 ]
 
 autosummary_generate = True
@@ -87,3 +94,124 @@ html_static_path = ["_static"]
 html_css_files = [
     "css/custom.css",
 ]  # custom css to break long signatures. ref https://github.com/sphinx-doc/sphinx/issues/1514
+
+
+###############
+# Custom code #
+###############
+
+# Preparing notebooks
+
+
+def strip_notebooks(path):
+    print("Stripping notebooks")
+    extra_keys = "metadata.kernelspec metadata.language_info"
+    retval = 0
+    for notebook in Path(path).glob("**/*.ipynb"):
+        if ".ipynb_checkpoints" not in str(notebook):
+            r = os.system(f'nbstripout {str(notebook)} --extra-keys "{extra_keys}"')
+            if r == 0:
+                print(f"  Stripped {notebook} - {r}")
+            else:
+                print("Error stripping {notebook}")
+            retval += r
+    return retval
+
+
+def extract_notebooks_from_doc(path, subdir):
+    print("Extracting notebooks from doc source files (.rst)")
+    all_notebooks = []
+    for filepath in Path(path).glob("**/*.rst"):
+        with open(filepath) as file:
+            content = file.read()
+        notebooks = [
+            line.strip().replace(subdir, "")
+            for line in content.split("\n")
+            if subdir in line
+        ]
+        if notebooks:
+            print(f"  Extracted from {filepath}")
+            for nb in notebooks:
+                print(f"    {nb}")
+        all_notebooks.extend(notebooks)
+    return all_notebooks
+
+
+def generate_notebook_links(
+    notebooks_to_link, notebook_dir, doc_dir, link_subdir, media_dir
+):
+    print("Linking notebooks to doc source")
+
+    nb_dir = Path(notebook_dir).resolve()
+    nb_paths = [
+        nb_path
+        for nb_path in nb_dir.glob("**/*.ipynb")
+        if ".ipynb_checkpoints" not in str(nb_path)
+    ]
+    links_path = Path(doc_dir + link_subdir)
+
+    linked = []
+    for notebook in notebooks_to_link:
+        matches = [nb_path for nb_path in nb_paths if notebook in nb_path.as_posix()]
+        if len(matches) < 1:
+            print(f"> Warning: Could not find {notebook} in {nb_dir}")
+        elif len(matches) > 1:
+            raise RuntimeError(f"Found {notebook} multiple times {matches}")
+        else:
+            nb_path = matches[0]
+            try:
+                nb_path = nb_path.resolve()
+                nb_link_path = (
+                    (Path(links_path) / nb_path.relative_to(nb_dir))
+                    .with_suffix(".nblink")
+                    .resolve()
+                )
+                nb_relative_to_link = Path(
+                    os.path.relpath(nb_path, nb_link_path.parent)
+                ).as_posix()
+                media_dir_relative = Path(
+                    os.path.relpath(media_dir, nb_link_path.parent)
+                ).as_posix()
+                content = {
+                    "path": nb_relative_to_link,
+                    "extra-media": [media_dir_relative],
+                }
+                nb_link_path.parent.mkdir(parents=True, exist_ok=True)
+                nb_link_path.write_text(json.dumps(content))
+            except Exception as excep:
+                print(excep)
+            else:
+                linked.append(nb_path)
+                project_dir = Path("../..").resolve()
+                print(
+                    f"  Linked {nb_path.relative_to(project_dir)} -> {nb_link_path.relative_to(project_dir)}"
+                )
+    for nb in [nb_path.as_posix() for nb_path in nb_paths if nb_path not in linked]:
+        print(f"> Warning: Notebook {nb} is not linked")
+
+
+def prepare_notebooks():
+    print("Preparing notebooks...")
+    notebooks_dir = "../../examples/"
+    notebook_doc_build_subdir = "autogen/notebooks/"
+    media_dir = notebooks_dir + "media/"
+    source = "./"
+
+    retval = strip_notebooks(notebooks_dir)
+    if retval > 0:
+        raise RuntimeError("Stripping Notebooks failed.")
+
+    notebooks_to_link = extract_notebooks_from_doc(
+        source, subdir=notebook_doc_build_subdir
+    )
+    generate_notebook_links(
+        notebooks_to_link,
+        notebooks_dir,
+        source,
+        notebook_doc_build_subdir,
+        media_dir,
+    )
+    print("Done preparing notebooks.")
+
+
+prepare_notebooks()
