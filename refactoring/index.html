@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Welcome to sc3nb’s documentation! &mdash; sc3nb 0.1.1.dev105+ge1bb777.d20210620 documentation</title>
+  <title>Welcome to sc3nb’s documentation! &mdash; sc3nb 0.1.1.dev108+gd1612a0 documentation</title>
   
 
   
@@ -436,17 +436,88 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="supercolliderobjects.html">SuperCollider objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html">Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html">Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/bus-examples.html">Bus</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/recorder-examples.html">Recorder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html">Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/bus-examples.html">Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/recorder-examples.html">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/helper-examples.html">Helper functions</a><ul>
@@ -474,22 +545,1091 @@
 <li class="toctree-l2"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#function-list">Function List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#class-list">Class List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#content">Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#content">Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.startup">startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC">SC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.default">default</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.get_default">get_default</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.start_sclang">start_sclang</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.start_server">start_server</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC._try_to_connect">_try_to_connect</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.server">server</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.lang">lang</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.console_logging">console_logging</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.__del__">__del__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.__repr__">__repr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SC.exit">exit</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer">SCServer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.boot">boot</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.init">init</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.execute_init_hooks">execute_init_hooks</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.connect_sclang">connect_sclang</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.add_init_hook">add_init_hook</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.bundler">bundler</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.blip">blip</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.remote">remote</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.reboot">reboot</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.ping">ping</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.quit">quit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.sync">sync</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.send_synthdef">send_synthdef</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.load_synthdef">load_synthdef</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.load_synthdefs">load_synthdefs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.notify">notify</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer._get_errors_for_address">_get_errors_for_address</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.free_all">free_all</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.clear_schedule">clear_schedule</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.send_default_groups">send_default_groups</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.allocate_node_id">allocate_node_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.allocate_buffer_id">allocate_buffer_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.allocate_control_bus_idx">allocate_control_bus_idx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.allocate_audio_bus_idx">allocate_audio_bus_idx</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.client_id">client_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.max_logins">max_logins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.default_group">default_group</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.input_bus">input_bus</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.output_bus">output_bus</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.volume">volume</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.muted">muted</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.mute">mute</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.unmute">unmute</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.version">version</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.status">status</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.dump_osc">dump_osc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.dump_tree">dump_tree</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.query_all_nodes">query_all_nodes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.peak_cpu">peak_cpu</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.avg_cpu">avg_cpu</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.sample_rate">sample_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.actual_sample_rate">actual_sample_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.num_synths">num_synths</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.num_groups">num_groups</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.num_ugens">num_ugens</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.num_synthdefs">num_synthdefs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.addr">addr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.has_booted">has_booted</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.is_running">is_running</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.unresponsive">unresponsive</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.is_local">is_local</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.pid">pid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer._log_message">_log_message</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer._warn_fail">_warn_fail</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions">ServerOptions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions.first_private_bus">first_private_bus</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions.num_private_buses">num_private_buses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang">SCLang</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.start">start</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang._init">_init</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.load_synthdefs">load_synthdefs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.kill">kill</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.__del__">__del__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.__repr__">__repr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.cmd">cmd</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.cmdv">cmdv</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.cmds">cmds</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.cmdg">cmdg</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.read">read</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.empty">empty</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.get_synth_desc">get_synth_desc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.addr">addr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.server">server</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SCLang.connect_to_server">connect_to_server</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node">Node</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.new">new</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._get_status_repr">_get_status_repr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._set_node_attrs">_set_node_attrs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.nodeid">nodeid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.group">group</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.server">server</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.is_playing">is_playing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.is_running">is_running</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.freed">freed</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.started">started</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.free">free</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.run">run</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.set">set</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._update_control">_update_control</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._update_controls">_update_controls</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.fill">fill</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.map">map</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.release">release</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.query">query</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.trace">trace</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.move">move</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.register">register</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.unregister">unregister</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.on_free">on_free</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.wait">wait</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._parse_info">_parse_info</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._handle_notification">_handle_notification</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.__eq__">__eq__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Node._get_nodeid">_get_nodeid</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth">Synth</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth._update_synth_state">_update_synth_state</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.synth_desc">synth_desc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.current_controls">current_controls</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.new">new</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.get">get</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.seti">seti</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.__getattr__">__getattr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.__setattr__">__setattr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Synth.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group">Group</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group._update_group_state">_update_group_state</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.new">new</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.children">children</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.move_node_to_head">move_node_to_head</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.move_node_to_tail">move_node_to_tail</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.free_all">free_all</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.deep_free">deep_free</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.dump_tree">dump_tree</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.query_tree">query_tree</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group._repr_pretty_">_repr_pretty_</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Group.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction">AddAction</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.TO_HEAD">TO_HEAD</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.TO_TAIL">TO_TAIL</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.BEFORE">BEFORE</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.AFTER">AFTER</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.REPLACE">REPLACE</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.synth_descs">synth_descs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.get_description">get_description</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.send">send</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.load">load</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.load_dir">load_dir</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.reset">reset</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.set_context">set_context</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.set_contexts">set_contexts</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.unset_remaining">unset_remaining</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.add">add</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.free">free</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.read">read</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.alloc">alloc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.load_data">load_data</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.load_collection">load_collection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.load_asig">load_asig</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.use_existing">use_existing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.copy_existing">copy_existing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.fill">fill</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.gen">gen</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.zero">zero</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.gen_sine1">gen_sine1</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.gen_sine2">gen_sine2</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.gen_sine3">gen_sine3</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.gen_cheby">gen_cheby</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.gen_copy">gen_copy</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.play">play</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.write">write</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.close">close</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.to_array">to_array</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.query">query</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.__repr__">__repr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.free">free</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.bufnum">bufnum</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.allocated">allocated</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.alloc_mode">alloc_mode</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.path">path</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.channels">channels</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.samples">samples</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.sr">sr</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.duration">duration</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer.server">server</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer._gen_flags">_gen_flags</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.rate">rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.num_channels">num_channels</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.idxs">idxs</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.is_audio_bus">is_audio_bus</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.is_control_bus">is_control_bus</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.set">set</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.fill">fill</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.get">get</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.free">free</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.__del__">__del__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.prepare">prepare</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.start">start</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.pause">pause</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.resume">resume</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.stop">stop</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.__repr__">__repr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder.__del__">__del__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.close">close</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.join">join</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.complete">complete</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.put">put</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.get">get</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.peek">peek</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.empty">empty</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.pop">pop</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.__worker">__worker</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.__repr__">__repr__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue.elapse">elapse</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC.put_bundler">put_bundler</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC.put_msg">put_msg</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.dgram">dgram</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.raw_osc">raw_osc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.parameters">parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.address">address</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.to_pythonosc">to_pythonosc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage._build_message">_build_message</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.dgram">dgram</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.wait">wait</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.add">add</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.messages">messages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.send">send</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.to_raw_osc">to_raw_osc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.to_pythonosc">to_pythonosc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler._calc_timetag">_calc_timetag</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.__deepcopy__">__deepcopy__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.__enter__">__enter__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.__exit__">__exit__</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bundler.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.cpsmidi">cpsmidi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.clip">clip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.dbamp">dbamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.ampdb">ampdb</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc.osc_communication</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#function-list">Function List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication._LOGGER">_LOGGER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage">OSCMessage</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.dgram">dgram</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.raw_osc">raw_osc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.parameters">parameters</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.address">address</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.to_pythonosc">to_pythonosc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage._build_message">_build_message</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler">Bundler</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.dgram">dgram</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.wait">wait</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.add">add</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.messages">messages</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.send">send</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.to_raw_osc">to_raw_osc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.to_pythonosc">to_pythonosc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler._calc_timetag">_calc_timetag</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.__deepcopy__">__deepcopy__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.__enter__">__enter__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.__exit__">__exit__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.convert_to_sc3nb_osc">convert_to_sc3nb_osc</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageHandler">MessageHandler</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageHandler.map_values">map_values</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageHandler.put">put</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue">MessageQueue</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.put">put</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.skips">skips</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.size">size</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.skipped">skipped</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.map_values">map_values</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.get">get</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue.show">show</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueue._repr_pretty_">_repr_pretty_</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueueCollection">MessageQueueCollection</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueueCollection.put">put</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueueCollection.map_values">map_values</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueueCollection.__contains__">__contains__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.MessageQueueCollection.__getitem__">__getitem__</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunicationError">OSCCommunicationError</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication">OSCCommunication</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.osc_server">osc_server</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.add_msg_pairs">add_msg_pairs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue">add_msg_queue</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue_collection">add_msg_queue_collection</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.msg_queues">msg_queues</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.reply_addresses">reply_addresses</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication._check_sender">_check_sender</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.lookup_receiver">lookup_receiver</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.connection_info">connection_info</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.add_receiver">add_receiver</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.send">send</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message">_handle_outgoing_message</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.get_reply_address">get_reply_address</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.msg">msg</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.bundler">bundler</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.quit">quit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc.parsing</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#function-list">Function List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._LOGGER">_LOGGER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.SYNTH_DEF_MARKER">SYNTH_DEF_MARKER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.TYPE_TAG_MARKER">TYPE_TAG_MARKER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.TYPE_TAG_INDEX">TYPE_TAG_INDEX</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.NUM_SIZE">NUM_SIZE</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.BYTES_2_TYPE">BYTES_2_TYPE</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.ParseError">ParseError</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._get_aligned_index">_get_aligned_index</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._parse_list">_parse_list</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._parse_osc_bundle_element">_parse_osc_bundle_element</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._parse_bundle">_parse_bundle</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.parse_sclang_osc_packet">parse_sclang_osc_packet</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.preprocess_return">preprocess_return</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/resources/synthdefs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources.synthdefs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.buffer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferReply">BufferReply</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferReply.INFO">INFO</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand">BufferCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.ALLOC">ALLOC</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.ALLOC_READ">ALLOC_READ</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.ALLOC_READ_CHANNEL">ALLOC_READ_CHANNEL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.READ">READ</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.READ_CHANNEL">READ_CHANNEL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.WRITE">WRITE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.FREE">FREE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.ZERO">ZERO</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.SET">SET</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.SETN">SETN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.FILL">FILL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.GEN">GEN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.CLOSE">CLOSE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.QUERY">QUERY</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.GET">GET</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferCommand.GETN">GETN</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode">BufferAllocationMode</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.FILE">FILE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.ALLOC">ALLOC</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.DATA">DATA</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.EXISTING">EXISTING</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.COPY">COPY</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferAllocationMode.NONE">NONE</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo">BufferInfo</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo.bufnum">bufnum</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo.num_frames">num_frames</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo.num_channels">num_channels</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.BufferInfo.sample_rate">sample_rate</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer">Buffer</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.read">read</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.alloc">alloc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.load_data">load_data</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.load_collection">load_collection</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.load_asig">load_asig</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.use_existing">use_existing</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.copy_existing">copy_existing</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.fill">fill</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.gen">gen</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.zero">zero</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.gen_sine1">gen_sine1</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.gen_sine2">gen_sine2</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.gen_sine3">gen_sine3</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.gen_cheby">gen_cheby</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.gen_copy">gen_copy</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.play">play</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.write">write</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.close">close</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.to_array">to_array</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.query">query</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.__repr__">__repr__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.free">free</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.bufnum">bufnum</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.allocated">allocated</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.alloc_mode">alloc_mode</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.path">path</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.channels">channels</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.samples">samples</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.sr">sr</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.duration">duration</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer.server">server</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/buffer/index.html#sc3nb.sc_objects.buffer.Buffer._gen_flags">_gen_flags</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.bus</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand">ControlBusCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand.FILL">FILL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand.SET">SET</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand.SETN">SETN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand.GET">GET</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand.GETN">GETN</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.BusRate">BusRate</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.BusRate.AUDIO">AUDIO</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.BusRate.CONTROL">CONTROL</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus">Bus</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.rate">rate</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.num_channels">num_channels</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.idxs">idxs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.is_audio_bus">is_audio_bus</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.is_control_bus">is_control_bus</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.set">set</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.fill">fill</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.get">get</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.free">free</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.__del__">__del__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.Bus.__repr__">__repr__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.node</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node._LOGGER">_LOGGER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupReply">GroupReply</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupReply.QUERY_TREE_REPLY">QUERY_TREE_REPLY</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand">GroupCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.QUERY_TREE">QUERY_TREE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.DUMP_TREE">DUMP_TREE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.DEEP_FREE">DEEP_FREE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.FREE_ALL">FREE_ALL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.TAIL">TAIL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.HEAD">HEAD</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.G_NEW">G_NEW</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupCommand.P_NEW">P_NEW</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthCommand">SynthCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthCommand.NEW">NEW</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthCommand.S_GET">S_GET</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthCommand.S_GETN">S_GETN</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeReply">NodeReply</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeReply.INFO">INFO</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand">NodeCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.ORDER">ORDER</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.TRACE">TRACE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.QUERY">QUERY</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.MAP">MAP</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.MAPN">MAPN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.MAPA">MAPA</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.MAPAN">MAPAN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.FILL">FILL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.SET">SET</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.SETN">SETN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.RUN">RUN</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeCommand.FREE">FREE</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction">AddAction</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.TO_HEAD">TO_HEAD</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.TO_TAIL">TO_TAIL</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.BEFORE">BEFORE</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.AFTER">AFTER</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.REPLACE">REPLACE</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthInfo">SynthInfo</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthInfo.nodeid">nodeid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthInfo.group">group</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthInfo.prev_nodeid">prev_nodeid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.SynthInfo.next_nodeid">next_nodeid</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo">GroupInfo</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo.nodeid">nodeid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo.group">group</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo.prev_nodeid">prev_nodeid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo.next_nodeid">next_nodeid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo.head">head</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.GroupInfo.tail">tail</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node">Node</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.new">new</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._get_status_repr">_get_status_repr</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._set_node_attrs">_set_node_attrs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.nodeid">nodeid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.group">group</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.server">server</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.is_playing">is_playing</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.is_running">is_running</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.freed">freed</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.started">started</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.free">free</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.run">run</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.set">set</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._update_control">_update_control</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._update_controls">_update_controls</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.fill">fill</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.map">map</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.release">release</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.query">query</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.trace">trace</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.move">move</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.register">register</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.unregister">unregister</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.on_free">on_free</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.wait">wait</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._parse_info">_parse_info</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._handle_notification">_handle_notification</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.__eq__">__eq__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node._get_nodeid">_get_nodeid</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth">Synth</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth._update_synth_state">_update_synth_state</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.synth_desc">synth_desc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.name">name</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.current_controls">current_controls</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.new">new</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.get">get</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.seti">seti</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.__getattr__">__getattr__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.__setattr__">__setattr__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Synth.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group">Group</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group._update_group_state">_update_group_state</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.new">new</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.children">children</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.move_node_to_head">move_node_to_head</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.move_node_to_tail">move_node_to_tail</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.free_all">free_all</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.deep_free">deep_free</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.dump_tree">dump_tree</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.query_tree">query_tree</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group._repr_pretty_">_repr_pretty_</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Group.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeTree">NodeTree</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeTree.parse_nodes">parse_nodes</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeTree._repr_pretty_">_repr_pretty_</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.recorder</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.RecorderState">RecorderState</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.RecorderState.UNPREPARED">UNPREPARED</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.RecorderState.PREPARED">PREPARED</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.RecorderState.RECORDING">RECORDING</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.RecorderState.PAUSED">PAUSED</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder">Recorder</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.prepare">prepare</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.start">start</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.pause">pause</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.resume">resume</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.stop">stop</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.__repr__">__repr__</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder.__del__">__del__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.score</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.NRT_SERVER_OPTIONS">NRT_SERVER_OPTIONS</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score">Score</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.load_file">load_file</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.write_file">write_file</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.record_nrt">record_nrt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.server</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server._LOGGER">_LOGGER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlReply">MasterControlReply</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlReply.VERSION_REPLY">VERSION_REPLY</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlReply.SYNCED">SYNCED</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlReply.STATUS_REPLY">STATUS_REPLY</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand">MasterControlCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.DUMP_OSC">DUMP_OSC</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.STATUS">STATUS</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.VERSION">VERSION</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.CLEAR_SCHED">CLEAR_SCHED</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.NOTIFY">NOTIFY</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.QUIT">QUIT</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.SYNC">SYNC</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ReplyAddress">ReplyAddress</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ReplyAddress.WILDCARD_ADDR">WILDCARD_ADDR</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ReplyAddress.FAIL_ADDR">FAIL_ADDR</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ReplyAddress.DONE_ADDR">DONE_ADDR</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ReplyAddress.RETURN_ADDR">RETURN_ADDR</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ASYNC_CMDS">ASYNC_CMDS</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.CMD_PAIRS">CMD_PAIRS</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.LOCALHOST">LOCALHOST</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SC3NB_SERVER_CLIENT_ID">SC3NB_SERVER_CLIENT_ID</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SC3NB_DEFAULT_PORT">SC3NB_DEFAULT_PORT</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCSYNTH_DEFAULT_PORT">SCSYNTH_DEFAULT_PORT</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SC3_SERVER_NAME">SC3_SERVER_NAME</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus">ServerStatus</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.num_ugens">num_ugens</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.num_synths">num_synths</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.num_groups">num_groups</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.num_synthdefs">num_synthdefs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.avg_cpu">avg_cpu</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.peak_cpu">peak_cpu</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.nominal_sr">nominal_sr</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerStatus.actual_sr">actual_sr</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion">ServerVersion</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion.name">name</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion.major_version">major_version</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion.minor_version">minor_version</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion.patch_version">patch_version</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion.git_branch">git_branch</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerVersion.commit">commit</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerOptions">ServerOptions</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerOptions.first_private_bus">first_private_bus</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerOptions.num_private_buses">num_private_buses</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.ServerOptions.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.IDBlockAllocator">IDBlockAllocator</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.IDBlockAllocator.allocate">allocate</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.IDBlockAllocator.free_ids">free_ids</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.NodeWatcher">NodeWatcher</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.NodeWatcher.handle_notification">handle_notification</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer">SCServer</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.boot">boot</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.init">init</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.execute_init_hooks">execute_init_hooks</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.connect_sclang">connect_sclang</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.add_init_hook">add_init_hook</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.bundler">bundler</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.blip">blip</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.remote">remote</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.reboot">reboot</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.ping">ping</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.quit">quit</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.sync">sync</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.send_synthdef">send_synthdef</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.load_synthdef">load_synthdef</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.load_synthdefs">load_synthdefs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.notify">notify</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer._get_errors_for_address">_get_errors_for_address</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.free_all">free_all</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.clear_schedule">clear_schedule</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.send_default_groups">send_default_groups</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.allocate_node_id">allocate_node_id</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.allocate_buffer_id">allocate_buffer_id</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.allocate_control_bus_idx">allocate_control_bus_idx</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.allocate_audio_bus_idx">allocate_audio_bus_idx</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.client_id">client_id</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.max_logins">max_logins</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.default_group">default_group</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.input_bus">input_bus</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.output_bus">output_bus</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.volume">volume</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.muted">muted</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.mute">mute</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.unmute">unmute</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.version">version</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.status">status</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.dump_osc">dump_osc</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.dump_tree">dump_tree</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.query_all_nodes">query_all_nodes</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.peak_cpu">peak_cpu</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.avg_cpu">avg_cpu</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.sample_rate">sample_rate</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.actual_sample_rate">actual_sample_rate</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.num_synths">num_synths</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.num_groups">num_groups</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.num_ugens">num_ugens</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.num_synthdefs">num_synthdefs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.addr">addr</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.has_booted">has_booted</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.is_running">is_running</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.unresponsive">unresponsive</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.is_local">is_local</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.pid">pid</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer._log_message">_log_message</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer._warn_fail">_warn_fail</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.__repr__">__repr__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.synthdef</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand">SynthDefinitionCommand</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV">RECV</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD">LOAD</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD_DIR">LOAD_DIR</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.FREE">FREE</a></li>
+</ul>
+</li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef">SynthDef</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.synth_descs">synth_descs</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.get_description">get_description</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.send">send</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.load">load</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.load_dir">load_dir</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.reset">reset</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.set_context">set_context</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.set_contexts">set_contexts</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.unset_remaining">unset_remaining</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.add">add</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.free">free</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDef.__repr__">__repr__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects.volume</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#class-list">Class List</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#content">Content</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume._LOGGER">_LOGGER</a></li>
+<li class="toctree-l8"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume">Volume</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.muted">muted</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.volume">volume</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.mute">mute</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.unmute">unmute</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.update_synth">update_synth</a></li>
+<li class="toctree-l9"><a class="reference internal" href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume.send_synthdef">send_synthdef</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#function-list">Function List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#content">Content</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#sc3nb.helpers.linlin">linlin</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#sc3nb.helpers.clip">clip</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#sc3nb.helpers.midicps">midicps</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#sc3nb.helpers.cpsmidi">cpsmidi</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#sc3nb.helpers.dbamp">dbamp</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/helpers/index.html#sc3nb.helpers.ampdb">ampdb</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#function-list">Function List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#class-list">Class List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#content">Content</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.load_ipython_extension">load_ipython_extension</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.add_shortcut">add_shortcut</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics">SC3Magics</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.sc">sc</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scv">scv</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scs">scs</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scg">scg</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgv">scgv</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgs">scgs</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics._parse_pyvars">_parse_pyvars</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#function-list">Function List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#class-list">Class List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#content">Content</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling._LOGGER">_LOGGER</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ANSI_ESCAPE">ANSI_ESCAPE</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ALLOWED_PARENTS">ALLOWED_PARENTS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.find_executable">find_executable</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.kill_processes">kill_processes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ProcessTimeout">ProcessTimeout</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process">Process</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process._read_loop">_read_loop</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.read">read</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.empty">empty</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.write">write</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.kill">kill</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.__del__">__del__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process.__repr__">__repr__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#function-list">Function List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#class-list">Class List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#content">Content</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc._LOGGER">_LOGGER</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.startup">startup</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC">SC</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.default">default</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.get_default">get_default</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.start_sclang">start_sclang</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.start_server">start_server</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC._try_to_connect">_try_to_connect</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.server">server</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.lang">lang</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.console_logging">console_logging</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.__del__">__del__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.__repr__">__repr__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sc/index.html#sc3nb.sc.SC.exit">exit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#function-list">Function List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#class-list">Class List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#content">Content</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang._LOGGER">_LOGGER</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLANG_DEFAULT_PORT">SCLANG_DEFAULT_PORT</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SC3NB_SCLANG_CLIENT_ID">SC3NB_SCLANG_CLIENT_ID</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SynthArgument">SynthArgument</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SynthArgument.name">name</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SynthArgument.rate">rate</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SynthArgument.default">default</a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.remove_comments">remove_comments</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.parse_pyvars">parse_pyvars</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.replace_vars">replace_vars</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.convert_to_sc">convert_to_sc</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLangError">SCLangError</a></li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang">SCLang</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.start">start</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang._init">_init</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.load_synthdefs">load_synthdefs</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.kill">kill</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.__del__">__del__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.__repr__">__repr__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.cmd">cmd</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.cmdv">cmdv</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.cmds">cmds</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.cmdg">cmdg</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.read">read</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.empty">empty</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.get_synth_desc">get_synth_desc</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.addr">addr</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.server">server</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLang.connect_to_server">connect_to_server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#class-list">Class List</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#content">Content</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.Event">Event</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.Event.execute">execute</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.Event.__eq__">__eq__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.Event.__lt__">__lt__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.Event.__le__">__le__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.Event.__repr__">__repr__</a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue">TimedQueue</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.close">close</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.join">join</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.complete">complete</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.put">put</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.get">get</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.peek">peek</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.empty">empty</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.pop">pop</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.__worker">__worker</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.__repr__">__repr__</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueue.elapse">elapse</a></li>
+</ul>
+</li>
+<li class="toctree-l6"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueueSC">TimedQueueSC</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueueSC.put_bundler">put_bundler</a></li>
+<li class="toctree-l7"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.timed_queue.TimedQueueSC.put_msg">put_msg</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
