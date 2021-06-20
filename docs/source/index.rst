@@ -7,7 +7,6 @@ Welcome to sc3nb's documentation!
 
    autogen/notebooks/sc3nb-examples
 
-
 .. toctree::
    :maxdepth: 2
    :Caption: User Guide
@@ -23,6 +22,13 @@ Welcome to sc3nb's documentation!
    :maxdepth: 3
 
    autogen/autoapi/sc3nb/index
+
+.. toctree::
+   :Caption: Contributing
+   :maxdepth: 3
+
+   CONTRIBUTING
+   CONTRIBUTORS
 
 Indices and tables
 ==================
