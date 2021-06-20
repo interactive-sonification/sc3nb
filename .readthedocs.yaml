@@ -18,10 +18,10 @@ python:
       extra_requirements:
         - docs
 
-# TODO currently readthedocs uses ubuntu18.04, this is to old
+# TODO currently readthedocs uses ubuntu18.04, this is old
+# it also does not support starting supercollider as it lacks X server support.
 # https://docs.readthedocs.io/en/stable/config-file/v2.html#build-apt-packages
 build:
   image: latest
   apt_packages:
-    - supercollider
     - portaudio19-dev

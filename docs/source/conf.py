@@ -100,7 +100,8 @@ nbsphinx_execute_arguments = [
     "--InlineBackend.figure_formats={'png', 'svg', 'pdf'}",
 ]
 
-# TODO currently readthedocs uses ubuntu18.04, this is to old
+# TODO currently readthedocs uses ubuntu18.04, this is old
+# it also does not support starting supercollider as it lacks X server support.
 # https://docs.readthedocs.io/en/stable/config-file/v2.html#build-apt-packages
 if on_rtd:
     nbsphinx_execute = "never"
