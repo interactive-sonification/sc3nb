@@ -22,3 +22,4 @@ build:
   image: latest
   apt_packages:
     - supercollider
+    - portaudio19-dev
