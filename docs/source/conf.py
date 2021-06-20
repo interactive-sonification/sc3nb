@@ -184,7 +184,7 @@ def generate_notebook_links(
                 linked.append(nb_path)
                 project_dir = Path("../..").resolve()
                 print(
-                    f"  Linked {nb_path.relative_to(project_dir)} -> {nb_link_path.relative_to(project_dir)}"
+                    f"  Linked {nb_path.resolve().relative_to(project_dir)} -> {nb_link_path.resolve().relative_to(project_dir)}"
                 )
     for nb in [nb_path.as_posix() for nb_path in nb_paths if nb_path not in linked]:
         print(f"> Warning: Notebook {nb} is not linked")
