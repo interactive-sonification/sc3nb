@@ -18,8 +18,10 @@ python:
       extra_requirements:
         - docs
 
-build:
-  image: latest
-  apt_packages:
-    - supercollider
-    - portaudio19-dev
+# TODO currently readthedocs uses ubuntu18.04, this is to old
+# https://docs.readthedocs.io/en/stable/config-file/v2.html#build-apt-packages
+#build:
+#  image: latest
+#  apt_packages:
+#    - supercollider
+#    - portaudio19-dev
