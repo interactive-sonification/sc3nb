@@ -5,12 +5,17 @@ Welcome to sc3nb's documentation!
    :Caption: Introduction
    :maxdepth: 4
 
-   autogen/notebooks/sc3nb-examples
+   README
+   info
+   support
+   resources
+   CHANGELOG
 
 .. toctree::
    :Caption: User Guide
    :maxdepth: 2
 
+   autogen/notebooks/sc3nb-examples
    autogen/notebooks/sclang-examples
    supercolliderobjects
    autogen/notebooks/osc-communication-example

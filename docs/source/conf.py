@@ -81,11 +81,15 @@ extensions = [
     "myst_parser",  # for supporting markdown
 ]
 
+suppress_warnings = ["myst.mathjax"]
+
 autosummary_generate = True
 
 numpydoc_validation_checks = {"all", "GL01", "GL02", "GL05"}
 
 intersphinx_mapping = {"python": ("https://docs.python.org/dev", None)}
+
+# -- autoapi -----------------------------------------------------------------
 
 autoapi_type = "python"  # autoapi
 autoapi_dirs = ["../../src"]
@@ -96,10 +100,51 @@ autoapi_python_class_content = (
 )
 autoapi_template_dir = "./_templates/autoapi/"
 
+
+# -- nbsphinx ----------------------------------------------------------------
+
 # nbsphinx_allow_errors = True
 nbsphinx_execute_arguments = [
     "--InlineBackend.figure_formats={'png', 'svg', 'pdf'}",
 ]
+
+# This is processed by Jinja2 and inserted before each notebook
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base=None)|replace("\\","/")|replace("autogen/notebooks","examples")|replace("nblink","ipynb") %}
+
+.. raw:: html
+
+    <div class="admonition note">
+      This page was generated from
+      <a class="reference external" href="https://github.com/interactive-sonfication/sc3nb/blob/{{ env.config.release|e }}/{{ docname|e }}">{{ docname|e }}</a>.
+      <br>
+      <script>
+        if (document.location.host) {
+          $(document.currentScript).replaceWith(
+            '<a class="reference external" ' +
+            'href="https://interactive-sonification.github.io/sc3nb/' +
+            window.location.pathname>View with executed cells</a>.'
+          );
+        }
+      </script>
+    </div>
+
+.. raw:: latex
+
+    \nbsphinxstartnotebook{\scriptsize\noindent\strut
+    \textcolor{gray}{The following section was generated from
+    \sphinxcode{\sphinxupquote{\strut {{ docname | escape_latex }}}} \dotfill}}
+
+"""
+
+# This is processed by Jinja2 and inserted after each notebook
+nbsphinx_epilog = r"""
+{% set docname = 'doc/' + env.doc2path(env.docname, base=None) %}
+.. raw:: latex
+    \nbsphinxstopnotebook{\scriptsize\noindent\strut
+    \textcolor{gray}{\dotfill\ \sphinxcode{\sphinxupquote{\strut
+    {{ docname | escape_latex }}}} ends here.}}
+"""
 
 # TODO currently readthedocs uses ubuntu18.04, this is old
 # it also does not support starting supercollider as it lacks X server support.
