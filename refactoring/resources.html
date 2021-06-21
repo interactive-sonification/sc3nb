@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>How to contribute &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>Useful Resources &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
   
 
   
@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributors" href="CONTRIBUTORS.html" />
-    <link rel="prev" title="sc3nb.timed_queue" href="autogen/autoapi/sc3nb/timed_queue/index.html" /> 
+    <link rel="next" title="Changelog" href="CHANGELOG.html" />
+    <link rel="prev" title="Support, Caveats and Problems" href="support.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,7 +92,7 @@
             
             
               <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="README.html">sc3nb</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#usage">Usage</a></li>
@@ -100,7 +100,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">How does this work?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support, Caveats and Problems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="resources.html">Useful Resources</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
 </ul>
@@ -311,12 +311,12 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#development-guidelines">Development Guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-prepare-a-release">How to prepare a release</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTORS.html">Contributors</a><ul>
@@ -372,13 +372,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>How to contribute</li>
+      <li>Useful Resources</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/CONTRIBUTING.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/resources.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -415,149 +415,31 @@
     text-align: unset;
 }
 </style>
-<div class="tex2jax_ignore mathjax_ignore section" id="how-to-contribute">
-<h1>How to contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline">¶</a></h1>
-<p>You can contribute by creating issues, making pull requests, improving the documentation or creating examples.</p>
-<p>Please get in touch with us if you wish to contribute. We are happy to be involved in the discussion of new features and to receive pull requests and also looking forward to include notebooks using sc3nb in our examples.</p>
-<p>We will honor contributors in our <a class="reference internal" href="CONTRIBUTORS.html"><span class="doc std std-doc">Contributors list</span></a>. If you contribute with a pull request feel free to add yourself to the list.</p>
-<div class="section" id="how-to-test-set-up-the-development-environment">
-<h2>How to test / set up the development environment<a class="headerlink" href="#how-to-test-set-up-the-development-environment" title="Permalink to this headline">¶</a></h2>
-<p>Additional dependencies for sc3nb can be installed via the following extras:
-tests, development, building docs, running test.</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Install</p></th>
-<th class="text-align:left head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
-<td class="text-align:left"><p>running tox for tests and other things</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
-<td class="text-align:left"><p>using the pre-commit hooks and installing other useful tools for development</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
-<td class="text-align:left"><p>building the docs</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[localtests]</span></code></p></td>
-<td class="text-align:left"><p>running pytest directly without tox, also used in tox as dependencies</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="development-guidelines">
-<h2>Development Guidelines<a class="headerlink" href="#development-guidelines" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://pre-commit.com/"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
-<a class="reference external" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
-<p>To ensure standards are followed please install <a class="reference external" href="https://pre-commit.com/">pre-commit</a></p>
-<p>We use:</p>
+<div class="tex2jax_ignore mathjax_ignore section" id="useful-resources">
+<h1>Useful Resources<a class="headerlink" href="#useful-resources" title="Permalink to this headline">¶</a></h1>
+<p>For more information about SuperCollider, check out the following links:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> for formatting code</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/typing.html">python type hints</a></p></li>
-<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">How to Document</a></p></li>
-</ul>
-</div>
-<div class="section" id="how-to-contributing-an-example-notebook">
-<h2>How to contributing an example notebook<a class="headerlink" href="#how-to-contributing-an-example-notebook" title="Permalink to this headline">¶</a></h2>
-<p>Feel free to suggest new example notebooks using sc3nb for all possible applications like sonification, music making or sound design.</p>
-<p>Please use</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
-<span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>to import sc3nb and start the SC instance.</p>
-<p>Also add <code class="docutils literal notranslate"><span class="pre">sc.exit()</span></code> to all notebooks at the end.</p>
-<p>Please also try to make sure they work when using the doc generation script.</p>
-</div>
-<div class="section" id="how-to-prepare-a-release">
-<h2>How to prepare a release<a class="headerlink" href="#how-to-prepare-a-release" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>clear old build files</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>test build</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>test</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span>
-</pre></div>
-</div>
+<li><p><a class="reference external" href="https://supercollider.github.io/">SuperCollider website</a></p></li>
+<li><p><a class="reference external" href="https://github.com/supercollider/supercollider">SuperCollider on GitHub</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/">SuperCollider documentation and help</a></p>
 <ul>
-<li><p>build docs</p>
-<p>should currently build from a system platform != Windows
-the pya example does not work, as pip fails to install pya because of portaudio issues</p>
+<li><p><a class="reference external" href="https://doc.sccode.org/Guides/ClientVsServer.html">Client vs Server</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Reference/Server-Architecture.html">Server Architecture - Main Design Concepts</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Reference/Server-Command-Reference.html">Server Command Reference</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Guides/Server-Guide.html">Server Guide</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Guides/MultiClient_Setups.html">Multi-client Setups</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Guides/OSC_communication.html">OSC Communication</a></p></li>
+</ul>
+</li>
+<li><p>SuperCollider Language</p>
+<ul>
+<li><p><a class="reference external" href="https://doc.sccode.org/Reference/StartupFile.html">sclang Startup File</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Overviews/SymbolicNotations.html">Symbolic Notations</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Overviews/Operators.html">Operators</a></p></li>
+<li><p><a class="reference external" href="https://doc.sccode.org/Reference/Syntax-Shortcuts.html">Syntax Shortcuts</a></p></li>
+</ul>
 </li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">docs</span><span class="o">/</span><span class="n">generate</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<ul>
-<li><p>tag (Git - Tagging)</p>
-<p>We use <a class="reference external" href="https://semver.org/">semantic versioning</a>.
-Please always use 3 numbers like 1.0.0 -&gt; this is needed by <a class="reference external" href="https://github.com/pypa/setuptools_scm/#semantic-versioning-semver">setuptools_scm</a></p>
-</li>
-<li><p>clear build files again</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>build</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul>
-<li><p>update changelog</p>
-<p>should contain information about the commits between the versions</p>
-</li>
-<li><p>upload testpypi</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">twine</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">twine</span> <span class="n">upload</span> <span class="o">--</span><span class="n">repository</span> <span class="n">testpypi</span> <span class="n">dist</span><span class="o">/*</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>check <a class="reference external" href="https://test.pypi.org/project/sc3nb/">testpypi</a></p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">test</span><span class="o">.</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span> <span class="n">sc3nb</span>
-</pre></div>
-</div>
-<ul>
-<li><p>build and publish docs</p>
-<p>should currently build from a system platform != Windows
-the pya example does not work, as pip fails to install pya because of portaudio issues</p>
-</li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">docs</span><span class="o">/</span><span class="n">generate</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">doctree</span> <span class="o">--</span><span class="n">publish</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>upload pypi</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">twine</span> <span class="n">upload</span> <span class="n">dist</span><span class="o">/*</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>check <a class="reference external" href="https://pypi.org/project/sc3nb/">pypi</a></p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sc3nb</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>(release on github)</p></li>
-</ul>
-</div>
 </div>
 
 
@@ -566,8 +448,8 @@ the pya example does not work, as pip fails to install pya because of portaudio 
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="CONTRIBUTORS.html" class="btn btn-neutral float-right" title="Contributors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="autogen/autoapi/sc3nb/timed_queue/index.html" class="btn btn-neutral float-left" title="sc3nb.timed_queue" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CHANGELOG.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="support.html" class="btn btn-neutral float-left" title="Support, Caveats and Problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

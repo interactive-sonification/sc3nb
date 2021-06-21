@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>How to contribute &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
   
 
   
@@ -41,8 +41,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributors" href="CONTRIBUTORS.html" />
-    <link rel="prev" title="sc3nb.timed_queue" href="autogen/autoapi/sc3nb/timed_queue/index.html" /> 
+    <link rel="next" title="How does this work?" href="info.html" />
+    <link rel="prev" title="Welcome to sc3nb’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -92,10 +92,10 @@
             
             
               <p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">sc3nb</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#usage">Usage</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">How does this work?</a></li>
@@ -311,12 +311,12 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#development-guidelines">Development Guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-prepare-a-release">How to prepare a release</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTORS.html">Contributors</a><ul>
@@ -372,13 +372,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>How to contribute</li>
+      <li>sc3nb</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/CONTRIBUTING.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -415,148 +415,71 @@
     text-align: unset;
 }
 </style>
-<div class="tex2jax_ignore mathjax_ignore section" id="how-to-contribute">
-<h1>How to contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline">¶</a></h1>
-<p>You can contribute by creating issues, making pull requests, improving the documentation or creating examples.</p>
-<p>Please get in touch with us if you wish to contribute. We are happy to be involved in the discussion of new features and to receive pull requests and also looking forward to include notebooks using sc3nb in our examples.</p>
-<p>We will honor contributors in our <a class="reference internal" href="CONTRIBUTORS.html"><span class="doc std std-doc">Contributors list</span></a>. If you contribute with a pull request feel free to add yourself to the list.</p>
-<div class="section" id="how-to-test-set-up-the-development-environment">
-<h2>How to test / set up the development environment<a class="headerlink" href="#how-to-test-set-up-the-development-environment" title="Permalink to this headline">¶</a></h2>
-<p>Additional dependencies for sc3nb can be installed via the following extras:
-tests, development, building docs, running test.</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Install</p></th>
-<th class="text-align:left head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
-<td class="text-align:left"><p>running tox for tests and other things</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
-<td class="text-align:left"><p>using the pre-commit hooks and installing other useful tools for development</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
-<td class="text-align:left"><p>building the docs</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[localtests]</span></code></p></td>
-<td class="text-align:left"><p>running pytest directly without tox, also used in tox as dependencies</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="development-guidelines">
-<h2>Development Guidelines<a class="headerlink" href="#development-guidelines" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://pre-commit.com/"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
-<a class="reference external" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
-<p>To ensure standards are followed please install <a class="reference external" href="https://pre-commit.com/">pre-commit</a></p>
-<p>We use:</p>
+<div class="tex2jax_ignore mathjax_ignore section" id="sc3nb">
+<h1>sc3nb<a class="headerlink" href="#sc3nb" title="Permalink to this headline">¶</a></h1>
+<p>sc3nb is a python package that offers an interface to SuperCollider3 (SC3), with special support to be used within jupyter notebooks.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> for formatting code</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/typing.html">python type hints</a></p></li>
-<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">How to Document</a></p></li>
+<li><p>Documentation: https://interactive-sonification.github.io/sc3nb</p></li>
+<li><p>Source code: https://github.com/interactive-sonification/sc3nb</p></li>
+<li><p>Bug reports: https://github.com/interactive-sonification/sc3nb/issues</p></li>
 </ul>
-</div>
-<div class="section" id="how-to-contributing-an-example-notebook">
-<h2>How to contributing an example notebook<a class="headerlink" href="#how-to-contributing-an-example-notebook" title="Permalink to this headline">¶</a></h2>
-<p>Feel free to suggest new example notebooks using sc3nb for all possible applications like sonification, music making or sound design.</p>
-<p>Please use</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
-<span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>to import sc3nb and start the SC instance.</p>
-<p>Also add <code class="docutils literal notranslate"><span class="pre">sc.exit()</span></code> to all notebooks at the end.</p>
-<p>Please also try to make sure they work when using the doc generation script.</p>
-</div>
-<div class="section" id="how-to-prepare-a-release">
-<h2>How to prepare a release<a class="headerlink" href="#how-to-prepare-a-release" title="Permalink to this headline">¶</a></h2>
+<p>The goal of sc3nb is to facilitate the development of auditory displays and interactive sonifications by teaming up</p>
 <ul class="simple">
-<li><p>clear old build files</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>test build</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>test</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span>
-</pre></div>
-</div>
+<li><p>python (and particularly numpy, scipy, pandas, matplotlib etc.) for data science</p></li>
+<li><p>and SuperCollider3 for interactive real-time sound rendering.
+​
+It provides:</p></li>
+<li><p>SC - a class to interface with the SuperCollider audio server (scsynth) aswell as the SuperCollider Language and Interpreter (sclang)</p>
 <ul>
-<li><p>build docs</p>
-<p>should currently build from a system platform != Windows
-the pya example does not work, as pip fails to install pya because of portaudio issues</p>
+<li><p>The SuperCollider audio server can be started and addressed via</p>
+<ul>
+<li><p>OSC directly with OSC messages and bundles</p></li>
+<li><p>Python implementations of Classes from SuperCollider like <code class="docutils literal notranslate"><span class="pre">Synth</span></code>, <code class="docutils literal notranslate"><span class="pre">SynthDef</span></code>, <code class="docutils literal notranslate"><span class="pre">Buffer</span></code> and <code class="docutils literal notranslate"><span class="pre">Bus</span></code></p></li>
+</ul>
+</li>
+<li><p>use the SuperCollider language (sclang) interactively via a subprocess.</p>
+<ul>
+<li><p>You can write SuperCollider language code in Jupyter Notebooks and let sclang evaluate it.</p></li>
+<li><p>Inject python variables into your sclang code</p></li>
+<li><p>get the results of the sclang code in python</p></li>
+</ul>
 </li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">docs</span><span class="o">/</span><span class="n">generate</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<ul>
-<li><p>tag (Git - Tagging)</p>
-<p>We use <a class="reference external" href="https://semver.org/">semantic versioning</a>.
-Please always use 3 numbers like 1.0.0 -&gt; this is needed by <a class="reference external" href="https://github.com/pypa/setuptools_scm/#semantic-versioning-semver">setuptools_scm</a></p>
 </li>
-<li><p>clear build files again</p></li>
+<li><p>helper functions such as linlin, cpsmidi, midicps, clip, ampdb, dbamp which work like their SC3 counterparts.</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
-</pre></div>
-</div>
+<p>sc3nb can be used for</p>
 <ul class="simple">
-<li><p>build</p></li>
+<li><p>multi-channel audio processing</p></li>
+<li><p>auditory display and sonification</p></li>
+<li><p>sound synthesis experiment</p></li>
+<li><p>audio applications in general such as games or GUI-enhancements</p></li>
+<li><p>signal analysis and plotting</p></li>
+<li><p>computer music and just-in-time music control</p></li>
+<li><p>any usecase that the SuperCollider 3 language supports</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
-</pre></div>
-</div>
+<p>It is meant to grow into a backend for a sonification package, and can be used both from jupyter and in standard python software development.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>To use sc3nb you need a installation of SuperCollider on your system. See https://supercollider.github.io/download for instructions.</p></li>
+<li><p>To install sc3nb you can</p>
 <ul>
-<li><p>update changelog</p>
-<p>should contain information about the commits between the versions</p>
+<li><p>install it locally in editable mode (i.e. changes to sc3nb code will automatically be “re-installed”).</p>
+<ul>
+<li><p>clone the repository from https://github.com/interactive-sonification/sc3nb</p></li>
+<li><p>from inside the sc3nb directory run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code></p></li>
+</ul>
 </li>
-<li><p>upload testpypi</p></li>
+<li><p>or install it directly from GitHub using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+git://github.com/interactive-sonification/sc3nb&#64;master</span></code></p></li>
+<li><p>we are also currently making sure that sc3nb can also be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sc3nb</span></code> from PyPI</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">twine</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">twine</span> <span class="n">upload</span> <span class="o">--</span><span class="n">repository</span> <span class="n">testpypi</span> <span class="n">dist</span><span class="o">/*</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>check <a class="reference external" href="https://test.pypi.org/project/sc3nb/">testpypi</a></p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">test</span><span class="o">.</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span> <span class="n">sc3nb</span>
-</pre></div>
-</div>
-<ul>
-<li><p>build and publish docs</p>
-<p>should currently build from a system platform != Windows
-the pya example does not work, as pip fails to install pya because of portaudio issues</p>
 </li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">docs</span><span class="o">/</span><span class="n">generate</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">doctree</span> <span class="o">--</span><span class="n">publish</span>
-</pre></div>
 </div>
-<ul class="simple">
-<li><p>upload pypi</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">twine</span> <span class="n">upload</span> <span class="n">dist</span><span class="o">/*</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>check <a class="reference external" href="https://pypi.org/project/sc3nb/">pypi</a></p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sc3nb</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>(release on github)</p></li>
-</ul>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>We provide usage examples in the form of Jupyter notebooks. You see them in the User Guide section of the documentation and also download them from the sc3nb repository <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/tree/master/examples">examples folder</a></p>
 </div>
 </div>
 
@@ -566,8 +489,8 @@ the pya example does not work, as pip fails to install pya because of portaudio 
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="CONTRIBUTORS.html" class="btn btn-neutral float-right" title="Contributors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="autogen/autoapi/sc3nb/timed_queue/index.html" class="btn btn-neutral float-left" title="sc3nb.timed_queue" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="info.html" class="btn btn-neutral float-right" title="How does this work?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to sc3nb’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
