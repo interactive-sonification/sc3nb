@@ -123,7 +123,8 @@ nbsphinx_prolog = r"""
           $(document.currentScript).replaceWith(
             '<a class="reference external" ' +
             'href="https://interactive-sonification.github.io/sc3nb/' +
-            window.location.pathname>View with executed cells</a>.'
+            window.location.pathname +
+            '>View with executed cells</a>.'
           );
         }
       </script>
