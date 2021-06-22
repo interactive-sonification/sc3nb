@@ -185,7 +185,8 @@ class Node(ABC):
         target : Node or int or None, optional
             This Nodes AddActions target, by default None
         server : SCServer, optional
-            The Server for this node, by default server
+            The Server for this Node,
+            by default use the SC default server
         """
         self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:
@@ -784,9 +785,11 @@ class Synth(Node):
         controls : dict, optional
             synth control arguments, by default None
         nodeid : int, optional
-            ID of the node in SuperCollider, by default sc will create one
+            ID of the node in SuperCollider, by default sc3nb will create one.
+            Can be set to an existing id to create a Python instance of a running Node.
         new : bool, optional
             True if synth should be created on the server, by default True
+            Should be False if creating an instance of a running Node.
         add_action : AddAction or int, optional
             Where the Synth should be added, by default AddAction.TO_HEAD (0)
         target : Node or int, optional
@@ -847,7 +850,7 @@ class Synth(Node):
 
     @property
     def synth_desc(self) -> Optional[Dict[str, "SynthArgument"]]:
-        """This Synths SynthDef name."""
+        """A Description of this Synths arguments"""
         with self._state_lock:
             if self._synth_desc is None:
                 self._synth_desc = SynthDef.get_description(self._name)
@@ -1015,9 +1018,11 @@ class Group(Node):
         Parameters
         ----------
         nodeid : int, optional
-            ID of the node in SuperCollider, by default sc will create one
+            ID of the node in SuperCollider, by default sc3nb will create one.
+            Can be set to an existing id to create a Python instance of a running Node.
         new : bool, optional
             True if synth should be created on the server, by default True
+            Should be False if creating an instance of a running Node.
         parallel : bool, optional
             If True create a parallel group, by default False
         add_action : AddAction or int, optional
@@ -1025,7 +1030,8 @@ class Group(Node):
         target : Node or int, optional
             AddAction target, if None it will be the default group of the server
         server : SCServer, optional
-            Server instance where this Group is located, by default the default Server
+            Server instance where this Group is located,
+            by default use the SC default server
         """
         self._server = server or sc3nb.SC.get_default().server
         if nodeid in self._server.nodes:

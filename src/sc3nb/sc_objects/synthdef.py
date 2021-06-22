@@ -86,7 +86,8 @@ class SynthDef:
         wait : bool
             If True wait for server reply.
         server : SCServer, optional
-            Server that gets the SynthDefs, by default None
+            Server instance that gets the SynthDefs,
+            by default use the SC default server
         """
         if server is None:
             server = sc3nb.SC.get_default().server
@@ -110,7 +111,8 @@ class SynthDef:
         synthdef_path : str
             Path with the SynthDefs
         server : SCServer, optional
-            Server that gets the SynthDefs, by default None
+            Server that gets the SynthDefs,
+            by default use the SC default server
         """
         if server is None:
             server = sc3nb.SC.get_default().server
@@ -137,7 +139,8 @@ class SynthDef:
         completion_msg : bytes, optional
             Message to be executed by the server when loaded, by default None
         server : SCServer, optional
-            Server that gets the SynthDefs, by default None
+            Server that gets the SynthDefs,
+            by default use the SC default server
         """
         if server is None:
             server = sc3nb.SC.get_default().server
@@ -178,7 +181,8 @@ class SynthDef:
             should be in double brackets ("...{{flexibleContent}}...").
             This flexible content, you can dynamic replace with set_context()
         sc : SC object
-            SC instance where the synthdef should be created
+            SC instance where the synthdef should be created,
+            by default use the default SC instance
         """
         self.sc = sc
         self.definition = definition
@@ -276,7 +280,8 @@ class SynthDef:
         name : str, optional
             name which this SynthDef will get
         server : SCServer, optional
-            server where this SynthDef will be send to
+            Server where this SynthDef will be send to,
+            by default use the SC default server
 
         Returns
         -------

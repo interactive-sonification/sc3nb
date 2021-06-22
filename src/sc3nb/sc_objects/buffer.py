@@ -82,11 +82,12 @@ class Buffer:
 
     Parameters
     ----------
-    bufnum : int
+    bufnum : int, optional
         buffer number to be used on scsynth. Defaults to None,
         can be set to enforce a given bufnum
     server : SCServer, optional
-        The server instance to establish the Buffer
+        The server instance to establish the Buffer,
+        by default use the SC default server
 
     Attributes
     ----------

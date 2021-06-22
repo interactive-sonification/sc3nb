@@ -273,10 +273,16 @@ class SCLang:
         else:
             self.started = True
             print("Done.")
-            self._init()
+            self.init()
 
-    def _init(self):
-        print("Registering OSC /return callback in sclang...")
+    def init(self):
+        """Initialize sclang for sc3nb usage.
+
+        This will register the /return callback in sclang and load the SynthDefs from sc3nb.
+
+        This is done automatically by running start.
+        """
+        print("Registering OSC /return callback in sclang... ", end="")
         self.cmds(
             r"""
                 "sc3nb - Registering OSC /return callback".postln;
@@ -591,7 +597,7 @@ class SCLang:
 
         Parameters
         ----------
-        server : Optional[SCServer], optional
+        server : SCServer, optional
             SuperCollider server to connect. If None try to reconnect.
 
         Raises
