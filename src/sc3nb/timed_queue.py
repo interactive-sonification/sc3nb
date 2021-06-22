@@ -246,12 +246,12 @@ class TimedQueueSC(TimedQueue):
         super().__init__(relative_time, thread_sleep_time)
         self.server = server or sc3nb.SC.get_default().server
 
-    def put_bundler(self, onset: int, bundler: Bundler) -> None:
+    def put_bundler(self, onset: float, bundler: Bundler) -> None:
         """Add a Bundler to queue
 
         Parameters
         ----------
-        onset : int
+        onset : float
             Sending timetag of the Bundler
         bundler : Bundler
             Bundler that will be sent
@@ -259,13 +259,13 @@ class TimedQueueSC(TimedQueue):
         self.put(onset, bundler.send)
 
     def put_msg(
-        self, onset: int, msg: Union[OSCMessage, str], msg_params: Iterable[Any]
+        self, onset: float, msg: Union[OSCMessage, str], msg_params: Iterable[Any]
     ) -> None:
         """Add a message to queue
 
         Parameters
         ----------
-        onset : int
+        onset : float
             Sending timetag of the message
         msg : Union[OSCMessage, str]
             OSCMessage or OSC address
