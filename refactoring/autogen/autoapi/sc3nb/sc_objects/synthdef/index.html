@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -487,7 +487,8 @@ already created synths of this definition</p>
 should be in double brackets (“…{{flexibleContent}}…”).
 This flexible content, you can dynamic replace with set_context()</p>
 </dd>
-<dt><strong>sc</strong><span class="classifier">SC object</span></dt><dd><p>SC instance where the synthdef should be created</p>
+<dt><strong>sc</strong><span class="classifier">SC object</span></dt><dd><p>SC instance where the synthdef should be created,
+by default use the default SC instance</p>
 </dd>
 </dl>
 </dd>
@@ -570,7 +571,8 @@ This flexible content, you can dynamic replace with set_context()</p>
 </dd>
 <dt><strong>wait</strong><span class="classifier">bool</span></dt><dd><p>If True wait for server reply.</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs, by default None</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance that gets the SynthDefs,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -586,7 +588,8 @@ This flexible content, you can dynamic replace with set_context()</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>synthdef_path</strong><span class="classifier">str</span></dt><dd><p>Path with the SynthDefs</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs, by default None</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -604,7 +607,8 @@ This flexible content, you can dynamic replace with set_context()</p>
 </dd>
 <dt><strong>completion_msg</strong><span class="classifier">bytes, optional</span></dt><dd><p>Message to be executed by the server when loaded, by default None</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs, by default None</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -703,7 +707,8 @@ will only return the name.</p>
 </dd>
 <dt><strong>name</strong><span class="classifier">str, optional</span></dt><dd><p>name which this SynthDef will get</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>server where this SynthDef will be send to</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server where this SynthDef will be send to,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>

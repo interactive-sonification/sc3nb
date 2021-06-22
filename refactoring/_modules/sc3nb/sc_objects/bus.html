@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.bus &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.bus &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -421,7 +421,23 @@
 
 
 <div class="viewcode-block" id="Bus"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus">[docs]</a><span class="k">class</span> <span class="nc">Bus</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Represenation of a Control or Audio Bus on the SuperCollider Server&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Represenation of Control or Audio Bus(es) on the SuperCollider Server</span>
+
+<span class="sd">    If num_channels &gt; 1 this will be represent muliple Buses in a row.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rate : Union[BusRate, str]</span>
+<span class="sd">        Rate of the Bus, either control or audio</span>
+<span class="sd">    num_channels : int, optional</span>
+<span class="sd">        How many channels to allocate, by default 1</span>
+<span class="sd">    index : int, optional</span>
+<span class="sd">        Starting Bus index this Bus,</span>
+<span class="sd">        by default this will be handled by the servers Bus allocator.</span>
+<span class="sd">    server : SCServer, optional</span>
+<span class="sd">        Server instance for this Bus,</span>
+<span class="sd">        by default the default SC server instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -432,7 +448,7 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span> <span class="o">=</span> <span class="n">num_channels</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span> <span class="o">=</span> <span class="n">rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span> <span class="o">=</span> <span class="n">BusRate</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rate</span> <span class="ow">is</span> <span class="n">BusRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">allocate_audio_bus_idx</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_channels</span><span class="p">)</span>
@@ -621,7 +637,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">free</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Bus.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.Bus.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Bus(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2">, ids=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="si">}</span><span class="s2">)&quot;</span></div></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Bus(rate=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2">&#39;, ids=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_idxs</span><span class="si">}</span><span class="s2">)&quot;</span></div></div>
 </pre></div>
 
            </div>

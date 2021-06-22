@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -476,7 +476,8 @@
 <span class="sd">        wait : bool</span>
 <span class="sd">            If True wait for server reply.</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            Server that gets the SynthDefs, by default None</span>
+<span class="sd">            Server instance that gets the SynthDefs,</span>
+<span class="sd">            by default use the SC default server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">server</span> <span class="o">=</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
@@ -500,7 +501,8 @@
 <span class="sd">        synthdef_path : str</span>
 <span class="sd">            Path with the SynthDefs</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            Server that gets the SynthDefs, by default None</span>
+<span class="sd">            Server that gets the SynthDefs,</span>
+<span class="sd">            by default use the SC default server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">server</span> <span class="o">=</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
@@ -527,7 +529,8 @@
 <span class="sd">        completion_msg : bytes, optional</span>
 <span class="sd">            Message to be executed by the server when loaded, by default None</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            Server that gets the SynthDefs, by default None</span>
+<span class="sd">            Server that gets the SynthDefs,</span>
+<span class="sd">            by default use the SC default server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">server</span> <span class="o">=</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
@@ -568,7 +571,8 @@
 <span class="sd">            should be in double brackets (&quot;...{{flexibleContent}}...&quot;).</span>
 <span class="sd">            This flexible content, you can dynamic replace with set_context()</span>
 <span class="sd">        sc : SC object</span>
-<span class="sd">            SC instance where the synthdef should be created</span>
+<span class="sd">            SC instance where the synthdef should be created,</span>
+<span class="sd">            by default use the default SC instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">definition</span> <span class="o">=</span> <span class="n">definition</span>
@@ -666,7 +670,8 @@
 <span class="sd">        name : str, optional</span>
 <span class="sd">            name which this SynthDef will get</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            server where this SynthDef will be send to</span>
+<span class="sd">            Server where this SynthDef will be send to,</span>
+<span class="sd">            by default use the SC default server</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

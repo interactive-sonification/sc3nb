@@ -176,9 +176,25 @@ Content
 .. class:: Bus(rate: Union[(BusRate, str)], num_channels: int = 1, index: Optional[int] = None, server: Optional['SCServer'] = None)
 
 
-   Represenation of a Control or Audio Bus on the SuperCollider Server
+   Represenation of Control or Audio Bus(es) on the SuperCollider Server
 
+   If num_channels > 1 this will be represent muliple Buses in a row.
 
+   :Parameters:
+
+       **rate** : Union[BusRate, str]
+           Rate of the Bus, either control or audio
+
+       **num_channels** : int, optional
+           How many channels to allocate, by default 1
+
+       **index** : int, optional
+           Starting Bus index this Bus,
+           by default this will be handled by the servers Bus allocator.
+
+       **server** : SCServer, optional
+           Server instance for this Bus,
+           by default the default SC server instance.
 
 
 

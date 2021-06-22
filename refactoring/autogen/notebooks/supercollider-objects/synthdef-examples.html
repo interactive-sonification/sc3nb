@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SynthDef &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>SynthDef &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -664,19 +664,9 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-  This page was generated from
-  <a class="reference external" href="https://github.com/interactive-sonfication/sc3nb/blob/0.1.1.dev118+g466e4ca/examples/supercollider-objects/synthdef-examples.ipynb">examples/supercollider-objects/synthdef-examples.ipynb</a>.
-  <br>
-  <script>
-    if (document.location.host) {
-      $(document.currentScript).replaceWith(
-        '<a class="reference external" ' +
-        'href="https://interactive-sonification.github.io/sc3nb/' +
-        window.location.pathname>View with executed cells</a>.'
-      );
-    }
-  </script>
-</div><div class="nbinput nblast docutils container">
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/fcc2082fe8d349451e2b2a0b84fac535e5c9fea1/build/gh-pages/sc3nb/examples/supercollider-objects/synthdef-examples.ipynb">build/gh-pages/sc3nb/examples/supercollider-objects/synthdef-examples.ipynb</a>.</p>
+</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -727,14 +717,10 @@ if (typeof Jupyter !== 'undefined') {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting sclang process...
-Done.
-Registering OSC /return callback in sclang...
-Done.
-Loading default SynthDescs
-Done.
-Booting SuperCollider Server...
-Done.
+Starting sclang process... Done.
+Registering OSC /return callback in sclang... Done.
+Loading default sc3nb SynthDefs... Done.
+Booting SuperCollider Server... Done.
 </pre></div></div>
 </div>
 <div class="section" id="SynthDef">
@@ -895,8 +881,6 @@ SynthDef(&#39;random&#39;, { |out|
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sclang.py:566: UserWarning: Couldn&#39;t find SynthDef supriya_synth in sclangs global SynthDescLib.
-  f&#34;Couldn&#39;t find SynthDef {synth_def} in sclangs global SynthDescLib.&#34;
 c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:71: UserWarning: SynthDesc &#39;supriya_synth&#39; is unknown. sclang does not know this SynthDef
   warnings.warn(f&#34;SynthDesc &#39;{name}&#39; is unknown. {sclang_text}&#34;)
 </pre></div></div>
@@ -1210,7 +1194,7 @@ myKlank
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20004) &#39;myKlank&#39; ~ {&#39;freq&#39;: 100, &#39;amp&#39;: 0.05, &#39;harms&#39;: ([1, 2, 6], &#39;amps&#39;, [0.1, 0.1, 0.1], &#39;rings&#39;, [1, 0.4, 0.2]), &#39;amps&#39;: [0.1, 0.1, 0.1], &#39;rings&#39;: [1, 0.4, 0.2]}&gt;
+&lt;Synth(20004) &#39;myKlank&#39; s {&#39;freq&#39;: 100, &#39;amp&#39;: 0.05, &#39;harms&#39;: ([1, 2, 6], &#39;amps&#39;, [0.1, 0.1, 0.1], &#39;rings&#39;, [1, 0.4, 0.2]), &#39;amps&#39;: [0.1, 0.1, 0.1], &#39;rings&#39;: [1, 0.4, 0.2]}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">

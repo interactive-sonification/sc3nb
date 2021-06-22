@@ -596,14 +596,14 @@ Content
          sc3nb.timed_queue.TimedQueueSC.put_bundler
          sc3nb.timed_queue.TimedQueueSC.put_msg
 
-   .. method:: put_bundler(self, onset: int, bundler: sc3nb.osc.osc_communication.Bundler) -> None
+   .. method:: put_bundler(self, onset: float, bundler: sc3nb.osc.osc_communication.Bundler) -> None
 
       Add a Bundler to queue
 
 
       :Parameters:
 
-          **onset** : int
+          **onset** : float
               Sending timetag of the Bundler
 
           **bundler** : Bundler
@@ -626,14 +626,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put_msg(self, onset: int, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
+   .. method:: put_msg(self, onset: float, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
 
       Add a message to queue
 
 
       :Parameters:
 
-          **onset** : int
+          **onset** : float
               Sending timetag of the message
 
           **msg** : Union[OSCMessage, str]

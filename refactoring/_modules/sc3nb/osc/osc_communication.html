@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.osc.osc_communication &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.osc.osc_communication &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -405,6 +405,7 @@
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">RLock</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pythonosc.dispatcher</span> <span class="kn">import</span> <span class="n">Dispatcher</span>
 <span class="kn">from</span> <span class="nn">pythonosc.osc_bundle</span> <span class="kn">import</span> <span class="n">OscBundle</span>
 <span class="kn">from</span> <span class="nn">pythonosc.osc_bundle_builder</span> <span class="kn">import</span> <span class="n">OscBundleBuilder</span>
@@ -516,6 +517,8 @@
 
         <span class="n">builder</span> <span class="o">=</span> <span class="n">OscMessageBuilder</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">msg_address</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">msg_arg</span> <span class="ow">in</span> <span class="n">msg_parameters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg_arg</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+                <span class="n">msg_arg</span> <span class="o">=</span> <span class="n">msg_arg</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
             <span class="n">builder</span><span class="o">.</span><span class="n">add_arg</span><span class="p">(</span><span class="n">msg_arg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span></div>
 

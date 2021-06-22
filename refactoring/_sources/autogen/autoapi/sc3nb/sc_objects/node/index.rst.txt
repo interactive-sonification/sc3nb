@@ -642,7 +642,8 @@ Content
            This Nodes AddActions target, by default None
 
        **server** : SCServer, optional
-           The Server for this node, by default server
+           The Server for this Node,
+           by default use the SC default server
 
 
 
@@ -1471,10 +1472,12 @@ Content
            synth control arguments, by default None
 
        **nodeid** : int, optional
-           ID of the node in SuperCollider, by default sc will create one
+           ID of the node in SuperCollider, by default sc3nb will create one.
+           Can be set to an existing id to create a Python instance of a running Node.
 
        **new** : bool, optional
            True if synth should be created on the server, by default True
+           Should be False if creating an instance of a running Node.
 
        **add_action** : AddAction or int, optional
            Where the Synth should be added, by default AddAction.TO_HEAD (0)
@@ -1531,7 +1534,7 @@ Content
    .. method:: synth_desc(self) -> Optional[Dict[str, 'SynthArgument']]
       :property:
 
-      This Synths SynthDef name.
+      A Description of this Synths arguments
 
 
 
@@ -1760,10 +1763,12 @@ Content
    :Parameters:
 
        **nodeid** : int, optional
-           ID of the node in SuperCollider, by default sc will create one
+           ID of the node in SuperCollider, by default sc3nb will create one.
+           Can be set to an existing id to create a Python instance of a running Node.
 
        **new** : bool, optional
            True if synth should be created on the server, by default True
+           Should be False if creating an instance of a running Node.
 
        **parallel** : bool, optional
            If True create a parallel group, by default False
@@ -1775,7 +1780,8 @@ Content
            AddAction target, if None it will be the default group of the server
 
        **server** : SCServer, optional
-           Server instance where this Group is located, by default the default Server
+           Server instance where this Group is located,
+           by default use the SC default server
 
 
 

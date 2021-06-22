@@ -2176,7 +2176,7 @@ Content
       :nosignatures:
 
          sc3nb.SCLang.start
-         sc3nb.SCLang._init
+         sc3nb.SCLang.init
          sc3nb.SCLang.load_synthdefs
          sc3nb.SCLang.kill
          sc3nb.SCLang.__del__
@@ -2233,7 +2233,30 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _init(self)
+   .. method:: init(self)
+
+      Initialize sclang for sc3nb usage.
+
+      This will register the /return callback in sclang and load the SynthDefs from sc3nb.
+
+      This is done automatically by running start.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None
@@ -2614,7 +2637,7 @@ Content
 
       :Parameters:
 
-          **server** : Optional[SCServer], optional
+          **server** : SCServer, optional
               SuperCollider server to connect. If None try to reconnect.
 
 
@@ -2684,7 +2707,8 @@ Content
            This Nodes AddActions target, by default None
 
        **server** : SCServer, optional
-           The Server for this node, by default server
+           The Server for this Node,
+           by default use the SC default server
 
 
 
@@ -3513,10 +3537,12 @@ Content
            synth control arguments, by default None
 
        **nodeid** : int, optional
-           ID of the node in SuperCollider, by default sc will create one
+           ID of the node in SuperCollider, by default sc3nb will create one.
+           Can be set to an existing id to create a Python instance of a running Node.
 
        **new** : bool, optional
            True if synth should be created on the server, by default True
+           Should be False if creating an instance of a running Node.
 
        **add_action** : AddAction or int, optional
            Where the Synth should be added, by default AddAction.TO_HEAD (0)
@@ -3573,7 +3599,7 @@ Content
    .. method:: synth_desc(self) -> Optional[Dict[str, 'SynthArgument']]
       :property:
 
-      This Synths SynthDef name.
+      A Description of this Synths arguments
 
 
 
@@ -3802,10 +3828,12 @@ Content
    :Parameters:
 
        **nodeid** : int, optional
-           ID of the node in SuperCollider, by default sc will create one
+           ID of the node in SuperCollider, by default sc3nb will create one.
+           Can be set to an existing id to create a Python instance of a running Node.
 
        **new** : bool, optional
            True if synth should be created on the server, by default True
+           Should be False if creating an instance of a running Node.
 
        **parallel** : bool, optional
            If True create a parallel group, by default False
@@ -3817,7 +3845,8 @@ Content
            AddAction target, if None it will be the default group of the server
 
        **server** : SCServer, optional
-           Server instance where this Group is located, by default the default Server
+           Server instance where this Group is located,
+           by default use the SC default server
 
 
 
@@ -4251,7 +4280,8 @@ Content
            This flexible content, you can dynamic replace with set_context()
 
        **sc** : SC object
-           SC instance where the synthdef should be created
+           SC instance where the synthdef should be created,
+           by default use the default SC instance
 
 
 
@@ -4342,7 +4372,8 @@ Content
               If True wait for server reply.
 
           **server** : SCServer, optional
-              Server that gets the SynthDefs, by default None
+              Server instance that gets the SynthDefs,
+              by default use the SC default server
 
 
 
@@ -4373,7 +4404,8 @@ Content
               Path with the SynthDefs
 
           **server** : SCServer, optional
-              Server that gets the SynthDefs, by default None
+              Server that gets the SynthDefs,
+              by default use the SC default server
 
 
 
@@ -4407,7 +4439,8 @@ Content
               Message to be executed by the server when loaded, by default None
 
           **server** : SCServer, optional
-              Server that gets the SynthDefs, by default None
+              Server that gets the SynthDefs,
+              by default use the SC default server
 
 
 
@@ -4570,7 +4603,8 @@ Content
               name which this SynthDef will get
 
           **server** : SCServer, optional
-              server where this SynthDef will be send to
+              Server where this SynthDef will be send to,
+              by default use the SC default server
 
       :Returns:
 
@@ -4660,12 +4694,13 @@ Content
 
    :Parameters:
 
-       **bufnum** : int
+       **bufnum** : int, optional
            buffer number to be used on scsynth. Defaults to None,
            can be set to enforce a given bufnum
 
        **server** : SCServer, optional
-           The server instance to establish the Buffer
+           The server instance to establish the Buffer,
+           by default use the SC default server
 
 
 
@@ -5943,9 +5978,25 @@ Content
 .. class:: Bus(rate: Union[(BusRate, str)], num_channels: int = 1, index: Optional[int] = None, server: Optional['SCServer'] = None)
 
 
-   Represenation of a Control or Audio Bus on the SuperCollider Server
+   Represenation of Control or Audio Bus(es) on the SuperCollider Server
 
+   If num_channels > 1 this will be represent muliple Buses in a row.
 
+   :Parameters:
+
+       **rate** : Union[BusRate, str]
+           Rate of the Bus, either control or audio
+
+       **num_channels** : int, optional
+           How many channels to allocate, by default 1
+
+       **index** : int, optional
+           Starting Bus index this Bus,
+           by default this will be handled by the servers Bus allocator.
+
+       **server** : SCServer, optional
+           Server instance for this Bus,
+           by default the default SC server instance.
 
 
 
@@ -6322,8 +6373,8 @@ Content
            size of buffer, by default 65536
 
        **server** : SCServer, optional
-           server used for recording, by default None
-           if None it will use sc3nb.SC.get_default().server
+           server used for recording,
+           by default use the SC default server
 
 
 
@@ -6955,14 +7006,14 @@ Content
          sc3nb.TimedQueueSC.put_bundler
          sc3nb.TimedQueueSC.put_msg
 
-   .. method:: put_bundler(self, onset: int, bundler: sc3nb.osc.osc_communication.Bundler) -> None
+   .. method:: put_bundler(self, onset: float, bundler: sc3nb.osc.osc_communication.Bundler) -> None
 
       Add a Bundler to queue
 
 
       :Parameters:
 
-          **onset** : int
+          **onset** : float
               Sending timetag of the Bundler
 
           **bundler** : Bundler
@@ -6985,14 +7036,14 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put_msg(self, onset: int, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
+   .. method:: put_msg(self, onset: float, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
 
       Add a message to queue
 
 
       :Parameters:
 
-          **onset** : int
+          **onset** : float
               Sending timetag of the message
 
           **msg** : Union[OSCMessage, str]

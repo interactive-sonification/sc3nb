@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sclang &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sclang &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -637,8 +637,8 @@ else it will be inserted as string</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.start" title="sc3nb.sclang.SCLang.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a></p></td>
 <td><p>Start and initilize the sclang process.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang._init" title="sc3nb.sclang.SCLang._init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_init</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.init" title="sc3nb.sclang.SCLang.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
+<td><p>Initialize sclang for sc3nb usage.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sclang.SCLang.load_synthdefs" title="sc3nb.sclang.SCLang.load_synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_synthdefs</span></code></a></p></td>
 <td><p>Load SynthDef files from path.</p></td>
@@ -712,9 +712,12 @@ else it will be inserted as string</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sclang.SCLang._init">
-<code class="sig-name descname"><span class="pre">_init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/sclang.html#SCLang._init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sclang.SCLang._init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="sc3nb.sclang.SCLang.init">
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/sclang.html#SCLang.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sclang.SCLang.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize sclang for sc3nb usage.</p>
+<p>This will register the /return callback in sclang and load the SynthDefs from sc3nb.</p>
+<p>This is done automatically by running start.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="sc3nb.sclang.SCLang.load_synthdefs">
@@ -914,7 +917,7 @@ OSC packet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>server</strong><span class="classifier">Optional[SCServer], optional</span></dt><dd><p>SuperCollider server to connect. If None try to reconnect.</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>SuperCollider server to connect. If None try to reconnect.</p>
 </dd>
 </dl>
 </dd>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Nodes (Synth and Group) &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>Nodes (Synth and Group) &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -664,19 +664,9 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-  This page was generated from
-  <a class="reference external" href="https://github.com/interactive-sonfication/sc3nb/blob/0.1.1.dev118+g466e4ca/examples/supercollider-objects/node-examples.ipynb">examples/supercollider-objects/node-examples.ipynb</a>.
-  <br>
-  <script>
-    if (document.location.host) {
-      $(document.currentScript).replaceWith(
-        '<a class="reference external" ' +
-        'href="https://interactive-sonification.github.io/sc3nb/' +
-        window.location.pathname>View with executed cells</a>.'
-      );
-    }
-  </script>
-</div><div class="nbinput nblast docutils container">
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/fcc2082fe8d349451e2b2a0b84fac535e5c9fea1/build/gh-pages/sc3nb/examples/supercollider-objects/node-examples.ipynb">build/gh-pages/sc3nb/examples/supercollider-objects/node-examples.ipynb</a>.</p>
+</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -727,14 +717,10 @@ if (typeof Jupyter !== 'undefined') {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting sclang process...
-Done.
-Registering OSC /return callback in sclang...
-Done.
-Loading default SynthDescs
-Done.
-Booting SuperCollider Server...
-Done.
+Starting sclang process... Done.
+Registering OSC /return callback in sclang... Done.
+Loading default sc3nb SynthDefs... Done.
+Booting SuperCollider Server... Done.
 </pre></div></div>
 </div>
 <div class="section" id="Nodes-(Synth-and-Group)">
@@ -756,6 +742,8 @@ Done.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
+   -24 s2
+     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 lg: 0.10000000149012 gate: 1
    469762049 group
    402653185 group
    335544321 group
@@ -976,7 +964,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -994,7 +982,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <p>Run a paused synth</p>
@@ -1013,7 +1001,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <p>You can also wait for a Synth</p>
@@ -1443,9 +1431,9 @@ NODE TREE Group 0
    201326593 group
    134217729 group
    67108865 group
-      20003 group
       20001 s2
         freq: 594 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
+      20003 group
    1 group
 </pre></div></div>
 </div>
@@ -1829,7 +1817,7 @@ Group(0)  {} children=[
       &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       Group(20006) ~ {} children=[
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 570.5940551757812, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>

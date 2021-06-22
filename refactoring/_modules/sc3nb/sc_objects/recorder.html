@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.recorder &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.recorder &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -438,8 +438,8 @@
 <span class="sd">        bufsize : int, optional</span>
 <span class="sd">            size of buffer, by default 65536</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            server used for recording, by default None</span>
-<span class="sd">            if None it will use sc3nb.SC.get_default().server</span>
+<span class="sd">            server used for recording,</span>
+<span class="sd">            by default use the SC default server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RecorderState</span><span class="o">.</span><span class="n">UNPREPARED</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>

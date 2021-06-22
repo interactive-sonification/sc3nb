@@ -361,7 +361,7 @@ Content
       :nosignatures:
 
          sc3nb.sclang.SCLang.start
-         sc3nb.sclang.SCLang._init
+         sc3nb.sclang.SCLang.init
          sc3nb.sclang.SCLang.load_synthdefs
          sc3nb.sclang.SCLang.kill
          sc3nb.sclang.SCLang.__del__
@@ -418,7 +418,30 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _init(self)
+   .. method:: init(self)
+
+      Initialize sclang for sc3nb usage.
+
+      This will register the /return callback in sclang and load the SynthDefs from sc3nb.
+
+      This is done automatically by running start.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None
@@ -799,7 +822,7 @@ Content
 
       :Parameters:
 
-          **server** : Optional[SCServer], optional
+          **server** : SCServer, optional
               SuperCollider server to connect. If None try to reconnect.
 
 

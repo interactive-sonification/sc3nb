@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.bus &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.bus &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -439,7 +439,7 @@
 <td><p>Calculation rate of Buses</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.bus.Bus" title="sc3nb.sc_objects.bus.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></p></td>
-<td><p>Represenation of a Control or Audio Bus on the SuperCollider Server</p></td>
+<td><p>Represenation of Control or Audio Bus(es) on the SuperCollider Server</p></td>
 </tr>
 </tbody>
 </table>
@@ -500,7 +500,24 @@
 <dl class="py class">
 <dt id="sc3nb.sc_objects.bus.Bus">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.bus.</span></code><code class="sig-name descname"><span class="pre">Bus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.sc_objects.bus.BusRate" title="sc3nb.sc_objects.bus.BusRate"><span class="pre">BusRate</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/bus.html#Bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.bus.Bus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represenation of a Control or Audio Bus on the SuperCollider Server</p>
+<dd><p>Represenation of Control or Audio Bus(es) on the SuperCollider Server</p>
+<p>If num_channels &gt; 1 this will be represent muliple Buses in a row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rate</strong><span class="classifier">Union[BusRate, str]</span></dt><dd><p>Rate of the Bus, either control or audio</p>
+</dd>
+<dt><strong>num_channels</strong><span class="classifier">int, optional</span></dt><dd><p>How many channels to allocate, by default 1</p>
+</dd>
+<dt><strong>index</strong><span class="classifier">int, optional</span></dt><dd><p>Starting Bus index this Bus,
+by default this will be handled by the servers Bus allocator.</p>
+</dd>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance for this Bus,
+by default the default SC server instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p><strong>Overview:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>

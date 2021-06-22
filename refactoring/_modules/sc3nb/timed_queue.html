@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.timed_queue &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.timed_queue &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -636,12 +636,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">relative_time</span><span class="p">,</span> <span class="n">thread_sleep_time</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
 
-<div class="viewcode-block" id="TimedQueueSC.put_bundler"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC.put_bundler">[docs]</a>    <span class="k">def</span> <span class="nf">put_bundler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bundler</span><span class="p">:</span> <span class="n">Bundler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TimedQueueSC.put_bundler"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC.put_bundler">[docs]</a>    <span class="k">def</span> <span class="nf">put_bundler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">bundler</span><span class="p">:</span> <span class="n">Bundler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Add a Bundler to queue</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        onset : int</span>
+<span class="sd">        onset : float</span>
 <span class="sd">            Sending timetag of the Bundler</span>
 <span class="sd">        bundler : Bundler</span>
 <span class="sd">            Bundler that will be sent</span>
@@ -649,13 +649,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">bundler</span><span class="o">.</span><span class="n">send</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TimedQueueSC.put_msg"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC.put_msg">[docs]</a>    <span class="k">def</span> <span class="nf">put_msg</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">msg_params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">msg_params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Add a message to queue</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        onset : int</span>
+<span class="sd">        onset : float</span>
 <span class="sd">            Sending timetag of the message</span>
 <span class="sd">        msg : Union[OSCMessage, str]</span>
 <span class="sd">            OSCMessage or OSC address</span>

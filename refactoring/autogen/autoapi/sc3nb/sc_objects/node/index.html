@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.node &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.node &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -755,7 +755,8 @@
 </dd>
 <dt><strong>target</strong><span class="classifier">Node or int or None, optional</span></dt><dd><p>This Nodes AddActions target, by default None</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The Server for this node, by default server</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The Server for this Node,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -1253,9 +1254,11 @@ If a int is provided it will be returned</p>
 </dd>
 <dt><strong>controls</strong><span class="classifier">dict, optional</span></dt><dd><p>synth control arguments, by default None</p>
 </dd>
-<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc will create one</p>
+<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc3nb will create one.
+Can be set to an existing id to create a Python instance of a running Node.</p>
 </dd>
-<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True</p>
+<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True
+Should be False if creating an instance of a running Node.</p>
 </dd>
 <dt><strong>add_action</strong><span class="classifier">AddAction or int, optional</span></dt><dd><p>Where the Synth should be added, by default AddAction.TO_HEAD (0)</p>
 </dd>
@@ -1285,7 +1288,7 @@ If a int is provided it will be returned</p>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.sc_objects.node.Synth.synth_desc" title="sc3nb.sc_objects.node.Synth.synth_desc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synth_desc</span></code></a></p></td>
-<td><p>This Synths SynthDef name.</p></td>
+<td><p>A Description of this Synths arguments</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.sc_objects.node.Synth.name" title="sc3nb.sc_objects.node.Synth.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>This Synths SynthDef name.</p></td>
@@ -1321,7 +1324,7 @@ If a int is provided it will be returned</p>
 <dl class="py method">
 <dt id="sc3nb.sc_objects.node.Synth.synth_desc">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">synth_desc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional[Dict[str,</span> <span class="pre">‘SynthArgument’]]</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/node.html#Synth.synth_desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.node.Synth.synth_desc" title="Permalink to this definition">¶</a></dt>
-<dd><p>This Synths SynthDef name.</p>
+<dd><p>A Description of this Synths arguments</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1393,9 +1396,11 @@ If a int is provided it will be returned</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc will create one</p>
+<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc3nb will create one.
+Can be set to an existing id to create a Python instance of a running Node.</p>
 </dd>
-<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True</p>
+<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True
+Should be False if creating an instance of a running Node.</p>
 </dd>
 <dt><strong>parallel</strong><span class="classifier">bool, optional</span></dt><dd><p>If True create a parallel group, by default False</p>
 </dd>
@@ -1403,7 +1408,8 @@ If a int is provided it will be returned</p>
 </dd>
 <dt><strong>target</strong><span class="classifier">Node or int, optional</span></dt><dd><p>AddAction target, if None it will be the default group of the server</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance where this Group is located, by default the default Server</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance where this Group is located,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>

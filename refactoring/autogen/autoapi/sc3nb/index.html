@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -496,7 +496,7 @@ as well as playing recording and visualizing audio.</p>
 <td><p>A Buffer object represents a SuperCollider3 Buffer on scsynth</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bus" title="sc3nb.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></p></td>
-<td><p>Represenation of a Control or Audio Bus on the SuperCollider Server</p></td>
+<td><p>Represenation of Control or Audio Bus(es) on the SuperCollider Server</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Recorder" title="sc3nb.Recorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Recorder</span></code></a></p></td>
 <td><p>Allows to record audio easily.</p></td>
@@ -1588,8 +1588,8 @@ If True sc3nb will not wait for the server response, by default False</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.SCLang.start" title="sc3nb.SCLang.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a></p></td>
 <td><p>Start and initilize the sclang process.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.SCLang._init" title="sc3nb.SCLang._init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_init</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.SCLang.init" title="sc3nb.SCLang.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a></p></td>
+<td><p>Initialize sclang for sc3nb usage.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.SCLang.load_synthdefs" title="sc3nb.SCLang.load_synthdefs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_synthdefs</span></code></a></p></td>
 <td><p>Load SynthDef files from path.</p></td>
@@ -1663,9 +1663,12 @@ If True sc3nb will not wait for the server response, by default False</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.SCLang._init">
-<code class="sig-name descname"><span class="pre">_init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.SCLang._init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="sc3nb.SCLang.init">
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.SCLang.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize sclang for sc3nb usage.</p>
+<p>This will register the /return callback in sclang and load the SynthDefs from sc3nb.</p>
+<p>This is done automatically by running start.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="sc3nb.SCLang.load_synthdefs">
@@ -1865,7 +1868,7 @@ OSC packet.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>server</strong><span class="classifier">Optional[SCServer], optional</span></dt><dd><p>SuperCollider server to connect. If None try to reconnect.</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>SuperCollider server to connect. If None try to reconnect.</p>
 </dd>
 </dl>
 </dd>
@@ -1897,7 +1900,8 @@ OSC packet.</p>
 </dd>
 <dt><strong>target</strong><span class="classifier">Node or int or None, optional</span></dt><dd><p>This Nodes AddActions target, by default None</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The Server for this node, by default server</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The Server for this Node,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -2395,9 +2399,11 @@ If a int is provided it will be returned</p>
 </dd>
 <dt><strong>controls</strong><span class="classifier">dict, optional</span></dt><dd><p>synth control arguments, by default None</p>
 </dd>
-<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc will create one</p>
+<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc3nb will create one.
+Can be set to an existing id to create a Python instance of a running Node.</p>
 </dd>
-<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True</p>
+<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True
+Should be False if creating an instance of a running Node.</p>
 </dd>
 <dt><strong>add_action</strong><span class="classifier">AddAction or int, optional</span></dt><dd><p>Where the Synth should be added, by default AddAction.TO_HEAD (0)</p>
 </dd>
@@ -2427,7 +2433,7 @@ If a int is provided it will be returned</p>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Synth.synth_desc" title="sc3nb.Synth.synth_desc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">synth_desc</span></code></a></p></td>
-<td><p>This Synths SynthDef name.</p></td>
+<td><p>A Description of this Synths arguments</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Synth.name" title="sc3nb.Synth.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p>This Synths SynthDef name.</p></td>
@@ -2463,7 +2469,7 @@ If a int is provided it will be returned</p>
 <dl class="py method">
 <dt id="sc3nb.Synth.synth_desc">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">synth_desc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional[Dict[str,</span> <span class="pre">‘SynthArgument’]]</span><a class="headerlink" href="#sc3nb.Synth.synth_desc" title="Permalink to this definition">¶</a></dt>
-<dd><p>This Synths SynthDef name.</p>
+<dd><p>A Description of this Synths arguments</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2535,9 +2541,11 @@ If a int is provided it will be returned</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc will create one</p>
+<dt><strong>nodeid</strong><span class="classifier">int, optional</span></dt><dd><p>ID of the node in SuperCollider, by default sc3nb will create one.
+Can be set to an existing id to create a Python instance of a running Node.</p>
 </dd>
-<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True</p>
+<dt><strong>new</strong><span class="classifier">bool, optional</span></dt><dd><p>True if synth should be created on the server, by default True
+Should be False if creating an instance of a running Node.</p>
 </dd>
 <dt><strong>parallel</strong><span class="classifier">bool, optional</span></dt><dd><p>If True create a parallel group, by default False</p>
 </dd>
@@ -2545,7 +2553,8 @@ If a int is provided it will be returned</p>
 </dd>
 <dt><strong>target</strong><span class="classifier">Node or int, optional</span></dt><dd><p>AddAction target, if None it will be the default group of the server</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance where this Group is located, by default the default Server</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance where this Group is located,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -2829,7 +2838,8 @@ already created synths of this definition</p>
 should be in double brackets (“…{{flexibleContent}}…”).
 This flexible content, you can dynamic replace with set_context()</p>
 </dd>
-<dt><strong>sc</strong><span class="classifier">SC object</span></dt><dd><p>SC instance where the synthdef should be created</p>
+<dt><strong>sc</strong><span class="classifier">SC object</span></dt><dd><p>SC instance where the synthdef should be created,
+by default use the default SC instance</p>
 </dd>
 </dl>
 </dd>
@@ -2912,7 +2922,8 @@ This flexible content, you can dynamic replace with set_context()</p>
 </dd>
 <dt><strong>wait</strong><span class="classifier">bool</span></dt><dd><p>If True wait for server reply.</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs, by default None</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance that gets the SynthDefs,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -2928,7 +2939,8 @@ This flexible content, you can dynamic replace with set_context()</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>synthdef_path</strong><span class="classifier">str</span></dt><dd><p>Path with the SynthDefs</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs, by default None</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -2946,7 +2958,8 @@ This flexible content, you can dynamic replace with set_context()</p>
 </dd>
 <dt><strong>completion_msg</strong><span class="classifier">bytes, optional</span></dt><dd><p>Message to be executed by the server when loaded, by default None</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs, by default None</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server that gets the SynthDefs,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -3045,7 +3058,8 @@ will only return the name.</p>
 </dd>
 <dt><strong>name</strong><span class="classifier">str, optional</span></dt><dd><p>name which this SynthDef will get</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>server where this SynthDef will be send to</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server where this SynthDef will be send to,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -3094,10 +3108,11 @@ methods of the Buffer objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>bufnum</strong><span class="classifier">int</span></dt><dd><p>buffer number to be used on scsynth. Defaults to None,
+<dt><strong>bufnum</strong><span class="classifier">int, optional</span></dt><dd><p>buffer number to be used on scsynth. Defaults to None,
 can be set to enforce a given bufnum</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The server instance to establish the Buffer</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>The server instance to establish the Buffer,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -4020,7 +4035,24 @@ contents of the buffer, by default False</p>
 <dl class="py class">
 <dt id="sc3nb.Bus">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.</span></code><code class="sig-name descname"><span class="pre">Bus</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">BusRate</span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/sc3nb/sc_objects/bus.html#Bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Bus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represenation of a Control or Audio Bus on the SuperCollider Server</p>
+<dd><p>Represenation of Control or Audio Bus(es) on the SuperCollider Server</p>
+<p>If num_channels &gt; 1 this will be represent muliple Buses in a row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rate</strong><span class="classifier">Union[BusRate, str]</span></dt><dd><p>Rate of the Bus, either control or audio</p>
+</dd>
+<dt><strong>num_channels</strong><span class="classifier">int, optional</span></dt><dd><p>How many channels to allocate, by default 1</p>
+</dd>
+<dt><strong>index</strong><span class="classifier">int, optional</span></dt><dd><p>Starting Bus index this Bus,
+by default this will be handled by the servers Bus allocator.</p>
+</dd>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>Server instance for this Bus,
+by default the default SC server instance.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p><strong>Overview:</strong></p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -4243,8 +4275,8 @@ Multiple values if this bus has num_channels &gt; 1</p>
 </dd>
 <dt><strong>bufsize</strong><span class="classifier">int, optional</span></dt><dd><p>size of buffer, by default 65536</p>
 </dd>
-<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>server used for recording, by default None
-if None it will use sc3nb.SC.get_default().server</p>
+<dt><strong>server</strong><span class="classifier">SCServer, optional</span></dt><dd><p>server used for recording,
+by default use the SC default server</p>
 </dd>
 </dl>
 </dd>
@@ -4620,12 +4652,12 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 </table>
 <dl class="py method">
 <dt id="sc3nb.TimedQueueSC.put_bundler">
-<code class="sig-name descname"><span class="pre">put_bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundler</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">sc3nb.osc.osc_communication.Bundler</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.TimedQueueSC.put_bundler" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">put_bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundler</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="osc/osc_communication/index.html#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">sc3nb.osc.osc_communication.Bundler</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.TimedQueueSC.put_bundler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a Bundler to queue</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>onset</strong><span class="classifier">int</span></dt><dd><p>Sending timetag of the Bundler</p>
+<dt><strong>onset</strong><span class="classifier">float</span></dt><dd><p>Sending timetag of the Bundler</p>
 </dd>
 <dt><strong>bundler</strong><span class="classifier">Bundler</span></dt><dd><p>Bundler that will be sent</p>
 </dd>
@@ -4636,12 +4668,12 @@ If this is exceeded the event will be dropped, by default 0.5</p>
 
 <dl class="py method">
 <dt id="sc3nb.TimedQueueSC.put_msg">
-<code class="sig-name descname"><span class="pre">put_msg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.OSCMessage" title="sc3nb.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.TimedQueueSC.put_msg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">put_msg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.OSCMessage" title="sc3nb.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="headerlink" href="#sc3nb.TimedQueueSC.put_msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a message to queue</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>onset</strong><span class="classifier">int</span></dt><dd><p>Sending timetag of the message</p>
+<dt><strong>onset</strong><span class="classifier">float</span></dt><dd><p>Sending timetag of the message</p>
 </dd>
 <dt><strong>msg</strong><span class="classifier">Union[OSCMessage, str]</span></dt><dd><p>OSCMessage or OSC address</p>
 </dd>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.server &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.server &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -866,7 +866,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;already booted&quot;</span><span class="p">)</span>
             <span class="k">return</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Booting SuperCollider Server...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Booting SuperCollider Server... &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_local</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span> <span class="o">=</span> <span class="n">LOCALHOST</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span>
@@ -888,17 +888,16 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="nb">print</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;SuperCollider Server port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> already used.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">SuperCollider Server port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> already used.&quot;</span>
                 <span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span> <span class="o">!=</span> <span class="n">SCSYNTH_DEFAULT_PORT</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">&quot;The specified UDP port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> is already used&quot;</span>
                     <span class="p">)</span> <span class="kn">from</span> <span class="nn">process_timeout</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trying to connect.&quot;</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">,</span> <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span>
-                    <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trying to connect.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">,</span> <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed booting SuperCollider Server.&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="n">process_timeout</span>

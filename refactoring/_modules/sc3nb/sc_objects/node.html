@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.node &mdash; sc3nb 0.1.1.dev118+g466e4ca documentation</title>
+  <title>sc3nb.sc_objects.node &mdash; sc3nb 0.1.1.dev131+gfcc2082 documentation</title>
   
 
   
@@ -575,7 +575,8 @@
 <span class="sd">        target : Node or int or None, optional</span>
 <span class="sd">            This Nodes AddActions target, by default None</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            The Server for this node, by default server</span>
+<span class="sd">            The Server for this Node,</span>
+<span class="sd">            by default use the SC default server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
         <span class="k">if</span> <span class="n">nodeid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
@@ -1174,9 +1175,11 @@
 <span class="sd">        controls : dict, optional</span>
 <span class="sd">            synth control arguments, by default None</span>
 <span class="sd">        nodeid : int, optional</span>
-<span class="sd">            ID of the node in SuperCollider, by default sc will create one</span>
+<span class="sd">            ID of the node in SuperCollider, by default sc3nb will create one.</span>
+<span class="sd">            Can be set to an existing id to create a Python instance of a running Node.</span>
 <span class="sd">        new : bool, optional</span>
 <span class="sd">            True if synth should be created on the server, by default True</span>
+<span class="sd">            Should be False if creating an instance of a running Node.</span>
 <span class="sd">        add_action : AddAction or int, optional</span>
 <span class="sd">            Where the Synth should be added, by default AddAction.TO_HEAD (0)</span>
 <span class="sd">        target : Node or int, optional</span>
@@ -1237,7 +1240,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Synth.synth_desc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.Synth.synth_desc">[docs]</a>    <span class="k">def</span> <span class="nf">synth_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;SynthArgument&quot;</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;This Synths SynthDef name.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;A Description of this Synths arguments&quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_lock</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synth_desc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_synth_desc</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
@@ -1405,9 +1408,11 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        nodeid : int, optional</span>
-<span class="sd">            ID of the node in SuperCollider, by default sc will create one</span>
+<span class="sd">            ID of the node in SuperCollider, by default sc3nb will create one.</span>
+<span class="sd">            Can be set to an existing id to create a Python instance of a running Node.</span>
 <span class="sd">        new : bool, optional</span>
 <span class="sd">            True if synth should be created on the server, by default True</span>
+<span class="sd">            Should be False if creating an instance of a running Node.</span>
 <span class="sd">        parallel : bool, optional</span>
 <span class="sd">            If True create a parallel group, by default False</span>
 <span class="sd">        add_action : AddAction or int, optional</span>
@@ -1415,7 +1420,8 @@
 <span class="sd">        target : Node or int, optional</span>
 <span class="sd">            AddAction target, if None it will be the default group of the server</span>
 <span class="sd">        server : SCServer, optional</span>
-<span class="sd">            Server instance where this Group is located, by default the default Server</span>
+<span class="sd">            Server instance where this Group is located,</span>
+<span class="sd">            by default use the SC default server</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
         <span class="k">if</span> <span class="n">nodeid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
