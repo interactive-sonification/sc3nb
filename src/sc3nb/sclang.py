@@ -208,14 +208,10 @@ class SCLang:
         self._server: Optional[SCServer] = None
         self.started: bool = False
         self._port: int = SCLANG_DEFAULT_PORT
-        if sys.platform.startswith("linux"):
-            self.prompt_str = "sc3>"
-            self.ending = "\n"
-        elif sys.platform == "darwin":
-            self.prompt_str = "->"
+        self._repl_return = "->"
+        if sys.platform.startswith("linux") or sys.platform == "darwin":
             self.ending = "\n"
         elif sys.platform == "win32":
-            self.prompt_str = "->"
             self.ending = "\n\f"
         else:
             raise NotImplementedError("Unsupported OS {}".format(sys.platform))
@@ -304,12 +300,11 @@ class SCLang:
                 };""",
             pyvars={"replyAddress": ReplyAddress.RETURN_ADDR},
         )
-        self.read(expect=self.prompt_str)
+        self.read(expect=self._repl_return)
         print("Done.")
 
         print("Loading default sc3nb SynthDefs... ", end="")
         self.load_synthdefs()
-        self.read(expect=self.prompt_str)
         print("Done.")
 
     def load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None:
@@ -330,6 +325,7 @@ class SCLang:
                 );""",
                 pyvars={"synthdefs_path": path.as_posix()},
             )
+            self.read(expect=self._repl_return)
 
         if synthdefs_path is None:
             ref = libresources.files(sc3nb.resources) / "synthdefs"
@@ -467,15 +463,13 @@ class SCLang:
                 raise SCLangError(
                     "unable to receive /return message from sclang", sclang_output=out
                 ) from empty_exception
-        if verbose or get_output:
-            # get output after current command
-            out = self.read(expect=self.prompt_str, timeout=timeout)
+        out = self.read(expect=self._repl_return, timeout=timeout)
+        if verbose:
             if sys.platform == "darwin":
                 out = out[out.find(";\n") + 2 :]  # skip code echo
             print(out)
-            if get_output and not get_result:
-                return_val = out
-
+        if get_output and not get_result:
+            return_val = out
         return return_val
 
     def cmdv(self, code: str, **kwargs) -> Any:
@@ -527,8 +521,8 @@ class SCLang:
                 error_str = "Timeout while reading sclang"
                 if expect:
                     error_str += (
-                        f'\nexpected: "{expect}"' " (sclang prompt)"
-                        if expect is self.prompt_str
+                        f'\nexpected: "{expect}"' " (sclang return value)"
+                        if expect is self._repl_return
                         else ""
                     )
                 error_str += "\noutput until timeout below: (also see console)"
@@ -559,20 +553,14 @@ class SCLang:
             When synthDesc of synthDef can not be found.
         """
         code = r""" "sc3nb - Get SynthDesc of {{synthDef}}".postln;
-                SynthDescLib.global['{{synthDef}}'].controls.collect(
-                { arg control;
-                [control.name, control.rate, control.defaultValue]
+                SynthDescLib.global['{{synthDef}}'].notNil.if({
+                    SynthDescLib.global['{{synthDef}}'].controls.collect(
+                        { | control | [control.name, control.rate, control.defaultValue] }
+                    )
                 })""".replace(
             "{{synthDef}}", synth_def
         )
-        try:
-            synth_desc = self.cmds(code, get_result=True, print_error=False)
-        except SCLangError:  # this will fail if sclang does not know this synth
-            warnings.warn(
-                f"Couldn't find SynthDef {synth_def} in sclangs global SynthDescLib."
-            )
-            synth_desc = None
-
+        synth_desc = self.cmds(code, get_result=True, print_error=False)
         if synth_desc:
             return {
                 s[0]: SynthArgument(s[0], *s[1:]) for s in synth_desc if s[0] != "?"

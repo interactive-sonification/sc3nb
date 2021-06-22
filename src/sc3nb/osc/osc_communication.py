@@ -15,6 +15,7 @@ from queue import Empty, Queue
 from threading import RLock
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 
+import numpy as np
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_bundle import OscBundle
 from pythonosc.osc_bundle_builder import OscBundleBuilder
@@ -126,6 +127,8 @@ class OSCMessage:
 
         builder = OscMessageBuilder(address=msg_address)
         for msg_arg in msg_parameters:
+            if isinstance(msg_arg, np.number):
+                msg_arg = msg_arg.item()
             builder.add_arg(msg_arg)
         return builder.build()
 
