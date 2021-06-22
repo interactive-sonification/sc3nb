@@ -604,7 +604,7 @@ class SCLang:
             self.read(expect="too many users", timeout=0.3, print_error=False)
         except ProcessTimeout:
             self._server = server
-            self._server.add_init_hook(self.cmds("s.initTree;"))
+            self._server.add_init_hook(self.cmds, "s.initTree;")
             self._port = self.cmdg("NetAddr.langPort", verbose=False)
             _LOGGER.info("Connecting %s with %s", self._server, self)
             self._server.connect_sclang(port=self._port)
