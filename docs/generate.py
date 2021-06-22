@@ -76,7 +76,6 @@ def main():
                 os.startfile(url)
             else:
                 raise NotImplementedError("'show' is not available for your platform")
-
     else:
         generate_gh_pages(
             out_folder=args.out,
@@ -100,18 +99,16 @@ def _handle_remove_readonly(func, path, exc):
         raise RuntimeError(f"Failed to remove {path}")
 
 
-def build_doc(source, out, target, override: Optional[str] = None):
-    print(
-        f"Generating documentation for {f'{target}/{override}' if override else f'{target}'}..."
-    )
+def build_doc(source, out, target, additional_options: Optional[str] = ""):
+    print(f"Generating documentation for {target} {additional_options} ...")
     # prevents __pycache__ files which we don't need when code runs only once.
     sys.dont_write_bytecode = True
-    exec_str = f'sphinx-build -b {target} {f"-D {override}" if override else ""} {source} {out}/{target}'
+    exec_str = f"sphinx-build -b {target} {additional_options} {source} {out}/{target}"
     print(exec_str)
     res = os.system(exec_str)
     if res != 0:
         raise RuntimeError(
-            f'Could not generate documentation for {f"{target}/{override}" if override else f"{target}"}. Build returned status code {res}!'
+            f"Could not generate documentation for {target} {additional_options}. Build returned status code {res}!"
         )
 
 
@@ -187,12 +184,11 @@ def generate_gh_pages(
                 shutil.rmtree(f"{repo}/docs/source/_templates")
             shutil.copytree(template_folder, f"{repo}/docs/source/_templates")
 
-        override = f"version={d} -A versions={','.join(doclist)}"
         build_doc(
             source=os.path.join(repo, "docs/source/"),
             out=os.path.join(build_folder, d),
             target="html",
-            override=override,
+            additional_options=f"-D version={d} -A versions={','.join(doclist)}",
         )
 
     # create index html to forward to last tagged version

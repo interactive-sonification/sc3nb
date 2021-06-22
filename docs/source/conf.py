@@ -6,6 +6,7 @@
 
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -35,6 +36,20 @@ html_context = dict(versions=str(version))
 # -- General configuration ---------------------------------------------------
 
 on_rtd = os.environ.get("READTHEDOCS") == "True"
+
+try:
+    git_rev = subprocess.check_output(
+        ["git", "describe", "--exact-match", "HEAD"], universal_newlines=True
+    )
+except subprocess.CalledProcessError:
+    try:
+        git_rev = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], universal_newlines=True
+        )
+    except subprocess.CalledProcessError:
+        git_rev = ""
+if git_rev:
+    git_rev = git_rev.splitlines()[0] + "/"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -109,26 +124,26 @@ nbsphinx_execute_arguments = [
 ]
 
 # This is processed by Jinja2 and inserted before each notebook
-nbsphinx_prolog = r"""
-{% set docname = env.doc2path(env.docname, base=None)|replace("\\","/")|replace("autogen/notebooks","examples")|replace("nblink","ipynb") %}
+nbsphinx_prolog = (
+    r"""
+{% if env.metadata[env.docname]['nbsphinx-link-target'] %}
+{% set docpath = env.metadata[env.docname]['nbsphinx-link-target'] %}
+{% else %}
+{% set docpath = env.doc2path(env.docname, base='docs/source/') %}
+{% endif %}
 
-.. raw:: html
+.. only:: html
 
-    <div class="admonition note">
-      This page was generated from
-      <a class="reference external" href="https://github.com/interactive-sonfication/sc3nb/blob/{{ env.config.release|e }}/{{ docname|e }}">{{ docname|e }}</a>.
-      <br>
-      <script>
-        if (document.location.host) {
-          $(document.currentScript).replaceWith(
-            '<a class="reference external" ' +
-            'href="https://interactive-sonification.github.io/sc3nb/' +
-            window.location.pathname +
-            '>View with executed cells</a>.'
-          );
-        }
-      </script>
-    </div>
+    .. role:: raw-html(raw)
+        :format: html
+
+    .. nbinfo::
+        This page was generated from `{{ docpath }}`__.
+
+    __ https://github.com/interactive-sonification/sc3nb/blob/"""
+    + git_rev
+    + r"{{ docpath }}"
+    + r"""
 
 .. raw:: latex
 
@@ -137,11 +152,13 @@ nbsphinx_prolog = r"""
     \sphinxcode{\sphinxupquote{\strut {{ docname | escape_latex }}}} \dotfill}}
 
 """
+)
 
 # This is processed by Jinja2 and inserted after each notebook
 nbsphinx_epilog = r"""
 {% set docname = 'doc/' + env.doc2path(env.docname, base=None) %}
 .. raw:: latex
+
     \nbsphinxstopnotebook{\scriptsize\noindent\strut
     \textcolor{gray}{\dotfill\ \sphinxcode{\sphinxupquote{\strut
     {{ docname | escape_latex }}}} ends here.}}
@@ -174,9 +191,9 @@ def strip_notebooks(path):
 
 
 def extract_notebooks_from_doc(path, subdir):
-    print("Extracting notebooks from doc source files (.rst)")
+    print("Extracting notebooks from doc source files")
     all_notebooks = []
-    for filepath in Path(path).glob("**/*.rst"):
+    for filepath in Path(path).glob("**/*.md"):
         with open(filepath) as file:
             content = file.read()
         notebooks = [
