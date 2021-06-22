@@ -476,7 +476,7 @@ class SCServer(OSCCommunication):
         if self._has_booted:
             warnings.warn("already booted")
             return
-        print("Booting SuperCollider Server...")
+        print("Booting SuperCollider Server... ", end="")
         self._is_local = True
         self._scsynth_address = LOCALHOST
         self._scsynth_port = self.options.udp_port
@@ -498,17 +498,16 @@ class SCServer(OSCCommunication):
                 self.process.kill()
                 self.process = None
                 print(
-                    f"SuperCollider Server port {self.options.udp_port} already used."
+                    f"\nSuperCollider Server port {self.options.udp_port} already used."
                 )
                 if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
                     raise ValueError(
                         f"The specified UDP port {self.options.udp_port} is already used"
                     ) from process_timeout
-                else:
-                    print("Trying to connect.")
-                    self.remote(
-                        self._scsynth_address, self._scsynth_port, with_blip=with_blip
-                    )
+                print("Trying to connect.")
+                self.remote(
+                    self._scsynth_address, self._scsynth_port, with_blip=with_blip
+                )
             else:
                 print("Failed booting SuperCollider Server.")
                 raise process_timeout

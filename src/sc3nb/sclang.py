@@ -250,7 +250,7 @@ class SCLang:
         if self.started:
             warnings.warn("sclang arlready started")
             return
-        print("Starting sclang process...")
+        print("Starting sclang process... ", end="")
         self.process = Process(
             executable="sclang",
             executable_path=sclang_path,
@@ -307,7 +307,7 @@ class SCLang:
         self.read(expect=self.prompt_str)
         print("Done.")
 
-        print("Loading default SynthDescs")
+        print("Loading default sc3nb SynthDefs... ", end="")
         self.load_synthdefs()
         self.read(expect=self.prompt_str)
         print("Done.")
