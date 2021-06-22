@@ -300,7 +300,6 @@ class SCLang:
                 };""",
             pyvars={"replyAddress": ReplyAddress.RETURN_ADDR},
         )
-        self.read(expect=self._repl_return)
         print("Done.")
 
         print("Loading default sc3nb SynthDefs... ", end="")
@@ -325,7 +324,6 @@ class SCLang:
                 );""",
                 pyvars={"synthdefs_path": path.as_posix()},
             )
-            self.read(expect=self._repl_return)
 
         if synthdefs_path is None:
             ref = libresources.files(sc3nb.resources) / "synthdefs"

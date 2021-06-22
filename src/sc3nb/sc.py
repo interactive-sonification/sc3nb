@@ -220,7 +220,7 @@ class SC:
                 )
             except Exception as excep:
                 self._sclang = None
-                raise RuntimeError(f"Starting scsynth failed - {excep}") from excep
+                raise RuntimeError(f"Starting sclang failed - {excep}") from excep
             else:
                 self._try_to_connect()
         else:
