@@ -201,14 +201,14 @@ class Process:
         self.output_reader_thread.start()
 
     def _read_loop(self):
-        os.write(1, f"{self.executable} start reading\n".encode())
+        os.write(1, f"[{self.executable} | start reading ]\n".encode())
         for line in iter(self.popen.stdout.readline, ""):
             line = ANSI_ESCAPE.sub("", line)
             if self.console_logging:
                 # print to jupyter console...
                 os.write(1, f"[{self.executable}]  {line}".encode())
             self.output_queue.put(line)
-        os.write(1, f"{self.executable} reached EOF\n".encode())
+        os.write(1, f"[{self.executable} | reached EOF ]\n".encode())
         return
 
     def read(self, expect: Optional[str] = None, timeout: float = 3) -> str:
