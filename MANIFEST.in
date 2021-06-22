@@ -1,0 +1,20 @@
+include tox.ini
+include .coveragerc
+include LICENSE
+
+include *.txt
+include *.yaml
+include *.md
+
+graft src
+graft tests
+graft examples
+
+recursive-include sccode *.scd
+
+graft docs
+recursive-exclude docs/source/autogen *
+recursive-exclude docs/build *
+
+global-exclude *.py[cod]
+global-exclude .ipynb_checkpoints/*

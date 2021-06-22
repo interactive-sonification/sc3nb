@@ -1,0 +1,31 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: mixed-line-ending
+    -   id: check-yaml
+    -   id: check-toml
+    -   id: check-ast
+    -   id: check-builtin-literals
+    -   id: check-merge-conflict
+-   repo: https://github.com/psf/black
+    rev: 21.5b1
+    hooks:
+    -   id: black
+        language_version: python3
+- repo: https://github.com/pycqa/isort
+  rev: 5.8.0
+  hooks:
+    -   id: isort
+        args: ["--profile", "black", "--filter-files"]
+#- repo: https://github.com/mgedmin/check-manifest
+#  rev: "0.46"
+#  hooks:
+#    -   id: check-manifest
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.4.0
+  hooks:
+    - id: nbstripout
+      args: [--extra-keys="metadata.kernelspec metadata.language_info"]

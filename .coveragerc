@@ -1,0 +1,14 @@
+[paths]
+source =
+   src
+   */site-packages
+
+[run]
+branch = true
+parallel = true
+source =
+    sc3nb
+
+[report]
+show_missing = true
+precision = 2

@@ -1,0 +1,27 @@
+# .readthedocs.yaml
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+sphinx:
+   configuration: docs/source/conf.py
+
+# Build all formats
+formats: all
+
+python:
+  version: 3.7
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+# TODO currently readthedocs uses ubuntu18.04, this is old
+# it also does not support starting supercollider as it lacks X server support.
+# https://docs.readthedocs.io/en/stable/config-file/v2.html#build-apt-packages
+build:
+  image: latest
+  apt_packages:
+    - portaudio19-dev
