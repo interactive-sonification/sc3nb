@@ -58,7 +58,7 @@ class Bus:
     ) -> None:
         self._server = server or sc3nb.SC.get_default().server
         self._num_channels = num_channels
-        self._rate = rate
+        self._rate = BusRate(rate)
         if index is None:
             if self._rate is BusRate.AUDIO:
                 self._bus_idxs = self._server.allocate_audio_bus_idx(self._num_channels)
@@ -247,4 +247,4 @@ class Bus:
             self.free()
 
     def __repr__(self) -> str:
-        return f"Bus({self.rate}, ids={self._bus_idxs})"
+        return f"Bus(rate='{self.rate}', ids={self._bus_idxs})"
