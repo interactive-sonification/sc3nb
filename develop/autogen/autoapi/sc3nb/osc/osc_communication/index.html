@@ -1,0 +1,1528 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sc3nb.osc.osc_communication &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="sc3nb.osc.parsing" href="../parsing/index.html" />
+    <link rel="prev" title="sc3nb.osc" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> sc3nb
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                develop
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../README.html">sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../README.html#usage">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../info.html">How does this work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../support.html">Support, Caveats and Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../resources.html">Useful Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../CHANGELOG.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/sclang-examples.html">Usage of sclang in sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../supercolliderobjects.html">SuperCollider objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html">Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/bus-examples.html">Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/recorder-examples.html">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/helper-examples.html">Helper functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#function-list">Function List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#class-list">Class List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../index.html#content">Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.startup">startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SC">SC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SCServer">SCServer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.ServerOptions">ServerOptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SCLang">SCLang</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Node">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Synth">Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Group">Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.AddAction">AddAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.SynthDef">SynthDef</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Buffer">Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Recorder">Recorder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueue">TimedQueue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.OSCMessage">OSCMessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.Bundler">Bundler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.linlin">linlin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.midicps">midicps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.cpsmidi">cpsmidi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.clip">clip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.dbamp">dbamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../index.html#sc3nb.ampdb">ampdb</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../resources/index.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../sc_objects/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../helpers/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../magics/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../process_handling/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../sc/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../sclang/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTORS.html#id1">Contributors</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">sc3nb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a> &raquo;</li>
+        
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc.osc_communication</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/autogen/autoapi/sc3nb/osc/osc_communication/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-sc3nb.osc.osc_communication">
+<span id="sc3nb-osc-osc-communication"></span><h1><a class="reference internal" href="#module-sc3nb.osc.osc_communication" title="sc3nb.osc.osc_communication"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc.osc_communication</span></code></a><a class="headerlink" href="#module-sc3nb.osc.osc_communication" title="Permalink to this headline">¶</a></h1>
+<p>OSC communication</p>
+<p>Classes and functions to communicate with SuperCollider
+using the Open Sound Control (OSC) protocol over UDP</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="function-list">
+<h3>Function List<a class="headerlink" href="#function-list" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.convert_to_sc3nb_osc" title="sc3nb.osc.osc_communication.convert_to_sc3nb_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_to_sc3nb_osc</span></code></a></p></td>
+<td><p>Get binary OSC representation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="class-list">
+<h3>Class List<a class="headerlink" href="#class-list" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OSCMessage</span></code></a></p></td>
+<td><p>Class for creating messages to send over OSC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bundler</span></code></a></p></td>
+<td><p>Class for creating OSCBundles and bundling of messages</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageHandler" title="sc3nb.osc.osc_communication.MessageHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageHandler</span></code></a></p></td>
+<td><p>Base class for Message Handling</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue" title="sc3nb.osc.osc_communication.MessageQueue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageQueue</span></code></a></p></td>
+<td><p>Queue to retrieve OSC messages send to the corresponding OSC address</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueueCollection" title="sc3nb.osc.osc_communication.MessageQueueCollection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MessageQueueCollection</span></code></a></p></td>
+<td><p>A collection of MessageQueues that are all sent to one and the same first address.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication" title="sc3nb.osc.osc_communication.OSCCommunication"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OSCCommunication</span></code></a></p></td>
+<td><p>Class to send and receive OSC messages and bundles.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="content">
+<h3>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
+<dl class="py data">
+<dt id="sc3nb.osc.osc_communication._LOGGER">
+<code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">_LOGGER</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#_LOGGER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication._LOGGER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.osc.osc_communication.OSCMessage">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">OSCMessage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg_address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for creating messages to send over OSC</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_address</strong><span class="classifier">str</span></dt><dd><p>OSC message address</p>
+</dd>
+<dt><strong>msg_parameters</strong><span class="classifier">Optional[Union[Sequence]], optional</span></dt><dd><p>OSC message parameters, by default None</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.dgram" title="sc3nb.osc.osc_communication.OSCMessage.dgram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dgram</span></code></a></p></td>
+<td><p>datagram of OSC message</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.raw_osc" title="sc3nb.osc.osc_communication.OSCMessage.raw_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">raw_osc</span></code></a></p></td>
+<td><p>raw OSC representation - same as <a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.dgram" title="sc3nb.osc.osc_communication.OSCMessage.dgram"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dgram</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.parameters" title="sc3nb.osc.osc_communication.OSCMessage.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a></p></td>
+<td><p>OSC message parameters</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.address" title="sc3nb.osc.osc_communication.OSCMessage.address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">address</span></code></a></p></td>
+<td><p>OSC message address</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.to_pythonosc" title="sc3nb.osc.osc_communication.OSCMessage.to_pythonosc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pythonosc</span></code></a></p></td>
+<td><p>Return python-osc OscMessage</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage._build_message" title="sc3nb.osc.osc_communication.OSCMessage._build_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_build_message</span></code></a></p></td>
+<td><p>Builds pythonsosc OSC message.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.__repr__" title="sc3nb.osc.osc_communication.OSCMessage.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage.dgram">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">dgram</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage.dgram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage.dgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>datagram of OSC message</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage.raw_osc">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">raw_osc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage.raw_osc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage.raw_osc" title="Permalink to this definition">¶</a></dt>
+<dd><p>raw OSC representation - same as <a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage.dgram" title="sc3nb.osc.osc_communication.OSCMessage.dgram"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dgram</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage.parameters">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">parameters</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage.parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>OSC message parameters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage.address">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">address</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage.address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>OSC message address</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage.to_pythonosc">
+<code class="sig-name descname"><span class="pre">to_pythonosc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_message.OscMessage</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage.to_pythonosc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage.to_pythonosc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return python-osc OscMessage</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage._build_message">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_build_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg_address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_message.OscMessage</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage._build_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage._build_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds pythonsosc OSC message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_address</strong><span class="classifier">str</span></dt><dd><p>SuperCollider address.</p>
+</dd>
+<dt><strong>msg_parameters</strong><span class="classifier">list, optional</span></dt><dd><p>List of parameters to add to message.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>OscMessage</dt><dd><p>Message ready to be sent.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCMessage.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCMessage.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCMessage.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.osc.osc_communication.Bundler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">Bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘OSCCommunication’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_on_exit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for creating OSCBundles and bundling of messages</p>
+<p>Create a Bundler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>timetag</strong><span class="classifier">float, optional</span></dt><dd><p>Starting time at which bundle content should be executed.
+If timetag &gt; 1e6 it is interpreted as POSIX time.
+If timetag &lt;= 1e6 it is assumed to be relative value in seconds
+and is added to time.time(), by default 0, i.e. ‘now’.</p>
+</dd>
+<dt><strong>msg</strong><span class="classifier">OSCMessage or str, optional</span></dt><dd><p>OSCMessage or message address, by default None</p>
+</dd>
+<dt><strong>msg_params</strong><span class="classifier">sequence of any type, optional</span></dt><dd><p>Parameters for the message, by default None</p>
+</dd>
+<dt><strong>server</strong><span class="classifier">OSCCommunication, optional</span></dt><dd><p>OSC server, by default None</p>
+</dd>
+<dt><strong>receiver</strong><span class="classifier">Union[str, Tuple[str, int]], optional</span></dt><dd><p>Where to send the bundle, by default send to default receiver of server</p>
+</dd>
+<dt><strong>send_on_exit</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether the bundle is sent when using as context manager, by default True</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.dgram" title="sc3nb.osc.osc_communication.Bundler.dgram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dgram</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.wait" title="sc3nb.osc.osc_communication.Bundler.wait"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait</span></code></a></p></td>
+<td><p>Add time to internal time</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.add" title="sc3nb.osc.osc_communication.Bundler.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a></p></td>
+<td><p>Add content to this Bundler.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.messages" title="sc3nb.osc.osc_communication.Bundler.messages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">messages</span></code></a></p></td>
+<td><p>Generate a dict with all messages in this Bundler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.send" title="sc3nb.osc.osc_communication.Bundler.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
+<td><p>Send this Bundler.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.to_raw_osc" title="sc3nb.osc.osc_communication.Bundler.to_raw_osc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_raw_osc</span></code></a></p></td>
+<td><p>Create a raw OSC Bundle from this bundler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.to_pythonosc" title="sc3nb.osc.osc_communication.Bundler.to_pythonosc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_pythonosc</span></code></a></p></td>
+<td><p>Build this bundle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler._calc_timetag" title="sc3nb.osc.osc_communication.Bundler._calc_timetag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_calc_timetag</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.__deepcopy__" title="sc3nb.osc.osc_communication.Bundler.__deepcopy__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__deepcopy__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.__enter__" title="sc3nb.osc.osc_communication.Bundler.__enter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__enter__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.__exit__" title="sc3nb.osc.osc_communication.Bundler.__exit__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__exit__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler.__repr__" title="sc3nb.osc.osc_communication.Bundler.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.dgram">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">dgram</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.dgram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.dgram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.wait">
+<code class="sig-name descname"><span class="pre">wait</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_passed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.wait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add time to internal time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>time_passed</strong><span class="classifier">float</span></dt><dd><p>How much seconds should be passed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.add">
+<code class="sig-name descname"><span class="pre">add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">sc3nb.osc.osc_communication.Bundler</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add content to this Bundler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>args</strong><span class="classifier">OSCMessage or Bundler or Bundler arguments like</span></dt><dd><p>(timetag, msg_addr, msg_params)
+(timetag, msg_addr)
+(timetag, msg)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Bundler</dt><dd><p>self for chaining</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.messages">
+<code class="sig-name descname"><span class="pre">messages</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a dict with all messages in this Bundler.</p>
+<p>They dict key is the time tag of the messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>start time when using relative timing, by default 0.0</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Dict[float, List[OSCMessage]]</dt><dd><p>dict containg all OSCMessages</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.send">
+<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘OSCCommunication’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send this Bundler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>server</strong><span class="classifier">OSCCommunication, optional</span></dt><dd><p>Server instance for sending the bundle.
+If None it will use the server from init
+or try to use sc3nb.SC.get_default().server, by default None</p>
+</dd>
+<dt><strong>receiver</strong><span class="classifier">Tuple[str, int], optional</span></dt><dd><p>Address (ip, port) to send to, if None it will send the bundle to
+the default receiver of the Bundler</p>
+</dd>
+<dt><strong>bundle</strong><span class="classifier">bool, optional</span></dt><dd><p>If True this is allowed to be bundled, by default True</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><dl class="simple">
+<dt>RuntimeError</dt><dd><p>When no server could be found.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.to_raw_osc">
+<code class="sig-name descname"><span class="pre">to_raw_osc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.to_raw_osc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.to_raw_osc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a raw OSC Bundle from this bundler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relative timing, by default time.time()</p>
+</dd>
+<dt><strong>delay: float, optinal</strong></dt><dd><p>used to delay the timing.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>OscBundle</dt><dd><p>bundle instance for sending</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.to_pythonosc">
+<code class="sig-name descname"><span class="pre">to_pythonosc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_bundle.OscBundle</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.to_pythonosc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.to_pythonosc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build this bundle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start_time</strong><span class="classifier">Optional[float], optional</span></dt><dd><p>used as start time when using relative timing, by default time.time()</p>
+</dd>
+<dt><strong>delay: float, optinal</strong></dt><dd><p>used to delay the timing.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>OscBundle</dt><dd><p>bundle instance for sending</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler._calc_timetag">
+<code class="sig-name descname"><span class="pre">_calc_timetag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler._calc_timetag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler._calc_timetag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.__deepcopy__">
+<code class="sig-name descname"><span class="pre">__deepcopy__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memo</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">sc3nb.osc.osc_communication.Bundler</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.__deepcopy__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.__deepcopy__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.__enter__">
+<code class="sig-name descname"><span class="pre">__enter__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.__enter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.__enter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.__exit__">
+<code class="sig-name descname"><span class="pre">__exit__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_traceback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.__exit__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.__exit__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.Bundler.__repr__">
+<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#Bundler.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.Bundler.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="sc3nb.osc.osc_communication.convert_to_sc3nb_osc">
+<code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">convert_to_sc3nb_osc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">Bundler</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">OscMessage</span><span class="p"><span class="pre">,</span> </span><span class="pre">OscBundle</span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">Bundler</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#convert_to_sc3nb_osc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.convert_to_sc3nb_osc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get binary OSC representation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>package</strong><span class="classifier">Union[OscMessage, Bundler, OscBundle]</span></dt><dd><p>OSC Package object</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>bytes</dt><dd><p>raw OSC binary representation of OSC Package</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If package is not supported</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.osc.osc_communication.MessageHandler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">MessageHandler</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/abc.html#abc.ABC" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>Base class for Message Handling</p>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageHandler.map_values" title="sc3nb.osc.osc_communication.MessageHandler.map_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_values</span></code></a></p></td>
+<td><p>Values used to setup mapping</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageHandler.put" title="sc3nb.osc.osc_communication.MessageHandler.put"><code class="xref py py-obj docutils literal notranslate"><span class="pre">put</span></code></a></p></td>
+<td><p>Add message to MessageHandler</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageHandler.map_values">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">map_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageHandler.map_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageHandler.map_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values used to setup mapping</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>Tuple[str, Callable]</dt><dd><p>OSC address, corresponding callback</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageHandler.put">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageHandler.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageHandler.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add message to MessageHandler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>address</strong><span class="classifier">str</span></dt><dd><p>Message address</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.osc.osc_communication.MessageQueue">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">MessageQueue</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference internal" href="#sc3nb.osc.osc_communication.MessageHandler" title="sc3nb.osc.osc_communication.MessageHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">sc3nb.osc.osc_communication.MessageHandler</span></code></a></p>
+<p>Queue to retrieve OSC messages send to the corresponding OSC address</p>
+<p>Create a new AddressQueue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>address</strong><span class="classifier">str</span></dt><dd><p>OSC address for this queue</p>
+</dd>
+<dt><strong>preprocess</strong><span class="classifier">function, optional</span></dt><dd><dl class="simple">
+<dt>function that will be applied to the value before they are enqueued</dt><dd><p>(Default value = None)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.put" title="sc3nb.osc.osc_communication.MessageQueue.put"><code class="xref py py-obj docutils literal notranslate"><span class="pre">put</span></code></a></p></td>
+<td><p>Add a message to MessageQueue</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.skips" title="sc3nb.osc.osc_communication.MessageQueue.skips"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skips</span></code></a></p></td>
+<td><p>Counts how many times this queue was not synced</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.size" title="sc3nb.osc.osc_communication.MessageQueue.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
+<td><p>How many items are in this queue</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.skipped" title="sc3nb.osc.osc_communication.MessageQueue.skipped"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skipped</span></code></a></p></td>
+<td><p>Skipp one queue value</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.map_values" title="sc3nb.osc.osc_communication.MessageQueue.map_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_values</span></code></a></p></td>
+<td><p>Values needed for dispatcher map call</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.get" title="sc3nb.osc.osc_communication.MessageQueue.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a></p></td>
+<td><p>Returns a value from the queue</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue.show" title="sc3nb.osc.osc_communication.MessageQueue.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a></p></td>
+<td><p>Print the content of the queue.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue._repr_pretty_" title="sc3nb.osc.osc_communication.MessageQueue._repr_pretty_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_repr_pretty_</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.put">
+<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a message to MessageQueue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>address</strong><span class="classifier">str</span></dt><dd><p>message address</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.skips">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">skips</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.skips"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.skips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts how many times this queue was not synced</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.size">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many items are in this queue</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.skipped">
+<code class="sig-name descname"><span class="pre">skipped</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.skipped"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.skipped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skipp one queue value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.map_values">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">map_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.map_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.map_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values needed for dispatcher map call</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple</dt><dd><p>(OSC address pattern, callback function)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a value from the queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>timeout</strong><span class="classifier">int, optional</span></dt><dd><p>Time in seconds that will be waited on the queue, by default 5</p>
+</dd>
+<dt><strong>skip</strong><span class="classifier">bool, optional</span></dt><dd><p>If True the queue will skip as many values as <cite>skips</cite>, by default True</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>obj</dt><dd><p>value from queue</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>Empty</dt><dd><p>If the queue has no value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the content of the queue.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueue._repr_pretty_">
+<code class="sig-name descname"><span class="pre">_repr_pretty_</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueue._repr_pretty_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueue._repr_pretty_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.osc.osc_communication.MessageQueueCollection">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">MessageQueueCollection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_addrs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueueCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueueCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference internal" href="#sc3nb.osc.osc_communication.MessageHandler" title="sc3nb.osc.osc_communication.MessageHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">sc3nb.osc.osc_communication.MessageHandler</span></code></a></p>
+<p>A collection of MessageQueues that are all sent to one and the same first address.</p>
+<p>Create a collection of MessageQueues under the same first address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>address</strong><span class="classifier">str</span></dt><dd><p>first message address that is the same for all MessageQueues</p>
+</dd>
+<dt><strong>sub_addrs</strong><span class="classifier">Optional[Sequence[str]], optional</span></dt><dd><p>secound message addresses with seperate queues, by default None
+Additional MessageQueues will be created on demand.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueueCollection.put" title="sc3nb.osc.osc_communication.MessageQueueCollection.put"><code class="xref py py-obj docutils literal notranslate"><span class="pre">put</span></code></a></p></td>
+<td><p>Add a message to the corresponding MessageQueue</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueueCollection.map_values" title="sc3nb.osc.osc_communication.MessageQueueCollection.map_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map_values</span></code></a></p></td>
+<td><p>Values needed for dispatcher map call</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueueCollection.__contains__" title="sc3nb.osc.osc_communication.MessageQueueCollection.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueueCollection.__getitem__" title="sc3nb.osc.osc_communication.MessageQueueCollection.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueueCollection.put">
+<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueueCollection.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueueCollection.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a message to the corresponding MessageQueue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>address</strong><span class="classifier">str</span></dt><dd><p>first message address</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueueCollection.map_values">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">map_values</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueueCollection.map_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueueCollection.map_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values needed for dispatcher map call</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple</dt><dd><p>(OSC address pattern, callback function)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueueCollection.__contains__">
+<code class="sig-name descname"><span class="pre">__contains__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueueCollection.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueueCollection.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.MessageQueueCollection.__getitem__">
+<code class="sig-name descname"><span class="pre">__getitem__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#MessageQueueCollection.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.MessageQueueCollection.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="sc3nb.osc.osc_communication.OSCCommunicationError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">OSCCommunicationError</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunicationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunicationError" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Exception for OSCCommunication errors.</p>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.osc.osc_communication.</span></code><code class="sig-name descname"><span class="pre">OSCCommunication</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_ip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">server_port</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_receiver_ip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_receiver_port</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to send and receive OSC messages and bundles.</p>
+<p>Create an OSC communication server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>server_ip</strong><span class="classifier">str</span></dt><dd><p>IP address to use for this server</p>
+</dd>
+<dt><strong>server_port</strong><span class="classifier">int</span></dt><dd><p>port to use for this server</p>
+</dd>
+<dt><strong>default_receiver_ip</strong><span class="classifier">str</span></dt><dd><p>IP address used for sending by default</p>
+</dd>
+<dt><strong>default_receiver_port</strong><span class="classifier">int</span></dt><dd><p>port used for sending by default</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.osc_server" title="sc3nb.osc.osc_communication.OSCCommunication.osc_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">osc_server</span></code></a></p></td>
+<td><p>Underlying OSC server</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.add_msg_pairs" title="sc3nb.osc.osc_communication.OSCCommunication.add_msg_pairs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_msg_pairs</span></code></a></p></td>
+<td><p>Add the provided pairs for message receiving.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue" title="sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_msg_queue</span></code></a></p></td>
+<td><p>Add a MessageQueue to this servers dispatcher</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue_collection" title="sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue_collection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_msg_queue_collection</span></code></a></p></td>
+<td><p>Add a MessageQueueCollection</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.msg_queues" title="sc3nb.osc.osc_communication.OSCCommunication.msg_queues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">msg_queues</span></code></a></p></td>
+<td><p>Dict with all added MessageQueues</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.reply_addresses" title="sc3nb.osc.osc_communication.OSCCommunication.reply_addresses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reply_addresses</span></code></a></p></td>
+<td><p>Dict with all addresses and the replies</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication._check_sender" title="sc3nb.osc.osc_communication.OSCCommunication._check_sender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_check_sender</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.lookup_receiver" title="sc3nb.osc.osc_communication.OSCCommunication.lookup_receiver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lookup_receiver</span></code></a></p></td>
+<td><p>Reverse lookup the address of a specific receiver</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.connection_info" title="sc3nb.osc.osc_communication.OSCCommunication.connection_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connection_info</span></code></a></p></td>
+<td><p>Get information about the known addresses</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.add_receiver" title="sc3nb.osc.osc_communication.OSCCommunication.add_receiver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_receiver</span></code></a></p></td>
+<td><p>Adds a receiver with the specified address.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.send" title="sc3nb.osc.osc_communication.OSCCommunication.send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send</span></code></a></p></td>
+<td><p>Sends OSC packet</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message" title="sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_handle_outgoing_message</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.get_reply_address" title="sc3nb.osc.osc_communication.OSCCommunication.get_reply_address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reply_address</span></code></a></p></td>
+<td><p>Get the corresponding reply address for the given address</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.msg" title="sc3nb.osc.osc_communication.OSCCommunication.msg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">msg</span></code></a></p></td>
+<td><p>Creates and sends OSC message over UDP.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.bundler" title="sc3nb.osc.osc_communication.OSCCommunication.bundler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bundler</span></code></a></p></td>
+<td><p>Generate a Bundler.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCCommunication.quit" title="sc3nb.osc.osc_communication.OSCCommunication.quit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quit</span></code></a></p></td>
+<td><p>Shuts down the sc3nb OSC server</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.osc_server">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">osc_server</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pythonosc.osc_server.OSCUDPServer</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.osc_server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.osc_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Underlying OSC server</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.add_msg_pairs">
+<code class="sig-name descname"><span class="pre">add_msg_pairs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_pairs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.add_msg_pairs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.add_msg_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the provided pairs for message receiving.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_pairs</strong><span class="classifier">dict[str, str], optional</span></dt><dd><p>dict containing user specified message pairs.
+{msg_addr: reply_addr}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue">
+<code class="sig-name descname"><span class="pre">add_msg_queue</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_queue</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue" title="sc3nb.osc.osc_communication.MessageQueue"><span class="pre">sc3nb.osc.osc_communication.MessageQueue</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.add_msg_queue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a MessageQueue to this servers dispatcher</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_queue</strong><span class="classifier">MessageQueue</span></dt><dd><p>new MessageQueue</p>
+</dd>
+<dt><strong>out_addr</strong><span class="classifier">Optional[str], optional</span></dt><dd><p>The outgoing message address that belongs to this MessageQeue, by default None</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue_collection">
+<code class="sig-name descname"><span class="pre">add_msg_queue_collection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_queue_collection</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueueCollection" title="sc3nb.osc.osc_communication.MessageQueueCollection"><span class="pre">sc3nb.osc.osc_communication.MessageQueueCollection</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.add_msg_queue_collection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a MessageQueueCollection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_queue_collection</strong><span class="classifier">MessageQueueCollection</span></dt><dd><p>MessageQueueCollection to be added</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.msg_queues">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">msg_queues</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#sc3nb.osc.osc_communication.MessageQueue" title="sc3nb.osc.osc_communication.MessageQueue"><span class="pre">MessageQueue</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.msg_queues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.msg_queues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict with all added MessageQueues</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>Dict[str, MessageQueue]</dt><dd><p>Queue address, MessageQueue pairs</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.reply_addresses">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">reply_addresses</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.reply_addresses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.reply_addresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict with all addresses and the replies</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>Dict[str, str]</dt><dd><p>Outgoing address, incoming address</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication._check_sender">
+<code class="sig-name descname"><span class="pre">_check_sender</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication._check_sender"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication._check_sender" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.lookup_receiver">
+<code class="sig-name descname"><span class="pre">lookup_receiver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.lookup_receiver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.lookup_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse lookup the address of a specific receiver</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>receiver</strong><span class="classifier">str</span></dt><dd><p>Receiver name.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Tuple[str, int]</dt><dd><p>Receiver address (ip, port)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>KeyError</dt><dd><p>If receiver is unknown.</p>
+</dd>
+<dt>ValueError</dt><dd><p>If the type of the receiver argument is wrong.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.connection_info">
+<code class="sig-name descname"><span class="pre">connection_info</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_info</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.connection_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.connection_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information about the known addresses</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>print_info</strong><span class="classifier">bool, optional</span></dt><dd><dl class="simple">
+<dt>If True print connection information</dt><dd><p>(Default value = True)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>containing the address of this sc3nb OSC Server
+and known receivers addresses in a dict with their names as values</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.add_receiver">
+<code class="sig-name descname"><span class="pre">add_receiver</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.add_receiver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.add_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a receiver with the specified address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>Name of receiver.</p>
+</dd>
+<dt><strong>ip_address</strong><span class="classifier">str</span></dt><dd><p>IP address of receiver (e.g. “127.0.0.1”)</p>
+</dd>
+<dt><strong>port</strong><span class="classifier">int</span></dt><dd><p>Port of the receiver</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.send">
+<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">Bundler</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">await_reply</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends OSC packet</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>package</strong><span class="classifier">OSCMessage or Bundler</span></dt><dd><p>Object with <cite>dgram</cite> attribute.</p>
+</dd>
+<dt><strong>receiver</strong><span class="classifier">str or Tuple[str, int], optional</span></dt><dd><p>Where to send the packet, by default send to default receiver</p>
+</dd>
+<dt><strong>bundle</strong><span class="classifier">bool, optional</span></dt><dd><p>If True it is allowed to bundle the package with bundling, by default False.</p>
+</dd>
+<dt><strong>await_reply</strong><span class="classifier">bool, optional</span></dt><dd><p>If True ask for reply from the server and return it,
+otherwise send the message and return None directly, by default True.
+If the package is bundled None will be returned.</p>
+</dd>
+<dt><strong>timeout</strong><span class="classifier">int, optional</span></dt><dd><p>timeout in seconds for reply, by default 5</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>None or reply</dt><dd><p>None if no reply was received or awaited else reply.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>When the provided package is not supported.</p>
+</dd>
+<dt>OSCCommunicationError</dt><dd><p>When the handling of a package fails.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message">
+<code class="sig-name descname"><span class="pre">_handle_outgoing_message</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">sc3nb.osc.osc_communication.OSCMessage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver_address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">await_reply</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication._handle_outgoing_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication._handle_outgoing_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.get_reply_address">
+<code class="sig-name descname"><span class="pre">get_reply_address</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.get_reply_address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.get_reply_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the corresponding reply address for the given address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_address</strong><span class="classifier">str</span></dt><dd><p>outgoing message address</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str or None</dt><dd><p>Corresponding reply address if available</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.msg">
+<code class="sig-name descname"><span class="pre">msg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bundle</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">await_reply</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and sends OSC message over UDP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>msg_addr</strong><span class="classifier">str</span></dt><dd><p>SuperCollider address of the OSC message</p>
+</dd>
+<dt><strong>msg_params</strong><span class="classifier">Optional[Sequence], optional</span></dt><dd><p>List of paramters of the OSC message, by default None</p>
+</dd>
+<dt><strong>bundle</strong><span class="classifier">bool, optional</span></dt><dd><p>If True it is allowed to bundle the content with bundling, by default False</p>
+</dd>
+<dt><strong>receiver</strong><span class="classifier">tuple[str, int], optional</span></dt><dd><p>(IP address, port) to send the message, by default send to default receiver</p>
+</dd>
+<dt><strong>await_reply</strong><span class="classifier">bool, optional</span></dt><dd><p>If True send message and wait for reply
+otherwise send the message and return directly, by default True</p>
+</dd>
+<dt><strong>timeout</strong><span class="classifier">float, optional</span></dt><dd><p>timeout in seconds for reply, by default 5</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>obj</dt><dd><p>reply if await_reply and there is a reply for this</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.bundler">
+<code class="sig-name descname"><span class="pre">bundler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timetag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">OSCMessage</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_on_exit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.osc.osc_communication.Bundler" title="sc3nb.osc.osc_communication.Bundler"><span class="pre">sc3nb.osc.osc_communication.Bundler</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.bundler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.bundler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a Bundler.</p>
+<p>This allows the user to easly add messages/bundles and send it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>timetag</strong><span class="classifier">int</span></dt><dd><p>Time at which bundle content should be executed.
+If timetag &lt;= 1e6 it is added to time.time().</p>
+</dd>
+<dt><strong>msg</strong><span class="classifier">OSCMessage or str, optional</span></dt><dd><p>OSCMessage or message address, by default None</p>
+</dd>
+<dt><strong>msg_params</strong><span class="classifier">sequence of any type, optional</span></dt><dd><p>Parameters for the message, by default None</p>
+</dd>
+<dt><strong>send_on_exit</strong><span class="classifier">bool, optional</span></dt><dd><p>Whether the bundle is sent when using as context manager, by default True</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Bundler</dt><dd><p>bundler for OSC bundling.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="sc3nb.osc.osc_communication.OSCCommunication.quit">
+<code class="sig-name descname"><span class="pre">quit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/osc/osc_communication.html#OSCCommunication.quit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.osc.osc_communication.OSCCommunication.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shuts down the sc3nb OSC server</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../parsing/index.html" class="btn btn-neutral float-right" title="sc3nb.osc.parsing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="sc3nb.osc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
