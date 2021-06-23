@@ -103,7 +103,7 @@ def build_doc(source, out, target, additional_options: Optional[str] = ""):
     print(f"Generating documentation for {target} {additional_options} ...")
     # prevents __pycache__ files which we don't need when code runs only once.
     sys.dont_write_bytecode = True
-    exec_str = f"sphinx-build -b {target} {additional_options} {source} {out}/{target}"
+    exec_str = f"sphinx-build -b {target} {additional_options} {source} {out}{target}"
     print(exec_str)
     res = os.system(exec_str)
     if res != 0:

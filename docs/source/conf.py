@@ -46,10 +46,13 @@ except subprocess.CalledProcessError:
         git_rev = subprocess.check_output(
             ["git", "rev-parse", "HEAD"], universal_newlines=True
         )
-    except subprocess.CalledProcessError:
-        git_rev = ""
+    except subprocess.CalledProcessError as error:
+        print(f"Failed to get git_rev - {error}")
+        print(f"Using 'develop' instead")
+        git_rev = "develop"
 if git_rev:
-    git_rev = git_rev.splitlines()[0] + "/"
+    git_rev = git_rev.splitlines()[0]
+    print(f"Using git_rev={git_rev}")
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -127,7 +130,7 @@ nbsphinx_execute_arguments = [
 nbsphinx_prolog = (
     r"""
 {% if env.metadata[env.docname]['nbsphinx-link-target'] %}
-{% set docpath = env.metadata[env.docname]['nbsphinx-link-target'] %}
+{% set docpath = env.docname |replace("autogen/notebooks", "examples") + ".ipynb" %}
 {% else %}
 {% set docpath = env.doc2path(env.docname, base='docs/source/') %}
 {% endif %}
@@ -140,28 +143,30 @@ nbsphinx_prolog = (
     .. nbinfo::
         This page was generated from `{{ docpath }}`__.
 
-    __ https://github.com/interactive-sonification/sc3nb/blob/"""
-    + git_rev
-    + r"{{ docpath }}"
-    + r"""
+    __ https://github.com/interactive-sonification/sc3nb/blob/""" + git_rev + r"""/{{ docpath }}
 
 .. raw:: latex
 
     \nbsphinxstartnotebook{\scriptsize\noindent\strut
     \textcolor{gray}{The following section was generated from
-    \sphinxcode{\sphinxupquote{\strut {{ docname | escape_latex }}}} \dotfill}}
+    \sphinxcode{\sphinxupquote{\strut {{ docpath | escape_latex }}}} \dotfill}}
 
 """
 )
 
 # This is processed by Jinja2 and inserted after each notebook
 nbsphinx_epilog = r"""
-{% set docname = 'doc/' + env.doc2path(env.docname, base=None) %}
+{% if env.metadata[env.docname]['nbsphinx-link-target'] %}
+{% set docpath = env.docname |replace("autogen/notebooks", "examples") + ".ipynb" %}
+{% else %}
+{% set docpath = env.doc2path(env.docname, base='docs/source/') %}
+{% endif %}
+
 .. raw:: latex
 
     \nbsphinxstopnotebook{\scriptsize\noindent\strut
     \textcolor{gray}{\dotfill\ \sphinxcode{\sphinxupquote{\strut
-    {{ docname | escape_latex }}}} ends here.}}
+    {{ docpath | escape_latex }}}} ends here.}}
 """
 
 # TODO currently readthedocs uses ubuntu18.04, this is old
