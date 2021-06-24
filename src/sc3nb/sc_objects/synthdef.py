@@ -16,6 +16,7 @@ else:
 
 import sc3nb
 import sc3nb.resources
+from sc3nb.util import parse_pyvars, replace_vars
 
 if TYPE_CHECKING:
     from sc3nb.sc import SC
