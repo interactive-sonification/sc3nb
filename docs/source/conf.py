@@ -6,6 +6,7 @@
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -143,7 +144,9 @@ nbsphinx_prolog = (
     .. nbinfo::
         This page was generated from `{{ docpath }}`__.
 
-    __ https://github.com/interactive-sonification/sc3nb/blob/""" + git_rev + r"""/{{ docpath }}
+    __ https://github.com/interactive-sonification/sc3nb/blob/"""
+    + git_rev
+    + r"""/{{ docpath }}
 
 .. raw:: latex
 
@@ -190,7 +193,7 @@ def strip_notebooks(path):
             if r == 0:
                 print(f"  Stripped {notebook} - {r}")
             else:
-                print("Error stripping {notebook}")
+                print(f"Error stripping {notebook}")
             retval += r
     return retval
 
@@ -226,7 +229,8 @@ def generate_notebook_links(
         if ".ipynb_checkpoints" not in str(nb_path)
     ]
     links_path = Path(doc_dir + link_subdir)
-
+    if links_path.exists():
+        shutil.rmtree(links_path, ignore_errors=True)
     linked = []
     for notebook in notebooks_to_link:
         matches = [nb_path for nb_path in nb_paths if notebook in nb_path.as_posix()]

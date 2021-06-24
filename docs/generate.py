@@ -50,7 +50,9 @@ def main():
         default=f"{git_root}/docs/source/",
         help="input folder (ignored for doctree)",
     )
-    parser.add_argument("--out", default=f"{git_root}/build/docs/", help="output folder")
+    parser.add_argument(
+        "--out", default=f"{git_root}/build/docs/", help="output folder"
+    )
     parser.add_argument(
         "--template-folder",
         default=f"{git_root}/docs/source/_templates",

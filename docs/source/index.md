@@ -1,10 +1,10 @@
 # Welcome to sc3nb's documentation!
 
 ```{toctree}
-:caption: Introduction
+:caption: Overview
 :maxdepth: 4
 
-README
+README & Installation <README>
 info
 support
 resources
@@ -19,7 +19,7 @@ CHANGELOG
 autogen/notebooks/sc3nb-examples
 autogen/notebooks/sclang-examples
 supercolliderobjects
-autogen/notebooks/osc-communication-example
+autogen/notebooks/osc-communication-examples
 autogen/notebooks/helper-examples
 autogen/notebooks/timedqueue-examples
 
