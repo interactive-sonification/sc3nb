@@ -794,7 +794,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.007999897003173828
+0.005998134613037109
 </pre></div></div>
 </div>
 <p>Note that the code returns immediately, allowing you to interact with jupyter. All executions are then done by means of the TimedQueue</p>
@@ -897,7 +897,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-time used: 0.02500176429748535
+time used: 0.025998353958129883
 </pre></div></div>
 </div>
 <p>Notice that any data point is turned red the moment its sound starts.</p>
@@ -993,29 +993,6 @@ time used: 0.02500176429748535
 <div class="highlight"><pre>
 C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\ipykernel_launcher.py:25: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
 Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-</pre></div></div>
-</div>
-</div>
-<div class="section" id="TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">
-<h2>TimedQueueSC PMSon with timeseries data and matplotlib<a class="headerlink" href="#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib" title="Permalink to this headline">¶</a></h2>
-<p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot * This presumes time-indexable data * a ‘maximum onset’ variable is maintained to shutdown the continuously playing synths when done * note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">ts</span><span class="p">,</span>
-                  <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.5</span><span class="o">*</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span><span class="o">*</span><span class="n">ts</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">ts</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
-                  <span class="mf">0.08</span><span class="o">*</span><span class="n">ts</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">ts</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
 Exception in thread Thread-36:
 Traceback (most recent call last):
   File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 926, in _bootstrap_inner
@@ -1033,6 +1010,22 @@ Traceback (most recent call last):
 AttributeError: draw_artist can only be used after an initial draw which caches the renderer
 
 </pre></div></div>
+</div>
+</div>
+<div class="section" id="TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">
+<h2>TimedQueueSC PMSon with timeseries data and matplotlib<a class="headerlink" href="#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib" title="Permalink to this headline">¶</a></h2>
+<p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot * This presumes time-indexable data * a ‘maximum onset’ variable is maintained to shutdown the continuously playing synths when done * note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">ts</span><span class="p">,</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.5</span><span class="o">*</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span><span class="o">*</span><span class="n">ts</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">ts</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
+                  <span class="mf">0.08</span><span class="o">*</span><span class="n">ts</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">ts</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
@@ -1143,7 +1136,7 @@ AttributeError: draw_artist can only be used after an initial draw which caches 
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-0.29799389839172363
+0.3020131587982178
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">

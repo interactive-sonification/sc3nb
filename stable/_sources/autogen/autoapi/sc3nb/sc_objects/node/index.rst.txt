@@ -1,0 +1,2204 @@
+:mod:`sc3nb.sc_objects.node`
+============================
+
+.. py:module:: sc3nb.sc_objects.node
+
+.. autoapi-nested-parse::
+
+   Implements Node and subclasses Synth and Group.
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.node.GroupReply
+   sc3nb.sc_objects.node.GroupCommand
+   sc3nb.sc_objects.node.SynthCommand
+   sc3nb.sc_objects.node.NodeReply
+   sc3nb.sc_objects.node.NodeCommand
+   sc3nb.sc_objects.node.AddAction
+   sc3nb.sc_objects.node.SynthInfo
+   sc3nb.sc_objects.node.GroupInfo
+   sc3nb.sc_objects.node.Node
+   sc3nb.sc_objects.node.Synth
+   sc3nb.sc_objects.node.Group
+   sc3nb.sc_objects.node.NodeTree
+
+
+
+Content
+~~~~~~~
+
+.. data:: _LOGGER
+   
+
+   
+
+.. class:: GroupReply
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   Replies of Group Commands
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: QUERY_TREE_REPLY
+      :annotation: = /g_queryTree.reply
+
+      
+
+
+
+
+
+
+.. class:: GroupCommand
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   OSC Commands for Groups
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: QUERY_TREE
+      :annotation: = /g_queryTree
+
+      
+
+   .. attribute:: DUMP_TREE
+      :annotation: = /g_dumpTree
+
+      
+
+   .. attribute:: DEEP_FREE
+      :annotation: = /g_deepFree
+
+      
+
+   .. attribute:: FREE_ALL
+      :annotation: = /g_freeAll
+
+      
+
+   .. attribute:: TAIL
+      :annotation: = /g_tail
+
+      
+
+   .. attribute:: HEAD
+      :annotation: = /g_head
+
+      
+
+   .. attribute:: G_NEW
+      :annotation: = /g_new
+
+      
+
+   .. attribute:: P_NEW
+      :annotation: = /p_new
+
+      
+
+
+
+
+
+
+.. class:: SynthCommand
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   OSC Commands for Synths
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: NEW
+      :annotation: = /s_new
+
+      
+
+   .. attribute:: S_GET
+      :annotation: = /s_get
+
+      
+
+   .. attribute:: S_GETN
+      :annotation: = /s_getn
+
+      
+
+
+
+
+
+
+.. class:: NodeReply
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   Replies of Node Commands
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: INFO
+      :annotation: = /n_info
+
+      
+
+
+
+
+
+
+.. class:: NodeCommand
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   OSC Commands for Nodes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: ORDER
+      :annotation: = /n_order
+
+      
+
+   .. attribute:: TRACE
+      :annotation: = /n_trace
+
+      
+
+   .. attribute:: QUERY
+      :annotation: = /n_query
+
+      
+
+   .. attribute:: MAP
+      :annotation: = /n_map
+
+      
+
+   .. attribute:: MAPN
+      :annotation: = /n_mapn
+
+      
+
+   .. attribute:: MAPA
+      :annotation: = /n_mapa
+
+      
+
+   .. attribute:: MAPAN
+      :annotation: = /n_mapan
+
+      
+
+   .. attribute:: FILL
+      :annotation: = /n_fill
+
+      
+
+   .. attribute:: SET
+      :annotation: = /n_set
+
+      
+
+   .. attribute:: SETN
+      :annotation: = /n_setn
+
+      
+
+   .. attribute:: RUN
+      :annotation: = /n_run
+
+      
+
+   .. attribute:: FREE
+      :annotation: = /n_free
+
+      
+
+
+
+
+
+
+.. class:: AddAction
+
+   **Bases:** :class:`enum.Enum`
+
+   AddAction of SuperCollider nodes.
+
+   This Enum contains the codes for the different ways to add a node.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: TO_HEAD
+      :annotation: = 0
+
+      
+
+   .. attribute:: TO_TAIL
+      :annotation: = 1
+
+      
+
+   .. attribute:: BEFORE
+      :annotation: = 2
+
+      
+
+   .. attribute:: AFTER
+      :annotation: = 3
+
+      
+
+   .. attribute:: REPLACE
+      :annotation: = 4
+
+      
+
+
+
+
+
+
+.. class:: SynthInfo
+
+   **Bases:** :class:`typing.NamedTuple`
+
+   Information about the Synth from /n_info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: nodeid
+      :annotation: :int
+
+      
+
+   .. attribute:: group
+      :annotation: :int
+
+      
+
+   .. attribute:: prev_nodeid
+      :annotation: :int
+
+      
+
+   .. attribute:: next_nodeid
+      :annotation: :int
+
+      
+
+
+
+
+
+
+.. class:: GroupInfo
+
+   **Bases:** :class:`typing.NamedTuple`
+
+   Information about the Group from /n_info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: nodeid
+      :annotation: :int
+
+      
+
+   .. attribute:: group
+      :annotation: :int
+
+      
+
+   .. attribute:: prev_nodeid
+      :annotation: :int
+
+      
+
+   .. attribute:: next_nodeid
+      :annotation: :int
+
+      
+
+   .. attribute:: head
+      :annotation: :int
+
+      
+
+   .. attribute:: tail
+      :annotation: :int
+
+      
+
+
+
+
+
+
+.. class:: Node(*, nodeid: Optional[int] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, server: Optional['SCServer'] = None)
+
+
+   **Bases:** :class:`abc.ABC`
+
+   Representation of a Node on SuperCollider.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Create a new Node
+
+
+   :Parameters:
+
+       **nodeid** : int or None
+           This Nodes node id or None
+
+       **add_action** : AddAction or corresponding int, optional
+           This Nodes AddAction when created in Server, by default None
+
+       **target** : Node or int or None, optional
+           This Nodes AddActions target, by default None
+
+       **server** : SCServer, optional
+           The Server for this Node,
+           by default use the SC default server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.node.Node.new
+         sc3nb.sc_objects.node.Node._get_status_repr
+         sc3nb.sc_objects.node.Node._set_node_attrs
+         sc3nb.sc_objects.node.Node.nodeid
+         sc3nb.sc_objects.node.Node.group
+         sc3nb.sc_objects.node.Node.server
+         sc3nb.sc_objects.node.Node.is_playing
+         sc3nb.sc_objects.node.Node.is_running
+         sc3nb.sc_objects.node.Node.freed
+         sc3nb.sc_objects.node.Node.started
+         sc3nb.sc_objects.node.Node.free
+         sc3nb.sc_objects.node.Node.run
+         sc3nb.sc_objects.node.Node.set
+         sc3nb.sc_objects.node.Node._update_control
+         sc3nb.sc_objects.node.Node._update_controls
+         sc3nb.sc_objects.node.Node.fill
+         sc3nb.sc_objects.node.Node.map
+         sc3nb.sc_objects.node.Node.release
+         sc3nb.sc_objects.node.Node.query
+         sc3nb.sc_objects.node.Node.trace
+         sc3nb.sc_objects.node.Node.move
+         sc3nb.sc_objects.node.Node.register
+         sc3nb.sc_objects.node.Node.unregister
+         sc3nb.sc_objects.node.Node.on_free
+         sc3nb.sc_objects.node.Node.wait
+         sc3nb.sc_objects.node.Node._parse_info
+         sc3nb.sc_objects.node.Node._handle_notification
+         sc3nb.sc_objects.node.Node.__eq__
+         sc3nb.sc_objects.node.Node._get_nodeid
+
+   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OSCMessage)]
+      :abstractmethod:
+
+      Create a new Node
+
+
+      :Parameters:
+
+          **add_action** : AddAction or int, optional
+              Where the Node should be added, by default AddAction.TO_HEAD (0)
+
+          **target** : Node or int, optional
+              AddAction target, if None it will be the default group of the server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _get_status_repr(self) -> str
+
+
+   .. method:: _set_node_attrs(self, target: Optional[Union['Node', int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
+
+      Derive Node group from addaction and target
+
+
+      :Parameters:
+
+          **target** : int or Node
+              Target nodeid or Target Node of this Node's AddAction
+
+          **add_action** : AddAction
+              AddAction of this Node, default AddAction.TO_HEAD (0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: nodeid(self) -> int
+      :property:
+
+      Identifier of node.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: group(self) -> Optional[int]
+      :property:
+
+      Identifier of this nodes group.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
+      :property:
+
+      The server on which this node is located.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: is_playing(self) -> Optional[bool]
+      :property:
+
+      True if this node is playing. None if unkown.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: is_running(self) -> Optional[bool]
+      :property:
+
+      True if this node is running. None if unkown.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: freed(self) -> bool
+      :property:
+
+      True if free was called on this node.
+
+      This is reseted when receiving a /n_go notification
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: started(self) -> bool
+      :property:
+
+      True if new was called on this node.
+
+      This is reseted when receiving a /n_end notification
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: free(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Free the node with /n_free.
+
+      This will set is_running and is_playing to false.
+      Even when the message is returned to mimic the behavior of the SuperCollider Node
+      See https://doc.sccode.org/Classes/Node.html#-freeMsg
+
+
+      :Returns:
+
+          Node or OSCMessage
+              self for chaining or OSCMessage when return_msg=True
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Turn node on or off with /n_run.
+
+
+      :Parameters:
+
+          **on** : bool
+              True for on, False for off, by default True
+
+      :Returns:
+
+          Node or OSCMessage
+              self for chaining or OSCMessage when return_msg=True
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Set a control value(s) of the node with n_set.
+
+
+      :Parameters:
+
+          **argument** : str | dict | list
+              if string: name of control argument
+              if dict: dict with argument, value pairs
+              if list: use list as message content
+
+          **value** : any, optional
+              only used if argument is string, by default None
+
+
+
+
+
+
+
+
+
+
+
+      .. rubric:: Examples
+
+      >>> synth.set("freq", 400)
+      >>> synth.set({"dur": 1, "freq": 400})
+      >>> synth.set(["dur", 1, "freq", 400])
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _update_control(self, control: str, value: Any) -> None
+
+
+   .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
+
+
+   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Fill ranges of control values with n_fill.
+
+
+      :Parameters:
+
+          **control** : int or string
+              control index or name
+
+          **num_controls** : int
+              number of control values to fill
+
+          **value** : float or int
+              value to set
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Map a node's control to read from a bus using /n_map or /n_mapa.
+
+
+      :Parameters:
+
+          **control** : int or string
+              control index or name
+
+          **bus** : Bus
+              control/audio bus
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Set gate as specified.
+
+      https://doc.sccode.org/Classes/Node.html#-release
+
+      :Parameters:
+
+          **release_time** : float, optional
+              amount of time in seconds during which the node will release.
+              If set to a value <= 0, the synth will release immediately.
+              If None using its Envs normal release stage(s)
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: query(self) -> Union[(SynthInfo, GroupInfo)]
+
+      Sends an n_query message to the server.
+
+      The answer is send to all clients who have registered via the /notify command.
+      Content of answer:
+
+      node ID
+      the node's parent group ID
+      previous node ID, -1 if no previous node.
+      next node ID, -1 if no next node.
+      1 if the node is a group, 0 if it is a synth
+
+      if the node is a group:
+          ID of the head node, -1 if there is no head node.
+          ID of the tail node, -1 if there is no tail node.
+
+
+      :Returns:
+
+          SynthInfo or GroupInfo
+              n_info answer. See above for content description
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: trace(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Trace a node.
+
+      Print out values of the inputs and outputs for one control period.
+      If node is a group then print the node IDs and names of each node.
+
+      :Parameters:
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          Node or OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+
+      Move this node
+
+
+      :Parameters:
+
+          **add_action** : AddAction [TO_HEAD, TO_TAIL, AFTER, BEFORE]
+              What add action should be done.
+
+          **another_node** : Node
+              The node which is the target of the add action
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          Node or OSCMessage
+              if return_msg this will be the OSCMessage, else self
+
+
+
+
+      :Raises:
+
+          ValueError
+              If a wrong AddAction was provided
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: register(self)
+      :abstractmethod:
+
+      Register to be watched.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: unregister(self)
+      :abstractmethod:
+
+      Unregister to stop being watched.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: on_free(self, func)
+
+      Callback that is executed when this Synth is freed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: wait(self, timeout: Optional[float] = None) -> None
+
+      Wait until this Node is freed
+
+
+
+
+
+
+
+      :Raises:
+
+          TimeoutError
+              If timeout was provided and wait timed out.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[(SynthInfo, GroupInfo)]
+
+
+   .. method:: _handle_notification(self, kind: str, info) -> None
+
+
+   .. method:: __eq__(self, other)
+
+      Return self==value.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _get_nodeid(value: Union[('Node', int)]) -> int
+      :staticmethod:
+
+      Get the corresponding node id
+
+
+      :Parameters:
+
+          **value** : Node or int
+              If a Node is provided it will get its nodeid
+              If a int is provided it will be returned
+
+      :Returns:
+
+          int
+              nodeid
+
+
+
+
+      :Raises:
+
+          ValueError
+              When neither Node or int was provided
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: Synth(name: Optional[str] = None, controls: Dict[(str, Any)] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, server: Optional['SCServer'] = None)
+
+
+   **Bases:** :class:`sc3nb.sc_objects.node.Node`
+
+   Representation of a Synth on SuperCollider.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Create a Python representation of a SuperCollider synth.
+
+
+   :Parameters:
+
+       **sc** : SC
+           sc3nb SuperCollider instance
+
+       **name** : str, optional
+           name of the synth to be created, by default "default"
+
+       **controls** : dict, optional
+           synth control arguments, by default None
+
+       **nodeid** : int, optional
+           ID of the node in SuperCollider, by default sc3nb will create one.
+           Can be set to an existing id to create a Python instance of a running Node.
+
+       **new** : bool, optional
+           True if synth should be created on the server, by default True
+           Should be False if creating an instance of a running Node.
+
+       **add_action** : AddAction or int, optional
+           Where the Synth should be added, by default AddAction.TO_HEAD (0)
+
+       **target** : Node or int, optional
+           AddAction target, if None it will be the default group of the server
+
+
+
+
+
+   :Raises:
+
+       ValueError
+           Raised when synth can't be found via SynthDescLib.global
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   >>> scn.Synth(sc, "s1", {"dur": 1, "freq": 400})
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.node.Synth._update_synth_state
+         sc3nb.sc_objects.node.Synth.synth_desc
+         sc3nb.sc_objects.node.Synth.name
+         sc3nb.sc_objects.node.Synth.current_controls
+         sc3nb.sc_objects.node.Synth.new
+         sc3nb.sc_objects.node.Synth.get
+         sc3nb.sc_objects.node.Synth.seti
+         sc3nb.sc_objects.node.Synth.__getattr__
+         sc3nb.sc_objects.node.Synth.__setattr__
+         sc3nb.sc_objects.node.Synth.__repr__
+
+   .. method:: _update_synth_state(self, name: Optional[str], controls: Optional[dict])
+
+
+   .. method:: synth_desc(self) -> Optional[Dict[str, 'SynthArgument']]
+      :property:
+
+      A Description of this Synths arguments
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: name(self) -> str
+      :property:
+
+      This Synths SynthDef name.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: current_controls(self) -> Dict[(str, Any)]
+      :property:
+
+      This Synth currently cached control arguments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OSCMessage)]
+
+      Creates the synth on the server with s_new.
+
+      Attention: Here you create an identical synth! Same nodeID etc.
+      - This will fail if there is already this nodeID on the SuperCollider server!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: get(self, control: str) -> Any
+
+      Get a Synth argument
+
+      This will request the value from scsynth with /s_get(n).
+
+      :Parameters:
+
+          **control** : str
+              name of the Synth control argument
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: seti(self, *args)
+      :abstractmethod:
+
+      Set part of an arrayed control.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __getattr__(self, name)
+
+
+   .. method:: __setattr__(self, name, value)
+
+      Implement setattr(self, name, value).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: sc3nb.sc_objects.node.AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional['SCServer'] = None)
+
+
+   **Bases:** :class:`sc3nb.sc_objects.node.Node`
+
+   Representation of a Group on SuperCollider.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Create a Python representation of a SuperCollider group.
+
+
+   :Parameters:
+
+       **nodeid** : int, optional
+           ID of the node in SuperCollider, by default sc3nb will create one.
+           Can be set to an existing id to create a Python instance of a running Node.
+
+       **new** : bool, optional
+           True if synth should be created on the server, by default True
+           Should be False if creating an instance of a running Node.
+
+       **parallel** : bool, optional
+           If True create a parallel group, by default False
+
+       **add_action** : AddAction or int, optional
+           Where the Group should be added, by default AddAction.TO_HEAD (0)
+
+       **target** : Node or int, optional
+           AddAction target, if None it will be the default group of the server
+
+       **server** : SCServer, optional
+           Server instance where this Group is located,
+           by default use the SC default server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.node.Group._update_group_state
+         sc3nb.sc_objects.node.Group.new
+         sc3nb.sc_objects.node.Group.children
+         sc3nb.sc_objects.node.Group.move_node_to_head
+         sc3nb.sc_objects.node.Group.move_node_to_tail
+         sc3nb.sc_objects.node.Group.free_all
+         sc3nb.sc_objects.node.Group.deep_free
+         sc3nb.sc_objects.node.Group.dump_tree
+         sc3nb.sc_objects.node.Group.query_tree
+         sc3nb.sc_objects.node.Group._repr_pretty_
+         sc3nb.sc_objects.node.Group.__repr__
+
+   .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
+
+
+   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OSCMessage)]
+
+      Creates the synth on the server with g_new / p_new.
+
+      Attention: Here you create an identical group! Same nodeID etc.
+      - This will fail if there is already this nodeID on the SuperCollider server!
+
+      :Parameters:
+
+          **add_action** : AddAction or int, optional
+              where the group should be added, by default AddAction.TO_HEAD (0)
+
+          **target** : Node or int, optional
+              add action target, by default 1
+
+          **parallel** : bool, optional
+              If True use p_new, by default False
+
+          **return_msg** : bool, optional
+              If ture return the OSCMessage instead of sending it, by default False
+
+      :Returns:
+
+          Group
+              self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: children(self) -> Sequence[Node]
+      :property:
+
+      Return this groups children as currently known
+
+
+
+      :Returns:
+
+          Sequence[Node]
+              Sequence of child Nodes (Synths or Groups)
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: move_node_to_head(self, node, return_msg=False)
+
+      Move node to this groups head with g_head.
+
+
+      :Parameters:
+
+          **node** : Node
+              node to move
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          Group
+              self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: move_node_to_tail(self, node, return_msg=False)
+
+      Move node to this groups tail with g_tail.
+
+
+      :Parameters:
+
+          **node** : Node
+              node to move
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          Group
+              self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: free_all(self, return_msg=False)
+
+      Frees all nodes in the group with g_freeAll.
+
+
+      :Parameters:
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: deep_free(self, return_msg=False)
+
+      Free all synths in this group and its sub-groups with g_deepFree.
+
+      Sub-groups are not freed.
+
+      :Parameters:
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: dump_tree(self, post_controls=True, return_msg=False)
+
+      Posts a representation of this group's node subtree with g_dumpTree.
+
+
+      :Parameters:
+
+          **post_controls** : bool, optional
+              True for control values, by default False
+
+          **return_msg** : bool, optional
+              If True return msg else send it directly, by default False
+
+      :Returns:
+
+          OSCMessage
+              if return_msg else self
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: query_tree(self, include_controls=False) -> sc3nb.sc_objects.node.Group
+
+      Send a g_queryTree message for this group.
+
+      See https://doc.sccode.org/Reference/Server-Command-Reference.html#/g_queryTree for details.
+
+      :Parameters:
+
+          **include_controls** : bool, optional
+              True for control values, by default False
+
+      :Returns:
+
+          tuple
+              /g_queryTree.reply
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _repr_pretty_(self, printer, cylce)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: NodeTree(info: Sequence[Any], root_nodeid: int, controls_included: bool, start: int = 0, server: Optional['SCServer'] = None)
+
+
+   Node Tree is a class for parsing /g_queryTree.reply
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.node.NodeTree.parse_nodes
+         sc3nb.sc_objects.node.NodeTree._repr_pretty_
+
+   .. method:: parse_nodes(info: Sequence[Any], controls_included: bool = True, start: int = 0, server: Optional['SCServer'] = None) -> Tuple[(int, Node)]
+      :staticmethod:
+
+      Parse Nodes from reply of the /g_queryTree cmd of scsynth.
+      This reads the /g_queryTree.reply and creates the corresponding Nodes in Python.
+      See https://doc.sccode.org/Reference/Server-Command-Reference.html#/g_queryTree
+
+
+      :Parameters:
+
+          **controls_included** : bool
+              If True the current control (arg) values for synths will be included
+
+          **start** : int
+              starting position of the parsing, used for recursion, default 0
+
+          **info** : Sequence[Any]
+              /g_queryTree.reply to be parsed.
+
+      :Returns:
+
+          Tuple[int, Node]
+              postion where the parsing ended, resulting Node
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _repr_pretty_(self, printer, cylce)
+
+
+
+
+
+
+

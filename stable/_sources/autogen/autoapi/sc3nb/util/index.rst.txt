@@ -1,0 +1,186 @@
+:mod:`sc3nb.util`
+=================
+
+.. py:module:: sc3nb.util
+
+.. autoapi-nested-parse::
+
+   Module with utlilty functions - especially for handling code snippets
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+Function List
+~~~~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.util.remove_comments
+   sc3nb.util.parse_pyvars
+   sc3nb.util.replace_vars
+   sc3nb.util.convert_to_sc
+
+
+
+
+
+
+Content
+~~~~~~~
+
+.. function:: remove_comments(code: str) -> str
+
+   Removes all c-style comments from code.
+
+   This removes `//single-line` or `/* multi-line */`  comments.
+
+   :Parameters:
+
+       **code** : str
+           Code where comments should be removed.
+
+   :Returns:
+
+       str
+           code string without comments
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: parse_pyvars(code: str, frame_nr: int = 2)
+
+   Looks through call stack and finds values of variables.
+
+
+   :Parameters:
+
+       **code** : str
+           SuperCollider command to be parsed
+
+       **frame_nr** : int, optional
+           on which frame to start, by default 2 (grandparent frame)
+
+   :Returns:
+
+       dict
+           {variable_name: variable_value}
+
+
+
+
+   :Raises:
+
+       NameError
+           If the variable value could not be found.
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: replace_vars(code: str, pyvars: dict) -> str
+
+   Replaces python variables with SuperCollider literals in code.
+
+   This replaces the pyvars preceded with ^ in the code with a SC literal.
+   The conversion is done with convert_to_sc.
+
+   :Parameters:
+
+       **code** : str
+           SuperCollider Code with python injections.
+
+       **pyvars** : dict
+           Dict with variable names and values.
+
+   :Returns:
+
+       str
+           Code with injected variables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: convert_to_sc(obj: Any) -> str
+
+   Converts python objects to SuperCollider code literals.
+
+   This supports currently:
+
+   * numpy.ndarray -> SC Array representation
+   * complex type -> SC Complex
+   * strings -> if starting with sc3: it will be used as SC code
+                if it starts with a \ (single escaped backward slash) it will be used as symbol
+                else it will be inserted as string
+
+   For unsupported types the __repr__ will be used.
+
+   :Parameters:
+
+       **obj** : Any
+           object that should be converted to a SuperCollider code literal.
+
+   :Returns:
+
+       str
+           SuperCollider Code literal
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
