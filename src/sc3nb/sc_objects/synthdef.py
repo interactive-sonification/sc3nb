@@ -302,7 +302,7 @@ class SynthDef:
         # Create new SynthDef add it to SynthDescLib and get bytes
         if self.sc is None:
             self.sc = sc3nb.SC.get_default()
-        synth_def_blob = self.sc.lang.cmdg(
+        synth_def_blob, output = self.sc.lang.cmd(
             f"""
             "sc3nb - Creating SynthDef {name}".postln;
             r.tmpSynthDef = SynthDef("{name}", {self.current_def});
@@ -310,11 +310,12 @@ class SynthDef:
             r.tmpSynthDef.asBytes();""",
             pyvars=pyvars,
             verbose=False,
+            get_result=True,
+            get_output=True,
         )
         if synth_def_blob == 0:
-            error = self.sc.lang.read()
-            print(error)
-            raise RuntimeError(f"Adding SynthDef failed. {error}")
+            print(output)
+            raise RuntimeError(f"Adding SynthDef failed. - {output}")
         else:
             if server is not None:
                 server.send_synthdef(synth_def_blob)

@@ -259,6 +259,8 @@ class SCLang:
                 OSC packet.
             if get_output or verbose
                 Output from SuperCollider code.
+            if get_output and get_result=True
+                (result, output)
             else
                 None
 
@@ -316,8 +318,8 @@ class SCLang:
             if sys.platform == "darwin":
                 out = out[out.find(";\n") + 2 :]  # skip code echo
             print(out)
-        if get_output and not get_result:
-            return_val = out
+        if get_output:
+            return_val = (return_val, out) if get_result else out
         return return_val
 
     def cmdv(self, code: str, **kwargs) -> Any:
