@@ -337,4 +337,10 @@ class SynthDef:
         return self
 
     def __repr__(self):
-        return f"SynthDef('{self.name}', {self.current_def})"
+        try:
+            pyvars = parse_pyvars(self.current_def)
+        except NameError:
+            current_def = self.current_def
+        else:
+            current_def = replace_vars(self.current_def, pyvars)
+        return f"SynthDef('{self.name}', {current_def})"
