@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>sc3nb &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">sc3nb</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -419,31 +424,31 @@
 <h1>sc3nb<a class="headerlink" href="#sc3nb" title="Permalink to this headline">¶</a></h1>
 <p>sc3nb is a python package that offers an interface to SuperCollider3 (SC3), with special support to be used within jupyter notebooks.</p>
 <ul class="simple">
-<li><p>Documentation: https://interactive-sonification.github.io/sc3nb</p></li>
-<li><p>Source code: https://github.com/interactive-sonification/sc3nb</p></li>
-<li><p>Bug reports: https://github.com/interactive-sonification/sc3nb/issues</p></li>
+<li><p><a class="reference external" href="https://interactive-sonification.github.io/sc3nb">Documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/interactive-sonification/sc3nb">Source code</a></p></li>
+<li><p><a class="reference external" href="https://github.com/interactive-sonification/sc3nb/issues">Bug reports</a></p></li>
 </ul>
 <p>The goal of sc3nb is to facilitate the development of auditory displays and interactive sonifications by teaming up</p>
 <ul class="simple">
 <li><p>python (and particularly numpy, scipy, pandas, matplotlib etc.) for data science</p></li>
 <li><p>and SuperCollider3 for interactive real-time sound rendering.
-​
-It provides:</p></li>
-<li><p>SC - a class to interface with the SuperCollider audio server (scsynth) aswell as the SuperCollider Language and Interpreter (sclang)</p>
-<ul>
+​</p></li>
+</ul>
+<p>It allows:</p>
+<ul class="simple">
+<li><p>to interface with the SuperCollider audio server (scsynth) aswell as the SuperCollider Language and Interpreter (sclang) via the SC class</p></li>
 <li><p>The SuperCollider audio server can be started and addressed via</p>
 <ul>
 <li><p>OSC directly with OSC messages and bundles</p></li>
 <li><p>Python implementations of Classes from SuperCollider like <code class="docutils literal notranslate"><span class="pre">Synth</span></code>, <code class="docutils literal notranslate"><span class="pre">SynthDef</span></code>, <code class="docutils literal notranslate"><span class="pre">Buffer</span></code> and <code class="docutils literal notranslate"><span class="pre">Bus</span></code></p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">Score</span></code> class for non-realtime synthesis</p></li>
 </ul>
 </li>
 <li><p>use the SuperCollider language (sclang) interactively via a subprocess.</p>
 <ul>
-<li><p>You can write SuperCollider language code in Jupyter Notebooks and let sclang evaluate it.</p></li>
-<li><p>Inject python variables into your sclang code</p></li>
-<li><p>get the results of the sclang code in python</p></li>
-</ul>
-</li>
+<li><p>write SuperCollider language code in Jupyter Notebooks and let sclang evaluate it.</p></li>
+<li><p>inject Python variables into your sclang code</p></li>
+<li><p>get the results of the sclang code in Python</p></li>
 </ul>
 </li>
 <li><p>helper functions such as linlin, cpsmidi, midicps, clip, ampdb, dbamp which work like their SC3 counterparts.</p></li>
@@ -462,7 +467,7 @@ It provides:</p></li>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>To use sc3nb you need a installation of SuperCollider on your system. See https://supercollider.github.io/download for instructions.</p></li>
+<li><p>To use sc3nb you need a installation of SuperCollider on your system. See <a class="reference external" href="https://supercollider.github.io/download">SuperCollider Download</a> for installation files.</p></li>
 <li><p>To install sc3nb you can</p>
 <ul>
 <li><p>install it locally in editable mode (i.e. changes to sc3nb code will automatically be “re-installed”).</p>
@@ -477,9 +482,9 @@ It provides:</p></li>
 </li>
 </ul>
 </div>
-<div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>We provide usage examples in the form of Jupyter notebooks. You see them in the User Guide section of the documentation and also download them from the sc3nb repository <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/tree/master/examples">examples folder</a></p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>We provide examples in the form of Jupyter notebooks. You see them executed in the User Guide section of the <a class="reference external" href="https://interactive-sonification.github.io/sc3nb">documentation</a> and also download them from the <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/tree/master/examples">sc3nb examples folder</a>.</p>
 </div>
 </div>
 
@@ -518,6 +523,38 @@ It provides:</p></li>
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

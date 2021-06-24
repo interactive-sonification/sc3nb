@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sclang &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>sc3nb.sclang &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -89,11 +89,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../info.html">How does this work?</a></li>
@@ -112,7 +112,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -122,8 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -190,24 +191,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -389,7 +394,6 @@
             
   <h1>Source code for sc3nb.sclang</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Module for handling a SuperCollider language (sclang) process.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -398,8 +402,6 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Empty</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
     <span class="c1"># `importlib.resources` backported to PY&lt;37 as `importlib_resources`.</span>
@@ -411,6 +413,7 @@
 <span class="kn">import</span> <span class="nn">sc3nb.resources</span>
 <span class="kn">from</span> <span class="nn">sc3nb.process_handling</span> <span class="kn">import</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">ProcessTimeout</span>
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.server</span> <span class="kn">import</span> <span class="n">ReplyAddress</span><span class="p">,</span> <span class="n">SCServer</span>
+<span class="kn">from</span> <span class="nn">sc3nb.util</span> <span class="kn">import</span> <span class="n">parse_pyvars</span><span class="p">,</span> <span class="n">remove_comments</span><span class="p">,</span> <span class="n">replace_vars</span>
 
 <div class="viewcode-block" id="_LOGGER"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb._LOGGER">[docs]</a><span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 <span class="n">_LOGGER</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
@@ -425,154 +428,6 @@
 <div class="viewcode-block" id="SynthArgument.name"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SynthArgument.name">[docs]</a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></div>
 <div class="viewcode-block" id="SynthArgument.rate"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SynthArgument.rate">[docs]</a>    <span class="n">rate</span><span class="p">:</span> <span class="nb">str</span></div>
 <div class="viewcode-block" id="SynthArgument.default"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SynthArgument.default">[docs]</a>    <span class="n">default</span><span class="p">:</span> <span class="n">Any</span></div></div>
-
-
-<div class="viewcode-block" id="remove_comments"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.remove_comments">[docs]</a><span class="k">def</span> <span class="nf">remove_comments</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Removes all c-style comments from code.</span>
-
-<span class="sd">    This removes `//single-line` or `/* multi-line */`  comments.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    code : str</span>
-<span class="sd">        Code where comments should be removed.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        code string without comments</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># function code by Onur Yildirim (https://stackoverflow.com/a/18381470)</span>
-    <span class="c1"># first group captures quoted strings (double or single)</span>
-    <span class="c1"># second group captures comments (//single-line or /* multi-line */)</span>
-    <span class="c1"># alternative cares for escaped quotes</span>
-    <span class="c1"># pattern = r&quot;(\&quot;.*?(?&lt;!\\)\&quot;|\&#39;.*?(?&lt;!\\)\&#39;)|(/\*.*?\*/|//[^\r\n]*$)&quot;</span>
-    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(</span><span class="se">\&quot;</span><span class="s2">.*?</span><span class="se">\&quot;</span><span class="s2">|\&#39;.*?\&#39;)|(/\*.*?\*/|//[^\r\n]*$)&quot;</span>
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_replacer</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
-        <span class="c1"># if the 2nd group (capturing comments) is not None,</span>
-        <span class="c1"># it means we have captured a non-quoted (real) comment string.</span>
-        <span class="k">if</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># so we will return empty to remove the comment</span>
-        <span class="k">else</span><span class="p">:</span>  <span class="c1"># otherwise, we will return the 1st group</span>
-            <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># captured quoted-string</span>
-
-    <span class="k">return</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">_replacer</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="parse_pyvars"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.parse_pyvars">[docs]</a><span class="k">def</span> <span class="nf">parse_pyvars</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame_nr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Looks through call stack and finds values of variables.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    code : str</span>
-<span class="sd">        SuperCollider command to be parsed</span>
-<span class="sd">    frame_nr : int, optional</span>
-<span class="sd">        on which frame to start, by default 2 (grandparent frame)</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    dict</span>
-<span class="sd">        {variable_name: variable_value}</span>
-
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    NameError</span>
-<span class="sd">        If the variable value could not be found.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\s*\^[A-Za-z_]\w*\s*&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-
-    <span class="n">pyvars</span> <span class="o">=</span> <span class="p">{</span><span class="n">match</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;^&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">}</span>
-    <span class="n">missing_vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pyvars</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-    <span class="n">stack</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
-    <span class="n">frame</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">while</span> <span class="n">missing_vars</span> <span class="ow">and</span> <span class="n">frame_nr</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">stack</span><span class="p">[</span><span class="n">frame_nr</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">pyvar</span> <span class="ow">in</span> <span class="n">pyvars</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">pyvar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">missing_vars</span><span class="p">:</span>
-                    <span class="k">continue</span>
-                <span class="c1"># check for variable in local variables</span>
-                <span class="k">if</span> <span class="n">pyvar</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">:</span>
-                    <span class="n">pyvars</span><span class="p">[</span><span class="n">pyvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">[</span><span class="n">pyvar</span><span class="p">]</span>
-                    <span class="n">missing_vars</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pyvar</span><span class="p">)</span>
-                <span class="c1"># check for variable in global variables</span>
-                <span class="k">elif</span> <span class="n">pyvar</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">:</span>
-                    <span class="n">pyvars</span><span class="p">[</span><span class="n">pyvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">[</span><span class="n">pyvar</span><span class="p">]</span>
-                    <span class="n">missing_vars</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pyvar</span><span class="p">)</span>
-            <span class="n">frame_nr</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">frame</span>
-        <span class="k">del</span> <span class="n">stack</span>
-    <span class="k">if</span> <span class="n">missing_vars</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">&quot;name(s) </span><span class="si">{}</span><span class="s2"> not defined&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">missing_vars</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">pyvars</span></div>
-
-
-<div class="viewcode-block" id="replace_vars"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.replace_vars">[docs]</a><span class="k">def</span> <span class="nf">replace_vars</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pyvars</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Replaces python variables with SuperCollider literals in code.</span>
-
-<span class="sd">    This replaces the pyvars preceded with ^ in the code with a SC literal.</span>
-<span class="sd">    The conversion is done with convert_to_sc.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    code : str</span>
-<span class="sd">        SuperCollider Code with python injections.</span>
-<span class="sd">    pyvars : dict</span>
-<span class="sd">        Dict with variable names and values.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        Code with injected variables.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">pyvar</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pyvars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">pyvar</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span> <span class="o">+</span> <span class="n">pyvar</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">convert_to_sc</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">pyvar</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">code</span></div>
-
-
-<div class="viewcode-block" id="convert_to_sc"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.convert_to_sc">[docs]</a><span class="k">def</span> <span class="nf">convert_to_sc</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Converts python objects to SuperCollider code literals.</span>
-
-<span class="sd">    This supports currently:</span>
-
-<span class="sd">    * numpy.ndarray -&gt; SC Array representation</span>
-<span class="sd">    * complex type -&gt; SC Complex</span>
-<span class="sd">    * strings -&gt; if starting with sc3: it will be used as SC code</span>
-<span class="sd">                 if it starts with a \\ (single escaped backward slash) it will be used as symbol</span>
-<span class="sd">                 else it will be inserted as string</span>
-
-<span class="sd">    For unsupported types the __repr__ will be used.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    obj : Any</span>
-<span class="sd">        object that should be converted to a SuperCollider code literal.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    str</span>
-<span class="sd">        SuperCollider Code literal</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">complex</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;Complex(</span><span class="si">{0}</span><span class="s2">, </span><span class="si">{1}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;sc3:&quot;</span><span class="p">):</span>  <span class="c1"># start sequence for sc3-code</span>
-            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span>
-        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>  <span class="c1"># &#39;x&#39; will be interpreted as symbol</span>
-        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">):</span>
-            <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="k">return</span> <span class="s1">&#39;&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># &quot;x&quot; will be interpreted as string</span>
-    <span class="c1"># further type conversion can be added in the future</span>
-    <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="SCLangError"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SCLangError">[docs]</a><span class="k">class</span> <span class="nc">SCLangError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -799,6 +654,8 @@
 <span class="sd">                OSC packet.</span>
 <span class="sd">            if get_output or verbose</span>
 <span class="sd">                Output from SuperCollider code.</span>
+<span class="sd">            if get_output and get_result=True</span>
+<span class="sd">                (result, output)</span>
 <span class="sd">            else</span>
 <span class="sd">                None</span>
 
@@ -856,8 +713,8 @@
             <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
                 <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">out</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">:]</span>  <span class="c1"># skip code echo</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">get_output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">get_result</span><span class="p">:</span>
-            <span class="n">return_val</span> <span class="o">=</span> <span class="n">out</span>
+        <span class="k">if</span> <span class="n">get_output</span><span class="p">:</span>
+            <span class="n">return_val</span> <span class="o">=</span> <span class="p">(</span><span class="n">return_val</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span> <span class="k">if</span> <span class="n">get_result</span> <span class="k">else</span> <span class="n">out</span>
         <span class="k">return</span> <span class="n">return_val</span></div>
 
 <div class="viewcode-block" id="SCLang.cmdv"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/sclang/index.html#sc3nb.SCLang.cmdv">[docs]</a>    <span class="k">def</span> <span class="nf">cmdv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -1036,6 +893,38 @@
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

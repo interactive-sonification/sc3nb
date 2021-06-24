@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Support, Caveats and Problems &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>Support, Caveats and Problems &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -422,7 +427,7 @@
 <ul class="simple">
 <li><p>The shortcut <code class="docutils literal notranslate"><span class="pre">ctrl/cmd</span> <span class="pre">+</span> <span class="pre">.</span></code> does currently only work in classic Jupyter notebooks, yet not in JupyterLab. It also will import sc3nb as <code class="docutils literal notranslate"><span class="pre">sc3nb</span></code> and thus you should avoid variables with the name <code class="docutils literal notranslate"><span class="pre">sc3nb</span></code>.</p></li>
 <li><p>We depend on the output to stdout of sclang and scsynth in some cases such as the startup of the server - or more obviously - for the sclang output when using <code class="docutils literal notranslate"><span class="pre">cmd()</span></code> with verbosity. This means if some language settings or updates of sclang/scsynth change the outputs to something that we don’t expect, stuff will fail. However this should be quite easy to patch.</p></li>
-<li><p>There is a bug in Jupyter (https://github.com/jupyter/jupyter_client/issues/104) that does leave sclang and scsynth running when restarting the Jupyter kernel. However calling <code class="docutils literal notranslate"><span class="pre">exit()</span></code> on the SC instance will kill them. To avoid conflicts with orphaned sclangs/scsynths we also look for leftover sclang/scsynth processes on starting either of them and we try to kill them. This might lead to killing sclang or scsynth processes that you wanted to keep alive. However, you can specify which parent processes are allowed for sclang/scsynth processes using the <code class="docutils literal notranslate"><span class="pre">allowed_parents</span></code> parameter.</p></li>
+<li><p>There is an <a class="reference external" href="https://github.com/jupyter/jupyter_client/issues/104">issue #104 in Jupyter</a> that does leave sclang and scsynth running when restarting the Jupyter kernel. However calling <code class="docutils literal notranslate"><span class="pre">exit()</span></code> on the SC instance will kill them. To avoid conflicts with orphaned sclangs/scsynths we also look for leftover sclang/scsynth processes on starting either of them and we try to kill them. This might lead to killing sclang or scsynth processes that you wanted to keep alive. However, you can specify which parent processes are allowed for sclang/scsynth processes using the <code class="docutils literal notranslate"><span class="pre">allowed_parents</span></code> parameter.</p></li>
 <li><p>The SuperCollider objects are currently not guaranteed to be thread-safe, with the exception of Node (Synth &amp; Group)</p></li>
 <li><p>Another thing about SuperCollider in general is, to keep in mind that there are limits in the network communication: currently we only support UDP and therefore have the corresponding limits. As an example, a Bundler will simply fail when you try to send too many messages.</p></li>
 </ul>
@@ -463,6 +468,38 @@
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

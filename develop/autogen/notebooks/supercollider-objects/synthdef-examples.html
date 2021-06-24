@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>SynthDef &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>SynthDef &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -664,7 +669,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/61954be9e14a73700410e46e48faebd8a586fa30/examples/supercollider-objects/synthdef-examples.ipynb">examples/supercollider-objects/synthdef-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/c73c897ca8ecec47aa3b868f0a4ed9238d795764/examples/supercollider-objects/synthdef-examples.ipynb">examples/supercollider-objects/synthdef-examples.ipynb</a>.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -676,14 +681,21 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
 <span class="kn">from</span> <span class="nn">sc3nb</span> <span class="kn">import</span> <span class="n">SynthDef</span><span class="p">,</span> <span class="n">Synth</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -726,16 +738,15 @@ Booting SuperCollider Server... Done.
 <div class="section" id="SynthDef">
 <h1>SynthDef<a class="headerlink" href="#SynthDef" title="Permalink to this headline">¶</a></h1>
 <p>SynthDef wraps and extends the flexibility of SuperCollider Synth Definitions</p>
-<p>To see how to create and use a Synth from the SynthDef please see the <a class="reference internal" href="node-examples.html"><span class="doc">Synth examples</span></a></p>
+<p>To see how to create and use a Synth from the SynthDef please also see the <a class="reference internal" href="node-examples.html"><span class="doc">Synth examples</span></a></p>
 <div class="section" id="SynthDef-creation">
 <h2>SynthDef creation<a class="headerlink" href="#SynthDef-creation" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth_def</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="p">(</span>
-    <span class="s1">&#39;random&#39;</span><span class="p">,</span>
+<span></span><span class="n">synth_def</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span>
 <span class="sd">&quot;&quot;&quot;{ |out|</span>
 <span class="sd">    var osc, env, freq;</span>
 <span class="sd">    freq = Rand(400, 800);</span>
@@ -748,7 +759,7 @@ Booting SuperCollider Server... Done.
 </div>
 <p>Note that you can copy the representation to you SuperCollider IDE</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -757,7 +768,7 @@ Booting SuperCollider Server... Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -773,7 +784,7 @@ SynthDef(&#39;random&#39;, { |out|
 </div>
 <p>SynthDefs are created via <strong>sclang</strong> when you <code class="docutils literal notranslate"><span class="pre">add</span></code> them.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -782,7 +793,7 @@ SynthDef(&#39;random&#39;, { |out|
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -791,7 +802,7 @@ SynthDef(&#39;random&#39;, { |out|
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -800,7 +811,7 @@ SynthDef(&#39;random&#39;, { |out|
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -814,7 +825,7 @@ SynthDef(&#39;random&#39;, { |out|
 <p>You can also load SynthDefs from <code class="docutils literal notranslate"><span class="pre">.scsynthdef</span></code> files or as bytes via the Server</p>
 <p>The Server allows - to send binary SynthDef content with <code class="docutils literal notranslate"><span class="pre">send_synthdef</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -827,7 +838,7 @@ SynthDef(&#39;random&#39;, { |out|
 <li><p>load a directory with SynthDef files with <code class="docutils literal notranslate"><span class="pre">load_directory</span></code></p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -838,7 +849,7 @@ SynthDef(&#39;random&#39;, { |out|
 <p>This can be used together with <a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">supriya</a> for example.</p>
 <p><strong>Note:</strong> These synth are not known to <strong>sclang</strong>, therefore getting the SynthDesc won’t work</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -881,7 +892,7 @@ SynthDef(&#39;random&#39;, { |out|
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:71: UserWarning: SynthDesc &#39;supriya_synth&#39; is unknown. sclang does not know this SynthDef
+c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:72: UserWarning: SynthDesc &#39;supriya_synth&#39; is unknown. sclang does not know this SynthDef
   warnings.warn(f&#34;SynthDesc &#39;{name}&#39; is unknown. {sclang_text}&#34;)
 </pre></div></div>
 </div>
@@ -891,7 +902,7 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:71: UserWarning:
 <p>the sc3nb SynthDef - different from standard sclang SynthDefs - allows to inject a number of context specifiers using mustache syntax, i.e. <code class="docutils literal notranslate"><span class="pre">{{my_context_specifier}}</span></code>. This would mark a place within the synth definition that can be replaced by some user-wished sclang code before adding the SynthDef to the server.</p>
 <p>You can create a ‘proto’ synth definition with the SynthDef</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -903,9 +914,12 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:71: UserWarning:
 </pre></div>
 </div>
 </div>
-<p>In this example a new definition named “myKlank” offers a dynamic context “EXCITER” and 3 value contexts <code class="docutils literal notranslate"><span class="pre">freqs</span></code>, <code class="docutils literal notranslate"><span class="pre">rings</span></code>, and <code class="docutils literal notranslate"><span class="pre">channels</span></code>. Now we want to replace the dynamic context EXCITER with user-specific code. * use <code class="docutils literal notranslate"><span class="pre">set_context()</span></code> to replace a context with specific code * the specific code can include other context specifier strings in turn * this basically allows to create chained processing in python-compiled synths defs.</p>
+<p>In this example a new definition named <code class="docutils literal notranslate"><span class="pre">&quot;myKlank&quot;</span></code> offers a dynamic context <code class="docutils literal notranslate"><span class="pre">{{EXCITER}}</span></code>” and 3 value contexts <code class="docutils literal notranslate"><span class="pre">freqs</span></code>, <code class="docutils literal notranslate"><span class="pre">rings</span></code>, and <code class="docutils literal notranslate"><span class="pre">channels</span></code>. Now we want to replace the dynamic context EXCITER with user-specific code.</p>
+<ul class="simple">
+<li><p>use <code class="docutils literal notranslate"><span class="pre">set_context()</span></code> to replace a context with specific code</p></li>
+</ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -914,7 +928,7 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\synthdef.py:71: UserWarning:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -926,20 +940,57 @@ SynthDef(&#39;myKlank&#39;,
 })
 </pre></div></div>
 </div>
+<ul class="simple">
+<li><p>the specific code can include other context specifier strings in turn</p>
+<ul>
+<li><p>this basically allows to create chained processing in python-compiled synths defs.</p></li>
+</ul>
+</li>
+</ul>
 <p><strong>Remarks</strong>: * The context mechanism is very general: * it can be used both for code and values * e.g. for an array specification or a UGen selection. * To set a value (e.g. number or array), consider to use the pyvars syntax, i.e. using the caret ‘^’ variable value injection of python variables into sc code</p>
 <p>The definition is complete up to the pyvars. So let’s create a myKlank in SC!</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">p_channels</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">synth_name</span> <span class="o">=</span> <span class="n">synth_def_context</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;kdust&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">synth_def_context</span>  <span class="c1"># will show ^p_channels value when defined</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SynthDef(&#39;myKlank&#39;,
+{ |out=0, amp=0.3, freq=440|
+    var klank = DynKlank.ar(`[[1,2], [1,1], [1.4,1]], Dust.ar(20), freq);
+    Out.ar(out, amp*klank!2);
+})
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">synth_name</span> <span class="o">=</span> <span class="n">synth_def_context</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;kdust&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -961,7 +1012,7 @@ SynthDef(&#39;myKlank&#39;,
 </div>
 <p>Now let’s create another synthdef with a WhiteNoise excitation, but as a 1-channel version</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -970,7 +1021,7 @@ SynthDef(&#39;myKlank&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -981,7 +1032,7 @@ SynthDef(&#39;myKlank&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -990,7 +1041,7 @@ SynthDef(&#39;myKlank&#39;,
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1017,7 +1068,7 @@ SynthDef(&#39;myKlank&#39;,
 <p>(but don’t do it now as the synthdef is used for examples below)</p>
 <p>Remove all unused placeholders from current_def by</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1054,7 +1105,7 @@ SC code with unset context vars:
 <h3>Example creation of many SynthDefs<a class="headerlink" href="#Example-creation-of-many-SynthDefs" title="Permalink to this headline">¶</a></h3>
 <p>In some cases you want to create many SynthDefs with only a small change. You can use the SynthDefs object multiple time to do this. Here we want to create playbuf synthdefs for 1 to 10 channels: (Reuse of the synthdef object, which is defined above)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1071,7 +1122,7 @@ SC code with unset context vars:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1083,7 +1134,7 @@ SC code with unset context vars:
 </div>
 <p>Now you can access via <code class="docutils literal notranslate"><span class="pre">synthPlayBufs[2]</span></code> to the 2-ch playbuf etc.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1092,7 +1143,7 @@ SC code with unset context vars:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1107,7 +1158,7 @@ SC code with unset context vars:
 <p>Contexts allow to define such synthDefs dynamically on demand.</p>
 <p>The following code is a dynamic DynKlank whose data-controlled nr. of filters is determined via the SynthDef class. * nr of channels and nr. of filters in the filter bank are specified via pyvars * TODO: find a way how to set amps, rings, and harms on Synth.new</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1116,7 +1167,7 @@ SC code with unset context vars:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1125,7 +1176,7 @@ sc3nb.sc_objects.synthdef.SynthDef
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1142,7 +1193,7 @@ sc3nb.sc_objects.synthdef.SynthDef
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1162,7 +1213,7 @@ myKlank
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1177,28 +1228,35 @@ myKlank
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">x</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;harms&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;amps&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],</span> <span class="s2">&quot;rings&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
-<span class="c1"># following syntax works the same:</span>
-<span class="c1">#x.set({&quot;harms&quot;:[1,2,6], &quot;amps&quot;: [0.1,0.1,0.1], &quot;rings&quot;: [1, 0.4, 0.2]})</span>
-<span class="c1">#x.set([&quot;harms&quot;,[1,2,6],&quot;amps&quot;,[0.1,0.1,0.1],&quot;rings&quot;,[1, 0.4, 0.2]])</span>
+<span></span><span class="n">x</span><span class="o">.</span><span class="n">set</span><span class="p">({</span><span class="s2">&quot;harms&quot;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;amps&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],</span> <span class="s2">&quot;rings&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]})</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20004) &#39;myKlank&#39; ~ {&#39;freq&#39;: 100, &#39;amp&#39;: 0.05, &#39;harms&#39;: ([1, 2, 6], &#39;amps&#39;, [0.1, 0.1, 0.1], &#39;rings&#39;, [1, 0.4, 0.2]), &#39;amps&#39;: [0.1, 0.1, 0.1], &#39;rings&#39;: [1, 0.4, 0.2]}&gt;
+&lt;Synth(20004) &#39;myKlank&#39; s {&#39;freq&#39;: 100, &#39;amp&#39;: 0.05, &#39;harms&#39;: [1, 2, 6], &#39;amps&#39;: [0.1, 0.1, 0.1], &#39;rings&#39;: [1, 0.4, 0.2]}&gt;
 </pre></div></div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># following syntax works the same:</span>
+<span class="c1"># x.set([&quot;harms&quot;,[1,2,6],&quot;amps&quot;,[0.1,0.1,0.1],&quot;rings&quot;,[1, 0.4, 0.2]])</span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1207,12 +1265,12 @@ myKlank
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20004) &#39;myKlank&#39; f {&#39;freq&#39;: 100, &#39;amp&#39;: 0.05, &#39;harms&#39;: ([1, 2, 6], &#39;amps&#39;, [0.1, 0.1, 0.1], &#39;rings&#39;, [1, 0.4, 0.2]), &#39;amps&#39;: [0.1, 0.1, 0.1], &#39;rings&#39;: [1, 0.4, 0.2]}&gt;
+&lt;Synth(20004) &#39;myKlank&#39; f {&#39;freq&#39;: 100, &#39;amp&#39;: 0.05, &#39;harms&#39;: [1, 2, 6], &#39;amps&#39;: [0.1, 0.1, 0.1], &#39;rings&#39;: [1, 0.4, 0.2]}&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1234,7 +1292,7 @@ myKlank
 </li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1243,7 +1301,7 @@ myKlank
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1263,12 +1321,13 @@ myKlank
 <li><p>amplitude <code class="docutils literal notranslate"><span class="pre">amp</span></code></p></li>
 <li><p>number of harmonics <code class="docutils literal notranslate"><span class="pre">num</span></code></p></li>
 <li><p>spatial panning <code class="docutils literal notranslate"><span class="pre">pan</span></code></p></li>
-<li><p>Exponential lag <code class="docutils literal notranslate"><span class="pre">lag</span></code></p></li>
+<li><p>Exponential lag <code class="docutils literal notranslate"><span class="pre">lg</span></code></p></li>
+<li><p>EnvGen gate <code class="docutils literal notranslate"><span class="pre">gate</span></code>, which allows the <code class="docutils literal notranslate"><span class="pre">Node.release</span></code> method</p></li>
 </ul>
 </li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1277,7 +1336,7 @@ myKlank
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1291,7 +1350,7 @@ myKlank
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1346,6 +1405,38 @@ myKlank
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

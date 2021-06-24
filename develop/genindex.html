@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>Index &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -89,11 +89,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">How does this work?</a></li>
@@ -112,7 +112,9 @@
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -122,8 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -190,24 +191,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -301,6 +302,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -1021,7 +1026,7 @@
 </li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/bus/index.html#sc3nb.sc_objects.bus.ControlBusCommand">ControlBusCommand (class in sc3nb.sc_objects.bus)</a>
 </li>
-      <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.convert_to_sc">convert_to_sc() (in module sc3nb.sclang)</a>
+      <li><a href="autogen/autoapi/sc3nb/util/index.html#sc3nb.util.convert_to_sc">convert_to_sc() (in module sc3nb.util)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.convert_to_sc3nb_osc">convert_to_sc3nb_osc() (in module sc3nb.osc.osc_communication)</a>
 </li>
@@ -1681,6 +1686,8 @@
 </li>
         <li><a href="autogen/autoapi/sc3nb/timed_queue/index.html#module-sc3nb.timed_queue">sc3nb.timed_queue</a>
 </li>
+        <li><a href="autogen/autoapi/sc3nb/util/index.html#module-sc3nb.util">sc3nb.util</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1904,7 +1911,7 @@
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.NodeTree.parse_nodes">parse_nodes() (sc3nb.sc_objects.node.NodeTree static method)</a>
 </li>
-      <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.parse_pyvars">parse_pyvars() (in module sc3nb.sclang)</a>
+      <li><a href="autogen/autoapi/sc3nb/util/index.html#sc3nb.util.parse_pyvars">parse_pyvars() (in module sc3nb.util)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.parse_sclang_osc_packet">parse_sclang_osc_packet() (in module sc3nb.osc.parsing)</a>
 </li>
@@ -2136,7 +2143,7 @@
         <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer.remote">(sc3nb.SCServer method)</a>
 </li>
       </ul></li>
-      <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.remove_comments">remove_comments() (in module sc3nb.sclang)</a>
+      <li><a href="autogen/autoapi/sc3nb/util/index.html#sc3nb.util.remove_comments">remove_comments() (in module sc3nb.util)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.AddAction.REPLACE">REPLACE (sc3nb.AddAction attribute)</a>
 
@@ -2144,7 +2151,7 @@
         <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.AddAction.REPLACE">(sc3nb.sc_objects.node.AddAction attribute)</a>
 </li>
       </ul></li>
-      <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.replace_vars">replace_vars() (in module sc3nb.sclang)</a>
+      <li><a href="autogen/autoapi/sc3nb/util/index.html#sc3nb.util.replace_vars">replace_vars() (in module sc3nb.util)</a>
 </li>
       <li><a href="autogen/autoapi/sc3nb/osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCCommunication.reply_addresses">reply_addresses() (sc3nb.osc.osc_communication.OSCCommunication property)</a>
 </li>
@@ -2353,6 +2360,13 @@
 
       <ul>
         <li><a href="autogen/autoapi/sc3nb/timed_queue/index.html#module-sc3nb.timed_queue">module</a>
+</li>
+      </ul></li>
+      <li>
+    sc3nb.util
+
+      <ul>
+        <li><a href="autogen/autoapi/sc3nb/util/index.html#module-sc3nb.util">module</a>
 </li>
       </ul></li>
       <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SC3NB_DEFAULT_PORT">SC3NB_DEFAULT_PORT (in module sc3nb.sc_objects.server)</a>
@@ -2824,6 +2838,38 @@
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

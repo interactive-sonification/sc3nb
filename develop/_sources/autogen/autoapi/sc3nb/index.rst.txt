@@ -2387,6 +2387,8 @@ Content
                   OSC packet.
               if get_output or verbose
                   Output from SuperCollider code.
+              if get_output and get_result=True
+                  (result, output)
               else
                   None
 
@@ -7866,5 +7868,6 @@ Submodules
    sc/index.rst
    sclang/index.rst
    timed_queue/index.rst
+   util/index.rst
 
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>TimedQueue &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>TimedQueue &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -662,7 +667,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/61954be9e14a73700410e46e48faebd8a586fa30/examples/timedqueue-examples.ipynb">examples/timedqueue-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/c73c897ca8ecec47aa3b868f0a4ed9238d795764/examples/timedqueue-examples.ipynb">examples/timedqueue-examples.ipynb</a>.</p>
 </div>
 <div class="section" id="TimedQueue">
 <h1>TimedQueue<a class="headerlink" href="#TimedQueue" title="Permalink to this headline">¶</a></h1>
@@ -683,135 +688,96 @@ div.rendered_html tbody tr:hover {
 <h2>Basic Demo of TimedQueue<a class="headerlink" href="#Basic-Demo-of-TimedQueue" title="Permalink to this headline">¶</a></h2>
 <p>The following demo illustrate the core functionality with console print and sound. Please check the console / shell from which you have launched jupyter-notebook (i.e. your stdout)</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>import sys, os, time, random
+import numpy as np
 
-<span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="output_javascript"></div>
-<script type="text/javascript">
-var element = document.currentScript.previousSibling.previousSibling;
-if (typeof Jupyter !== 'undefined') {
-                        Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
-                        'Ctrl-.', {
-                        help : 'Free all nodes on SC server',
-                        help_index : 'zz',
-                        handler : function (event) {
-                            IPython.notebook.kernel.execute(
-                                "import sc3nb; sc3nb.SC.get_default().server.free_all(root=True)"
-                            )
-                            return true;}
-                        });
-                    }
-</script></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Starting sclang process... Done.
-Registering OSC /return callback in sclang... Done.
-Loading default sc3nb SynthDefs... Done.
-Booting SuperCollider Server... Done.
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">queue</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">TimedQueue</span><span class="p">()</span>
+import sc3nb as scn
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">myfun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>sc = scn.startup()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>queue = scn.TimedQueue()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>def myfun(x):
+    os.write(1, &quot;{}\n&quot;.format(x).encode())
+    sys.stderr.flush()
 
-<span class="k">def</span> <span class="nf">myblip</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
-    <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+def myblip(freq):
+    sc.server.msg(&quot;/s_new&quot;, [&quot;s1&quot;, -1, 1, 0, &quot;freq&quot;, freq, &quot;num&quot;, 3])
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">myfun</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># the number is written to stdout</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>myfun(4)  # the number is written to stdout
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">myblip</span><span class="p">(</span><span class="mi">700</span><span class="p">)</span> <span class="c1"># a tone should play</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">t0</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">myblip</span><span class="p">,</span> <span class="mi">800</span><span class="o">+</span><span class="mi">1</span><span class="o">*</span><span class="mi">7</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">t0</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">myfun</span><span class="p">,</span>  <span class="mi">400</span><span class="o">+</span><span class="mi">30</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>  <span class="c1"># plots on stderr = console</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>myblip(700) # a tone should play
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0.005001068115234375
-</pre></div></div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>t0 = time.time()
+for i in range(50):
+    queue.put(t0+i*0.04, myblip, 800+1*7*i)
+    queue.put(t0+i*0.04, myfun,  400+30*i)  # plots on stderr = console
+print(time.time()-t0)
+</pre></div>
+</div>
 </div>
 <p>Note that the code returns immediately, allowing you to interact with jupyter. All executions are then done by means of the TimedQueue</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">queue</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>queue.close()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="TimedQueueSC">
 <h2>TimedQueueSC<a class="headerlink" href="#TimedQueueSC" title="Permalink to this headline">¶</a></h2>
-<p>To allow easy and fast usage of SC messages and bundles <code class="docutils literal notranslate"><span class="pre">TimedQueueSC</span></code> was created * <code class="docutils literal notranslate"><span class="pre">put_msg(onset,</span> <span class="pre">address,</span> <span class="pre">params)</span></code>allows to send a message from python at onset.</p>
+<p>To allow easy and fast usage of SC messages and bundles <code class="docutils literal notranslate"><span class="pre">TimedQueueSC</span></code> was created</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">put_msg(onset,</span> <span class="pre">address,</span> <span class="pre">params)</span></code>allows to send a message from python at onset.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">put_bundler(onset,</span> <span class="pre">bundler)</span></code>allows to send a bundler from python at onset.</p></li>
 </ul>
 </div>
@@ -824,352 +790,272 @@ Booting SuperCollider Server... Done.
 </ul>
 <p><strong>Note that there are sometimes some strange effects with matplotlib event loop hickups in Mac, it is untested with Linux or Windows, any problem reports or suggested solutions are welcome.</strong></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> qt5
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create some test data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mf">3.5</span><span class="p">))</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>import matplotlib
+import matplotlib.pyplot as plt
+%matplotlib qt5
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create figure, axis, plots -&gt; a window should open depicting two clusters</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># create figure</span>
-<span class="n">mngr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_current_fig_manager</span><span class="p">();</span> <span class="n">mngr</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-<span class="n">pldata</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># create plots</span>
-<span class="n">plmarked</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s2">&quot;ro&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">();</span> <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span> <span class="c1"># not needed if plot shows</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># create some test data
+data = np.vstack((np.random.randn(50, 5), np.random.randn(100, 5)+3.5))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># create figure, axis, plots -&gt; a window should open depicting two clusters
+fig, ax = plt.subplots(1)  # create figure
+mngr = plt.get_current_fig_manager(); mngr.window.setGeometry(1200, 0, 500, 400)
+pldata, = ax.plot(data[:,1], data[:,2], &quot;.&quot;, ms=5) # create plots
+plmarked, = ax.plot([], [], &quot;ro&quot;, ms=5, lw=0.5)
+plt.show(block=False); plt.ion(); fig.canvas.draw() # not needed if plot shows
 
-<span class="c1"># create the queue</span>
-<span class="n">queue</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">TimedQueueSC</span><span class="p">()</span>
+# create the queue
+queue = scn.TimedQueueSC()
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">pldata</span><span class="p">,</span> <span class="n">plmarked</span>
-    <span class="n">plmarked</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patch</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">plmarked</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">update</span><span class="p">()</span> <span class="c1"># additional fig.canvas.flush_events() not needed?</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">onset</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="n">scn</span><span class="o">.</span><span class="n">linlin</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="mf">0.2</span> <span class="o">+</span> <span class="mf">0.2</span>
-    <span class="n">freq</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">midicps</span><span class="p">(</span><span class="n">scn</span><span class="o">.</span><span class="n">linlin</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">linlin</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put_bundler</span><span class="p">(</span><span class="n">onset</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">scn</span><span class="o">.</span><span class="n">Bundler</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;dur&quot;</span><span class="p">,</span> <span class="o">.</span><span class="mi">52</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">]))</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">update_plot</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">spawn</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;time used: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>def update_plot(x, y):
+    global fig, ax, pldata, plmarked
+    plmarked.set_data([x], [y])
+    ax.draw_artist(ax.patch)
+    ax.draw_artist(pldata)
+    ax.draw_artist(plmarked)
+    fig.canvas.update() # additional fig.canvas.flush_events() not needed?
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-time used: 0.024999380111694336
-</pre></div></div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>t0 = time.time()
+for i, r in enumerate(data):
+    onset = t0 + scn.linlin(r[1], data[:,1].min(), data[:,1].max(), 0.1, 4) + random.random()*0.2 + 0.2
+    freq = scn.midicps(scn.linlin(r[2], 2, 5, 60, 80))
+    pos = scn.linlin(r[4], 0, 2, -1, 1)
+    queue.put_bundler(onset-0.2, scn.Bundler(onset, &quot;/s_new&quot;, [&quot;s1&quot;, -1, 1, 0, &quot;freq&quot;, freq, &quot;amp&quot;, 0.05, &quot;dur&quot;, .52, &quot;pos&quot;, pos]))
+    queue.put(onset, update_plot, (r[1], r[2]), spawn=False)
+print(f&#39;time used: {time.time() - t0}&#39;)
+</pre></div>
+</div>
 </div>
 <p>Notice that any data point is turned red the moment its sound starts.</p>
 </div>
 <div class="section" id="TimedQueueSC-PMSon-with-matplotlib-highlights">
 <h2>TimedQueueSC PMSon with matplotlib highlights<a class="headerlink" href="#TimedQueueSC-PMSon-with-matplotlib-highlights" title="Permalink to this headline">¶</a></h2>
-<p>The following example illustrates how to use TimedQueues to maintain a ‘currently playing selection’ of data points, so that the GUI highlighting is deactivated when the corresponding sound stops * this is achieved by scheduling a select and an unselect function at corresponding sound onset and stop time * Note that here the plot update is done within a second loop of scheduled ‘update_plot’ invocations, at an frame rate independent of the sound events.</p>
+<p>The following example illustrates how to use TimedQueues to maintain a ‘currently playing selection’ of data points, so that the GUI highlighting is deactivated when the corresponding sound stops</p>
+<ul class="simple">
+<li><p>this is achieved by scheduling a select and an unselect function at corresponding sound onset and stop time</p></li>
+<li><p>Note that here the plot update is done within a second loop of scheduled ‘update_plot’ invocations, at an frame rate independent of the sound events.</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="o">+</span><span class="mi">5</span><span class="p">))</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>data = np.vstack((np.random.randn(300, 7), np.random.randn(300, 7)+5))
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create figure</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># create figure</span>
-<span class="n">mngr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_current_fig_manager</span><span class="p">()</span>
-<span class="n">mngr</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># create figure
+fig, ax = plt.subplots(1)  # create figure
+mngr = plt.get_current_fig_manager()
+mngr.window.setGeometry(1200, 0, 500, 400)
+plt.show()
 
-<span class="c1"># create the queue</span>
-<span class="n">queue</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">TimedQueueSC</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">mapcol</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">val_from</span><span class="p">,</span> <span class="n">val_to</span><span class="p">):</span>  <span class="c1"># helper for mapping</span>
-    <span class="k">return</span> <span class="n">scn</span><span class="o">.</span><span class="n">linlin</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">stats</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">stats</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">val_from</span><span class="p">,</span> <span class="n">val_to</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>  <span class="c1">#  highlight selection</span>
-    <span class="n">selected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="k">def</span> <span class="nf">unselect</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="c1"># lowlight selection</span>
-    <span class="n">selected</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">pldata</span><span class="p">,</span> <span class="n">plmarked</span><span class="p">,</span> <span class="n">selected</span>
-    <span class="n">plmarked</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="n">selected</span><span class="p">],</span> <span class="n">ys</span><span class="p">[</span><span class="n">selected</span><span class="p">])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patch</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">plmarked</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">flush_events</span><span class="p">()</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-
-<span class="c1"># parameter mapping sonification with GUI</span>
-<span class="n">tot_dur</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># total duration of the sonification</span>
-<span class="n">max_ev_dur</span> <span class="o">=</span> <span class="mf">5.5</span>  <span class="c1"># maximal event duration</span>
-<span class="n">delay</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># offset</span>
-
-<span class="n">stats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
-<span class="n">selected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
-
-<span class="c1"># create axis, plots</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="n">plmarked</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s2">&quot;ro&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">pldata</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plots</span>
-
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">onset</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="n">delay</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span> <span class="n">i</span><span class="o">/</span><span class="mi">800</span> <span class="c1"># mapcol(r, stats, 3, 0, tot_dur)</span>
-    <span class="n">freq</span>  <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">midicps</span><span class="p">(</span> <span class="n">mapcol</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
-    <span class="n">ev_dur</span> <span class="o">=</span> <span class="n">mapcol</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">max_ev_dur</span><span class="p">)</span>
-    <span class="c1"># sonification</span>
-    <span class="n">synth_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;dur&quot;</span><span class="p">,</span> <span class="n">ev_dur</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">]</span>
-    <span class="n">bundler</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Bundler</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="n">synth_args</span><span class="p">)</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put_bundler</span><span class="p">(</span><span class="n">onset</span><span class="o">-</span><span class="n">delay</span><span class="p">,</span> <span class="n">bundler</span><span class="p">)</span>
-    <span class="c1"># on/off events of marker highlight</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">select</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span> <span class="o">+</span> <span class="n">ev_dur</span><span class="p">,</span> <span class="n">unselect</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-
-<span class="c1"># update plot at given rate from earliest to latext time</span>
-<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t0</span><span class="o">+</span><span class="n">delay</span><span class="o">+</span><span class="n">tot_dur</span><span class="o">+</span><span class="n">ev_dur</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">):</span>  <span class="c1"># 1 / update rate</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">update_plot</span><span class="p">,</span> <span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]))</span>
+# create the queue
+queue = scn.TimedQueueSC()
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\ipykernel_launcher.py:25: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-Exception in thread Thread-36:
-Traceback (most recent call last):
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 926, in _bootstrap_inner
-    self.run()
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 870, in run
-    self._target(*self._args, **self._kwargs)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 208, in __worker
-    event.execute()
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
-    self.function(*self.args)
-  File &#34;&lt;ipython-input-1-a1fc966c9644&gt;&#34;, line 13, in update_plot
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>def mapcol(row, stats, col, val_from, val_to):  # helper for mapping
+    return scn.linlin(row[col], stats[col, 0], stats[col, 1], val_from, val_to)
+
+def select(i):  #  highlight selection
+    selected[i] = True
+
+def unselect(i): # lowlight selection
+    selected[i] = False
+
+def update_plot(xs, ys):
+    global fig, ax, pldata, plmarked, selected
+    plmarked.set_data(xs[selected], ys[selected])
     ax.draw_artist(ax.patch)
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\matplotlib\axes\_base.py&#34;, line 2760, in draw_artist
-    raise AttributeError(&#34;draw_artist can only be used after an &#34;
-AttributeError: draw_artist can only be used after an initial draw which caches the renderer
+    ax.draw_artist(pldata)
+    ax.draw_artist(plmarked)
+    fig.canvas.flush_events()
+    fig.canvas.update()
 
-</pre></div></div>
+# parameter mapping sonification with GUI
+tot_dur = 5  # total duration of the sonification
+max_ev_dur = 5.5  # maximal event duration
+delay = 1  # offset
+
+stats = np.vstack((np.min(data, 0), np.max(data, 0))).T
+selected = np.zeros(np.shape(data)[0], np.bool)
+
+# create axis, plots
+ax.clear()
+plmarked, = ax.plot([], [], &quot;ro&quot;, ms=4, lw=0.5)
+pldata, = ax.plot(data[:,1], data[:,2], &quot;.&quot;, ms=2) # create plots
+
+t0 = time.time()
+
+for i, r in enumerate(data):
+    onset = t0 + delay + 5* i/800 # mapcol(r, stats, 3, 0, tot_dur)
+    freq  = scn.midicps( mapcol(r, stats, 2, 60, 90))
+    ev_dur = mapcol(r, stats, 4, 0.2, max_ev_dur)
+    # sonification
+    synth_args = [&quot;s1&quot;, -1, 1, 0, &quot;freq&quot;, freq, &quot;amp&quot;, 0.05, &quot;dur&quot;, ev_dur, &quot;pos&quot;, pos]
+    bundler = scn.Bundler(onset, &quot;/s_new&quot;, synth_args)
+    queue.put_bundler(onset-delay, bundler)
+    # on/off events of marker highlight
+    queue.put(onset, select, i)
+    queue.put(onset + ev_dur, unselect, i)
+
+# update plot at given rate from earliest to latext time
+for t in np.arange(t0, t0+delay+tot_dur+ev_dur+1, 1/10):  # 1 / update rate
+    queue.put(t, update_plot, (data[:,1], data[:,2]))
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">
 <h2>TimedQueueSC PMSon with timeseries data and matplotlib<a class="headerlink" href="#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib" title="Permalink to this headline">¶</a></h2>
-<p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot * This presumes time-indexable data * a ‘maximum onset’ variable is maintained to shutdown the continuously playing synths when done * note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p>
+<p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot</p>
+<ul class="simple">
+<li><p>This presumes time-indexable data</p></li>
+<li><p>a ‘maximum onset’ variable is maintained to shutdown the continuously playing synths when done</p></li>
+<li><p>note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">ts</span><span class="p">,</span>
-                  <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.5</span><span class="o">*</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span><span class="o">*</span><span class="n">ts</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">ts</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
-                  <span class="mf">0.08</span><span class="o">*</span><span class="n">ts</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">ts</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>ts = np.arange(0, 20, 0.01)
+data = np.vstack((ts,
+                  np.sin(2.5*ts) + 0.01*ts*np.random.randn(np.shape(ts)[0]),
+                  0.08*ts[::-1]*np.cos(3.5*ts)**2)).T
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create figure</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># create figure</span>
-<span class="n">mngr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_current_fig_manager</span><span class="p">();</span> <span class="n">mngr</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># create figure
+fig, ax = plt.subplots(1)  # create figure
+mngr = plt.get_current_fig_manager(); mngr.window.setGeometry(1200, 0, 500, 400)
 
-<span class="c1"># create axis, plots</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="n">plmarked</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s2">&quot;r-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">pldata1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plot 1</span>
-<span class="n">pldata2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># create plot 2</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create the queue</span>
-<span class="n">queue</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">TimedQueueSC</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">mapcol</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">val_from</span><span class="p">,</span> <span class="n">val_to</span><span class="p">):</span>  <span class="c1"># helper for mapping</span>
-    <span class="k">return</span> <span class="n">scn</span><span class="o">.</span><span class="n">linlin</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">stats</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">stats</span><span class="p">[</span><span class="n">col</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">val_from</span><span class="p">,</span> <span class="n">val_to</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">pldata1</span><span class="p">,</span> <span class="n">pldata2</span><span class="p">,</span> <span class="n">plmarked</span><span class="p">,</span> <span class="n">selected</span>
-    <span class="n">plmarked</span><span class="o">.</span><span class="n">set_data</span><span class="p">([</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patch</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata1</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">pldata2</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">draw_artist</span><span class="p">(</span><span class="n">plmarked</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-    <span class="c1"># fig.canvas.flush_events()</span>
-
-<span class="n">stats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
-<span class="n">selected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
-
-<span class="c1"># parameter mapping sonification with GUI</span>
-<span class="n">delay</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">rate</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">queue</span><span class="o">.</span><span class="n">put_msg</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">queue</span><span class="o">.</span><span class="n">put_msg</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="mi">1201</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-
-<span class="n">max_onset</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">latest_gui_onset</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">gui_frame_rate</span> <span class="o">=</span> <span class="mi">60</span>
-
-<span class="n">ts</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">[::</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]):</span>
-    <span class="n">ts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> <span class="n">tmin</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">onset</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">tmin</span><span class="p">)</span><span class="o">/</span><span class="n">rate</span>
-    <span class="n">freq</span>  <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">midicps</span><span class="p">(</span> <span class="n">mapcol</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">))</span>
-    <span class="n">freqR</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">scn</span><span class="o">.</span><span class="n">midicps</span><span class="p">(</span> <span class="n">mapcol</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
-
-    <span class="c1"># sonification</span>
-    <span class="n">tt</span> <span class="o">=</span> <span class="n">t0</span> <span class="o">+</span> <span class="n">delay</span> <span class="o">+</span> <span class="n">onset</span>
-    <span class="k">if</span> <span class="n">tt</span> <span class="o">&gt;</span> <span class="n">max_onset</span><span class="p">:</span> <span class="n">max_onset</span> <span class="o">=</span> <span class="n">tt</span>
-    <span class="n">bundler</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Bundler</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
-    <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;/n_set&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1200</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;lg&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;/n_set&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1201</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="n">freqR</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">queue</span><span class="o">.</span><span class="n">put_bundler</span><span class="p">(</span><span class="n">tt</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">bundler</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">tt</span> <span class="o">&gt;</span> <span class="n">latest_gui_onset</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">gui_frame_rate</span><span class="p">:</span>  <span class="c1"># not more than needed gui updates</span>
-        <span class="n">latest_gui_onset</span> <span class="o">=</span> <span class="n">tt</span>
-        <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">update_plot</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="n">spawn</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">queue</span><span class="o">.</span><span class="n">put_msg</span><span class="p">(</span><span class="n">max_onset</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1200</span><span class="p">])</span>
-<span class="n">queue</span><span class="o">.</span><span class="n">put_msg</span><span class="p">(</span><span class="n">max_onset</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1201</span><span class="p">])</span>
-
-<span class="c1"># queue.join()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span>
+# create axis, plots
+ax.clear()
+plmarked, = ax.plot([], [], &quot;r-&quot;, lw=1)
+pldata1, = ax.plot(data[:,0], data[:,1], &quot;-&quot;, ms=2) # create plot 1
+pldata2, = ax.plot(data[:,0], data[:,2], &quot;-&quot;, ms=2) # create plot 2
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\ipykernel_launcher.py:18: DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-Exception in thread Thread-27:
-Traceback (most recent call last):
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 926, in _bootstrap_inner
-    self.run()
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 870, in run
-    self._target(*self._args, **self._kwargs)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 208, in __worker
-    event.execute()
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
-    self.function(*self.args)
-  File &#34;&lt;ipython-input-1-6ae806878fe3&gt;&#34;, line 4, in update_plot
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span># create the queue
+queue = scn.TimedQueueSC()
+
+def mapcol(row, stats, col, val_from, val_to):  # helper for mapping
+    return scn.linlin(row[col], stats[col, 0], stats[col, 1], val_from, val_to)
+
+def update_plot(t):
+    global fig, ax, pldata1, pldata2, plmarked, selected
+    plmarked.set_data([t,t], [-10000, 10000])
     ax.draw_artist(ax.patch)
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\site-packages\matplotlib\axes\_base.py&#34;, line 2760, in draw_artist
-    raise AttributeError(&#34;draw_artist can only be used after an &#34;
-AttributeError: draw_artist can only be used after an initial draw which caches the renderer
+    ax.draw_artist(pldata1)
+    ax.draw_artist(pldata2)
+    ax.draw_artist(plmarked)
+    fig.canvas.update()
+    # fig.canvas.flush_events()
 
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-0.29399800300598145
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+stats = np.vstack((np.min(data, 0), np.max(data, 0))).T
+selected = np.zeros(np.shape(data)[0], np.bool)
+
+# parameter mapping sonification with GUI
+delay = 0.5
+rate = 2
+
+t0 = time.time()
+queue.put_msg(t0, &quot;/s_new&quot;, [&quot;s2&quot;, 1200, 1, 0, &quot;amp&quot;, 0])
+queue.put_msg(t0, &quot;/s_new&quot;, [&quot;s2&quot;, 1201, 1, 0, &quot;amp&quot;, 0])
+
+max_onset = 0
+latest_gui_onset = 0
+gui_frame_rate = 60
+
+ts = []
+for i, r in enumerate(data[::2, :]):
+    ts.append(time.time()-t0)
+    if i==0: tmin = r[0]
+    onset = (r[0]-tmin)/rate
+    freq  = scn.midicps( mapcol(r, stats, 1, 60, 70))
+    freqR = 0.5 * scn.midicps( mapcol(r, stats, 2, 70, 80))
+
+    # sonification
+    tt = t0 + delay + onset
+    if tt &gt; max_onset: max_onset = tt
+    bundler = scn.Bundler(tt)
+    bundler.add(0, &quot;/n_set&quot;, [1200, &quot;freq&quot;, freq, &quot;num&quot;, 4, &quot;amp&quot;, 0.2, &quot;pan&quot;, -1, &quot;lg&quot;, 0])
+    bundler.add(0, &quot;/n_set&quot;, [1201, &quot;freq&quot;, freqR, &quot;num&quot;, 1, &quot;amp&quot;, 0.1, &quot;pan&quot;, 1])
+    queue.put_bundler(tt-0.2, bundler)
+    if tt &gt; latest_gui_onset + 1/gui_frame_rate:  # not more than needed gui updates
+        latest_gui_onset = tt
+        queue.put(tt, update_plot, (r[0],), spawn=False)
+queue.put_msg(max_onset, &quot;/n_free&quot;, [1200])
+queue.put_msg(max_onset, &quot;/n_free&quot;, [1201])
+
+# queue.join()
+print(time.time()-t0)
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>sc.exit()
+</pre></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-Exception in thread Thread-37:
-Traceback (most recent call last):
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 926, in _bootstrap_inner
-    self.run()
-  File &#34;C:\Users\Dennis\Anaconda3\envs\soni\lib\threading.py&#34;, line 870, in run
-    self._target(*self._args, **self._kwargs)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 208, in __worker
-    event.execute()
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\timed_queue.py&#34;, line 46, in execute
-    self.function(*self.args)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 312, in send
-    server.send(self, receiver=receiver, bundle=bundle)
-  File &#34;c:\users\dennis\dev\soni\sc3nb\src\sc3nb\osc\osc_communication.py&#34;, line 916, in send
-    sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
-OSError: [WinError 10038] An operation was attempted on something that is not a socket
-
-</pre></div></div>
 </div>
 </div>
 </div>
@@ -1209,6 +1095,38 @@ OSError: [WinError 10038] An operation was attempted on something that is not a 
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

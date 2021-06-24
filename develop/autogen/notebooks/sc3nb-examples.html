@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Getting Started &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>Getting Started &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -662,7 +667,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/61954be9e14a73700410e46e48faebd8a586fa30/examples/sc3nb-examples.ipynb">examples/sc3nb-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/c73c897ca8ecec47aa3b868f0a4ed9238d795764/examples/sc3nb-examples.ipynb">examples/sc3nb-examples.ipynb</a>.</p>
 </div>
 <div class="section" id="Getting-Started">
 <h1>Getting Started<a class="headerlink" href="#Getting-Started" title="Permalink to this headline">¶</a></h1>
@@ -828,13 +833,14 @@ Booting SuperCollider Server... Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth_dur</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># you can use python variable values in SynthDefs</span>
+<span></span><span class="n">synth_dur</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># you can use python variables in SynthDefs by prepending ^</span>
 <span class="n">synth_def</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;&quot;{ |out|</span>
-<span class="s2">Out.ar(out, SinOsc.ar(Rand(400, 800), 0, 0.2) * Line.kr(1, 0, ^synth_dur, doneAction: Done.freeSelf))</span>
+<span class="s2">    var line;</span>
+<span class="s2">    line = Line.kr(1, 0, ^synth_dur, doneAction: Done.freeSelf);</span>
+<span class="s2">    Out.ar(out, SinOsc.ar(Rand(400, 800), 0, 0.2) * line);</span>
 <span class="s2">}&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="n">synth_def</span><span class="o">.</span><span class="n">add</span><span class="p">()</span>
-
-<span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;random&quot;</span><span class="p">)</span>
+<span class="n">synth_def</span>  <span class="c1"># Note that the representation has synth_dur already injected</span>
 </pre></div>
 </div>
 </div>
@@ -844,12 +850,34 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+SynthDef(&#39;random&#39;, { |out|
+    var line;
+    line = Line.kr(1, 0, 0.5, doneAction: Done.freeSelf);
+    Out.ar(out, SinOsc.ar(Rand(400, 800), 0, 0.2) * line);
+})
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;random&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
 &lt;Synth(20002) &#39;random&#39; s {}&gt;
 </pre></div></div>
 </div>
 <p>Load a file as Buffer and play it</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -859,7 +887,7 @@ Booting SuperCollider Server... Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -868,7 +896,7 @@ Booting SuperCollider Server... Done.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -877,7 +905,7 @@ Booting SuperCollider Server... Done.
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -886,7 +914,7 @@ Booting SuperCollider Server... Done.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -905,7 +933,7 @@ Booting SuperCollider Server... Done.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -919,21 +947,22 @@ array([[-0.00189209, -0.00189209],
        [ 0.18585205,  0.18585205]])
 </pre></div></div>
 </div>
+<p>More examples about the above used SuperCollider objects can be found in the respective User Guide sections * <a class="reference internal" href="supercollider-objects/node-examples.html"><span class="doc">Nodes (Synths and Groups)</span></a> * <a class="reference internal" href="supercollider-objects/synthdef-examples.html"><span class="doc">SynthDef</span></a> * <a class="reference internal" href="supercollider-objects/buffer-examples.html"><span class="doc">Buffer</span></a></p>
 </div>
 <div class="section" id="Use-OSC-to-control-the-SuperCollider-audio-server">
 <h3>Use OSC to control the SuperCollider audio server<a class="headerlink" href="#Use-OSC-to-control-the-SuperCollider-audio-server" title="Permalink to this headline">¶</a></h3>
 <p>Send OSC Messages with <a class="reference external" href="https://doc.sccode.org/Reference/Server-Command-Reference.html">SuperCollider Commands</a> and receive replies</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;/status&quot;</span><span class="p">)</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;/status&quot;</span><span class="p">)</span>  <span class="c1"># waits for reply message and returns it</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -943,14 +972,15 @@ array([[-0.00189209, -0.00189209],
  1,
  9,
  117,
- 0.25753745436668396,
- 0.43315771222114563,
+ 0.27066338062286377,
+ 0.47807106375694275,
  44100.0,
- 43577.184415584416)
+ 43548.905905256324)
 </pre></div></div>
 </div>
+<p>We offer also high level versions for the commands.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -959,17 +989,17 @@ array([[-0.00189209, -0.00189209],
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu=0.25831735134124756, peak_cpu=0.43315771222114563, nominal_sr=44100.0, actual_sr=43548.905905256324)
+ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu=0.26837432384490967, peak_cpu=0.47807106375694275, nominal_sr=44100.0, actual_sr=43563.0405712431)
 </pre></div></div>
 </div>
 <p>Create OSC Bundles using SuperCollider Commands directly</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -981,7 +1011,7 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -992,7 +1022,7 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 <p>or create OSC Bundles with the high level Python implementations</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1006,7 +1036,7 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1015,12 +1045,13 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
  0.5: [&lt;OSCMessage(&#34;/s_new&#34;, [&#39;s1&#39;, 20005, 0, 67108865, &#39;freq&#39;, 800, &#39;dur&#39;, 0.10000000149011612])&gt;]}
 </pre></div></div>
 </div>
+<p><a class="reference internal" href="osc-communication-examples.html"><span class="doc">More OSC communication examples</span></a></p>
 </div>
 <div class="section" id="Use-the-SuperCollider-Language-from-Python">
 <h3>Use the SuperCollider Language from Python<a class="headerlink" href="#Use-the-SuperCollider-Language-from-Python" title="Permalink to this headline">¶</a></h3>
 <p>Execute SuperCollider Language Code</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1034,12 +1065,12 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; egsg
+-&gt; ggse
 </pre></div></div>
 </div>
 <p>or via the <strong>%sc</strong> IPython magic</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1052,12 +1083,12 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; eggs
+-&gt; sgeg
 </pre></div></div>
 </div>
 <p>Get results from SuperCollider Language in python with <code class="docutils literal notranslate"><span class="pre">cmdg</span></code> or <strong>%scg</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1076,12 +1107,70 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </pre></div></div>
 </div>
+<p><a class="reference internal" href="osc-communication-examples.html"><span class="doc">More sclang in sc3nb examples</span></a></p>
+</div>
+<div class="section" id="Stoping-the-synthesis">
+<h3>Stoping the synthesis<a class="headerlink" href="#Stoping-the-synthesis" title="Permalink to this headline">¶</a></h3>
+<p>There are multiple options to stop the playing audio synthesis</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">sc</span> <span class="nv">x</span> <span class="o">=</span> Synth.new<span class="o">(</span><span class="s2">&quot;default&quot;</span><span class="o">)</span>  // starting a Synth with sclang
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-&gt; Synth(&#39;default&#39; : 1000)
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>to stop all playing synths either use CMD-. (in Jupyter Command mode).</p></li>
+<li><p>It is a shortcut for the ´free_all´ method of the default server</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>or you could also use sclang</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">sc</span> s.freeAll
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-&gt; sc3nb_remote
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="Combined-usage">
 <h3>Combined usage<a class="headerlink" href="#Combined-usage" title="Permalink to this headline">¶</a></h3>
-<p>create a Synth with sclang and get the nodeid of the Synth via the <strong>%scg</strong> IPython magic</p>
+<p>It is also possible to mix the different interaction styles.</p>
+<ul class="simple">
+<li><p>create a Synth with sclang and get the nodeid of the Synth via the <strong>%scg</strong> IPython magic</p></li>
+</ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1094,12 +1183,14 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; 1000
+-&gt; 1001
 </pre></div></div>
 </div>
-<p>create the corresponding Python Synth instance</p>
+<ul class="simple">
+<li><p>create the corresponding Python Synth instance</p></li>
+</ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1109,17 +1200,19 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(1000) &#39;default&#39;  {}&gt;
+&lt;Synth(1001) &#39;default&#39;  {}&gt;
 </pre></div></div>
 </div>
-<p>Inspect and control the Synth from Python</p>
+<ul class="simple">
+<li><p>Inspect and control the Synth from Python</p></li>
+</ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1128,7 +1221,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1141,7 +1234,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1150,7 +1243,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1159,7 +1252,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1169,7 +1262,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -1178,7 +1271,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1187,17 +1280,19 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(1000) &#39;default&#39;  {&#39;freq&#39;: 880.0}&gt;
+&lt;Synth(1001) &#39;default&#39; ~ {&#39;freq&#39;: 880.0}&gt;
 </pre></div></div>
 </div>
-<p>send a OSC Message to free the Synth</p>
+<ul class="simple">
+<li><p>send a OSC Message to free the Synth</p></li>
+</ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1206,7 +1301,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1215,17 +1310,20 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(1000) &#39;default&#39;  {&#39;freq&#39;: 880.0}&gt;
+&lt;Synth(1001) &#39;default&#39; ~ {&#39;freq&#39;: 880.0}&gt;
 </pre></div></div>
 </div>
+</div>
+<div class="section" id="Exiting-sc3nb">
+<h3>Exiting sc3nb<a class="headerlink" href="#Exiting-sc3nb" title="Permalink to this headline">¶</a></h3>
 <p>To shut down the server and sclang subprocesses</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1239,7 +1337,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 <h2>Further information and advanced examples<a class="headerlink" href="#Further-information-and-advanced-examples" title="Permalink to this headline">¶</a></h2>
 <p>For more details on the specific parts please refer to the corresponding sections of the User Guide.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="sclang-examples.html"><span class="doc">SuperCollider Language sclang</span></a></p></li>
+<li><p>Usage of <a class="reference internal" href="sclang-examples.html"><span class="doc">SuperCollider Language (sclang) in sc3nb</span></a></p></li>
 <li><p>Usage of the SuperCollider Objects python interface</p>
 <ul>
 <li><p><a class="reference internal" href="supercollider-objects/server-examples.html"><span class="doc">Server</span></a></p></li>
@@ -1250,9 +1348,18 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 <li><p><a class="reference internal" href="supercollider-objects/recorder-examples.html"><span class="doc">Recorder</span></a></p></li>
 </ul>
 </li>
-<li><p>Usage of common SuperCollider functions <a class="reference internal" href="helper-examples.html"><span class="doc">Helpers</span></a></p></li>
-<li><p>Usage of OSC in SuperCollider: <a class="reference internal" href="osc-communication-example.html"><span class="doc">OSC Communication</span></a></p></li>
+<li><p>Usage of <a class="reference internal" href="helper-examples.html"><span class="doc">common SuperCollider helper functions</span></a></p></li>
+<li><p>Usage of <a class="reference internal" href="osc-communication-examples.html"><span class="doc">OSC in sc3nb</span></a></p></li>
 </ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1291,6 +1398,38 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -89,11 +89,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
@@ -112,7 +112,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -122,8 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -190,24 +191,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -301,6 +302,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -406,6 +411,7 @@
 
 <span class="kn">import</span> <span class="nn">sc3nb</span>
 <span class="kn">import</span> <span class="nn">sc3nb.resources</span>
+<span class="kn">from</span> <span class="nn">sc3nb.util</span> <span class="kn">import</span> <span class="n">parse_pyvars</span><span class="p">,</span> <span class="n">replace_vars</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">sc3nb.sc</span> <span class="kn">import</span> <span class="n">SC</span>
@@ -691,7 +697,7 @@
         <span class="c1"># Create new SynthDef add it to SynthDescLib and get bytes</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
-        <span class="n">synth_def_blob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span>
+        <span class="n">synth_def_blob</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">            &quot;sc3nb - Creating SynthDef </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;.postln;</span>
 <span class="s2">            r.tmpSynthDef = SynthDef(&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_def</span><span class="si">}</span><span class="s2">);</span>
@@ -699,11 +705,12 @@
 <span class="s2">            r.tmpSynthDef.asBytes();&quot;&quot;&quot;</span><span class="p">,</span>
             <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">,</span>
             <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">get_result</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">get_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">synth_def_blob</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding SynthDef failed. </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding SynthDef failed. - </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">server</span><span class="o">.</span><span class="n">send_synthdef</span><span class="p">(</span><span class="n">synth_def_blob</span><span class="p">)</span>
@@ -725,7 +732,13 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="SynthDef.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.SynthDef.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SynthDef(&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_def</span><span class="si">}</span><span class="s2">)&quot;</span></div></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pyvars</span> <span class="o">=</span> <span class="n">parse_pyvars</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_def</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+            <span class="n">current_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_def</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_def</span> <span class="o">=</span> <span class="n">replace_vars</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_def</span><span class="p">,</span> <span class="n">pyvars</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SynthDef(&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="n">current_def</span><span class="si">}</span><span class="s2">)&quot;</span></div></div>
 </pre></div>
 
            </div>
@@ -758,6 +771,38 @@
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

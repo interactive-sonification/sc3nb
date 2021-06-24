@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Nodes (Synth and Group) &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>Nodes (Synth and Group) &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -664,7 +669,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/61954be9e14a73700410e46e48faebd8a586fa30/examples/supercollider-objects/node-examples.ipynb">examples/supercollider-objects/node-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/c73c897ca8ecec47aa3b868f0a4ed9238d795764/examples/supercollider-objects/node-examples.ipynb">examples/supercollider-objects/node-examples.ipynb</a>.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -742,8 +747,6 @@ Booting SuperCollider Server... Done.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
-   -24 s2
-     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 lg: 0.10000000149012 gate: 1
    469762049 group
    402653185 group
    335544321 group
@@ -1040,7 +1043,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1058,7 +1061,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1076,7 +1079,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <p>The Synth does save its current control arguments in <code class="docutils literal notranslate"><span class="pre">current_controls</span></code></p>
@@ -1120,7 +1123,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1332,12 +1335,16 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 &lt;OSCMessage(&#34;/s_new&#34;, [&#39;s2&#39;, 20001, 0, 67108865, &#39;freq&#39;, 219.61940002441406, &#39;amp&#39;, 0.10000000149011612, &#39;num&#39;, 4.0, &#39;pan&#39;, -1, &#39;lg&#39;, 0.10000000149011612, &#39;gate&#39;, 1.0])&gt;
 </pre></div></div>
 </div>
-<p>Refer to the <a class="reference internal" href="../osc-communication-example.html"><span class="doc">OSC communication example notebook</span></a> if you want to learn more about messages and bundles.</p>
+<p>Refer to the <a class="reference internal" href="../osc-communication-examples.html"><span class="doc">OSC communication example notebook</span></a> if you want to learn more about messages and bundles.</p>
 </div>
 </div>
 <div class="section" id="Group">
 <h2>Group<a class="headerlink" href="#Group" title="Permalink to this headline">¶</a></h2>
-<p>Nodes can be grouped and controlled together. This gives you mutliple advantages like * controlling multiple Synth together * specifying the execution order of the nodes. For more details look at <a class="reference external" href="#Order-of-Nodes">Order of nodes</a></p>
+<p>Nodes can be grouped and controlled together. This gives you mutliple advantages like</p>
+<ul class="simple">
+<li><p>controlling multiple Synth together</p></li>
+<li><p>specifying the execution order of the nodes. For more details look at <a class="reference external" href="#Order-of-Nodes">Order of nodes</a></p></li>
+</ul>
 <p>The SuperCollider audio server scsynth does have one root Group with the Node ID 0.</p>
 <p>In this root group each user got an default group were all the Nodes of the user (Synths and Groups) should be located</p>
 <div class="nbinput docutils container">
@@ -1431,6 +1438,8 @@ NODE TREE Group 0
    201326593 group
    134217729 group
    67108865 group
+      20001 s2
+        freq: 594 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
       20003 group
    1 group
 </pre></div></div>
@@ -1594,7 +1603,7 @@ Group(0)  {} children=[
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
     Group(20003) ~ {} children=[ Group(20004) ~ {} children=[]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 588.0599975585938, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1680,7 +1689,7 @@ Group(0)  {} children=[
   Group(201326593) ~ {} children=[],
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1815,7 +1824,7 @@ Group(0)  {} children=[
       &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       Group(20006) ~ {} children=[
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 570.5940551757812, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1866,7 +1875,7 @@ Group(0)  {} children=[
       Group(20006) ~ {} children=[
         &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 564.8880615234375, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -2027,7 +2036,7 @@ NODE TREE Group 0
             20009 default
               out: 0 freq: 100 amp: 0.10000000149012 pan: 0 gate: 1
       20001 s2
-        freq: 559.23919677734 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
+        freq: 548.1103515625 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
    1 group
 </pre></div></div>
 </div>
@@ -2080,7 +2089,7 @@ Group(0)  {} children=[
       Group(20006) ~ {} children=[
         &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
         &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 553.6467895507812, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 542.6292724609375, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -2211,7 +2220,7 @@ Group(67108865) ~ {} children=[
     Group(20006) ~ {&#39;freq&#39;: 800} children=[
       &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 800.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
     &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
-  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 553.6467895507812, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;]
+  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 542.6292724609375, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2297,6 +2306,38 @@ NODE TREE Group 0
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {

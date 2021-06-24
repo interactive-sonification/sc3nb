@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Usage of sclang in sc3nb &mdash; sc3nb 0.2.dev292+gece7113 documentation</title>
+  <title>Usage of sclang in sc3nb &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
   
 
   
@@ -91,11 +91,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../README.html">sc3nb</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../README.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#examples">Examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../info.html">How does this work?</a></li>
@@ -114,7 +114,9 @@
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
@@ -124,8 +126,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#sclang-command-execution">sclang command execution</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Cell-magics">Cell magics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#Stop-synths">Stop synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Some-more-usage-examples">Some more usage examples</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
@@ -192,24 +193,24 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="osc-communication-example.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="osc-communication-example.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="osc-communication-example.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Automatic-Bundling">Automatic Bundling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Custom-Message-Queues">Custom Message Queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="osc-communication-example.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="osc-communication-example.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
 </ul>
 </li>
 </ul>
@@ -303,6 +304,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
@@ -662,7 +667,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/61954be9e14a73700410e46e48faebd8a586fa30/examples/sclang-examples.ipynb">examples/sclang-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/c73c897ca8ecec47aa3b868f0a4ed9238d795764/examples/sclang-examples.ipynb">examples/sclang-examples.ipynb</a>.</p>
 </div>
 <div class="section" id="Usage-of-sclang-in-sc3nb">
 <h1>Usage of sclang in sc3nb<a class="headerlink" href="#Usage-of-sclang-in-sc3nb" title="Permalink to this headline">¶</a></h1>
@@ -722,14 +727,17 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="section" id="sclang-command-execution">
 <h2>sclang command execution<a class="headerlink" href="#sclang-command-execution" title="Permalink to this headline">¶</a></h2>
-<p>To send sc3 commands (i.e. program strings) to the language, either use the functions - <strong>``cmd()``</strong> normal command sending. - <strong>``cmdv()``</strong> verbose, i.e. returning string is collected and output to notebook ( alias for <code class="docutils literal notranslate"><span class="pre">cmd(..,</span> <span class="pre">verbose=True)</span></code> ) - <strong>``cmdg()``</strong> send program and get and parse the output ( alias for <code class="docutils literal notranslate"><span class="pre">cmd(..,</span> <span class="pre">get_return=True)</span></code> )</p>
+<p>To send sc3 commands (i.e. program strings) to the language, either use the following functions</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cmd()</span></code> normal command sending.</p></li>
+</ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># sc.cmd(cmdstr, pyvars)</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="s1">&#39;&quot;hello&quot;.postln&#39;</span><span class="p">)</span>  <span class="c1"># check jupyter console for output</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="s1">&#39;&quot;Hello World&quot;.postln&#39;</span><span class="p">)</span>  <span class="c1"># output will be printed</span>
 </pre></div>
 </div>
 </div>
@@ -738,17 +746,32 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-hello
--&gt; hello
+Hello World
+-&gt; Hello World
 </pre></div></div>
 </div>
-<p>use cmdv If sclang output should be displayed as cell output</p>
-<div class="nbinput docutils container">
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cmds()</span></code> silent version without (alias for <code class="docutils literal notranslate"><span class="pre">cmd(..,</span> <span class="pre">verbose=False)</span></code>)</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdv</span><span class="p">(</span><span class="s1">&#39;&quot;sc3nb&quot;.postln&#39;</span><span class="p">)</span>  <span class="c1"># also check jupyter console for output</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmds</span><span class="p">(</span><span class="s1">&#39;&quot;Hello User&quot;.postln&#39;</span><span class="p">)</span>  <span class="c1"># check jupyter console for output</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cmdg()</span></code> send command and get the output (alias for <code class="docutils literal notranslate"><span class="pre">cmd(..,</span> <span class="pre">get_return=True)</span></code>). More details <a class="reference external" href="#Getting-sclang-output-in-python">below</a></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">string</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="s1">&#39;&quot;sc3nb&quot;.postln&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;We received the string = &quot;</span><span class="si">{</span><span class="n">string</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -759,47 +782,36 @@ hello
 <div class="highlight"><pre>
 sc3nb
 -&gt; sc3nb
+We received the string = &#34;sc3nb&#34;
 </pre></div></div>
 </div>
 <p>or use the corresponding Magics in Jupyter</p>
 <ul class="simple">
-<li><p>Jupyter line magics <strong>%sc, %scv, %scg, %scgv, %scgs, %scs</strong></p></li>
-<li><p>Jupyter cell magics <strong>%%sc, %%scv, %%scg, %%scgv, %%scgs, %%scs</strong></p></li>
+<li><p>Jupyter line magics <code class="docutils literal notranslate"><span class="pre">%sc,</span> <span class="pre">%scv,</span> <span class="pre">%scs,</span> <span class="pre">%scg,</span> <span class="pre">%scgv,</span> <span class="pre">%scgs</span></code></p></li>
+<li><p>Jupyter cell magics <code class="docutils literal notranslate"><span class="pre">%%sc,</span> <span class="pre">%%scv,</span> <span class="pre">%%scs,</span> <span class="pre">%%scg,</span> <span class="pre">%%scgv,</span> <span class="pre">%%scgs</span></code></p></li>
 </ul>
-<p>which wrap the above functions: (v=verbose, g=get, s=silent, verbose is default, so %sc=%scv) See examples below</p>
-<p>Cell magics can be placed within code just as the function calls as shown here:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<p>which wrap the above functions: <code class="docutils literal notranslate"><span class="pre">cmd{v,g,s}</span> <span class="pre">=</span> <span class="pre">%sc{v,g,s}</span></code> and v=verbose, g=get, s=silent verbose is default, so <code class="docutils literal notranslate"><span class="pre">%sc=%scv</span></code></p>
+<p>Line magics can be placed within code just as the function calls as shown here:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">sc</span> <span class="nv">x</span> <span class="o">=</span> Synth.new<span class="o">(</span><span class="se">\d</span>efault, <span class="o">[</span><span class="se">\f</span>req, <span class="m">100</span><span class="o">])</span>
-<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>  <span class="c1"># a bouncing ball</span>
-    <span class="o">%</span><span class="k">sc</span>s Synth.new<span class="o">(</span><span class="se">\s</span><span class="m">1</span>, <span class="o">[</span><span class="se">\f</span>req, <span class="m">200</span><span class="o">])</span>  // this is sc cell so use sc3 comments instead of #
+<span></span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>  <span class="c1"># a bouncing ball</span>
+    <span class="o">%</span><span class="k">sc</span>s Synth.new<span class="o">(</span><span class="se">\s</span><span class="m">1</span>, <span class="o">[</span><span class="se">\f</span>req, <span class="m">200</span><span class="o">])</span> // this is SC code so use // instead of #
     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">p</span><span class="p">)</span>
-<span class="c1"># NOTE: Windows needs delay between sclang inputs, so use sleep</span>
-<span class="o">%</span><span class="k">sc</span> x.free
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--&gt; Synth(&#39;default&#39; : 1000)
--&gt; Synth(&#39;default&#39; : 1000)
-</pre></div></div>
-</div>
 <p>Use raw python strings for multi-line sc3-programs:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">Routine({</span>
-<span class="s2">    x = 10.collect{ |i|</span>
+<span class="s2">    x = 5.collect{ |i|</span>
 <span class="s2">        0.2.wait;</span>
 <span class="s2">        Synth.new(\default, [\freq, 50+(50*i)]);</span>
 <span class="s2">    };</span>
@@ -820,9 +832,9 @@ sc3nb
 -&gt; a Routine
 </pre></div></div>
 </div>
-<p>alternatively, you can use the cell magic:</p>
+<p>alternatively, you can use the cell magics</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -848,13 +860,14 @@ Routine({
 -&gt; a Routine
 </pre></div></div>
 </div>
-<p>Note that the code is executed in sclang and python is returning directly after sending the command.</p>
+<p>Note that the code is executed in sclang and Python is returning directly after sending the command.</p>
 </div>
 <div class="section" id="sclang-command-execution-with-python-variable-injection">
 <h2>sclang command execution with python variable injection<a class="headerlink" href="#sclang-command-execution-with-python-variable-injection" title="Permalink to this headline">¶</a></h2>
-<p>Python variables can be injected into sc3 commands by using the ^ special: The following examples demonstrates it by setting frequencies by using python variables</p>
+<p>Python variables can be injected into sc3 commands by using the <code class="docutils literal notranslate"><span class="pre">^</span></code> special:</p>
+<p>The following examples demonstrates it by setting frequencies by using python variables</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -868,17 +881,50 @@ Routine({
 </div>
 </div>
 <p>This is injection is done with</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.sclang.convert_to_sc<span class="o">?</span>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">scn</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">convert_to_sc</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function convert_to_sc in module sc3nb.util:
+
+convert_to_sc(obj: Any) -&gt; str
+    Converts python objects to SuperCollider code literals.
+
+    This supports currently:
+
+    * numpy.ndarray -&gt; SC Array representation
+    * complex type -&gt; SC Complex
+    * strings -&gt; if starting with sc3: it will be used as SC code
+                 if it starts with a \ (single escaped backward slash) it will be used as symbol
+                 else it will be inserted as string
+
+    For unsupported types the __repr__ will be used.
+
+    Parameters
+    ----------
+    obj : Any
+        object that should be converted to a SuperCollider code literal.
+
+    Returns
+    -------
+    str
+        SuperCollider Code literal
+
+</pre></div></div>
+</div>
+<p>Here are some conversion examples</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -896,7 +942,7 @@ Routine({
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -914,7 +960,7 @@ Routine({
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -931,9 +977,9 @@ Routine({
 -&gt; Symbol
 </pre></div></div>
 </div>
-<p>When using the <code class="docutils literal notranslate"><span class="pre">cmd</span></code> | <code class="docutils literal notranslate"><span class="pre">cmdv</span></code> | <code class="docutils literal notranslate"><span class="pre">cmdg</span></code> <code class="docutils literal notranslate"><span class="pre">cmds</span></code> functions you can also provide a dictionary with variable names as keys and content as values (which can use other python vars or statements)</p>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">cmd</span></code>, <code class="docutils literal notranslate"><span class="pre">cmdg</span></code> and <code class="docutils literal notranslate"><span class="pre">cmds</span></code> functions you can also provide a dictionary with variable names as keys and content as values (which can use other python vars or statements)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -949,13 +995,13 @@ Routine({
 -&gt; 0.5
 </pre></div></div>
 </div>
+<p>Without providing pyvars, variables are searched in the users namespace.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># without providing pyvars, variables are searched in the users namespace.</span>
-<span class="n">freq</span> <span class="o">=</span> <span class="mi">5</span>
+<span></span><span class="n">freq</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">rate</span> <span class="o">=</span> <span class="mi">6</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdv</span><span class="p">(</span><span class="s2">&quot;(^freq + 1) * (^rate + 1)&quot;</span><span class="p">)</span>
 </pre></div>
@@ -969,13 +1015,13 @@ Routine({
 -&gt; 42
 </pre></div></div>
 </div>
+<p>alternatively via the magic this is done as:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># alternatively via the magic this is done as:</span>
-<span class="o">%</span><span class="k">sc</span>v <span class="o">(</span>^freq + <span class="m">1</span><span class="o">)</span> * <span class="o">(</span>^rate + <span class="m">1</span><span class="o">)</span>
+<span></span><span class="o">%</span><span class="k">sc</span>v <span class="o">(</span>^freq + <span class="m">1</span><span class="o">)</span> * <span class="o">(</span>^rate + <span class="m">1</span><span class="o">)</span>
 </pre></div>
 </div>
 </div>
@@ -995,7 +1041,7 @@ Routine({
 <li><p>The following example shows how to transfer a synth’s nodeID</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1009,11 +1055,11 @@ Routine({
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; Synth(&#39;default&#39; : 1072)
+-&gt; Synth(&#39;default&#39; : 1067)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1028,12 +1074,12 @@ Routine({
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; 1072
-1072
+-&gt; 1067
+1067
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1044,7 +1090,7 @@ Routine({
 </div>
 <p><strong>sc.cmdg(), resp. %scg return integers, floats, strings and lists</strong> * %scg can be assigned to a python variable within code</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1063,7 +1109,7 @@ returned an &lt;class &#39;int&#39;&gt; of value 24686
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1082,7 +1128,7 @@ returned an &lt;class &#39;float&#39;&gt; of value 1523990.25
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1096,19 +1142,17 @@ returned an &lt;class &#39;float&#39;&gt; of value 1523990.25
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; nicnoiosaitf
-returned an &lt;class &#39;str&#39;&gt; of value nicnoiosaitf
+-&gt; iitnocfoansi
+returned an &lt;class &#39;str&#39;&gt; of value iitnocfoansi
 </pre></div></div>
 </div>
-<p>Be careful when using magics directly after another!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">sc</span> ~retval <span class="o">=</span> <span class="s2">&quot;sonification&quot;</span>.scramble
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>  <span class="c1"># (in Windows) without pause an Empty might be thrown..</span>
-<span class="o">%</span><span class="k">sc</span>g ~retval
+<span></span><span class="o">%</span><span class="k">sc</span>s ~retval <span class="o">=</span> <span class="s2">&quot;sonification&quot;</span>.scramble
+<span class="o">%</span><span class="k">sc</span>g ~retval ++ <span class="s2">&quot;!&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1117,22 +1161,21 @@ returned an &lt;class &#39;str&#39;&gt; of value nicnoiosaitf
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; fooiisactnin
--&gt; fooiisactnin
+-&gt; nifaoionitsc!
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;fooiisactnin&#39;
+&#39;nifaoionitsc!&#39;
 </pre></div></div>
 </div>
-<p>(in Windows) it should be prefered to combine your code in a single <code class="docutils literal notranslate"><span class="pre">cmd()</span></code> execution.</p>
+<p>You can combine your code in a single row.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1146,20 +1189,20 @@ returned an &lt;class &#39;str&#39;&gt; of value nicnoiosaitf
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; ionfantsioci!
+-&gt; niocatoinfis!
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;ionfantsioci!&#39;
+&#39;niocatoinfis!&#39;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1175,40 +1218,13 @@ returned an &lt;class &#39;str&#39;&gt; of value nicnoiosaitf
 -&gt; [ 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9 ]
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">a</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[1.0,
- 1.100000023841858,
- 1.2000000476837158,
- 1.2999999523162842,
- 1.399999976158142,
- 1.5,
- 1.600000023841858,
- 1.7000000476837158,
- 1.7999999523162842,
- 1.899999976158142]
-</pre></div></div>
-</div>
+<p>Note that floating-point numbers do only have limited precision</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">a</span> <span class="o">=</span> <span class="o">%</span><span class="k">sc</span>g <span class="o">(</span><span class="m">1</span>,1.1..2<span class="o">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;list with length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;list with length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">a</span>
 </pre></div>
 </div>
@@ -1218,7 +1234,6 @@ returned an &lt;class &#39;str&#39;&gt; of value nicnoiosaitf
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; [ 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9 ]
 list with length: 10
 </pre></div></div>
 </div>
@@ -1240,7 +1255,7 @@ list with length: 10
  1.899999976158142]
 </pre></div></div>
 </div>
-<p>Note that floating-point numbers do only have limited precision</p>
+<p>However they should be close</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
@@ -1259,7 +1274,6 @@ list with length: 10
 [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9]
 </pre></div></div>
 </div>
-<p>However they should be close</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
@@ -1279,10 +1293,30 @@ True
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="Cell-magics">
-<h2>Cell magics<a class="headerlink" href="#Cell-magics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Some-more-usage-examples">
+<h2>Some more usage examples<a class="headerlink" href="#Some-more-usage-examples" title="Permalink to this headline">¶</a></h2>
+<p>You can use the SuperCollider GUI features.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;MouseX.help&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SCDoc: Indexing help-files...
+SCDoc: Indexed 1345 documents in 0.77 seconds
+-&gt; MouseX
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1295,11 +1329,11 @@ True
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; Synth(&#39;temp__0&#39; : 1073)
+-&gt; Synth(&#39;temp__0&#39; : 1068)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1315,41 +1349,14 @@ True
 -&gt; a Stethoscope
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">sc</span> s.freeAll
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--&gt; sc3nb_remote
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">value</span> <span class="o">=</span> <span class="o">%</span><span class="k">sc</span>g <span class="m">75</span>-33
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;value = &quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>  <span class="c1"># leaves the scope running</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--&gt; 42
-value =  42
-</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
@@ -1376,74 +1383,8 @@ value =  42
 -&gt; a Routine
 </pre></div></div>
 </div>
-<ul class="simple">
-<li><p>Try %scv and %%scv for verbose lines resp. cells</p></li>
-<li><p>Try %scg and %%scg for getter lines resp. cells</p></li>
-<li><p>Try %scs and %%scs for silent lines resp. cells</p></li>
-</ul>
-</div>
-<div class="section" id="Stop-synths">
-<h2>Stop synths<a class="headerlink" href="#Stop-synths" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-<span class="o">%</span><span class="k">sc</span> <span class="nv">x</span> <span class="o">=</span> Synth.new<span class="o">(</span>^synth<span class="o">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--&gt; Synth(&#39;default&#39; : 1076)
-</pre></div></div>
-</div>
-<ul class="simple">
-<li><p>to stop all playing synths either use CMD-. (in Jupyter Command mode).</p></li>
-<li><p>It is a shortcut for the ´free_all´ method of the default server</p></li>
-</ul>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">sc</span> s.freeAll  // leaves the s.scope running
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
--&gt; sc3nb_remote
-</pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">default</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<p>which is also available using our <code class="docutils literal notranslate"><span class="pre">sc</span></code> instance directly</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1489,6 +1430,38 @@ value =  42
 
   </div>
   
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: develop
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+           <strong> 
+          <dd><a href="//develop/">develop</a></dd>
+           </strong> 
+        
+          
+          <dd><a href="//master/">master</a></dd>
+          
+        
+          
+          <dd><a href="//refactoring/">refactoring</a></dd>
+          
+        
+      </dl>
+      
+      
+      
+    </div>
+  </div>
+
 
   <script type="text/javascript">
       jQuery(function () {
