@@ -136,17 +136,8 @@ def generate_gh_pages(
             f"git clone https://github.com/interactive-sonification/sc3nb.git {repo}"
         )
     else:
-        if os.system(f"git -C {repo} checkout master") != 0:
-            raise RuntimeError("Checking out master failed")
         if os.system(f"git -C {repo} pull --all") != 0:
             raise RuntimeError("Pulling {repo} failed")
-        status = str(
-            subprocess.check_output(f"git -C {repo} status --porcelain".split(" ")),
-            "utf8",
-        )
-        if status != "":
-            print(status)
-            raise RuntimeError("Repo is dirty")
 
     if tags is None:
         out = subprocess.check_output(f"git -C {repo} show-ref --tags".split(" "))
@@ -190,7 +181,7 @@ def generate_gh_pages(
             source=os.path.join(repo, "docs/source/"),
             out=os.path.join(build_folder, d),
             target="html",
-            additional_options=f"-D version={d} -A versions={','.join(doclist)}",
+            additional_options=f"-D version={d}",
         )
 
     # create index html to forward to last tagged version
@@ -200,7 +191,7 @@ def generate_gh_pages(
                 f"""<!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url={doclist[0]}/">
+    <meta http-equiv="refresh" content="0; url=latest/">
   </head>
 </html>
 """
@@ -220,6 +211,10 @@ def generate_gh_pages(
             shutil.copytree(s, d)
         else:
             shutil.copy2(s, d)
+        print(f"Copying {item} as latest")
+        if item == doclist[0]:
+            shutil.copytree(s, os.path.join(repo, "latest"))
+
     print(f"Documentation tree has been written to {repo}")
     print("Current git status:")
     os.system(f"git -C {repo} status")

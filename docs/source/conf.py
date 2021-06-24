@@ -71,7 +71,6 @@ exclude_patterns = []
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {"collapse_navigation": False}
 
-github_url = "https://github.com/interactive-sonification/sc3nb"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
@@ -183,34 +182,29 @@ if on_rtd:
 # https://stackoverflow.com/questions/49331914/enable-versions-in-sidebar-in-sphinx-read-the-docs-theme
 # https://tech.michaelaltfield.net/2020/07/23/sphinx-rtd-github-pages-2/
 
-try:
-   html_context
-except NameError:
-   html_context = dict()
-html_context['display_lower_left'] = True
+if not on_rtd:
+    html_context = {}
+    html_context["display_lower_left"] = True
 
-if 'REPO_NAME' in os.environ:
-   REPO_NAME = os.environ['REPO_NAME']
-else:
-   REPO_NAME = ''
+    # SET CURRENT_VERSION
+    from git import Repo
 
-# SET CURRENT_VERSION
-from git import Repo
-repo = Repo( search_parent_directories=True )
+    repo = Repo(search_parent_directories=True)
 
-current_version = repo.active_branch.name
+    current_version = repo.active_branch.name
 
-# tell the theme which version we're currently on ('current_version' affects
-# the lower-left rtd menu and 'version' affects the logo-area version)
-html_context['current_version'] = current_version
-html_context['version'] = current_version
+    # tell the theme which version we're currently on ('current_version' affects
+    # the lower-left rtd menu and 'version' affects the logo-area version)
+    html_context["current_version"] = current_version
+    html_context["version"] = current_version
 
-# POPULATE LINKS TO OTHER VERSIONS
-html_context['versions'] = list()
-
-versions = [branch.name for branch in repo.branches]
-for version in versions:
-   html_context['versions'].append( (version, '/' +REPO_NAME+ '/' +version+ '/') )
+    # POPULATE LINKS TO OTHER VERSIONS
+    html_context["versions"] = [("latest", "https://interactive-sonification.github.io/sc3nb/latest/")]
+    versions = [branch.name for branch in repo.branches]
+    for version in versions:
+        html_context["versions"].append(
+            (version, "https://interactive-sonification.github.io/sc3nb/" + version + "/")
+        )
 
 # -- Custom code -------------------------------------------------------------
 
