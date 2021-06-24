@@ -139,6 +139,9 @@ def generate_gh_pages(
         if os.system(f"git -C {repo} pull --all") != 0:
             raise RuntimeError("Pulling {repo} failed")
 
+    if os.system(f"git -C {repo} clean -f -d -x") != 0:
+            raise RuntimeError("Cleaning {repo} failed")
+
     if tags is None:
         out = subprocess.check_output(f"git -C {repo} show-ref --tags".split(" "))
         tags = [
@@ -191,7 +194,7 @@ def generate_gh_pages(
                 f"""<!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=latest/">
+    <meta http-equiv="refresh" content="0; url=stable/">
   </head>
 </html>
 """
@@ -211,9 +214,9 @@ def generate_gh_pages(
             shutil.copytree(s, d)
         else:
             shutil.copy2(s, d)
-        print(f"Copying {item} as latest")
+        print(f"Copying {item} as stable")
         if item == doclist[0]:
-            shutil.copytree(s, os.path.join(repo, "latest"))
+            shutil.copytree(s, os.path.join(repo, "stable"))
 
     print(f"Documentation tree has been written to {repo}")
     print("Current git status:")
