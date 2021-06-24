@@ -31,8 +31,7 @@ author = "Thomas Hermann, Dennis Reinsch"
 # The full version, including alpha/beta/rc tags
 release = get_distribution("sc3nb").version
 # for example take major/minor
-version = ".".join(release.split(".")[:2])
-html_context = dict(versions=str(version))
+version = ".".join(release.split(".")[:3])
 
 # -- General configuration ---------------------------------------------------
 
@@ -71,6 +70,7 @@ exclude_patterns = []
 #
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {"collapse_navigation": False}
+
 github_url = "https://github.com/interactive-sonification/sc3nb"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -177,6 +177,40 @@ nbsphinx_epilog = r"""
 # https://docs.readthedocs.io/en/stable/config-file/v2.html#build-apt-packages
 if on_rtd:
     nbsphinx_execute = "never"
+
+# -- RTD theme lower left ----------------------------------------------------
+# Configuration for the menu on the lower left. Thanks to
+# https://stackoverflow.com/questions/49331914/enable-versions-in-sidebar-in-sphinx-read-the-docs-theme
+# https://tech.michaelaltfield.net/2020/07/23/sphinx-rtd-github-pages-2/
+
+try:
+   html_context
+except NameError:
+   html_context = dict()
+html_context['display_lower_left'] = True
+
+if 'REPO_NAME' in os.environ:
+   REPO_NAME = os.environ['REPO_NAME']
+else:
+   REPO_NAME = ''
+
+# SET CURRENT_VERSION
+from git import Repo
+repo = Repo( search_parent_directories=True )
+
+current_version = repo.active_branch.name
+
+# tell the theme which version we're currently on ('current_version' affects
+# the lower-left rtd menu and 'version' affects the logo-area version)
+html_context['current_version'] = current_version
+html_context['version'] = current_version
+
+# POPULATE LINKS TO OTHER VERSIONS
+html_context['versions'] = list()
+
+versions = [branch.name for branch in repo.branches]
+for version in versions:
+   html_context['versions'].append( (version, '/' +REPO_NAME+ '/' +version+ '/') )
 
 # -- Custom code -------------------------------------------------------------
 

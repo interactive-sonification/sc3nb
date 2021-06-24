@@ -173,13 +173,13 @@ def generate_gh_pages(
     for d in doclist:
         print(f"Generating documentation for {d} ...")
         target = d if d in branches else "tags/" + d
-        res = os.system(f"git -C {repo} checkout {target} -f")
-        if res != 0:
+        if os.system(f"git -C {repo} checkout {target} -f") != 0:
             raise RuntimeError(
                 f"Could not checkout {d}. Git returned status code {res}!"
             )
-        res = os.system(f"git -C {repo} pull")
-        if res != 0:
+        if os.system(f"git -C {repo} clean -f -d -x") != 0:
+            raise RuntimeError("Cleaning {repo} failed")
+        if os.system(f"git -C {repo} pull") != 0:
             raise RuntimeError(f"Could not pull {d}. Git returned status code {res}!")
         if template_folder:
             if os.path.exists(f"{repo}/docs/source/_templates"):
