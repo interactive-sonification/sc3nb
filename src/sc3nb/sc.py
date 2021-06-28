@@ -225,6 +225,8 @@ class SC:
                 self._try_to_connect()
         else:
             _LOGGER.warning("sclang already started")
+        if SC.default is None:
+            SC.default = self
 
     def start_server(
         self,
@@ -270,6 +272,8 @@ class SC:
                 self._try_to_connect()
         else:
             _LOGGER.warning("scsynth already started")
+        if SC.default is None:
+            SC.default = self
 
     def _try_to_connect(self):
         if self._sclang is not None and self._server is not None:
