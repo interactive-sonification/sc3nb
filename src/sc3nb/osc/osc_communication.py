@@ -913,7 +913,12 @@ class OSCCommunication:
             receiver_address = self._default_receiver
 
         package = convert_to_sc3nb_osc(package)
-        sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
+        try:
+            sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
+        except OSError as error:
+            raise OSCCommunicationError(
+                f"Sending OSC package failed - {error}", package
+            ) from error
         if sent_bytes == 0:
             raise RuntimeError("Could not send data. Socket connection broken.")
 
