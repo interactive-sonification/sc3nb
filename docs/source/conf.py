@@ -199,11 +199,16 @@ if not on_rtd:
     html_context["version"] = current_version
 
     # POPULATE LINKS TO OTHER VERSIONS
-    html_context["versions"] = [("stable", "https://interactive-sonification.github.io/sc3nb/stable/")]
+    html_context["versions"] = [
+        ("stable", "https://interactive-sonification.github.io/sc3nb/stable/")
+    ]
     versions = [branch.name for branch in repo.branches if branch != "gh-pages"]
     for version in versions:
         html_context["versions"].append(
-            (version, "https://interactive-sonification.github.io/sc3nb/" + version + "/")
+            (
+                version,
+                "https://interactive-sonification.github.io/sc3nb/" + version + "/",
+            )
         )
 
 # -- Custom code -------------------------------------------------------------

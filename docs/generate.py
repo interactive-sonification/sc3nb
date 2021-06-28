@@ -140,7 +140,7 @@ def generate_gh_pages(
             raise RuntimeError("Pulling {repo} failed")
 
     if os.system(f"git -C {repo} clean -f -d -x") != 0:
-            raise RuntimeError("Cleaning {repo} failed")
+        raise RuntimeError("Cleaning {repo} failed")
 
     if tags is None:
         out = subprocess.check_output(f"git -C {repo} show-ref --tags".split(" "))
