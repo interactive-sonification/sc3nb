@@ -413,7 +413,6 @@ class SCServer(OSCCommunication):
             if ("Exception in World_OpenUDP" in process_timeout.output) or (
                 "ERROR: failed to open UDP socket" in process_timeout.output
             ):
-                # ToDo check if string is correct in Linux
                 self.process.kill()
                 self.process = None
                 print(

@@ -293,7 +293,8 @@ class Process:
         int
             return code of process
         """
-        self.popen.kill()
+        if self.popen.poll() is None:
+            self.popen.kill()
         self.output_reader_thread.join()
         return self.popen.wait()
 
