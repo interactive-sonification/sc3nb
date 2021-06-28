@@ -304,13 +304,6 @@ class SCServer(OSCCommunication):
             self.options = options
             _LOGGER.debug("Using custom server options %s", self.options)
 
-        super().__init__(
-            server_ip=LOCALHOST,
-            server_port=SC3NB_DEFAULT_PORT,
-            default_receiver_ip=LOCALHOST,
-            default_receiver_port=self.options.udp_port,
-        )
-
         # counter for nextNodeID
         self._num_node_ids: int = 0
 
@@ -327,29 +320,7 @@ class SCServer(OSCCommunication):
 
         self.latency: float = 0.0
 
-        # init msg queues
-        self.add_msg_pairs(CMD_PAIRS)
-
-        # /return messages from sclang callback
-        self.returns = MessageQueue(ReplyAddress.RETURN_ADDR, preprocess_return)
-        self.add_msg_queue(self.returns)
-
-        # /done messages must be seperated
-        self.dones = MessageQueueCollection(
-            address=ReplyAddress.DONE_ADDR, sub_addrs=ASYNC_CMDS
-        )
-        self.add_msg_queue_collection(self.dones)
-
-        self.fails = MessageQueueCollection(address=ReplyAddress.FAIL_ADDR)
-        self.add_msg_queue_collection(self.fails)
-
-        # set logging handlers
-        self._osc_server.dispatcher.map(
-            ReplyAddress.FAIL_ADDR, self._warn_fail, needs_reply_address=True
-        )
-        self._osc_server.dispatcher.map(
-            ReplyAddress.WILDCARD_ADDR, self._log_message, needs_reply_address=True
-        )
+        self._init_osc_communication()
 
         # node managing
         self.nodes: WeakValueDictionary[int, Node] = WeakValueDictionary()
@@ -382,9 +353,7 @@ class SCServer(OSCCommunication):
             server=self,
         )
 
-        self._server_tree: List[
-            Tuple[Callable[..., None], Optional[Sequence[Any]]]
-        ] = []
+        self._server_tree: List[Tuple[Callable[..., None], Any, Any]] = []
 
         self._volume = Volume(self)
 
@@ -429,6 +398,7 @@ class SCServer(OSCCommunication):
         self._is_local = True
         self._scsynth_address = LOCALHOST
         self._scsynth_port = self.options.udp_port
+        self._max_logins = self.options.max_logins
         self.process = Process(
             executable=self._programm_name,
             programm_args=self.options.options,
@@ -474,6 +444,8 @@ class SCServer(OSCCommunication):
         with_blip : bool, optional
             make a sound when initialized, by default True
         """
+        self._init_osc_communication()
+
         # notify the supercollider server about us
         self.add_receiver(
             self._programm_name, self._scsynth_address, self._scsynth_port
@@ -499,6 +471,20 @@ class SCServer(OSCCommunication):
             control_buses_per_user, control_bus_id_offset
         )
 
+        # init I/O Buses
+        self._output_bus = Bus(
+            rate=BusRate.AUDIO,
+            num_channels=self.options.num_output_buses,
+            index=0,
+            server=self,
+        )
+        self._input_bus = Bus(
+            rate=BusRate.AUDIO,
+            num_channels=self.options.num_input_buses,
+            index=self.options.num_output_buses,
+            server=self,
+        )
+
         # load synthdefs of sc3nb
         self.load_synthdefs()
 
@@ -506,6 +492,11 @@ class SCServer(OSCCommunication):
         self.send_default_groups()
         self.sync()
         self._server_running = True
+
+        for address in self.node_watcher.notification_addresses:
+            self._osc_server.dispatcher.map(
+                address, self.node_watcher.handle_notification
+            )
 
         # note: init hooks should be last init step
         self.execute_init_hooks()
@@ -516,13 +507,22 @@ class SCServer(OSCCommunication):
         print("Done.")
 
     def execute_init_hooks(self) -> None:
-        """Run all init hook functions."""
+        """Run all init hook functions.
+
+        This is automatically done when running free_all, init or connect_sclang.
+
+        Hooks can be added using add_init_hook
+        """
         _LOGGER.debug("Executing init hooks %s", self._server_tree)
-        for function, args in self._server_tree:
-            if args is None:
-                function()
+        for hook, args, kwargs in self._server_tree:
+            if args and kwargs:
+                hook(*args, **kwargs)
+            elif args:
+                hook(*args)
+            elif kwargs:
+                hook(**kwargs)
             else:
-                function(args)
+                hook()
 
     def connect_sclang(self, port: int) -> None:
         """Connect sclang to the server
@@ -534,22 +534,26 @@ class SCServer(OSCCommunication):
         port : int
             Port of sclang (NetAddr.langPort)
         """
-        self.add_receiver(name="sclang", ip_address="127.0.0.1", port=port)
+        self.add_init_hook(
+            self.add_receiver, name="sclang", ip_address="127.0.0.1", port=port
+        )
         self.execute_init_hooks()
 
     def add_init_hook(
-        self, function: Callable[..., None], args: Optional[Sequence[Any]] = None
+        self, hook: Callable[..., None], *args: Any, **kwargs: Any
     ) -> None:
         """Add a function to be executed when the server is initialized
 
         Parameters
         ----------
-        function : Callable[..., None]
+        hook : Callable[..., None]
             Function to be executed
-        args : Optional[Sequence[Any]], optional
-            Arguments given to function, by default None
+        args : Any, optional
+            Arguments given to function
+        kwargs : Any, optional
+            Keyword arguments given to function
         """
-        self._server_tree.append((function, args))
+        self._server_tree.append((hook, args, kwargs))
 
     def bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
@@ -631,6 +635,7 @@ class SCServer(OSCCommunication):
     # messages
     def quit(self) -> None:
         """Quits and tries to kill the server."""
+        print("Quitting SCServer... ", end="")
         try:
             self.msg(MasterControlCommand.QUIT, bundle=False)
         except OSCCommunicationError:
@@ -641,6 +646,7 @@ class SCServer(OSCCommunication):
             if self._is_local:
                 self._has_booted = False
                 self.process.kill()
+            print("Done.")
 
     def sync(self, timeout=5) -> bool:
         """Sync the server with the /sync command.
@@ -761,16 +767,6 @@ class SCServer(OSCCommunication):
         else:
             if receive_notifications:
                 self._client_id, self._max_logins = return_val
-
-    def _get_errors_for_address(self, address: str):
-        error_values = []
-        if address in self.fails:
-            while True:
-                try:
-                    error_values.append(self.fails.msg_queues[address].get(timeout=0))
-                except Empty:
-                    break
-        return error_values
 
     def free_all(self, root: bool = True) -> None:
         """Free all node ids.
@@ -939,12 +935,12 @@ class SCServer(OSCCommunication):
         return self.status().peak_cpu
 
     @property
-    def sample_rate(self) -> float:
+    def nominal_sr(self) -> float:
         """Nominal sample rate of server process"""
         return self.status().nominal_sr
 
     @property
-    def actual_sample_rate(self) -> float:
+    def actual_sr(self) -> float:
         """Actual sample rate of server process"""
         return self.status().actual_sr
 
@@ -1006,14 +1002,69 @@ class SCServer(OSCCommunication):
         else:
             warnings.warn("Server is not local or not booted.")
 
+    def _init_osc_communication(self):
+        super().__init__(
+            server_ip=LOCALHOST,
+            server_port=SC3NB_DEFAULT_PORT,
+            default_receiver_ip=LOCALHOST,
+            default_receiver_port=self.options.udp_port,
+        )
+        # init msg queues
+        self.add_msg_pairs(CMD_PAIRS)
+
+        # /return messages from sclang callback
+        self.returns = MessageQueue(ReplyAddress.RETURN_ADDR, preprocess_return)
+        self.add_msg_queue(self.returns)
+
+        # /done messages must be seperated
+        self.dones = MessageQueueCollection(
+            address=ReplyAddress.DONE_ADDR, sub_addrs=ASYNC_CMDS
+        )
+        self.add_msg_queue_collection(self.dones)
+
+        self.fails = MessageQueueCollection(address=ReplyAddress.FAIL_ADDR)
+        self.add_msg_queue_collection(self.fails)
+
+        # set logging handlers
+        self._osc_server.dispatcher.map(
+            ReplyAddress.FAIL_ADDR, self._warn_fail, needs_reply_address=True
+        )
+        self._osc_server.dispatcher.map(
+            ReplyAddress.WILDCARD_ADDR, self._log_message, needs_reply_address=True
+        )
+
+    def _get_errors_for_address(self, address: str):
+        error_values = []
+        if address in self.fails:
+            while True:
+                try:
+                    error_values.append(self.fails.msg_queues[address].get(timeout=0))
+                except Empty:
+                    break
+        return error_values
+
+    def _log_repr(self):
+        pid = f" pid={self.pid}" if self.is_local else ""
+        return f"SCServer{self.addr}{pid}"
+
     def _log_message(self, sender, *params):
         params = str(params)
         if len(params) > 55:
             params = params[:55] + ".."
-        _LOGGER.info("OSC msg received from %s: %s", self._check_sender(sender), params)
+        _LOGGER.info(
+            "%s got OSC msg from %s: %s",
+            self._log_repr(),
+            self._check_sender(sender),
+            params,
+        )
 
     def _warn_fail(self, sender, *params):
-        _LOGGER.warning("Error from %s: %s", self._check_sender(sender), params)
+        _LOGGER.warning(
+            "Error at %s from %s: %s",
+            self._log_repr(),
+            self._check_sender(sender),
+            params,
+        )
 
     def __repr__(self) -> str:
         if self.has_booted:

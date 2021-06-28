@@ -22,7 +22,8 @@ class Volume:
 
     def __init__(self, server: "SCServer", min_: int = -90, max_: int = 6) -> None:
         self._server = server
-        self._server.add_init_hook(self.send_synthdef, None)
+        self._server.add_init_hook(self.send_synthdef)
+        self._server.add_init_hook(self.update_synth)
 
         self.min = min_
         self.max = max_
@@ -42,11 +43,10 @@ class Volume:
 
     @muted.setter
     def muted(self, muted: bool):
-        self._muted = muted
         if muted:
-            self.unmute()
-        else:
             self.mute()
+        else:
+            self.unmute()
 
     @property
     def volume(self):
@@ -60,15 +60,13 @@ class Volume:
 
     def mute(self) -> None:
         """Mute audio"""
-        if not self._muted:
-            self._muted = True
-            self.update_synth()
+        self._muted = True
+        self.update_synth()
 
     def unmute(self) -> None:
         """Unmute audio"""
-        if self._muted:
-            self._muted = False
-            self.update_synth()
+        self._muted = False
+        self.update_synth()
 
     def update_synth(self) -> None:
         """Update volume Synth"""

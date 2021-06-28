@@ -194,13 +194,15 @@ class SCLang:
         int
             returncode of the process.
         """
+        print("Exiting sclang... ", end="")
         self.started = False
         try:
             self.cmds('"sc3nb - exiting sclang".postln; 0.exit;')
         except RuntimeError:
             pass
         else:
-            time.sleep(1)  # let sclang exit
+            self.process.popen.wait(1.0)  # let sclang exit
+        print("Done.")
         return self.process.kill()
 
     def __del__(self):
@@ -456,10 +458,10 @@ class SCLang:
             self.read(expect="too many users", timeout=0.3, print_error=False)
         except ProcessTimeout:
             self._server = server
-            self._server.add_init_hook(self.cmds, "s.initTree;")
             self._port = self.cmdg("NetAddr.langPort", verbose=False)
             _LOGGER.info("Connecting %s with %s", self._server, self)
             self._server.connect_sclang(port=self._port)
+            self._server.add_init_hook(self.cmds, "s.initTree;")
         else:
             raise SCLangError(
                 "failed to register to the server (too many users)\n"

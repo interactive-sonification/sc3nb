@@ -187,7 +187,7 @@ class Buffer:
         self._sr, data = wavfile.read(
             self._path
         )  # TODO: we only need the metadata here
-        server_sr = self._server.sample_rate
+        server_sr = self._server.nominal_sr
         if self._sr != server_sr:
             warnings.warn(
                 f"Sample rate of file ({self._sr}) does not "
