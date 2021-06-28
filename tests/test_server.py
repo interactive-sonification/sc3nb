@@ -35,3 +35,28 @@ class ServerTest(TestCase):
         self.server.sync()
         root_group = self.server.query_all_nodes()
         self.assertIn(group, self.server.default_group.children)
+
+    def test_multiclient(self):
+        options = ServerOptions(udp_port=self.port)
+        self.other_server = SCServer(options=options)
+
+        with self.assertRaisesRegex(
+            ValueError,
+            f"The specified UDP port {self.server.options.udp_port} is already used",
+        ):
+            self.other_server.boot()
+        self.other_server.remote(*self.server.addr)
+        self.assertEqual(self.server.addr, self.other_server.addr)
+        # check if they share nodes
+        group = Group(server=self.other_server)
+        root_group = self.server.query_all_nodes()
+        matches = [
+            child
+            for child in root_group.children
+            if child.nodeid == self.other_server.default_group.nodeid
+        ]
+        self.assertEqual(len(matches), 1)
+        other_default_group: Group = matches[0]
+        self.assertIn(
+            group.nodeid, [child.nodeid for child in other_default_group.children]
+        )
