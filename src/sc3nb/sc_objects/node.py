@@ -198,7 +198,9 @@ class Node(ABC):
         self._started = False
         self._freed = False
 
-        self._nodeid = nodeid if nodeid is not None else self._server.allocate_node_id()
+        self._nodeid = (
+            nodeid if nodeid is not None else self._server.node_ids.allocate(1)[0]
+        )
         self._group = None
 
         self._target_id = Node._get_nodeid(target) if target is not None else None

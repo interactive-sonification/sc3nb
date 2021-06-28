@@ -61,9 +61,9 @@ class Bus:
         self._rate = BusRate(rate)
         if index is None:
             if self._rate is BusRate.AUDIO:
-                self._bus_idxs = self._server.allocate_audio_bus_idx(self._num_channels)
+                self._bus_idxs = self._server.audio_bus_ids.allocate(self._num_channels)
             else:
-                self._bus_idxs = self._server.allocate_control_bus_idx(
+                self._bus_idxs = self._server.control_bus_ids.allocate(
                     self._num_channels
                 )
         else:
@@ -232,15 +232,11 @@ class Bus:
             Reset bus value(s) to 0, by default True
         """
         if self._rate is BusRate.AUDIO:
-            self._bus_idxs = self._server.audio_bus_id_allocator.free_ids(
-                self._bus_idxs
-            )
+            self._bus_idxs = self._server.audio_bus_ids.free(self._bus_idxs)
         else:
             if clear:
                 self.fill(0)
-            self._bus_idxs = self._server.control_bus_id_allocator.free_ids(
-                self._bus_idxs
-            )
+            self._bus_idxs = self._server.control_bus_ids.free(self._bus_idxs)
 
     def __del__(self) -> None:
         if self._bus_idxs:

@@ -181,7 +181,7 @@ class Buffer:
         if self._allocated:
             raise RuntimeError("Buffer object is already initialized!")
         if self._bufnum is None:
-            self._bufnum = self._server.allocate_buffer_id(num=1)[0]
+            self._bufnum = self._server.buffer_ids.allocate(num=1)[0]
         self._alloc_mode = BufferAllocationMode.FILE
         self._path = Path(path).resolve(strict=True)
         self._sr, data = wavfile.read(
@@ -232,7 +232,7 @@ class Buffer:
         if self._allocated:
             raise RuntimeError("Buffer object is already initialized!")
         if self._bufnum is None:
-            self._bufnum = self._server.allocate_buffer_id(num=1)[0]
+            self._bufnum = self._server.buffer_ids.allocate(num=1)[0]
         self._sr = sr
         self._alloc_mode = BufferAllocationMode.ALLOC
         self._channels = channels
@@ -277,7 +277,7 @@ class Buffer:
         if self._allocated:
             raise RuntimeError("Buffer object is already initialized!")
         if self._bufnum is None:
-            self._bufnum = self._server.allocate_buffer_id(num=1)[0]
+            self._bufnum = self._server.buffer_ids.allocate(num=1)[0]
         self._alloc_mode = BufferAllocationMode.DATA
         self._sr = sr
         self._samples = data.shape[0]
@@ -915,7 +915,7 @@ class Buffer:
             self._alloc_mode != BufferAllocationMode.EXISTING
             and not self._bufnum_set_manually
         ):
-            self._server.buffer_id_allocator.free_ids([self._bufnum])
+            self._server.buffer_ids.free([self._bufnum])
         self._server.msg(BufferCommand.FREE, [self._bufnum], bundle=True)
         self._allocated = False
         self._alloc_mode = BufferAllocationMode.NONE

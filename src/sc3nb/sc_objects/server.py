@@ -16,6 +16,7 @@ from sc3nb.osc.osc_communication import (
 )
 from sc3nb.osc.parsing import preprocess_return
 from sc3nb.process_handling import ALLOWED_PARENTS, Process, ProcessTimeout
+from sc3nb.sc_objects.allocators import Allocator, BlockAllocator, NodeAllocator
 from sc3nb.sc_objects.buffer import BufferCommand, BufferReply
 from sc3nb.sc_objects.bus import Bus, BusRate, ControlBusCommand
 from sc3nb.sc_objects.node import (
@@ -247,59 +248,6 @@ class ServerOptions:
         return f"<ServerOptions {self.options}>"
 
 
-class IDBlockAllocator:
-    """Allows allocating blocks of ids / indexes"""
-
-    def __init__(self, num_ids: int, offset: int) -> None:
-        self._offset = offset
-        self._free_ids = [i + offset for i in range(num_ids)]
-
-    def allocate(self, num: int = 1) -> Sequence[int]:
-        """Allocate the next free ids
-
-        Returns
-        -------
-        int
-            free id
-
-        Raises
-        ------
-        RuntimeError
-            When out of free ids or not enough ids are in order.
-        """
-        num_collected_ids = 1
-        first_idx = 0
-        idx = 0
-        while num_collected_ids != num:
-            if len(self._free_ids[first_idx:]) < num:
-                raise RuntimeError(f"Cannot allocate {num} ids.")
-            num_collected_ids = 1
-            for idx in range(1, len(self._free_ids[first_idx:])):
-                prev_id = self._free_ids[first_idx + idx - 1]
-                next_id = self._free_ids[first_idx + idx]
-                if abs(prev_id - next_id) > 1:
-                    # difference between ids is too large
-                    first_idx += idx
-                    break
-                num_collected_ids += 1
-                if num_collected_ids == num:
-                    break
-        ids = self._free_ids[first_idx : first_idx + idx + 1]
-        del self._free_ids[first_idx : first_idx + idx + 1]
-        return ids
-
-    def free_ids(self, ids: Sequence[int]) -> None:
-        """Mark ids as free again.
-
-        Parameters
-        ----------
-        ids : sequence of int
-            ids that are not used anymore.
-        """
-        for free_id in ids:
-            self._free_ids.insert(free_id - self._offset, free_id)
-
-
 class NodeWatcher:
     """The NodeWatcher is used to handle Node Notifications.
 
@@ -412,9 +360,10 @@ class SCServer(OSCCommunication):
                 address, self.node_watcher.handle_notification
             )
 
-        self.buffer_id_allocator: Optional[IDBlockAllocator] = None
-        self.control_bus_id_allocator: Optional[IDBlockAllocator] = None
-        self.audio_bus_id_allocator: Optional[IDBlockAllocator] = None
+        self.node_ids: Optional[Allocator] = None
+        self.buffer_ids: Optional[BlockAllocator] = None
+        self.control_bus_ids: Optional[BlockAllocator] = None
+        self.audio_bus_ids: Optional[BlockAllocator] = None
 
         self._root_node = Group(nodeid=0, new=False, target=0, server=self)
         self._default_groups: Dict[int, Group] = {}
@@ -532,21 +481,21 @@ class SCServer(OSCCommunication):
         self.notify()
 
         # init allocators
+        self.node_ids = NodeAllocator(self.client_id)
+
         buffers_per_user = int(self.options.num_sample_buffers / self.max_logins)
         buffer_id_offset = self.client_id * buffers_per_user
-        self.buffer_id_allocator = IDBlockAllocator(buffers_per_user, buffer_id_offset)
+        self.buffer_ids = BlockAllocator(buffers_per_user, buffer_id_offset)
 
         audio_buses_per_user = int(self.options.num_private_buses / self.max_logins)
         audio_bus_id_offset = (
             self.client_id * audio_buses_per_user + self.options.first_private_bus
         )
-        self.audio_bus_id_allocator = IDBlockAllocator(
-            audio_buses_per_user, audio_bus_id_offset
-        )
+        self.audio_bus_ids = BlockAllocator(audio_buses_per_user, audio_bus_id_offset)
 
         control_buses_per_user = int(self.options.num_control_buses / self.max_logins)
         control_bus_id_offset = self.client_id * control_buses_per_user
-        self.control_bus_id_allocator = IDBlockAllocator(
+        self.control_bus_ids = BlockAllocator(
             control_buses_per_user, control_bus_id_offset
         )
 
@@ -860,49 +809,6 @@ class SCServer(OSCCommunication):
         self._default_groups = {
             client: create_default_group(client) for client in client_ids
         }
-
-    def allocate_node_id(self) -> int:
-        """Get a node id.
-
-        Returns
-        -------
-        int
-            node id
-        """
-        self._num_node_ids += 1
-        if self._num_node_ids >= 2 ** 31:
-            self._num_node_ids = 0
-        return self._num_node_ids + 10000 * (self._client_id + 1)
-
-    def allocate_buffer_id(self, num: int = 1) -> Sequence[int]:
-        """Get the next free buffer id.
-
-        Returns
-        -------
-        int
-            buffer id
-        """
-        return self.buffer_id_allocator.allocate(num)
-
-    def allocate_control_bus_idx(self, num: int = 1) -> Sequence[int]:
-        """Get the next free bus id.
-
-        Returns
-        -------
-        int
-            bus id
-        """
-        return self.control_bus_id_allocator.allocate(num)
-
-    def allocate_audio_bus_idx(self, num: int = 1) -> Sequence[int]:
-        """Get the next free bus id.
-
-        Returns
-        -------
-        int
-            bus id
-        """
-        return self.audio_bus_id_allocator.allocate(num)
 
     @property
     def client_id(self):
