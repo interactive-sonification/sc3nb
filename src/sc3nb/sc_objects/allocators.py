@@ -3,8 +3,8 @@
 from abc import ABC, abstractmethod
 from typing import Sequence
 
-class Allocator(ABC):
 
+class Allocator(ABC):
     @abstractmethod
     def allocate(self, num: int = 1) -> Sequence[int]:
         raise NotImplementedError
