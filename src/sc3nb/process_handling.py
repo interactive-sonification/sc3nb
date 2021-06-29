@@ -106,19 +106,23 @@ def kill_processes(exec_path, allowed_parents: Optional[tuple] = None):
     _LOGGER.debug("Trying to find leftover processes of %s", exec_path)
     for proc in psutil.process_iter(["exe"]):
         if proc.info["exe"] == exec_path:
-            if allowed_parents:
-                parents = proc.parents()
-                if parents:
-                    parent_names = " ".join(
-                        map("".join, map(psutil.Process.name, parents))
-                    )
-                    _LOGGER.debug("Parents cmdlines: %s", parent_names)
-                    if any(
-                        allowed_parent in parent_names
-                        for allowed_parent in allowed_parents
-                    ):
-                        continue
-            _LOGGER.debug("Terminating %s parents: %s", proc, proc.parents())
+            parents = proc.parents()
+            if allowed_parents and parents:
+                parent_names = " ".join(map("".join, map(psutil.Process.name, parents)))
+                _LOGGER.debug("Parents cmdlines: %s", parent_names)
+                if any(
+                    allowed_parent in parent_names for allowed_parent in allowed_parents
+                ):
+                    continue
+            _LOGGER.warning(
+                "Found old process. Please exit sc3nb via sc.exit(). \n"
+                " Terminating %s because none of"
+                " the parents=%s are in allowed_parents=%s"
+                " More information can be found in the documentation.",
+                proc,
+                parents,
+                allowed_parents,
+            )
             proc.terminate()
             try:
                 proc.wait(timeout=0.5)
