@@ -28,4 +28,4 @@ repos:
   rev: 0.5.0
   hooks:
     - id: nbstripout
-      args: [--extra-keys="metadata.kernelspec metadata.language_info"]
+      args: [--extra-keys=metadata.kernelspec metadata.language_info]
