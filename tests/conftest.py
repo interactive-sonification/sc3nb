@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 from random import randrange
 from unittest import TestCase
 
@@ -17,7 +18,7 @@ def no_logs_gte_error(caplog, request):
         record
         for record in caplog.get_records("call")
         if record.levelno >= logging.WARNING
-        and "pythonosc\osc_bundle.py" not in record.pathname
+        and "pythonosc/osc_bundle.py" not in Path(record.pathname).as_posix()
     ]
     formatter = logging.Formatter("%(name)s:%(lineno)d  %(levelname)s - %(message)s")
     assert (
