@@ -3,6 +3,9 @@ import tempfile
 import time
 from pathlib import Path
 
+import numpy as np
+import scipy.io.wavfile as wavfile
+
 from sc3nb.sc_objects.score import Score
 from sc3nb.sc_objects.server import ServerOptions
 from sc3nb.sc_objects.synthdef import SynthDef
@@ -36,10 +39,10 @@ class ScoreTest(SCBaseTest):
 
     def test_record_nrt(self):
         sc3nb_osc = "test.osc"
-        sc3nb_snd = "test.aif"
+        sc3nb_snd = "test.wav"
 
         sclang_osc = "sclang.osc"
-        sclang_snd = "sclang.aif"
+        sclang_snd = "sclang.wav"
 
         with tempfile.TemporaryDirectory(dir=".") as tmp_path:
             tmp_path = ("." / Path(tmp_path)).resolve()
@@ -48,6 +51,7 @@ class ScoreTest(SCBaseTest):
                 str(tmp_path / sc3nb_osc),
                 str(tmp_path / sc3nb_snd),
                 options=ServerOptions(num_output_buses=2),
+                header_format="RIFF",
             )
             print(cp)
             ScoreTest.sc.lang.cmd(
@@ -66,7 +70,8 @@ class ScoreTest(SCBaseTest):
                 Score.recordNRT(
                     list: g,
                     oscFilePath: "{(tmp_path / sclang_osc).as_posix()}",
-                    outputFilePath: "{(tmp_path / sclang_snd).as_posix()}"
+                    outputFilePath: "{(tmp_path / sclang_snd).as_posix()}",
+                    headerFormat: "RIFF"
                 );
                 """
             )
@@ -74,4 +79,7 @@ class ScoreTest(SCBaseTest):
             time.sleep(0.1)
             while not (tmp_path / sclang_snd).exists():
                 self.assertLess(time.time() - t0, 0.2)
-            self.assertTrue(filecmp.cmp(tmp_path / sclang_snd, tmp_path / sc3nb_snd))
+            sr_sclang, data_sclang = wavfile.read(tmp_path / sclang_snd)
+            sr_sc3nb, data_sc3nb = wavfile.read(tmp_path / sc3nb_snd)
+            self.assertEqual(sr_sclang, sr_sc3nb)
+            self.assertTrue(np.allclose(data_sclang, data_sc3nb))
