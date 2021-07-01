@@ -1,6 +1,5 @@
 # Changelog
 
-## Version x.x.x
+## Version 1.0.0
 
-- Test 1
-- Test 2
+- first PyPI release
