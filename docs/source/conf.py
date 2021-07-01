@@ -11,8 +11,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-from pkg_resources import get_distribution
-
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -28,19 +26,16 @@ project = "sc3nb"
 copyright = "2021, Thomas Hermann, Dennis Reinsch"
 author = "Thomas Hermann, Dennis Reinsch"
 
-# The full version, including alpha/beta/rc tags
-release = get_distribution("sc3nb").version
-# for example take major/minor
-version = ".".join(release.split(".")[:3])
-
 # -- General configuration ---------------------------------------------------
 
 on_rtd = os.environ.get("READTHEDOCS") == "True"
 
+git_rev_exact_match = False
 try:
     git_rev = subprocess.check_output(
         ["git", "describe", "--exact-match", "HEAD"], universal_newlines=True
     )
+    git_rev_exact_match = True
 except subprocess.CalledProcessError:
     try:
         git_rev = subprocess.check_output(
@@ -191,7 +186,10 @@ if not on_rtd:
 
     repo = Repo(search_parent_directories=True)
 
-    current_version = repo.active_branch.name
+    if git_rev_exact_match:
+        current_version = git_rev  # tag
+    else:
+        current_version = repo.active_branch.name
 
     # tell the theme which version we're currently on ('current_version' affects
     # the lower-left rtd menu and 'version' affects the logo-area version)

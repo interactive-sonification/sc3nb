@@ -2,164 +2,172 @@
 
 import argparse
 import errno
-import json
 import os
 import shutil
 import stat
-import subprocess
 import sys
 from pathlib import Path
 from sys import platform
-from typing import Optional
+from typing import Optional, Sequence
 
-# you usually want to run:
-#   python docs/generate --doctree --publish --clean --no-show
+from git import Repo
 
 
 def main():
-    git_root = subprocess.check_output(
-        f"git -C {os.path.dirname(__file__)} rev-parse --show-toplevel".split(" ")
-    )
-    git_root = str(git_root, "utf-8").strip()
-    # checking dir
+    repo = Repo(search_parent_directories=True)
+    git_root = repo.working_dir
+    if git_root is None:
+        raise RuntimeError("No git working dir found.")
     os.chdir(git_root)
-    current_path = Path().resolve()
-    if current_path.parts[-1:] != ("sc3nb",):
-        raise RuntimeWarning(
-            f"Wrong current working dir! {current_path} Have you moved this script? Script must be in sc3nb project folder"
-        )
+
     parser = argparse.ArgumentParser(description="Generates Sphinx documentation")
-    parser.add_argument("--doctree", action="store_true", help="build complete doctree")
+    parser.add_argument("--github", action="store_true", help="build gh-pages")
+    parser.add_argument("--publish", action="store_true", help="publish the build")
     parser.add_argument(
-        "--publish", action="store_true", help="build and publish doctree"
-    )
-    parser.add_argument(
-        "--no-show", action="store_true", help="do not open browser after build"
+        "--show", action="store_true", help="open in browser after build"
     )
     parser.add_argument(
         "--branches",
         nargs="*",
         default=["master", "develop"],
-        help="limit doctree to these branches",
+        help="limit build to these branches",
     )
     parser.add_argument(
-        "--tags", nargs="*", default=None, help="limit doctree to these tags"
+        "--tags", nargs="*", default=None, help="limit build to these tags"
     )
     parser.add_argument(
         "--input",
         default=f"{git_root}/docs/source/",
-        help="input folder (ignored for doctree)",
+        help="input folder (ignored for gh-pages)",
     )
     parser.add_argument(
-        "--out", default=f"{git_root}/build/docs/", help="output folder"
-    )
-    parser.add_argument(
-        "--template-folder",
-        default=f"{git_root}/docs/source/_templates",
-        help="templates used for doctree",
+        "--output", default=f"{git_root}/build/docs/", help="output folder"
     )
     parser.add_argument(
         "--clean", action="store_true", help="removes out folder before building doc"
     )
     args = parser.parse_args()
-    args.doctree = args.doctree if not args.publish else True
-    if args.clean and os.path.exists(args.out):
-        print(f"Cleaning {args.out}")
-        shutil.rmtree(args.out, ignore_errors=False, onerror=_handle_remove_readonly)
-    os.makedirs(args.out, exist_ok=True)
-    if not args.doctree:
+
+    # preparing output folder
+    if args.clean and os.path.exists(args.output):
+        print(f"Cleaning {args.output}")
+        rm_dir(args.output)
+    os.makedirs(args.output, exist_ok=True)
+
+    if not args.github:
         target = "html"
-        build_doc(source=args.input, out=args.out, target=target)
-        if not args.no_show:
-            url = f"{args.out}/{target}/index.{target}"
-            if platform == "darwin":
-                os.system(f"open {url}")
-            elif platform == "win32":
-                os.startfile(url)
-            else:
-                raise NotImplementedError("'show' is not available for your platform")
+        docs_root = build_doc(
+            source=Path(args.input), out=Path(args.output), target=target
+        )
     else:
-        generate_gh_pages(
-            out_folder=args.out,
-            publish=args.publish,
+        docs_root = generate_gh_pages(
+            repo=repo,
+            out_folder=Path(args.output),
             branches=args.branches,
             tags=args.tags,
-            template_folder=args.template_folder,
-            show=not args.no_show,
+            publish=args.publish,
+            clean=args.clean,
         )
+
+    if args.show:
+        url = docs_root
+        if platform == "darwin":
+            os.system(f"open {url}")
+        elif platform == "win32":
+            os.startfile(url)
+        else:
+            raise NotImplementedError("'show' is not available for your platform")
+
+    # if args.show:
+    #    _run_webserver(os.path.normpath(repo))
 
 
 def _handle_remove_readonly(func, path, exc):
     excvalue = exc[1]
     if (
-        func in (os.rmdir, os.remove, os.unlink, os.scandir)
-        and excvalue.errno == errno.EACCES
+        func not in (os.rmdir, os.remove, os.unlink, os.scandir)
+        or excvalue.errno != errno.EACCES
     ):
-        os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)  # 0777
-        func(path)
-    else:
         raise RuntimeError(f"Failed to remove {path}")
 
+    os.chmod(path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)  # 0777
+    func(path)
 
-def build_doc(source, out, target, additional_options: Optional[str] = ""):
+
+def rm_dir(path):
+    shutil.rmtree(path, ignore_errors=False, onerror=_handle_remove_readonly)
+
+
+def build_doc(
+    source: Path, out: Path, target: str, additional_options: Optional[str] = ""
+):
     print(f"Generating documentation for {target} {additional_options} ...")
     # prevents __pycache__ files which we don't need when code runs only once.
+    docs_out = out / target
     sys.dont_write_bytecode = True
-    exec_str = f"sphinx-build -b {target} {additional_options} {source} {out}/{target}"
+    exec_str = f"sphinx-build -b {target} {additional_options} {source} {docs_out}"
     print(exec_str)
     res = os.system(exec_str)
     if res != 0:
         raise RuntimeError(
             f"Could not generate documentation for {target} {additional_options}. Build returned status code {res}!"
         )
+    print(f"Done generating documentation for {target} {additional_options}.")
+    return docs_out
 
 
 def generate_gh_pages(
-    out_folder,
-    publish=False,
-    branches=["master", "develop"],
-    tags=None,
-    template_folder=None,
-    show=False,
+    repo: Repo,
+    out_folder: Path,
+    branches: Sequence[str] = ("master", "develop"),
+    tags: Sequence[str] = (),
+    publish: bool = False,
+    clean: bool = False,
 ):
     print("Generate github pages")
-    gh_pages_root = f"{out_folder}gh-pages/"
-    build_folder = f"{gh_pages_root}out/"
-    os.makedirs(build_folder, exist_ok=True)
+    gh_pages_root = out_folder / "gh-pages"
+    build_folder = gh_pages_root / "out"
+    if build_folder.exists():
+        rm_dir(build_folder)
+    os.makedirs(build_folder)
 
-    repo = f"{gh_pages_root}sc3nb/"
-    print(f"Check repo ({repo})")
-
-    # update or clone repo
-    if not os.path.exists(repo):
-        os.system(
-            f"git clone https://github.com/interactive-sonification/sc3nb.git {repo}"
-        )
+    tmp_repo_path = gh_pages_root / "repo"
+    if tmp_repo_path.exists() and not clean:
+        tmp_repo = Repo(tmp_repo_path)
+        print(f"Pulling repo...")
+        tmp_repo.git.pull("-a")
     else:
-        if os.system(f"git -C {repo} pull --all") != 0:
-            raise RuntimeError("Pulling {repo} failed")
+        print(f"Cloning repo...")
+        tmp_repo = Repo.clone_from(repo.remote().url, tmp_repo_path)
 
-    if os.system(f"git -C {repo} clean -f -d -x") != 0:
-        raise RuntimeError("Cleaning {repo} failed")
+    print("Checking repo...")
+    tmp_repo.git.clean("--force", "-d", "-x")
+    tmp_repo.git.checkout("--guess", "gh-pages", "--")
 
-    if tags is None:
-        out = subprocess.check_output(f"git -C {repo} show-ref --tags".split(" "))
-        tags = [
-            str(line.split(b" ")[1].split(b"/")[2], "utf-8")
-            for line in out.split(b"\n")[::-1]
-            if len(line)
-        ]
+    documented = [
+        p.name
+        for p in tmp_repo_path.iterdir()
+        if p.is_dir() and p.parent == tmp_repo_path and not p.name.startswith(".")
+    ]
+
+    if not tags:
+        tags = [tag.name for tag in tmp_repo.tags]
 
     # first, check which documentation to generate
-    def _has_docs(name):
-        if os.system(f"git -C {repo} checkout -q {name}") != 0:
-            raise RuntimeError("checking for docs failed")
-        return os.path.exists(f"{repo}/docs")
+    def has_docs(name):
+        previous_branch = tmp_repo.active_branch
+        tmp_repo.git.checkout("--guess", name, "--")
+        docs_found = (tmp_repo_path / "docs").exists()
+        tmp_repo.git.checkout("--guess", previous_branch, "--")
+        return docs_found
 
-    branches = [b for b in branches if _has_docs(b)]
-    tags = [t for t in tags if _has_docs("tags/" + t)]
-    print(f"Will generate documentation for:\n  Branches: {branches}\n  Tags: {tags}")
-
+    branches = [b for b in branches if has_docs(b)]
+    tags = [t for t in tags if has_docs("tags/" + t) and t not in documented]
+    print(
+        f"Will generate documentation for:\n  already documented: {documented}\n  Branches: {branches}\n  Tags: {tags}"
+    )
+    stable = tags[0] if tags else None
+    print(f"new stable version {stable}")
     # fix order of dropdown elements (most recent tag first, then branches and older tags)
     doclist = tags[:1] + branches + tags[1:]
     print(f"doclist={doclist}")
@@ -167,106 +175,66 @@ def generate_gh_pages(
     for d in doclist:
         print(f"Generating documentation for {d} ...")
         target = d if d in branches else "tags/" + d
-        if os.system(f"git -C {repo} checkout {target} -f") != 0:
-            raise RuntimeError(
-                f"Could not checkout {d}. Git returned status code {res}!"
-            )
-        if os.system(f"git -C {repo} clean -f -d -x") != 0:
-            raise RuntimeError("Cleaning {repo} failed")
-        if os.system(f"git -C {repo} pull") != 0:
-            raise RuntimeError(f"Could not pull {d}. Git returned status code {res}!")
-        if template_folder:
-            if os.path.exists(f"{repo}/docs/source/_templates"):
-                shutil.rmtree(f"{repo}/docs/source/_templates")
-            shutil.copytree(template_folder, f"{repo}/docs/source/_templates")
-
+        tmp_repo.git.checkout("--guess", target, "--")
+        tmp_repo.git.clean("--force", "-d", "-x")
         build_doc(
-            source=os.path.join(repo, "docs/source/"),
-            out=os.path.join(build_folder, d),
+            source=tmp_repo_path / "docs/source",
+            out=build_folder / d,
             target="html",
-            additional_options=f"-D version={d}",
         )
 
     # create index html to forward to last tagged version
-    if doclist:
-        with open(f"{build_folder}/index.html", "w") as fp:
-            fp.write(
-                f"""<!DOCTYPE html>
+    with open(f"{build_folder}/index.html", "w") as fp:
+        fp.write(
+            f"""<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="refresh" content="0; url=stable/">
   </head>
 </html>
 """
-            )
+        )
 
     # prepare gh-pages
-    os.system(f'git -C {repo} checkout -f "gh-pages"')
-    print("Merging documentation...")
-    for item in os.listdir(build_folder):
-        s = os.path.join(build_folder, item)
-        d = os.path.join(repo, item)
-        print(f"Copying {item}")
-        if os.path.isdir(s):
-            s = os.path.join(s, "html")
-            if os.path.exists(d):
+    tmp_repo.git.checkout("--guess", "gh-pages", "--")
+    tmp_repo.git.clean("--force", "-d", "-x")
+
+    print(f"Merging documentation in {tmp_repo_path}...")
+    for item in build_folder.iterdir():
+        s = build_folder / item.name
+        d = tmp_repo_path / item.name
+        print(f" - {item.name}: {s} -> {d}")
+        if s.is_dir():
+            s = s / "html"
+            if d.exists():
                 shutil.rmtree(d, ignore_errors=True)
-            shutil.copytree(s, d)
+            shutil.copytree(s, d, copy_function=shutil.copy)
         else:
-            shutil.copy2(s, d)
-        print(f"Copying {item} as stable")
-        if item == doclist[0]:
-            shutil.copytree(s, os.path.join(repo, "stable"))
+            shutil.copy(s, d)
+        if item == stable:
+            print(f"Copying {s} as new stable version")
+            stable_path = tmp_repo_path / "stable"
+            shutil.rmtree(stable_path, ignore_errors=True)
+            shutil.copytree(s, stable_path, copy_function=shutil.copy)
 
-    print(f"Documentation tree has been written to {repo}")
+    print(f"Documentation has been merged in {tmp_repo.working_dir}")
     print("Current git status:")
-    os.system(f"git -C {repo} status")
+    status = tmp_repo.git.status("--short")
+    print(status)
+    if publish and status:
+        print("Creating commit")
+        with tmp_repo.config_writer() as writer:
+            writer.set_value(
+                "user", "name", repo.config_reader().get_value("user", "name")
+            )
+            writer.set_value(
+                "user", "email", repo.config_reader().get_value("user", "email")
+            )
+        tmp_repo.git.add(".")
+        tmp_repo.git.commit("-m Update docs")
+        tmp_repo.git.push()
 
-    # commit and push changes when publish has been passed
-    if publish:
-        os.system(f"git -C {repo} add -A")
-        os.system(f'git -C {repo} commit -a -m "Update docs"')
-        os.system(f"git -C {repo} push")
-
-    if show:
-        _run_webserver(os.path.normpath(repo))
-
-
-def _run_webserver(root):
-    import http.server
-    import socketserver
-    import threading
-    import time
-
-    def _delayed_open():
-        url = f"http://localhost:8181/{os.path.basename(root)}/index.html"
-        time.sleep(0.2)
-        if sys.platform == "darwin":
-            os.system(f"open {url}")
-        elif sys.platform == "win32":
-            os.startfile(url)
-        else:
-            raise NotImplementedError("'show' is not available for your platform")
-
-    t = threading.Thread(target=_delayed_open)
-    t.start()
-
-    class Handler(http.server.SimpleHTTPRequestHandler):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, directory=root + "/../", **kwargs)
-
-        def log_message(self, format, *args):
-            pass
-
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", 8181), Handler) as httpd:
-        try:
-            print("Starting preview webserver (disable with --no-show)...")
-            print("Ctrl+C to kill server")
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("Exiting...")
-            httpd.shutdown()
+    return gh_pages_root
 
 
 if __name__ == "__main__":
