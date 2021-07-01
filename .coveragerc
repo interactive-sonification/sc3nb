@@ -12,3 +12,8 @@ source =
 [report]
 show_missing = true
 precision = 2
+exclude_lines =
+    pragma: no cover
+    if TYPE_CHECKING:
+    def __repr__
+    raise NotImplementedError
