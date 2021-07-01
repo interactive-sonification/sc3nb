@@ -232,7 +232,6 @@ def generate_gh_pages(
             )
         tmp_repo.git.add(".")
         tmp_repo.git.commit("-m Update docs")
-        tmp_repo.git.push()
 
     return gh_pages_root
 
