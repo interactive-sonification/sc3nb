@@ -76,7 +76,9 @@ class Volume:
             if self._server.is_running:
                 if self._synth is None:
                     if self._synth_name is None:
-                        warnings.warn("Volume SynthDef unknown. Cannot set volume.")
+                        warnings.warn(
+                            "Cannot set volume. Volume SynthDef unknown. Is the default sclang running?"
+                        )
                         return
                     controls = {
                         "volumeAmp": amp,
@@ -113,7 +115,7 @@ class Volume:
             try:
                 self._server.lookup_receiver("sclang")
             except KeyError:
-                _LOGGER.debug(
+                _LOGGER.info(
                     "Volume SynthDef cannot be send. No sclang receiver known."
                 )
             else:

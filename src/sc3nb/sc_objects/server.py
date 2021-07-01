@@ -533,9 +533,7 @@ class SCServer(OSCCommunication):
         port : int
             Port of sclang (NetAddr.langPort)
         """
-        self.add_init_hook(
-            self.add_receiver, name="sclang", ip_address="127.0.0.1", port=port
-        )
+        self.add_receiver(name="sclang", ip_address="127.0.0.1", port=port)
         self.execute_init_hooks()
 
     def add_init_hook(

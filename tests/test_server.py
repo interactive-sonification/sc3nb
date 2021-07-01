@@ -44,7 +44,7 @@ class ServerTest(TestCase):
             ValueError,
             f"The specified UDP port {self.server.options.udp_port} is already used",
         ):
-            self.other_server.boot()
+            self.other_server.boot(timeout=3)
         self.other_server.remote(*self.server.addr)
         self.assertEqual(self.server.addr, self.other_server.addr)
         # check if they share nodes

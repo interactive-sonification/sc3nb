@@ -3,20 +3,12 @@ import tempfile
 import time
 from pathlib import Path
 
-import pytest
-
 from sc3nb.sc_objects.score import Score
 from sc3nb.sc_objects.server import ServerOptions
 from sc3nb.sc_objects.synthdef import SynthDef
 from tests.conftest import SCBaseTest
 
 
-@pytest.fixture
-def files_path(tmp_path):
-    return tmp_path
-
-
-@pytest.mark.usefixtures("files_path")
 class ScoreTest(SCBaseTest):
 
     __test__ = True
@@ -82,3 +74,4 @@ class ScoreTest(SCBaseTest):
             time.sleep(0.1)
             while not (tmp_path / sclang_snd).exists():
                 self.assertLess(time.time() - t0, 0.2)
+            self.assertTrue(filecmp.cmp(tmp_path / sclang_snd, tmp_path / sc3nb_snd))
