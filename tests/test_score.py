@@ -75,9 +75,10 @@ class ScoreTest(SCBaseTest):
                 """
             )
             t0 = time.time()
-            time.sleep(0.1)
+            time.sleep(1)
             while not (tmp_path / sclang_snd).exists():
-                self.assertLess(time.time() - t0, 0.2)
+                time.sleep(1)
+                self.assertLess(time.time() - t0, 3)
             with aifc.open((tmp_path / sclang_snd).as_posix(), "rb") as sclang_wav:
                 with aifc.open((tmp_path / sc3nb_snd).as_posix(), "rb") as sc3nb_wav:
                     self.assertEqual(sclang_wav.getparams(), sc3nb_wav.getparams())
