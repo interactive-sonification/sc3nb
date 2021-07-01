@@ -17,6 +17,7 @@ def no_logs_gte_error(caplog, request):
         record
         for record in caplog.get_records("call")
         if record.levelno >= logging.WARNING
+        and "pythonosc\osc_bundle.py" not in record.pathname
     ]
     formatter = logging.Formatter("%(name)s:%(lineno)d  %(levelname)s - %(message)s")
     assert (
