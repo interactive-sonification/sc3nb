@@ -1,9 +1,7 @@
+import aifc
 import tempfile
 import time
-import wave
 from pathlib import Path
-
-import pytest
 
 from sc3nb.osc.osc_communication import OSCMessage
 from sc3nb.sc_objects.score import Score
@@ -39,10 +37,10 @@ class ScoreTest(SCBaseTest):
 
     def test_score(self):
         sc3nb_osc = "test.osc"
-        sc3nb_snd = "test.wav"
+        sc3nb_snd = "test.aiff"
 
         sclang_osc = "sclang.osc"
-        sclang_snd = "sclang.wav"
+        sclang_snd = "sclang.aiff"
 
         with tempfile.TemporaryDirectory(dir=".") as tmp_path:
             tmp_path = ("." / Path(tmp_path)).resolve()
@@ -51,7 +49,7 @@ class ScoreTest(SCBaseTest):
                 str(tmp_path / sc3nb_osc),
                 str(tmp_path / sc3nb_snd),
                 options=ServerOptions(num_output_buses=2),
-                header_format="RIFF",
+                header_format="AIFF",
             )
             print(cp)
             ScoreTest.sc.lang.cmd(
@@ -72,7 +70,7 @@ class ScoreTest(SCBaseTest):
                     list: g,
                     oscFilePath: "{(tmp_path / sclang_osc).as_posix()}",
                     outputFilePath: "{(tmp_path / sclang_snd).as_posix()}",
-                    headerFormat: "RIFF"
+                    headerFormat: "AIFF"
                 );
                 """
             )
@@ -80,8 +78,8 @@ class ScoreTest(SCBaseTest):
             time.sleep(0.1)
             while not (tmp_path / sclang_snd).exists():
                 self.assertLess(time.time() - t0, 0.2)
-            with wave.open((tmp_path / sclang_snd).as_posix(), "rb") as sclang_wav:
-                with wave.open((tmp_path / sc3nb_snd).as_posix(), "rb") as sc3nb_wav:
+            with aifc.open((tmp_path / sclang_snd).as_posix(), "rb") as sclang_wav:
+                with aifc.open((tmp_path / sc3nb_snd).as_posix(), "rb") as sc3nb_wav:
                     self.assertEqual(sclang_wav.getparams(), sc3nb_wav.getparams())
 
             with self.assertWarnsRegex(
