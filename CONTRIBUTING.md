@@ -52,88 +52,76 @@ Please also try to make sure they work when using the doc generation script.
 
 ## How to prepare a release
 
-- clear old build files
-```
-rm dist build
-```
+The following checks should all be successful before creating a new release.
 
+- run tests
+  ```
+  tox
+  ```
 
 - test build
-```
-pip install --upgrade build
-python -m build
-```
+  ```
+  pip install --upgrade build
+  python -m build
+  ```
+
+- test building the docs
+
+  For building the documentation for the current branch use:
+  ```
+  tox -e docs
+  ```
+  Controll the output in `build/docs/html/`
 
 
-- test
-```
-tox
-```
-
-
-- build docs
-
-  should currently build from a system platform != Windows
-  the pya example does not work, as pip fails to install pya because of portaudio issues
-```
-python docs/generate.py
-```
-
-
-- tag (Git - Tagging)
-
-  We use [semantic versioning](https://semver.org/).
-  Please always use 3 numbers like 1.0.0 -> this is needed by [setuptools_scm](https://github.com/pypa/setuptools_scm/#semantic-versioning-semver)
-
-- clear build files again
-```
-rm dist build
-```
-
-
-- build
-```
-pip install --upgrade build
-python -m build
-```
-
+Actual Release
 
 - update changelog
 
   should contain information about the commits between the versions
 
-- upload testpypi
-```
-pip install --user --upgrade twine
-python -m twine upload --repository testpypi dist/*
-```
+- create a new git tag for this version
 
+  We use [semantic versioning](https://semver.org/).
+  Please always use 3 numbers like v1.0.0 for [setuptools_scm](https://github.com/pypa/setuptools_scm/#semantic-versioning-semver)
+
+- clear build files
+  ```
+  rm dist build
+  ```
+
+- build
+  ```
+  pip install --upgrade build
+  python -m build
+  ```
+
+- upload testpypi
+  ```
+  pip install --user --upgrade twine
+  python -m twine upload --repository testpypi dist/*
+  ```
 
 - check [testpypi](https://test.pypi.org/project/sc3nb/)
-```
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple sc3nb
-```
-
-
-- build and publish docs
-
-  should currently build from a system platform != Windows
-  the pya example does not work, as pip fails to install pya because of portaudio issues
-```
-python docs/generate.py --doctree --publish
-```
-
+  ```
+  pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple sc3nb
+  ```
 
 - upload pypi
-```
-python -m twine upload dist/*
-```
-
+  ```
+  python -m twine upload dist/*
+  ```
 
 - check [pypi](https://pypi.org/project/sc3nb/)
-```
-pip install sc3nb
-```
+  ```
+  pip install sc3nb
+  ```
 
+- build github-pages docs (after pushing the tag)
 
-- (release on github)
+  Create the gh-pages documentation with
+  ```
+  tox -e docs -- --github
+  ```
+  Controll the output in `build/docs/gh-pages/repo/`.
+  Push the changes
