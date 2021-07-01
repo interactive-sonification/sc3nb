@@ -52,6 +52,7 @@ class ScoreTest(SCBaseTest):
                 header_format="AIFF",
             )
             print(cp)
+            (_, port), _ = ScoreTest.sc.server.connection_info()
             ScoreTest.sc.lang.cmd(
                 fr"""
                 var g;
@@ -70,15 +71,14 @@ class ScoreTest(SCBaseTest):
                     list: g,
                     oscFilePath: "{(tmp_path / sclang_osc).as_posix()}",
                     outputFilePath: "{(tmp_path / sclang_snd).as_posix()}",
-                    headerFormat: "AIFF"
+                    headerFormat: "AIFF",
+                    action: {{ NetAddr("127.0.0.1", {port}).sendMsg('/return', "nrt-done") }}
                 );
                 """
             )
-            t0 = time.time()
-            time.sleep(1)
-            while not (tmp_path / sclang_snd).exists():
-                time.sleep(1)
-                self.assertLess(time.time() - t0, 3)
+            self.assertEqual(
+                "nrt-done", ScoreTest.sc.server.msg_queues["/return"].get(timeout=4)
+            )
             with aifc.open((tmp_path / sclang_snd).as_posix(), "rb") as sclang_wav:
                 with aifc.open((tmp_path / sc3nb_snd).as_posix(), "rb") as sc3nb_wav:
                     self.assertEqual(sclang_wav.getparams(), sc3nb_wav.getparams())
