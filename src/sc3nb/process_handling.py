@@ -15,7 +15,7 @@ from typing import Optional, Sequence
 import psutil
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
+
 
 ANSI_ESCAPE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
 ALLOWED_PARENTS = ("scide", "python", "tox")

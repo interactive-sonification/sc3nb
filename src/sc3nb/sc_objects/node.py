@@ -29,7 +29,6 @@ if TYPE_CHECKING:
     from sc3nb.sclang import SynthArgument
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
 
 
 @unique

@@ -21,7 +21,7 @@ from sc3nb.sc_objects.server import ReplyAddress, SCServer
 from sc3nb.util import parse_pyvars, remove_comments, replace_vars
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
+
 
 SCLANG_DEFAULT_PORT = 57120
 SC3NB_SCLANG_CLIENT_ID = 0

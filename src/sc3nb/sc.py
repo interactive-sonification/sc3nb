@@ -13,7 +13,6 @@ from sc3nb.sc_objects.server import SCServer, ServerOptions
 from sc3nb.sclang import SCLang
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
 
 
 def startup(

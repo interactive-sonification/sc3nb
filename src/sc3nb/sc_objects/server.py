@@ -32,7 +32,6 @@ from sc3nb.sc_objects.synthdef import SynthDef, SynthDefinitionCommand
 from sc3nb.sc_objects.volume import Volume
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
 
 
 @unique

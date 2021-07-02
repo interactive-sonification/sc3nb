@@ -16,7 +16,7 @@ from pythonosc.osc_bundle import OscBundle
 from pythonosc.parsing import osc_types
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
+
 
 SYNTH_DEF_MARKER = b"SCgf"
 TYPE_TAG_MARKER = ord(b",")

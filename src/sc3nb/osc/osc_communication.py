@@ -27,7 +27,6 @@ from pythonosc.osc_server import OSCUDPServer, ThreadingOSCUDPServer
 import sc3nb
 
 _LOGGER = logging.getLogger(__name__)
-_LOGGER.addHandler(logging.NullHandler())
 
 
 class OSCMessage:
