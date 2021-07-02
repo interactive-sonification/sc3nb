@@ -585,6 +585,7 @@ class SCServer(OSCCommunication):
         if self._volume.muted:
             warnings.warn("SCServer is muted. Blip will also be silent!")
         with self.bundler(0.15) as bundler:
+            bundler.add(0.0, "/error", [0])
             bundler.add(
                 0.0, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1]
             )
@@ -592,6 +593,7 @@ class SCServer(OSCCommunication):
                 0.2, "/s_new", ["s2", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2]
             )
             bundler.add(0.3, "/n_free", [-1])
+            bundler.add(0.3, "/error", [1])
 
     def remote(self, address: str, port: int, with_blip: bool = True) -> None:
         """Connect to remote Server
