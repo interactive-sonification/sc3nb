@@ -4,6 +4,7 @@ Classes and functions to communicate with SuperCollider
 using the Open Sound Control (OSC) protocol over UDP
 """
 
+import atexit
 import copy
 import errno
 import logging
@@ -707,6 +708,8 @@ class OSCCommunication:
         self._msg_queues: Dict[str, MessageQueue] = {}
         self._reply_addresses: Dict[str, str] = {}
 
+        atexit.register(self.quit)
+
     @property
     def osc_server(self) -> OSCUDPServer:
         """Underlying OSC server"""
@@ -1079,4 +1082,5 @@ class OSCCommunication:
         if self._osc_server_running:
             self._osc_server.shutdown()
             self._osc_server.server_close()
+            self._osc_server_thread.join(timeout=5)
             self._osc_server_running = False

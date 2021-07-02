@@ -1,4 +1,5 @@
 """Module for managing Server related stuff."""
+import atexit
 import logging
 import warnings
 from enum import Enum, unique
@@ -355,6 +356,8 @@ class SCServer(OSCCommunication):
         self._server_init_hooks: List[Tuple[Callable[..., None], Any, Any]] = []
 
         self._volume = Volume(self)
+
+        atexit.register(self.quit)
 
     def boot(
         self,

@@ -1,5 +1,6 @@
 """ Module for process handling. """
 
+import atexit
 import glob
 import logging
 import os
@@ -203,6 +204,7 @@ class Process:
             target=self._read_loop, daemon=True
         )
         self.output_reader_thread.start()
+        atexit.register(self.kill)
 
     def _read_loop(self):
         os.write(1, f"[{self.executable} | start reading ]\n".encode())
