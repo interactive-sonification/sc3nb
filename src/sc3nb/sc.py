@@ -70,7 +70,7 @@ def startup(
             start_sclang=start_sclang,
             sclang_path=sclang_path,
             scsynth_options=scsynth_options,
-            with_blib=with_blip,
+            with_blip=with_blip,
             console_logging=console_logging,
             allowed_parents=allowed_parents,
             timeout=timeout,
@@ -108,7 +108,7 @@ class SC:
         Path of sclang executable, by default None.
     scsynth_options : Optional[ServerOptions], optional
         Options for the server, by default None.
-    with_blib : bool, optional
+    with_blip : bool, optional
         Make a sound when booted, by default True.
     console_logging : bool, optional
         If True write scsynth/sclang output to console, by default True.
@@ -155,7 +155,7 @@ class SC:
         start_sclang: bool = True,
         sclang_path: Optional[str] = None,
         scsynth_options: Optional[ServerOptions] = None,
-        with_blib: bool = True,
+        with_blip: bool = True,
         console_logging: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
         timeout: float = 5,
@@ -178,7 +178,7 @@ class SC:
                     scsynth_path=scsynth_path,
                     scsynth_options=scsynth_options,
                     console_logging=self._console_logging,
-                    with_blip=with_blib,
+                    with_blip=with_blip,
                     allowed_parents=allowed_parents,
                     timeout=timeout,
                 )
