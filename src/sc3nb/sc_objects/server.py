@@ -623,8 +623,15 @@ class SCServer(OSCCommunication):
         """
         if not self.is_local:
             raise RuntimeError("Can't reboot a remote Server")
+        receivers = self._receivers  # save known receivers and restore them after boot
         self.quit()
         self.boot()
+        receivers.update(
+            self._receivers
+        )  # update old receivers with possible new values
+        self._receivers = receivers
+        self.execute_init_hooks()
+        self.sync()
 
     def ping(self):
         """Ping the server."""
