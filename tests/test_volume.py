@@ -39,14 +39,14 @@ class VolumeTest(SCBaseTest):
         VolumeTest.sc.server.volume = volume
         self.assertEqual(volume, VolumeTest.sc.server.volume)
         vol_synth = VolumeTest.sc.server._volume._synth
-        self.assertIn(vol_synth, VolumeTest.sc.server.query_all_nodes().children)
+        self.assertIn(vol_synth, VolumeTest.sc.server.query_tree().children)
         self.assertAlmostEqual(dbamp(volume), vol_synth.get("volumeAmp"))
         VolumeTest.sc.server.muted = True
         VolumeTest.sc.server.volume = 0
         self.assertAlmostEqual(0, vol_synth.get("volumeAmp"))
         VolumeTest.sc.server.muted = False
         vol_synth.wait(timeout=0.2)
-        self.assertNotIn(vol_synth, VolumeTest.sc.server.query_all_nodes().children)
+        self.assertNotIn(vol_synth, VolumeTest.sc.server.query_tree().children)
         del vol_synth
         self.assertFalse(VolumeTest.sc.server.muted)
         self.assertIsNone(VolumeTest.sc.server._volume._synth)

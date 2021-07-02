@@ -386,8 +386,8 @@ class SCLang:
         """Empties sc output queue."""
         self.process.empty()
 
-    def get_synth_desc(self, synth_def):
-        """Get SynthDesc via sclang's global SynthDescLib.
+    def get_synth_description(self, synth_def):
+        """Get a SynthDesc like description via sclang's global SynthDescLib.
 
         Parameters
         ----------

@@ -352,7 +352,7 @@ class SCServer(OSCCommunication):
             server=self,
         )
 
-        self._server_tree: List[Tuple[Callable[..., None], Any, Any]] = []
+        self._server_init_hooks: List[Tuple[Callable[..., None], Any, Any]] = []
 
         self._volume = Volume(self)
 
@@ -511,8 +511,8 @@ class SCServer(OSCCommunication):
 
         Hooks can be added using add_init_hook
         """
-        _LOGGER.debug("Executing init hooks %s", self._server_tree)
-        for hook, args, kwargs in self._server_tree:
+        _LOGGER.debug("Executing init hooks %s", self._server_init_hooks)
+        for hook, args, kwargs in self._server_init_hooks:
             if args and kwargs:
                 hook(*args, **kwargs)
             elif args:
@@ -549,7 +549,7 @@ class SCServer(OSCCommunication):
         kwargs : Any, optional
             Keyword arguments given to function
         """
-        self._server_tree.append((hook, args, kwargs))
+        self._server_init_hooks.append((hook, args, kwargs))
 
     def bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
@@ -895,7 +895,7 @@ class SCServer(OSCCommunication):
             If return_tree this is the node tree string.
         """
         if not self.is_local or self.process is None:
-            warnings.warn("Server is not local or not booted. Use query_all_nodes")
+            warnings.warn("Server is not local or not booted. Use query_tree")
             return
         self.process.read()
         msg = OSCMessage(GroupCommand.DUMP_TREE, [0, 1 if controls else 0])
@@ -905,7 +905,7 @@ class SCServer(OSCCommunication):
         if return_tree:
             return node_tree
 
-    def query_all_nodes(self, include_controls: bool = True) -> Group:
+    def query_tree(self, include_controls: bool = True) -> Group:
         """Query all nodes at the server and return a NodeTree
 
         Parameters

@@ -56,7 +56,7 @@ class SynthDef:
         if name in cls.synth_descs:
             return cls.synth_descs[name]
         try:
-            synth_desc = sc3nb.SC.get_default().lang.get_synth_desc(name)
+            synth_desc = sc3nb.SC.get_default().lang.get_synth_description(name)
         except RuntimeError:
             synth_desc = None
 

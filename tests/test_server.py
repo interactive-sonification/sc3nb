@@ -28,12 +28,12 @@ class ServerTest(TestCase):
         self.assertTrue(self.server.sync(timeout=10))
 
     def test_node_tree(self):
-        root_group = self.server.query_all_nodes()
+        root_group = self.server.query_tree()
         self.assertEqual(len(root_group.children), self.server.max_logins)
         self.assertIn(self.server.default_group, root_group.children)
         group = Group(server=self.server)
         self.server.sync()
-        root_group = self.server.query_all_nodes()
+        root_group = self.server.query_tree()
         self.assertIn(group, self.server.default_group.children)
 
     def test_multiclient(self):
@@ -49,7 +49,7 @@ class ServerTest(TestCase):
         self.assertEqual(self.server.addr, self.other_server.addr)
         # check if they share nodes
         group = Group(server=self.other_server)
-        root_group = self.server.query_all_nodes()
+        root_group = self.server.query_tree()
         matches = [
             child
             for child in root_group.children

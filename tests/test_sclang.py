@@ -24,8 +24,8 @@ class SCLangPersistentTest(SCBaseTest):
     start_sclang = True
 
     def test_auto_load_synthdefs(self):
-        self.assertIsNotNone(self.sc.lang.get_synth_desc("s1"))
-        self.assertIsNotNone(self.sc.lang.get_synth_desc("s2"))
+        self.assertIsNotNone(self.sc.lang.get_synth_description("s1"))
+        self.assertIsNotNone(self.sc.lang.get_synth_description("s2"))
 
     def test_inject_pyvar(self):
         pyvar = "test"
@@ -115,5 +115,5 @@ class SCLangPersistentTest(SCBaseTest):
             "pan": SynthArgument("pan", "control", 0.0),
             "gate": SynthArgument("gate", "control", 1.0),
         }
-        synth_desc = self.sc.lang.get_synth_desc("default")
+        synth_desc = self.sc.lang.get_synth_description("default")
         self.assertEqual(synth_desc, expected_synth_desc)
