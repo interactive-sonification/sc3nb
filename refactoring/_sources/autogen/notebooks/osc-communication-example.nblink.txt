@@ -1,1 +1,0 @@
-{"path": "../../../../examples/osc-communication-example.ipynb", "extra-media": ["../../../../examples/media"]}
