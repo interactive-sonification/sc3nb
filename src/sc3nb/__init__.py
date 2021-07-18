@@ -19,6 +19,7 @@ from sc3nb.sc_objects.node import Node, Synth, Group, AddAction
 from sc3nb.sc_objects.synthdef import SynthDef
 from sc3nb.sc_objects.buffer import Buffer
 from sc3nb.sc_objects.bus import Bus
+from sc3nb.sc_objects.score import Score
 
 from sc3nb.sc_objects.recorder import Recorder
 
@@ -51,6 +52,7 @@ __all__ = [
     "SCServer",
     "ServerOptions",
     "Recorder",
+    "Score",
     "Bus",
 ]
 
