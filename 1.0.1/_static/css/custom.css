@@ -1,0 +1,189 @@
+/* To have the box in width of the block (instead of width of content) */
+dl.py.function, dl.py.class, dl.py.method > dt:first-of-type {
+    display: block !important;
+}
+
+/* signature breaking generated for 4-16
+See https://github.com/sphinx-doc/sphinx/issues/1514
+*/
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(4)::before,
+.sig-param:first-of-type:nth-last-of-type(4) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(4) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(5)::before,
+.sig-param:first-of-type:nth-last-of-type(5) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(5) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(6)::before,
+.sig-param:first-of-type:nth-last-of-type(6) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(6) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(7)::before,
+.sig-param:first-of-type:nth-last-of-type(7) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(7) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(8)::before,
+.sig-param:first-of-type:nth-last-of-type(8) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(8) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(9)::before,
+.sig-param:first-of-type:nth-last-of-type(9) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(9) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(10)::before,
+.sig-param:first-of-type:nth-last-of-type(10) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(10) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(11)::before,
+.sig-param:first-of-type:nth-last-of-type(11) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(11) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(12)::before,
+.sig-param:first-of-type:nth-last-of-type(12) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(12) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(13)::before,
+.sig-param:first-of-type:nth-last-of-type(13) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(13) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(14)::before,
+.sig-param:first-of-type:nth-last-of-type(14) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(14) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(15)::before,
+.sig-param:first-of-type:nth-last-of-type(15) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(15) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+
+/* add linebreak and spaces before signature params */
+.sig-param:first-of-type:nth-last-of-type(16)::before,
+.sig-param:first-of-type:nth-last-of-type(16) ~ .sig-param::before {
+    content: "\a\20\20\20\20\20\20\20\20\20";
+    white-space: pre;
+}
+
+/* add linebreak after last signature param */
+.sig-param:first-of-type:nth-last-of-type(16) ~ .sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}

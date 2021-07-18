@@ -1,0 +1,343 @@
+:mod:`sc3nb.osc.parsing`
+========================
+
+.. py:module:: sc3nb.osc.parsing
+
+.. autoapi-nested-parse::
+
+   Module for parsing OSC packets from sclang.
+
+   This implements an extension of the OSC protocol.
+   A bundle is now allowed to consist of other bundles or
+   lists.
+
+   This extension is needed as sclang is sending Arrays
+   as this list or when nested as bundles with inner list
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+Function List
+~~~~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.osc.parsing._get_aligned_index
+   sc3nb.osc.parsing._parse_list
+   sc3nb.osc.parsing._parse_osc_bundle_element
+   sc3nb.osc.parsing._parse_bundle
+   sc3nb.osc.parsing.parse_sclang_osc_packet
+   sc3nb.osc.parsing.preprocess_return
+
+
+
+
+
+
+Content
+~~~~~~~
+
+.. data:: _LOGGER
+   
+
+   
+
+.. data:: SYNTH_DEF_MARKER
+   :annotation: = b'SCgf'
+
+   
+
+.. data:: TYPE_TAG_MARKER
+   
+
+   
+
+.. data:: TYPE_TAG_INDEX
+   :annotation: = 4
+
+   
+
+.. data:: NUM_SIZE
+   :annotation: = 4
+
+   
+
+.. data:: BYTES_2_TYPE
+   
+
+   
+
+.. exception:: ParseError
+
+
+   **Bases:** :class:`Exception`
+
+   Base exception for when a datagram parsing error occurs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+
+
+
+.. function:: _get_aligned_index(index: int) -> int
+
+   Get next multiple of NUM_SIZE from index
+
+
+   :Parameters:
+
+       **index** : int
+           starting index
+
+   :Returns:
+
+       int
+           next multiple of NUM_SIZE from index
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
+
+   Parse a OSC List
+
+   List consists of the following bytes:
+   4 bytes (int) : list_size
+   n bytes (string) : OSC type tag
+   n bytes (x) : content as specified by type tag
+
+   :Parameters:
+
+       **dgram** : bytes
+           datagram with the list
+
+       **start_index** : int
+           parsing starting index
+
+   :Returns:
+
+       Tuple[Sequence[Any], int]
+           parsed list contents, starting index + number of consumed bytes
+
+
+
+
+   :Raises:
+
+       ParseError
+           If datagram is invalid.
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: _parse_osc_bundle_element(dgram: bytes, start_index: int) -> Tuple[Union[Sequence[Any], bytes], int]
+
+   Parse an element from an OSC bundle.
+
+   The element needs to be either an OSC bundle or a list
+
+   :Parameters:
+
+       **dgram** : bytes
+           datagram with the bundle element
+
+       **start_index** : int
+           parsing starting index
+
+   :Returns:
+
+       Tuple[Union[Sequence[Any], bytes], int]
+           parsed content of the bundle element, starting index + number of consumed bytes
+
+
+
+
+   :Raises:
+
+       ParseError
+           If the datagram is invalid.
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
+
+   Parsing bundle
+
+
+   :Parameters:
+
+       **dgram** : bytes
+           datagram with the bundle
+
+       **start_index** : int
+           parsing starting index
+
+   :Returns:
+
+       tuple[Sequence[Any], int]
+           parsed content, starting index + number of consumed bytes
+
+
+
+
+   :Raises:
+
+       ParseError
+           If the datagram is invalid
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]
+
+   Parses the OSC packet from sclang.
+
+
+   :Parameters:
+
+       **data** : bytes
+           bytes sent by sclang
+
+   :Returns:
+
+       bytes or Sequence[Any]
+           unchanged bytes or content of bundles/messages
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. function:: preprocess_return(value: Sequence[Any]) -> Sequence[Any]
+
+   Preprocessing function for /return values
+
+
+   :Parameters:
+
+       **value** : tuple
+           return data
+
+   :Returns:
+
+       obj
+           data
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

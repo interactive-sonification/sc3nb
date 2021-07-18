@@ -1,0 +1,700 @@
+:mod:`sc3nb.sclang`
+===================
+
+.. py:module:: sc3nb.sclang
+
+.. autoapi-nested-parse::
+
+   Module for handling a SuperCollider language (sclang) process.
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sclang.SynthArgument
+   sc3nb.sclang.SCLang
+
+
+
+Content
+~~~~~~~
+
+.. data:: _LOGGER
+   
+
+   
+
+.. data:: SCLANG_DEFAULT_PORT
+   :annotation: = 57120
+
+   
+
+.. data:: SC3NB_SCLANG_CLIENT_ID
+   :annotation: = 0
+
+   
+
+.. class:: SynthArgument
+
+   **Bases:** :class:`NamedTuple`
+
+   Synth argument, rate and default value
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: name
+      :annotation: :str
+
+      
+
+   .. attribute:: rate
+      :annotation: :str
+
+      
+
+   .. attribute:: default
+      :annotation: :Any
+
+      
+
+
+
+
+
+
+.. exception:: SCLangError(message, sclang_output=None)
+
+
+   **Bases:** :class:`Exception`
+
+   Exception for Errors related to SuperColliders sclang.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+
+
+
+.. class:: SCLang
+
+
+   Class to control the SuperCollider Language Interpreter (sclang).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Creates a python representation of sclang.
+
+
+
+
+
+
+
+   :Raises:
+
+       NotImplementedError
+           When an unsupported OS was found.
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sclang.SCLang.start
+         sc3nb.sclang.SCLang.init
+         sc3nb.sclang.SCLang.load_synthdefs
+         sc3nb.sclang.SCLang.kill
+         sc3nb.sclang.SCLang.__del__
+         sc3nb.sclang.SCLang.__repr__
+         sc3nb.sclang.SCLang.cmd
+         sc3nb.sclang.SCLang.cmdv
+         sc3nb.sclang.SCLang.cmds
+         sc3nb.sclang.SCLang.cmdg
+         sc3nb.sclang.SCLang.read
+         sc3nb.sclang.SCLang.empty
+         sc3nb.sclang.SCLang.get_synth_description
+         sc3nb.sclang.SCLang.addr
+         sc3nb.sclang.SCLang.server
+         sc3nb.sclang.SCLang.connect_to_server
+
+   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> None
+
+      Start and initilize the sclang process.
+
+      This will also kill sclang processes that does not have allowed parents.
+
+      :Parameters:
+
+          **sclang_path** : Optional[str], optional
+              Path with the sclang executable, by default None
+
+          **console_logging** : bool, optional
+              If True log sclang output to console, by default True
+
+          **allowed_parents** : Sequence[str], optional
+              parents name of processes to keep, by default ALLOWED_PARENTS
+
+          **timeout** : float, optional
+              timeout in seconds for starting the executable, by default 10
+
+
+
+
+
+      :Raises:
+
+          SCLangError
+              When starting or initilizing sclang failed.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: init(self)
+
+      Initialize sclang for sc3nb usage.
+
+      This will register the /return callback in sclang and load the SynthDefs from sc3nb.
+
+      This is done automatically by running start.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None
+
+      Load SynthDef files from path.
+
+
+      :Parameters:
+
+          **synthdefs_path** : str, optional
+              Path where the SynthDef files are located.
+              If no path provided, load default sc3nb SynthDefs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: kill(self) -> int
+
+      Kill this sclang instance.
+
+
+
+      :Returns:
+
+          int
+              returncode of the process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __del__(self)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: cmd(self, code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any
+
+      Send code to sclang to execute it.
+
+      This also allows to get the result of the code or the corresponding output.
+
+      :Parameters:
+
+          **code** : str
+              SuperCollider code to execute.
+
+          **pyvars** : dict, optional
+              Dictionary of name and value pairs of python
+              variables that can be injected via ^name, by default None
+
+          **verbose** : bool, optional
+              If True print output, by default True
+
+          **discard_output** : bool, optional
+              If True clear output buffer before passing command, by default True
+
+          **get_result** : bool, optional
+              If True receive and return the
+              evaluation result from sclang, by default False
+
+          **print_error** : bool, optional
+              If this and get_result is True and code execution fails
+              the output from sclang will be printed.
+
+          **get_output** : bool, optional
+              If True return output. Does not override get_result
+              If verbose this will be True, by default False
+
+          **timeout** : int, optional
+              Timeout in seconds for code execution return result, by default 1
+
+      :Returns:
+
+          Any
+              if get_result=True,
+                  Result from SuperCollider code,
+                  not all SC types supported.
+                  When type is not understood this
+                  will return the datagram from the
+                  OSC packet.
+              if get_output or verbose
+                  Output from SuperCollider code.
+              if get_output and get_result=True
+                  (result, output)
+              else
+                  None
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If get_result is True but no OSCCommunication instance is set.
+
+          SCLangError
+              When an error with sclang occurs.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: cmdv(self, code: str, **kwargs) -> Any
+
+      cmd with verbose=True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: cmds(self, code: str, **kwargs) -> Any
+
+      cmd with verbose=False, i.e. silent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: cmdg(self, code: str, **kwargs) -> Any
+
+      cmd with get_result=True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: read(self, expect: Optional[str] = None, timeout: float = 1, print_error: bool = True) -> str
+
+      Reads SuperCollider output from the process output queue.
+
+
+      :Parameters:
+
+          **expect** : Optional[str], optional
+              Try to read this expected string, by default None
+
+          **timeout** : float, optional
+              How long we try to read the expected string in seconds, by default 1
+
+          **print_error** : bool, optional
+              If True this will print a message when timed out, by default True
+
+      :Returns:
+
+          str
+              output from sclang process.
+
+
+
+
+      :Raises:
+
+          timeout
+              If expected output string could not be read before timeout.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: empty(self) -> None
+
+      Empties sc output queue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: get_synth_description(self, synth_def)
+
+      Get a SynthDesc like description via sclang's global SynthDescLib.
+
+
+      :Parameters:
+
+          **synth_def** : str
+              SynthDef name
+
+      :Returns:
+
+          dict
+              {argument_name: SynthArgument(rate, default)}
+
+
+
+
+      :Raises:
+
+          ValueError
+              When synthDesc of synthDef can not be found.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: addr(self) -> Tuple[str, int]
+      :property:
+
+      The address of this sclang
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: server(self) -> Optional[sc3nb.sc_objects.server.SCServer]
+      :property:
+
+      The SuperCollider server connected to this sclang instance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: connect_to_server(self, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+
+      Connect this sclang instance to the SuperCollider server.
+
+      This will set Server.default and s to the provided remote server.
+
+      :Parameters:
+
+          **server** : SCServer, optional
+              SuperCollider server to connect. If None try to reconnect.
+
+
+
+
+
+      :Raises:
+
+          ValueError
+              If something different from an SCServer or None was provided
+
+          SCLangError
+              If sclang failed to register to the server.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+
+

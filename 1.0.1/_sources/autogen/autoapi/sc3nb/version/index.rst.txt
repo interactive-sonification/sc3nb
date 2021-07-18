@@ -1,0 +1,30 @@
+:mod:`sc3nb.version`
+====================
+
+.. py:module:: sc3nb.version
+
+
+Module Contents
+---------------
+
+
+
+
+
+
+
+Content
+~~~~~~~
+
+.. data:: version
+   :annotation: = 1.0.2.dev0+ga543dec.d20210718
+
+   
+
+.. data:: version_tuple
+   :annotation: = [1, 0, 2, 'dev0+ga543dec', 'd20210718']
+
+   
+
+
+

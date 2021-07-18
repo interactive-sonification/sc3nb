@@ -1,0 +1,40 @@
+:mod:`sc3nb.osc`
+================
+
+.. py:module:: sc3nb.osc
+
+.. autoapi-nested-parse::
+
+   Module for Open Sound Control (OSC) related code.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   osc_communication/index.rst
+   parsing/index.rst
+
+
