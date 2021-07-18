@@ -11,6 +11,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from git import Repo
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -30,24 +32,12 @@ author = "Thomas Hermann, Dennis Reinsch"
 
 on_rtd = os.environ.get("READTHEDOCS") == "True"
 
-git_rev_exact_match = False
-try:
-    git_rev = subprocess.check_output(
-        ["git", "describe", "--exact-match", "HEAD"], universal_newlines=True
-    )
-    git_rev_exact_match = True
-except subprocess.CalledProcessError:
-    try:
-        git_rev = subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], universal_newlines=True
-        )
-    except subprocess.CalledProcessError as error:
-        print(f"Failed to get git_rev - {error}")
-        print(f"Using 'develop' instead")
-        git_rev = "develop"
-if git_rev:
-    git_rev = git_rev.splitlines()[0]
-    print(f"Using git_rev={git_rev}")
+repo = Repo(search_parent_directories=True)
+
+git_rev, git_name = repo.commit().name_rev.split()
+if "tags/" in git_name:
+    # f.e tags/v1.0.1
+    git_name = git_name.split("/")[1][1:]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -181,15 +171,8 @@ if not on_rtd:
     html_context = {}
     html_context["display_lower_left"] = True
 
-    # SET CURRENT_VERSION
-    from git import Repo
-
-    repo = Repo(search_parent_directories=True)
-
-    if git_rev_exact_match:
-        current_version = git_rev  # tag
-    else:
-        current_version = repo.active_branch.name
+    current_version = git_name  # tag
+    html_context["commit"] = git_rev[:10]
 
     # tell the theme which version we're currently on ('current_version' affects
     # the lower-left rtd menu and 'version' affects the logo-area version)
