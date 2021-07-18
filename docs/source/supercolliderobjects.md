@@ -9,5 +9,6 @@ autogen/notebooks/supercollider-objects/synthdef-examples
 autogen/notebooks/supercollider-objects/buffer-examples
 autogen/notebooks/supercollider-objects/bus-examples
 autogen/notebooks/supercollider-objects/recorder-examples
+autogen/notebooks/supercollider-objects/score-examples
 
 ```
