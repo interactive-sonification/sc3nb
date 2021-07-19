@@ -25,7 +25,9 @@ def main():
 
     parser = argparse.ArgumentParser(description="Generates Sphinx documentation")
     parser.add_argument("--github", action="store_true", help="build gh-pages")
-    parser.add_argument("--publish", action="store_true", help="publish the build")
+    parser.add_argument(
+        "--commit", action="store_true", help="create a commit (only when --github)"
+    )
     parser.add_argument(
         "--show", action="store_true", help="open in browser after build"
     )
@@ -33,10 +35,13 @@ def main():
         "--branches",
         nargs="*",
         default=["master", "develop"],
-        help="limit build to these branches",
+        help="limit build to these branches (only when --github)",
     )
     parser.add_argument(
-        "--tags", nargs="*", default=None, help="limit build to these tags"
+        "--tags",
+        nargs="*",
+        default=None,
+        help="limit build to these tags (only when --github)",
     )
     parser.add_argument(
         "--input",
@@ -68,7 +73,7 @@ def main():
             out_folder=Path(args.output),
             branches=args.branches,
             tags=args.tags,
-            publish=args.publish,
+            commit=args.commit,
             clean=args.clean,
         )
     if args.show:
@@ -171,7 +176,7 @@ def generate_gh_pages(
     out_folder: Path,
     branches: Sequence[str] = ("master", "develop"),
     tags: Sequence[str] = (),
-    publish: bool = False,
+    commit: bool = False,
     clean: bool = False,
 ):
     print("Generate github pages")
@@ -278,7 +283,7 @@ def generate_gh_pages(
     print("Current git status:")
     status = tmp_repo.git.status("--short")
     print(status)
-    if publish and status:
+    if commit and status:
         print("Creating commit")
         with tmp_repo.config_writer() as writer:
             writer.set_value(
@@ -289,6 +294,7 @@ def generate_gh_pages(
             )
         tmp_repo.git.add(".")
         tmp_repo.git.commit("-m Update docs")
+        print(f"Control the commit in {tmp_repo.working_dir}")
 
     return gh_pages_root
 

@@ -6,31 +6,18 @@ Please get in touch with us if you wish to contribute. We are happy to be involv
 
 We will honor contributors in our [Contributors list](CONTRIBUTORS.md). If you contribute with a pull request feel free to add yourself to the list.
 
-## How to test / set up the development environment
-
-Additional dependencies for sc3nb can be installed via the following extras:
-tests, development, building docs, running test.
-
-
-| Install        | Purpose                                                                      |
-|:---------------|:-----------------------------------------------------------------------------|
-| `[test]`       | running tox for tests and other things                                       |
-| `[dev]`        | using the pre-commit hooks and installing other useful tools for development |
-| `[docs]`       | building the docs                                                            |
-| `[localtests]` | running pytest directly without tox, also used in tox as dependencies        |
-
-
 ## Development Guidelines
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-To ensure standards are followed please install [pre-commit](https://pre-commit.com/)
+To ensure standards are followed please install the `[dev]` extra. See [How to set up the testing and development environment](#how-to-set-up-the-testing-and-development-environment)
 
 We use:
-* [black](https://github.com/psf/black) and [isort](https://github.com/PyCQA/isort) for formatting code
+* [pre-commit](https://pre-commit.com/) to controll our standards for each commit.
+* [black](https://github.com/psf/black) and [isort](https://github.com/PyCQA/isort) for formatting code.
 * [python type hints](https://docs.python.org/3/library/typing.html)
-* [numpydoc](https://numpydoc.readthedocs.io/en/latest/example.html) docstring format. Also see [How to Document](https://numpy.org/doc/stable/docs/howto_document.html)
+* [numpydoc](https://numpydoc.readthedocs.io/en/latest/example.html) docstring format. Also see [Guide to NumPy Documentation](https://numpy.org/doc/stable/docs/howto_document.html)
 
 
 ## How to contributing an example notebook
@@ -49,10 +36,25 @@ Also add `sc.exit()` to all notebooks at the end.
 
 Please also try to make sure they work when using the doc generation script.
 
+## How to set up the testing and development environment
 
-## How to prepare a release
+Additional dependencies for sc3nb can be installed via the following extras:
 
-The following checks should all be successful before creating a new release.
+
+| Install        | Purpose                                                                      |
+|:---------------|:-----------------------------------------------------------------------------|
+| `[test]`       | running tox for tests and other things                                       |
+| `[dev]`        | using the pre-commit hooks and installing other useful tools for development |
+| `[docs]`       | building the docs directly, without tox (used by tox)                        |
+| `[localtests]` | running pytest directly, without tox (used by tox)                           |
+
+
+Normally you should only need `[test]` and `[dev]` for contributing.
+
+
+## How to test
+
+The following tests should all be successful.
 
 - run tests
   ```
@@ -73,8 +75,9 @@ The following checks should all be successful before creating a new release.
   ```
   Controll the output in `build/docs/html/`
 
+## How to prepare a release
 
-Actual Release
+- run all [tests](#how-to-test)
 
 - update changelog
 
@@ -118,10 +121,13 @@ Actual Release
   ```
 
 - build github-pages docs (after pushing the tag)
+  See [How to build the docs](#how-to-build-the-docs)
 
-  Create the gh-pages documentation with
-  ```
-  tox -e docs -- --github
-  ```
-  Controll the output in `build/docs/gh-pages/repo/`.
-  Push the changes
+## How to build the docs
+
+Create the gh-pages documentation with
+```
+tox -e docs -- --github --clean --commit
+```
+Controll the commit in the build folder (`build/docs/gh-pages/repo/`).
+Push the changes
