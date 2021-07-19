@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                v1.0.1
+                1.0.1
               </div>
             
           
@@ -96,7 +96,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
@@ -111,7 +111,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Starting-sc3nb">Starting sc3nb</a></li>
@@ -249,7 +249,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -336,7 +336,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -688,7 +688,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/v1.0.1/examples/sc3nb-examples.ipynb">examples/sc3nb-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/a543dec7fb6672532b4763c9a27fb6ad95e74ce0/examples/sc3nb-examples.ipynb">examples/sc3nb-examples.ipynb</a>.</p>
 </div>
 <div class="section" id="Getting-Started">
 <h1>Getting Started<a class="headerlink" href="#Getting-Started" title="Permalink to this headline">¶</a></h1>
@@ -826,7 +826,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 800}&gt;
+&lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 800}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -993,10 +993,10 @@ array([[-0.00189209, -0.00189209],
  1,
  9,
  117,
- 0.206393763422966,
- 0.31910476088523865,
+ 0.22436478734016418,
+ 0.35780069231987,
  44100.0,
- 43548.905905256324)
+ 43563.0405712431)
 </pre></div></div>
 </div>
 <p>We offer also high level versions for the commands.</p>
@@ -1015,7 +1015,7 @@ array([[-0.00189209, -0.00189209],
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu=0.2062547206878662, peak_cpu=0.31910476088523865, nominal_sr=44100.0, actual_sr=43520.66407263294)
+ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu=0.22219102084636688, peak_cpu=0.35780069231987, nominal_sr=44100.0, actual_sr=43548.905905256324)
 </pre></div></div>
 </div>
 <p>Create OSC Bundles using SuperCollider Commands directly</p>
@@ -1086,7 +1086,7 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; esgg
+-&gt; gges
 </pre></div></div>
 </div>
 <p>or via the <strong>%sc</strong> IPython magic</p>
@@ -1104,7 +1104,7 @@ ServerStatus(num_ugens=9, num_synths=1, num_groups=9, num_synthdefs=117, avg_cpu
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; gseg
+-&gt; gges
 </pre></div></div>
 </div>
 <p>Get results from SuperCollider Language in python with <code class="docutils literal notranslate"><span class="pre">cmdg</span></code> or <strong>%scg</strong></p>
@@ -1226,7 +1226,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(1001) &#39;default&#39;  {}&gt;
+&lt;Synth(1001) &#39;default&#39; ~ {}&gt;
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1306,7 +1306,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(1001) &#39;default&#39;  {&#39;freq&#39;: 880.0}&gt;
+&lt;Synth(1001) &#39;default&#39; ~ {&#39;freq&#39;: 880.0}&gt;
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1336,7 +1336,7 @@ received [1, 2, 3, 4, 5] with type &lt;class &#39;list&#39;&gt;
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(1001) &#39;default&#39;  {&#39;freq&#39;: 880.0}&gt;
+&lt;Synth(1001) &#39;default&#39; ~ {&#39;freq&#39;: 880.0}&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1408,6 +1408,10 @@ Exiting sclang... Done.
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -1432,7 +1436,7 @@ Exiting sclang... Done.
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: v1.0.1
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
