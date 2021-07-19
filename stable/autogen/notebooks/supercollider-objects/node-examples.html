@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Nodes (Synth and Group) &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>Nodes (Synth and Group) &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
 
@@ -31,10 +33,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -66,7 +71,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -91,7 +96,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
@@ -102,11 +107,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -130,7 +135,18 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -201,6 +217,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -232,7 +249,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -310,12 +327,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -669,18 +690,14 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/ac3bed24649881ede4ea4a2218a9db704ff45553/examples/supercollider-objects/node-examples.ipynb">examples/supercollider-objects/node-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/a543dec7fb6672532b4763c9a27fb6ad95e74ce0/examples/supercollider-objects/node-examples.ipynb">examples/supercollider-objects/node-examples.ipynb</a>.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># header / imports</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<span></span><span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
 <span class="kn">from</span> <span class="nn">sc3nb</span> <span class="kn">import</span> <span class="n">Synth</span>
@@ -692,7 +709,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
+<span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">(</span><span class="n">with_blip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -747,8 +764,6 @@ Booting SuperCollider Server... Done.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
-   -24 s2
-     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 lg: 0.10000000149012 gate: 1
    469762049 group
    402653185 group
    335544321 group
@@ -759,13 +774,13 @@ NODE TREE Group 0
    1 group
 </pre></div></div>
 </div>
-<p>You can also get a python object represenation via</p>
+<p>You can also get a Python object represenation of the current server state via.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">root_node</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">root_node</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 <span class="n">root_node</span>
 </pre></div>
 </div>
@@ -777,17 +792,17 @@ NODE TREE Group 0
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
-  Group(469762049) ~ {} children=[],
-  Group(402653185) ~ {} children=[],
-  Group(335544321) ~ {} children=[],
-  Group(268435457) ~ {} children=[],
-  Group(201326593) ~ {} children=[],
-  Group(134217729) ~ {} children=[],
-  Group(67108865) ~ {} children=[],
-  Group(1) ~ {} children=[]]
+  Group(469762049) s {} children=[],
+  Group(402653185) s {} children=[],
+  Group(335544321) s {} children=[],
+  Group(268435457) s {} children=[],
+  Group(201326593) s {} children=[],
+  Group(134217729) s {} children=[],
+  Group(67108865) s {} children=[],
+  Group(1) s {} children=[]]
 </pre></div></div>
 </div>
+<p>Note that this will send a <code class="docutils literal notranslate"><span class="pre">/g_queryTree</span></code> command and parse the <code class="docutils literal notranslate"><span class="pre">/g_queryTree.reply</span></code> response of the server. The resulting Group representation will currently not be updated unless you use <code class="docutils literal notranslate"><span class="pre">query_tree</span></code> again.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -803,7 +818,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(1) ~ {} children=[]
+Group(1) s {} children=[]
 </pre></div></div>
 </div>
 <p>A node is either a <a class="reference external" href="#Synth">Synth</a> or a <a class="reference external" href="#Group">Group</a> of nodes</p>
@@ -847,7 +862,7 @@ Group(1) ~ {} children=[]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(67108865) ~ {} children=[]
+Group(67108865) s {} children=[]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -855,7 +870,7 @@ Group(67108865) ~ {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -866,16 +881,15 @@ Group(67108865) ~ {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
-  Group(469762049) ~ {} children=[],
-  Group(402653185) ~ {} children=[],
-  Group(335544321) ~ {} children=[],
-  Group(268435457) ~ {} children=[],
-  Group(201326593) ~ {} children=[],
-  Group(134217729) ~ {} children=[],
-  Group(67108865) ~ {} children=[
+  Group(469762049) s {} children=[],
+  Group(402653185) s {} children=[],
+  Group(335544321) s {} children=[],
+  Group(268435457) s {} children=[],
+  Group(201326593) s {} children=[],
+  Group(134217729) s {} children=[],
+  Group(67108865) s {} children=[
     &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
-  Group(1) ~ {} children=[]]
+  Group(1) s {} children=[]]
 </pre></div></div>
 </div>
 <p>Free a synth</p>
@@ -941,16 +955,16 @@ Group(0)  {} children=[
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># wait some time to ensure the audio server has send the /fail OSC message</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+Error at SCServer(&#39;127.0.0.1&#39;, 57110) pid=6576 from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
 </pre></div></div>
 </div>
 <p>Pause a synth</p>
@@ -987,7 +1001,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <p>Run a paused synth</p>
@@ -1006,7 +1020,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <p>You can also wait for a Synth</p>
@@ -1025,9 +1039,9 @@ Group(0)  {} children=[
 <div class="section" id="Set-/-get-Synth-parameters">
 <h3>Set / get Synth parameters<a class="headerlink" href="#Set-/-get-Synth-parameters" title="Permalink to this headline">¶</a></h3>
 <p>Set synth parameters, using any for the following <code class="docutils literal notranslate"><span class="pre">set</span></code> calls</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-<span class="nb">set</span><span class="p">(</span><span class="n">list_of_keys_and_values</span><span class="p">])</span>
-<span class="nb">set</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set(key, value, ...)
+set(list_of_keys_and_values])
+set(dict)
 </pre></div>
 </div>
 <div class="nbinput docutils container">
@@ -1045,7 +1059,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1063,7 +1077,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1081,7 +1095,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <p>The Synth does save its current control arguments in <code class="docutils literal notranslate"><span class="pre">current_controls</span></code></p>
@@ -1125,7 +1139,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1354,7 +1368,7 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1365,7 +1379,6 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -1431,8 +1444,6 @@ Group(20003) s {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
-   -24 s2
-     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 lg: 0.10000000149012 gate: 1
    469762049 group
    402653185 group
    335544321 group
@@ -1440,8 +1451,6 @@ NODE TREE Group 0
    201326593 group
    134217729 group
    67108865 group
-      20001 s2
-        freq: 594 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
       20003 group
    1 group
 </pre></div></div>
@@ -1479,8 +1488,6 @@ Group(20003) f {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
-   -24 s2
-     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 lg: 0.10000000149012 gate: 1
    469762049 group
    402653185 group
    335544321 group
@@ -1488,8 +1495,6 @@ NODE TREE Group 0
    201326593 group
    134217729 group
    67108865 group
-      20001 s2
-        freq: 588.05999755859 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
    1 group
 </pre></div></div>
 </div>
@@ -1516,7 +1521,7 @@ Group(20003) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1527,16 +1532,13 @@ Group(20003) s {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
   Group(268435457) ~ {} children=[],
   Group(201326593) ~ {} children=[],
   Group(134217729) ~ {} children=[],
-  Group(67108865) ~ {} children=[
-    Group(20003) ~ {} children=[],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+  Group(67108865) ~ {} children=[ Group(20003) ~ {} children=[]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1555,9 +1557,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(67108865) ~ {} children=[
-  Group(20003) ~ {} children=[],
-  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;]
+Group(67108865) ~ {} children=[ Group(20003) ~ {} children=[]]
 </pre></div></div>
 </div>
 <p>Create a Group in our new Group</p>
@@ -1585,7 +1585,7 @@ Group(20004) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1596,7 +1596,6 @@ Group(20004) s {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -1604,8 +1603,7 @@ Group(0)  {} children=[
   Group(201326593) ~ {} children=[],
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
-    Group(20003) ~ {} children=[ Group(20004) ~ {} children=[]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 582.1793823242188, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    Group(20003) ~ {} children=[ Group(20004) ~ {} children=[]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1625,7 +1623,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-GroupInfo(nodeid=20003, group=67108865, prev_nodeid=-1, next_nodeid=20001, head=20004, tail=20004)
+GroupInfo(nodeid=20003, group=67108865, prev_nodeid=-1, next_nodeid=-1, head=20004, tail=20004)
 </pre></div></div>
 </div>
 <p>The query contains the same information as a Synth query and additionally the head and tail Node of this group.</p>
@@ -1672,7 +1670,7 @@ Group(20003) f {} children=[ Group(20004) ~ {} children=[]]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1683,15 +1681,13 @@ Group(20003) f {} children=[ Group(20004) ~ {} children=[]]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
   Group(268435457) ~ {} children=[],
   Group(201326593) ~ {} children=[],
   Group(134217729) ~ {} children=[],
-  Group(67108865) ~ {} children=[
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 576.3576049804688, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+  Group(67108865) ~ {} children=[],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1802,7 +1798,7 @@ Group(20006) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1813,7 +1809,6 @@ Group(20006) s {} children=[]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -1825,8 +1820,7 @@ Group(0)  {} children=[
       &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       Group(20006) ~ {} children=[
-        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 570.5940551757812, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1853,7 +1847,7 @@ Group(0)  {} children=[
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1864,7 +1858,6 @@ Group(0)  {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -1876,8 +1869,7 @@ Group(0)  {} children=[
       &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       Group(20006) ~ {} children=[
         &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 564.8880615234375, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -2020,8 +2012,6 @@ Group(20006) ~ {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 NODE TREE Group 0
-   -24 s2
-     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 lg: 0.10000000149012 gate: 1
    469762049 group
    402653185 group
    335544321 group
@@ -2037,8 +2027,6 @@ NODE TREE Group 0
               out: 0 freq: 100 amp: 0.10000000149012 pan: 0 gate: 1
             20009 default
               out: 0 freq: 100 amp: 0.10000000149012 pan: 0 gate: 1
-      20001 s2
-        freq: 553.64678955078 amp: 0.10000000149012 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
    1 group
 </pre></div></div>
 </div>
@@ -2067,7 +2055,7 @@ Group(20006) ~ {} children=[
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_all_nodes</span><span class="p">()</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2078,7 +2066,6 @@ Group(20006) ~ {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  &lt;Synth(-24) &#39;s2&#39;  {&#39;freq&#39;: 1000.0, &#39;amp&#39;: 0.05000000074505806, &#39;num&#39;: 2.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;,
   Group(469762049) ~ {} children=[],
   Group(402653185) ~ {} children=[],
   Group(335544321) ~ {} children=[],
@@ -2090,8 +2077,7 @@ Group(0)  {} children=[
       &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
       Group(20006) ~ {} children=[
         &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]],
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 548.1103515625, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -2221,8 +2207,7 @@ Group(67108865) ~ {} children=[
     &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
     Group(20006) ~ {&#39;freq&#39;: 800} children=[
       &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 800.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
-  &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 548.1103515625, &#39;amp&#39;: 0.10000000149011612, &#39;num&#39;: 4.0, &#39;pan&#39;: -1.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;]
+    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2251,7 +2236,7 @@ NODE TREE Group 0
    1 group
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
 </pre></div>
 </div>
@@ -2259,6 +2244,15 @@ NODE TREE Group 0
 <span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+Exiting sclang... Done.
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -2288,6 +2282,10 @@ NODE TREE Group 0
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -2312,7 +2310,7 @@ NODE TREE Group 0
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -2325,16 +2323,12 @@ NODE TREE Group 0
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

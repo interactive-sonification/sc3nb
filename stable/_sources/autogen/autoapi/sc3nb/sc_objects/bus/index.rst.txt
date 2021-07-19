@@ -173,7 +173,7 @@ Content
 
 
 
-.. class:: Bus(rate: Union[(BusRate, str)], num_channels: int = 1, index: Optional[int] = None, server: Optional['SCServer'] = None)
+.. class:: Bus(rate: Union[BusRate, str], num_channels: int = 1, index: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    Represenation of Control or Audio Bus(es) on the SuperCollider Server
@@ -233,7 +233,7 @@ Content
          sc3nb.sc_objects.bus.Bus.__del__
          sc3nb.sc_objects.bus.Bus.__repr__
 
-   .. method:: rate(self) -> Union[(BusRate, str)]
+   .. method:: rate(self) -> Union[BusRate, str]
       :property:
 
       The bus calculation rate.
@@ -371,7 +371,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[('Bus', OSCMessage)]
+   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
       Set ranges of bus values.
 
@@ -405,7 +405,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: fill(self, value: Union[(int, float)], return_msg=False) -> Union[('Bus', OSCMessage)]
+   .. method:: fill(self, value: Union[int, float], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
       Fill bus(es) to one value.
 
@@ -439,7 +439,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: get(self) -> Union[(Union[int, float], Sequence[Union[int, float]])]
+   .. method:: get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]
 
       Get bus value(s).
 

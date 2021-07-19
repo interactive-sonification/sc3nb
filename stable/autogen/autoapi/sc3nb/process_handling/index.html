@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.process_handling &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>sc3nb.process_handling &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -91,7 +94,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../README.html#installation">Installation</a></li>
@@ -102,11 +105,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -130,7 +133,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -201,6 +215,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -232,7 +247,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#package-contents">Package Contents</a><ul>
@@ -310,12 +325,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -461,23 +480,23 @@
 <div class="section" id="content">
 <h3>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
 <dl class="py data">
-<dt id="sc3nb.process_handling._LOGGER">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">_LOGGER</span></code><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#_LOGGER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling._LOGGER" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling._LOGGER">
+<span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">_LOGGER</span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#_LOGGER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling._LOGGER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
-<dt id="sc3nb.process_handling.ANSI_ESCAPE">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">ANSI_ESCAPE</span></code><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#ANSI_ESCAPE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.ANSI_ESCAPE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.ANSI_ESCAPE">
+<span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">ANSI_ESCAPE</span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#ANSI_ESCAPE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.ANSI_ESCAPE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
-<dt id="sc3nb.process_handling.ALLOWED_PARENTS">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">ALLOWED_PARENTS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['scide',</span> <span class="pre">'python']</span></em><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#ALLOWED_PARENTS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.ALLOWED_PARENTS" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.ALLOWED_PARENTS">
+<span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">ALLOWED_PARENTS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['scide',</span> <span class="pre">'python',</span> <span class="pre">'tox']</span></em><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#ALLOWED_PARENTS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.ALLOWED_PARENTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="sc3nb.process_handling.find_executable">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">find_executable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_to_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#find_executable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.find_executable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.find_executable">
+<span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">find_executable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_to_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#find_executable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.find_executable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Looks for executable in os $PATH or specified path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -506,8 +525,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="sc3nb.process_handling.kill_processes">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">kill_processes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exec_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#kill_processes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.kill_processes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.kill_processes">
+<span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">kill_processes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exec_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#kill_processes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.kill_processes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kill processes with the same path for the executable.</p>
 <p>If allowed_parent is provided it will be searched in the names of the
 parent processes of the process with the executable path before terminating.
@@ -525,16 +544,16 @@ If it is found the process won’t be killed.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt id="sc3nb.process_handling.ProcessTimeout">
-<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">ProcessTimeout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#ProcessTimeout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.ProcessTimeout" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.ProcessTimeout">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">ProcessTimeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#ProcessTimeout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.ProcessTimeout" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Process Timeout Exception</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="sc3nb.process_handling.Process">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></code><code class="sig-name descname"><span class="pre">Process</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">programm_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kill_others</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.process_handling.</span></span><span class="sig-name descname"><span class="pre">Process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">executable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">programm_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">executable_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_logging</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kill_others</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_parents</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for starting a executable and communication with it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -587,13 +606,13 @@ when kill_others is True, by default None</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process._read_loop">
-<code class="sig-name descname"><span class="pre">_read_loop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process._read_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process._read_loop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process._read_loop">
+<span class="sig-name descname"><span class="pre">_read_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process._read_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process._read_loop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process.read">
-<code class="sig-name descname"><span class="pre">read</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expect</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.read" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expect</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads current output from output queue until expect is found</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -620,14 +639,14 @@ when kill_others is True, by default None</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process.empty">
-<code class="sig-name descname"><span class="pre">empty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.empty" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Empties output queue.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process.write">
-<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.write" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send input to process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -646,8 +665,8 @@ when kill_others is True, by default None</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process.kill">
-<code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.kill" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process.kill">
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kill the process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -660,13 +679,13 @@ when kill_others is True, by default None</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process.__del__">
-<code class="sig-name descname"><span class="pre">__del__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.__del__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process.__del__">
+<span class="sig-name descname"><span class="pre">__del__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.__del__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.__del__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.process_handling.Process.__repr__">
-<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.__repr__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.process_handling.Process.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../_modules/sc3nb/process_handling.html#Process.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.process_handling.Process.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -691,6 +710,10 @@ when kill_others is True, by default None</p>
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -715,7 +738,7 @@ when kill_others is True, by default None</p>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -728,16 +751,12 @@ when kill_others is True, by default None</p>
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

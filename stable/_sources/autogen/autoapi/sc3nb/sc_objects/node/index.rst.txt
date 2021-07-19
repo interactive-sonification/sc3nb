@@ -492,7 +492,7 @@ Content
 
 .. class:: SynthInfo
 
-   **Bases:** :class:`typing.NamedTuple`
+   **Bases:** :class:`NamedTuple`
 
    Information about the Synth from /n_info
 
@@ -543,7 +543,7 @@ Content
 
 .. class:: GroupInfo
 
-   **Bases:** :class:`typing.NamedTuple`
+   **Bases:** :class:`NamedTuple`
 
    Information about the Group from /n_info
 
@@ -602,7 +602,7 @@ Content
 
 
 
-.. class:: Node(*, nodeid: Optional[int] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, server: Optional['SCServer'] = None)
+.. class:: Node(*, nodeid: Optional[int] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    **Bases:** :class:`abc.ABC`
@@ -700,7 +700,7 @@ Content
          sc3nb.sc_objects.node.Node.__eq__
          sc3nb.sc_objects.node.Node._get_nodeid
 
-   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OSCMessage)]
+   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, return_msg: bool = False, **kwargs) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
       :abstractmethod:
 
       Create a new Node
@@ -734,7 +734,7 @@ Content
    .. method:: _get_status_repr(self) -> str
 
 
-   .. method:: _set_node_attrs(self, target: Optional[Union['Node', int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
+   .. method:: _set_node_attrs(self, target: Optional[Union[Node, int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
 
       Derive Node group from addaction and target
 
@@ -934,7 +934,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: free(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: free(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Free the node with /n_free.
 
@@ -964,7 +964,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Turn node on or off with /n_run.
 
@@ -995,7 +995,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: set(self, argument: Union[str, Dict, List], *values: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Set a control value(s) of the node with n_set.
 
@@ -1038,7 +1038,7 @@ Content
    .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
 
 
-   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: fill(self, control: Union[str, int], num_controls: int, value: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Fill ranges of control values with n_fill.
 
@@ -1078,7 +1078,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: map(self, control: Union[str, int], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Map a node's control to read from a bus using /n_map or /n_mapa.
 
@@ -1115,7 +1115,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Set gate as specified.
 
@@ -1152,7 +1152,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query(self) -> Union[(SynthInfo, GroupInfo)]
+   .. method:: query(self) -> Union[SynthInfo, GroupInfo]
 
       Sends an n_query message to the server.
 
@@ -1191,7 +1191,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: trace(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: trace(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Trace a node.
 
@@ -1224,7 +1224,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: move(self, add_action: AddAction, another_node: Node, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Move this node
 
@@ -1363,7 +1363,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[(SynthInfo, GroupInfo)]
+   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[SynthInfo, GroupInfo]
 
 
    .. method:: _handle_notification(self, kind: str, info) -> None
@@ -1392,7 +1392,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _get_nodeid(value: Union[('Node', int)]) -> int
+   .. method:: _get_nodeid(value: Union[Node, int]) -> int
       :staticmethod:
 
       Get the corresponding node id
@@ -1432,10 +1432,10 @@ Content
 
 
 
-.. class:: Synth(name: Optional[str] = None, controls: Dict[(str, Any)] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, server: Optional['SCServer'] = None)
+.. class:: Synth(name: Optional[str] = None, controls: Dict[str, Any] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
-   **Bases:** :class:`sc3nb.sc_objects.node.Node`
+   **Bases:** :class:`Node`
 
    Representation of a Synth on SuperCollider.
 
@@ -1531,7 +1531,7 @@ Content
    .. method:: _update_synth_state(self, name: Optional[str], controls: Optional[dict])
 
 
-   .. method:: synth_desc(self) -> Optional[Dict[str, 'SynthArgument']]
+   .. method:: synth_desc(self) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
       :property:
 
       A Description of this Synths arguments
@@ -1579,7 +1579,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: current_controls(self) -> Dict[(str, Any)]
+   .. method:: current_controls(self) -> Dict[str, Any]
       :property:
 
       This Synth currently cached control arguments.
@@ -1603,7 +1603,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OSCMessage)]
+   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[Synth, sc3nb.osc.osc_communication.OSCMessage]
 
       Creates the synth on the server with s_new.
 
@@ -1732,10 +1732,10 @@ Content
 
 
 
-.. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: sc3nb.sc_objects.node.AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional['SCServer'] = None)
+.. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
-   **Bases:** :class:`sc3nb.sc_objects.node.Node`
+   **Bases:** :class:`Node`
 
    Representation of a Group on SuperCollider.
 
@@ -1823,7 +1823,7 @@ Content
    .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
 
 
-   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OSCMessage)]
+   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[Group, sc3nb.osc.osc_communication.OSCMessage]
 
       Creates the synth on the server with g_new / p_new.
 
@@ -2058,7 +2058,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query_tree(self, include_controls=False) -> sc3nb.sc_objects.node.Group
+   .. method:: query_tree(self, include_controls=False) -> Group
 
       Send a g_queryTree message for this group.
 
@@ -2119,7 +2119,7 @@ Content
 
 
 
-.. class:: NodeTree(info: Sequence[Any], root_nodeid: int, controls_included: bool, start: int = 0, server: Optional['SCServer'] = None)
+.. class:: NodeTree(info: Sequence[Any], root_nodeid: int, controls_included: bool, start: int = 0, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    Node Tree is a class for parsing /g_queryTree.reply
@@ -2154,7 +2154,7 @@ Content
          sc3nb.sc_objects.node.NodeTree.parse_nodes
          sc3nb.sc_objects.node.NodeTree._repr_pretty_
 
-   .. method:: parse_nodes(info: Sequence[Any], controls_included: bool = True, start: int = 0, server: Optional['SCServer'] = None) -> Tuple[(int, Node)]
+   .. method:: parse_nodes(info: Sequence[Any], controls_included: bool = True, start: int = 0, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> Tuple[int, Node]
       :staticmethod:
 
       Parse Nodes from reply of the /g_queryTree cmd of scsynth.

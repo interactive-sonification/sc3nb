@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.server &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>sc3nb.sc_objects.server &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -64,7 +67,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -89,7 +92,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
@@ -100,11 +103,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -128,7 +131,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -199,6 +213,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -230,7 +245,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -308,12 +323,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -394,6 +413,7 @@
             
   <h1>Source code for sc3nb.sc_objects.server</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Module for managing Server related stuff.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">unique</span>
@@ -411,6 +431,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sc3nb.osc.parsing</span> <span class="kn">import</span> <span class="n">preprocess_return</span>
 <span class="kn">from</span> <span class="nn">sc3nb.process_handling</span> <span class="kn">import</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">ProcessTimeout</span>
+<span class="kn">from</span> <span class="nn">sc3nb.sc_objects.allocators</span> <span class="kn">import</span> <span class="n">Allocator</span><span class="p">,</span> <span class="n">BlockAllocator</span><span class="p">,</span> <span class="n">NodeAllocator</span>
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.buffer</span> <span class="kn">import</span> <span class="n">BufferCommand</span><span class="p">,</span> <span class="n">BufferReply</span>
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.bus</span> <span class="kn">import</span> <span class="n">Bus</span><span class="p">,</span> <span class="n">BusRate</span><span class="p">,</span> <span class="n">ControlBusCommand</span>
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.node</span> <span class="kn">import</span> <span class="p">(</span>
@@ -426,7 +447,6 @@
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.volume</span> <span class="kn">import</span> <span class="n">Volume</span>
 
 <div class="viewcode-block" id="_LOGGER"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb._LOGGER">[docs]</a><span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
-<span class="n">_LOGGER</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="MasterControlReply"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply">[docs]</a><span class="nd">@unique</span>
@@ -642,59 +662,6 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;ServerOptions </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="IDBlockAllocator"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.IDBlockAllocator">[docs]</a><span class="k">class</span> <span class="nc">IDBlockAllocator</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Allows allocating blocks of ids / indexes&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_ids</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">=</span> <span class="n">offset</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">offset</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_ids</span><span class="p">)]</span>
-
-<div class="viewcode-block" id="IDBlockAllocator.allocate"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.IDBlockAllocator.allocate">[docs]</a>    <span class="k">def</span> <span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Allocate the next free ids</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            free id</span>
-
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        RuntimeError</span>
-<span class="sd">            When out of free ids or not enough ids are in order.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">num_collected_ids</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">first_idx</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">while</span> <span class="n">num_collected_ids</span> <span class="o">!=</span> <span class="n">num</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="p">[</span><span class="n">first_idx</span><span class="p">:])</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot allocate </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2"> ids.&quot;</span><span class="p">)</span>
-            <span class="n">num_collected_ids</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="p">[</span><span class="n">first_idx</span><span class="p">:])):</span>
-                <span class="n">prev_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="p">[</span><span class="n">first_idx</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="n">next_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="p">[</span><span class="n">first_idx</span> <span class="o">+</span> <span class="n">idx</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">prev_id</span> <span class="o">-</span> <span class="n">next_id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="c1"># difference between ids is too large</span>
-                    <span class="n">first_idx</span> <span class="o">+=</span> <span class="n">idx</span>
-                    <span class="k">break</span>
-                <span class="n">num_collected_ids</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="k">if</span> <span class="n">num_collected_ids</span> <span class="o">==</span> <span class="n">num</span><span class="p">:</span>
-                    <span class="k">break</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="p">[</span><span class="n">first_idx</span> <span class="p">:</span> <span class="n">first_idx</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="p">[</span><span class="n">first_idx</span> <span class="p">:</span> <span class="n">first_idx</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">ids</span></div>
-
-<div class="viewcode-block" id="IDBlockAllocator.free_ids"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.IDBlockAllocator.free_ids">[docs]</a>    <span class="k">def</span> <span class="nf">free_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Mark ids as free again.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        ids : sequence of int</span>
-<span class="sd">            ids that are not used anymore.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">free_id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_free_ids</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">free_id</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span><span class="p">,</span> <span class="n">free_id</span><span class="p">)</span></div></div>
-
-
 <div class="viewcode-block" id="NodeWatcher"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.NodeWatcher">[docs]</a><span class="k">class</span> <span class="nc">NodeWatcher</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The NodeWatcher is used to handle Node Notifications.</span>
 
@@ -751,13 +718,6 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
             <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Using custom server options </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
 
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">server_ip</span><span class="o">=</span><span class="n">LOCALHOST</span><span class="p">,</span>
-            <span class="n">server_port</span><span class="o">=</span><span class="n">SC3NB_DEFAULT_PORT</span><span class="p">,</span>
-            <span class="n">default_receiver_ip</span><span class="o">=</span><span class="n">LOCALHOST</span><span class="p">,</span>
-            <span class="n">default_receiver_port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="p">,</span>
-        <span class="p">)</span>
-
         <span class="c1"># counter for nextNodeID</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_node_ids</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -774,29 +734,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">latency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-        <span class="c1"># init msg queues</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_pairs</span><span class="p">(</span><span class="n">CMD_PAIRS</span><span class="p">)</span>
-
-        <span class="c1"># /return messages from sclang callback</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">returns</span> <span class="o">=</span> <span class="n">MessageQueue</span><span class="p">(</span><span class="n">ReplyAddress</span><span class="o">.</span><span class="n">RETURN_ADDR</span><span class="p">,</span> <span class="n">preprocess_return</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">returns</span><span class="p">)</span>
-
-        <span class="c1"># /done messages must be seperated</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dones</span> <span class="o">=</span> <span class="n">MessageQueueCollection</span><span class="p">(</span>
-            <span class="n">address</span><span class="o">=</span><span class="n">ReplyAddress</span><span class="o">.</span><span class="n">DONE_ADDR</span><span class="p">,</span> <span class="n">sub_addrs</span><span class="o">=</span><span class="n">ASYNC_CMDS</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue_collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dones</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">fails</span> <span class="o">=</span> <span class="n">MessageQueueCollection</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">ReplyAddress</span><span class="o">.</span><span class="n">FAIL_ADDR</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue_collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">)</span>
-
-        <span class="c1"># set logging handlers</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
-            <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">FAIL_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warn_fail</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
-            <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">WILDCARD_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_message</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_osc_communication</span><span class="p">()</span>
 
         <span class="c1"># node managing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span> <span class="n">WeakValueDictionary</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Node</span><span class="p">]</span> <span class="o">=</span> <span class="n">WeakValueDictionary</span><span class="p">()</span>
@@ -807,9 +745,10 @@
                 <span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_watcher</span><span class="o">.</span><span class="n">handle_notification</span>
             <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id_allocator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDBlockAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">control_bus_id_allocator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDBlockAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">audio_bus_id_allocator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IDBlockAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Allocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BlockAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_bus_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BlockAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">audio_bus_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BlockAllocator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="n">Group</span><span class="p">(</span><span class="n">nodeid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_default_groups</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Group</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -828,11 +767,11 @@
             <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_tree</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span>
-            <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SCServer.boot"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -875,6 +814,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_local</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span> <span class="o">=</span> <span class="n">LOCALHOST</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">max_logins</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span>
             <span class="n">executable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_programm_name</span><span class="p">,</span>
             <span class="n">programm_args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
@@ -889,7 +829,6 @@
             <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;Exception in World_OpenUDP&quot;</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
                 <span class="s2">&quot;ERROR: failed to open UDP socket&quot;</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span>
             <span class="p">):</span>
-                <span class="c1"># ToDo check if string is correct in Linux</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="kc">None</span>
                 <span class="nb">print</span><span class="p">(</span>
@@ -920,6 +859,8 @@
 <span class="sd">        with_blip : bool, optional</span>
 <span class="sd">            make a sound when initialized, by default True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_osc_communication</span><span class="p">()</span>
+
         <span class="c1"># notify the supercollider server about us</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_receiver</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_programm_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span>
@@ -927,22 +868,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
 
         <span class="c1"># init allocators</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_ids</span> <span class="o">=</span> <span class="n">NodeAllocator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">)</span>
+
         <span class="n">buffers_per_user</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">num_sample_buffers</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_logins</span><span class="p">)</span>
         <span class="n">buffer_id_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">*</span> <span class="n">buffers_per_user</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id_allocator</span> <span class="o">=</span> <span class="n">IDBlockAllocator</span><span class="p">(</span><span class="n">buffers_per_user</span><span class="p">,</span> <span class="n">buffer_id_offset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffer_ids</span> <span class="o">=</span> <span class="n">BlockAllocator</span><span class="p">(</span><span class="n">buffers_per_user</span><span class="p">,</span> <span class="n">buffer_id_offset</span><span class="p">)</span>
 
         <span class="n">audio_buses_per_user</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">num_private_buses</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_logins</span><span class="p">)</span>
         <span class="n">audio_bus_id_offset</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">*</span> <span class="n">audio_buses_per_user</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">first_private_bus</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">audio_bus_id_allocator</span> <span class="o">=</span> <span class="n">IDBlockAllocator</span><span class="p">(</span>
-            <span class="n">audio_buses_per_user</span><span class="p">,</span> <span class="n">audio_bus_id_offset</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">audio_bus_ids</span> <span class="o">=</span> <span class="n">BlockAllocator</span><span class="p">(</span><span class="n">audio_buses_per_user</span><span class="p">,</span> <span class="n">audio_bus_id_offset</span><span class="p">)</span>
 
         <span class="n">control_buses_per_user</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">num_control_buses</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_logins</span><span class="p">)</span>
         <span class="n">control_bus_id_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">*</span> <span class="n">control_buses_per_user</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">control_bus_id_allocator</span> <span class="o">=</span> <span class="n">IDBlockAllocator</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_bus_ids</span> <span class="o">=</span> <span class="n">BlockAllocator</span><span class="p">(</span>
             <span class="n">control_buses_per_user</span><span class="p">,</span> <span class="n">control_bus_id_offset</span>
+        <span class="p">)</span>
+
+        <span class="c1"># init I/O Buses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span>
+            <span class="n">rate</span><span class="o">=</span><span class="n">BusRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span>
+            <span class="n">num_channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">num_output_buses</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span>
+            <span class="n">rate</span><span class="o">=</span><span class="n">BusRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span>
+            <span class="n">num_channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">num_input_buses</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">num_output_buses</span><span class="p">,</span>
+            <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># load synthdefs of sc3nb</span>
@@ -953,6 +908,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_running</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="k">for</span> <span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_watcher</span><span class="o">.</span><span class="n">notification_addresses</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+                <span class="n">address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_watcher</span><span class="o">.</span><span class="n">handle_notification</span>
+            <span class="p">)</span>
+
         <span class="c1"># note: init hooks should be last init step</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
@@ -962,13 +922,22 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SCServer.execute_init_hooks"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.execute_init_hooks">[docs]</a>    <span class="k">def</span> <span class="nf">execute_init_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Run all init hook functions.&quot;&quot;&quot;</span>
-        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing init hooks </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_tree</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">function</span><span class="p">,</span> <span class="n">args</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_tree</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">function</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;Run all init hook functions.</span>
+
+<span class="sd">        This is automatically done when running free_all, init or connect_sclang.</span>
+
+<span class="sd">        Hooks can be added using add_init_hook</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing init hooks </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">hook</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">:</span>
+                <span class="n">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">hook</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+                <span class="n">hook</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="SCServer.connect_sclang"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.connect_sclang">[docs]</a>    <span class="k">def</span> <span class="nf">connect_sclang</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Connect sclang to the server</span>
@@ -984,18 +953,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="SCServer.add_init_hook"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.add_init_hook">[docs]</a>    <span class="k">def</span> <span class="nf">add_init_hook</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Add a function to be executed when the server is initialized</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        function : Callable[..., None]</span>
+<span class="sd">        hook : Callable[..., None]</span>
 <span class="sd">            Function to be executed</span>
-<span class="sd">        args : Optional[Sequence[Any]], optional</span>
-<span class="sd">            Arguments given to function, by default None</span>
+<span class="sd">        args : Any, optional</span>
+<span class="sd">            Arguments given to function</span>
+<span class="sd">        kwargs : Any, optional</span>
+<span class="sd">            Keyword arguments given to function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_tree</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">hook</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="SCServer.bundler"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.bundler">[docs]</a>    <span class="k">def</span> <span class="nf">bundler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msg_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">send_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generate a Bundler with added server latency.</span>
@@ -1031,13 +1002,15 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">muted</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;SCServer is muted. Blip will also be silent!&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
+            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;/error&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                 <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">&quot;dur&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
             <span class="p">)</span>
             <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                 <span class="mf">0.2</span><span class="p">,</span> <span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
             <span class="p">)</span>
-            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">&quot;/error&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="SCServer.remote"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.remote">[docs]</a>    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Connect to remote Server</span>
@@ -1067,8 +1040,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t reboot a remote Server&quot;</span><span class="p">)</span>
+        <span class="n">receivers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span>  <span class="c1"># save known receivers and restore them after boot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+        <span class="n">receivers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span>
+        <span class="p">)</span>  <span class="c1"># update old receivers with possible new values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_receivers</span> <span class="o">=</span> <span class="n">receivers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="SCServer.ping"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.ping">[docs]</a>    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ping the server.&quot;&quot;&quot;</span>
@@ -1077,6 +1057,7 @@
     <span class="c1"># messages</span>
 <div class="viewcode-block" id="SCServer.quit"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Quits and tries to kill the server.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Quitting SCServer... &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">QUIT</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">OSCCommunicationError</span><span class="p">:</span>
@@ -1086,7 +1067,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_server_running</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_local</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SCServer.sync"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Sync the server with the /sync command.</span>
@@ -1208,16 +1190,6 @@
             <span class="k">if</span> <span class="n">receive_notifications</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span> <span class="o">=</span> <span class="n">return_val</span></div>
 
-<div class="viewcode-block" id="SCServer._get_errors_for_address"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._get_errors_for_address">[docs]</a>    <span class="k">def</span> <span class="nf">_get_errors_for_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">error_values</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">:</span>
-            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">error_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="o">.</span><span class="n">msg_queues</span><span class="p">[</span><span class="n">address</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-                <span class="k">except</span> <span class="n">Empty</span><span class="p">:</span>
-                    <span class="k">break</span>
-        <span class="k">return</span> <span class="n">error_values</span></div>
-
 <div class="viewcode-block" id="SCServer.free_all"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.free_all">[docs]</a>    <span class="k">def</span> <span class="nf">free_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Free all node ids.</span>
 
@@ -1255,49 +1227,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_default_groups</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">client</span><span class="p">:</span> <span class="n">create_default_group</span><span class="p">(</span><span class="n">client</span><span class="p">)</span> <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">client_ids</span></div>
         <span class="p">}</span>
-
-<div class="viewcode-block" id="SCServer.allocate_node_id"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.allocate_node_id">[docs]</a>    <span class="k">def</span> <span class="nf">allocate_node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get a node id.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            node id</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_num_node_ids</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_node_ids</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">31</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_num_node_ids</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_node_ids</span> <span class="o">+</span> <span class="mi">10000</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="SCServer.allocate_buffer_id"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.allocate_buffer_id">[docs]</a>    <span class="k">def</span> <span class="nf">allocate_buffer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the next free buffer id.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            buffer id</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id_allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="SCServer.allocate_control_bus_idx"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.allocate_control_bus_idx">[docs]</a>    <span class="k">def</span> <span class="nf">allocate_control_bus_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the next free bus id.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            bus id</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_bus_id_allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="SCServer.allocate_audio_bus_idx"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.allocate_audio_bus_idx">[docs]</a>    <span class="k">def</span> <span class="nf">allocate_audio_bus_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Get the next free bus id.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            bus id</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">audio_bus_id_allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="SCServer.client_id"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.client_id">[docs]</a>    <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1392,7 +1321,7 @@
 <span class="sd">            If return_tree this is the node tree string.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Server is not local or not booted. Use query_all_nodes&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Server is not local or not booted. Use query_tree&quot;</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">GroupCommand</span><span class="o">.</span><span class="n">DUMP_TREE</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">controls</span> <span class="k">else</span> <span class="mi">0</span><span class="p">])</span>
@@ -1402,7 +1331,7 @@
         <span class="k">if</span> <span class="n">return_tree</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">node_tree</span></div>
 
-<div class="viewcode-block" id="SCServer.query_all_nodes"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.query_all_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">query_all_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_controls</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
+<div class="viewcode-block" id="SCServer.query_tree"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.query_tree">[docs]</a>    <span class="k">def</span> <span class="nf">query_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_controls</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Query all nodes at the server and return a NodeTree</span>
 
 <span class="sd">        Parameters</span>
@@ -1428,12 +1357,12 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">peak_cpu</span></div>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.sample_rate"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.sample_rate">[docs]</a>    <span class="k">def</span> <span class="nf">sample_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SCServer.nominal_sr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.nominal_sr">[docs]</a>    <span class="k">def</span> <span class="nf">nominal_sr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Nominal sample rate of server process&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">nominal_sr</span></div>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.actual_sample_rate"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.actual_sample_rate">[docs]</a>    <span class="k">def</span> <span class="nf">actual_sample_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="SCServer.actual_sr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.actual_sr">[docs]</a>    <span class="k">def</span> <span class="nf">actual_sr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Actual sample rate of server process&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">actual_sr</span></div>
 
@@ -1495,14 +1424,69 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Server is not local or not booted.&quot;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="SCServer._init_osc_communication"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._init_osc_communication">[docs]</a>    <span class="k">def</span> <span class="nf">_init_osc_communication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">server_ip</span><span class="o">=</span><span class="n">LOCALHOST</span><span class="p">,</span>
+            <span class="n">server_port</span><span class="o">=</span><span class="n">SC3NB_DEFAULT_PORT</span><span class="p">,</span>
+            <span class="n">default_receiver_ip</span><span class="o">=</span><span class="n">LOCALHOST</span><span class="p">,</span>
+            <span class="n">default_receiver_port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># init msg queues</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_pairs</span><span class="p">(</span><span class="n">CMD_PAIRS</span><span class="p">)</span>
+
+        <span class="c1"># /return messages from sclang callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">returns</span> <span class="o">=</span> <span class="n">MessageQueue</span><span class="p">(</span><span class="n">ReplyAddress</span><span class="o">.</span><span class="n">RETURN_ADDR</span><span class="p">,</span> <span class="n">preprocess_return</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">returns</span><span class="p">)</span>
+
+        <span class="c1"># /done messages must be seperated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dones</span> <span class="o">=</span> <span class="n">MessageQueueCollection</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="n">ReplyAddress</span><span class="o">.</span><span class="n">DONE_ADDR</span><span class="p">,</span> <span class="n">sub_addrs</span><span class="o">=</span><span class="n">ASYNC_CMDS</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue_collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dones</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fails</span> <span class="o">=</span> <span class="n">MessageQueueCollection</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="n">ReplyAddress</span><span class="o">.</span><span class="n">FAIL_ADDR</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue_collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">)</span>
+
+        <span class="c1"># set logging handlers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">FAIL_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warn_fail</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">WILDCARD_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_message</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span></div>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="SCServer._get_errors_for_address"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._get_errors_for_address">[docs]</a>    <span class="k">def</span> <span class="nf">_get_errors_for_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">error_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">error_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="o">.</span><span class="n">msg_queues</span><span class="p">[</span><span class="n">address</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+                <span class="k">except</span> <span class="n">Empty</span><span class="p">:</span>
+                    <span class="k">break</span>
+        <span class="k">return</span> <span class="n">error_values</span></div>
+
+<div class="viewcode-block" id="SCServer._log_repr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._log_repr">[docs]</a>    <span class="k">def</span> <span class="nf">_log_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot; pid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SCServer</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="si">}{</span><span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
 <div class="viewcode-block" id="SCServer._log_message"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._log_message">[docs]</a>    <span class="k">def</span> <span class="nf">_log_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
         <span class="n">params</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">55</span><span class="p">:</span>
             <span class="n">params</span> <span class="o">=</span> <span class="n">params</span><span class="p">[:</span><span class="mi">55</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;..&quot;</span>
-        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;OSC msg received from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">params</span><span class="p">)</span></div>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> got OSC msg from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log_repr</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span>
+            <span class="n">params</span><span class="p">,</span></div>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="SCServer._warn_fail"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._warn_fail">[docs]</a>    <span class="k">def</span> <span class="nf">_warn_fail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
-        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">params</span><span class="p">)</span></div>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Error at </span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log_repr</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span>
+            <span class="n">params</span><span class="p">,</span></div>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="SCServer.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_booted</span><span class="p">:</span>
@@ -1522,6 +1506,10 @@
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -1546,7 +1534,7 @@
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1559,16 +1547,12 @@
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

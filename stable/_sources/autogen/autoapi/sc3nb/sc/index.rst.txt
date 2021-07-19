@@ -47,7 +47,7 @@ Content
 
    
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
+.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
 
    Inits SuperCollider (scsynth, sclang) and registers ipython magics
 
@@ -106,7 +106,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[ServerOptions] = None, with_blib: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
+.. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
 
    Create a SuperCollider Wrapper object.
@@ -129,7 +129,7 @@ Content
        **scsynth_options** : Optional[ServerOptions], optional
            Options for the server, by default None.
 
-       **with_blib** : bool, optional
+       **with_blip** : bool, optional
            Make a sound when booted, by default True.
 
        **console_logging** : bool, optional
@@ -161,7 +161,7 @@ Content
 
 
    .. attribute:: default
-      :annotation: :Optional['SC']
+      :annotation: :Optional[SC]
 
       Default SC instance.
 
@@ -203,7 +203,7 @@ Content
          sc3nb.sc.SC.__repr__
          sc3nb.sc.SC.exit
 
-   .. method:: get_default(cls) -> sc3nb.sc.SC
+   .. method:: get_default(cls) -> SC
       :classmethod:
 
       Get the default SC instance
@@ -272,7 +272,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start_server(self, scsynth_options: Optional[ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
+   .. method:: start_server(self, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
       Start this SuperCollider server
 

@@ -1,0 +1,230 @@
+:mod:`sc3nb.sc_objects.allocators`
+==================================
+
+.. py:module:: sc3nb.sc_objects.allocators
+
+.. autoapi-nested-parse::
+
+   Classes for managing ID allocations.
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.allocators.Allocator
+   sc3nb.sc_objects.allocators.NodeAllocator
+   sc3nb.sc_objects.allocators.BlockAllocator
+
+
+
+Content
+~~~~~~~
+
+.. class:: Allocator
+
+   **Bases:** :class:`abc.ABC`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.allocators.Allocator.allocate
+         sc3nb.sc_objects.allocators.Allocator.free
+
+   .. method:: allocate(self, num: int = 1) -> Sequence[int]
+      :abstractmethod:
+
+
+   .. method:: free(self, ids: Sequence[int]) -> None
+      :abstractmethod:
+
+
+
+
+
+.. class:: NodeAllocator(client_id: int)
+
+
+   **Bases:** :class:`Allocator`
+
+   Allows allocating ids for Nodes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.allocators.NodeAllocator.allocate
+         sc3nb.sc_objects.allocators.NodeAllocator.free
+
+   .. method:: allocate(self, num: int = 1) -> Sequence[int]
+
+
+   .. method:: free(self, ids: Sequence[int]) -> None
+
+
+
+
+
+.. class:: BlockAllocator(num_ids: int, offset: int)
+
+
+   **Bases:** :class:`Allocator`
+
+   Allows allocating blocks of ids / indexes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.allocators.BlockAllocator.allocate
+         sc3nb.sc_objects.allocators.BlockAllocator.free
+
+   .. method:: allocate(self, num: int = 1) -> Sequence[int]
+
+      Allocate the next free ids
+
+
+
+      :Returns:
+
+          int
+              free ids
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              When out of free ids or not enough ids are in order.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: free(self, ids: Sequence[int]) -> None
+
+      Mark ids as free again.
+
+
+      :Parameters:
+
+          **ids** : sequence of int
+              ids that are not used anymore.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+
+

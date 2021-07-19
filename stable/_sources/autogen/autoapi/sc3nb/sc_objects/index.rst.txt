@@ -34,6 +34,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
+   allocators/index.rst
    buffer/index.rst
    bus/index.rst
    node/index.rst

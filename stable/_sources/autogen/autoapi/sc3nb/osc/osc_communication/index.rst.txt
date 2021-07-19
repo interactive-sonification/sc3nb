@@ -281,7 +281,7 @@ Content
 
 
 
-.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
+.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional[OSCCommunication] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
    Class for creating OSCBundles and bundling of messages
@@ -399,7 +399,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add(self, *args) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: add(self, *args) -> Bundler
 
       Add content to this Bundler.
 
@@ -432,7 +432,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[(float, List[OSCMessage])]
+   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[float, List[OSCMessage]]
 
       Generate a dict with all messages in this Bundler.
 
@@ -464,7 +464,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, server: Optional['OSCCommunication'] = None, receiver: Tuple[(str, int)] = None, bundle: bool = True)
+   .. method:: send(self, server: Optional[OSCCommunication] = None, receiver: Tuple[str, int] = None, bundle: bool = True)
 
       Send this Bundler.
 
@@ -575,7 +575,7 @@ Content
    .. method:: _calc_timetag(self, start_time: Optional[float])
 
 
-   .. method:: __deepcopy__(self, memo) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: __deepcopy__(self, memo) -> Bundler
 
 
    .. method:: __enter__(self)
@@ -610,7 +610,7 @@ Content
 
 
 
-.. function:: convert_to_sc3nb_osc(data: Union[(OSCMessage, Bundler, OscMessage, OscBundle, bytes)]) -> Union[(OSCMessage, Bundler)]
+.. function:: convert_to_sc3nb_osc(data: Union[OSCMessage, Bundler, pythonosc.osc_message.OscMessage, pythonosc.osc_bundle.OscBundle, bytes]) -> Union[OSCMessage, Bundler]
 
    Get binary OSC representation
 
@@ -681,7 +681,7 @@ Content
          sc3nb.osc.osc_communication.MessageHandler.map_values
          sc3nb.osc.osc_communication.MessageHandler.put
 
-   .. method:: map_values(self) -> Tuple[(str, Callable)]
+   .. method:: map_values(self) -> Tuple[str, Callable]
       :property:
 
       Values used to setup mapping
@@ -743,7 +743,7 @@ Content
 .. class:: MessageQueue(address: str, preprocess: Optional[Callable] = None)
 
 
-   **Bases:** :class:`sc3nb.osc.osc_communication.MessageHandler`
+   **Bases:** :class:`MessageHandler`
 
    Queue to retrieve OSC messages send to the corresponding OSC address
 
@@ -909,7 +909,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: map_values(self) -> Tuple[(str, Callable)]
+   .. method:: map_values(self) -> Tuple[str, Callable]
       :property:
 
       Values needed for dispatcher map call
@@ -1007,7 +1007,7 @@ Content
 .. class:: MessageQueueCollection(address: str, sub_addrs: Optional[Sequence[str]] = None)
 
 
-   **Bases:** :class:`sc3nb.osc.osc_communication.MessageHandler`
+   **Bases:** :class:`MessageHandler`
 
    A collection of MessageQueues that are all sent to one and the same first address.
 
@@ -1098,7 +1098,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: map_values(self) -> Tuple[(str, Callable)]
+   .. method:: map_values(self) -> Tuple[str, Callable]
       :property:
 
       Values needed for dispatcher map call
@@ -1293,7 +1293,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add_msg_pairs(self, msg_pairs: Dict[(str, str)]) -> None
+   .. method:: add_msg_pairs(self, msg_pairs: Dict[str, str]) -> None
 
       Add the provided pairs for message receiving.
 
@@ -1321,7 +1321,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add_msg_queue(self, msg_queue: sc3nb.osc.osc_communication.MessageQueue, out_addr: Optional[str] = None) -> None
+   .. method:: add_msg_queue(self, msg_queue: MessageQueue, out_addr: Optional[str] = None) -> None
 
       Add a MessageQueue to this servers dispatcher
 
@@ -1351,7 +1351,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add_msg_queue_collection(self, msg_queue_collection: sc3nb.osc.osc_communication.MessageQueueCollection) -> None
+   .. method:: add_msg_queue_collection(self, msg_queue_collection: MessageQueueCollection) -> None
 
       Add a MessageQueueCollection
 
@@ -1378,7 +1378,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: msg_queues(self) -> Dict[(str, MessageQueue)]
+   .. method:: msg_queues(self) -> Dict[str, MessageQueue]
       :property:
 
       Dict with all added MessageQueues
@@ -1406,7 +1406,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: reply_addresses(self) -> Dict[(str, str)]
+   .. method:: reply_addresses(self) -> Dict[str, str]
       :property:
 
       Dict with all addresses and the replies
@@ -1434,10 +1434,10 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _check_sender(self, sender: Tuple[(str, int)]) -> Union[(str, Tuple[str, int])]
+   .. method:: _check_sender(self, sender: Tuple[str, int]) -> Union[str, Tuple[str, int]]
 
 
-   .. method:: lookup_receiver(self, receiver: Union[(str, Tuple[str, int])]) -> Tuple[(str, int)]
+   .. method:: lookup_receiver(self, receiver: Union[str, Tuple[str, int]]) -> Tuple[str, int]
 
       Reverse lookup the address of a specific receiver
 
@@ -1475,7 +1475,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: connection_info(self, print_info: bool = True) -> Tuple[(Tuple[str, int], Dict[Tuple[str, int], str])]
+   .. method:: connection_info(self, print_info: bool = True) -> Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]
 
       Get information about the known addresses
 
@@ -1541,7 +1541,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, package: Union[(OSCMessage, Bundler)], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = False, await_reply: bool = True, timeout: float = 5) -> Any
+   .. method:: send(self, package: Union[OSCMessage, Bundler], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = False, await_reply: bool = True, timeout: float = 5) -> Any
 
       Sends OSC packet
 
@@ -1593,7 +1593,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _handle_outgoing_message(self, message: sc3nb.osc.osc_communication.OSCMessage, receiver_address: Tuple[(str, int)], await_reply: bool, timeout: float) -> Any
+   .. method:: _handle_outgoing_message(self, message: OSCMessage, receiver_address: Tuple[str, int], await_reply: bool, timeout: float) -> Any
 
 
    .. method:: get_reply_address(self, msg_address: str) -> Optional[str]
@@ -1674,7 +1674,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: bundler(self, timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, send_on_exit: bool = True) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: bundler(self, timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, send_on_exit: bool = True) -> Bundler
 
       Generate a Bundler.
 

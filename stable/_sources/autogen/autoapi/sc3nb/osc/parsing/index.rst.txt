@@ -158,7 +158,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. function:: _parse_list(dgram: bytes, start_index: int) -> Tuple[(Sequence[Any], int)]
+.. function:: _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
 
    Parse a OSC List
 
@@ -200,7 +200,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. function:: _parse_osc_bundle_element(dgram: bytes, start_index: int) -> Tuple[(Union[Sequence[Any], bytes], int)]
+.. function:: _parse_osc_bundle_element(dgram: bytes, start_index: int) -> Tuple[Union[Sequence[Any], bytes], int]
 
    Parse an element from an OSC bundle.
 
@@ -239,7 +239,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. function:: _parse_bundle(dgram: bytes, start_index: int) -> Tuple[(Sequence[Any], int)]
+.. function:: _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
 
    Parsing bundle
 
@@ -277,7 +277,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. function:: parse_sclang_osc_packet(data: bytes) -> Union[(bytes, Sequence[Any])]
+.. function:: parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]
 
    Parses the OSC packet from sclang.
 

@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>How to contribute &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>How to contribute &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -42,7 +45,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributors" href="CONTRIBUTORS.html" />
-    <link rel="prev" title="sc3nb.util" href="autogen/autoapi/sc3nb/util/index.html" /> 
+    <link rel="prev" title="sc3nb.version" href="autogen/autoapi/sc3nb/version/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -91,7 +94,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
@@ -102,11 +105,11 @@
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -130,7 +133,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -201,6 +215,7 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -232,7 +247,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -310,12 +325,16 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -477,90 +496,76 @@ tests, development, building docs, running test.</p>
 </div>
 <div class="section" id="how-to-prepare-a-release">
 <h2>How to prepare a release<a class="headerlink" href="#how-to-prepare-a-release" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>clear old build files</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>test build</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>test</p></li>
-</ul>
+<p>The following checks should all be successful before creating a new release.</p>
+<ul>
+<li><p>run tests</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span>
 </pre></div>
 </div>
-<ul>
-<li><p>build docs</p>
-<p>should currently build from a system platform != Windows
-the pya example does not work, as pip fails to install pya because of portaudio issues</p>
 </li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">docs</span><span class="o">/</span><span class="n">generate</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<ul>
-<li><p>tag (Git - Tagging)</p>
-<p>We use <a class="reference external" href="https://semver.org/">semantic versioning</a>.
-Please always use 3 numbers like 1.0.0 -&gt; this is needed by <a class="reference external" href="https://github.com/pypa/setuptools_scm/#semantic-versioning-semver">setuptools_scm</a></p>
-</li>
-<li><p>clear build files again</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>build</p></li>
-</ul>
+<li><p>test build</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
 </pre></div>
 </div>
+</li>
+<li><p>test building the docs</p>
+<p>For building the documentation for the current branch use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">e</span> <span class="n">docs</span>
+</pre></div>
+</div>
+<p>Controll the output in <code class="docutils literal notranslate"><span class="pre">build/docs/html/</span></code></p>
+</li>
+</ul>
+<p>Actual Release</p>
 <ul>
 <li><p>update changelog</p>
 <p>should contain information about the commits between the versions</p>
 </li>
-<li><p>upload testpypi</p></li>
-</ul>
+<li><p>create a new git tag for this version</p>
+<p>We use <a class="reference external" href="https://semver.org/">semantic versioning</a>.
+Please always use 3 numbers like v1.0.0 for <a class="reference external" href="https://github.com/pypa/setuptools_scm/#semantic-versioning-semver">setuptools_scm</a></p>
+</li>
+<li><p>clear build files</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="n">dist</span> <span class="n">build</span>
+</pre></div>
+</div>
+</li>
+<li><p>build</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">build</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">build</span>
+</pre></div>
+</div>
+</li>
+<li><p>upload testpypi</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">twine</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">twine</span> <span class="n">upload</span> <span class="o">--</span><span class="n">repository</span> <span class="n">testpypi</span> <span class="n">dist</span><span class="o">/*</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>check <a class="reference external" href="https://test.pypi.org/project/sc3nb/">testpypi</a></p></li>
-</ul>
+</li>
+<li><p>check <a class="reference external" href="https://test.pypi.org/project/sc3nb/">testpypi</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">test</span><span class="o">.</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span> <span class="n">sc3nb</span>
 </pre></div>
 </div>
-<ul>
-<li><p>build and publish docs</p>
-<p>should currently build from a system platform != Windows
-the pya example does not work, as pip fails to install pya because of portaudio issues</p>
 </li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">docs</span><span class="o">/</span><span class="n">generate</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">doctree</span> <span class="o">--</span><span class="n">publish</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>upload pypi</p></li>
-</ul>
+<li><p>upload pypi</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">twine</span> <span class="n">upload</span> <span class="n">dist</span><span class="o">/*</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>check <a class="reference external" href="https://pypi.org/project/sc3nb/">pypi</a></p></li>
-</ul>
+</li>
+<li><p>check <a class="reference external" href="https://pypi.org/project/sc3nb/">pypi</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sc3nb</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>(release on github)</p></li>
+</li>
+<li><p>build github-pages docs (after pushing the tag)</p>
+<p>Create the gh-pages documentation with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">e</span> <span class="n">docs</span> <span class="o">--</span> <span class="o">--</span><span class="n">github</span>
+</pre></div>
+</div>
+<p>Controll the output in <code class="docutils literal notranslate"><span class="pre">build/docs/gh-pages/repo/</span></code>.
+Push the changes</p>
+</li>
 </ul>
 </div>
 </div>
@@ -572,7 +577,7 @@ the pya example does not work, as pip fails to install pya because of portaudio 
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="CONTRIBUTORS.html" class="btn btn-neutral float-right" title="Contributors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="autogen/autoapi/sc3nb/util/index.html" class="btn btn-neutral float-left" title="sc3nb.util" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autogen/autoapi/sc3nb/version/index.html" class="btn btn-neutral float-left" title="sc3nb.version" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -580,6 +585,10 @@ the pya example does not work, as pip fails to install pya because of portaudio 
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -604,7 +613,7 @@ the pya example does not work, as pip fails to install pya because of portaudio 
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -617,16 +626,12 @@ the pya example does not work, as pip fails to install pya because of portaudio 
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

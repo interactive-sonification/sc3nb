@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>sc3nb.sc_objects.synthdef &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -91,7 +94,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../README.html#installation">Installation</a></li>
@@ -102,11 +105,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -130,7 +133,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -201,6 +215,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -232,7 +247,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a><ul>
@@ -310,12 +325,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -449,36 +468,36 @@
 <div class="section" id="content">
 <h3>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
-<dt id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.synthdef.</span></code><code class="sig-name descname"><span class="pre">SynthDefinitionCommand</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.synthdef.</span></span><span class="sig-name descname"><span class="pre">SynthDefinitionCommand</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Bases:</strong> <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/dev/library/enum.html#enum.Enum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>OSC Commands for Synth Definitions</p>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 <dl class="py attribute">
-<dt id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV">
-<code class="sig-name descname"><span class="pre">RECV</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/d_recv</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.RECV"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV">
+<span class="sig-name descname"><span class="pre">RECV</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/d_recv</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.RECV"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD">
-<code class="sig-name descname"><span class="pre">LOAD</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/d_load</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.LOAD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD">
+<span class="sig-name descname"><span class="pre">LOAD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/d_load</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.LOAD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD_DIR">
-<code class="sig-name descname"><span class="pre">LOAD_DIR</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/d_loadDir</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.LOAD_DIR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD_DIR" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD_DIR">
+<span class="sig-name descname"><span class="pre">LOAD_DIR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/d_loadDir</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.LOAD_DIR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.LOAD_DIR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.FREE">
-<code class="sig-name descname"><span class="pre">FREE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">/d_free</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.FREE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.FREE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDefinitionCommand.FREE">
+<span class="sig-name descname"><span class="pre">FREE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">/d_free</span></em><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDefinitionCommand.FREE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.FREE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.synthdef.</span></code><code class="sig-name descname"><span class="pre">SynthDef</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SC’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.synthdef.</span></span><span class="sig-name descname"><span class="pre">SynthDef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../sc/index.html#sc3nb.sc.SC" title="sc3nb.sc.SC"><span class="pre">sc3nb.sc.SC</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for SuperCollider SynthDef</p>
 <p>Create a dynamic synth definition in sc.</p>
 <dl class="field-list simple">
@@ -499,8 +518,8 @@ by default use the default SC instance</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.synth_descs">
-<code class="sig-name descname"><span class="pre">synth_descs</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.synth_descs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.synth_descs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.synth_descs">
+<span class="sig-name descname"><span class="pre">synth_descs</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.synth_descs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.synth_descs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <p><strong>Overview:</strong></p>
@@ -546,8 +565,8 @@ by default use the default SC instance</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.get_description">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_description</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional[Dict[str,</span> <span class="pre">‘SynthArgument’]]</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.get_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.get_description" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.get_description">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">get_description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="../../sclang/index.html#sc3nb.sclang.SynthArgument" title="sc3nb.sclang.SynthArgument"><span class="pre">sc3nb.sclang.SynthArgument</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.get_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.get_description" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Synth description</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -566,8 +585,8 @@ by default use the default SC instance</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.send">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_bytes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.send" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.send">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_bytes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.send"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.send" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a SynthDef as bytes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -585,8 +604,8 @@ by default use the SC default server</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.load">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.load" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.load">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load SynthDef file at path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -602,8 +621,8 @@ by default use the SC default server</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.load_dir">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">load_dir</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completion_msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.load_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.load_dir" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.load_dir">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">load_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synthdef_dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completion_msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.load_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.load_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load all SynthDefs from directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -621,8 +640,8 @@ by default use the SC default server</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.reset">
-<code class="sig-name descname"><span class="pre">reset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">sc3nb.sc_objects.synthdef.SynthDef</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.reset" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">SynthDef</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the current synthdef configuration to the self.definition value.</p>
 <p>After this you can restart your
 configuration with the same root definition</p>
@@ -637,8 +656,8 @@ configuration with the same root definition</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.set_context">
-<code class="sig-name descname"><span class="pre">set_context</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">searchpattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">sc3nb.sc_objects.synthdef.SynthDef</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.set_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.set_context" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.set_context">
+<span class="sig-name descname"><span class="pre">set_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">searchpattern</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">SynthDef</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.set_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.set_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set context in SynthDef.</p>
 <p>This method will replace a given key (format: “…{{key}}…”) in the
 synthdef definition with the given value.</p>
@@ -661,8 +680,8 @@ synthdef definition with the given value.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.set_contexts">
-<code class="sig-name descname"><span class="pre">set_contexts</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dictionary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">sc3nb.sc_objects.synthdef.SynthDef</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.set_contexts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.set_contexts" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.set_contexts">
+<span class="sig-name descname"><span class="pre">set_contexts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dictionary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">SynthDef</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.set_contexts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.set_contexts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set multiple values at onces when you give a dictionary.</p>
 <p>Because dictionaries are unsorted, keep in mind, that
 the order is sometimes ignored in this method.</p>
@@ -683,8 +702,8 @@ the order is sometimes ignored in this method.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.unset_remaining">
-<code class="sig-name descname"><span class="pre">unset_remaining</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">sc3nb.sc_objects.synthdef.SynthDef</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.unset_remaining"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.unset_remaining" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.unset_remaining">
+<span class="sig-name descname"><span class="pre">unset_remaining</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">SynthDef</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.unset_remaining"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.unset_remaining" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method will remove all existing placeholders in the current def.</p>
 <p>You can use this at the end of definition
 to make sure, that your definition is clean. Hint: This method will
@@ -700,8 +719,8 @@ not remove pyvars</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.add">
-<code class="sig-name descname"><span class="pre">add</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pyvars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional[‘SCServer’]</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.add" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pyvars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method will add the current_def to SuperCollider.s</p>
 <p>If a synth with the same definition was already in sc, this method
 will only return the name.</p>
@@ -727,8 +746,8 @@ by default use the SC default server</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.free">
-<code class="sig-name descname"><span class="pre">free</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">sc3nb.sc_objects.synthdef.SynthDef</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.free"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.free" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.free">
+<span class="sig-name descname"><span class="pre">free</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sc3nb.sc_objects.synthdef.SynthDef" title="sc3nb.sc_objects.synthdef.SynthDef"><span class="pre">SynthDef</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.free"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.free" title="Permalink to this definition">¶</a></dt>
 <dd><p>Free this SynthDef from the server.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -741,8 +760,8 @@ by default use the SC default server</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.synthdef.SynthDef.__repr__">
-<code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.__repr__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.synthdef.SynthDef.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/synthdef.html#SynthDef.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.synthdef.SynthDef.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -767,6 +786,10 @@ by default use the SC default server</p>
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -791,7 +814,7 @@ by default use the SC default server</p>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -804,16 +827,12 @@ by default use the SC default server</p>
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

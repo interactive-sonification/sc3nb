@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Buffer &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>Buffer &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
 
@@ -31,12 +33,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -68,7 +71,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -93,7 +96,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
@@ -104,11 +107,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -132,7 +135,18 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -203,6 +217,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -234,7 +249,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -312,12 +327,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -671,7 +690,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/ac3bed24649881ede4ea4a2218a9db704ff45553/examples/supercollider-objects/buffer-examples.ipynb">examples/supercollider-objects/buffer-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/a543dec7fb6672532b4763c9a27fb6ad95e74ce0/examples/supercollider-objects/buffer-examples.ipynb">examples/supercollider-objects/buffer-examples.ipynb</a>.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -817,7 +836,7 @@ Booting SuperCollider Server... Done.
 <div class="section" id="Create-Buffer-with-data-from-PyA-Asig">
 <h2>Create Buffer with data from PyA Asig<a class="headerlink" href="#Create-Buffer-with-data-from-PyA-Asig" title="Permalink to this headline">¶</a></h2>
 <p>This only works if using pya package: skip if you dont use pya</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
@@ -834,20 +853,6 @@ Booting SuperCollider Server... Done.
     <span class="n">buf1</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Asig(&#39;sine_fadeout&#39;): 2 x 2000 @ 2000Hz = 1.000s cn=[&#39;0&#39;, &#39;1&#39;]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_14_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_14_1.svg" /></div>
 </div>
 <p>Again, default transport method is mode=‘file’, i.e. using a temporary file and fill the buffer on sc with this content. * use mode=“osc” to select the direct transfer of data via OSC messages</p>
 </div>
@@ -869,7 +874,7 @@ Asig(&#39;sine_fadeout&#39;): 2 x 2000 @ 2000Hz = 1.000s cn=[&#39;0&#39;, &#39;1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(131) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
+&lt;Buffer(130) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 <p>The buffer method will automatically read the sample reate of the file and set it to Buffer.sr</p>
@@ -899,7 +904,7 @@ Asig(&#39;sine_fadeout&#39;): 2 x 2000 @ 2000Hz = 1.000s cn=[&#39;0&#39;, &#39;1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(132) on (&#39;127.0.0.1&#39;, 57110): 1 x 20000 @ 44100 Hz = 0.454s allocated using mode &#39;file&#39;&gt;
+&lt;Buffer(131) on (&#39;127.0.0.1&#39;, 57110): 1 x 20000 @ 44100 Hz = 0.454s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 </div>
@@ -921,7 +926,7 @@ Asig(&#39;sine_fadeout&#39;): 2 x 2000 @ 2000Hz = 1.000s cn=[&#39;0&#39;, &#39;1
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(133) on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode &#39;alloc&#39;&gt;
+&lt;Buffer(132) on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode &#39;alloc&#39;&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1094,7 +1099,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:188: WavFileWarning: Chunk (non-data) not understood, skipping it.
+c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buffer.py:188: WavFileWarning: Chunk (non-data) not understood, skipping it.
   self._path
 </pre></div></div>
 </div>
@@ -1131,8 +1136,8 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:188: WavFileWarnin
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">440</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">44100</span><span class="p">)</span><span class="o">**</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="n">buf7</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">440</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">44100</span><span class="p">)</span><span class="o">**</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">buf8</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1141,7 +1146,8 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:188: WavFileWarnin
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf7</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+<span></span><span class="n">playbuf_synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+<span class="n">playbuf_synth</span>
 </pre></div>
 </div>
 </div>
@@ -1151,45 +1157,90 @@ c:\users\dennis\dev\soni\sc3nb\src\sc3nb\sc_objects\buffer.py:188: WavFileWarnin
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20002) &#39;sc3nb_playbuf_136&#39; s {}&gt;
+&lt;Synth(20002) &#39;sc3nb_playbuf_135&#39; s {}&gt;
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
+<p>As you can see <code class="docutils literal notranslate"><span class="pre">play()</span></code> returns an sc3nb Synth object for the Buffer.</p>
+<p>This allows to control the playback via the synth class while the synth is running.</p>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf7</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">pan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># play at given rate and pan</span>
+<span></span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mf">0.5</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;Synth(20002) &#39;sc3nb_playbuf_136&#39; s {&#39;rate&#39;: 2, &#39;loop&#39;: 0, &#39;pan&#39;: 1, &#39;amp&#39;: 0.15}&gt;
-</pre></div></div>
-</div>
-<p>As you can see play() returns an sc3nb Synth object for the Buffer. It is a custom playbuf Synth defined on demand, specific for this Buffer using the sc3nb SynthDef class.</p>
-<p>You can see the SynthDef here:</p>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf7</span><span class="o">.</span><span class="n">_synth_def</span>
+<span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">freed</span><span class="p">:</span> <span class="c1"># stop the playback if not done already</span>
+    <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+    <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">playbuf_synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">pan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># play at given rate and pan</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># wait for synth to finish</span>
+</pre></div>
+</div>
+</div>
+<p>You can get a description of the possible arguments with</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-SynthDef(&#39;sc3nb_playbuf_136&#39;,
+{&#39;out&#39;: SynthArgument(name=&#39;out&#39;, rate=&#39;control&#39;, default=0.0),
+ &#39;bufnum&#39;: SynthArgument(name=&#39;bufnum&#39;, rate=&#39;control&#39;, default=135.0),
+ &#39;rate&#39;: SynthArgument(name=&#39;rate&#39;, rate=&#39;control&#39;, default=1.0),
+ &#39;loop&#39;: SynthArgument(name=&#39;loop&#39;, rate=&#39;control&#39;, default=0.0),
+ &#39;pan&#39;: SynthArgument(name=&#39;pan&#39;, rate=&#39;control&#39;, default=0.0),
+ &#39;amp&#39;: SynthArgument(name=&#39;amp&#39;, rate=&#39;control&#39;, default=0.30000001192092896)}
+</pre></div></div>
+</div>
+<p>and even can see the SynthDef here:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">buf8</span><span class="o">.</span><span class="n">_synth_def</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SynthDef(&#39;sc3nb_playbuf_135&#39;,
             { |out=0, bufnum=^bufnum, rate=^rate, loop=^loop, pan=^pan, amp=^amp |
                     var sig = PlayBuf.ar(^num_channels, bufnum,
                         rate*BufRateScale.kr(bufnum),
@@ -1199,20 +1250,43 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
             })
 </pre></div></div>
 </div>
-<p>As you can see the SC synth will free itself when done if you are not using the loop argument.</p>
-<p>However with loop enabled you need to free the synth manually.</p>
-<p>For more information regarding the sc3nb.Synth, please refer to the synth-examples notebook.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<p>You can get a description of the possible arguments with</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">buf7</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># play looped</span>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;out&#39;: SynthArgument(name=&#39;out&#39;, rate=&#39;control&#39;, default=0.0),
+ &#39;bufnum&#39;: SynthArgument(name=&#39;bufnum&#39;, rate=&#39;control&#39;, default=135.0),
+ &#39;rate&#39;: SynthArgument(name=&#39;rate&#39;, rate=&#39;control&#39;, default=1.0),
+ &#39;loop&#39;: SynthArgument(name=&#39;loop&#39;, rate=&#39;control&#39;, default=0.0),
+ &#39;pan&#39;: SynthArgument(name=&#39;pan&#39;, rate=&#39;control&#39;, default=0.0),
+ &#39;amp&#39;: SynthArgument(name=&#39;amp&#39;, rate=&#39;control&#39;, default=0.30000001192092896)}
+</pre></div></div>
+</div>
+<p>As you can see the SC synth will free itself when done if you are not using the loop argument.</p>
+<p>However with loop enabled you need to free the synth manually.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># play looped</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1221,7 +1295,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1230,47 +1304,48 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20002) &#39;sc3nb_playbuf_136&#39; f {&#39;rate&#39;: 1, &#39;loop&#39;: 1, &#39;pan&#39;: 0, &#39;amp&#39;: 0.3}&gt;
+&lt;Synth(20002) &#39;sc3nb_playbuf_135&#39; f {&#39;rate&#39;: 1, &#39;loop&#39;: 1, &#39;pan&#39;: 0, &#39;amp&#39;: 0.3}&gt;
 </pre></div></div>
 </div>
+<p>For more information regarding the Synth class, please refer to the <a class="reference internal" href="node-examples.html"><span class="doc">Node guide</span></a>.</p>
 </div>
 <div class="section" id="Write-Buffer-content-to-file">
 <h2>Write Buffer content to file<a class="headerlink" href="#Write-Buffer-content-to-file" title="Permalink to this headline">¶</a></h2>
 <p>Write the content of a buffer into a file. By default it is a .wav File with float as sample. You can change it via parameters “header” and “sample”.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf8</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+<span></span><span class="n">buf9</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf8</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;../media/output.wav&quot;</span><span class="p">)</span>
+<span></span><span class="n">buf9</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;../media/output.wav&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(137) on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz = 0.227s allocated using mode &#39;data&#39;&gt;
+&lt;Buffer(136) on (&#39;127.0.0.1&#39;, 57110): 1 x 10000 @ 44100 Hz = 0.227s allocated using mode &#39;data&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1282,7 +1357,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 <div class="section" id="Fetch-Buffer-content-to-array">
 <h2>Fetch Buffer content to array<a class="headerlink" href="#Fetch-Buffer-content-to-array" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1292,7 +1367,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1301,7 +1376,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1309,24 +1384,14 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f562f848&gt;,
- &lt;matplotlib.lines.Line2D at 0x172f4606588&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_58_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_58_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_67_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_67_0.svg" /></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1335,12 +1400,12 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20003) &#39;sc3nb_playbuf_138&#39; s {}&gt;
+&lt;Synth(20003) &#39;sc3nb_playbuf_137&#39; s {}&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1349,7 +1414,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 <div class="section" id="Fill-a-Buffer-with-zeros:">
 <h3>Fill a Buffer with zeros:<a class="headerlink" href="#Fill-a-Buffer-with-zeros:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1358,7 +1423,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1368,26 +1433,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f56bf7c8&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_63_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_63_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_72_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_72_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-a-Buffer-range-with-values:">
 <h3>Fill a Buffer range with values:<a class="headerlink" href="#Fill-a-Buffer-range-with-values:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1396,7 +1452,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1405,24 +1461,15 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f57439c8&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_66_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_66_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_75_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_75_0.svg" /></div>
 </div>
 <p>Alternatively: fill buffer with single fill statement using multiple value triplets</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1431,26 +1478,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f577b688&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_68_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_68_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">
 <h3>Fill Buffer with sine wave harmonics of given amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes." title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1459,7 +1497,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1468,26 +1506,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f67cae08&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_71_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_71_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_80_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_80_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">
 <h3>Fill Buffer with sine wave partials using specified frequencies and amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes." title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1496,7 +1525,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1505,26 +1534,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f4426708&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_74_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_74_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_83_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_83_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">
 <h3>Fill Buffer with sinus waves and given frequency, amplitude, phase<a class="headerlink" href="#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1533,7 +1553,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1543,26 +1563,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f56bfa08&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_86_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_86_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="Fill-Buffer-with-series-of-chebyshev-polynomials:">
 <h3>Fill Buffer with series of chebyshev polynomials:<a class="headerlink" href="#Fill-Buffer-with-series-of-chebyshev-polynomials:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1572,7 +1583,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 <p><span class="math notranslate nohighlight">\(\textrm{cheby}(n) = \textrm{amplitude} \cdot \cos(n \cdot \arccos(x))\)</span></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1586,27 +1597,18 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x172f43c86c8&gt;
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_81_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_81_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_90_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_90_0.svg" /></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gen_sine1</span></code> to <code class="docutils literal notranslate"><span class="pre">gen_sine3</span></code> and <code class="docutils literal notranslate"><span class="pre">gen_cheby</span></code> have the optional parameters: * <strong>normalize</strong>: Normalize peak amplitude of wave to 1.0. * <strong>wavetable</strong>: If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators. * <strong>clear</strong>: if set then the buffer is cleared before new partials are written into it. Otherwise the new partials are summed with the existing contents of the buffer.</p>
 </div>
 <div class="section" id="Copy-data-of-another-Buffer:">
 <h3>Copy data of another Buffer:<a class="headerlink" href="#Copy-data-of-another-Buffer:" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1615,7 +1617,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1633,20 +1635,11 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&lt;matplotlib.lines.Line2D at 0x172f68bb688&gt;]
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_85_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_85_1.svg" /></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_94_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_94_0.svg" /></div>
 </div>
 <p>Here we copy 100 samples of <code class="docutils literal notranslate"><span class="pre">buf2</span></code> at starting pos 1 to buf3 at position 2. Use a negative amount of samples to copy all available samples</p>
 </div>
@@ -1655,7 +1648,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 <h2>Get information about the Buffer<a class="headerlink" href="#Get-information-about-the-Buffer" title="Permalink to this headline">¶</a></h2>
 <p>Information about the buffer object:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1664,17 +1657,17 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(133) on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode &#39;alloc&#39;&gt;
+&lt;Buffer(132) on (&#39;127.0.0.1&#39;, 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode &#39;alloc&#39;&gt;
 </pre></div></div>
 </div>
 <p>Information about the buffer in SC</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1683,7 +1676,7 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1692,12 +1685,12 @@ SynthDef(&#39;sc3nb_playbuf_136&#39;,
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-BufferInfo(bufnum=133, num_frames=110250, num_channels=1, sample_rate=44100.0)
+BufferInfo(bufnum=132, num_frames=110250, num_channels=1, sample_rate=44100.0)
 </pre></div></div>
 </div>
 </div>
@@ -1705,7 +1698,7 @@ BufferInfo(bufnum=133, num_frames=110250, num_channels=1, sample_rate=44100.0)
 <h2>Free Buffers<a class="headerlink" href="#Free-Buffers" title="Permalink to this headline">¶</a></h2>
 <p>start with a buffer</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1715,16 +1708,16 @@ BufferInfo(bufnum=133, num_frames=110250, num_channels=1, sample_rate=44100.0)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(147) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
+&lt;Buffer(146) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s allocated using mode &#39;file&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1733,16 +1726,16 @@ BufferInfo(bufnum=133, num_frames=110250, num_channels=1, sample_rate=44100.0)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
+BufferInfo(bufnum=146, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1751,7 +1744,7 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1760,16 +1753,16 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Buffer(147) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s not loaded using mode &#39;none&#39;&gt;
+&lt;Buffer(146) on (&#39;127.0.0.1&#39;, 57110): 2 x 43008 @ 44100 Hz = 0.975s not loaded using mode &#39;none&#39;&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1782,14 +1775,23 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+Exiting sclang... Done.
+</pre></div></div>
 </div>
 </div>
 </div>
@@ -1809,6 +1811,10 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -1833,7 +1839,7 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1846,16 +1852,12 @@ BufferInfo(bufnum=147, num_frames=43008, num_channels=2, sample_rate=44100.0)
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

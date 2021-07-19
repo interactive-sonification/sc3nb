@@ -53,7 +53,7 @@ Content
    
 
 .. data:: ALLOWED_PARENTS
-   :annotation: = ['scide', 'python']
+   :annotation: = ['scide', 'python', 'tox']
 
    
 

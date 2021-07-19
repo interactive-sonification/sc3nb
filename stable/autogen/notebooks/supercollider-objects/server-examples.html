@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Server &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>Server &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
 
@@ -31,10 +33,13 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -66,7 +71,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -91,7 +96,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
@@ -102,11 +107,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -130,7 +135,18 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -201,6 +217,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -232,7 +249,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -310,12 +327,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -669,7 +690,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/ac3bed24649881ede4ea4a2218a9db704ff45553/examples/supercollider-objects/server-examples.ipynb">examples/supercollider-objects/server-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/a543dec7fb6672532b4763c9a27fb6ad95e74ce0/examples/supercollider-objects/server-examples.ipynb">examples/supercollider-objects/server-examples.ipynb</a>.</p>
 </div>
 <div class="section" id="Server">
 <h1>Server<a class="headerlink" href="#Server" title="Permalink to this headline">¶</a></h1>
@@ -682,6 +703,21 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> class is the central interface for</p>
+<ul class="simple">
+<li><p>controlling the SuperCollider audio server process</p></li>
+<li><p>managing SuperCollider Objects</p></li>
+<li><p>using OSC for outgoing and incoming packets</p></li>
+</ul>
+<p>To achieve all this the SCServer is</p>
+<ul class="simple">
+<li><p>registered as a client to the SuperCollider audio server process (scsynth) and exchanging <a class="reference external" href="http://doc.sccode.org/Reference/Server-Command-Reference.html">SuperCollider Commands</a> with the server process</p></li>
+<li><p>and also running an OSC server in python which can communicate via OSC with scsynth and sclang.</p></li>
+</ul>
+<p>For information about how to communicate using OSC see the <a class="reference internal" href="../osc-communication-examples.html"><span class="doc">OSC communication notebook</span></a>. This notebook focuses on using the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> class for interacting with scsynth</p>
+<div class="section" id="Starting-the-Server">
+<h2>Starting the Server<a class="headerlink" href="#Starting-the-Server" title="Permalink to this headline">¶</a></h2>
+<p>The most convienent way is to use the default sc3nb <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -723,13 +759,55 @@ Loading default sc3nb SynthDefs... Done.
 Booting SuperCollider Server... Done.
 </pre></div></div>
 </div>
-<p><strong>TODO similiar to https://doc.sccode.org/Tutorials/Server_Tutorial.html</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">help</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=4944&gt;&gt;
+</pre></div></div>
+</div>
+<p>However you can also use the SCServer class directly</p>
+<p>The server connection can be created</p>
+<ul class="simple">
+<li><p>locally using <code class="docutils literal notranslate"><span class="pre">boot</span></code>, which will start a scsynth process and connect to it or</p></li>
+<li><p>remote using <code class="docutils literal notranslate"><span class="pre">remote</span></code> for connecting to an already running scsynth process</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">serv</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">SCServer</span><span class="p">()</span>
+<span class="n">serv</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;SCServer (not booted)&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">serv</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -738,565 +816,1056 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Help on SCServer in module sc3nb.sc_objects.server object:
-
-class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
- |  SCServer(options: Union[sc3nb.sc_objects.server.ServerOptions, NoneType] = None)
- |
- |  SuperCollider audio server representaion.
- |
- |  Parameters
- |  ----------
- |  options : Optional[ServerOptions], optional
- |      Options used to start the local server, by default None
- |
- |  Method resolution order:
- |      SCServer
- |      sc3nb.osc.osc_communication.OSCCommunication
- |      builtins.object
- |
- |  Methods defined here:
- |
- |  __init__(self, options: Union[sc3nb.sc_objects.server.ServerOptions, NoneType] = None)
- |      Create an OSC communication server
- |
- |      Parameters
- |      ----------
- |      server_ip : str
- |          IP address to use for this server
- |      server_port : int
- |          port to use for this server
- |      default_receiver_ip : str
- |          IP address used for sending by default
- |      default_receiver_port : int
- |          port used for sending by default
- |
- |  __repr__(self) -&gt; str
- |      Return repr(self).
- |
- |  add_init_hook(self, function: Callable[..., NoneType], args: Union[Sequence[Any], NoneType] = None) -&gt; None
- |      Add a function to be executed when the server is initialized
- |
- |      Parameters
- |      ----------
- |      function : Callable[..., None]
- |          Function to be executed
- |      args : Optional[Sequence[Any]], optional
- |          Arguments given to function, by default None
- |
- |  allocate_audio_bus_idx(self, num: int = 1) -&gt; Sequence[int]
- |      Get the next free bus id.
- |
- |      Returns
- |      -------
- |      int
- |          bus id
- |
- |  allocate_buffer_id(self, num: int = 1) -&gt; Sequence[int]
- |      Get the next free buffer id.
- |
- |      Returns
- |      -------
- |      int
- |          buffer id
- |
- |  allocate_control_bus_idx(self, num: int = 1) -&gt; Sequence[int]
- |      Get the next free bus id.
- |
- |      Returns
- |      -------
- |      int
- |          bus id
- |
- |  allocate_node_id(self) -&gt; int
- |      Get a node id.
- |
- |      Returns
- |      -------
- |      int
- |          node id
- |
- |  blip(self) -&gt; None
- |      Make a blip sound
- |
- |  boot(self, scsynth_path: Union[str, NoneType] = None, timeout: float = 5, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = (&#39;scide&#39;, &#39;python&#39;))
- |      Start the Server process.
- |
- |      Parameters
- |      ----------
- |      scsynth_path : str, optional
- |          Path of scscynth executable, by default None
- |      timeout : float, optional
- |          Timeout for starting the executable, by default 5
- |      console_logging : bool, optional
- |          If True write process output to console, by default True
- |      with_blip : bool, optional
- |          make a sound when booted, by default True
- |      kill_others : bool
- |          kill other SuperCollider server processes.
- |      allowed_parents : Sequence[str], optional
- |          Names of parents that are allowed for other instances of
- |          scsynth processes that won&#39;t be killed, by default ALLOWED_PARENTS
- |
- |      Raises
- |      ------
- |      ValueError
- |          If UDP port specified in options is already used
- |      ProcessTimeout
- |          If the process fails to start.
- |
- |  bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True)
- |      Generate a Bundler with added server latency.
- |
- |      This allows the user to easly add messages/bundles and send it.
- |
- |      Parameters
- |      ----------
- |      timetag : float
- |          Time at which bundle content should be executed.
- |          This servers latency will be added upon this.
- |          If timetag &lt;= 1e6 it is added to time.time().
- |      msg_addr : str
- |          SuperCollider address.
- |      msg_params : list, optional
- |          List of parameters to add to message.
- |           (Default value = None)
- |
- |      Returns
- |      -------
- |      Bundler
- |          bundler for OSC bundling.
- |
- |  clear_schedule(self)
- |      Send /clearSched to the server.
- |
- |      This clears all scheduled bundles and removes all bundles from the scheduling queue.
- |
- |  connect_sclang(self, port: int) -&gt; None
- |      Connect sclang to the server
- |
- |      This will add the &#34;sclang&#34; receiver and execute the init hooks
- |
- |      Parameters
- |      ----------
- |      port : int
- |          Port of sclang (NetAddr.langPort)
- |
- |  dump_osc(self, level: int = 1) -&gt; None
- |      Enable dumping incoming OSC messages at the server process
- |
- |      Parameters
- |      ----------
- |      level : int, optional
- |          Verbosity code, by default 1
- |          0   turn dumping OFF.
- |          1   print the parsed contents of the message.
- |          2   print the contents in hexadecimal.
- |          3   print both the parsed and hexadecimal representations.
- |
- |  dump_tree(self, controls: bool = True, return_tree=False) -&gt; Union[str, NoneType]
- |      Server process prints out current nodes
- |
- |      Parameters
- |      ----------
- |      controls : bool, optional
- |          If True include control values, by default True
- |      return_tree : bool, optional
- |          If True return output as string, by default False
- |
- |      Returns
- |      -------
- |      str
- |          If return_tree this is the node tree string.
- |
- |  execute_init_hooks(self) -&gt; None
- |      Run all init hook functions.
- |
- |  free_all(self, root: bool = True) -&gt; None
- |      Free all node ids.
- |
- |      Parameters
- |      ----------
- |      root : bool, optional
- |          If False free only the default group of this client, by default True
- |
- |  init(self, with_blip: bool = True)
- |      Initialize the server.
- |
- |      This adds allocators, loads SynthDefs, send default Groups etc.
- |
- |      Parameters
- |      ----------
- |      with_blip : bool, optional
- |          make a sound when initialized, by default True
- |
- |  load_synthdef(self, synthdef_path: str)
- |      Load SynthDef file at path.
- |
- |      Parameters
- |      ----------
- |      synthdef_path : str
- |          Path with the SynthDefs
- |      bundle : bool
- |          Wether the OSC Messages can be bundle or not.
- |          If True sc3nb will not wait for the server response, by default False
- |
- |  load_synthdefs(self, synthdef_dir: Union[str, NoneType] = None, completion_msg: Union[bytes, NoneType] = None) -&gt; None
- |      Load all SynthDefs from directory.
- |
- |      Parameters
- |      ----------
- |      synthdef_dir : str, optional
- |          directory with SynthDefs, by default sc3nb default SynthDefs
- |      completion_msg : bytes, optional
- |          Message to be executed by the server when loaded, by default None
- |
- |  mute(self) -&gt; None
- |      Mute audio
- |
- |  notify(self, receive_notifications: bool = True, client_id: Union[int, NoneType] = None, timeout: float = 1) -&gt; None
- |      Notify the server about this client.
- |
- |      This provides the client id and max logins info needed for default groups.
- |
- |      Parameters
- |      ----------
- |      receive_notifications : bool, optional
- |          Flag for receiving node notification from server, by default True
- |      client_id : int, optional
- |          Propose a client id, by default None
- |      timeout : float, optional
- |          Timeout for server reply, by default 1.0
- |
- |      Raises
- |      ------
- |      RuntimeError
- |          If server has too many users.
- |      OSCCommunicationError
- |          If OSC communication fails.
- |
- |  ping(self)
- |      Ping the server.
- |
- |  query_all_nodes(self, include_controls: bool = True) -&gt; sc3nb.sc_objects.node.Group
- |      Query all nodes at the server and return a NodeTree
- |
- |      Parameters
- |      ----------
- |      include_controls : bool, optional
- |          If True include control values, by default True
- |
- |      Returns
- |      -------
- |      NodeTree
- |          object containing all the nodes.
- |
- |  quit(self) -&gt; None
- |      Quits and tries to kill the server.
- |
- |  reboot(self) -&gt; None
- |      Reboot this server
- |
- |      Raises
- |      ------
- |      RuntimeError
- |          If this server is remote and can&#39;t be restarted.
- |
- |  remote(self, address: str, port: int, with_blip: bool = True) -&gt; None
- |      Connect to remote Server
- |
- |      Parameters
- |      ----------
- |      address : str
- |          address of remote server
- |      port : int
- |          port of remote server
- |      with_blip : bool, optional
- |          make a sound when initialized, by default True
- |
- |  send_default_groups(self) -&gt; None
- |      Send the default groups for all clients.
- |
- |  send_synthdef(self, synthdef_bytes: bytes)
- |      Send a SynthDef as bytes.
- |
- |      Parameters
- |      ----------
- |      synthdef_bytes : bytes
- |          SynthDef bytes
- |      wait : bool
- |          If True wait for server reply.
- |
- |  status(self) -&gt; sc3nb.sc_objects.server.ServerStatus
- |      Server status information
- |
- |  sync(self, timeout=5) -&gt; bool
- |      Sync the server with the /sync command.
- |
- |      Parameters
- |      ----------
- |      timeout : int, optional
- |          Time in seconds that will be waited for sync.
- |           (Default value = 5)
- |
- |      Returns
- |      -------
- |      bool
- |          True if sync worked.
- |
- |  unmute(self) -&gt; None
- |      Set volume back to volume prior to muting
- |
- |  version(self) -&gt; sc3nb.sc_objects.server.ServerVersion
- |      Server version information
- |
- |  ----------------------------------------------------------------------
- |  Data descriptors defined here:
- |
- |  actual_sample_rate
- |      Actual sample rate of server process
- |
- |  addr
- |      Address (ip, port) of server
- |
- |  avg_cpu
- |      Average cpu usage of server process
- |
- |  client_id
- |      The client id for this server
- |
- |  default_group
- |      This clients default group
- |
- |  has_booted
- |      If the server is booted
- |
- |  input_bus
- |      This servers input Bus
- |
- |  is_local
- |      If the server process is local
- |
- |  is_running
- |      If the server is running
- |
- |  max_logins
- |      Maximum number of possible logins at server
- |
- |  muted
- |      True if audio is muted
- |
- |  num_groups
- |      Number of Groups in server tree
- |
- |  num_synthdefs
- |      Number of SynthDefs known by server
- |
- |  num_synths
- |      Number of Synths in server tree
- |
- |  num_ugens
- |      Number of UGens in server tree
- |
- |  output_bus
- |      This servers output Bus
- |
- |  peak_cpu
- |      Peak cpu usage of server process
- |
- |  pid
- |      The process id of the local server process
- |
- |  sample_rate
- |      Nominal sample rate of server process
- |
- |  unresponsive
- |      If the server process is unresponsive
- |
- |  volume
- |      Volume in dB.
- |
- |  ----------------------------------------------------------------------
- |  Methods inherited from sc3nb.osc.osc_communication.OSCCommunication:
- |
- |  add_msg_pairs(self, msg_pairs: Dict[str, str]) -&gt; None
- |      Add the provided pairs for message receiving.
- |
- |      Parameters
- |      ----------
- |      msg_pairs : dict[str, str], optional
- |          dict containing user specified message pairs.
- |          {msg_addr: reply_addr}
- |
- |  add_msg_queue(self, msg_queue: sc3nb.osc.osc_communication.MessageQueue, out_addr: Union[str, NoneType] = None) -&gt; None
- |      Add a MessageQueue to this servers dispatcher
- |
- |      Parameters
- |      ----------
- |      msg_queue : MessageQueue
- |          new MessageQueue
- |      out_addr : Optional[str], optional
- |          The outgoing message address that belongs to this MessageQeue, by default None
- |
- |  add_msg_queue_collection(self, msg_queue_collection: sc3nb.osc.osc_communication.MessageQueueCollection) -&gt; None
- |      Add a MessageQueueCollection
- |
- |      Parameters
- |      ----------
- |      msg_queue_collection : MessageQueueCollection
- |          MessageQueueCollection to be added
- |
- |  add_receiver(self, name: str, ip_address: str, port: int)
- |      Adds a receiver with the specified address.
- |
- |      Parameters
- |      ----------
- |      name : str
- |          Name of receiver.
- |      ip_address : str
- |          IP address of receiver (e.g. &#34;127.0.0.1&#34;)
- |      port : int
- |          Port of the receiver
- |
- |  connection_info(self, print_info: bool = True) -&gt; Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]
- |      Get information about the known addresses
- |
- |      Parameters
- |      ----------
- |      print_info : bool, optional
- |          If True print connection information
- |           (Default value = True)
- |
- |      Returns
- |      -------
- |      tuple
- |          containing the address of this sc3nb OSC Server
- |          and known receivers addresses in a dict with their names as values
- |
- |  get_reply_address(self, msg_address: str) -&gt; Union[str, NoneType]
- |      Get the corresponding reply address for the given address
- |
- |      Parameters
- |      ----------
- |      msg_address : str
- |          outgoing message address
- |
- |      Returns
- |      -------
- |      str or None
- |          Corresponding reply address if available
- |
- |  lookup_receiver(self, receiver: Union[str, Tuple[str, int]]) -&gt; Tuple[str, int]
- |      Reverse lookup the address of a specific receiver
- |
- |      Parameters
- |      ----------
- |      receiver : str
- |          Receiver name.
- |
- |      Returns
- |      -------
- |      Tuple[str, int]
- |          Receiver address (ip, port)
- |
- |      Raises
- |      ------
- |      KeyError
- |          If receiver is unknown.
- |      ValueError
- |          If the type of the receiver argument is wrong.
- |
- |  msg(self, msg_addr: str, msg_params: Union[Sequence, NoneType] = None, *, bundle: bool = False, receiver: Union[Tuple[str, int], NoneType] = None, await_reply: bool = True, timeout: float = 5) -&gt; Union[Any, NoneType]
- |      Creates and sends OSC message over UDP.
- |
- |      Parameters
- |      ----------
- |      msg_addr : str
- |          SuperCollider address of the OSC message
- |      msg_params : Optional[Sequence], optional
- |          List of paramters of the OSC message, by default None
- |      bundle : bool, optional
- |          If True it is allowed to bundle the content with bundling, by default False
- |      receiver : tuple[str, int], optional
- |          (IP address, port) to send the message, by default send to default receiver
- |      await_reply : bool, optional
- |          If True send message and wait for reply
- |          otherwise send the message and return directly, by default True
- |      timeout : float, optional
- |          timeout in seconds for reply, by default 5
- |
- |      Returns
- |      -------
- |      obj
- |          reply if await_reply and there is a reply for this
- |
- |  send(self, package: Union[sc3nb.osc.osc_communication.OSCMessage, sc3nb.osc.osc_communication.Bundler], *, receiver: Union[str, Tuple[str, int], NoneType] = None, bundle: bool = False, await_reply: bool = True, timeout: float = 5) -&gt; Any
- |      Sends OSC packet
- |
- |      Parameters
- |      ----------
- |      package : OSCMessage or Bundler
- |          Object with `dgram` attribute.
- |      receiver : str or Tuple[str, int], optional
- |          Where to send the packet, by default send to default receiver
- |      bundle : bool, optional
- |          If True it is allowed to bundle the package with bundling, by default False.
- |      await_reply : bool, optional
- |          If True ask for reply from the server and return it,
- |          otherwise send the message and return None directly, by default True.
- |          If the package is bundled None will be returned.
- |      timeout : int, optional
- |          timeout in seconds for reply, by default 5
- |
- |      Returns
- |      -------
- |      None or reply
- |          None if no reply was received or awaited else reply.
- |
- |      Raises
- |      ------
- |      ValueError
- |          When the provided package is not supported.
- |      OSCCommunicationError
- |          When the handling of a package fails.
- |
- |  ----------------------------------------------------------------------
- |  Data descriptors inherited from sc3nb.osc.osc_communication.OSCCommunication:
- |
- |  __dict__
- |      dictionary for instance variables (if defined)
- |
- |  __weakref__
- |      list of weak references to the object (if defined)
- |
- |  msg_queues
- |      Dict with all added MessageQueues
- |
- |      Returns
- |      -------
- |      Dict[str, MessageQueue]
- |          Queue address, MessageQueue pairs
- |
- |  osc_server
- |      Underlying OSC server
- |
- |  reply_addresses
- |      Dict with all addresses and the replies
- |
- |      Returns
- |      -------
- |      Dict[str, str]
- |          Outgoing address, incoming address
+Booting SuperCollider Server...
+SuperCollider Server port 57110 already used.
+Trying to connect.
+Done.
+</pre></div></div>
+</div>
+<p>Notice how the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> always tries to boot using the default SuperCollider audio server port 57110. But this port is already used by <code class="docutils literal notranslate"><span class="pre">sc.server</span></code> and thus the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> tries to connect to the already running instance using <code class="docutils literal notranslate"><span class="pre">SCserver.remote</span></code>. This enables a user to share the same scsynth instance with other users and/or use it from other notebooks. If the port to be used is explicitly specified the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance will fail instead of connecting.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> will register to the scsynth process using <code class="docutils literal notranslate"><span class="pre">SCServer.notify()</span></code></p>
+<p>Let’s look how many clients are allowed and what the <code class="docutils literal notranslate"><span class="pre">client_id</span></code>s and the corresponding <code class="docutils literal notranslate"><span class="pre">default_group</span></code>s of the SCServer instances are.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The scsynth process of this SCServer instance allows </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span><span class="si">}</span><span class="s2"> clients to login.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The scsynth process of this SCServer instance allows 8 clients to login.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sc.server has client id </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+sc.server has client id 1 and the default Group &lt;Group(67108865) ~ {} children=[]&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;serv has client id </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+serv has client id 2 and the default Group &lt;Group(134217729) s {} children=[]&gt;
+</pre></div></div>
+</div>
+<p>However also note that the instances use different ports meaning they are able to independendly send and receive OSC packets</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+This instance is at (&#39;127.0.0.1&#39;, 57131),
+Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
+                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57120)
 
 </pre></div></div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((&#39;127.0.0.1&#39;, 57131),
+ {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57120): &#39;sclang&#39;})
+</pre></div></div>
+</div>
+<p>and also note that <code class="docutils literal notranslate"><span class="pre">serv</span></code> is not connected to sclang but has the same connection info for scsynth.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">serv</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+This instance is at (&#39;127.0.0.1&#39;, 57133),
+Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((&#39;127.0.0.1&#39;, 57133), {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;})
+</pre></div></div>
+</div>
+<p>A Synth running on the SuperCollider audio server will be visible to all connected clients</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">serv_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;amp&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">server</span><span class="o">=</span><span class="n">serv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">default_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;amp&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">440</span><span class="p">})</span>  <span class="c1"># no need to specify sc.server as server argument</span>
+</pre></div>
+</div>
+</div>
+<p>This also includes sclang, which is another client of the scsynth process</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">sc</span> ~sclang_synth <span class="o">=</span> Synth<span class="o">(</span><span class="s2">&quot;s2&quot;</span>, <span class="o">[</span><span class="se">\a</span>mp, <span class="m">0</span>.1<span class="o">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+-&gt; Synth(&#39;s2&#39; : 1000)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+      30001 s2
+        freq: 100 amp: 0.050000000745058 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
+   67108865 group
+      20001 s2
+        freq: 440 amp: 0.050000000745058 num: 4 pan: 1 lg: 0.10000000149012 gate: 1
+   1 group
+      1000 s2
+        freq: 400 amp: 0.10000000149012 num: 4 pan: 0 lg: 0.10000000149012 gate: 1
+</pre></div></div>
+</div>
+<p>This also means freeing all Synths at once can be done with each client</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
+<span class="c1"># serv.free_all()</span>
+<span class="c1"># %sc s.freeAll</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+   1 group
+</pre></div></div>
+</div>
+<p>and quitting one server also quits the others.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">serv</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=4944&gt;&gt;
+</pre></div></div>
+</div>
+<p>Let’s reboot the default server</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+Booting SuperCollider Server... Done.
+</pre></div></div>
+</div>
+<p>More information about <a class="reference external" href="http://doc.sccode.org/Guides/MultiClient_Setups.html">multi client setups</a> can be found in the SuperCollider documentation.</p>
+</div>
+<div class="section" id="Configuring-Server-options">
+<h2>Configuring Server options<a class="headerlink" href="#Configuring-Server-options" title="Permalink to this headline">¶</a></h2>
+<p>Startup options of the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance can be set via <code class="docutils literal notranslate"><span class="pre">ServerOptions</span></code>, which can be passed as argument when starting the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code></p>
+<p>The default ServerOptions in sc3nb are:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;ServerOptions [&#39;-u&#39;, &#39;57110&#39;, &#39;-l&#39;, &#39;6&#39;, &#39;-i&#39;, &#39;2&#39;, &#39;-o&#39;, &#39;2&#39;, &#39;-a&#39;, &#39;1024&#39;, &#39;-c&#39;, &#39;4096&#39;, &#39;-b&#39;, &#39;1024&#39;, &#39;-R&#39;, &#39;0&#39;]&gt;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Getting-Information">
+<h2>Getting Information<a class="headerlink" href="#Getting-Information" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance provides various kinds of information</p>
+<ul class="simple">
+<li><p>What nodes are currently running</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+   1 group
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>The current status of the server, acquired via the <code class="docutils literal notranslate"><span class="pre">/status</span></code> OSC command</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0.23005923628807068, peak_cpu=0.24278487265110016, nominal_sr=44100.0, actual_sr=43520.66407263294)
+</pre></div></div>
+</div>
+<p>which can also be accessed directly via properties</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">nominal_sr</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+44100.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">num_synthdefs</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+9
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>the version of the SC3 server process, acquired via the <code class="docutils literal notranslate"><span class="pre">/version</span></code> OSC command</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">version</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ServerVersion(name=&#39;scsynth&#39;, major_version=3, minor_version=11, patch_version=&#39;.0&#39;, git_branch=&#39;HEAD&#39;, commit=&#39;e341b49&#39;)
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>the address of the SuperCollider audio server</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">addr</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&#39;127.0.0.1&#39;, 57110)
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>The connection info</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+This instance is at (&#39;127.0.0.1&#39;, 57131),
+Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
+                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57120)
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((&#39;127.0.0.1&#39;, 57131),
+ {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57120): &#39;sclang&#39;})
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>other runtime properties of the Server</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">has_booted</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">is_running</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+8
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(67108865) ~ {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">output_bus</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Bus(rate=&#39;audio&#39;, ids=[0, 1])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">input_bus</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Bus(rate=&#39;audio&#39;, ids=[2, 3])
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Controlling-Volume">
+<h2>Controlling Volume<a class="headerlink" href="#Controlling-Volume" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">syn</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+False
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.31622776601683794
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.0
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">syn</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="n">syn</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Server-dumps">
+<h2>Server dumps<a class="headerlink" href="#Server-dumps" title="Permalink to this headline">¶</a></h2>
+<p>The Server process can dump information about</p>
+<ul class="simple">
+<li><p>incoming OSC packages. See console for output</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span> <span class="c1"># specify level=0 to deactivate</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>currently running Nodes</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>  <span class="c1"># Notice how the OSC packet is now included in the output</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   -16 s1
+     freq: 500 dur: 0.10000000149012 att: 0.0099999997764826 amp: 0.30000001192093 num: 1 pan: 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+   20002 sc3nb_volumeAmpControl2
+     volumeAmp: 0.31622776389122 volumeLag: 0.10000000149012 gate: 0 bus: 0
+   1 group
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span> <span class="c1"># see dumped bundle for test sound on console</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Make-a-test-sound">
+<h2>Make a test sound<a class="headerlink" href="#Make-a-test-sound" title="Permalink to this headline">¶</a></h2>
+<p>The following methods produces the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> startup sound. The test sound should ease any anxiety whether the server is properly started/running</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Managing-Nodes">
+<h2>Managing Nodes<a class="headerlink" href="#Managing-Nodes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>freeing all running nodes and reinitialize the server</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># only frees the default group of this client</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>send the <code class="docutils literal notranslate"><span class="pre">/clearSched</span></code> OSC command. This is automatically done when using <code class="docutils literal notranslate"><span class="pre">free_all</span></code></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">clear_schedule</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Execute init hooks. This is also automatically done when using <code class="docutils literal notranslate"><span class="pre">free_all</span></code>, <code class="docutils literal notranslate"><span class="pre">init</span></code> or <code class="docutils literal notranslate"><span class="pre">connect_sclang</span></code></p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Adding init hooks.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send_default_groups</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=18964&gt;&gt;&gt;
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>Syncing the SuperCollider audio server by sending a <code class="docutils literal notranslate"><span class="pre">/sync</span></code> OSC command and waiting for the reply.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+True
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Allocating-IDs">
+<h2>Allocating IDs<a class="headerlink" href="#Allocating-IDs" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance manages the IDs for Nodes, Buffers and Buses for the SuperCollider Objects via the following methods. These can also be used for getting suitable IDs when manually creating OSC packages.</p>
+<ul class="simple">
+<li><p>Get the IDs via the allocator.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ids</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ids</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[128, 129]
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p>Free the IDs after usage via the allocator.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>There are allocators for</p>
+<ul class="simple">
+<li><p>Nodes - <code class="docutils literal notranslate"><span class="pre">sc.server.node_ids</span></code></p></li>
+<li><p>Buffer - <code class="docutils literal notranslate"><span class="pre">sc.server.buffer_ids</span></code></p></li>
+<li><p>Buses (Audio and Control) - <code class="docutils literal notranslate"><span class="pre">sc.server.audio_bus_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">sc.server.control_bus_ids</span></code></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+Booting SuperCollider Server... Done.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># example to see how consecutive buffer alloc works:</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5 buffers:&quot;</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;freed buffers &quot;</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ids4</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allocated 4 buffers:&quot;</span><span class="p">,</span> <span class="n">ids4</span><span class="p">,</span> <span class="s2">&quot;-&gt; new numbers to be consecutive&quot;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="n">ids2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allocated 2 buffers:&quot;</span><span class="p">,</span> <span class="n">ids2</span><span class="p">,</span> <span class="s2">&quot;-&gt; using the two freed before&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+5 buffers: [128, 129, 130, 131, 132]
+freed buffers  [128, 129]
+allocated 4 buffers: [133, 134, 135, 136] -&gt; new numbers to be consecutive
+allocated 2 buffers: [128, 129] -&gt; using the two freed before
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Handling-SynthDefs">
+<h2>Handling SynthDefs<a class="headerlink" href="#Handling-SynthDefs" title="Permalink to this headline">¶</a></h2>
+<p>The server offers the following methods for handling SynthDefs. These are shortcuts for the respective SynthDef methods.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sc.server.send_synthdef
+sc.server.load_synthdef
+sc.server.load_synthdefs
+</pre></div>
+</div>
+<p>Refer to the <a class="reference internal" href="synthdef-examples.html"><span class="doc">SynthDef guide</span></a> for more information about SynthDefs.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 </pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+Exiting sclang... Done.
+</pre></div></div>
 </div>
 </div>
 </div>
@@ -1316,6 +1885,10 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -1340,7 +1913,7 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1353,16 +1926,12 @@ class SCServer(sc3nb.osc.osc_communication.OSCCommunication)
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

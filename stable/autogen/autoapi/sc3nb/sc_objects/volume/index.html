@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.sc_objects.volume &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>sc3nb.sc_objects.volume &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
@@ -66,7 +69,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -91,7 +94,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../README.html#installation">Installation</a></li>
@@ -102,11 +105,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -130,7 +133,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -201,6 +215,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../../notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -232,7 +247,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#package-contents">Package Contents</a><ul>
@@ -310,12 +325,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -446,13 +465,13 @@
 <div class="section" id="content">
 <h3>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
 <dl class="py data">
-<dt id="sc3nb.sc_objects.volume._LOGGER">
-<code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.volume.</span></code><code class="sig-name descname"><span class="pre">_LOGGER</span></code><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#_LOGGER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume._LOGGER" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume._LOGGER">
+<span class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.volume.</span></span><span class="sig-name descname"><span class="pre">_LOGGER</span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#_LOGGER"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume._LOGGER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="sc3nb.sc_objects.volume.Volume">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.volume.</span></code><code class="sig-name descname"><span class="pre">Volume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">90</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.sc_objects.volume.</span></span><span class="sig-name descname"><span class="pre">Volume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">-</span> <span class="pre">90</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Server volume controls</p>
 <p><strong>Overview:</strong></p>
 <table class="longtable docutils align-default">
@@ -482,38 +501,38 @@
 </tbody>
 </table>
 <dl class="py method">
-<dt id="sc3nb.sc_objects.volume.Volume.muted">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">muted</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.muted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.muted" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume.muted">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">muted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.muted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.muted" title="Permalink to this definition">¶</a></dt>
 <dd><p>True if muted.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.volume.Volume.volume">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">volume</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.volume" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume.volume">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">volume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.volume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Volume in dB.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.volume.Volume.mute">
-<code class="sig-name descname"><span class="pre">mute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.mute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.mute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume.mute">
+<span class="sig-name descname"><span class="pre">mute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.mute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.mute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mute audio</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.volume.Volume.unmute">
-<code class="sig-name descname"><span class="pre">unmute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.unmute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.unmute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume.unmute">
+<span class="sig-name descname"><span class="pre">unmute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.unmute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.unmute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unmute audio</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.volume.Volume.update_synth">
-<code class="sig-name descname"><span class="pre">update_synth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.update_synth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.update_synth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume.update_synth">
+<span class="sig-name descname"><span class="pre">update_synth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/dev/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.update_synth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.update_synth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update volume Synth</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="sc3nb.sc_objects.volume.Volume.send_synthdef">
-<code class="sig-name descname"><span class="pre">send_synthdef</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.send_synthdef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.send_synthdef" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sc3nb.sc_objects.volume.Volume.send_synthdef">
+<span class="sig-name descname"><span class="pre">send_synthdef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../../_modules/sc3nb/sc_objects/volume.html#Volume.send_synthdef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.sc_objects.volume.Volume.send_synthdef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send Volume SynthDef</p>
 </dd></dl>
 
@@ -538,6 +557,10 @@
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -562,7 +585,7 @@
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -575,16 +598,12 @@
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>

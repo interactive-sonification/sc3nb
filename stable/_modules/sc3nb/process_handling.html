@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sc3nb.process_handling &mdash; sc3nb 0.2.dev298+g531f8e7 documentation</title>
+  <title>sc3nb.process_handling &mdash; sc3nb  documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
@@ -64,7 +67,7 @@
             
             
               <div class="version">
-                develop
+                1.0.1
               </div>
             
           
@@ -89,7 +92,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
@@ -100,11 +103,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../resources.html">Useful Resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#version-x-x-x">Version x.x.x</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">User Guide</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
@@ -128,7 +131,18 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
@@ -199,6 +213,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
 </ul>
 </li>
@@ -230,7 +245,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
@@ -308,12 +323,16 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing</span></p>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
@@ -395,6 +414,7 @@
   <h1>Source code for sc3nb.process_handling</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Module for process handling. &quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -410,10 +430,10 @@
 <span class="kn">import</span> <span class="nn">psutil</span>
 
 <div class="viewcode-block" id="_LOGGER"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling._LOGGER">[docs]</a><span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
-<span class="n">_LOGGER</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
+
 
 <div class="viewcode-block" id="ANSI_ESCAPE"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ANSI_ESCAPE">[docs]</a><span class="n">ANSI_ESCAPE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\x1B\[[0-?]*[ -/]*[@-~]&quot;</span><span class="p">)</span></div>
-<div class="viewcode-block" id="ALLOWED_PARENTS"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ALLOWED_PARENTS">[docs]</a><span class="n">ALLOWED_PARENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;scide&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="p">)</span></div>
+<div class="viewcode-block" id="ALLOWED_PARENTS"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.ALLOWED_PARENTS">[docs]</a><span class="n">ALLOWED_PARENTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;scide&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;tox&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="find_executable"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.find_executable">[docs]</a><span class="k">def</span> <span class="nf">find_executable</span><span class="p">(</span>
@@ -501,19 +521,23 @@
     <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying to find leftover processes of </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exec_path</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">proc</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">([</span><span class="s2">&quot;exe&quot;</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;exe&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">exec_path</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">allowed_parents</span><span class="p">:</span>
-                <span class="n">parents</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">parents</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">parents</span><span class="p">:</span>
-                    <span class="n">parent_names</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                        <span class="nb">map</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">))</span>
-                    <span class="p">)</span>
-                    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parents cmdlines: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">parent_names</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
-                        <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">parent_names</span>
-                        <span class="k">for</span> <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">allowed_parents</span>
-                    <span class="p">):</span>
-                        <span class="k">continue</span>
-            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Terminating </span><span class="si">%s</span><span class="s2"> parents: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">proc</span><span class="p">,</span> <span class="n">proc</span><span class="o">.</span><span class="n">parents</span><span class="p">())</span>
+            <span class="n">parents</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">parents</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">allowed_parents</span> <span class="ow">and</span> <span class="n">parents</span><span class="p">:</span>
+                <span class="n">parent_names</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">)))</span>
+                <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parents cmdlines: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">parent_names</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+                    <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">parent_names</span> <span class="k">for</span> <span class="n">allowed_parent</span> <span class="ow">in</span> <span class="n">allowed_parents</span>
+                <span class="p">):</span>
+                    <span class="k">continue</span>
+            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Found old process. Please exit sc3nb via sc.exit(). </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; Terminating </span><span class="si">%s</span><span class="s2"> because none of&quot;</span>
+                <span class="s2">&quot; the parents=</span><span class="si">%s</span><span class="s2"> are in allowed_parents=</span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; More information can be found in the documentation.&quot;</span><span class="p">,</span>
+                <span class="n">proc</span><span class="p">,</span>
+                <span class="n">parents</span><span class="p">,</span>
+                <span class="n">allowed_parents</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">proc</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">proc</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -594,6 +618,7 @@
             <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_read_loop</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_reader_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Process._read_loop"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/process_handling/index.html#sc3nb.process_handling.Process._read_loop">[docs]</a>    <span class="k">def</span> <span class="nf">_read_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2"> | start reading ]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
@@ -688,7 +713,8 @@
 <span class="sd">        int</span>
 <span class="sd">            return code of process</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_reader_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
@@ -715,6 +741,10 @@
   <div role="contentinfo">
     <p>
         &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">
+        
+        Revision <code>a543dec7fb</code>.
+      </span>
 
     </p>
   </div>
@@ -739,7 +769,7 @@
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.0.1
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -752,16 +782,12 @@
           <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
           
         
-           <strong> 
+          
           <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-           </strong> 
+          
         
           
           <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/refactoring/">refactoring</a></dd>
           
         
       </dl>
