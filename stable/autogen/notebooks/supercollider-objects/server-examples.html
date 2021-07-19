@@ -1,102 +1,57 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Server &mdash; sc3nb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Server — sc3nb  documentation</title>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Nodes (Synth and Group)" href="node-examples.html" />
-    <link rel="prev" title="SuperCollider objects" href="../../../supercolliderobjects.html" /> 
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+<script src="../../../_static/jquery.js"></script>
+<script src="../../../_static/underscore.js"></script>
+<script src="../../../_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script src="../../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="node-examples.html" rel="next" title="Nodes (Synth and Group)"/>
+<link href="../../../supercolliderobjects.html" rel="prev" title="SuperCollider objects"/>
 </head>
-
 <body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home"> sc3nb
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index.html"> sc3nb
           
 
           
           </a>
-
-          
-            
-            
-              <div class="version">
+<div class="version">
                 1.0.1
               </div>
-            
-          
-
-          
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
@@ -351,75 +306,29 @@
 </ul>
 </li>
 </ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">sc3nb</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../../../supercolliderobjects.html">SuperCollider objects</a> &raquo;</li>
-        
-      <li>Server</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/autogen/notebooks/supercollider-objects/server-examples.nblink.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a class="icon icon-home" href="../../../index.html"></a> »</li>
+<li><a href="../../../supercolliderobjects.html">SuperCollider objects</a> »</li>
+<li>Server</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../../_sources/autogen/notebooks/supercollider-objects/server-examples.nblink.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
 <style>
 /* CSS for nbsphinx extension */
 
@@ -774,7 +683,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=4944&gt;&gt;
+&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=4944&gt;&gt;
 </pre></div></div>
 </div>
 <p>However you can also use the SCServer class directly</p>
@@ -830,7 +739,7 @@ Done.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The scsynth process of this SCServer instance allows </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span><span class="si">}</span><span class="s2"> clients to login.&quot;</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The scsynth process of this SCServer instance allows </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span><span class="si">}</span><span class="s2"> clients to login."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -847,7 +756,7 @@ The scsynth process of this SCServer instance allows 8 clients to login.
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sc.server has client id </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sc.server has client id </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -864,7 +773,7 @@ sc.server has client id 1 and the default Group &lt;Group(67108865) ~ {} childre
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;serv has client id </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"serv has client id </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -891,9 +800,9 @@ serv has client id 2 and the default Group &lt;Group(134217729) s {} children=[]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57131),
-Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
-                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57120)
+This instance is at ('127.0.0.1', 57131),
+Known receivers: "scsynth" at ('127.0.0.1', 57110)
+                 "sclang" at ('127.0.0.1', 57120)
 
 </pre></div></div>
 </div>
@@ -903,8 +812,8 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57131),
- {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57120): &#39;sclang&#39;})
+(('127.0.0.1', 57131),
+ {('127.0.0.1', 57110): 'scsynth', ('127.0.0.1', 57120): 'sclang'})
 </pre></div></div>
 </div>
 <p>and also note that <code class="docutils literal notranslate"><span class="pre">serv</span></code> is not connected to sclang but has the same connection info for scsynth.</p>
@@ -922,8 +831,8 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57133),
-Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
+This instance is at ('127.0.0.1', 57133),
+Known receivers: "scsynth" at ('127.0.0.1', 57110)
 
 </pre></div></div>
 </div>
@@ -933,7 +842,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57133), {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;})
+(('127.0.0.1', 57133), {('127.0.0.1', 57110): 'scsynth'})
 </pre></div></div>
 </div>
 <p>A Synth running on the SuperCollider audio server will be visible to all connected clients</p>
@@ -942,7 +851,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">serv_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;amp&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">server</span><span class="o">=</span><span class="n">serv</span><span class="p">)</span>
+<span></span><span class="n">serv_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"pan"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">server</span><span class="o">=</span><span class="n">serv</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -951,7 +860,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">default_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;amp&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;pan&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">440</span><span class="p">})</span>  <span class="c1"># no need to specify sc.server as server argument</span>
+<span></span><span class="n">default_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"pan"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">440</span><span class="p">})</span>  <span class="c1"># no need to specify sc.server as server argument</span>
 </pre></div>
 </div>
 </div>
@@ -961,7 +870,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">sc</span> ~sclang_synth <span class="o">=</span> Synth<span class="o">(</span><span class="s2">&quot;s2&quot;</span>, <span class="o">[</span><span class="se">\a</span>mp, <span class="m">0</span>.1<span class="o">])</span>
+<span></span><span class="o">%</span><span class="k">sc</span> ~sclang_synth <span class="o">=</span> Synth<span class="o">(</span><span class="s2">"s2"</span>, <span class="o">[</span><span class="se">\a</span>mp, <span class="m">0</span>.1<span class="o">])</span>
 </pre></div>
 </div>
 </div>
@@ -970,7 +879,7 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; Synth(&#39;s2&#39; : 1000)
+-&gt; Synth('s2' : 1000)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1074,7 +983,7 @@ Quitting SCServer... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=4944&gt;&gt;
+&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=4944&gt;&gt;
 </pre></div></div>
 </div>
 <p>Let’s reboot the default server</p>
@@ -1117,7 +1026,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;ServerOptions [&#39;-u&#39;, &#39;57110&#39;, &#39;-l&#39;, &#39;6&#39;, &#39;-i&#39;, &#39;2&#39;, &#39;-o&#39;, &#39;2&#39;, &#39;-a&#39;, &#39;1024&#39;, &#39;-c&#39;, &#39;4096&#39;, &#39;-b&#39;, &#39;1024&#39;, &#39;-R&#39;, &#39;0&#39;]&gt;
+&lt;ServerOptions ['-u', '57110', '-l', '6', '-i', '2', '-o', '2', '-a', '1024', '-c', '4096', '-b', '1024', '-R', '0']&gt;
 </pre></div></div>
 </div>
 </div>
@@ -1254,7 +1163,7 @@ ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ServerVersion(name=&#39;scsynth&#39;, major_version=3, minor_version=11, patch_version=&#39;.0&#39;, git_branch=&#39;HEAD&#39;, commit=&#39;e341b49&#39;)
+ServerVersion(name='scsynth', major_version=3, minor_version=11, patch_version='.0', git_branch='HEAD', commit='e341b49')
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1275,7 +1184,7 @@ ServerVersion(name=&#39;scsynth&#39;, major_version=3, minor_version=11, patch_v
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(&#39;127.0.0.1&#39;, 57110)
+('127.0.0.1', 57110)
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1295,9 +1204,9 @@ ServerVersion(name=&#39;scsynth&#39;, major_version=3, minor_version=11, patch_v
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-This instance is at (&#39;127.0.0.1&#39;, 57131),
-Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
-                 &#34;sclang&#34; at (&#39;127.0.0.1&#39;, 57120)
+This instance is at ('127.0.0.1', 57131),
+Known receivers: "scsynth" at ('127.0.0.1', 57110)
+                 "sclang" at ('127.0.0.1', 57120)
 
 </pre></div></div>
 </div>
@@ -1307,8 +1216,8 @@ Known receivers: &#34;scsynth&#34; at (&#39;127.0.0.1&#39;, 57110)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-((&#39;127.0.0.1&#39;, 57131),
- {(&#39;127.0.0.1&#39;, 57110): &#39;scsynth&#39;, (&#39;127.0.0.1&#39;, 57120): &#39;sclang&#39;})
+(('127.0.0.1', 57131),
+ {('127.0.0.1', 57110): 'scsynth', ('127.0.0.1', 57120): 'sclang'})
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1419,7 +1328,7 @@ Group(67108865) ~ {} children=[]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Bus(rate=&#39;audio&#39;, ids=[0, 1])
+Bus(rate='audio', ids=[0, 1])
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1437,7 +1346,7 @@ Bus(rate=&#39;audio&#39;, ids=[0, 1])
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Bus(rate=&#39;audio&#39;, ids=[2, 3])
+Bus(rate='audio', ids=[2, 3])
 </pre></div></div>
 </div>
 </div>
@@ -1448,7 +1357,7 @@ Bus(rate=&#39;audio&#39;, ids=[2, 3])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">syn</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s2&quot;</span><span class="p">)</span>
+<span></span><span class="n">syn</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1724,7 +1633,7 @@ NODE TREE Group 0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=(&#39;127.0.0.1&#39;, 57110), process=&lt;Process &#39;scsynth&#39; (running) pid=18964&gt;&gt;&gt;
+&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=18964&gt;&gt;&gt;
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1817,14 +1726,14 @@ Booting SuperCollider Server... Done.
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># example to see how consecutive buffer alloc works:</span>
 <span class="n">ids</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5 buffers:&quot;</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"5 buffers:"</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;freed buffers &quot;</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"freed buffers "</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">ids4</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allocated 4 buffers:&quot;</span><span class="p">,</span> <span class="n">ids4</span><span class="p">,</span> <span class="s2">&quot;-&gt; new numbers to be consecutive&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"allocated 4 buffers:"</span><span class="p">,</span> <span class="n">ids4</span><span class="p">,</span> <span class="s2">"-&gt; new numbers to be consecutive"</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
 <span class="n">ids2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allocated 2 buffers:&quot;</span><span class="p">,</span> <span class="n">ids2</span><span class="p">,</span> <span class="s2">&quot;-&gt; using the two freed before&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"allocated 2 buffers:"</span><span class="p">,</span> <span class="n">ids2</span><span class="p">,</span> <span class="s2">"-&gt; using the two freed before"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1869,29 +1778,23 @@ Exiting sclang... Done.
 </div>
 </div>
 </div>
-
-
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="node-examples.html" class="btn btn-neutral float-right" title="Nodes (Synth and Group)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../../supercolliderobjects.html" class="btn btn-neutral float-left" title="SuperCollider objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="node-examples.html" rel="next" title="Nodes (Synth and Group)">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="../../../supercolliderobjects.html" rel="prev" title="SuperCollider objects"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
         Revision <code>a543dec7fb</code>.
       </span>
-
-    </p>
-  </div>
+</p>
+</div>
     
     
     
@@ -1902,56 +1805,24 @@ Exiting sclang... Done.
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      <span class="fa fa-book"> Read the Docs</span>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
       v: 1.0.1
       <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
-      
-      
-      <dl>
-        <dt>Versions</dt>
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-      </dl>
-      
-      
-      
-    </div>
-  </div>
-
-
-  <script type="text/javascript">
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+</div>
+</div>
+<script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-   
-
 </body>
 </html>

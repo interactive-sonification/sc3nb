@@ -398,7 +398,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _parse_pyvars(self, code: str) -> Dict[(str, Any)]
+   .. method:: _parse_pyvars(self, code: str) -> Dict[str, Any]
 
       Parses SuperCollider code for python variables and their values
 

@@ -105,7 +105,7 @@ Content
 
 
 
-.. class:: SynthDef(name: str, definition: str, sc: Optional['SC'] = None)
+.. class:: SynthDef(name: str, definition: str, sc: Optional[sc3nb.sc.SC] = None)
 
 
    Wrapper for SuperCollider SynthDef
@@ -189,7 +189,7 @@ Content
          sc3nb.sc_objects.synthdef.SynthDef.free
          sc3nb.sc_objects.synthdef.SynthDef.__repr__
 
-   .. method:: get_description(cls, name: str) -> Optional[Dict[str, 'SynthArgument']]
+   .. method:: get_description(cls, name: str) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
       :classmethod:
 
       Get Synth description
@@ -221,7 +221,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(cls, synthdef_bytes: bytes, server: Optional['SCServer'] = None)
+   .. method:: send(cls, synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
       Send a SynthDef as bytes.
@@ -256,7 +256,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load(cls, synthdef_path: str, server: Optional['SCServer'] = None)
+   .. method:: load(cls, synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
       Load SynthDef file at path.
@@ -288,7 +288,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional['SCServer'] = None)
+   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
       Load all SynthDefs from directory.
@@ -323,7 +323,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: reset(self) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: reset(self) -> SynthDef
 
       Reset the current synthdef configuration to the self.definition value.
 
@@ -352,7 +352,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set_context(self, searchpattern: str, value) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: set_context(self, searchpattern: str, value) -> SynthDef
 
       Set context in SynthDef.
 
@@ -388,7 +388,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set_contexts(self, dictionary: Dict[(str, Any)]) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: set_contexts(self, dictionary: Dict[str, Any]) -> SynthDef
 
       Set multiple values at onces when you give a dictionary.
 
@@ -421,7 +421,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: unset_remaining(self) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: unset_remaining(self) -> SynthDef
 
       This method will remove all existing placeholders in the current def.
 
@@ -451,7 +451,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional['SCServer'] = None) -> str
+   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
 
       This method will add the current_def to SuperCollider.s
 
@@ -491,7 +491,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: free(self) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: free(self) -> SynthDef
 
       Free this SynthDef from the server.
 

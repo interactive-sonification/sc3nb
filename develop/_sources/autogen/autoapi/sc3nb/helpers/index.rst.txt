@@ -38,7 +38,7 @@ Function List
 Content
 ~~~~~~~
 
-.. function:: linlin(value: Union[(float, np.ndarray)], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[(float, np.ndarray)]
+.. function:: linlin(value: Union[float, numpy.ndarray], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[float, numpy.ndarray]
 
    Map value linearly so that [x1, x2] is mapped to [y1, y2]
 

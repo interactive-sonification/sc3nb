@@ -34,7 +34,7 @@ Class List
 Content
 ~~~~~~~
 
-.. class:: Event(timestamp: float, function: Callable[(..., None)], args: Iterable[Any], spawn: bool = False)
+.. class:: Event(timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any], spawn: bool = False)
 
 
    Stores a timestamp, function and arguments for that function.
@@ -329,7 +329,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put(self, timestamp: float, function: Callable[(..., None)], args: Iterable[Any] = (), spawn: bool = False) -> None
+   .. method:: put(self, timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any] = (), spawn: bool = False) -> None
 
       Adds event to queue
 
@@ -369,7 +369,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: get(self) -> sc3nb.timed_queue.Event
+   .. method:: get(self) -> Event
 
       Get latest event from queue and remove event
 
@@ -396,7 +396,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: peek(self) -> sc3nb.timed_queue.Event
+   .. method:: peek(self) -> Event
 
       Look up latest event from queue
 
@@ -552,7 +552,7 @@ Content
 .. class:: TimedQueueSC(server: sc3nb.osc.osc_communication.OSCCommunication = None, relative_time: bool = False, thread_sleep_time: float = 0.001)
 
 
-   **Bases:** :class:`sc3nb.timed_queue.TimedQueue`
+   **Bases:** :class:`TimedQueue`
 
    Timed queue with OSC communication.
 
@@ -626,7 +626,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put_msg(self, onset: float, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
+   .. method:: put_msg(self, onset: float, msg: Union[sc3nb.osc.osc_communication.OSCMessage, str], msg_params: Iterable[Any]) -> None
 
       Add a message to queue
 

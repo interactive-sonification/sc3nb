@@ -50,7 +50,7 @@ Content
 
 .. class:: SynthArgument
 
-   **Bases:** :class:`typing.NamedTuple`
+   **Bases:** :class:`NamedTuple`
 
    Synth argument, rate and default value
 
@@ -214,7 +214,7 @@ Content
          sc3nb.sclang.SCLang.cmdg
          sc3nb.sclang.SCLang.read
          sc3nb.sclang.SCLang.empty
-         sc3nb.sclang.SCLang.get_synth_desc
+         sc3nb.sclang.SCLang.get_synth_description
          sc3nb.sclang.SCLang.addr
          sc3nb.sclang.SCLang.server
          sc3nb.sclang.SCLang.connect_to_server
@@ -575,9 +575,9 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: get_synth_desc(self, synth_def)
+   .. method:: get_synth_description(self, synth_def)
 
-      Get SynthDesc via sclang's global SynthDescLib.
+      Get a SynthDesc like description via sclang's global SynthDescLib.
 
 
       :Parameters:
@@ -610,7 +610,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: addr(self) -> Tuple[(str, int)]
+   .. method:: addr(self) -> Tuple[str, int]
       :property:
 
       The address of this sclang
@@ -634,7 +634,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: server(self) -> Optional[SCServer]
+   .. method:: server(self) -> Optional[sc3nb.sc_objects.server.SCServer]
       :property:
 
       The SuperCollider server connected to this sclang instance.
@@ -658,7 +658,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: connect_to_server(self, server: Optional[SCServer] = None)
+   .. method:: connect_to_server(self, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
       Connect this sclang instance to the SuperCollider server.
 

@@ -31,7 +31,6 @@ Class List
    sc3nb.sc_objects.server.ServerStatus
    sc3nb.sc_objects.server.ServerVersion
    sc3nb.sc_objects.server.ServerOptions
-   sc3nb.sc_objects.server.IDBlockAllocator
    sc3nb.sc_objects.server.NodeWatcher
    sc3nb.sc_objects.server.SCServer
 
@@ -308,7 +307,7 @@ Content
 
 .. class:: ServerStatus
 
-   **Bases:** :class:`typing.NamedTuple`
+   **Bases:** :class:`NamedTuple`
 
    Information about the status of the Server program
 
@@ -379,7 +378,7 @@ Content
 
 .. class:: ServerVersion
 
-   **Bases:** :class:`typing.NamedTuple`
+   **Bases:** :class:`NamedTuple`
 
    Information about the version of the Server program
 
@@ -549,103 +548,7 @@ Content
 
 
 
-.. class:: IDBlockAllocator(num_ids: int, offset: int)
-
-
-   Allows allocating blocks of ids / indexes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-
-
-
-   **Overview:**
-
-   .. autoapisummary::
-      :nosignatures:
-
-         sc3nb.sc_objects.server.IDBlockAllocator.allocate
-         sc3nb.sc_objects.server.IDBlockAllocator.free_ids
-
-   .. method:: allocate(self, num: int = 1) -> Sequence[int]
-
-      Allocate the next free ids
-
-
-
-      :Returns:
-
-          int
-              free id
-
-
-
-
-      :Raises:
-
-          RuntimeError
-              When out of free ids or not enough ids are in order.
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: free_ids(self, ids: Sequence[int]) -> None
-
-      Mark ids as free again.
-
-
-      :Parameters:
-
-          **ids** : sequence of int
-              ids that are not used anymore.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-
-
-
-.. class:: NodeWatcher(server: sc3nb.sc_objects.server.SCServer)
+.. class:: NodeWatcher(server: SCServer)
 
 
    The NodeWatcher is used to handle Node Notifications.
@@ -796,14 +699,9 @@ Content
          sc3nb.sc_objects.server.SCServer.load_synthdef
          sc3nb.sc_objects.server.SCServer.load_synthdefs
          sc3nb.sc_objects.server.SCServer.notify
-         sc3nb.sc_objects.server.SCServer._get_errors_for_address
          sc3nb.sc_objects.server.SCServer.free_all
          sc3nb.sc_objects.server.SCServer.clear_schedule
          sc3nb.sc_objects.server.SCServer.send_default_groups
-         sc3nb.sc_objects.server.SCServer.allocate_node_id
-         sc3nb.sc_objects.server.SCServer.allocate_buffer_id
-         sc3nb.sc_objects.server.SCServer.allocate_control_bus_idx
-         sc3nb.sc_objects.server.SCServer.allocate_audio_bus_idx
          sc3nb.sc_objects.server.SCServer.client_id
          sc3nb.sc_objects.server.SCServer.max_logins
          sc3nb.sc_objects.server.SCServer.default_group
@@ -817,11 +715,11 @@ Content
          sc3nb.sc_objects.server.SCServer.status
          sc3nb.sc_objects.server.SCServer.dump_osc
          sc3nb.sc_objects.server.SCServer.dump_tree
-         sc3nb.sc_objects.server.SCServer.query_all_nodes
+         sc3nb.sc_objects.server.SCServer.query_tree
          sc3nb.sc_objects.server.SCServer.peak_cpu
          sc3nb.sc_objects.server.SCServer.avg_cpu
-         sc3nb.sc_objects.server.SCServer.sample_rate
-         sc3nb.sc_objects.server.SCServer.actual_sample_rate
+         sc3nb.sc_objects.server.SCServer.nominal_sr
+         sc3nb.sc_objects.server.SCServer.actual_sr
          sc3nb.sc_objects.server.SCServer.num_synths
          sc3nb.sc_objects.server.SCServer.num_groups
          sc3nb.sc_objects.server.SCServer.num_ugens
@@ -832,6 +730,9 @@ Content
          sc3nb.sc_objects.server.SCServer.unresponsive
          sc3nb.sc_objects.server.SCServer.is_local
          sc3nb.sc_objects.server.SCServer.pid
+         sc3nb.sc_objects.server.SCServer._init_osc_communication
+         sc3nb.sc_objects.server.SCServer._get_errors_for_address
+         sc3nb.sc_objects.server.SCServer._log_repr
          sc3nb.sc_objects.server.SCServer._log_message
          sc3nb.sc_objects.server.SCServer._warn_fail
          sc3nb.sc_objects.server.SCServer.__repr__
@@ -918,6 +819,9 @@ Content
 
       Run all init hook functions.
 
+      This is automatically done when running free_all, init or connect_sclang.
+
+      Hooks can be added using add_init_hook
 
 
 
@@ -965,18 +869,21 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add_init_hook(self, function: Callable[(..., None)], args: Optional[Sequence[Any]] = None) -> None
+   .. method:: add_init_hook(self, hook: Callable[Ellipsis, None], *args: Any, **kwargs: Any) -> None
 
       Add a function to be executed when the server is initialized
 
 
       :Parameters:
 
-          **function** : Callable[..., None]
+          **hook** : Callable[..., None]
               Function to be executed
 
-          **args** : Optional[Sequence[Any]], optional
-              Arguments given to function, by default None
+          **args** : Any, optional
+              Arguments given to function
+
+          **kwargs** : Any, optional
+              Keyword arguments given to function
 
 
 
@@ -1330,9 +1237,6 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _get_errors_for_address(self, address: str)
-
-
    .. method:: free_all(self, root: bool = True) -> None
 
       Free all node ids.
@@ -1390,114 +1294,6 @@ Content
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_node_id(self) -> int
-
-      Get a node id.
-
-
-
-      :Returns:
-
-          int
-              node id
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_buffer_id(self, num: int = 1) -> Sequence[int]
-
-      Get the next free buffer id.
-
-
-
-      :Returns:
-
-          int
-              buffer id
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_control_bus_idx(self, num: int = 1) -> Sequence[int]
-
-      Get the next free bus id.
-
-
-
-      :Returns:
-
-          int
-              bus id
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_audio_bus_idx(self, num: int = 1) -> Sequence[int]
-
-      Get the next free bus id.
-
-
-
-      :Returns:
-
-          int
-              bus id
 
 
 
@@ -1729,7 +1525,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: version(self) -> sc3nb.sc_objects.server.ServerVersion
+   .. method:: version(self) -> ServerVersion
 
       Server version information
 
@@ -1752,7 +1548,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: status(self) -> sc3nb.sc_objects.server.ServerStatus
+   .. method:: status(self) -> ServerStatus
 
       Server status information
 
@@ -1840,7 +1636,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query_all_nodes(self, include_controls: bool = True) -> sc3nb.sc_objects.node.Group
+   .. method:: query_tree(self, include_controls: bool = True) -> sc3nb.sc_objects.node.Group
 
       Query all nodes at the server and return a NodeTree
 
@@ -1919,7 +1715,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: sample_rate(self) -> float
+   .. method:: nominal_sr(self) -> float
       :property:
 
       Nominal sample rate of server process
@@ -1943,7 +1739,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: actual_sample_rate(self) -> float
+   .. method:: actual_sr(self) -> float
       :property:
 
       Actual sample rate of server process
@@ -2063,7 +1859,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: addr(self) -> Tuple[(str, int)]
+   .. method:: addr(self) -> Tuple[str, int]
       :property:
 
       Address (ip, port) of server
@@ -2205,6 +2001,15 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _init_osc_communication(self)
+
+
+   .. method:: _get_errors_for_address(self, address: str)
+
+
+   .. method:: _log_repr(self)
 
 
    .. method:: _log_message(self, sender, *params)

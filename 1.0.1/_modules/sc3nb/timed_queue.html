@@ -1,98 +1,53 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sc3nb.timed_queue &mdash; sc3nb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>sc3nb.timed_queue — sc3nb  documentation</title>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
 </head>
-
 <body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../index.html" class="icon icon-home"> sc3nb
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> sc3nb
           
 
           
           </a>
-
-          
-            
-            
-              <div class="version">
+<div class="version">
                 1.0.1
               </div>
-            
-          
-
-          
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
@@ -347,72 +302,30 @@
 </ul>
 </li>
 </ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">sc3nb</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>sc3nb.timed_queue</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <h1>Source code for sc3nb.timed_queue</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Classes to run register functions at certain timepoints and run asynchronously&quot;&quot;&quot;</span>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a class="icon icon-home" href="../../index.html"></a> »</li>
+<li><a href="../index.html">Module code</a> »</li>
+<li>sc3nb.timed_queue</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<h1>Source code for sc3nb.timed_queue</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Classes to run register functions at certain timepoints and run asynchronously"""</span>
 
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -425,7 +338,7 @@
 
 
 <div class="viewcode-block" id="Event"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event">[docs]</a><span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Stores a timestamp, function and arguments for that function.</span>
+    <span class="sd">"""Stores a timestamp, function and arguments for that function.</span>
 <span class="sd">    Long running functions can be wrapped inside an own thread</span>
 
 <span class="sd">    Parameters</span>
@@ -438,7 +351,7 @@
 <span class="sd">        Arguments for function</span>
 <span class="sd">    spawn : bool, optional</span>
 <span class="sd">        if True, create new thread for function, by default False</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -456,7 +369,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
 
 <div class="viewcode-block" id="Event.execute"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Executes function&quot;&quot;&quot;</span>
+        <span class="sd">"""Executes function"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Event.__eq__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
@@ -469,11 +382,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">timestamp</span></div>
 
 <div class="viewcode-block" id="Event.__repr__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.Event.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="TimedQueue"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue">[docs]</a><span class="k">class</span> <span class="nc">TimedQueue</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Accumulates events as timestamps and functions.</span>
+    <span class="sd">"""Accumulates events as timestamps and functions.</span>
 
 <span class="sd">    Executes given functions according to the timestamps</span>
 
@@ -486,7 +399,7 @@
 <span class="sd">    drop_time_threshold : float, optional</span>
 <span class="sd">        Threshold for execution time of events in seconds.</span>
 <span class="sd">        If this is exceeded the event will be dropped, by default 0.5</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -509,18 +422,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TimedQueue.close"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Closes event processing without waiting for pending events&quot;&quot;&quot;</span>
+        <span class="sd">"""Closes event processing without waiting for pending events"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="TimedQueue.join"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.join">[docs]</a>    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Closes event processing after waiting for pending events&quot;&quot;&quot;</span>
+        <span class="sd">"""Closes event processing after waiting for pending events"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">complete</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">close_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="TimedQueue.complete"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.complete">[docs]</a>    <span class="k">def</span> <span class="nf">complete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Blocks until all pending events have completed&quot;&quot;&quot;</span>
+        <span class="sd">"""Blocks until all pending events have completed"""</span>
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="p">:</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span></div>
 
@@ -531,7 +444,7 @@
         <span class="n">args</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
         <span class="n">spawn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Adds event to queue</span>
+        <span class="sd">"""Adds event to queue</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -548,10 +461,10 @@
 <span class="sd">        ------</span>
 <span class="sd">        TypeError</span>
 <span class="sd">            raised if function is not callable</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;function argument cannot be called&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"function argument cannot be called"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span><span class="p">,)</span>
         <span class="n">new_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">spawn</span><span class="p">)</span>
@@ -567,41 +480,41 @@
             <span class="p">)</span>
 
 <div class="viewcode-block" id="TimedQueue.get"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Get latest event from queue and remove event</span>
+        <span class="sd">"""Get latest event from queue and remove event</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Event</span>
 <span class="sd">            Latest event</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">peek</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">event</span></div>
 
 <div class="viewcode-block" id="TimedQueue.peek"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.peek">[docs]</a>    <span class="k">def</span> <span class="nf">peek</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Look up latest event from queue</span>
+        <span class="sd">"""Look up latest event from queue</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Event</span>
 <span class="sd">            Latest event</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span></div>
 
 <div class="viewcode-block" id="TimedQueue.empty"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.empty">[docs]</a>    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Checks if queue is empty</span>
+        <span class="sd">"""Checks if queue is empty</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        bool</span>
 <span class="sd">            True if queue if empty</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TimedQueue.pop"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Removes latest event from queue&quot;&quot;&quot;</span>
+        <span class="sd">"""Removes latest event from queue"""</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="n">event_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">onset_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -610,7 +523,7 @@
             <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="p">[</span><span class="n">event_idx</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="TimedQueue.__worker"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.__worker">[docs]</a>    <span class="k">def</span> <span class="nf">__worker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sleep_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">close_event</span><span class="p">:</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Worker function to process events&quot;&quot;&quot;</span>
+        <span class="sd">"""Worker function to process events"""</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">close_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
                 <span class="k">break</span>
@@ -625,21 +538,21 @@
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TimedQueue.__repr__"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;TimedQueue </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;TimedQueue </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">event_list</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span><span class="si">}</span><span class="s2">&gt;"</span></div>
 
 <div class="viewcode-block" id="TimedQueue.elapse"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueue.elapse">[docs]</a>    <span class="k">def</span> <span class="nf">elapse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add time delta to the current queue time.</span>
+        <span class="sd">"""Add time delta to the current queue time.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        time_delta : float</span>
 <span class="sd">            Additional time</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">+=</span> <span class="n">time_delta</span></div></div>
 
 
 <div class="viewcode-block" id="TimedQueueSC"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC">[docs]</a><span class="k">class</span> <span class="nc">TimedQueueSC</span><span class="p">(</span><span class="n">TimedQueue</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Timed queue with OSC communication.</span>
+    <span class="sd">"""Timed queue with OSC communication.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -649,7 +562,7 @@
 <span class="sd">        If True, use relative time, by default False</span>
 <span class="sd">    thread_sleep_time : float, optional</span>
 <span class="sd">        Sleep time in seconds for worker thread, by default 0.001</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -661,7 +574,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">server</span>
 
 <div class="viewcode-block" id="TimedQueueSC.put_bundler"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC.put_bundler">[docs]</a>    <span class="k">def</span> <span class="nf">put_bundler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">bundler</span><span class="p">:</span> <span class="n">Bundler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add a Bundler to queue</span>
+        <span class="sd">"""Add a Bundler to queue</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -669,13 +582,13 @@
 <span class="sd">            Sending timetag of the Bundler</span>
 <span class="sd">        bundler : Bundler</span>
 <span class="sd">            Bundler that will be sent</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">bundler</span><span class="o">.</span><span class="n">send</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TimedQueueSC.put_msg"><a class="viewcode-back" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#sc3nb.TimedQueueSC.put_msg">[docs]</a>    <span class="k">def</span> <span class="nf">put_msg</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">onset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OSCMessage</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">msg_params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add a message to queue</span>
+        <span class="sd">"""Add a message to queue</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -685,30 +598,25 @@
 <span class="sd">            OSCMessage or OSC address</span>
 <span class="sd">        msg_params : Iterable[Any]</span>
 <span class="sd">            If msg is str, this will be the parameters of the created OSCMessage</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">msg_params</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">msg</span><span class="p">,))</span></div></div>
 </pre></div>
-
-           </div>
-           
-          </div>
-          <footer>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+</div>
+</div>
+<footer>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
         Revision <code>a543dec7fb</code>.
       </span>
-
-    </p>
-  </div>
+</p>
+</div>
     
     
     
@@ -719,56 +627,24 @@
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      <span class="fa fa-book"> Read the Docs</span>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
       v: 1.0.1
       <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
-      
-      
-      <dl>
-        <dt>Versions</dt>
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-      </dl>
-      
-      
-      
-    </div>
-  </div>
-
-
-  <script type="text/javascript">
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
+</div>
+</div>
+<script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-   
-
 </body>
 </html>

@@ -309,7 +309,7 @@ Content
 
 .. class:: BufferInfo
 
-   **Bases:** :class:`typing.NamedTuple`
+   **Bases:** :class:`NamedTuple`
 
    Information about the Buffer
 
@@ -358,7 +358,7 @@ Content
 
 
 
-.. class:: Buffer(bufnum: Optional[int] = None, server: Optional['SCServer'] = None)
+.. class:: Buffer(bufnum: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    A Buffer object represents a SuperCollider3 Buffer on scsynth
@@ -479,7 +479,7 @@ Content
          sc3nb.sc_objects.buffer.Buffer.server
          sc3nb.sc_objects.buffer.Buffer._gen_flags
 
-   .. method:: read(self, path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: read(self, path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> Buffer
 
       Allocate buffer memory and read a sound file.
 
@@ -526,7 +526,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: alloc(self, size: int, sr: int = 44100, channels: int = 1) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: alloc(self, size: int, sr: int = 44100, channels: int = 1) -> Buffer
 
       Allocate buffer memory.
 
@@ -567,7 +567,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_data(self, data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_data(self, data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> Buffer
 
       Allocate buffer memory and read input data.
 
@@ -612,7 +612,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_collection(self, data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_collection(self, data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> Buffer
 
       Wrapper method of :func:`Buffer.load_data`
 
@@ -635,7 +635,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_asig(self, asig: pya.Asig, mode: str = 'file') -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_asig(self, asig: pya.Asig, mode: str = 'file') -> Buffer
 
       Create buffer from asig
 
@@ -673,7 +673,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: use_existing(self, bufnum: int, sr: int = 44100) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: use_existing(self, bufnum: int, sr: int = 44100) -> Buffer
 
       Creates a buffer object from already existing Buffer bufnum.
 
@@ -711,7 +711,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: copy_existing(self, buffer: sc3nb.sc_objects.buffer.Buffer) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: copy_existing(self, buffer: Buffer) -> Buffer
 
       Duplicate an existing buffer
 
@@ -746,7 +746,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: fill(self, start: int = 0, count: int = 0, value: float = 0) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: fill(self, start: int = 0, count: int = 0, value: float = 0) -> Buffer
 
       Fill range of samples with value(s).
 
@@ -788,7 +788,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen(self, command: str, args: List[Any]) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen(self, command: str, args: List[Any]) -> Buffer
 
       Call a command to fill a buffer.
       If you know, what you do -> you can use this method.
@@ -832,7 +832,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: zero(self) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: zero(self) -> Buffer
 
       Set buffer data to zero.
 
@@ -863,7 +863,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_sine1(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_sine1(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fill the buffer with sine waves & given amplitude
 
@@ -912,7 +912,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_sine2(self, freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_sine2(self, freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fill the buffer with sine waves
       given list of [frequency, amplitude] lists
@@ -962,7 +962,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_sine3(self, freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_sine3(self, freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fill the buffer with sine waves & given a list of
       [frequency, amplitude, phase] entries.
@@ -1011,7 +1011,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_cheby(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_cheby(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fills a buffer with a series of chebyshev polynomials, which can be
       defined as cheby(n) = amplitude * cos(n * acos(x))
@@ -1061,7 +1061,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_copy(self, source: sc3nb.sc_objects.buffer.Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_copy(self, source: Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> Buffer
 
       Copy samples from the source buffer to the destination buffer
       specified in the b_gen command.
@@ -1152,7 +1152,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: write(self, path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: write(self, path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> Buffer
 
       Write buffer data to a sound file
 
@@ -1209,7 +1209,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: close(self) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: close(self) -> Buffer
 
       Close soundfile after using a Buffer with DiskOut
 
@@ -1271,7 +1271,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query(self) -> sc3nb.sc_objects.buffer.BufferInfo
+   .. method:: query(self) -> BufferInfo
 
       Get buffer info.
 
@@ -1409,7 +1409,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: alloc_mode(self) -> sc3nb.sc_objects.buffer.BufferAllocationMode
+   .. method:: alloc_mode(self) -> BufferAllocationMode
       :property:
 
       Mode of Buffer allocation.
@@ -1440,7 +1440,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: path(self) -> Optional[Path]
+   .. method:: path(self) -> Optional[pathlib.Path]
       :property:
 
       File path that was provided to read.

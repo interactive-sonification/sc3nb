@@ -1,102 +1,57 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Nodes (Synth and Group) &mdash; sc3nb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nodes (Synth and Group) — sc3nb  documentation</title>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="SynthDef" href="synthdef-examples.html" />
-    <link rel="prev" title="Server" href="server-examples.html" /> 
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+<script src="../../../_static/jquery.js"></script>
+<script src="../../../_static/underscore.js"></script>
+<script src="../../../_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script src="../../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="synthdef-examples.html" rel="next" title="SynthDef"/>
+<link href="server-examples.html" rel="prev" title="Server"/>
 </head>
-
 <body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home"> sc3nb
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index.html"> sc3nb
           
 
           
           </a>
-
-          
-            
-            
-              <div class="version">
+<div class="version">
                 1.0.1
               </div>
-            
-          
-
-          
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
@@ -351,75 +306,29 @@
 </ul>
 </li>
 </ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">sc3nb</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="../../../supercolliderobjects.html">SuperCollider objects</a> &raquo;</li>
-        
-      <li>Nodes (Synth and Group)</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/autogen/notebooks/supercollider-objects/node-examples.nblink.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a class="icon icon-home" href="../../../index.html"></a> »</li>
+<li><a href="../../../supercolliderobjects.html">SuperCollider objects</a> »</li>
+<li>Nodes (Synth and Group)</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../../_sources/autogen/notebooks/supercollider-objects/node-examples.nblink.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
 <style>
 /* CSS for nbsphinx extension */
 
@@ -832,7 +741,7 @@ Group(1) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;s2&quot;</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+<span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"s2"</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
 <span class="n">synth</span>
 </pre></div>
 </div>
@@ -843,7 +752,7 @@ Group(1) s {} children=[]
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100}&gt;
+&lt;Synth(20001) 's2' s {'freq': 100}&gt;
 </pre></div></div>
 </div>
 <p>You can now hear the Synth playing and see it in the NodeTree</p>
@@ -888,7 +797,7 @@ Group(0)  {} children=[
   Group(201326593) s {} children=[],
   Group(134217729) s {} children=[],
   Group(67108865) s {} children=[
-    &lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;],
+    &lt;Synth(20001) 's2' ~ {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;],
   Group(1) s {} children=[]]
 </pre></div></div>
 </div>
@@ -908,7 +817,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' f {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>Start the synth again</p>
@@ -927,7 +836,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -964,7 +873,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-Error at SCServer(&#39;127.0.0.1&#39;, 57110) pid=6576 from scsynth: (&#39;/fail&#39;, &#39;/s_new&#39;, &#39;duplicate node ID&#39;)
+Error at SCServer('127.0.0.1', 57110) pid=6576 from scsynth: ('/fail', '/s_new', 'duplicate node ID')
 </pre></div></div>
 </div>
 <p>Pause a synth</p>
@@ -983,7 +892,7 @@ Error at SCServer(&#39;127.0.0.1&#39;, 57110) pid=6576 from scsynth: (&#39;/fail
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1001,7 +910,7 @@ Error at SCServer(&#39;127.0.0.1&#39;, 57110) pid=6576 from scsynth: (&#39;/fail
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>Run a paused synth</p>
@@ -1020,7 +929,7 @@ Error at SCServer(&#39;127.0.0.1&#39;, 57110) pid=6576 from scsynth: (&#39;/fail
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 100.0, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>You can also wait for a Synth</p>
@@ -1029,7 +938,7 @@ Error at SCServer(&#39;127.0.0.1&#39;, 57110) pid=6576 from scsynth: (&#39;/fail
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth_with_duration</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dur</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span></span><span class="n">synth_with_duration</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s1"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dur</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 <span class="c1"># wait for the Synth to finish playing</span>
 <span class="n">synth_with_duration</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 </pre></div>
@@ -1049,7 +958,7 @@ set(dict)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1059,7 +968,7 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 200, &#39;amp&#39;: 0.30000001192092896, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 200, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1067,7 +976,7 @@ set(dict)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"amp"</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1077,7 +986,7 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 30, &#39;amp&#39;: 0.3, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 30, 'amp': 0.3, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1085,7 +994,7 @@ set(dict)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">({</span><span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span> <span class="s2">&quot;amp&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">({</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span> <span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1095,7 +1004,7 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 130, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 130, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>The Synth does save its current control arguments in <code class="docutils literal notranslate"><span class="pre">current_controls</span></code></p>
@@ -1114,12 +1023,12 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;freq&#39;: 130,
- &#39;amp&#39;: 0.1,
- &#39;num&#39;: 4.0,
- &#39;pan&#39;: 0.0,
- &#39;lg&#39;: 0.10000000149011612,
- &#39;gate&#39;: 1.0}
+{'freq': 130,
+ 'amp': 0.1,
+ 'num': 4.0,
+ 'pan': 0.0,
+ 'lg': 0.10000000149011612,
+ 'gate': 1.0}
 </pre></div></div>
 </div>
 <p>However these are only cached values on the python object. Updating them will only affect the <code class="docutils literal notranslate"><span class="pre">new</span></code> call. See below why this can be useful.</p>
@@ -1128,7 +1037,7 @@ set(dict)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span><span class="p">[</span><span class="s1">&#39;freq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">440</span>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span><span class="p">[</span><span class="s1">'freq'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">440</span>
 <span class="n">synth</span>
 </pre></div>
 </div>
@@ -1139,7 +1048,7 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 440, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1158,7 +1067,7 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; s {&#39;freq&#39;: 440, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' s {'freq': 440, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>To see what arguments can be set you can look at the <code class="docutils literal notranslate"><span class="pre">synth_desc</span></code></p>
@@ -1177,12 +1086,12 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;freq&#39;: SynthArgument(name=&#39;freq&#39;, rate=&#39;control&#39;, default=400.0),
- &#39;amp&#39;: SynthArgument(name=&#39;amp&#39;, rate=&#39;control&#39;, default=0.30000001192092896),
- &#39;num&#39;: SynthArgument(name=&#39;num&#39;, rate=&#39;control&#39;, default=4.0),
- &#39;pan&#39;: SynthArgument(name=&#39;pan&#39;, rate=&#39;control&#39;, default=0.0),
- &#39;lg&#39;: SynthArgument(name=&#39;lg&#39;, rate=&#39;control&#39;, default=0.10000000149011612),
- &#39;gate&#39;: SynthArgument(name=&#39;gate&#39;, rate=&#39;control&#39;, default=1.0)}
+{'freq': SynthArgument(name='freq', rate='control', default=400.0),
+ 'amp': SynthArgument(name='amp', rate='control', default=0.30000001192092896),
+ 'num': SynthArgument(name='num', rate='control', default=4.0),
+ 'pan': SynthArgument(name='pan', rate='control', default=0.0),
+ 'lg': SynthArgument(name='lg', rate='control', default=0.10000000149011612),
+ 'gate': SynthArgument(name='gate', rate='control', default=1.0)}
 </pre></div></div>
 </div>
 <p>You can use <code class="docutils literal notranslate"><span class="pre">get</span></code> to see the current value. This will request the current value from the SuperCollider audio server</p>
@@ -1191,7 +1100,7 @@ set(dict)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">)</span>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1209,7 +1118,7 @@ set(dict)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pan&quot;</span><span class="p">)</span>
+<span></span><span class="n">synth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pan"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1238,7 +1147,7 @@ set(dict)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; ~ {&#39;freq&#39;: 440.0, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: 0.0, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' ~ {'freq': 440.0, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>This is also possible directly with</p>
@@ -1304,7 +1213,7 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20001) &#39;s2&#39; f {&#39;freq&#39;: 440.0, &#39;amp&#39;: 0.1, &#39;num&#39;: 4.0, &#39;pan&#39;: -1, &#39;lg&#39;: 0.10000000149011612, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20001) 's2' f {'freq': 440.0, 'amp': 0.1, 'num': 4.0, 'pan': -1, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <p>Keep in mind that getting a synth value is always querying the server.</p>
@@ -1315,9 +1224,9 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span> <span class="k">as</span> <span class="n">bundle</span><span class="p">:</span>
-    <span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">({</span><span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">600</span><span class="p">})</span>
+    <span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">({</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">600</span><span class="p">})</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-        <span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s1">&#39;freq&#39;</span><span class="p">,</span> <span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span><span class="p">[</span><span class="s1">&#39;freq&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.99</span><span class="p">])</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s1">'freq'</span><span class="p">,</span> <span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span><span class="p">[</span><span class="s1">'freq'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.99</span><span class="p">])</span>
         <span class="n">bundle</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
     <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </pre></div>
@@ -1348,7 +1257,7 @@ SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;OSCMessage(&#34;/s_new&#34;, [&#39;s2&#39;, 20001, 0, 67108865, &#39;freq&#39;, 219.61940002441406, &#39;amp&#39;, 0.10000000149011612, &#39;num&#39;, 4.0, &#39;pan&#39;, -1, &#39;lg&#39;, 0.10000000149011612, &#39;gate&#39;, 1.0])&gt;
+&lt;OSCMessage("/s_new", ['s2', 20001, 0, 67108865, 'freq', 219.61940002441406, 'amp', 0.10000000149011612, 'num', 4.0, 'pan', -1, 'lg', 0.10000000149011612, 'gate', 1.0])&gt;
 </pre></div></div>
 </div>
 <p>Refer to the <a class="reference internal" href="../osc-communication-examples.html"><span class="doc">OSC communication example notebook</span></a> if you want to learn more about messages and bundles.</p>
@@ -1771,7 +1680,7 @@ Group(20006) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">s0</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">g0</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
+<span></span><span class="n">s0</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">g0</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1780,7 +1689,7 @@ Group(20006) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">BEFORE</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">s0</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">600</span><span class="p">})</span>
+<span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">BEFORE</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">s0</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">600</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1789,7 +1698,7 @@ Group(20006) s {} children=[]
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">TO_TAIL</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">g1</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">})</span>
+<span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">TO_TAIL</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">g1</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">1200</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1817,10 +1726,10 @@ Group(0)  {} children=[
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
     Group(20005) ~ {} children=[
-      &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-      &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
+      &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+      &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
       Group(20006) ~ {} children=[
-        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]],
+        &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1839,7 +1748,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;
+&lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1866,10 +1775,10 @@ Group(0)  {} children=[
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
     Group(20005) ~ {} children=[
-      &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
+      &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
       Group(20006) ~ {} children=[
-        &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]],
+        &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+        &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1889,10 +1798,10 @@ Group(0)  {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(20005) ~ {} children=[
-  &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
+  &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
   Group(20006) ~ {} children=[
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+    &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1911,10 +1820,10 @@ Group(20005) ~ {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(20005) ~ {} children=[
-  &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
+  &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
   Group(20006) ~ {} children=[
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+    &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1933,10 +1842,10 @@ Group(20005) ~ {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(20005) ~ {} children=[
-  &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
+  &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
   Group(20006) ~ {} children=[
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+    &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1956,8 +1865,8 @@ Group(20005) ~ {} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(20006) ~ {} children=[
-  &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 600.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-  &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 1200.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]
+  &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1983,7 +1892,7 @@ Group(20006) ~ {} children=[
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">g0</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span></span><span class="n">g0</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
 </pre></div>
 </div>
@@ -2046,8 +1955,8 @@ NODE TREE Group 0
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(20006) ~ {} children=[
-  &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-  &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]
+  &lt;Synth(20008) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  &lt;Synth(20009) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2073,11 +1982,11 @@ Group(0)  {} children=[
   Group(201326593) ~ {} children=[],
   Group(134217729) ~ {} children=[],
   Group(67108865) ~ {} children=[
-    Group(20005) ~ {&#39;freq&#39;: 100} children=[
-      &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
+    Group(20005) ~ {'freq': 100} children=[
+      &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
       Group(20006) ~ {} children=[
-        &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-        &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]],
+        &lt;Synth(20008) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+        &lt;Synth(20009) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -2086,7 +1995,7 @@ Group(0)  {} children=[
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">440</span><span class="p">)</span>
+<span></span><span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">440</span><span class="p">)</span>
 
 <span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
 </pre></div>
@@ -2116,11 +2025,11 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(20005) ~ {&#39;freq&#39;: 100} children=[
-  &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-  Group(20006) ~ {&#39;freq&#39;: 440} children=[
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+Group(20005) ~ {'freq': 100} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {'freq': 440} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2138,11 +2047,11 @@ Group(20005) ~ {&#39;freq&#39;: 100} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(20005) ~ {&#39;freq&#39;: 100} children=[
-  &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-  Group(20006) ~ {&#39;freq&#39;: 440} children=[
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+Group(20005) ~ {'freq': 100} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {'freq': 440} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2160,11 +2069,11 @@ Group(20005) ~ {&#39;freq&#39;: 100} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(20005) ~ {&#39;freq&#39;: 100} children=[
-  &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-  Group(20006) ~ {&#39;freq&#39;: 440} children=[
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+Group(20005) ~ {'freq': 100} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {'freq': 440} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2172,7 +2081,7 @@ Group(20005) ~ {&#39;freq&#39;: 100} children=[
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+<span></span><span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
 
 <span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
 </pre></div>
@@ -2203,11 +2112,11 @@ Group(20005) ~ {&#39;freq&#39;: 100} children=[
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(67108865) ~ {} children=[
-  Group(20005) ~ {&#39;freq&#39;: 100} children=[
-    &lt;Synth(20007) &#39;default&#39; ~ {&#39;freq&#39;: 100.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;,
-    Group(20006) ~ {&#39;freq&#39;: 800} children=[
-      &lt;Synth(20009) &#39;default&#39; ~ {&#39;freq&#39;: 800.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;],
-    &lt;Synth(20008) &#39;default&#39; ~ {&#39;freq&#39;: 440.0, &#39;out&#39;: 0.0, &#39;amp&#39;: 0.10000000149011612, &#39;pan&#39;: 0.0, &#39;gate&#39;: 1.0}&gt;]]
+  Group(20005) ~ {'freq': 100} children=[
+    &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    Group(20006) ~ {'freq': 800} children=[
+      &lt;Synth(20009) 'default' ~ {'freq': 800.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;],
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2266,29 +2175,23 @@ Exiting sclang... Done.
 </div>
 </div>
 </div>
-
-
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="synthdef-examples.html" class="btn btn-neutral float-right" title="SynthDef" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="server-examples.html" class="btn btn-neutral float-left" title="Server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="synthdef-examples.html" rel="next" title="SynthDef">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="server-examples.html" rel="prev" title="Server"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
         Revision <code>a543dec7fb</code>.
       </span>
-
-    </p>
-  </div>
+</p>
+</div>
     
     
     
@@ -2299,56 +2202,24 @@ Exiting sclang... Done.
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      <span class="fa fa-book"> Read the Docs</span>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
       v: 1.0.1
       <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
-      
-      
-      <dl>
-        <dt>Versions</dt>
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-      </dl>
-      
-      
-      
-    </div>
-  </div>
-
-
-  <script type="text/javascript">
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+</div>
+</div>
+<script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-   
-
 </body>
 </html>

@@ -1,102 +1,57 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>TimedQueue &mdash; sc3nb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TimedQueue — sc3nb  documentation</title>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="sc3nb" href="../autoapi/sc3nb/index.html" />
-    <link rel="prev" title="Helper functions" href="helper-examples.html" /> 
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/jquery.js"></script>
+<script src="../../_static/underscore.js"></script>
+<script src="../../_static/doctools.js"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script src="../../_static/js/theme.js" type="text/javascript"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../autoapi/sc3nb/index.html" rel="next" title="sc3nb"/>
+<link href="helper-examples.html" rel="prev" title="Helper functions"/>
 </head>
-
 <body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../index.html" class="icon icon-home"> sc3nb
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html"> sc3nb
           
 
           
           </a>
-
-          
-            
-            
-              <div class="version">
+<div class="version">
                 1.0.1
               </div>
-            
-          
-
-          
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+</div>
+<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
@@ -351,73 +306,28 @@
 </ul>
 </li>
 </ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">sc3nb</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>TimedQueue</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../_sources/autogen/notebooks/timedqueue-examples.nblink.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="top navigation" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a class="icon icon-home" href="../../index.html"></a> »</li>
+<li>TimedQueue</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/autogen/notebooks/timedqueue-examples.nblink.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
 <style>
 /* CSS for nbsphinx extension */
 
@@ -744,11 +654,11 @@ import sc3nb as scn
 </div>
 <div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>def myfun(x):
-    os.write(1, &quot;{}\n&quot;.format(x).encode())
+    os.write(1, "{}\n".format(x).encode())
     sys.stderr.flush()
 
 def myblip(freq):
-    sc.server.msg(&quot;/s_new&quot;, [&quot;s1&quot;, -1, 1, 0, &quot;freq&quot;, freq, &quot;num&quot;, 3])
+    sc.server.msg("/s_new", ["s1", -1, 1, 0, "freq", freq, "num", 3])
 </pre></div>
 </div>
 </div>
@@ -839,8 +749,8 @@ data = np.vstack((np.random.randn(50, 5), np.random.randn(100, 5)+3.5))
 <span></span># create figure, axis, plots -&gt; a window should open depicting two clusters
 fig, ax = plt.subplots(1)  # create figure
 mngr = plt.get_current_fig_manager(); mngr.window.setGeometry(1200, 0, 500, 400)
-pldata, = ax.plot(data[:,1], data[:,2], &quot;.&quot;, ms=5) # create plots
-plmarked, = ax.plot([], [], &quot;ro&quot;, ms=5, lw=0.5)
+pldata, = ax.plot(data[:,1], data[:,2], ".", ms=5) # create plots
+plmarked, = ax.plot([], [], "ro", ms=5, lw=0.5)
 plt.show(block=False); plt.ion(); fig.canvas.draw() # not needed if plot shows
 
 # create the queue
@@ -873,9 +783,9 @@ for i, r in enumerate(data):
     onset = t0 + scn.linlin(r[1], data[:,1].min(), data[:,1].max(), 0.1, 4) + random.random()*0.2 + 0.2
     freq = scn.midicps(scn.linlin(r[2], 2, 5, 60, 80))
     pos = scn.linlin(r[4], 0, 2, -1, 1)
-    queue.put_bundler(onset-0.2, scn.Bundler(onset, &quot;/s_new&quot;, [&quot;s1&quot;, -1, 1, 0, &quot;freq&quot;, freq, &quot;amp&quot;, 0.05, &quot;dur&quot;, .52, &quot;pos&quot;, pos]))
+    queue.put_bundler(onset-0.2, scn.Bundler(onset, "/s_new", ["s1", -1, 1, 0, "freq", freq, "amp", 0.05, "dur", .52, "pos", pos]))
     queue.put(onset, update_plot, (r[1], r[2]), spawn=False)
-print(f&#39;time used: {time.time() - t0}&#39;)
+print(f'time used: {time.time() - t0}')
 </pre></div>
 </div>
 </div>
@@ -946,8 +856,8 @@ selected = np.zeros(np.shape(data)[0], bool)
 
 # create axis, plots
 ax.clear()
-plmarked, = ax.plot([], [], &quot;ro&quot;, ms=4, lw=0.5)
-pldata, = ax.plot(data[:,1], data[:,2], &quot;.&quot;, ms=2) # create plots
+plmarked, = ax.plot([], [], "ro", ms=4, lw=0.5)
+pldata, = ax.plot(data[:,1], data[:,2], ".", ms=2) # create plots
 
 t0 = time.time()
 
@@ -956,8 +866,8 @@ for i, r in enumerate(data):
     freq  = scn.midicps( mapcol(r, stats, 2, 60, 90))
     ev_dur = mapcol(r, stats, 4, 0.2, max_ev_dur)
     # sonification
-    synth_args = [&quot;s1&quot;, -1, 1, 0, &quot;freq&quot;, freq, &quot;amp&quot;, 0.05, &quot;dur&quot;, ev_dur, &quot;pos&quot;, pos]
-    bundler = scn.Bundler(onset, &quot;/s_new&quot;, synth_args)
+    synth_args = ["s1", -1, 1, 0, "freq", freq, "amp", 0.05, "dur", ev_dur, "pos", pos]
+    bundler = scn.Bundler(onset, "/s_new", synth_args)
     queue.put_bundler(onset-delay, bundler)
     # on/off events of marker highlight
     queue.put(onset, select, i)
@@ -1001,9 +911,9 @@ mngr = plt.get_current_fig_manager(); mngr.window.setGeometry(1200, 0, 500, 400)
 
 # create axis, plots
 ax.clear()
-plmarked, = ax.plot([], [], &quot;r-&quot;, lw=1)
-pldata1, = ax.plot(data[:,0], data[:,1], &quot;-&quot;, ms=2) # create plot 1
-pldata2, = ax.plot(data[:,0], data[:,2], &quot;-&quot;, ms=2) # create plot 2
+plmarked, = ax.plot([], [], "r-", lw=1)
+pldata1, = ax.plot(data[:,0], data[:,1], "-", ms=2) # create plot 1
+pldata2, = ax.plot(data[:,0], data[:,2], "-", ms=2) # create plot 2
 </pre></div>
 </div>
 </div>
@@ -1036,8 +946,8 @@ delay = 0.5
 rate = 2
 
 t0 = time.time()
-queue.put_msg(t0, &quot;/s_new&quot;, [&quot;s2&quot;, 1200, 1, 0, &quot;amp&quot;, 0])
-queue.put_msg(t0, &quot;/s_new&quot;, [&quot;s2&quot;, 1201, 1, 0, &quot;amp&quot;, 0])
+queue.put_msg(t0, "/s_new", ["s2", 1200, 1, 0, "amp", 0])
+queue.put_msg(t0, "/s_new", ["s2", 1201, 1, 0, "amp", 0])
 
 max_onset = 0
 latest_gui_onset = 0
@@ -1055,14 +965,14 @@ for i, r in enumerate(data[::2, :]):
     tt = t0 + delay + onset
     if tt &gt; max_onset: max_onset = tt
     bundler = scn.Bundler(tt)
-    bundler.add(0, &quot;/n_set&quot;, [1200, &quot;freq&quot;, freq, &quot;num&quot;, 4, &quot;amp&quot;, 0.2, &quot;pan&quot;, -1, &quot;lg&quot;, 0])
-    bundler.add(0, &quot;/n_set&quot;, [1201, &quot;freq&quot;, freqR, &quot;num&quot;, 1, &quot;amp&quot;, 0.1, &quot;pan&quot;, 1])
+    bundler.add(0, "/n_set", [1200, "freq", freq, "num", 4, "amp", 0.2, "pan", -1, "lg", 0])
+    bundler.add(0, "/n_set", [1201, "freq", freqR, "num", 1, "amp", 0.1, "pan", 1])
     queue.put_bundler(tt-0.2, bundler)
     if tt &gt; latest_gui_onset + 1/gui_frame_rate:  # not more than needed gui updates
         latest_gui_onset = tt
         queue.put(tt, update_plot, (r[0],), spawn=False)
-queue.put_msg(max_onset, &quot;/n_free&quot;, [1200])
-queue.put_msg(max_onset, &quot;/n_free&quot;, [1201])
+queue.put_msg(max_onset, "/n_free", [1200])
+queue.put_msg(max_onset, "/n_free", [1201])
 
 # queue.join()
 print(time.time()-t0)
@@ -1080,29 +990,23 @@ print(time.time()-t0)
 </div>
 </div>
 </div>
-
-
-           </div>
-           
-          </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../autoapi/sc3nb/index.html" class="btn btn-neutral float-right" title="sc3nb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="helper-examples.html" class="btn btn-neutral float-left" title="Helper functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Thomas Hermann, Dennis Reinsch.
+</div>
+</div>
+<footer>
+<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
+<a accesskey="n" class="btn btn-neutral float-right" href="../autoapi/sc3nb/index.html" rel="next" title="sc3nb">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<a accesskey="p" class="btn btn-neutral float-left" href="helper-examples.html" rel="prev" title="Helper functions"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>
+        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
         Revision <code>a543dec7fb</code>.
       </span>
-
-    </p>
-  </div>
+</p>
+</div>
     
     
     
@@ -1113,56 +1017,24 @@ print(time.time()-t0)
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      <span class="fa fa-book"> Read the Docs</span>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
       v: 1.0.1
       <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
-      
-      
-      <dl>
-        <dt>Versions</dt>
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd>
-          
-        
-          
-          <dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd>
-          
-        
-      </dl>
-      
-      
-      
-    </div>
-  </div>
-
-
-  <script type="text/javascript">
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+</div>
+</div>
+<script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-
-  
-  
-    
-   
-
 </body>
 </html>

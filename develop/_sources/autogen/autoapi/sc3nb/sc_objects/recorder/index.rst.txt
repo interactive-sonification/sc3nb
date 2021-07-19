@@ -84,7 +84,7 @@ Content
 
 
 
-.. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[SCServer] = None)
+.. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    Allows to record audio easily.
@@ -207,7 +207,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: int = 0)
+   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: int = 0)
 
       Start the recording.
 

@@ -72,6 +72,7 @@ Class List
    sc3nb.SynthDef
    sc3nb.Buffer
    sc3nb.Bus
+   sc3nb.Score
    sc3nb.Recorder
    sc3nb.TimedQueue
    sc3nb.TimedQueueSC
@@ -83,7 +84,7 @@ Class List
 Content
 ~~~~~~~
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
+.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
 
    Inits SuperCollider (scsynth, sclang) and registers ipython magics
 
@@ -142,7 +143,7 @@ Content
        !! processed by numpydoc !!
 
 
-.. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[ServerOptions] = None, with_blib: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
+.. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
 
    Create a SuperCollider Wrapper object.
@@ -165,7 +166,7 @@ Content
        **scsynth_options** : Optional[ServerOptions], optional
            Options for the server, by default None.
 
-       **with_blib** : bool, optional
+       **with_blip** : bool, optional
            Make a sound when booted, by default True.
 
        **console_logging** : bool, optional
@@ -197,7 +198,7 @@ Content
 
 
    .. attribute:: default
-      :annotation: :Optional['SC']
+      :annotation: :Optional[SC]
 
       Default SC instance.
 
@@ -239,7 +240,7 @@ Content
          sc3nb.SC.__repr__
          sc3nb.SC.exit
 
-   .. method:: get_default(cls) -> sc3nb.sc.SC
+   .. method:: get_default(cls) -> SC
       :classmethod:
 
       Get the default SC instance
@@ -308,7 +309,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start_server(self, scsynth_options: Optional[ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
+   .. method:: start_server(self, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
       Start this SuperCollider server
 
@@ -565,14 +566,9 @@ Content
          sc3nb.SCServer.load_synthdef
          sc3nb.SCServer.load_synthdefs
          sc3nb.SCServer.notify
-         sc3nb.SCServer._get_errors_for_address
          sc3nb.SCServer.free_all
          sc3nb.SCServer.clear_schedule
          sc3nb.SCServer.send_default_groups
-         sc3nb.SCServer.allocate_node_id
-         sc3nb.SCServer.allocate_buffer_id
-         sc3nb.SCServer.allocate_control_bus_idx
-         sc3nb.SCServer.allocate_audio_bus_idx
          sc3nb.SCServer.client_id
          sc3nb.SCServer.max_logins
          sc3nb.SCServer.default_group
@@ -586,11 +582,11 @@ Content
          sc3nb.SCServer.status
          sc3nb.SCServer.dump_osc
          sc3nb.SCServer.dump_tree
-         sc3nb.SCServer.query_all_nodes
+         sc3nb.SCServer.query_tree
          sc3nb.SCServer.peak_cpu
          sc3nb.SCServer.avg_cpu
-         sc3nb.SCServer.sample_rate
-         sc3nb.SCServer.actual_sample_rate
+         sc3nb.SCServer.nominal_sr
+         sc3nb.SCServer.actual_sr
          sc3nb.SCServer.num_synths
          sc3nb.SCServer.num_groups
          sc3nb.SCServer.num_ugens
@@ -601,6 +597,9 @@ Content
          sc3nb.SCServer.unresponsive
          sc3nb.SCServer.is_local
          sc3nb.SCServer.pid
+         sc3nb.SCServer._init_osc_communication
+         sc3nb.SCServer._get_errors_for_address
+         sc3nb.SCServer._log_repr
          sc3nb.SCServer._log_message
          sc3nb.SCServer._warn_fail
          sc3nb.SCServer.__repr__
@@ -687,6 +686,9 @@ Content
 
       Run all init hook functions.
 
+      This is automatically done when running free_all, init or connect_sclang.
+
+      Hooks can be added using add_init_hook
 
 
 
@@ -734,18 +736,21 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add_init_hook(self, function: Callable[(..., None)], args: Optional[Sequence[Any]] = None) -> None
+   .. method:: add_init_hook(self, hook: Callable[Ellipsis, None], *args: Any, **kwargs: Any) -> None
 
       Add a function to be executed when the server is initialized
 
 
       :Parameters:
 
-          **function** : Callable[..., None]
+          **hook** : Callable[..., None]
               Function to be executed
 
-          **args** : Optional[Sequence[Any]], optional
-              Arguments given to function, by default None
+          **args** : Any, optional
+              Arguments given to function
+
+          **kwargs** : Any, optional
+              Keyword arguments given to function
 
 
 
@@ -1099,9 +1104,6 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _get_errors_for_address(self, address: str)
-
-
    .. method:: free_all(self, root: bool = True) -> None
 
       Free all node ids.
@@ -1159,114 +1161,6 @@ Content
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_node_id(self) -> int
-
-      Get a node id.
-
-
-
-      :Returns:
-
-          int
-              node id
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_buffer_id(self, num: int = 1) -> Sequence[int]
-
-      Get the next free buffer id.
-
-
-
-      :Returns:
-
-          int
-              buffer id
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_control_bus_idx(self, num: int = 1) -> Sequence[int]
-
-      Get the next free bus id.
-
-
-
-      :Returns:
-
-          int
-              bus id
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocate_audio_bus_idx(self, num: int = 1) -> Sequence[int]
-
-      Get the next free bus id.
-
-
-
-      :Returns:
-
-          int
-              bus id
 
 
 
@@ -1498,7 +1392,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: version(self) -> sc3nb.sc_objects.server.ServerVersion
+   .. method:: version(self) -> ServerVersion
 
       Server version information
 
@@ -1521,7 +1415,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: status(self) -> sc3nb.sc_objects.server.ServerStatus
+   .. method:: status(self) -> ServerStatus
 
       Server status information
 
@@ -1609,7 +1503,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query_all_nodes(self, include_controls: bool = True) -> sc3nb.sc_objects.node.Group
+   .. method:: query_tree(self, include_controls: bool = True) -> sc3nb.sc_objects.node.Group
 
       Query all nodes at the server and return a NodeTree
 
@@ -1688,7 +1582,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: sample_rate(self) -> float
+   .. method:: nominal_sr(self) -> float
       :property:
 
       Nominal sample rate of server process
@@ -1712,7 +1606,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: actual_sample_rate(self) -> float
+   .. method:: actual_sr(self) -> float
       :property:
 
       Actual sample rate of server process
@@ -1832,7 +1726,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: addr(self) -> Tuple[(str, int)]
+   .. method:: addr(self) -> Tuple[str, int]
       :property:
 
       Address (ip, port) of server
@@ -1974,6 +1868,15 @@ Content
 
       ..
           !! processed by numpydoc !!
+
+
+   .. method:: _init_osc_communication(self)
+
+
+   .. method:: _get_errors_for_address(self, address: str)
+
+
+   .. method:: _log_repr(self)
 
 
    .. method:: _log_message(self, sender, *params)
@@ -2187,7 +2090,7 @@ Content
          sc3nb.SCLang.cmdg
          sc3nb.SCLang.read
          sc3nb.SCLang.empty
-         sc3nb.SCLang.get_synth_desc
+         sc3nb.SCLang.get_synth_description
          sc3nb.SCLang.addr
          sc3nb.SCLang.server
          sc3nb.SCLang.connect_to_server
@@ -2548,9 +2451,9 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: get_synth_desc(self, synth_def)
+   .. method:: get_synth_description(self, synth_def)
 
-      Get SynthDesc via sclang's global SynthDescLib.
+      Get a SynthDesc like description via sclang's global SynthDescLib.
 
 
       :Parameters:
@@ -2583,7 +2486,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: addr(self) -> Tuple[(str, int)]
+   .. method:: addr(self) -> Tuple[str, int]
       :property:
 
       The address of this sclang
@@ -2607,7 +2510,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: server(self) -> Optional[SCServer]
+   .. method:: server(self) -> Optional[sc3nb.sc_objects.server.SCServer]
       :property:
 
       The SuperCollider server connected to this sclang instance.
@@ -2631,7 +2534,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: connect_to_server(self, server: Optional[SCServer] = None)
+   .. method:: connect_to_server(self, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
       Connect this sclang instance to the SuperCollider server.
 
@@ -2669,7 +2572,7 @@ Content
 
 
 
-.. class:: Node(*, nodeid: Optional[int] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, server: Optional['SCServer'] = None)
+.. class:: Node(*, nodeid: Optional[int] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    **Bases:** :class:`abc.ABC`
@@ -2767,7 +2670,7 @@ Content
          sc3nb.Node.__eq__
          sc3nb.Node._get_nodeid
 
-   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, return_msg: bool = False, **kwargs) -> Union[('Node', OSCMessage)]
+   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, return_msg: bool = False, **kwargs) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
       :abstractmethod:
 
       Create a new Node
@@ -2801,7 +2704,7 @@ Content
    .. method:: _get_status_repr(self) -> str
 
 
-   .. method:: _set_node_attrs(self, target: Optional[Union['Node', int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
+   .. method:: _set_node_attrs(self, target: Optional[Union[Node, int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
 
       Derive Node group from addaction and target
 
@@ -3001,7 +2904,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: free(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: free(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Free the node with /n_free.
 
@@ -3031,7 +2934,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Turn node on or off with /n_run.
 
@@ -3062,7 +2965,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, argument: Union[(str, Dict, List)], *values: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: set(self, argument: Union[str, Dict, List], *values: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Set a control value(s) of the node with n_set.
 
@@ -3105,7 +3008,7 @@ Content
    .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
 
 
-   .. method:: fill(self, control: Union[(str, int)], num_controls: int, value: Any, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: fill(self, control: Union[str, int], num_controls: int, value: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Fill ranges of control values with n_fill.
 
@@ -3145,7 +3048,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: map(self, control: Union[(str, int)], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: map(self, control: Union[str, int], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Map a node's control to read from a bus using /n_map or /n_mapa.
 
@@ -3182,7 +3085,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Set gate as specified.
 
@@ -3219,7 +3122,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query(self) -> Union[(SynthInfo, GroupInfo)]
+   .. method:: query(self) -> Union[SynthInfo, GroupInfo]
 
       Sends an n_query message to the server.
 
@@ -3258,7 +3161,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: trace(self, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: trace(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Trace a node.
 
@@ -3291,7 +3194,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: move(self, add_action: sc3nb.sc_objects.node.AddAction, another_node: sc3nb.sc_objects.node.Node, return_msg: bool = False) -> Union[('Node', OSCMessage)]
+   .. method:: move(self, add_action: AddAction, another_node: Node, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
       Move this node
 
@@ -3430,7 +3333,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[(SynthInfo, GroupInfo)]
+   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[SynthInfo, GroupInfo]
 
 
    .. method:: _handle_notification(self, kind: str, info) -> None
@@ -3459,7 +3362,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: _get_nodeid(value: Union[('Node', int)]) -> int
+   .. method:: _get_nodeid(value: Union[Node, int]) -> int
       :staticmethod:
 
       Get the corresponding node id
@@ -3499,10 +3402,10 @@ Content
 
 
 
-.. class:: Synth(name: Optional[str] = None, controls: Dict[(str, Any)] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union['Node', int]] = None, server: Optional['SCServer'] = None)
+.. class:: Synth(name: Optional[str] = None, controls: Dict[str, Any] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
-   **Bases:** :class:`sc3nb.sc_objects.node.Node`
+   **Bases:** :class:`Node`
 
    Representation of a Synth on SuperCollider.
 
@@ -3598,7 +3501,7 @@ Content
    .. method:: _update_synth_state(self, name: Optional[str], controls: Optional[dict])
 
 
-   .. method:: synth_desc(self) -> Optional[Dict[str, 'SynthArgument']]
+   .. method:: synth_desc(self) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
       :property:
 
       A Description of this Synths arguments
@@ -3646,7 +3549,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: current_controls(self) -> Dict[(str, Any)]
+   .. method:: current_controls(self) -> Dict[str, Any]
       :property:
 
       This Synth currently cached control arguments.
@@ -3670,7 +3573,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[('Synth', OSCMessage)]
+   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[Synth, sc3nb.osc.osc_communication.OSCMessage]
 
       Creates the synth on the server with s_new.
 
@@ -3799,10 +3702,10 @@ Content
 
 
 
-.. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: sc3nb.sc_objects.node.AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional['SCServer'] = None)
+.. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
-   **Bases:** :class:`sc3nb.sc_objects.node.Node`
+   **Bases:** :class:`Node`
 
    Representation of a Group on SuperCollider.
 
@@ -3890,7 +3793,7 @@ Content
    .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
 
 
-   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[('Group', OSCMessage)]
+   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[Group, sc3nb.osc.osc_communication.OSCMessage]
 
       Creates the synth on the server with g_new / p_new.
 
@@ -4125,7 +4028,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query_tree(self, include_controls=False) -> sc3nb.sc_objects.node.Group
+   .. method:: query_tree(self, include_controls=False) -> Group
 
       Send a g_queryTree message for this group.
 
@@ -4243,7 +4146,7 @@ Content
 
 
 
-.. class:: SynthDef(name: str, definition: str, sc: Optional['SC'] = None)
+.. class:: SynthDef(name: str, definition: str, sc: Optional[sc3nb.sc.SC] = None)
 
 
    Wrapper for SuperCollider SynthDef
@@ -4327,7 +4230,7 @@ Content
          sc3nb.SynthDef.free
          sc3nb.SynthDef.__repr__
 
-   .. method:: get_description(cls, name: str) -> Optional[Dict[str, 'SynthArgument']]
+   .. method:: get_description(cls, name: str) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
       :classmethod:
 
       Get Synth description
@@ -4359,7 +4262,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(cls, synthdef_bytes: bytes, server: Optional['SCServer'] = None)
+   .. method:: send(cls, synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
       Send a SynthDef as bytes.
@@ -4394,7 +4297,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load(cls, synthdef_path: str, server: Optional['SCServer'] = None)
+   .. method:: load(cls, synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
       Load SynthDef file at path.
@@ -4426,7 +4329,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional['SCServer'] = None)
+   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
       Load all SynthDefs from directory.
@@ -4461,7 +4364,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: reset(self) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: reset(self) -> SynthDef
 
       Reset the current synthdef configuration to the self.definition value.
 
@@ -4490,7 +4393,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set_context(self, searchpattern: str, value) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: set_context(self, searchpattern: str, value) -> SynthDef
 
       Set context in SynthDef.
 
@@ -4526,7 +4429,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set_contexts(self, dictionary: Dict[(str, Any)]) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: set_contexts(self, dictionary: Dict[str, Any]) -> SynthDef
 
       Set multiple values at onces when you give a dictionary.
 
@@ -4559,7 +4462,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: unset_remaining(self) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: unset_remaining(self) -> SynthDef
 
       This method will remove all existing placeholders in the current def.
 
@@ -4589,7 +4492,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional['SCServer'] = None) -> str
+   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
 
       This method will add the current_def to SuperCollider.s
 
@@ -4629,7 +4532,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: free(self) -> sc3nb.sc_objects.synthdef.SynthDef
+   .. method:: free(self) -> SynthDef
 
       Free this SynthDef from the server.
 
@@ -4682,7 +4585,7 @@ Content
 
 
 
-.. class:: Buffer(bufnum: Optional[int] = None, server: Optional['SCServer'] = None)
+.. class:: Buffer(bufnum: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    A Buffer object represents a SuperCollider3 Buffer on scsynth
@@ -4803,7 +4706,7 @@ Content
          sc3nb.Buffer.server
          sc3nb.Buffer._gen_flags
 
-   .. method:: read(self, path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: read(self, path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> Buffer
 
       Allocate buffer memory and read a sound file.
 
@@ -4850,7 +4753,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: alloc(self, size: int, sr: int = 44100, channels: int = 1) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: alloc(self, size: int, sr: int = 44100, channels: int = 1) -> Buffer
 
       Allocate buffer memory.
 
@@ -4891,7 +4794,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_data(self, data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_data(self, data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> Buffer
 
       Allocate buffer memory and read input data.
 
@@ -4936,7 +4839,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_collection(self, data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_collection(self, data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> Buffer
 
       Wrapper method of :func:`Buffer.load_data`
 
@@ -4959,7 +4862,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: load_asig(self, asig: pya.Asig, mode: str = 'file') -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: load_asig(self, asig: pya.Asig, mode: str = 'file') -> Buffer
 
       Create buffer from asig
 
@@ -4997,7 +4900,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: use_existing(self, bufnum: int, sr: int = 44100) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: use_existing(self, bufnum: int, sr: int = 44100) -> Buffer
 
       Creates a buffer object from already existing Buffer bufnum.
 
@@ -5035,7 +4938,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: copy_existing(self, buffer: sc3nb.sc_objects.buffer.Buffer) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: copy_existing(self, buffer: Buffer) -> Buffer
 
       Duplicate an existing buffer
 
@@ -5070,7 +4973,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: fill(self, start: int = 0, count: int = 0, value: float = 0) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: fill(self, start: int = 0, count: int = 0, value: float = 0) -> Buffer
 
       Fill range of samples with value(s).
 
@@ -5112,7 +5015,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen(self, command: str, args: List[Any]) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen(self, command: str, args: List[Any]) -> Buffer
 
       Call a command to fill a buffer.
       If you know, what you do -> you can use this method.
@@ -5156,7 +5059,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: zero(self) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: zero(self) -> Buffer
 
       Set buffer data to zero.
 
@@ -5187,7 +5090,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_sine1(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_sine1(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fill the buffer with sine waves & given amplitude
 
@@ -5236,7 +5139,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_sine2(self, freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_sine2(self, freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fill the buffer with sine waves
       given list of [frequency, amplitude] lists
@@ -5286,7 +5189,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_sine3(self, freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_sine3(self, freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fill the buffer with sine waves & given a list of
       [frequency, amplitude, phase] entries.
@@ -5335,7 +5238,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_cheby(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_cheby(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
       Fills a buffer with a series of chebyshev polynomials, which can be
       defined as cheby(n) = amplitude * cos(n * acos(x))
@@ -5385,7 +5288,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: gen_copy(self, source: sc3nb.sc_objects.buffer.Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: gen_copy(self, source: Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> Buffer
 
       Copy samples from the source buffer to the destination buffer
       specified in the b_gen command.
@@ -5476,7 +5379,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: write(self, path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: write(self, path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> Buffer
 
       Write buffer data to a sound file
 
@@ -5533,7 +5436,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: close(self) -> sc3nb.sc_objects.buffer.Buffer
+   .. method:: close(self) -> Buffer
 
       Close soundfile after using a Buffer with DiskOut
 
@@ -5595,7 +5498,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: query(self) -> sc3nb.sc_objects.buffer.BufferInfo
+   .. method:: query(self) -> BufferInfo
 
       Get buffer info.
 
@@ -5733,7 +5636,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: alloc_mode(self) -> sc3nb.sc_objects.buffer.BufferAllocationMode
+   .. method:: alloc_mode(self) -> BufferAllocationMode
       :property:
 
       Mode of Buffer allocation.
@@ -5764,7 +5667,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: path(self) -> Optional[Path]
+   .. method:: path(self) -> Optional[pathlib.Path]
       :property:
 
       File path that was provided to read.
@@ -5977,7 +5880,7 @@ Content
 
 
 
-.. class:: Bus(rate: Union[(BusRate, str)], num_channels: int = 1, index: Optional[int] = None, server: Optional['SCServer'] = None)
+.. class:: Bus(rate: Union[BusRate, str], num_channels: int = 1, index: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    Represenation of Control or Audio Bus(es) on the SuperCollider Server
@@ -6037,7 +5940,7 @@ Content
          sc3nb.Bus.__del__
          sc3nb.Bus.__repr__
 
-   .. method:: rate(self) -> Union[(BusRate, str)]
+   .. method:: rate(self) -> Union[BusRate, str]
       :property:
 
       The bus calculation rate.
@@ -6175,7 +6078,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[('Bus', OSCMessage)]
+   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
       Set ranges of bus values.
 
@@ -6209,7 +6112,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: fill(self, value: Union[(int, float)], return_msg=False) -> Union[('Bus', OSCMessage)]
+   .. method:: fill(self, value: Union[int, float], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
       Fill bus(es) to one value.
 
@@ -6243,7 +6146,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: get(self) -> Union[(Union[int, float], Sequence[Union[int, float]])]
+   .. method:: get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]
 
       Get bus value(s).
 
@@ -6331,7 +6234,144 @@ Content
 
 
 
-.. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[SCServer] = None)
+.. class:: Score
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.Score.load_file
+         sc3nb.Score.write_file
+         sc3nb.Score.record_nrt
+
+   .. method:: load_file(cls, path: Union[str, bytes, os.PathLike]) -> Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]]
+      :classmethod:
+
+      Load a OSC file into a dict.
+
+
+      :Parameters:
+
+          **path** : Union[str, bytes, os.PathLike]
+              Path of the OSC file.
+
+      :Returns:
+
+          Dict[float, List[OSCMessage]]
+              dict with time tag as keys and lists of OSCMessages as values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: write_file(cls, messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], path: Union[str, bytes, os.PathLike], tempo: float = 1)
+      :classmethod:
+
+      Write this score as binary OSC file for NRT synthesis.
+
+
+      :Parameters:
+
+          **messages** : Dict[float, List[OSCMessage]]
+              Dict with times as key and lists of OSC messages as values
+
+          **path** : Union[str, bytes, os.PathLike]
+              output path for the binary OSC file
+
+          **tempo** : float
+              Times will be multiplied by 1/tempo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: record_nrt(cls, messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], osc_path: str, out_file: str, in_file: Optional[str] = None, sample_rate: int = 44100, header_format: str = 'AIFF', sample_format: str = 'int16', options: Optional[sc3nb.sc_objects.server.ServerOptions] = None)
+      :classmethod:
+
+      Write an OSC file from the messages and wri
+
+
+      :Parameters:
+
+          **messages** : Dict[float, List[OSCMessage]]
+              Dict with times as key and lists of OSC messages as values.
+
+          **osc_path** : str
+              Path of the binary OSC file.
+
+          **out_file** : str
+              Path of the resulting sound file.
+
+          **in_file** : Optional[str], optional
+              Path of input soundfile, by default None.
+
+          **sample_rate** : int, optional
+              sample rate for synthesis, by default 44100.
+
+          **header_format** : str, optional
+              header format of the output file, by default "AIFF".
+
+          **sample_format** : str, optional
+              sample format of the output file, by default "int16".
+
+          **options** : Optional[ServerOptions], optional
+              instance of server options to specify server options, by default None
+
+      :Returns:
+
+          subprocess.CompletedProcess
+              Completed scsynth non-realtime process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    Allows to record audio easily.
@@ -6454,7 +6494,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[(Node, int)] = 0, bus: int = 0)
+   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: int = 0)
 
       Start the recording.
 
@@ -6741,7 +6781,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put(self, timestamp: float, function: Callable[(..., None)], args: Iterable[Any] = (), spawn: bool = False) -> None
+   .. method:: put(self, timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any] = (), spawn: bool = False) -> None
 
       Adds event to queue
 
@@ -6781,7 +6821,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: get(self) -> sc3nb.timed_queue.Event
+   .. method:: get(self) -> Event
 
       Get latest event from queue and remove event
 
@@ -6808,7 +6848,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: peek(self) -> sc3nb.timed_queue.Event
+   .. method:: peek(self) -> Event
 
       Look up latest event from queue
 
@@ -6964,7 +7004,7 @@ Content
 .. class:: TimedQueueSC(server: sc3nb.osc.osc_communication.OSCCommunication = None, relative_time: bool = False, thread_sleep_time: float = 0.001)
 
 
-   **Bases:** :class:`sc3nb.timed_queue.TimedQueue`
+   **Bases:** :class:`TimedQueue`
 
    Timed queue with OSC communication.
 
@@ -7038,7 +7078,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: put_msg(self, onset: float, msg: Union[(OSCMessage, str)], msg_params: Iterable[Any]) -> None
+   .. method:: put_msg(self, onset: float, msg: Union[sc3nb.osc.osc_communication.OSCMessage, str], msg_params: Iterable[Any]) -> None
 
       Add a message to queue
 
@@ -7301,7 +7341,7 @@ Content
 
 
 
-.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional['OSCCommunication'] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
+.. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional[OSCCommunication] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
    Class for creating OSCBundles and bundling of messages
@@ -7419,7 +7459,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: add(self, *args) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: add(self, *args) -> Bundler
 
       Add content to this Bundler.
 
@@ -7452,7 +7492,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[(float, List[OSCMessage])]
+   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[float, List[OSCMessage]]
 
       Generate a dict with all messages in this Bundler.
 
@@ -7484,7 +7524,7 @@ Content
           !! processed by numpydoc !!
 
 
-   .. method:: send(self, server: Optional['OSCCommunication'] = None, receiver: Tuple[(str, int)] = None, bundle: bool = True)
+   .. method:: send(self, server: Optional[OSCCommunication] = None, receiver: Tuple[str, int] = None, bundle: bool = True)
 
       Send this Bundler.
 
@@ -7595,7 +7635,7 @@ Content
    .. method:: _calc_timetag(self, start_time: Optional[float])
 
 
-   .. method:: __deepcopy__(self, memo) -> sc3nb.osc.osc_communication.Bundler
+   .. method:: __deepcopy__(self, memo) -> Bundler
 
 
    .. method:: __enter__(self)
@@ -7630,7 +7670,7 @@ Content
 
 
 
-.. function:: linlin(value: Union[(float, np.ndarray)], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[(float, np.ndarray)]
+.. function:: linlin(value: Union[float, numpy.ndarray], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[float, numpy.ndarray]
 
    Map value linearly so that [x1, x2] is mapped to [y1, y2]
 
