@@ -278,6 +278,12 @@ def generate_gh_pages(
             shutil.copytree(s, stable_path, copy_function=shutil.copy)
 
     print(f"Documentation has been merged in {tmp_repo.working_dir}")
+    # refresh the documented list
+    documented = [
+        p.name
+        for p in tmp_repo_path.iterdir()
+        if p.is_dir() and p.parent == tmp_repo_path and not p.name.startswith(".")
+    ]
     print(f"Fixing links to other versions {documented}")
     fix_all_links(tmp_repo.working_dir, versions=documented)
     print("Current git status:")
