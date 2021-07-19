@@ -1,0 +1,47 @@
+:mod:`sc3nb.sc_objects`
+=======================
+
+.. py:module:: sc3nb.sc_objects
+
+.. autoapi-nested-parse::
+
+   In this module are all SuperCollider Object related classes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   allocators/index.rst
+   buffer/index.rst
+   bus/index.rst
+   node/index.rst
+   recorder/index.rst
+   score/index.rst
+   server/index.rst
+   synthdef/index.rst
+   volume/index.rst
+
+

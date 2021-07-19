@@ -1,0 +1,2048 @@
+:mod:`sc3nb.sc_objects.server`
+==============================
+
+.. py:module:: sc3nb.sc_objects.server
+
+.. autoapi-nested-parse::
+
+   Module for managing Server related stuff.
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.server.MasterControlReply
+   sc3nb.sc_objects.server.MasterControlCommand
+   sc3nb.sc_objects.server.ReplyAddress
+   sc3nb.sc_objects.server.ServerStatus
+   sc3nb.sc_objects.server.ServerVersion
+   sc3nb.sc_objects.server.ServerOptions
+   sc3nb.sc_objects.server.NodeWatcher
+   sc3nb.sc_objects.server.SCServer
+
+
+
+Content
+~~~~~~~
+
+.. data:: _LOGGER
+   
+
+   
+
+.. class:: MasterControlReply
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   Reply addresses of the Master Control Commands.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: VERSION_REPLY
+      :annotation: = /version.reply
+
+      
+
+   .. attribute:: SYNCED
+      :annotation: = /synced
+
+      
+
+   .. attribute:: STATUS_REPLY
+      :annotation: = /status.reply
+
+      
+
+
+
+
+
+
+.. class:: MasterControlCommand
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   Master Control commands of scsynth.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: DUMP_OSC
+      :annotation: = /dumpOSC
+
+      
+
+   .. attribute:: STATUS
+      :annotation: = /status
+
+      
+
+   .. attribute:: VERSION
+      :annotation: = /version
+
+      
+
+   .. attribute:: CLEAR_SCHED
+      :annotation: = /clearSched
+
+      
+
+   .. attribute:: NOTIFY
+      :annotation: = /notify
+
+      
+
+   .. attribute:: QUIT
+      :annotation: = /quit
+
+      
+
+   .. attribute:: SYNC
+      :annotation: = /sync
+
+      
+
+
+
+
+
+
+.. class:: ReplyAddress
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   Specific reply addresses.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: WILDCARD_ADDR
+      :annotation: = /*
+
+      
+
+   .. attribute:: FAIL_ADDR
+      :annotation: = /fail
+
+      
+
+   .. attribute:: DONE_ADDR
+      :annotation: = /done
+
+      
+
+   .. attribute:: RETURN_ADDR
+      :annotation: = /return
+
+      
+
+
+
+
+
+
+.. data:: ASYNC_CMDS
+   
+
+   
+
+.. data:: CMD_PAIRS
+   
+
+   
+
+.. data:: LOCALHOST
+   :annotation: = 127.0.0.1
+
+   
+
+.. data:: SC3NB_SERVER_CLIENT_ID
+   :annotation: = 1
+
+   
+
+.. data:: SC3NB_DEFAULT_PORT
+   :annotation: = 57130
+
+   
+
+.. data:: SCSYNTH_DEFAULT_PORT
+   :annotation: = 57110
+
+   
+
+.. data:: SC3_SERVER_NAME
+   :annotation: = scsynth
+
+   
+
+.. class:: ServerStatus
+
+   **Bases:** :class:`NamedTuple`
+
+   Information about the status of the Server program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: num_ugens
+      :annotation: :int
+
+      
+
+   .. attribute:: num_synths
+      :annotation: :int
+
+      
+
+   .. attribute:: num_groups
+      :annotation: :int
+
+      
+
+   .. attribute:: num_synthdefs
+      :annotation: :int
+
+      
+
+   .. attribute:: avg_cpu
+      :annotation: :float
+
+      
+
+   .. attribute:: peak_cpu
+      :annotation: :float
+
+      
+
+   .. attribute:: nominal_sr
+      :annotation: :float
+
+      
+
+   .. attribute:: actual_sr
+      :annotation: :float
+
+      
+
+
+
+
+
+
+.. class:: ServerVersion
+
+   **Bases:** :class:`NamedTuple`
+
+   Information about the version of the Server program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: name
+      :annotation: :str
+
+      
+
+   .. attribute:: major_version
+      :annotation: :int
+
+      
+
+   .. attribute:: minor_version
+      :annotation: :int
+
+      
+
+   .. attribute:: patch_version
+      :annotation: :str
+
+      
+
+   .. attribute:: git_branch
+      :annotation: :str
+
+      
+
+   .. attribute:: commit
+      :annotation: :str
+
+      
+
+
+
+
+
+
+.. class:: ServerOptions(udp_port: int = SCSYNTH_DEFAULT_PORT, max_logins: int = 6, num_input_buses: int = 2, num_output_buses: int = 2, num_audio_buses: int = 1024, num_control_buses: int = 4096, num_sample_buffers: int = 1024, publish_rendezvous: bool = False, block_size: Optional[int] = None, hardware_buffer_size: Optional[int] = None, hardware_sample_size: Optional[int] = None, hardware_input_device: Optional[str] = None, hardware_output_device: Optional[str] = None, other_options: Optional[Sequence[str]] = None)
+
+
+   Options for the SuperCollider audio server
+
+   This allows the encapsulation and handling of the command line server options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.server.ServerOptions.first_private_bus
+         sc3nb.sc_objects.server.ServerOptions.num_private_buses
+         sc3nb.sc_objects.server.ServerOptions.__repr__
+
+   .. method:: first_private_bus(self) -> int
+      :property:
+
+      The first audio bus after input and output buses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: num_private_buses(self) -> int
+      :property:
+
+      Number of audio buses besides input and output buses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __repr__(self)
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: NodeWatcher(server: SCServer)
+
+
+   The NodeWatcher is used to handle Node Notifications.
+
+
+   :Parameters:
+
+       **server** : SCServer
+           Server belonging to the notifications
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.server.NodeWatcher.handle_notification
+
+   .. method:: handle_notification(self, *args)
+
+      Handle a Notification
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+.. class:: SCServer(options: Optional[ServerOptions] = None)
+
+
+   **Bases:** :class:`sc3nb.osc.osc_communication.OSCCommunication`
+
+   SuperCollider audio server representaion.
+
+
+   :Parameters:
+
+       **options** : Optional[ServerOptions], optional
+           Options used to start the local server, by default None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Create an OSC communication server
+
+
+   :Parameters:
+
+       **server_ip** : str
+           IP address to use for this server
+
+       **server_port** : int
+           port to use for this server
+
+       **default_receiver_ip** : str
+           IP address used for sending by default
+
+       **default_receiver_port** : int
+           port used for sending by default
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.server.SCServer.boot
+         sc3nb.sc_objects.server.SCServer.init
+         sc3nb.sc_objects.server.SCServer.execute_init_hooks
+         sc3nb.sc_objects.server.SCServer.connect_sclang
+         sc3nb.sc_objects.server.SCServer.add_init_hook
+         sc3nb.sc_objects.server.SCServer.bundler
+         sc3nb.sc_objects.server.SCServer.blip
+         sc3nb.sc_objects.server.SCServer.remote
+         sc3nb.sc_objects.server.SCServer.reboot
+         sc3nb.sc_objects.server.SCServer.ping
+         sc3nb.sc_objects.server.SCServer.quit
+         sc3nb.sc_objects.server.SCServer.sync
+         sc3nb.sc_objects.server.SCServer.send_synthdef
+         sc3nb.sc_objects.server.SCServer.load_synthdef
+         sc3nb.sc_objects.server.SCServer.load_synthdefs
+         sc3nb.sc_objects.server.SCServer.notify
+         sc3nb.sc_objects.server.SCServer.free_all
+         sc3nb.sc_objects.server.SCServer.clear_schedule
+         sc3nb.sc_objects.server.SCServer.send_default_groups
+         sc3nb.sc_objects.server.SCServer.client_id
+         sc3nb.sc_objects.server.SCServer.max_logins
+         sc3nb.sc_objects.server.SCServer.default_group
+         sc3nb.sc_objects.server.SCServer.input_bus
+         sc3nb.sc_objects.server.SCServer.output_bus
+         sc3nb.sc_objects.server.SCServer.volume
+         sc3nb.sc_objects.server.SCServer.muted
+         sc3nb.sc_objects.server.SCServer.mute
+         sc3nb.sc_objects.server.SCServer.unmute
+         sc3nb.sc_objects.server.SCServer.version
+         sc3nb.sc_objects.server.SCServer.status
+         sc3nb.sc_objects.server.SCServer.dump_osc
+         sc3nb.sc_objects.server.SCServer.dump_tree
+         sc3nb.sc_objects.server.SCServer.query_tree
+         sc3nb.sc_objects.server.SCServer.peak_cpu
+         sc3nb.sc_objects.server.SCServer.avg_cpu
+         sc3nb.sc_objects.server.SCServer.nominal_sr
+         sc3nb.sc_objects.server.SCServer.actual_sr
+         sc3nb.sc_objects.server.SCServer.num_synths
+         sc3nb.sc_objects.server.SCServer.num_groups
+         sc3nb.sc_objects.server.SCServer.num_ugens
+         sc3nb.sc_objects.server.SCServer.num_synthdefs
+         sc3nb.sc_objects.server.SCServer.addr
+         sc3nb.sc_objects.server.SCServer.has_booted
+         sc3nb.sc_objects.server.SCServer.is_running
+         sc3nb.sc_objects.server.SCServer.unresponsive
+         sc3nb.sc_objects.server.SCServer.is_local
+         sc3nb.sc_objects.server.SCServer.pid
+         sc3nb.sc_objects.server.SCServer._init_osc_communication
+         sc3nb.sc_objects.server.SCServer._get_errors_for_address
+         sc3nb.sc_objects.server.SCServer._log_repr
+         sc3nb.sc_objects.server.SCServer._log_message
+         sc3nb.sc_objects.server.SCServer._warn_fail
+         sc3nb.sc_objects.server.SCServer.__repr__
+
+   .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 5, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+
+      Start the Server process.
+
+
+      :Parameters:
+
+          **scsynth_path** : str, optional
+              Path of scscynth executable, by default None
+
+          **timeout** : float, optional
+              Timeout for starting the executable, by default 5
+
+          **console_logging** : bool, optional
+              If True write process output to console, by default True
+
+          **with_blip** : bool, optional
+              make a sound when booted, by default True
+
+          **kill_others** : bool
+              kill other SuperCollider server processes.
+
+          **allowed_parents** : Sequence[str], optional
+              Names of parents that are allowed for other instances of
+              scsynth processes that won't be killed, by default ALLOWED_PARENTS
+
+
+
+
+
+      :Raises:
+
+          ValueError
+              If UDP port specified in options is already used
+
+          ProcessTimeout
+              If the process fails to start.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: init(self, with_blip: bool = True)
+
+      Initialize the server.
+
+      This adds allocators, loads SynthDefs, send default Groups etc.
+
+      :Parameters:
+
+          **with_blip** : bool, optional
+              make a sound when initialized, by default True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: execute_init_hooks(self) -> None
+
+      Run all init hook functions.
+
+      This is automatically done when running free_all, init or connect_sclang.
+
+      Hooks can be added using add_init_hook
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: connect_sclang(self, port: int) -> None
+
+      Connect sclang to the server
+
+      This will add the "sclang" receiver and execute the init hooks
+
+      :Parameters:
+
+          **port** : int
+              Port of sclang (NetAddr.langPort)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: add_init_hook(self, hook: Callable[Ellipsis, None], *args: Any, **kwargs: Any) -> None
+
+      Add a function to be executed when the server is initialized
+
+
+      :Parameters:
+
+          **hook** : Callable[..., None]
+              Function to be executed
+
+          **args** : Any, optional
+              Arguments given to function
+
+          **kwargs** : Any, optional
+              Keyword arguments given to function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True)
+
+      Generate a Bundler with added server latency.
+
+      This allows the user to easly add messages/bundles and send it.
+
+      :Parameters:
+
+          **timetag** : float
+              Time at which bundle content should be executed.
+              This servers latency will be added upon this.
+              If timetag <= 1e6 it is added to time.time().
+
+          **msg_addr** : str
+              SuperCollider address.
+
+          **msg_params** : list, optional
+              List of parameters to add to message.
+               (Default value = None)
+
+      :Returns:
+
+          Bundler
+              bundler for OSC bundling.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: blip(self) -> None
+
+      Make a blip sound
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: remote(self, address: str, port: int, with_blip: bool = True) -> None
+
+      Connect to remote Server
+
+
+      :Parameters:
+
+          **address** : str
+              address of remote server
+
+          **port** : int
+              port of remote server
+
+          **with_blip** : bool, optional
+              make a sound when initialized, by default True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: reboot(self) -> None
+
+      Reboot this server
+
+
+
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If this server is remote and can't be restarted.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: ping(self)
+      :abstractmethod:
+
+      Ping the server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: quit(self) -> None
+
+      Quits and tries to kill the server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: sync(self, timeout=5) -> bool
+
+      Sync the server with the /sync command.
+
+
+      :Parameters:
+
+          **timeout** : int, optional
+              Time in seconds that will be waited for sync.
+               (Default value = 5)
+
+      :Returns:
+
+          bool
+              True if sync worked.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: send_synthdef(self, synthdef_bytes: bytes)
+
+      Send a SynthDef as bytes.
+
+
+      :Parameters:
+
+          **synthdef_bytes** : bytes
+              SynthDef bytes
+
+          **wait** : bool
+              If True wait for server reply.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: load_synthdef(self, synthdef_path: str)
+
+      Load SynthDef file at path.
+
+
+      :Parameters:
+
+          **synthdef_path** : str
+              Path with the SynthDefs
+
+          **bundle** : bool
+              Wether the OSC Messages can be bundle or not.
+              If True sc3nb will not wait for the server response, by default False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None) -> None
+
+      Load all SynthDefs from directory.
+
+
+      :Parameters:
+
+          **synthdef_dir** : str, optional
+              directory with SynthDefs, by default sc3nb default SynthDefs
+
+          **completion_msg** : bytes, optional
+              Message to be executed by the server when loaded, by default None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: notify(self, receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1) -> None
+
+      Notify the server about this client.
+
+      This provides the client id and max logins info needed for default groups.
+
+      :Parameters:
+
+          **receive_notifications** : bool, optional
+              Flag for receiving node notification from server, by default True
+
+          **client_id** : int, optional
+              Propose a client id, by default None
+
+          **timeout** : float, optional
+              Timeout for server reply, by default 1.0
+
+
+
+
+
+      :Raises:
+
+          RuntimeError
+              If server has too many users.
+
+          OSCCommunicationError
+              If OSC communication fails.
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: free_all(self, root: bool = True) -> None
+
+      Free all node ids.
+
+
+      :Parameters:
+
+          **root** : bool, optional
+              If False free only the default group of this client, by default True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: clear_schedule(self)
+
+      Send /clearSched to the server.
+
+      This clears all scheduled bundles and removes all bundles from the scheduling queue.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: send_default_groups(self) -> None
+
+      Send the default groups for all clients.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: client_id(self)
+      :property:
+
+      The client id for this server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: max_logins(self)
+      :property:
+
+      Maximum number of possible logins at server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: default_group(self)
+      :property:
+
+      This clients default group
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: input_bus(self) -> sc3nb.sc_objects.bus.Bus
+      :property:
+
+      This servers input Bus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: output_bus(self) -> sc3nb.sc_objects.bus.Bus
+      :property:
+
+      This servers output Bus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: volume(self) -> float
+      :property:
+
+      Volume in dB.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: muted(self) -> bool
+      :property:
+
+      True if audio is muted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: mute(self) -> None
+
+      Mute audio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: unmute(self) -> None
+
+      Set volume back to volume prior to muting
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: version(self) -> ServerVersion
+
+      Server version information
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: status(self) -> ServerStatus
+
+      Server status information
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: dump_osc(self, level: int = 1) -> None
+
+      Enable dumping incoming OSC messages at the server process
+
+
+      :Parameters:
+
+          **level** : int, optional
+              Verbosity code, by default 1
+              0   turn dumping OFF.
+              1   print the parsed contents of the message.
+              2   print the contents in hexadecimal.
+              3   print both the parsed and hexadecimal representations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: dump_tree(self, controls: bool = True, return_tree=False) -> Optional[str]
+
+      Server process prints out current nodes
+
+
+      :Parameters:
+
+          **controls** : bool, optional
+              If True include control values, by default True
+
+          **return_tree** : bool, optional
+              If True return output as string, by default False
+
+      :Returns:
+
+          str
+              If return_tree this is the node tree string.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: query_tree(self, include_controls: bool = True) -> sc3nb.sc_objects.node.Group
+
+      Query all nodes at the server and return a NodeTree
+
+
+      :Parameters:
+
+          **include_controls** : bool, optional
+              If True include control values, by default True
+
+      :Returns:
+
+          NodeTree
+              object containing all the nodes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: peak_cpu(self) -> float
+      :property:
+
+      Peak cpu usage of server process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: avg_cpu(self) -> float
+      :property:
+
+      Average cpu usage of server process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: nominal_sr(self) -> float
+      :property:
+
+      Nominal sample rate of server process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: actual_sr(self) -> float
+      :property:
+
+      Actual sample rate of server process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: num_synths(self) -> int
+      :property:
+
+      Number of Synths in server tree
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: num_groups(self) -> int
+      :property:
+
+      Number of Groups in server tree
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: num_ugens(self) -> int
+      :property:
+
+      Number of UGens in server tree
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: num_synthdefs(self) -> int
+      :property:
+
+      Number of SynthDefs known by server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: addr(self) -> Tuple[str, int]
+      :property:
+
+      Address (ip, port) of server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: has_booted(self) -> bool
+      :property:
+
+      If the server is booted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: is_running(self) -> bool
+      :property:
+
+      If the server is running
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: unresponsive(self) -> bool
+      :property:
+
+      If the server process is unresponsive
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: is_local(self) -> bool
+      :property:
+
+      If the server process is local
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: pid(self)
+      :property:
+
+      The process id of the local server process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: _init_osc_communication(self)
+
+
+   .. method:: _get_errors_for_address(self, address: str)
+
+
+   .. method:: _log_repr(self)
+
+
+   .. method:: _log_message(self, sender, *params)
+
+
+   .. method:: _warn_fail(self, sender, *params)
+
+
+   .. method:: __repr__(self) -> str
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+
+

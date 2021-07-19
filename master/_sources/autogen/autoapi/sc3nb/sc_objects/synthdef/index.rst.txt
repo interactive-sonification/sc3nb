@@ -1,0 +1,548 @@
+:mod:`sc3nb.sc_objects.synthdef`
+================================
+
+.. py:module:: sc3nb.sc_objects.synthdef
+
+.. autoapi-nested-parse::
+
+   Module to for using SuperCollider SynthDefs and Synths in Python
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.synthdef.SynthDefinitionCommand
+   sc3nb.sc_objects.synthdef.SynthDef
+
+
+
+Content
+~~~~~~~
+
+.. class:: SynthDefinitionCommand
+
+
+   **Bases:** :class:`str`, :class:`enum.Enum`
+
+   OSC Commands for Synth Definitions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: RECV
+      :annotation: = /d_recv
+
+      
+
+   .. attribute:: LOAD
+      :annotation: = /d_load
+
+      
+
+   .. attribute:: LOAD_DIR
+      :annotation: = /d_loadDir
+
+      
+
+   .. attribute:: FREE
+      :annotation: = /d_free
+
+      
+
+
+
+
+
+
+.. class:: SynthDef(name: str, definition: str, sc: Optional[sc3nb.sc.SC] = None)
+
+
+   Wrapper for SuperCollider SynthDef
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   Create a dynamic synth definition in sc.
+
+
+   :Parameters:
+
+       **name** : string
+           default name of the synthdef creation.
+           The naming convention will be name+int, where int is the amount of
+           already created synths of this definition
+
+       **definition** : string
+           Pass the default synthdef definition here. Flexible content
+           should be in double brackets ("...{{flexibleContent}}...").
+           This flexible content, you can dynamic replace with set_context()
+
+       **sc** : SC object
+           SC instance where the synthdef should be created,
+           by default use the default SC instance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+   .. attribute:: synth_descs
+      
+
+      
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.synthdef.SynthDef.get_description
+         sc3nb.sc_objects.synthdef.SynthDef.send
+         sc3nb.sc_objects.synthdef.SynthDef.load
+         sc3nb.sc_objects.synthdef.SynthDef.load_dir
+         sc3nb.sc_objects.synthdef.SynthDef.reset
+         sc3nb.sc_objects.synthdef.SynthDef.set_context
+         sc3nb.sc_objects.synthdef.SynthDef.set_contexts
+         sc3nb.sc_objects.synthdef.SynthDef.unset_remaining
+         sc3nb.sc_objects.synthdef.SynthDef.add
+         sc3nb.sc_objects.synthdef.SynthDef.free
+         sc3nb.sc_objects.synthdef.SynthDef.__repr__
+
+   .. method:: get_description(cls, name: str) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
+      :classmethod:
+
+      Get Synth description
+
+
+      :Parameters:
+
+          **name** : str
+              name of SynthDef
+
+      :Returns:
+
+          Dict
+              dict with SynthArguments
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: send(cls, synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+      :classmethod:
+
+      Send a SynthDef as bytes.
+
+
+      :Parameters:
+
+          **synthdef_bytes** : bytes
+              SynthDef bytes
+
+          **wait** : bool
+              If True wait for server reply.
+
+          **server** : SCServer, optional
+              Server instance that gets the SynthDefs,
+              by default use the SC default server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: load(cls, synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+      :classmethod:
+
+      Load SynthDef file at path.
+
+
+      :Parameters:
+
+          **synthdef_path** : str
+              Path with the SynthDefs
+
+          **server** : SCServer, optional
+              Server that gets the SynthDefs,
+              by default use the SC default server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+      :classmethod:
+
+      Load all SynthDefs from directory.
+
+
+      :Parameters:
+
+          **synthdef_dir** : str, optional
+              directory with SynthDefs, by default sc3nb default SynthDefs
+
+          **completion_msg** : bytes, optional
+              Message to be executed by the server when loaded, by default None
+
+          **server** : SCServer, optional
+              Server that gets the SynthDefs,
+              by default use the SC default server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: reset(self) -> SynthDef
+
+      Reset the current synthdef configuration to the self.definition value.
+
+      After this you can restart your
+      configuration with the same root definition
+
+
+      :Returns:
+
+          object of type SynthDef
+              the SynthDef object
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: set_context(self, searchpattern: str, value) -> SynthDef
+
+      Set context in SynthDef.
+
+      This method will replace a given key (format: "...{{key}}...") in the
+      synthdef definition with the given value.
+
+      :Parameters:
+
+          **searchpattern** : string
+              search pattern in the current_def string
+
+          **value** : string or something with can parsed to string
+              Replacement of search pattern
+
+      :Returns:
+
+          **self** : object of type SynthDef
+              the SynthDef object
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: set_contexts(self, dictionary: Dict[str, Any]) -> SynthDef
+
+      Set multiple values at onces when you give a dictionary.
+
+      Because dictionaries are unsorted, keep in mind, that
+      the order is sometimes ignored in this method.
+
+      :Parameters:
+
+          **dictionary** : dict
+              {searchpattern: replacement}
+
+      :Returns:
+
+          **self** : object of type SynthDef
+              the SynthDef object
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: unset_remaining(self) -> SynthDef
+
+      This method will remove all existing placeholders in the current def.
+
+      You can use this at the end of definition
+      to make sure, that your definition is clean. Hint: This method will
+      not remove pyvars
+
+
+      :Returns:
+
+          **self** : object of type SynthDef
+              the SynthDef object
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
+
+      This method will add the current_def to SuperCollider.s
+
+      If a synth with the same definition was already in sc, this method
+      will only return the name.
+
+      :Parameters:
+
+          **pyvars** : dict
+              SC pyvars dict, to inject python variables
+
+          **name** : str, optional
+              name which this SynthDef will get
+
+          **server** : SCServer, optional
+              Server where this SynthDef will be send to,
+              by default use the SC default server
+
+      :Returns:
+
+          str
+              Name of the SynthDef
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: free(self) -> SynthDef
+
+      Free this SynthDef from the server.
+
+
+
+      :Returns:
+
+          **self** : object of type SynthDef
+              the SynthDef object
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: __repr__(self)
+
+      Return repr(self).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+
+
