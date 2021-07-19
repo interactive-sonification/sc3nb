@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
+import copy
 import errno
+import glob
 import os
 import shutil
 import stat
@@ -10,6 +12,7 @@ from pathlib import Path
 from sys import platform
 from typing import Optional, Sequence
 
+from bs4 import BeautifulSoup
 from git import Repo
 
 
@@ -68,7 +71,6 @@ def main():
             publish=args.publish,
             clean=args.clean,
         )
-
     if args.show:
         url = docs_root
         if platform == "darwin":
@@ -80,6 +82,54 @@ def main():
 
     # if args.show:
     #    _run_webserver(os.path.normpath(repo))
+
+
+def fix_all_links(path, versions):
+    def change_dd_tag(tag, rst_version):
+        new_tag = copy.copy(tag)
+        splits = new_tag.a["href"].split("/")
+        splits[-2] = rst_version
+        new_tag.a["href"] = "/".join(splits)
+        new_tag.a.string = rst_version
+        return new_tag
+
+    def _fix_links(path, versions):
+        with open(path, "r", encoding="utf8", errors="ignore") as file:
+            content = file.read()
+            soup = BeautifulSoup(content, features="html.parser")
+        divs = soup.find_all("div", class_="rst-versions")
+        if len(divs) != 1:
+            print(f"Matched {len(divs)} divs in file: {path}")
+        else:
+            div = divs[0]
+            if "/repo/stable/" in Path(path).as_posix():
+                current_version = "stable"
+            else:
+                current_version = (
+                    div.find("span", class_="rst-current-version")
+                    .contents[2]
+                    .strip()
+                    .split()[1]
+                )
+            dl = div.find("dl")
+            dt = dl.dt.extract()
+            dd = dl.dd.extract()
+            dds = [change_dd_tag(dd, version) for version in versions]
+            dl.clear()
+            dl.insert(0, dt)
+            dl.extend(dds)
+            for dd in dds:
+                if dd.text == current_version:
+                    strong = soup.new_tag("strong")
+                    dd.wrap(strong)
+            # write file
+            with open(path, "w", encoding="utf8") as file:
+                file.write(str(soup))
+
+    files = glob.glob(f"{path}/**/*.html", recursive=True)
+    for file in files:
+        print(f"Fixing links in {file}")
+        _fix_links(file, versions)
 
 
 def _handle_remove_readonly(func, path, exc):
@@ -101,7 +151,7 @@ def rm_dir(path):
 def build_doc(
     source: Path, out: Path, target: str, additional_options: Optional[str] = ""
 ):
-    print(f"Generating documentation for {target} {additional_options} ...")
+    print(f"Starting sphinx-build for target {target} {additional_options} ...")
     # prevents __pycache__ files which we don't need when code runs only once.
     docs_out = out / target
     sys.dont_write_bytecode = True
@@ -134,6 +184,7 @@ def generate_gh_pages(
     tmp_repo_path = gh_pages_root / "repo"
     if tmp_repo_path.exists() and not clean:
         tmp_repo = Repo(tmp_repo_path)
+        tmp_repo.git.checkout("--guess", "gh-pages", "--")
         print(f"Pulling repo...")
         tmp_repo.git.pull("-a")
     else:
@@ -151,7 +202,11 @@ def generate_gh_pages(
     ]
 
     if not tags:
-        tags = [tag.name for tag in tmp_repo.tags]
+
+        def check_version(tag, min_version):
+            return tuple(map(int, tag[1:].split("."))) >= min_version
+
+        tags = [tag.name for tag in tmp_repo.tags if check_version(tag.name, (1, 0, 1))]
 
     # first, check which documentation to generate
     def has_docs(name):
@@ -162,14 +217,14 @@ def generate_gh_pages(
         return docs_found
 
     branches = [b for b in branches if has_docs(b)]
-    tags = [t for t in tags if has_docs("tags/" + t) and t not in documented]
+    tags = [t for t in tags if has_docs("tags/" + t) and t[1:] not in documented]
     print(
         f"Will generate documentation for:\n  already documented: {documented}\n  Branches: {branches}\n  Tags: {tags}"
     )
-    stable = tags[0] if tags else None
+    stable = tags[-1] if tags else None
     print(f"new stable version {stable}")
     # fix order of dropdown elements (most recent tag first, then branches and older tags)
-    doclist = tags[:1] + branches + tags[1:]
+    doclist = branches + tags
     print(f"doclist={doclist}")
     # generate documentation; all versions have to be known for the dropdown menu
     for d in doclist:
@@ -211,13 +266,15 @@ def generate_gh_pages(
             shutil.copytree(s, d, copy_function=shutil.copy)
         else:
             shutil.copy(s, d)
-        if item == stable:
+        if stable is not None and item == stable:
             print(f"Copying {s} as new stable version")
             stable_path = tmp_repo_path / "stable"
             shutil.rmtree(stable_path, ignore_errors=True)
             shutil.copytree(s, stable_path, copy_function=shutil.copy)
 
     print(f"Documentation has been merged in {tmp_repo.working_dir}")
+    print(f"Fixing links to other versions {documented}")
+    fix_all_links(tmp_repo.working_dir, versions=documented)
     print("Current git status:")
     status = tmp_repo.git.status("--short")
     print(status)
