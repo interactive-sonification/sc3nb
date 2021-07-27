@@ -25,7 +25,7 @@
 <link href="genindex.html" rel="index" title="Index"/>
 <link href="search.html" rel="search" title="Search"/>
 <link href="CONTRIBUTORS.html" rel="next" title="Contributors"/>
-<link href="autogen/autoapi/sc3nb/version/index.html" rel="prev" title="sc3nb.version"/>
+<link href="autogen/autoapi/sc3nb/util/index.html" rel="prev" title="sc3nb.util"/>
 </head>
 <body class="wy-body-for-nav">
 <div class="wy-grid-for-nav">
@@ -38,7 +38,7 @@
           
           </a>
 <div class="version">
-                1.0.1
+                develop
               </div>
 <div role="search">
 <form action="search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -160,6 +160,7 @@
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/score-examples.html">Score</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
@@ -221,6 +222,7 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
@@ -280,10 +282,6 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -292,10 +290,12 @@
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#development-guidelines">Development Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-test">How to test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-build-the-docs">How to build the docs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTORS.html">Contributors</a><ul>
@@ -354,42 +354,17 @@
 <p>You can contribute by creating issues, making pull requests, improving the documentation or creating examples.</p>
 <p>Please get in touch with us if you wish to contribute. We are happy to be involved in the discussion of new features and to receive pull requests and also looking forward to include notebooks using sc3nb in our examples.</p>
 <p>We will honor contributors in our <a class="reference internal" href="CONTRIBUTORS.html"><span class="doc std std-doc">Contributors list</span></a>. If you contribute with a pull request feel free to add yourself to the list.</p>
-<div class="section" id="how-to-test-set-up-the-development-environment">
-<h2>How to test / set up the development environment<a class="headerlink" href="#how-to-test-set-up-the-development-environment" title="Permalink to this headline">¶</a></h2>
-<p>Additional dependencies for sc3nb can be installed via the following extras:
-tests, development, building docs, running test.</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Install</p></th>
-<th class="text-align:left head"><p>Purpose</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
-<td class="text-align:left"><p>running tox for tests and other things</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
-<td class="text-align:left"><p>using the pre-commit hooks and installing other useful tools for development</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
-<td class="text-align:left"><p>building the docs</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[localtests]</span></code></p></td>
-<td class="text-align:left"><p>running pytest directly without tox, also used in tox as dependencies</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 <div class="section" id="development-guidelines">
 <h2>Development Guidelines<a class="headerlink" href="#development-guidelines" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://pre-commit.com/"><img alt="pre-commit" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white"/></a>
 <a class="reference external" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a></p>
-<p>To ensure standards are followed please install <a class="reference external" href="https://pre-commit.com/">pre-commit</a></p>
+<p>To ensure standards are followed please install the <code class="docutils literal notranslate"><span class="pre">[dev]</span></code> extra. See <a class="reference external" href="#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></p>
 <p>We use:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> for formatting code</p></li>
+<li><p><a class="reference external" href="https://pre-commit.com/">pre-commit</a> to controll our standards for each commit.</p></li>
+<li><p><a class="reference external" href="https://github.com/psf/black">black</a> and <a class="reference external" href="https://github.com/PyCQA/isort">isort</a> for formatting code.</p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/library/typing.html">python type hints</a></p></li>
-<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">How to Document</a></p></li>
+<li><p><a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html">numpydoc</a> docstring format. Also see <a class="reference external" href="https://numpy.org/doc/stable/docs/howto_document.html">Guide to NumPy Documentation</a></p></li>
 </ul>
 </div>
 <div class="section" id="how-to-contributing-an-example-notebook">
@@ -404,9 +379,35 @@ tests, development, building docs, running test.</p>
 <p>Also add <code class="docutils literal notranslate"><span class="pre">sc.exit()</span></code> to all notebooks at the end.</p>
 <p>Please also try to make sure they work when using the doc generation script.</p>
 </div>
-<div class="section" id="how-to-prepare-a-release">
-<h2>How to prepare a release<a class="headerlink" href="#how-to-prepare-a-release" title="Permalink to this headline">¶</a></h2>
-<p>The following checks should all be successful before creating a new release.</p>
+<div class="section" id="how-to-set-up-the-testing-and-development-environment">
+<h2>How to set up the testing and development environment<a class="headerlink" href="#how-to-set-up-the-testing-and-development-environment" title="Permalink to this headline">¶</a></h2>
+<p>Additional dependencies for sc3nb can be installed via the following extras:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Install</p></th>
+<th class="text-align:left head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[test]</span></code></p></td>
+<td class="text-align:left"><p>running tox for tests and other things</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[dev]</span></code></p></td>
+<td class="text-align:left"><p>using the pre-commit hooks and installing other useful tools for development</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[docs]</span></code></p></td>
+<td class="text-align:left"><p>building the docs directly, without tox (used by tox)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">[localtests]</span></code></p></td>
+<td class="text-align:left"><p>running pytest directly, without tox (used by tox)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Normally you should only need <code class="docutils literal notranslate"><span class="pre">[test]</span></code> and <code class="docutils literal notranslate"><span class="pre">[dev]</span></code> for contributing.</p>
+</div>
+<div class="section" id="how-to-test">
+<h2>How to test<a class="headerlink" href="#how-to-test" title="Permalink to this headline">¶</a></h2>
+<p>The following tests should all be successful.</p>
 <ul>
 <li><p>run tests</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span>
@@ -427,8 +428,11 @@ tests, development, building docs, running test.</p>
 <p>Controll the output in <code class="docutils literal notranslate"><span class="pre">build/docs/html/</span></code></p>
 </li>
 </ul>
-<p>Actual Release</p>
+</div>
+<div class="section" id="how-to-prepare-a-release">
+<h2>How to prepare a release<a class="headerlink" href="#how-to-prepare-a-release" title="Permalink to this headline">¶</a></h2>
 <ul>
+<li><p>run all <a class="reference external" href="#how-to-test">tests</a></p></li>
 <li><p>update changelog</p>
 <p>should contain information about the commits between the versions</p>
 </li>
@@ -468,15 +472,18 @@ Please always use 3 numbers like v1.0.0 for <a class="reference external" href="
 </pre></div>
 </div>
 </li>
-<li><p>build github-pages docs (after pushing the tag)</p>
+<li><p>build github-pages docs (after pushing the tag)
+See <a class="reference external" href="#how-to-build-the-docs">How to build the docs</a></p></li>
+</ul>
+</div>
+<div class="section" id="how-to-build-the-docs">
+<h2>How to build the docs<a class="headerlink" href="#how-to-build-the-docs" title="Permalink to this headline">¶</a></h2>
 <p>Create the gh-pages documentation with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">e</span> <span class="n">docs</span> <span class="o">--</span> <span class="o">--</span><span class="n">github</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tox</span> <span class="o">-</span><span class="n">e</span> <span class="n">docs</span> <span class="o">--</span> <span class="o">--</span><span class="n">github</span> <span class="o">--</span><span class="n">clean</span> <span class="o">--</span><span class="n">commit</span>
 </pre></div>
 </div>
-<p>Controll the output in <code class="docutils literal notranslate"><span class="pre">build/docs/gh-pages/repo/</span></code>.
+<p>Controll the commit in the build folder (<code class="docutils literal notranslate"><span class="pre">build/docs/gh-pages/repo/</span></code>).
 Push the changes</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -484,7 +491,7 @@ Push the changes</p>
 <footer>
 <div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
 <a accesskey="n" class="btn btn-neutral float-right" href="CONTRIBUTORS.html" rel="next" title="Contributors">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
-<a accesskey="p" class="btn btn-neutral float-left" href="autogen/autoapi/sc3nb/version/index.html" rel="prev" title="sc3nb.version"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="p" class="btn btn-neutral float-left" href="autogen/autoapi/sc3nb/util/index.html" rel="prev" title="sc3nb.util"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
 </div>
 <hr/>
 <div role="contentinfo">
@@ -492,7 +499,7 @@ Push the changes</p>
         © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
-        Revision <code>a543dec7fb</code>.
+        Revision <code>146be82a25</code>.
       </span>
 </p>
 </div>
@@ -513,11 +520,11 @@ Push the changes</p>
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: 1.0.1
+      v: develop
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
 </div>
 </div>
 <script type="text/javascript">

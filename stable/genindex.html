@@ -36,7 +36,7 @@
           
           </a>
 <div class="version">
-                1.0.1
+                develop
               </div>
 <div role="search">
 <form action="search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -158,6 +158,7 @@
 <li class="toctree-l3"><a class="reference internal" href="autogen/notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="autogen/notebooks/supercollider-objects/score-examples.html">Score</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
@@ -219,6 +220,7 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
@@ -278,10 +280,6 @@
 <li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="autogen/autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="autogen/autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -290,10 +288,12 @@
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-test">How to test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CONTRIBUTORS.html">Contributors</a><ul>
@@ -1352,7 +1352,10 @@
 </li>
 </ul></li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.load_file">load_file() (sc3nb.sc_objects.score.Score class method)</a>
+<ul>
+<li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Score.load_file">(sc3nb.Score class method)</a>
 </li>
+</ul></li>
 <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.load_ipython_extension">load_ipython_extension() (in module sc3nb.magics)</a>
 </li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.load_synthdef">load_synthdef() (sc3nb.sc_objects.server.SCServer method)</a>
@@ -1476,8 +1479,6 @@
 <li><a href="autogen/autoapi/sc3nb/timed_queue/index.html#module-sc3nb.timed_queue">sc3nb.timed_queue</a>
 </li>
 <li><a href="autogen/autoapi/sc3nb/util/index.html#module-sc3nb.util">sc3nb.util</a>
-</li>
-<li><a href="autogen/autoapi/sc3nb/version/index.html#module-sc3nb.version">sc3nb.version</a>
 </li>
 </ul></li>
 </ul></td>
@@ -1857,7 +1858,10 @@
 </li>
 </ul></li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.record_nrt">record_nrt() (sc3nb.sc_objects.score.Score class method)</a>
+<ul>
+<li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Score.record_nrt">(sc3nb.Score class method)</a>
 </li>
+</ul></li>
 <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder (class in sc3nb)</a>
 <ul>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.Recorder">(class in sc3nb.sc_objects.recorder)</a>
@@ -1867,10 +1871,10 @@
 </li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/recorder/index.html#sc3nb.sc_objects.recorder.RecorderState.RECORDING">RECORDING (sc3nb.sc_objects.recorder.RecorderState attribute)</a>
 </li>
-<li><a href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV">RECV (sc3nb.sc_objects.synthdef.SynthDefinitionCommand attribute)</a>
-</li>
 </ul></td>
 <td style="width: 33%; vertical-align: top;"><ul>
+<li><a href="autogen/autoapi/sc3nb/sc_objects/synthdef/index.html#sc3nb.sc_objects.synthdef.SynthDefinitionCommand.RECV">RECV (sc3nb.sc_objects.synthdef.SynthDefinitionCommand attribute)</a>
+</li>
 <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Node.register">register() (sc3nb.Node method)</a>
 <ul>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/node/index.html#sc3nb.sc_objects.node.Node.register">(sc3nb.sc_objects.node.Node method)</a>
@@ -2106,13 +2110,6 @@
 <li><a href="autogen/autoapi/sc3nb/util/index.html#module-sc3nb.util">module</a>
 </li>
 </ul></li>
-<li>
-    sc3nb.version
-
-      <ul>
-<li><a href="autogen/autoapi/sc3nb/version/index.html#module-sc3nb.version">module</a>
-</li>
-</ul></li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SC3NB_DEFAULT_PORT">SC3NB_DEFAULT_PORT (in module sc3nb.sc_objects.server)</a>
 </li>
 <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SC3NB_SCLANG_CLIENT_ID">SC3NB_SCLANG_CLIENT_ID (in module sc3nb.sclang)</a>
@@ -2134,8 +2131,11 @@
 </li>
 <li><a href="autogen/autoapi/sc3nb/sclang/index.html#sc3nb.sclang.SCLangError">SCLangError</a>
 </li>
-<li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score">Score (class in sc3nb.sc_objects.score)</a>
+<li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Score">Score (class in sc3nb)</a>
+<ul>
+<li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score">(class in sc3nb.sc_objects.score)</a>
 </li>
+</ul></li>
 <li><a href="autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scs">scs() (sc3nb.magics.SC3Magics method)</a>
 </li>
 <li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.SCServer">SCServer (class in sc3nb)</a>
@@ -2435,8 +2435,6 @@
 <h2 id="V">V</h2>
 <table class="indextable genindextable" style="width: 100%"><tr>
 <td style="width: 33%; vertical-align: top;"><ul>
-<li><a href="autogen/autoapi/sc3nb/version/index.html#sc3nb.version.version">version (in module sc3nb.version)</a>
-</li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.MasterControlCommand.VERSION">VERSION (sc3nb.sc_objects.server.MasterControlCommand attribute)</a>
 </li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.version">version() (sc3nb.sc_objects.server.SCServer method)</a>
@@ -2448,8 +2446,6 @@
 </li>
 </ul></td>
 <td style="width: 33%; vertical-align: top;"><ul>
-<li><a href="autogen/autoapi/sc3nb/version/index.html#sc3nb.version.version_tuple">version_tuple (in module sc3nb.version)</a>
-</li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/volume/index.html#sc3nb.sc_objects.volume.Volume">Volume (class in sc3nb.sc_objects.volume)</a>
 </li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer.volume">volume() (sc3nb.sc_objects.server.SCServer property)</a>
@@ -2487,7 +2483,10 @@
 </li>
 </ul></li>
 <li><a href="autogen/autoapi/sc3nb/sc_objects/score/index.html#sc3nb.sc_objects.score.Score.write_file">write_file() (sc3nb.sc_objects.score.Score class method)</a>
+<ul>
+<li><a href="autogen/autoapi/sc3nb/index.html#sc3nb.Score.write_file">(sc3nb.Score class method)</a>
 </li>
+</ul></li>
 </ul></td>
 </tr></table>
 <h2 id="Z">Z</h2>
@@ -2513,7 +2512,7 @@
         © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
-        Revision <code>a543dec7fb</code>.
+        Revision <code>146be82a25</code>.
       </span>
 </p>
 </div>
@@ -2534,11 +2533,11 @@
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: 1.0.1
+      v: develop
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
 </div>
 </div>
 <script type="text/javascript">

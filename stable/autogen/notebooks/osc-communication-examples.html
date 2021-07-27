@@ -27,7 +27,7 @@
 <link href="../../genindex.html" rel="index" title="Index"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="helper-examples.html" rel="next" title="Helper functions"/>
-<link href="supercollider-objects/recorder-examples.html" rel="prev" title="Recorder"/>
+<link href="supercollider-objects/score-examples.html" rel="prev" title="Score"/>
 </head>
 <body class="wy-body-for-nav">
 <div class="wy-grid-for-nav">
@@ -40,7 +40,7 @@
           
           </a>
 <div class="version">
-                1.0.1
+                develop
               </div>
 <div role="search">
 <form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -162,6 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/score-examples.html">Score</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OSC communication</a><ul>
@@ -223,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
@@ -282,10 +284,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -294,10 +292,12 @@
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test">How to test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTORS.html">Contributors</a><ul>
@@ -598,7 +598,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/a543dec7fb6672532b4763c9a27fb6ad95e74ce0/examples/osc-communication-examples.ipynb">examples/osc-communication-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/146be82a256db28600772e79a1404024a501d465/examples/osc-communication-examples.ipynb">examples/osc-communication-examples.ipynb</a>.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -1435,7 +1435,7 @@ Aborting. Exception raised in bundler: TimeoutError Timed out waiting for synth.
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/synced', 12345)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/synced', 12345)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1594,15 +1594,6 @@ AddressQueue /synced : []
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/synced', 1)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/synced', 2)
-</pre></div></div>
-</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
@@ -1621,6 +1612,14 @@ AddressQueue /synced : []
 <span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">msg_queues</span><span class="p">[</span><span class="s2">"/synced"</span><span class="p">]</span><span class="o">.</span><span class="n">skips</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/synced', 2)
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
@@ -1648,7 +1647,7 @@ AddressQueue /synced : []
 <div class="highlight"><pre>
 WARNING:sc3nb.osc.osc_communication:AddressQueue MasterControlReply.SYNCED: skipped value 1
 WARNING:sc3nb.osc.osc_communication:AddressQueue MasterControlReply.SYNCED: skipped value 2
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/synced', 3)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/synced', 3)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1694,7 +1693,7 @@ AddressQueue /synced : []
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/synced', 42)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/synced', 42)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1858,7 +1857,7 @@ class MessageQueue(MessageHandler)
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from sc3nb: ('/test', 'Hi!')
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from sc3nb: ('/test', 'Hi!')
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -1893,7 +1892,7 @@ AddressQueue /test : ['Hi!']
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from sc3nb: ('/test', 'Hello!')
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from sc3nb: ('/test', 'Hello!')
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2020,7 +2019,7 @@ OSCdef.newMatching("say_hi", {|msg, time, addr, recvPort| addr.sendMsg("/hi.repl
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from sclang: ('/hi.reply', 'Hello there!')
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from sclang: ('/hi.reply', 'Hello there!')
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2287,7 +2286,7 @@ OSCdef.newMatching("ab", {|msg, time, addr, recvPort| addr.sendMsg('/collect', '
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from sclang: ('/collect', '/address1', 'sotta')
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from sclang: ('/collect', '/address1', 'oatst')
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2296,7 +2295,7 @@ INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg f
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-'sotta'
+'oatst'
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -2313,7 +2312,7 @@ INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg f
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from sclang: ('/collect', '/address2', 'ciioasfnnoti')
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from sclang: ('/collect', '/address2', 'tianifioncos')
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2322,7 +2321,7 @@ INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg f
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-'ciioasfnnoti'
+'tianifioncos'
 </pre></div></div>
 </div>
 </div>
@@ -2412,29 +2411,17 @@ INFO:sc3nb.osc.osc_communication:send to sclang : &lt;Bundler {0.0: [&lt;OSCMess
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1001, 1, -1, 1000, 0)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1002, 1, -1, 1001, 0)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1003, 1, -1, 1002, 0)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Quitting SCServer...
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1004, 1, -1, 1003, 0)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1005, 1, -1, 1004, 0)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1006, 1, -1, 1005, 0)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/n_go', 1007, 1, -1, 1006, 0)
-INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg from scsynth: ('/done', '/quit')
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1000, 1, -1, -1, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1001, 1, -1, 1000, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1002, 1, -1, 1001, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1003, 1, -1, 1002, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1004, 1, -1, 1003, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1005, 1, -1, 1004, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1006, 1, -1, 1005, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1007, 1, -1, 1006, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1008, 1, -1, 1007, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/n_go', 1009, 1, -1, 1008, 0)
+INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=2224 got OSC msg from scsynth: ('/done', '/quit')
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -2442,7 +2429,7 @@ INFO:sc3nb.sc_objects.server:SCServer('127.0.0.1', 57110) pid=1884 got OSC msg f
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Done.
+Quitting SCServer... Done.
 Exiting sclang... Done.
 </pre></div></div>
 </div>
@@ -2454,7 +2441,7 @@ Exiting sclang... Done.
 <footer>
 <div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
 <a accesskey="n" class="btn btn-neutral float-right" href="helper-examples.html" rel="next" title="Helper functions">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
-<a accesskey="p" class="btn btn-neutral float-left" href="supercollider-objects/recorder-examples.html" rel="prev" title="Recorder"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="p" class="btn btn-neutral float-left" href="supercollider-objects/score-examples.html" rel="prev" title="Score"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
 </div>
 <hr/>
 <div role="contentinfo">
@@ -2462,7 +2449,7 @@ Exiting sclang... Done.
         © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
-        Revision <code>a543dec7fb</code>.
+        Revision <code>146be82a25</code>.
       </span>
 </p>
 </div>
@@ -2483,11 +2470,11 @@ Exiting sclang... Done.
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: 1.0.1
+      v: develop
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
 </div>
 </div>
 <script type="text/javascript">

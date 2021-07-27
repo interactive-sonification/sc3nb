@@ -72,6 +72,7 @@ Class List
    sc3nb.SynthDef
    sc3nb.Buffer
    sc3nb.Bus
+   sc3nb.Score
    sc3nb.Recorder
    sc3nb.TimedQueue
    sc3nb.TimedQueueSC
@@ -6233,6 +6234,143 @@ Content
 
 
 
+.. class:: Score
+
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.Score.load_file
+         sc3nb.Score.write_file
+         sc3nb.Score.record_nrt
+
+   .. method:: load_file(cls, path: Union[str, bytes, os.PathLike]) -> Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]]
+      :classmethod:
+
+      Load a OSC file into a dict.
+
+
+      :Parameters:
+
+          **path** : Union[str, bytes, os.PathLike]
+              Path of the OSC file.
+
+      :Returns:
+
+          Dict[float, List[OSCMessage]]
+              dict with time tag as keys and lists of OSCMessages as values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: write_file(cls, messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], path: Union[str, bytes, os.PathLike], tempo: float = 1)
+      :classmethod:
+
+      Write this score as binary OSC file for NRT synthesis.
+
+
+      :Parameters:
+
+          **messages** : Dict[float, List[OSCMessage]]
+              Dict with times as key and lists of OSC messages as values
+
+          **path** : Union[str, bytes, os.PathLike]
+              output path for the binary OSC file
+
+          **tempo** : float
+              Times will be multiplied by 1/tempo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: record_nrt(cls, messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], osc_path: str, out_file: str, in_file: Optional[str] = None, sample_rate: int = 44100, header_format: str = 'AIFF', sample_format: str = 'int16', options: Optional[sc3nb.sc_objects.server.ServerOptions] = None)
+      :classmethod:
+
+      Write an OSC file from the messages and wri
+
+
+      :Parameters:
+
+          **messages** : Dict[float, List[OSCMessage]]
+              Dict with times as key and lists of OSC messages as values.
+
+          **osc_path** : str
+              Path of the binary OSC file.
+
+          **out_file** : str
+              Path of the resulting sound file.
+
+          **in_file** : Optional[str], optional
+              Path of input soundfile, by default None.
+
+          **sample_rate** : int, optional
+              sample rate for synthesis, by default 44100.
+
+          **header_format** : str, optional
+              header format of the output file, by default "AIFF".
+
+          **sample_format** : str, optional
+              sample format of the output file, by default "int16".
+
+          **options** : Optional[ServerOptions], optional
+              instance of server options to specify server options, by default None
+
+      :Returns:
+
+          subprocess.CompletedProcess
+              Completed scsynth non-realtime process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
 .. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
@@ -7771,6 +7909,5 @@ Submodules
    sclang/index.rst
    timed_queue/index.rst
    util/index.rst
-   version/index.rst
 
 

@@ -40,7 +40,7 @@
           
           </a>
 <div class="version">
-                1.0.1
+                develop
               </div>
 <div role="search">
 <form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -162,6 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="score-examples.html">Score</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a><ul>
@@ -223,6 +224,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
@@ -282,10 +284,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/version/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -294,10 +292,12 @@
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test">How to test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
@@ -599,7 +599,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/a543dec7fb6672532b4763c9a27fb6ad95e74ce0/examples/supercollider-objects/server-examples.ipynb">examples/supercollider-objects/server-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/146be82a256db28600772e79a1404024a501d465/examples/supercollider-objects/server-examples.ipynb">examples/supercollider-objects/server-examples.ipynb</a>.</p>
 </div>
 <div class="section" id="Server">
 <h1>Server<a class="headerlink" href="#Server" title="Permalink to this headline">¶</a></h1>
@@ -683,7 +683,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=4944&gt;&gt;
+&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=1744&gt;&gt;
 </pre></div></div>
 </div>
 <p>However you can also use the SCServer class directly</p>
@@ -983,7 +983,7 @@ Quitting SCServer... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=4944&gt;&gt;
+&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=1744&gt;&gt;
 </pre></div></div>
 </div>
 <p>Let’s reboot the default server</p>
@@ -1105,7 +1105,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0.23005923628807068, peak_cpu=0.24278487265110016, nominal_sr=44100.0, actual_sr=43520.66407263294)
+ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0.24401362240314484, peak_cpu=0.2526075541973114, nominal_sr=44100.0, actual_sr=43534.78040869283)
 </pre></div></div>
 </div>
 <p>which can also be accessed directly via properties</p>
@@ -1530,6 +1530,7 @@ False
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+[ "/g_dumpTree", 0, 1 ]
 NODE TREE Group 0
    -16 s1
      freq: 500 dur: 0.10000000149012 att: 0.0099999997764826 amp: 0.30000001192093 num: 1 pan: 0
@@ -1633,7 +1634,7 @@ NODE TREE Group 0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=18964&gt;&gt;&gt;
+&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=9920&gt;&gt;&gt;
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1791,7 +1792,7 @@ Exiting sclang... Done.
         © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
-        Revision <code>a543dec7fb</code>.
+        Revision <code>146be82a25</code>.
       </span>
 </p>
 </div>
@@ -1812,11 +1813,11 @@ Exiting sclang... Done.
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: 1.0.1
+      v: develop
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
 </div>
 </div>
 <script type="text/javascript">

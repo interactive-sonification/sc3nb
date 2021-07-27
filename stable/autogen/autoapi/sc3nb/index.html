@@ -38,7 +38,7 @@
           
           </a>
 <div class="version">
-                1.0.1
+                develop
               </div>
 <div role="search">
 <form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -160,6 +160,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/supercollider-objects/score-examples.html">Score</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../notebooks/osc-communication-examples.html">OSC communication</a><ul>
@@ -221,6 +222,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#sc3nb.SynthDef">SynthDef</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sc3nb.Buffer">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sc3nb.Bus">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sc3nb.Score">Score</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sc3nb.Recorder">Recorder</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sc3nb.TimedQueue">TimedQueue</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
@@ -280,10 +282,6 @@
 <li class="toctree-l4"><a class="reference internal" href="util/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="version/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -292,10 +290,12 @@
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test-set-up-the-development-environment">How to test / set up the development environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test">How to test</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
@@ -432,19 +432,22 @@ as well as playing recording and visualizing audio.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bus" title="sc3nb.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></p></td>
 <td><p>Represenation of Control or Audio Bus(es) on the SuperCollider Server</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Recorder" title="sc3nb.Recorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Recorder</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Score" title="sc3nb.Score"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Score</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Recorder" title="sc3nb.Recorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Recorder</span></code></a></p></td>
 <td><p>Allows to record audio easily.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.TimedQueue" title="sc3nb.TimedQueue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimedQueue</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.TimedQueue" title="sc3nb.TimedQueue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimedQueue</span></code></a></p></td>
 <td><p>Accumulates events as timestamps and functions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.TimedQueueSC" title="sc3nb.TimedQueueSC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimedQueueSC</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.TimedQueueSC" title="sc3nb.TimedQueueSC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimedQueueSC</span></code></a></p></td>
 <td><p>Timed queue with OSC communication.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.OSCMessage" title="sc3nb.OSCMessage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OSCMessage</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.OSCMessage" title="sc3nb.OSCMessage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OSCMessage</span></code></a></p></td>
 <td><p>Class for creating messages to send over OSC</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Bundler" title="sc3nb.Bundler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bundler</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Bundler" title="sc3nb.Bundler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bundler</span></code></a></p></td>
 <td><p>Class for creating OSCBundles and bundling of messages</p></td>
 </tr>
 </tbody>
@@ -3941,6 +3944,97 @@ Multiple values if this bus has num_channels &gt; 1</p>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
+<dt class="sig sig-object py" id="sc3nb.Score">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.</span></span><span class="sig-name descname"><span class="pre">Score</span></span><a class="reference internal" href="../../../_modules/sc3nb/sc_objects/score.html#Score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Score" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Overview:</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Score.load_file" title="sc3nb.Score.load_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_file</span></code></a></p></td>
+<td><p>Load a OSC file into a dict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sc3nb.Score.write_file" title="sc3nb.Score.write_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_file</span></code></a></p></td>
+<td><p>Write this score as binary OSC file for NRT synthesis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sc3nb.Score.record_nrt" title="sc3nb.Score.record_nrt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">record_nrt</span></code></a></p></td>
+<td><p>Write an OSC file from the messages and wri</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sc3nb.Score.load_file">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">load_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">sc3nb.osc.osc_communication.OSCMessage</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sc3nb.Score.load_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a OSC file into a dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">Union[str, bytes, os.PathLike]</span></dt><dd><p>Path of the OSC file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Dict[float, List[OSCMessage]]</dt><dd><p>dict with time tag as keys and lists of OSCMessages as values.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sc3nb.Score.write_file">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">write_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">sc3nb.osc.osc_communication.OSCMessage</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/dev/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Score.write_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write this score as binary OSC file for NRT synthesis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>messages</strong><span class="classifier">Dict[float, List[OSCMessage]]</span></dt><dd><p>Dict with times as key and lists of OSC messages as values</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">Union[str, bytes, os.PathLike]</span></dt><dd><p>output path for the binary OSC file</p>
+</dd>
+<dt><strong>tempo</strong><span class="classifier">float</span></dt><dd><p>Times will be multiplied by 1/tempo</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sc3nb.Score.record_nrt">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">record_nrt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="osc/osc_communication/index.html#sc3nb.osc.osc_communication.OSCMessage" title="sc3nb.osc.osc_communication.OSCMessage"><span class="pre">sc3nb.osc.osc_communication.OSCMessage</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">osc_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'AIFF'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'int16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sc_objects/server/index.html#sc3nb.sc_objects.server.ServerOptions" title="sc3nb.sc_objects.server.ServerOptions"><span class="pre">sc3nb.sc_objects.server.ServerOptions</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sc3nb.Score.record_nrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write an OSC file from the messages and wri</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>messages</strong><span class="classifier">Dict[float, List[OSCMessage]]</span></dt><dd><p>Dict with times as key and lists of OSC messages as values.</p>
+</dd>
+<dt><strong>osc_path</strong><span class="classifier">str</span></dt><dd><p>Path of the binary OSC file.</p>
+</dd>
+<dt><strong>out_file</strong><span class="classifier">str</span></dt><dd><p>Path of the resulting sound file.</p>
+</dd>
+<dt><strong>in_file</strong><span class="classifier">Optional[str], optional</span></dt><dd><p>Path of input soundfile, by default None.</p>
+</dd>
+<dt><strong>sample_rate</strong><span class="classifier">int, optional</span></dt><dd><p>sample rate for synthesis, by default 44100.</p>
+</dd>
+<dt><strong>header_format</strong><span class="classifier">str, optional</span></dt><dd><p>header format of the output file, by default “AIFF”.</p>
+</dd>
+<dt><strong>sample_format</strong><span class="classifier">str, optional</span></dt><dd><p>sample format of the output file, by default “int16”.</p>
+</dd>
+<dt><strong>options</strong><span class="classifier">Optional[ServerOptions], optional</span></dt><dd><p>instance of server options to specify server options, by default None</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>subprocess.CompletedProcess</dt><dd><p>Completed scsynth non-realtime process.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
 <dt class="sig sig-object py" id="sc3nb.Recorder">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">sc3nb.</span></span><span class="sig-name descname"><span class="pre">Recorder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'record.wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nr_channels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'wav'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_format</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'int16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bufsize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference external" href="https://docs.python.org/dev/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">65536</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sc_objects/server/index.html#sc3nb.sc_objects.server.SCServer" title="sc3nb.sc_objects.server.SCServer"><span class="pre">sc3nb.sc_objects.server.SCServer</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/sc3nb/sc_objects/recorder.html#Recorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sc3nb.Recorder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows to record audio easily.</p>
@@ -4836,7 +4930,6 @@ i.e. it clips on both sides.</p>
 <li class="toctree-l1"><a class="reference internal" href="sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="version/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.version</span></code></a></li>
 </ul>
 </div>
 </div>
@@ -4854,7 +4947,7 @@ i.e. it clips on both sides.</p>
         © Copyright 2021, Thomas Hermann, Dennis Reinsch.
       <span class="commit">
         
-        Revision <code>a543dec7fb</code>.
+        Revision <code>146be82a25</code>.
       </span>
 </p>
 </div>
@@ -4875,11 +4968,11 @@ i.e. it clips on both sides.</p>
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: 1.0.1
+      v: develop
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
 </div>
 </div>
 <script type="text/javascript">
