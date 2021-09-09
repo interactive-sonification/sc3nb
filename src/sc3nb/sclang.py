@@ -452,7 +452,7 @@ class SCLang:
         if not isinstance(server, SCServer):
             raise ValueError(f"Server must be instance of SCServer, got {type(server)}")
         code = r""" "sc3nb - Connecting sclang to scsynth".postln;
-        Server.default=s=Server.remote('sc3nb_remote', NetAddr("{0}",{1}), clientID:{2});"""
+        Server.default=s=Server.remote('sc3nb_remote', NetAddr("{0}",{1}), options:ServerOptions.new, clientID:{2});"""
         self.cmds(code.format(*server.addr, SC3NB_SCLANG_CLIENT_ID))
         try:  # if there are 'too many users' we failed. So the Exception is the successful case!
             self.read(expect="too many users", timeout=0.3, print_error=False)
