@@ -63,7 +63,9 @@ def find_executable(
             elif executable == "scsynth":
                 paths.append(directory + "SuperCollider.app/Contents/Resources/")
     elif platform.system() == "Windows":
-        paths.extend(glob.glob("C:/Program Files/SuperCollider-*/"))
+        default_paths = glob.glob("C:/Program Files/SuperCollider-*/")
+        default_paths.sort(reverse=True)  # later versions should be preferred
+        paths.extend(default_paths)
     # elif platform.system() == "Linux":
     _LOGGER.debug("Searching executable in paths: %s", paths)
     extlist = [""]
