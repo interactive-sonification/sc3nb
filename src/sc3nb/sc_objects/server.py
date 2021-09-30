@@ -215,19 +215,12 @@ class ServerOptions:
             self.options += ["-S", f"{self.hardware_sample_size}"]
 
         # hardware in/out device
-        if not hardware_input_device:
-            self.hardware_input_device = ""
-        else:
-            self.hardware_input_device = hardware_input_device
-        if not hardware_output_device:
-            self.hardware_output_device = ""
-        else:
-            self.hardware_output_device = hardware_output_device
         if hardware_input_device or hardware_output_device:
-            self.options += [
-                "-H",
-                f"{self.hardware_input_device} {self.hardware_output_device}".strip(),
-            ]
+            self.options += ["-H"]
+            if hardware_input_device:
+                self.options += [f"{hardware_input_device}"]
+            if hardware_output_device:
+                self.options += [f"{hardware_output_device}"]
 
         # misc. options
         self.other_options = other_options
