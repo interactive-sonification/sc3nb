@@ -396,7 +396,7 @@ class Node(ABC):
         Node or OSCMessage
             self for chaining or OSCMessage when return_msg=True
         """
-        msg = OSCMessage(NodeCommand.RUN, [self.nodeid, 1 if on else 1])
+        msg = OSCMessage(NodeCommand.RUN, [self.nodeid, 1 if on else 0])
         if return_msg:
             return msg
         else:
