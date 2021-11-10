@@ -1,9 +1,22 @@
 """Module with utlilty functions - especially for handling code snippets"""
 import inspect
 import re
+import socket
 from typing import Any
 
 import numpy as np
+
+
+def is_socket_used(addr=("127.0.0.1", 57110)):
+    a_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        result_of_check = a_socket.bind(addr)
+    except OSError as error:
+        return True
+    else:
+        return False
+    finally:
+        a_socket.close()
 
 
 def remove_comments(code: str) -> str:

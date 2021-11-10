@@ -31,6 +31,7 @@ from sc3nb.sc_objects.node import (
 )
 from sc3nb.sc_objects.synthdef import SynthDef, SynthDefinitionCommand
 from sc3nb.sc_objects.volume import Volume
+from sc3nb.util import is_socket_used
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -394,39 +395,50 @@ class SCServer(OSCCommunication):
         self._scsynth_address = LOCALHOST
         self._scsynth_port = self.options.udp_port
         self._max_logins = self.options.max_logins
-        self.process = Process(
-            executable=self._programm_name,
-            programm_args=self.options.options,
-            executable_path=scsynth_path,
-            console_logging=console_logging,
-            kill_others=kill_others,
-            allowed_parents=allowed_parents,
-        )
-        try:
-            self.process.read(expect="SuperCollider 3 server ready.", timeout=timeout)
-        except ProcessTimeout as process_timeout:
-            if ("Exception in World_OpenUDP" in process_timeout.output) or (
-                "ERROR: failed to open UDP socket" in process_timeout.output
-            ):
-                self.process.kill()
-                self.process = None
-                print(
-                    f"\nSuperCollider Server port {self.options.udp_port} already used."
+        if is_socket_used((self._scsynth_address, self._scsynth_port)):
+            print(f"\nSuperCollider Server port {self.options.udp_port} already used.")
+            if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
+                raise ValueError(
+                    f"The specified UDP port {self.options.udp_port} is already used"
                 )
-                if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
-                    raise ValueError(
-                        f"The specified UDP port {self.options.udp_port} is already used"
-                    ) from process_timeout
-                print("Trying to connect.")
-                self.remote(
-                    self._scsynth_address, self._scsynth_port, with_blip=with_blip
-                )
-            else:
-                print("Failed booting SuperCollider Server.")
-                raise process_timeout
+            print("Trying to connect.")
+            self.remote(self._scsynth_address, self._scsynth_port, with_blip=with_blip)
         else:
-            self.init(with_blip)
-            self._has_booted = True
+            self.process = Process(
+                executable=self._programm_name,
+                programm_args=self.options.options,
+                executable_path=scsynth_path,
+                console_logging=console_logging,
+                kill_others=kill_others,
+                allowed_parents=allowed_parents,
+            )
+            try:
+                self.process.read(
+                    expect="SuperCollider 3 server ready.", timeout=timeout
+                )
+            except ProcessTimeout as process_timeout:
+                if ("Exception in World_OpenUDP" in process_timeout.output) or (
+                    "ERROR: failed to open UDP socket" in process_timeout.output
+                ):
+                    self.process.kill()
+                    self.process = None
+                    print(
+                        f"\nSuperCollider Server port {self.options.udp_port} already used."
+                    )
+                    if self.options.udp_port != SCSYNTH_DEFAULT_PORT:
+                        raise ValueError(
+                            f"The specified UDP port {self.options.udp_port} is already used"
+                        ) from process_timeout
+                    print("Trying to connect.")
+                    self.remote(
+                        self._scsynth_address, self._scsynth_port, with_blip=with_blip
+                    )
+                else:
+                    print("Failed booting SuperCollider Server.")
+                    raise process_timeout
+            else:
+                self.init(with_blip)
+                self._has_booted = True
 
     def init(self, with_blip: bool = True):
         """Initialize the server.
