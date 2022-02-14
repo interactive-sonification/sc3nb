@@ -779,8 +779,6 @@ class Synth(Node):
 
         Parameters
         ----------
-        sc : SC
-            sc3nb SuperCollider instance
         name : str, optional
             name of the synth to be created, by default "default"
         controls : dict, optional
@@ -795,6 +793,8 @@ class Synth(Node):
             Where the Synth should be added, by default AddAction.TO_HEAD (0)
         target : Node or int, optional
             AddAction target, if None it will be the default group of the server
+        server : SCServer
+            sc3nb SCServer instance
 
         Raises
         ------

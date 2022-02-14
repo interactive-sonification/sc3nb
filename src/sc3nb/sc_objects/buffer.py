@@ -119,7 +119,7 @@ class Buffer:
     --------
     (see examples/buffer-examples.ipynb)
 
-    >>> b = Buffer().load_file(...)
+    >>> b = Buffer().read(...)
     >>> b = Buffer().load_data(...)
     >>> b = Buffer().alloc(...)
     >>> b = Buffer().load_asig(...)
