@@ -21,7 +21,7 @@ from sc3nb.util import parse_pyvars, replace_vars
 if TYPE_CHECKING:
     from sc3nb.sc import SC
     from sc3nb.sc_objects.server import SCServer
-    from sc3nb.sclang import SynthArgument
+    from sc3nb.sclang import SCLang, SynthArgument
 
 
 @unique
@@ -40,7 +40,9 @@ class SynthDef:
     synth_descs = {}
 
     @classmethod
-    def get_description(cls, name: str) -> Optional[Dict[str, "SynthArgument"]]:
+    def get_description(
+        cls, name: str, lang: Optional["SCLang"] = None
+    ) -> Optional[Dict[str, "SynthArgument"]]:
         """Get Synth description
 
         Parameters
@@ -55,21 +57,22 @@ class SynthDef:
         """
         if name in cls.synth_descs:
             return cls.synth_descs[name]
+        synth_desc = None
+        if lang is None:
+            try:
+                lang = sc3nb.SC.get_default().lang
+            except RuntimeError:
+                warnings.warn(f"SynthDesc '{name}' is unknown. sclang is not running.")
+                return synth_desc
         try:
-            synth_desc = sc3nb.SC.get_default().lang.get_synth_description(name)
-        except RuntimeError:
-            synth_desc = None
+            synth_desc = lang.get_synth_description(name)
+        except ValueError:
+            warnings.warn(
+                f"SynthDesc '{name}' is unknown. sclang does not know this SynthDef"
+            )
 
         if synth_desc is not None:
             cls.synth_descs[name] = synth_desc
-        else:
-            try:
-                sc3nb.SC.get_default().lang
-            except RuntimeError:
-                sclang_text = "sclang is not running."
-            else:
-                sclang_text = "sclang does not know this SynthDef"
-            warnings.warn(f"SynthDesc '{name}' is unknown. {sclang_text}")
         return synth_desc
 
     @classmethod
