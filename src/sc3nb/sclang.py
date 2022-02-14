@@ -402,7 +402,7 @@ class SCLang:
         Raises
         ------
         ValueError
-            When synthDesc of synthDef can not be found.
+            When SynthDesc of synth_def can not be found.
         """
         code = r""" "sc3nb - Get SynthDesc of {{synthDef}}".postln;
                 SynthDescLib.global['{{synthDef}}'].notNil.if({
@@ -418,7 +418,7 @@ class SCLang:
                 s[0]: SynthArgument(s[0], *s[1:]) for s in synth_desc if s[0] != "?"
             }
         else:
-            return None
+            raise ValueError(f"Synth Desc of synth_def '{synth_def}' cannot be found")
 
     @property
     def addr(self) -> Tuple[str, int]:
