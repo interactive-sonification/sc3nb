@@ -10,6 +10,7 @@ import errno
 import logging
 import threading
 import time
+import traceback
 import warnings
 from abc import ABC, abstractmethod
 from queue import Empty, Queue
@@ -207,17 +208,20 @@ class Bundler:
 
         Parameters
         ----------
-        args : OSCMessage or Bundler or Bundler arguments like
-               (timetag, msg_addr, msg_params)
-               (timetag, msg_addr)
-               (timetag, msg)
+        args : accepts a OSCMessage or Bundler
+               or a timetag with a OSCMessage or Bundler
+               or Bundler arguments like
+                (timetag, msg_addr, msg_params)
+                (timetag, msg_addr)
+                (timetag, msg)
 
         Returns
         -------
         Bundler
             self for chaining
         """
-        if len(args) == 1:
+        # base case with one argument
+        if len(args) == 1:  # args = Message / bundler
             content = args[0]
             if isinstance(content, OSCMessage):
                 bundler = Bundler(self.passed_time, content)
@@ -237,16 +241,21 @@ class Bundler:
                 bundler.timetag,
             )
             self.contents.append(bundler)
-        else:
-            if len(args) == 3:
-                timetag, msg_addr, msg_params = args
-                self.add(Bundler(timetag, msg_addr, msg_params))
-            elif len(args) == 2:
-                timetag, msg = args
-                self.add(Bundler(timetag, msg))
-            else:
-                raise ValueError(f"Invalid parameters {args}")
-        return self
+            return self
+        # transform args into Bundler and recurse (return self.add(...))
+        elif len(args) == 3:  # args = Bundler args
+            timetag, msg_addr, msg_params = args
+            return self.add(Bundler(timetag, msg_addr, msg_params))
+        elif len(args) == 2:  # args = timetag + Message / Bundler
+            timetag, content = args
+            if isinstance(content, (OSCMessage, str)):
+                return self.add(Bundler(timetag, content))
+            if isinstance(content, Bundler):
+                bundler = copy.deepcopy(content)
+                if bundler.timetag < 1e6:
+                    bundler.timetag += timetag
+                return self.add(bundler)
+        raise ValueError(f"Invalid parameters {args}")
 
     def messages(
         self, start_time: Optional[float] = 0.0, delay: Optional[float] = None
@@ -391,7 +400,8 @@ class Bundler:
         self.server._bundling_lock.release()
         if exc_value is not None:
             raise RuntimeError(
-                f"Aborting. Exception raised in bundler: {exc_type.__name__} {exc_value}"
+                "Aborting. Exception raised in bundler:\n"
+                f"{''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))}"
             )
         elif self.send_on_exit:
             self.send(bundle=True)
