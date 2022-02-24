@@ -421,6 +421,7 @@ class SCServer(OSCCommunication):
                     "ERROR: failed to open UDP socket" in process_timeout.output
                 ):
                     self.process.kill()
+                    self._is_local = False
                     self.process = None
                     print(
                         f"\nSuperCollider Server port {self.options.udp_port} already used."
