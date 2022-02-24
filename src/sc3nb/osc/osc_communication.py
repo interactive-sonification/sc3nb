@@ -208,8 +208,8 @@ class Bundler:
 
         Parameters
         ----------
-        args : accepts a OSCMessage or Bundler
-               or a timetag with a OSCMessage or Bundler
+        args : accepts an OSCMessage or Bundler
+               or a timetag with an OSCMessage or Bundler
                or Bundler arguments like
                 (timetag, msg_addr, msg_params)
                 (timetag, msg_addr)
@@ -254,6 +254,11 @@ class Bundler:
                 bundler = copy.deepcopy(content)
                 if bundler.timetag < 1e6:
                     bundler.timetag += timetag
+                else:
+                    bundler.timetag = timetag
+                    warnings.warn(
+                        f"Bundler absolute timetag has been overwritten with {timetag}"
+                    )
                 return self.add(bundler)
         raise ValueError(f"Invalid parameters {args}")
 
