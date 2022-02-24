@@ -62,7 +62,7 @@ class SCLangPersistentTest(SCBaseTest):
         f = 1234.5
         sc_val = self.sc.lang.cmdg("""^f.squared""")
         self.assertIsInstance(sc_val, float)
-        self.assertEqual(sc_val, f ** 2)
+        self.assertEqual(sc_val, f**2)
 
     def test_cmdg_str(self):
         soni, fication = "soni", "fication"

@@ -870,7 +870,7 @@ class SCServer(OSCCommunication):
 
         def create_default_group(client_id) -> Group:
             return Group(
-                nodeid=2 ** 26 * client_id + 1, target=0, server=self, new=True
+                nodeid=2**26 * client_id + 1, target=0, server=self, new=True
             )
 
         self._default_groups = {

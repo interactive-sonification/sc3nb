@@ -54,7 +54,7 @@ class ScoreTest(SCBaseTest):
             print(cp)
             (_, port), _ = ScoreTest.sc.server.connection_info()
             ScoreTest.sc.lang.cmd(
-                fr"""
+                rf"""
                 var g;
                 TempoClock.default.tempo = 1;
                 d = SynthDef("test", {{ |out, freq = 440| OffsetOut.ar(out, SinOsc.ar(freq, 0, 0.2) * Line.kr(1, 0, 0.5, doneAction: Done.freeSelf))}});

@@ -23,7 +23,7 @@ class NodeAllocator(Allocator):
 
     def allocate(self, num: int = 1) -> Sequence[int]:
         self._num_node_ids += 1
-        if self._num_node_ids >= 2 ** 31:
+        if self._num_node_ids >= 2**31:
             self._num_node_ids = 0
         return [self._num_node_ids + 10000 * (self.client_id + 1)]
 
