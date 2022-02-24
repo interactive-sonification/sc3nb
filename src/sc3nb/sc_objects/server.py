@@ -5,7 +5,7 @@ import warnings
 from enum import Enum, unique
 from queue import Empty
 from random import randint
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, NamedTuple, Optional, Sequence, Set, Tuple
 from weakref import WeakValueDictionary
 
 from sc3nb.osc.osc_communication import (
@@ -280,6 +280,37 @@ class NodeWatcher:
             node._handle_notification(kind, info)
 
 
+class Hook:
+    """A simple class for storing a function and arguments and allows later execution."""
+
+    def __init__(self, fun: Callable, *args: Any, **kwargs: Any) -> None:
+        """Create a Hook
+
+        Parameters
+        ----------
+        fun : Callable
+            Function to be executed
+        args : Any, optional
+            Arguments given to function
+        kwargs : Any, optional
+            Keyword arguments given to function
+        """
+        self.fun = fun
+        self.args = args
+        self.kwargs = kwargs
+
+    def execute(self):
+        """Execute the Hook"""
+        if self.args and self.kwargs:
+            self.fun(*self.args, **self.kwargs)
+        elif self.args:
+            self.fun(*self.args)
+        elif self.kwargs:
+            self.fun(**self.kwargs)
+        else:
+            self.fun()
+
+
 class SCServer(OSCCommunication):
     """SuperCollider audio server representaion.
 
@@ -347,7 +378,7 @@ class SCServer(OSCCommunication):
             server=self,
         )
 
-        self._server_init_hooks: List[Tuple[Callable[..., None], Any, Any]] = []
+        self.init_hooks: Set[Hook] = set()
 
         self._volume = Volume(self)
 
@@ -520,16 +551,9 @@ class SCServer(OSCCommunication):
 
         Hooks can be added using add_init_hook
         """
-        _LOGGER.debug("Executing init hooks %s", self._server_init_hooks)
-        for hook, args, kwargs in self._server_init_hooks:
-            if args and kwargs:
-                hook(*args, **kwargs)
-            elif args:
-                hook(*args)
-            elif kwargs:
-                hook(**kwargs)
-            else:
-                hook()
+        _LOGGER.debug("Executing init hooks %s", self.init_hooks)
+        for hook in self.init_hooks:
+            hook.execute()
 
     def connect_sclang(self, port: int) -> None:
         """Connect sclang to the server
@@ -544,10 +568,8 @@ class SCServer(OSCCommunication):
         self.add_receiver(name="sclang", ip_address="127.0.0.1", port=port)
         self.execute_init_hooks()
 
-    def add_init_hook(
-        self, hook: Callable[..., None], *args: Any, **kwargs: Any
-    ) -> None:
-        """Add a function to be executed when the server is initialized
+    def add_init_hook(self, fun: Callable, *args: Any, **kwargs: Any) -> Hook:
+        """Create and add a hook to be executed when the server is initialized
 
         Parameters
         ----------
@@ -557,8 +579,25 @@ class SCServer(OSCCommunication):
             Arguments given to function
         kwargs : Any, optional
             Keyword arguments given to function
+
+        Returns
+        -------
+        Hook
+            The created Hook
         """
-        self._server_init_hooks.append((hook, args, kwargs))
+        hook = Hook(fun, *args, **kwargs)
+        self.init_hooks.add(hook)
+        return hook
+
+    def remove_init_hook(self, hook: Hook):
+        """Remove a previously added init Hook
+
+        Parameters
+        ----------
+        hook : Hook
+            the hook to be removed
+        """
+        self.init_hooks.remove(hook)
 
     def bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True):
         """Generate a Bundler with added server latency.
