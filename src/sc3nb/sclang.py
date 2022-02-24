@@ -2,7 +2,6 @@
 import logging
 import re
 import sys
-import time
 import warnings
 from pathlib import Path
 from queue import Empty
@@ -165,7 +164,8 @@ class SCLang:
             Path where the SynthDef files are located.
             If no path provided, load default sc3nb SynthDefs.
         """
-
+        # TODO could also extract SynthDefs from sccode/write_synthdefs.scd here
+        # re.findall(r'SynthDef\("(.*?)",(.*?)\)\.writeDefFile', content, re.DOTALL)
         def _load_synthdef(path):
             self.cmds(
                 r""" "sc3nb - Loading SynthDefs from ^synthdef_path".postln;
