@@ -598,12 +598,28 @@ class SCServer(OSCCommunication):
                 0.0, "/s_new", ["s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1]
             )
             bundler.add(
-                0.2, "/s_new", ["s2", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2]
+                0.2,
+                "/s_new",
+                [
+                    "s1",
+                    -1,
+                    0,
+                    0,
+                    "freq",
+                    1000,
+                    "amp",
+                    0.05,
+                    "num",
+                    2,
+                    "att",
+                    0,
+                    "dur",
+                    0.1,
+                    "curve",
+                    42,
+                ],
             )
-            bundler.add(0.3, "/n_free", [-1])
-            # FIXME / TODO : /n_free -1 actually frees the last thing possible
-            # and is not limited to the bundle
-            bundler.add(0.3, "/error", [1])
+            bundler.add(0.2, "/error", [1])
 
     def remote(self, address: str, port: int, with_blip: bool = True) -> None:
         """Connect to remote Server
