@@ -38,6 +38,7 @@ class SynthDef:
     """Wrapper for SuperCollider SynthDef"""
 
     synth_descs = {}
+    synth_defs = {}
 
     @classmethod
     def get_description(
@@ -292,9 +293,7 @@ class SynthDef:
         str
             Name of the SynthDef
         """
-        if name is None:
-            name = self.name
-        else:
+        if name is not None:
             self.name = name
 
         if pyvars is None:
@@ -307,8 +306,8 @@ class SynthDef:
             self.sc = sc3nb.SC.get_default()
         synth_def_blob, output = self.sc.lang.cmd(
             f"""
-            "sc3nb - Creating SynthDef {name}".postln;
-            r.tmpSynthDef = SynthDef("{name}", {self.current_def});
+            "sc3nb - Creating SynthDef {self.name}".postln;
+            r.tmpSynthDef = SynthDef("{self.name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
             r.tmpSynthDef.asBytes();""",
             pyvars=pyvars,
@@ -320,6 +319,7 @@ class SynthDef:
             print(output)
             raise RuntimeError(f"Adding SynthDef failed. - {output}")
         else:
+            SynthDef.synth_defs[self.name] = synth_def_blob
             if server is not None:
                 server.send_synthdef(synth_def_blob)
             else:
