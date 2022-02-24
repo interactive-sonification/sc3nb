@@ -21,8 +21,8 @@ class Volume:
 
     def __init__(self, server: "SCServer", min_: int = -90, max_: int = 6) -> None:
         self._server = server
-        self._server.add_init_hook(self.send_synthdef)
-        self._server.add_init_hook(self.update_synth)
+        self._server.add_init_hook(self.send__volume_synthdef)
+        self._server.add_init_hook(self.update_volume_synth)
 
         self.min = min_
         self.max = max_
@@ -55,19 +55,19 @@ class Volume:
     @volume.setter
     def volume(self, volume):
         self._volume = clip(volume, self.min, self.max)
-        self.update_synth()
+        self.update_volume_synth()
 
     def mute(self) -> None:
         """Mute audio"""
         self._muted = True
-        self.update_synth()
+        self.update_volume_synth()
 
     def unmute(self) -> None:
         """Unmute audio"""
         self._muted = False
-        self.update_synth()
+        self.update_volume_synth()
 
-    def update_synth(self) -> None:
+    def update_volume_synth(self) -> None:
         """Update volume Synth"""
         amp = 0.0 if self._muted else dbamp(self._volume)
         active = amp != 1.0
@@ -98,7 +98,7 @@ class Volume:
                 self._synth.release()
                 self._synth = None
 
-    def send_synthdef(self):
+    def send__volume_synthdef(self):
         """Send Volume SynthDef"""
         if self._server.is_running:
             num_channels = self._server.output_bus.num_channels
