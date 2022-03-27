@@ -23,7 +23,7 @@ def startup(
     magic: bool = True,
     scsynth_options: Optional[ServerOptions] = None,
     with_blip: bool = True,
-    console_logging: bool = True,
+    console_logging: bool = False,
     allowed_parents: Sequence[str] = ALLOWED_PARENTS,
     timeout: float = 10,
 ) -> "SC":
@@ -46,7 +46,7 @@ def startup(
     with_blip : bool, optional
             make a sound when booted, by default True
     console_logging : bool, optional
-        If True write scsynth/sclang output to console, by default True
+        If True write scsynth/sclang output to console, by default False
     allowed_parents : Sequence[str], optional
         Names of parents that are allowed for other instances of
         sclang/scsynth processes, by default ALLOWED_PARENTS
