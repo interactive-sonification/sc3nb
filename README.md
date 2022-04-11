@@ -44,8 +44,7 @@ It is meant to grow into a backend for a sonification package, and can be used b
   - install it locally in editable mode (i.e. changes to sc3nb code will automatically be "re-installed").
     - clone the repository from https://github.com/interactive-sonification/sc3nb
     - from inside the sc3nb directory run `pip install -e .`
-  - or install it directly from GitHub using `pip install git+git://github.com/interactive-sonification/sc3nb@master`
-  - we are also currently making sure that sc3nb can also be installed via `pip install sc3nb` from PyPI
+  - or install it directly from PyPI using `pip install sc3nb`
 
 ## Examples
 
