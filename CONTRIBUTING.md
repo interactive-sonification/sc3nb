@@ -46,7 +46,7 @@ Additional dependencies for sc3nb can be installed via the following extras:
 | `[test]`       | running tox for tests and other things                                       |
 | `[dev]`        | using the pre-commit hooks and installing other useful tools for development |
 | `[docs]`       | building the docs directly, without tox (used by tox)                        |
-| `[localtests]` | running pytest directly, without tox (used by tox)                           |
+| `[localtest]` | running pytest directly, without tox (used by tox)                           |
 
 
 Normally you should only need `[test]` and `[dev]` for contributing.
