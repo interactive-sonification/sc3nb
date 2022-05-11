@@ -49,3 +49,11 @@ It is meant to grow into a backend for a sonification package, and can be used b
 ## Examples
 
 We provide examples in the form of Jupyter notebooks. You see them executed in the User Guide section of the [documentation](https://interactive-sonification.github.io/sc3nb) and also download them from the [sc3nb examples folder](https://github.com/interactive-sonification/sc3nb/tree/master/examples).
+
+## Publications & Citation
+
+* A paper introducing sc3nb can be found at https://doi.org/10.1145/3478384.3478401
+* The belonging supplementary material can be found at https://doi.org/10.4119/unibi/2956379
+* The presentation of the paper can be found at https://www.youtube.com/watch?v=kuZZSNCS53E
+
+If you use sc3nb please cite the sc3nb introduction paper https://doi.org/10.1145/3478384.3478401
