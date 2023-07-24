@@ -5,7 +5,6 @@ from tests.conftest import SCBaseTest
 
 
 class SynthTestWithSClang(SCBaseTest):
-
     __test__ = True
     start_sclang = True
 

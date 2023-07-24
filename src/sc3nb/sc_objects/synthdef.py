@@ -247,7 +247,7 @@ class SynthDef:
         self : object of type SynthDef
             the SynthDef object
         """
-        for (searchpattern, replacement) in dictionary.items():
+        for searchpattern, replacement in dictionary.items():
             self.set_context(searchpattern, replacement)
         return self
 

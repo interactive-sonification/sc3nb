@@ -6,7 +6,6 @@ from tests.conftest import SCBaseTest
 
 
 class SynthTest(SCBaseTest):
-
     __test__ = True
 
     def setUp(self) -> None:

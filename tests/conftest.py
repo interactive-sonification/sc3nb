@@ -33,7 +33,6 @@ def pytest_configure(config):
 
 
 class SCBaseTest(TestCase):
-
     __test__ = False
     sc = None
     start_sclang = False

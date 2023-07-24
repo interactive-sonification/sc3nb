@@ -19,7 +19,6 @@ class SCLangTest(TestCase):
 
 
 class SCLangPersistentTest(SCBaseTest):
-
     __test__ = True
     start_sclang = True
 

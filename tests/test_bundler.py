@@ -6,7 +6,6 @@ from tests.conftest import SCBaseTest
 
 
 class BundlerTest(SCBaseTest):
-
     __test__ = True
 
     def test_context_manager(self):

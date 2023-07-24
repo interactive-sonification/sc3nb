@@ -8,7 +8,6 @@ from tests.conftest import SCBaseTest
 
 
 class NodeTest(SCBaseTest):
-
     __test__ = True
 
     def setUp(self) -> None:

@@ -7,7 +7,6 @@ from tests.conftest import SCBaseTest
 
 
 class OSCTest(SCBaseTest):
-
     __test__ = True
 
     def test_bundler_message_skip(self):

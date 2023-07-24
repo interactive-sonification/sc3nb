@@ -5,7 +5,6 @@ from tests.conftest import SCBaseTest
 
 
 class BufferTest(SCBaseTest):
-
     __test__ = True
 
     def setUp(self) -> None:

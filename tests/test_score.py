@@ -11,7 +11,6 @@ from tests.conftest import SCBaseTest
 
 
 class ScoreTest(SCBaseTest):
-
     __test__ = True
     start_sclang = True
 
