@@ -5,7 +5,8 @@ import logging
 import warnings
 from typing import TYPE_CHECKING, Optional
 
-from sc3nb.helpers import clip, dbamp
+from pyamapping import clip, db_to_amp
+
 from sc3nb.sc_objects.node import AddAction, Synth
 from sc3nb.sc_objects.synthdef import SynthDef
 
@@ -69,7 +70,7 @@ class Volume:
 
     def update_volume_synth(self) -> None:
         """Update volume Synth"""
-        amp = 0.0 if self._muted else dbamp(self._volume)
+        amp = 0.0 if self._muted else db_to_amp(self._volume)
         active = amp != 1.0
         if active:
             if self._server.is_running:

@@ -1,13 +1,13 @@
 import time
 
-from sc3nb.helpers import dbamp
+from pyamapping import db_to_amp
+
 from sc3nb.sc_objects.node import Synth
 from sc3nb.sc_objects.synthdef import SynthDef
 from tests.conftest import SCBaseTest
 
 
 class VolumeTest(SCBaseTest):
-
     __test__ = True
     start_sclang = True
 
@@ -40,7 +40,7 @@ class VolumeTest(SCBaseTest):
         self.assertEqual(volume, VolumeTest.sc.server.volume)
         vol_synth = VolumeTest.sc.server._volume._synth
         self.assertIn(vol_synth, VolumeTest.sc.server.query_tree().children)
-        self.assertAlmostEqual(dbamp(volume), vol_synth.get("volumeAmp"))
+        self.assertAlmostEqual(db_to_amp(volume), vol_synth.get("volumeAmp"))
         VolumeTest.sc.server.muted = True
         VolumeTest.sc.server.volume = 0
         self.assertAlmostEqual(0, vol_synth.get("volumeAmp"))
