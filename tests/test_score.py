@@ -92,13 +92,21 @@ class ScoreTest(SCBaseTest):
             messages_sclang = next(iter(messages_sclang.values()))
             messages_sc3nb = next(iter(messages_sc3nb.values()))
 
+            # sclang Score creates the default group
+            # However scsynth seems to work without it so we don't
+            # Before SuperCollider 3.3 there were 2 default groups generated
+            # https://github.com/supercollider/supercollider/commit/c04c0c7181648ecb2c1914cf93f008e08de421a8
+            skip = 1
+            version = ScoreTest.sc.server.version()
+            if version.minor_version < 13:
+                skip = 2
             gmsg = OSCMessage("/g_new", [1, 0, 0])
-            for msg in messages_sclang[:2]:
+            for msg in messages_sclang[:skip]:
                 self.assertTrue(
                     msg.address == gmsg.address and msg.parameters == gmsg.parameters
                 )
 
-            for n, msg in enumerate(messages_sclang[2:]):
+            for n, msg in enumerate(messages_sclang[skip:]):
                 self.assertTrue(
                     msg.address == messages_sc3nb[n].address
                     and msg.parameters == messages_sc3nb[n].parameters
