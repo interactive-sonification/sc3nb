@@ -1,6 +1,7 @@
 """Module for managing Server related stuff."""
 import atexit
 import logging
+import time
 import warnings
 from enum import Enum, unique
 from queue import Empty
@@ -1097,6 +1098,8 @@ class SCServer(OSCCommunication):
         self.add_msg_queue_collection(self.fails)
 
         # set logging handlers
+        self._warning_cache = {}
+        self._max_warning_freq = 0.5
         self._osc_server.dispatcher.map(
             ReplyAddress.FAIL_ADDR, self._warn_fail, needs_reply_address=True
         )
@@ -1130,12 +1133,12 @@ class SCServer(OSCCommunication):
         )
 
     def _warn_fail(self, sender, *params):
-        _LOGGER.warning(
-            "Error at %s from %s: %s",
-            self._log_repr(),
-            self._check_sender(sender),
-            params,
-        )
+        warn_args = (self._log_repr(), self._check_sender(sender), params)
+        now = time.time()
+        last_time = self._warning_cache.get(warn_args, None)
+        if last_time is None or now - last_time >= self._max_warning_freq:
+            _LOGGER.warning("Error at %s from %s: %s", *warn_args)
+            self._warning_cache[warn_args] = now
 
     def __repr__(self) -> str:
         if self.has_booted:

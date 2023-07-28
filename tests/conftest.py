@@ -49,6 +49,8 @@ class SCBaseTest(TestCase):
             start_sclang=cls.start_sclang,
         )
         cls.sc.server.dump_osc(1)
+        # ensure we get all warnings
+        cls.sc.server._max_warning_freq = float("-inf")
         assert cls.sc.server.sync(), "Syncing scsynth failed"
         if cls.start_sclang:
             cls.sc.server.mute()

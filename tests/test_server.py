@@ -39,7 +39,7 @@ class ServerTest(TestCase):
     def test_multiclient(self):
         options = ServerOptions(udp_port=self.port)
         self.other_server = SCServer(options=options)
-
+        self.other_server._max_warning_freq = float("-inf")
         with self.assertRaisesRegex(
             ValueError,
             f"The specified UDP port {self.server.options.udp_port} is already used",
