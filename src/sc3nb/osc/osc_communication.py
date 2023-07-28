@@ -5,9 +5,11 @@ using the Open Sound Control (OSC) protocol over UDP
 """
 
 import atexit
+import contextlib
 import copy
 import errno
 import logging
+import socket
 import threading
 import time
 import traceback
@@ -20,15 +22,67 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 import numpy as np
 from pythonosc.dispatcher import Dispatcher
 from pythonosc.osc_bundle import OscBundle
-from pythonosc.osc_bundle_builder import OscBundleBuilder
+from pythonosc.osc_bundle_builder import BuildError, OscBundleBuilder
 from pythonosc.osc_message import OscMessage
 from pythonosc.osc_message_builder import OscMessageBuilder
 from pythonosc.osc_packet import OscPacket, ParseError
 from pythonosc.osc_server import OSCUDPServer, ThreadingOSCUDPServer
+from pythonosc.parsing import osc_types
 
 import sc3nb
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def get_max_udp_packet_size():
+    """Get the max UDP packet size by trial and error"""
+
+    def try_packet_of_size(sock, packet_size):
+        address = "127.0.0.1", 50005
+        with contextlib.suppress(OSError):
+            msg = bytes(1) * packet_size
+            if sock.sendto(msg, address) == len(msg):
+                return True
+        return False
+
+    def recurse_get_max_udp_packet_size(sock, largest_good_size, smallest_bad_size):
+        if (largest_good_size + 1) == smallest_bad_size:
+            return largest_good_size
+        else:
+            new_mid_size = int((largest_good_size + smallest_bad_size) / 2)
+            if try_packet_of_size(sock, new_mid_size):
+                return recurse_get_max_udp_packet_size(
+                    sock, new_mid_size, smallest_bad_size
+                )
+            else:
+                return recurse_get_max_udp_packet_size(
+                    sock, largest_good_size, new_mid_size
+                )
+
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+        max_udp_packet_size = recurse_get_max_udp_packet_size(s, 0, 65536)
+    return max_udp_packet_size
+
+
+def split_into_max_size(bundler: "Bundler", max_dgram_size) -> List[OscBundle]:
+    splits = []
+    for timetag, msgs in bundler.messages().items():
+        try:
+            header = b"#bundle\x00" + osc_types.write_date(timetag)
+            bundle_dgram = copy.deepcopy(header)
+            for msg in msgs:
+                pythonosc_msg = msg.to_pythonosc()
+                size = pythonosc_msg.size
+                msg_dgram = osc_types.write_int(size)
+                msg_dgram += pythonosc_msg.dgram
+                if len(bundle_dgram) + len(msg_dgram) > max_dgram_size:
+                    splits.append(OscBundle(bundle_dgram))
+                    bundle_dgram = copy.deepcopy(header)
+                bundle_dgram += msg_dgram
+            splits.append(OscBundle(bundle_dgram))
+        except osc_types.BuildError as build_error:
+            raise BuildError("Could not build the bundle {}".format(build_error))
+    return splits
 
 
 class OSCMessage:
@@ -718,6 +772,7 @@ class OSCCommunication:
         )
         self._osc_server_thread.daemon = True
         self._osc_server_thread.start()
+        self._max_udp_packet_size = None
 
         # init queues for msg pairs, must be after self._osc_server
         self._msg_queues: Dict[str, MessageQueue] = {}
@@ -933,11 +988,33 @@ class OSCCommunication:
         try:
             sent_bytes = self._osc_server.socket.sendto(package.dgram, receiver_address)
         except OSError as error:
-            raise OSCCommunicationError(
-                f"Sending OSC package failed - {error}", package
-            ) from error
-        if sent_bytes == 0:
-            raise RuntimeError("Could not send data. Socket connection broken.")
+            if self._max_udp_packet_size is None:
+                self._max_udp_packet_size = get_max_udp_packet_size()
+            if (
+                isinstance(package, Bundler)
+                and len(package.dgram) > self._max_udp_packet_size
+            ):
+                _LOGGER.warning(
+                    f"OSC Bundle is too large ({len(package.dgram)}/{self._max_udp_packet_size}) and will be splitted."
+                )
+                osc_bundles = split_into_max_size(package, self._max_udp_packet_size)
+                for osc_bundle in osc_bundles:
+                    if (
+                        self._osc_server.socket.sendto(
+                            osc_bundle.dgram, receiver_address
+                        )
+                        == 0
+                    ):
+                        raise RuntimeError(
+                            "Could not send data. Socket connection broken."
+                        )
+            else:
+                raise OSCCommunicationError(
+                    f"Sending OSC package failed - {error}", package
+                ) from error
+        else:
+            if sent_bytes == 0:
+                raise RuntimeError("Could not send data. Socket connection broken.")
 
         if isinstance(package, OSCMessage):
             return self._handle_outgoing_message(
