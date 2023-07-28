@@ -296,6 +296,9 @@ class SynthDef:
         if name is not None:
             self.name = name
 
+        if self.name in SynthDef.synth_descs:
+            del SynthDef.synth_descs[self.name]
+
         if pyvars is None:
             pyvars = sc3nb.sclang.parse_pyvars(self.current_def)
 
