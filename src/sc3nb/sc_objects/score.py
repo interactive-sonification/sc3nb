@@ -4,6 +4,7 @@
 
 """
 import os
+import platform
 import subprocess
 import warnings
 from typing import Dict, List, Optional, Union
@@ -136,13 +137,19 @@ class Score:
         ]
         if options:
             args.extend(options.options)
-        completed_process = subprocess.run(
-            args=args,
-            check=True,
-            universal_newlines=True,  # py>=3.7 text=True
-            stdout=subprocess.PIPE,  # py>=3.7 capture_output=True
-            stderr=subprocess.PIPE,
-        )
-        print(completed_process.stdout)
-        print(completed_process.stderr)
-        return completed_process
+        try:
+            completed_process = subprocess.run(
+                args=args,
+                check=True,
+                universal_newlines=True,  # py>=3.7 text=True
+                stdout=subprocess.PIPE,  # py>=3.7 capture_output=True
+                stderr=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError as error:
+            # TODO workaround https://github.com/supercollider/supercollider/issues/5769
+            if platform.system() != "Windows" or not os.path.isfile(out_file):
+                raise error
+        else:
+            print(completed_process.stdout)
+            print(completed_process.stderr)
+            return completed_process
