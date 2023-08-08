@@ -135,8 +135,9 @@ class Score:
             header_format,
             sample_format,
         ]
-        if options:
-            args.extend(options.options)
+        if not options:
+            options = ServerOptions(num_output_buses=2)
+        args.extend(options.options)
         try:
             completed_process = subprocess.run(
                 args=args,
