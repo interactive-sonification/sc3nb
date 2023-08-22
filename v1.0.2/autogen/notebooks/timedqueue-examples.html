@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/><meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TimedQueue — sc3nb  documentation</title>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/nbsphinx-code-cells.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../_static/doctools.js?v=888ff710"></script>
+<script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../autoapi/sc3nb/index.html" rel="next" title="sc3nb"/>
+<link href="helper-examples.html" rel="prev" title="Helper functions"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html">
+            sc3nb
+          </a>
+<div class="version">
+                1.0.2^0
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../info.html">How does this work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support.html">Support, Caveats and Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">Useful Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#version-1-0-2">Version 1.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sc3nb-examples.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sclang-examples.html">Usage of sclang in sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/node-examples.html#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/node-examples.html#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/buffer-examples.html">Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/bus-examples.html">Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/recorder-examples.html">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supercollider-objects/score-examples.html">Score</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="helper-examples.html">Helper functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/index.html#function-list">Function List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/index.html#class-list">Class List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/index.html#content">Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.startup"><code class="docutils literal notranslate"><span class="pre">startup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.SC"><code class="docutils literal notranslate"><span class="pre">SC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.SCServer"><code class="docutils literal notranslate"><span class="pre">SCServer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.ServerOptions"><code class="docutils literal notranslate"><span class="pre">ServerOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.SCLang"><code class="docutils literal notranslate"><span class="pre">SCLang</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Synth"><code class="docutils literal notranslate"><span class="pre">Synth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.AddAction"><code class="docutils literal notranslate"><span class="pre">AddAction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.SynthDef"><code class="docutils literal notranslate"><span class="pre">SynthDef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Buffer"><code class="docutils literal notranslate"><span class="pre">Buffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Bus"><code class="docutils literal notranslate"><span class="pre">Bus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Score"><code class="docutils literal notranslate"><span class="pre">Score</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Recorder"><code class="docutils literal notranslate"><span class="pre">Recorder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.TimedQueue"><code class="docutils literal notranslate"><span class="pre">TimedQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.TimedQueueSC"><code class="docutils literal notranslate"><span class="pre">TimedQueueSC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.OSCMessage"><code class="docutils literal notranslate"><span class="pre">OSCMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.Bundler"><code class="docutils literal notranslate"><span class="pre">Bundler</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.linlin"><code class="docutils literal notranslate"><span class="pre">linlin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.midicps"><code class="docutils literal notranslate"><span class="pre">midicps()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.cpsmidi"><code class="docutils literal notranslate"><span class="pre">cpsmidi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.clip"><code class="docutils literal notranslate"><span class="pre">clip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.dbamp"><code class="docutils literal notranslate"><span class="pre">dbamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/index.html#sc3nb.ampdb"><code class="docutils literal notranslate"><span class="pre">ampdb()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/osc/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test">How to test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#id1">Contributors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index.html"></a></li>
+<li class="breadcrumb-item active">TimedQueue</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../_sources/autogen/notebooks/timedqueue-examples.nblink.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/c6081ae01f4e72094b6cb6dbd9667278c8d21069/examples/timedqueue-examples.ipynb">examples/timedqueue-examples.ipynb</a>.</p>
+</div>
+<section id="TimedQueue">
+<h1>TimedQueue<a class="headerlink" href="#TimedQueue" title="Link to this heading"></a></h1>
+<section id="Motivation:">
+<h2>Motivation:<a class="headerlink" href="#Motivation:" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>for sonifications (or any sound composition) with precise timing, usually a large number of events need to be spawned at the exact time.</p></li>
+<li><p>doing this with bundles doesn’t work as the OSC buffer of scsynth is limited</p></li>
+<li><p>it needs a TimedQueue where events can be added for time-precise dispatching</p></li>
+<li><p>In TimedQueue, a thread then simply checks what items are due and executes them</p></li>
+<li><p>allowing arbitrary functions as objects to be queued for execution enables both sound-specific usecases (e.g. sending OSC messages/bundles) and also other things such as visualization</p></li>
+<li><p>However, the functions should complete really quickly as otherwise the queue would run late and fail to process due events</p></li>
+<li><p>hence, it remains in the user’s responsibility to be careful</p></li>
+<li><p>If, however, longer programs are needed, functions can be spawned as threads on execution</p></li>
+</ul>
+</section>
+<section id="Basic-Demo-of-TimedQueue">
+<h2>Basic Demo of TimedQueue<a class="headerlink" href="#Basic-Demo-of-TimedQueue" title="Link to this heading"></a></h2>
+<p>The following demo illustrate the core functionality with console print and sound. Please check the console / shell from which you have launched jupyter-notebook (i.e. your stdout)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>import sys, os, time, random
+import numpy as np
+
+import sc3nb as scn
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>sc = scn.startup()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>queue = scn.TimedQueue()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>def myfun(x):
+    os.write(1, "{}\n".format(x).encode())
+    sys.stderr.flush()
+
+def myblip(freq):
+    sc.server.msg("/s_new", ["s1", -1, 1, 0, "freq", freq, "num", 3])
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>myfun(4)  # the number is written to stdout
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>myblip(700) # a tone should play
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>t0 = time.time()
+for i in range(50):
+    queue.put(t0+i*0.04, myblip, 800+1*7*i)
+    queue.put(t0+i*0.04, myfun,  400+30*i)  # plots on stderr = console
+print(time.time()-t0)
+</pre></div>
+</div>
+</div>
+<p>Note that the code returns immediately, allowing you to interact with jupyter. All executions are then done by means of the TimedQueue</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>queue.close()
+</pre></div>
+</div>
+</div>
+</section>
+<section id="TimedQueueSC">
+<h2>TimedQueueSC<a class="headerlink" href="#TimedQueueSC" title="Link to this heading"></a></h2>
+<p>To allow easy and fast usage of SC messages and bundles <code class="docutils literal notranslate"><span class="pre">TimedQueueSC</span></code> was created</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">put_msg(onset,</span> <span class="pre">address,</span> <span class="pre">params)</span></code>allows to send a message from python at onset.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">put_bundler(onset,</span> <span class="pre">bundler)</span></code>allows to send a bundler from python at onset.</p></li>
+</ul>
+</section>
+<section id="TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">
+<h2>TimedQueueSC example with synchronized sound and mpl plot<a class="headerlink" href="#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>This example shows how to highlight data points as they are played.</p></li>
+<li><p>However, the marking is reset for every new data point, i.e. data points are not highlighted as long as the corresponding sound lasts</p></li>
+<li><p>to achieve that, see code example below</p></li>
+</ul>
+<p><strong>Note that there are sometimes some strange effects with matplotlib event loop hickups in Mac, it is untested with Linux or Windows, any problem reports or suggested solutions are welcome.</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>import matplotlib
+import matplotlib.pyplot as plt
+%matplotlib qt5
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span># create some test data
+data = np.vstack((np.random.randn(50, 5), np.random.randn(100, 5)+3.5))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span># create figure, axis, plots -&gt; a window should open depicting two clusters
+fig, ax = plt.subplots(1)  # create figure
+mngr = plt.get_current_fig_manager(); mngr.window.setGeometry(1200, 0, 500, 400)
+pldata, = ax.plot(data[:,1], data[:,2], ".", ms=5) # create plots
+plmarked, = ax.plot([], [], "ro", ms=5, lw=0.5)
+plt.show(block=False); plt.ion(); fig.canvas.draw() # not needed if plot shows
+
+# create the queue
+queue = scn.TimedQueueSC()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>def update_plot(x, y):
+    global fig, ax, pldata, plmarked
+    plmarked.set_data([x], [y])
+    ax.draw_artist(ax.patch)
+    ax.draw_artist(pldata)
+    ax.draw_artist(plmarked)
+    fig.canvas.update() # additional fig.canvas.flush_events() not needed?
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>t0 = time.time()
+for i, r in enumerate(data):
+    onset = t0 + scn.linlin(r[1], data[:,1].min(), data[:,1].max(), 0.1, 4) + random.random()*0.2 + 0.2
+    freq = scn.midicps(scn.linlin(r[2], 2, 5, 60, 80))
+    pos = scn.linlin(r[4], 0, 2, -1, 1)
+    queue.put_bundler(onset-0.2, scn.Bundler(onset, "/s_new", ["s1", -1, 1, 0, "freq", freq, "amp", 0.05, "dur", .52, "pos", pos]))
+    queue.put(onset, update_plot, (r[1], r[2]), spawn=False)
+print(f'time used: {time.time() - t0}')
+</pre></div>
+</div>
+</div>
+<p>Notice that any data point is turned red the moment its sound starts.</p>
+</section>
+<section id="TimedQueueSC-PMSon-with-matplotlib-highlights">
+<h2>TimedQueueSC PMSon with matplotlib highlights<a class="headerlink" href="#TimedQueueSC-PMSon-with-matplotlib-highlights" title="Link to this heading"></a></h2>
+<p>The following example illustrates how to use TimedQueues to maintain a ‘currently playing selection’ of data points, so that the GUI highlighting is deactivated when the corresponding sound stops</p>
+<ul class="simple">
+<li><p>this is achieved by scheduling a select and an unselect function at corresponding sound onset and stop time</p></li>
+<li><p>Note that here the plot update is done within a second loop of scheduled ‘update_plot’ invocations, at an frame rate independent of the sound events.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>data = np.vstack((np.random.randn(300, 7), np.random.randn(300, 7)+5))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span># create figure
+fig, ax = plt.subplots(1)  # create figure
+mngr = plt.get_current_fig_manager()
+mngr.window.setGeometry(1200, 0, 500, 400)
+plt.show()
+
+# create the queue
+queue = scn.TimedQueueSC()
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>def mapcol(row, stats, col, val_from, val_to):  # helper for mapping
+    return scn.linlin(row[col], stats[col, 0], stats[col, 1], val_from, val_to)
+
+def select(i):  #  highlight selection
+    selected[i] = True
+
+def unselect(i): # lowlight selection
+    selected[i] = False
+
+def update_plot(xs, ys):
+    global fig, ax, pldata, plmarked, selected
+    plmarked.set_data(xs[selected], ys[selected])
+    ax.draw_artist(ax.patch)
+    ax.draw_artist(pldata)
+    ax.draw_artist(plmarked)
+    fig.canvas.flush_events()
+    fig.canvas.update()
+
+# parameter mapping sonification with GUI
+tot_dur = 5  # total duration of the sonification
+max_ev_dur = 5.5  # maximal event duration
+delay = 1  # offset
+
+stats = np.vstack((np.min(data, 0), np.max(data, 0))).T
+selected = np.zeros(np.shape(data)[0], bool)
+
+# create axis, plots
+ax.clear()
+plmarked, = ax.plot([], [], "ro", ms=4, lw=0.5)
+pldata, = ax.plot(data[:,1], data[:,2], ".", ms=2) # create plots
+
+t0 = time.time()
+
+for i, r in enumerate(data):
+    onset = t0 + delay + 5* i/800 # mapcol(r, stats, 3, 0, tot_dur)
+    freq  = scn.midicps( mapcol(r, stats, 2, 60, 90))
+    ev_dur = mapcol(r, stats, 4, 0.2, max_ev_dur)
+    # sonification
+    synth_args = ["s1", -1, 1, 0, "freq", freq, "amp", 0.05, "dur", ev_dur, "pos", pos]
+    bundler = scn.Bundler(onset, "/s_new", synth_args)
+    queue.put_bundler(onset-delay, bundler)
+    # on/off events of marker highlight
+    queue.put(onset, select, i)
+    queue.put(onset + ev_dur, unselect, i)
+
+# update plot at given rate from earliest to latext time
+for t in np.arange(t0, t0+delay+tot_dur+ev_dur+1, 1/10):  # 1 / update rate
+    queue.put(t, update_plot, (data[:,1], data[:,2]))
+</pre></div>
+</div>
+</div>
+</section>
+<section id="TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">
+<h2>TimedQueueSC PMSon with timeseries data and matplotlib<a class="headerlink" href="#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib" title="Link to this heading"></a></h2>
+<p>The following example illustrates howto create a continuous sonification with concurrent plotting the time in a plot</p>
+<ul class="simple">
+<li><p>This presumes time-indexable data</p></li>
+<li><p>a ‘maximum onset’ variable is maintained to shutdown the continuously playing synths when done</p></li>
+<li><p>note that the highlight will only replot the marker, required time is thus independent of the amount of data plotted in the other plot.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>ts = np.arange(0, 20, 0.01)
+data = np.vstack((ts,
+                  np.sin(2.5*ts) + 0.01*ts*np.random.randn(np.shape(ts)[0]),
+                  0.08*ts[::-1]*np.cos(3.5*ts)**2)).T
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span># create figure
+fig, ax = plt.subplots(1)  # create figure
+mngr = plt.get_current_fig_manager(); mngr.window.setGeometry(1200, 0, 500, 400)
+
+# create axis, plots
+ax.clear()
+plmarked, = ax.plot([], [], "r-", lw=1)
+pldata1, = ax.plot(data[:,0], data[:,1], "-", ms=2) # create plot 1
+pldata2, = ax.plot(data[:,0], data[:,2], "-", ms=2) # create plot 2
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span># create the queue
+queue = scn.TimedQueueSC()
+
+def mapcol(row, stats, col, val_from, val_to):  # helper for mapping
+    return scn.linlin(row[col], stats[col, 0], stats[col, 1], val_from, val_to)
+
+def update_plot(t):
+    global fig, ax, pldata1, pldata2, plmarked, selected
+    plmarked.set_data([t,t], [-10000, 10000])
+    ax.draw_artist(ax.patch)
+    ax.draw_artist(pldata1)
+    ax.draw_artist(pldata2)
+    ax.draw_artist(plmarked)
+    fig.canvas.update()
+    # fig.canvas.flush_events()
+
+stats = np.vstack((np.min(data, 0), np.max(data, 0))).T
+selected = np.zeros(np.shape(data)[0], bool)
+
+# parameter mapping sonification with GUI
+delay = 0.5
+rate = 2
+
+t0 = time.time()
+queue.put_msg(t0, "/s_new", ["s2", 1200, 1, 0, "amp", 0])
+queue.put_msg(t0, "/s_new", ["s2", 1201, 1, 0, "amp", 0])
+
+max_onset = 0
+latest_gui_onset = 0
+gui_frame_rate = 60
+
+ts = []
+for i, r in enumerate(data[::2, :]):
+    ts.append(time.time()-t0)
+    if i==0: tmin = r[0]
+    onset = (r[0]-tmin)/rate
+    freq  = scn.midicps( mapcol(r, stats, 1, 60, 70))
+    freqR = 0.5 * scn.midicps( mapcol(r, stats, 2, 70, 80))
+
+    # sonification
+    tt = t0 + delay + onset
+    if tt &gt; max_onset: max_onset = tt
+    bundler = scn.Bundler(tt)
+    bundler.add(0, "/n_set", [1200, "freq", freq, "num", 4, "amp", 0.2, "pan", -1, "lg", 0])
+    bundler.add(0, "/n_set", [1201, "freq", freqR, "num", 1, "amp", 0.1, "pan", 1])
+    queue.put_bundler(tt-0.2, bundler)
+    if tt &gt; latest_gui_onset + 1/gui_frame_rate:  # not more than needed gui updates
+        latest_gui_onset = tt
+        queue.put(tt, update_plot, (r[0],), spawn=False)
+queue.put_msg(max_onset, "/n_free", [1200])
+queue.put_msg(max_onset, "/n_free", [1201])
+
+# queue.join()
+print(time.time()-t0)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre><span></span>sc.exit()
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="helper-examples.html" rel="prev" title="Helper functions"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="../autoapi/sc3nb/index.html" rel="next" title="sc3nb">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>c6081ae01f</code>.
+      </span></p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
+      v: 1.0.2^0
+      <span class="fa fa-caret-down"></span>
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
+</div>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

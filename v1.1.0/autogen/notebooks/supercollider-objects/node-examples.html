@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/><meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nodes (Synth and Group) — sc3nb  documentation</title>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/nbsphinx-code-cells.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../../_static/js/theme.js"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="synthdef-examples.html" rel="next" title="SynthDef"/>
+<link href="server-examples.html" rel="prev" title="Server"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index.html">
+            sc3nb
+          </a>
+<div class="version">
+                1.1.0^0
+              </div>
+<div role="search">
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sclang-examples.html">Usage of sclang in sc3nb</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="synthdef-examples.html">SynthDef</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buffer-examples.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bus-examples.html">Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recorder-examples.html">Recorder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="score-examples.html">Score</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../helper-examples.html">Helper functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../../index.html"></a></li>
+<li class="breadcrumb-item"><a href="../../../supercolliderobjects.html">SuperCollider objects</a></li>
+<li class="breadcrumb-item active">Nodes (Synth and Group)</li>
+<li class="wy-breadcrumbs-aside">
+<a href="../../../_sources/autogen/notebooks/supercollider-objects/node-examples.nblink.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/6ce4908bb30aa28863249d6d61906e16ae5ee8e3/examples/supercollider-objects/node-examples.ipynb">examples/supercollider-objects/node-examples.ipynb</a>.</p>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
+<span class="kn">from</span> <span class="nn">sc3nb</span> <span class="kn">import</span> <span class="n">Synth</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">(</span><span class="n">with_blip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="output_javascript"></div>
+<script type="text/javascript">
+var element = document.currentScript.previousSibling.previousSibling;
+if (typeof Jupyter !== 'undefined') {
+                        Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
+                        'cmd-.', {
+                        help : 'Free all nodes on SC server',
+                        help_index : 'zz',
+                        handler : function (event) {
+                            IPython.notebook.kernel.execute(
+                                "import sc3nb; sc3nb.SC.get_default().server.free_all(root=True)"
+                            )
+                            return true;}
+                        });
+                    }
+</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Starting sclang process... [sclang | start reading ]
+Done.
+Registering OSC /return callback in sclang... Done.
+Loading default sc3nb SynthDefs... Done.
+Booting SuperCollider Server... [scsynth | start reading ]
+Done.
+</pre></div></div>
+</div>
+<section id="Nodes-(Synth-and-Group)">
+<h1>Nodes (Synth and Group)<a class="headerlink" href="#Nodes-(Synth-and-Group)" title="Link to this heading"></a></h1>
+<p>One of the most important objects in SuperCollider are Nodes.</p>
+<p>To see all Nodes on the Server use</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+   1 group
+</pre></div></div>
+</div>
+<p>You can also get a Python object represenation of the current server state via.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root_node</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+<span class="n">root_node</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) s {} children=[],
+  Group(402653185) s {} children=[],
+  Group(335544321) s {} children=[],
+  Group(268435457) s {} children=[],
+  Group(201326593) s {} children=[],
+  Group(134217729) s {} children=[],
+  Group(67108865) s {} children=[],
+  Group(1) s {} children=[]]
+</pre></div></div>
+</div>
+<p>Note that this will send a <code class="docutils literal notranslate"><span class="pre">/g_queryTree</span></code> command and parse the <code class="docutils literal notranslate"><span class="pre">/g_queryTree.reply</span></code> response of the server. The resulting Group representation will currently not be updated unless you use <code class="docutils literal notranslate"><span class="pre">query_tree</span></code> again.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root_node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(1) s {} children=[]
+</pre></div></div>
+</div>
+<p>A node is either a <a class="reference internal" href="#Synth"><span class="std std-ref">Synth</span></a> or a <a class="reference internal" href="#Group"><span class="std std-ref">Group</span></a> of nodes</p>
+<section id="Synth">
+<h2>Synth<a class="headerlink" href="#Synth" title="Link to this heading"></a></h2>
+<section id="Create-and-control-a-Synth">
+<h3>Create and control a Synth<a class="headerlink" href="#Create-and-control-a-Synth" title="Link to this heading"></a></h3>
+<p>Create a new Synth</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"s2"</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+<span class="n">synth</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' s {'freq': 100}&gt;
+</pre></div></div>
+</div>
+<p>You can now hear the Synth playing and see it in the NodeTree</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(67108865) s {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) s {} children=[],
+  Group(402653185) s {} children=[],
+  Group(335544321) s {} children=[],
+  Group(268435457) s {} children=[],
+  Group(201326593) s {} children=[],
+  Group(134217729) s {} children=[],
+  Group(67108865) s {} children=[
+    &lt;Synth(20001) 's2' ~ {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;],
+  Group(1) s {} children=[]]
+</pre></div></div>
+</div>
+<p>Free a synth</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' f {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>Start the synth again</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' s {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">nodeid</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+20001
+</pre></div></div>
+</div>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">new</span></code> on an already running synth will cause a SuperCollider Server error</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># wait some time to ensure the audio server has send the /fail OSC message</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Error at SCServer('127.0.0.1', 57110) pid=14513 from scsynth: ('/fail', '/s_new', 'duplicate node ID')
+</pre></div></div>
+</div>
+<p>Pause a synth</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' s {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2'  {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>Run a paused synth</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">run</span><span class="p">()</span> <span class="c1"># default flag for run is True</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2'  {'freq': 100.0, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>You can also wait for a Synth</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth_with_duration</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s1"</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dur</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1"># wait for the Synth to finish playing</span>
+<span class="n">synth_with_duration</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Set-/-get-Synth-parameters">
+<h3>Set / get Synth parameters<a class="headerlink" href="#Set-/-get-Synth-parameters" title="Link to this heading"></a></h3>
+<p>Set synth parameters, using any for the following <code class="docutils literal notranslate"><span class="pre">set</span></code> calls</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>set(key, value, ...)
+set(list_of_keys_and_values])
+set(dict)
+</pre></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2'  {'freq': 200, 'amp': 0.30000001192092896, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">"amp"</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2'  {'freq': 30, 'amp': 0.3, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">({</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">130</span><span class="p">,</span> <span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2'  {'freq': 130, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>The Synth does save its current control arguments in <code class="docutils literal notranslate"><span class="pre">current_controls</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{'freq': 130,
+ 'amp': 0.1,
+ 'num': 4.0,
+ 'pan': 0.0,
+ 'lg': 0.10000000149011612,
+ 'gate': 1.0}
+</pre></div></div>
+</div>
+<p>However these are only cached values on the python object. Updating them will only affect the <code class="docutils literal notranslate"><span class="pre">new</span></code> call. See below why this can be useful.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span><span class="p">[</span><span class="s1">'freq'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">440</span>
+<span class="n">synth</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2'  {'freq': 440, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">()</span> <span class="c1"># The new Synth will be created with freq = 440</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' s {'freq': 440, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>To see what arguments can be set you can look at the <code class="docutils literal notranslate"><span class="pre">synth_desc</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">synth_desc</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{'freq': SynthArgument(name='freq', rate='control', default=400.0),
+ 'amp': SynthArgument(name='amp', rate='control', default=0.30000001192092896),
+ 'num': SynthArgument(name='num', rate='control', default=4.0),
+ 'pan': SynthArgument(name='pan', rate='control', default=0.0),
+ 'lg': SynthArgument(name='lg', rate='control', default=0.10000000149011612),
+ 'gate': SynthArgument(name='gate', rate='control', default=1.0)}
+</pre></div></div>
+</div>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">get</span></code> to see the current value. This will request the current value from the SuperCollider audio server</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+440.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pan"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.0
+</pre></div></div>
+</div>
+<p>This will also update the cached values in <code class="docutils literal notranslate"><span class="pre">current_args</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' ~ {'freq': 440.0, 'amp': 0.1, 'num': 4.0, 'pan': 0.0, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>This is also possible directly with</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">pan</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.0
+</pre></div></div>
+</div>
+<p>Which can also be used for setting the argument</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">pan</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<p>You can also query information about the Synth. Look at <a class="reference internal" href="#Group"><span class="std std-ref">Group</span></a> for more information about these values</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+SynthInfo(nodeid=20001, group=67108865, prev_nodeid=-1, next_nodeid=-1)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20001) 's2' f {'freq': 440.0, 'amp': 0.1, 'num': 4.0, 'pan': -1, 'lg': 0.10000000149011612, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<p>Keep in mind that getting a synth value is always querying the server.</p>
+<p>This means we need to receive a message which cant be done using the Bundler. If you want to use relative values in a Bundler you should use the cached values from <code class="docutils literal notranslate"><span class="pre">current_args</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">bundler</span><span class="p">()</span> <span class="k">as</span> <span class="n">bundle</span><span class="p">:</span>
+    <span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">({</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">600</span><span class="p">})</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">set</span><span class="p">([</span><span class="s1">'freq'</span><span class="p">,</span> <span class="n">synth</span><span class="o">.</span><span class="n">current_controls</span><span class="p">[</span><span class="s1">'freq'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.99</span><span class="p">])</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span> <span class="c1"># wait for synth</span>
+</pre></div>
+</div>
+</div>
+<p>Some methods also allow getting the OSC Message instead of sending</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">return_msg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;OSCMessage("/s_new", ['s2', 20001, 0, 67108865, 'freq', 219.61940002441406, 'amp', 0.10000000149011612, 'num', 4.0, 'pan', -1, 'lg', 0.10000000149011612, 'gate', 1.0])&gt;
+</pre></div></div>
+</div>
+<p>Refer to the <a class="reference internal" href="../osc-communication-examples.html"><span class="doc">OSC communication example notebook</span></a> if you want to learn more about messages and bundles.</p>
+</section>
+</section>
+<section id="Group">
+<h2>Group<a class="headerlink" href="#Group" title="Link to this heading"></a></h2>
+<p>Nodes can be grouped and controlled together. This gives you mutliple advantages like</p>
+<ul class="simple">
+<li><p>controlling multiple Synth together</p></li>
+<li><p>specifying the execution order of the nodes. For more details look at <a class="reference internal" href="#Order-of-Nodes"><span class="std std-ref">Order of nodes</span></a></p></li>
+</ul>
+<p>The SuperCollider audio server scsynth does have one root Group with the Node ID 0.</p>
+<p>In this root group each user got an default group were all the Nodes of the user (Synths and Groups) should be located</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<p>We have the following default Group</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(67108865) ~ {} children=[]
+</pre></div></div>
+</div>
+<section id="Creating-Groups">
+<h3>Creating Groups<a class="headerlink" href="#Creating-Groups" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
+<span class="n">g0</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20003) s {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+      20003 group
+   1 group
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20003) f {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+   1 group
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20003) s {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[ Group(20003) ~ {} children=[]],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(67108865) ~ {} children=[ Group(20003) ~ {} children=[]]
+</pre></div></div>
+</div>
+<p>Create a Group in our new Group</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">g0</span><span class="p">)</span>
+<span class="n">g1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20004) s {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[
+    Group(20003) ~ {} children=[ Group(20004) ~ {} children=[]]],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<p>You can get information about you Group via</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+GroupInfo(nodeid=20003, group=67108865, prev_nodeid=-1, next_nodeid=-1, head=20004, tail=20004)
+</pre></div></div>
+</div>
+<p>The query contains the same information as a Synth query and additionally the head and tail Node of this group.</p>
+<p>Notice the special value <code class="docutils literal notranslate"><span class="pre">-1</span></code> meaning <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+GroupInfo(nodeid=20004, group=20003, prev_nodeid=-1, next_nodeid=-1, head=-1, tail=-1)
+</pre></div></div>
+</div>
+<p>Free the node</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20003) f {} children=[ Group(20004) ~ {} children=[]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="Order-of-Nodes">
+<h2>Order of Nodes<a class="headerlink" href="#Order-of-Nodes" title="Link to this heading"></a></h2>
+<p>The execution of the Nodes does plays an important role. For more details look at the <a class="reference external" href="http://doc.sccode.org/Guides/Order-of-execution.html">SuperCollider Documentation</a></p>
+<p>The Node placement of a Nodes can be controlled by the instantiation arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">add_action</span></code> - An AddAction that specifies where to put Node relative to the target</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&lt;AddAction.TO_HEAD: 0&gt;,
+ &lt;AddAction.TO_TAIL: 1&gt;,
+ &lt;AddAction.BEFORE: 2&gt;,
+ &lt;AddAction.AFTER: 3&gt;,
+ &lt;AddAction.REPLACE: 4&gt;]
+</pre></div></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code> - The target of the AddAction</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group</span></code> - The group were the Node will be placed</p></li>
+</ul>
+<section id="Example-of-Ordering-Nodes">
+<h3>Example of Ordering Nodes<a class="headerlink" href="#Example-of-Ordering-Nodes" title="Link to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
+<span class="n">g0</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) s {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">g0</span><span class="p">)</span>
+<span class="n">g1</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20006) s {} children=[]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s0</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">g0</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">200</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">BEFORE</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">s0</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">600</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">TO_TAIL</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">g1</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="p">{</span><span class="s2">"freq"</span><span class="p">:</span> <span class="mi">1200</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[
+    Group(20005) ~ {} children=[
+      &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+      &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+      Group(20006) ~ {} children=[
+        &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">scn</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">BEFORE</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[
+    Group(20005) ~ {} children=[
+      &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+      Group(20006) ~ {} children=[
+        &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+        &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) ~ {} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) ~ {} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) ~ {} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">g1</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20006) - {} children=[
+  &lt;Synth(20008) 'default' ~ {'freq': 600.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  &lt;Synth(20009) 'default' ~ {'freq': 1200.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(200.0, 600.0, 1200.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(100.0, 100.0, 100.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+      20005 group
+         20007 default
+           out: 0 freq: 100 amp: 0.10000000149012 pan: 0 gate: 1
+         20006 group
+   1 group
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20006) - {} children=[
+  &lt;Synth(20008) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  &lt;Synth(20009) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(0)  {} children=[
+  Group(469762049) ~ {} children=[],
+  Group(402653185) ~ {} children=[],
+  Group(335544321) ~ {} children=[],
+  Group(268435457) ~ {} children=[],
+  Group(201326593) ~ {} children=[],
+  Group(134217729) ~ {} children=[],
+  Group(67108865) ~ {} children=[
+    Group(20005) ~ {'freq': 100} children=[
+      &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+      Group(20006) ~ {} children=[
+        &lt;Synth(20008) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+        &lt;Synth(20009) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]],
+  Group(1) ~ {} children=[]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">440</span><span class="p">)</span>
+
+<span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(100.0, 440.0, 440.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) ~ {'freq': 100} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {'freq': 440} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">move_node_to_tail</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) ~ {'freq': 100} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {'freq': 440} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g0</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(20005) ~ {'freq': 100} children=[
+  &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+  Group(20006) ~ {'freq': 440} children=[
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    &lt;Synth(20009) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"freq"</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+
+<span class="n">s0</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s1</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span> <span class="n">s2</span><span class="o">.</span><span class="n">freq</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(100.0, 440.0, 800.0)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Group(67108865) ~ {} children=[
+  Group(20005) ~ {'freq': 100} children=[
+    &lt;Synth(20007) 'default' ~ {'freq': 100.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;,
+    Group(20006) ~ {'freq': 800} children=[
+      &lt;Synth(20009) 'default' ~ {'freq': 800.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;],
+    &lt;Synth(20008) 'default' ~ {'freq': 440.0, 'out': 0.0, 'amp': 0.10000000149011612, 'pan': 0.0, 'gate': 1.0}&gt;]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+NODE TREE Group 0
+   469762049 group
+   402653185 group
+   335544321 group
+   268435457 group
+   201326593 group
+   134217729 group
+   67108865 group
+   1 group
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Quitting SCServer... Done.
+Exiting sclang... [scsynth | reached EOF ]
+[sclang | reached EOF ]
+Done.
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</div>
+</div>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
+<a accesskey="p" class="btn btn-neutral float-left" href="server-examples.html" rel="prev" title="Server"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="synthdef-examples.html" rel="next" title="SynthDef">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+</div>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>6ce4908bb3</code>.
+      </span></p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
+      v: 1.1.0^0
+      <span class="fa fa-caret-down"></span>
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
+</div>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

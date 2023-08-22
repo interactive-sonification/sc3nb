@@ -1,29 +1,27 @@
-
 <!DOCTYPE html>
 
 <html class="writer-html5" lang="en">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8"/><meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Server — sc3nb  documentation</title>
-<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/nbsphinx-code-cells.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/jquery.js"></script>
-<script src="../../../_static/underscore.js"></script>
-<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-<script src="../../../_static/js/theme.js" type="text/javascript"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../../_static/js/theme.js"></script>
 <link href="../../../genindex.html" rel="index" title="Index"/>
 <link href="../../../search.html" rel="search" title="Search"/>
 <link href="node-examples.html" rel="next" title="Nodes (Synth and Group)"/>
@@ -34,61 +32,32 @@
 <nav class="wy-nav-side" data-toggle="wy-nav-shift">
 <div class="wy-side-scroll">
 <div class="wy-side-nav-search">
-<a class="icon icon-home" href="../../../index.html"> sc3nb
-          
-
-          
+<a class="icon icon-home" href="../../../index.html">
+            sc3nb
           </a>
 <div class="version">
-                develop
+                1.1.0^0
               </div>
 <div role="search">
 <form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
-<input name="q" placeholder="Search docs" type="text"/>
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 </div>
-</div>
-<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Combined-usage">Combined usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../sclang-examples.html">Usage of sclang in sc3nb</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sclang-examples.html">Usage of sclang in sc3nb</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Server</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Starting-the-Server">Starting the Server</a></li>
@@ -102,225 +71,41 @@
 <li class="toctree-l3"><a class="reference internal" href="#Handling-SynthDefs">Handling SynthDefs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="node-examples.html">Nodes (Synth and Group)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="node-examples.html#Synth">Synth</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="node-examples.html#Group">Group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Creating-Groups">Creating Groups</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="synthdef-examples.html">SynthDef</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="buffer-examples.html">Buffer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Play-Buffer">Play Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="buffer-examples.html#Free-Buffers">Free Buffers</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="bus-examples.html">Bus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="recorder-examples.html">Recorder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="node-examples.html">Nodes (Synth and Group)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthdef-examples.html">SynthDef</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buffer-examples.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bus-examples.html">Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recorder-examples.html">Recorder</a></li>
 <li class="toctree-l2"><a class="reference internal" href="score-examples.html">Score</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#Motivation:">Motivation:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../helper-examples.html">Helper functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/index.html#function-list">Function List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/index.html#class-list">Class List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/index.html#content">Content</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.startup">startup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SC">SC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SCServer">SCServer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.ServerOptions">ServerOptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SCLang">SCLang</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Node">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Synth">Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Group">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.AddAction">AddAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.cpsmidi">cpsmidi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.clip">clip</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.dbamp">dbamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.ampdb">ampdb</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/osc/index.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test">How to test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#authors">Authors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#id1">Contributors</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a></li>
 </ul>
 </div>
 </div>
 </nav>
-<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
-<nav aria-label="top navigation" class="wy-nav-top">
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
 <i class="fa fa-bars" data-toggle="wy-nav-top"></i>
 <a href="../../../index.html">sc3nb</a>
 </nav>
 <div class="wy-nav-content">
 <div class="rst-content">
-<div aria-label="breadcrumbs navigation" role="navigation">
+<div aria-label="Page navigation" role="navigation">
 <ul class="wy-breadcrumbs">
-<li><a class="icon icon-home" href="../../../index.html"></a> »</li>
-<li><a href="../../../supercolliderobjects.html">SuperCollider objects</a> »</li>
-<li>Server</li>
+<li><a aria-label="Home" class="icon icon-home" href="../../../index.html"></a></li>
+<li class="breadcrumb-item"><a href="../../../supercolliderobjects.html">SuperCollider objects</a></li>
+<li class="breadcrumb-item active">Server</li>
 <li class="wy-breadcrumbs-aside">
 <a href="../../../_sources/autogen/notebooks/supercollider-objects/server-examples.nblink.txt" rel="nofollow"> View page source</a>
 </li>
@@ -329,286 +114,16 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/146be82a256db28600772e79a1404024a501d465/examples/supercollider-objects/server-examples.ipynb">examples/supercollider-objects/server-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/6ce4908bb30aa28863249d6d61906e16ae5ee8e3/examples/supercollider-objects/server-examples.ipynb">examples/supercollider-objects/server-examples.ipynb</a>.</p>
 </div>
-<div class="section" id="Server">
-<h1>Server<a class="headerlink" href="#Server" title="Permalink to this headline">¶</a></h1>
+<section id="Server">
+<h1>Server<a class="headerlink" href="#Server" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sc3nb</span> <span class="k">as</span> <span class="nn">scn</span>
 </pre></div>
 </div>
 </div>
@@ -624,15 +139,14 @@ div.rendered_html tbody tr:hover {
 <li><p>and also running an OSC server in python which can communicate via OSC with scsynth and sclang.</p></li>
 </ul>
 <p>For information about how to communicate using OSC see the <a class="reference internal" href="../osc-communication-examples.html"><span class="doc">OSC communication notebook</span></a>. This notebook focuses on using the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> class for interacting with scsynth</p>
-<div class="section" id="Starting-the-Server">
-<h2>Starting the Server<a class="headerlink" href="#Starting-the-Server" title="Permalink to this headline">¶</a></h2>
+<section id="Starting-the-Server">
+<h2>Starting the Server<a class="headerlink" href="#Starting-the-Server" title="Link to this heading"></a></h2>
 <p>The most convienent way is to use the default sc3nb <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -645,7 +159,7 @@ div.rendered_html tbody tr:hover {
 var element = document.currentScript.previousSibling.previousSibling;
 if (typeof Jupyter !== 'undefined') {
                         Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
-                        'Ctrl-.', {
+                        'cmd-.', {
                         help : 'Free all nodes on SC server',
                         help_index : 'zz',
                         handler : function (event) {
@@ -662,18 +176,19 @@ if (typeof Jupyter !== 'undefined') {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting sclang process... Done.
+Starting sclang process... [sclang | start reading ]
+Done.
 Registering OSC /return callback in sclang... Done.
 Loading default sc3nb SynthDefs... Done.
-Booting SuperCollider Server... Done.
+Booting SuperCollider Server... [scsynth | start reading ]
+Done.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span>
 </pre></div>
 </div>
 </div>
@@ -683,7 +198,7 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=10844&gt;&gt;
+&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=12799&gt;&gt;
 </pre></div></div>
 </div>
 <p>However you can also use the SCServer class directly</p>
@@ -696,8 +211,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">serv</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">SCServer</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serv</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">SCServer</span><span class="p">()</span>
 <span class="n">serv</span>
 </pre></div>
 </div>
@@ -715,8 +229,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">serv</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serv</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -738,8 +251,7 @@ Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The scsynth process of this SCServer instance allows </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span><span class="si">}</span><span class="s2"> clients to login."</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The scsynth process of this SCServer instance allows </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span><span class="si">}</span><span class="s2"> clients to login."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -755,8 +267,7 @@ The scsynth process of this SCServer instance allows 8 clients to login.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sc.server has client id </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sc.server has client id </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -772,8 +283,7 @@ sc.server has client id 1 and the default Group &lt;Group(67108865) ~ {} childre
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"serv has client id </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"serv has client id </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">client_id</span><span class="si">}</span><span class="s2"> and the default Group </span><span class="si">{</span><span class="n">serv</span><span class="o">.</span><span class="n">default_group</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -782,7 +292,7 @@ sc.server has client id 1 and the default Group &lt;Group(67108865) ~ {} childre
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-serv has client id 2 and the default Group &lt;Group(134217729) s {} children=[]&gt;
+serv has client id 0 and the default Group &lt;Group(1) s {} children=[]&gt;
 </pre></div></div>
 </div>
 <p>However also note that the instances use different ports meaning they are able to independendly send and receive OSC packets</p>
@@ -790,8 +300,7 @@ serv has client id 2 and the default Group &lt;Group(134217729) s {} children=[]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -821,8 +330,7 @@ Known receivers: "scsynth" at ('127.0.0.1', 57110)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">serv</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serv</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -850,8 +358,7 @@ Known receivers: "scsynth" at ('127.0.0.1', 57110)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">serv_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"pan"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">server</span><span class="o">=</span><span class="n">serv</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serv_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"pan"</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">server</span><span class="o">=</span><span class="n">serv</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -859,8 +366,7 @@ Known receivers: "scsynth" at ('127.0.0.1', 57110)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">default_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"pan"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">440</span><span class="p">})</span>  <span class="c1"># no need to specify sc.server as server argument</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_synth</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"amp"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"pan"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">440</span><span class="p">})</span>  <span class="c1"># no need to specify sc.server as server argument</span>
 </pre></div>
 </div>
 </div>
@@ -869,8 +375,7 @@ Known receivers: "scsynth" at ('127.0.0.1', 57110)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">sc</span> ~sclang_synth <span class="o">=</span> Synth<span class="o">(</span><span class="s2">"s2"</span>, <span class="o">[</span><span class="se">\a</span>mp, <span class="m">0</span>.1<span class="o">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sc</span><span class="w"> </span>~sclang_synth<span class="w"> </span><span class="o">=</span><span class="w"> </span>Synth<span class="o">(</span><span class="s2">"s2"</span>,<span class="w"> </span><span class="o">[</span><span class="se">\a</span>mp,<span class="w"> </span><span class="m">0</span>.1<span class="o">])</span>
 </pre></div>
 </div>
 </div>
@@ -886,8 +391,7 @@ Known receivers: "scsynth" at ('127.0.0.1', 57110)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -903,14 +407,14 @@ NODE TREE Group 0
    268435457 group
    201326593 group
    134217729 group
-      30001 s2
-        freq: 100 amp: 0.050000000745058 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
    67108865 group
       20001 s2
         freq: 440 amp: 0.050000000745058 num: 4 pan: 1 lg: 0.10000000149012 gate: 1
    1 group
       1000 s2
         freq: 400 amp: 0.10000000149012 num: 4 pan: 0 lg: 0.10000000149012 gate: 1
+      10001 s2
+        freq: 100 amp: 0.050000000745058 num: 4 pan: -1 lg: 0.10000000149012 gate: 1
 </pre></div></div>
 </div>
 <p>This also means freeing all Synths at once can be done with each client</p>
@@ -918,8 +422,7 @@ NODE TREE Group 0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
 <span class="c1"># serv.free_all()</span>
 <span class="c1"># %sc s.freeAll</span>
 </pre></div>
@@ -929,8 +432,7 @@ NODE TREE Group 0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -955,8 +457,7 @@ NODE TREE Group 0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">serv</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serv</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -966,14 +467,14 @@ NODE TREE Group 0
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Quitting SCServer... Done.
+[scsynth | reached EOF ]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span>
 </pre></div>
 </div>
 </div>
@@ -983,7 +484,7 @@ Quitting SCServer... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=10844&gt;&gt;
+&lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (died) pid=12799&gt;&gt;
 </pre></div></div>
 </div>
 <p>Let’s reboot the default server</p>
@@ -991,8 +492,7 @@ Quitting SCServer... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1002,21 +502,35 @@ Quitting SCServer... Done.
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Quitting SCServer... Done.
-Booting SuperCollider Server... Done.
+Booting SuperCollider Server... [scsynth | start reading ]
+[scsynth]  Number of Devices: 2
+[scsynth]     0 : "Built-in Microph"
+[scsynth]     1 : "Built-in Output"
+[scsynth]
+[scsynth]  "Built-in Microph" Input Device
+[scsynth]     Streams: 1
+[scsynth]        0  channels 2
+[scsynth]
+[scsynth]  "Built-in Output" Output Device
+[scsynth]     Streams: 1
+[scsynth]        0  channels 2
+[scsynth]
+[scsynth]  SC_AudioDriver: sample rate = 44100.000000, driver's block size = 512
+[scsynth]  SuperCollider 3 server ready.
+Done.
 </pre></div></div>
 </div>
 <p>More information about <a class="reference external" href="http://doc.sccode.org/Guides/MultiClient_Setups.html">multi client setups</a> can be found in the SuperCollider documentation.</p>
-</div>
-<div class="section" id="Configuring-Server-options">
-<h2>Configuring Server options<a class="headerlink" href="#Configuring-Server-options" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Configuring-Server-options">
+<h2>Configuring Server options<a class="headerlink" href="#Configuring-Server-options" title="Link to this heading"></a></h2>
 <p>Startup options of the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance can be set via <code class="docutils literal notranslate"><span class="pre">ServerOptions</span></code>, which can be passed as argument when starting the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code></p>
 <p>The default ServerOptions in sc3nb are:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scn</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1029,9 +543,9 @@ Booting SuperCollider Server... Done.
 &lt;ServerOptions ['-u', '57110', '-l', '6', '-i', '2', '-o', '2', '-a', '1024', '-c', '4096', '-b', '1024', '-R', '0']&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Getting-Information">
-<h2>Getting Information<a class="headerlink" href="#Getting-Information" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Getting-Information">
+<h2>Getting Information<a class="headerlink" href="#Getting-Information" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance provides various kinds of information</p>
 <ul class="simple">
 <li><p>What nodes are currently running</p></li>
@@ -1040,8 +554,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1050,6 +563,15 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+[scsynth]  NODE TREE Group 0
+[scsynth]     469762049 group
+[scsynth]     402653185 group
+[scsynth]     335544321 group
+[scsynth]     268435457 group
+[scsynth]     201326593 group
+[scsynth]     134217729 group
+[scsynth]     67108865 group
+[scsynth]     1 group
 NODE TREE Group 0
    469762049 group
    402653185 group
@@ -1065,8 +587,7 @@ NODE TREE Group 0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">query_tree</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1077,13 +598,13 @@ NODE TREE Group 0
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Group(0)  {} children=[
-  Group(469762049) ~ {} children=[],
-  Group(402653185) ~ {} children=[],
-  Group(335544321) ~ {} children=[],
-  Group(268435457) ~ {} children=[],
-  Group(201326593) ~ {} children=[],
-  Group(134217729) ~ {} children=[],
-  Group(67108865) ~ {} children=[],
+  Group(469762049) s {} children=[],
+  Group(402653185) s {} children=[],
+  Group(335544321) s {} children=[],
+  Group(268435457) s {} children=[],
+  Group(201326593) s {} children=[],
+  Group(134217729) s {} children=[],
+  Group(67108865) s {} children=[],
   Group(1) ~ {} children=[]]
 </pre></div></div>
 </div>
@@ -1094,8 +615,7 @@ Group(0)  {} children=[
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1105,7 +625,7 @@ Group(0)  {} children=[
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0.25078603625297546, peak_cpu=0.26171109080314636, nominal_sr=44100.0, actual_sr=43548.905905256324)
+ServerStatus(num_ugens=6, num_synths=1, num_groups=9, num_synthdefs=7, avg_cpu=0.12140010297298431, peak_cpu=0.5158149600028992, nominal_sr=44100.0, actual_sr=44099.9999987347)
 </pre></div></div>
 </div>
 <p>which can also be accessed directly via properties</p>
@@ -1113,8 +633,7 @@ ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">nominal_sr</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">nominal_sr</span>
 </pre></div>
 </div>
 </div>
@@ -1131,8 +650,7 @@ ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">num_synthdefs</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">num_synthdefs</span>
 </pre></div>
 </div>
 </div>
@@ -1142,7 +660,7 @@ ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-9
+7
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1152,8 +670,7 @@ ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">version</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">version</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1163,7 +680,7 @@ ServerStatus(num_ugens=0, num_synths=0, num_groups=9, num_synthdefs=9, avg_cpu=0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-ServerVersion(name='scsynth', major_version=3, minor_version=11, patch_version='.0', git_branch='HEAD', commit='e341b49')
+ServerVersion(name='scsynth', major_version=3, minor_version=13, patch_version='.0', git_branch='Version-3.13.0', commit='3188503')
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1173,8 +690,7 @@ ServerVersion(name='scsynth', major_version=3, minor_version=11, patch_version='
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">addr</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">addr</span>
 </pre></div>
 </div>
 </div>
@@ -1194,8 +710,7 @@ ServerVersion(name='scsynth', major_version=3, minor_version=11, patch_version='
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">connection_info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1227,8 +742,7 @@ Known receivers: "scsynth" at ('127.0.0.1', 57110)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">has_booted</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">has_booted</span>
 </pre></div>
 </div>
 </div>
@@ -1245,8 +759,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">is_running</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">is_running</span>
 </pre></div>
 </div>
 </div>
@@ -1263,8 +776,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">client_id</span>
 </pre></div>
 </div>
 </div>
@@ -1281,8 +793,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">max_logins</span>
 </pre></div>
 </div>
 </div>
@@ -1299,8 +810,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
 </pre></div>
 </div>
 </div>
@@ -1310,15 +820,14 @@ True
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Group(67108865) ~ {} children=[]
+Group(67108865) s {} children=[]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">output_bus</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">output_bus</span>
 </pre></div>
 </div>
 </div>
@@ -1335,8 +844,7 @@ Bus(rate='audio', ids=[0, 1])
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">input_bus</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">input_bus</span>
 </pre></div>
 </div>
 </div>
@@ -1349,15 +857,14 @@ Bus(rate='audio', ids=[0, 1])
 Bus(rate='audio', ids=[2, 3])
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Controlling-Volume">
-<h2>Controlling Volume<a class="headerlink" href="#Controlling-Volume" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Controlling-Volume">
+<h2>Controlling Volume<a class="headerlink" href="#Controlling-Volume" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">syn</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">syn</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="s2">"s2"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1365,8 +872,7 @@ Bus(rate='audio', ids=[2, 3])
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span>
 </pre></div>
 </div>
 </div>
@@ -1383,8 +889,7 @@ Bus(rate='audio', ids=[2, 3])
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1401,8 +906,7 @@ Bus(rate='audio', ids=[2, 3])
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span>
 </pre></div>
 </div>
 </div>
@@ -1419,8 +923,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </div>
@@ -1428,8 +931,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span>
 </pre></div>
 </div>
 </div>
@@ -1437,8 +939,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1455,8 +956,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </div>
@@ -1464,8 +964,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="mf">0.0</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="mf">0.0</span>
 </pre></div>
 </div>
 </div>
@@ -1473,8 +972,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scn</span><span class="o">.</span><span class="n">dbamp</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">volume</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1491,15 +989,14 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">syn</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">syn</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 <span class="n">syn</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Server-dumps">
-<h2>Server dumps<a class="headerlink" href="#Server-dumps" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Server-dumps">
+<h2>Server dumps<a class="headerlink" href="#Server-dumps" title="Link to this heading"></a></h2>
 <p>The Server process can dump information about</p>
 <ul class="simple">
 <li><p>incoming OSC packages. See console for output</p></li>
@@ -1508,8 +1005,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span> <span class="c1"># specify level=0 to deactivate</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span> <span class="c1"># specify level=0 to deactivate</span>
 </pre></div>
 </div>
 </div>
@@ -1520,8 +1016,7 @@ False
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>  <span class="c1"># Notice how the OSC packet is now included in the output</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_tree</span><span class="p">()</span>  <span class="c1"># Notice how the OSC packet is now included in the output</span>
 </pre></div>
 </div>
 </div>
@@ -1530,9 +1025,24 @@ False
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+[scsynth]  [ "/g_dumpTree", 0, 1 ]
+[scsynth]  NODE TREE Group 0
+[scsynth]     -24 s1
+[scsynth]       freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 dur: 0.10000000149012 att: 0 curve: 42
+[scsynth]     469762049 group
+[scsynth]     402653185 group
+[scsynth]     335544321 group
+[scsynth]     268435457 group
+[scsynth]     201326593 group
+[scsynth]     134217729 group
+[scsynth]     67108865 group
+[scsynth]     20002 sc3nb_volumeAmpControl2
+[scsynth]       volumeAmp: 0.31622776389122 volumeLag: 0.10000000149012 gate: 0 bus: 0
+[scsynth]     1 group
+[ "/g_dumpTree", 0, 1 ]
 NODE TREE Group 0
-   -16 s1
-     freq: 500 dur: 0.10000000149012 att: 0.0099999997764826 amp: 0.30000001192093 num: 1 pan: 0
+   -24 s1
+     freq: 1000 amp: 0.050000000745058 num: 2 pan: 0 dur: 0.10000000149012 att: 0 curve: 42
    469762049 group
    402653185 group
    335544321 group
@@ -1545,75 +1055,312 @@ NODE TREE Group 0
    1 group
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span> <span class="c1"># see dumped bundle for test sound on console</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span> <span class="c1"># see dumped bundle for test sound on console</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="section" id="Make-a-test-sound">
-<h2>Make a test sound<a class="headerlink" href="#Make-a-test-sound" title="Permalink to this headline">¶</a></h2>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "#bundle", 16757651181134434304,
+[scsynth]    [ "#bundle", 16757651181134434304,
+[scsynth]      [ "/error", 0 ]
+[scsynth]    ],
+[scsynth]    [ "#bundle", 16757651181134434304,
+[scsynth]      [ "/s_new", "s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1 ]
+[scsynth]    ],
+[scsynth]    [ "#bundle", 16757651181993428992,
+[scsynth]      [ "/s_new", "s1", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2, "att", 0, "dur", 0.1, "curve", 42 ]
+[scsynth]    ],
+[scsynth]    [ "#bundle", 16757651181993428992,
+[scsynth]      [ "/error", 1 ]
+[scsynth]    ]
+[scsynth]  ]
+</pre></div></div>
+</div>
+</section>
+<section id="Make-a-test-sound">
+<h2>Make a test sound<a class="headerlink" href="#Make-a-test-sound" title="Link to this heading"></a></h2>
 <p>The following methods produces the <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> startup sound. The test sound should ease any anxiety whether the server is properly started/running</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="section" id="Managing-Nodes">
-<h2>Managing Nodes<a class="headerlink" href="#Managing-Nodes" title="Permalink to this headline">¶</a></h2>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "#bundle", 16757651181185339392,
+[scsynth]    [ "#bundle", 16757651181185339392,
+[scsynth]      [ "/error", 0 ]
+[scsynth]    ],
+[scsynth]    [ "#bundle", 16757651181185339392,
+[scsynth]      [ "/s_new", "s1", -1, 0, 0, "freq", 500, "dur", 0.1, "num", 1 ]
+[scsynth]    ],
+[scsynth]    [ "#bundle", 16757651182044332032,
+[scsynth]      [ "/s_new", "s1", -1, 0, 0, "freq", 1000, "amp", 0.05, "num", 2, "att", 0, "dur", 0.1, "curve", 42 ]
+[scsynth]    ],
+[scsynth]    [ "#bundle", 16757651182044332032,
+[scsynth]      [ "/error", 1 ]
+[scsynth]    ]
+[scsynth]  ]
+</pre></div></div>
+</div>
+</section>
+<section id="Managing-Nodes">
+<h2>Managing Nodes<a class="headerlink" href="#Managing-Nodes" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>freeing all running nodes and reinitialize the server</p></li>
 </ul>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/g_freeAll", 0 ]
+[scsynth]  [ "/clearSched", ]
+[scsynth]  [ "/g_new", 1, 0, 0 ]
+[scsynth]  [ "/g_new", 67108865, 0, 0 ]
+[scsynth]  [ "/g_new", 134217729, 0, 0 ]
+[scsynth]  [ "/g_new", 201326593, 0, 0 ]
+[scsynth]  [ "/g_new", 268435457, 0, 0 ]
+[scsynth]  [ "/g_new", 335544321, 0, 0 ]
+[scsynth]  [ "/g_new", 402653185, 0, 0 ]
+[scsynth]  [ "/g_new", 469762049, 0, 0 ]
+[scsynth]  [ "/g_new", 1, 0, 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1007 ]
+[scsynth]  ]
+[scsynth]  [ "/d_recv", DATA[396] ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1008 ]
+[scsynth]  ]
+[scsynth]  [ "/sync", 5816 ]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># only frees the default group of this client</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">free_all</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># only frees the default group of this client</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/g_freeAll", 67108865 ]
+[scsynth]  [ "/clearSched", ]
+[scsynth]  [ "/g_new", 67108865, 0, 0 ]
+[scsynth]  [ "/g_new", 1, 0, 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1009 ]
+[scsynth]  ]
+[scsynth]  [ "/notify", 1, 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1010 ]
+[scsynth]  ]
+[scsynth]  [ "/d_recv", DATA[3037], 0 ]
+[scsynth]  [ "/d_recv", DATA[1220], 0 ]
+[scsynth]  [ "/d_recv", DATA[1285], 0 ]
+[scsynth]  [ "/d_recv", DATA[396] ]
+[scsynth]  [ "/d_recv", DATA[1120], 0 ]
+[scsynth]  [ "/d_recv", DATA[2192], 0 ]
+[scsynth]  [ "/d_recv", DATA[1135], 0 ]
+[scsynth]  [ "/d_recv", DATA[190], 0 ]
+[scsynth]  [ "/d_recv", DATA[1684], 0 ]
+[scsynth]  [ "/d_recv", DATA[254], 0 ]
+[scsynth]  [ "/d_recv", DATA[1685], 0 ]
+[scsynth]  [ "/d_recv", DATA[1385], 0 ]
+[scsynth]  [ "/d_recv", DATA[2290], 0 ]
+[scsynth]  [ "/d_recv", DATA[1851], 0 ]
+[scsynth]  [ "/d_recv", DATA[469], 0 ]
+[scsynth]  [ "/d_recv", DATA[1444], 0 ]
+[scsynth]  [ "/d_recv", DATA[619], 0 ]
+[scsynth]  [ "/d_recv", DATA[1277], 0 ]
+[scsynth]  [ "/d_recv", DATA[1117], 0 ]
+[scsynth]  [ "/d_recv", DATA[1020], 0 ]
+[scsynth]  [ "/d_recv", DATA[670], 0 ]
+[scsynth]  [ "/d_recv", DATA[1103], 0 ]
+[scsynth]  [ "/d_recv", DATA[869], 0 ]
+[scsynth]  [ "/d_recv", DATA[163], 0 ]
+[scsynth]  [ "/d_recv", DATA[684], 0 ]
+[scsynth]  [ "/d_recv", DATA[217], 0 ]
+[scsynth]  [ "/d_recv", DATA[299], 0 ]
+[scsynth]  [ "/d_recv", DATA[719], 0 ]
+[scsynth]  [ "/sync", 1494 ]
+[scsynth]  [ "/d_recv", DATA[1339], 0 ]
+[scsynth]  [ "/d_recv", DATA[884], 0 ]
+[scsynth]  [ "/d_recv", DATA[688], 0 ]
+[scsynth]  [ "/d_recv", DATA[172], 0 ]
+[scsynth]  [ "/d_recv", DATA[569], 0 ]
+[scsynth]  [ "/d_recv", DATA[181], 0 ]
+[scsynth]  [ "/d_recv", DATA[1055], 0 ]
+[scsynth]  [ "/d_recv", DATA[984], 0 ]
+[scsynth]  [ "/d_recv", DATA[599], 0 ]
+[scsynth]  [ "/d_recv", DATA[290], 0 ]
+[scsynth]  [ "/d_recv", DATA[226], 0 ]
+[scsynth]  [ "/d_recv", DATA[2699], 0 ]
+[scsynth]  [ "/d_recv", DATA[1346], 0 ]
+[scsynth]  [ "/d_recv", DATA[920], 0 ]
+[scsynth]  [ "/d_recv", DATA[1519], 0 ]
+[scsynth]  [ "/d_recv", DATA[784], 0 ]
+[scsynth]  [ "/d_recv", DATA[839], 0 ]
+[scsynth]  [ "/d_recv", DATA[819], 0 ]
+[scsynth]  [ "/d_recv", DATA[272], 0 ]
+[scsynth]  [ "/d_recv", DATA[634], 0 ]
+[scsynth]  [ "/d_recv", DATA[1070], 0 ]
+[scsynth]  [ "/d_recv", DATA[937], 0 ]
+[scsynth]  [ "/d_recv", DATA[1269], 0 ]
+[scsynth]  [ "/d_recv", DATA[771], 0 ]
+[scsynth]  [ "/d_recv", DATA[1085], 0 ]
+[scsynth]  [ "/d_recv", DATA[1020], 0 ]
+[scsynth]  [ "/d_recv", DATA[1185], 0 ]
+[scsynth]  [ "/d_recv", DATA[199], 0 ]
+[scsynth]  [ "/d_recv", DATA[2797], 0 ]
+[scsynth]  [ "/d_recv", DATA[1275], 0 ]
+[scsynth]  [ "/d_recv", DATA[1436], 0 ]
+[scsynth]  [ "/d_recv", DATA[1235], 0 ]
+</pre></div></div>
 </div>
 <ul class="simple">
 <li><p>send the <code class="docutils literal notranslate"><span class="pre">/clearSched</span></code> OSC command. This is automatically done when using <code class="docutils literal notranslate"><span class="pre">free_all</span></code></p></li>
 </ul>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">clear_schedule</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">clear_schedule</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/d_recv", DATA[2459], 0 ]
+[scsynth]  [ "/d_recv", DATA[1613], 0 ]
+[scsynth]  [ "/d_recv", DATA[1335], 0 ]
+[scsynth]  [ "/d_recv", DATA[1515], 0 ]
+[scsynth]  [ "/d_recv", DATA[1170], 0 ]
+[scsynth]  [ "/d_recv", DATA[2361], 0 ]
+[scsynth]  [ "/d_recv", DATA[1339], 0 ]
+[scsynth]  [ "/d_recv", DATA[1782], 0 ]
+[scsynth]  [ "/clearSched", ]
+[scsynth]  [ "/d_recv", DATA[937], 0 ]
+[scsynth]  [ "/d_recv", DATA[1186], 0 ]
+[scsynth]  [ "/d_recv", DATA[208], 0 ]
+[scsynth]  [ "/d_recv", DATA[669], 0 ]
+[scsynth]  [ "/d_recv", DATA[1353], 0 ]
+[scsynth]  [ "/d_recv", DATA[501], 0 ]
+</pre></div></div>
 </div>
 <ul class="simple">
 <li><p>Execute init hooks. This is also automatically done when using <code class="docutils literal notranslate"><span class="pre">free_all</span></code>, <code class="docutils literal notranslate"><span class="pre">init</span></code> or <code class="docutils literal notranslate"><span class="pre">connect_sclang</span></code></p></li>
 </ul>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/d_recv", DATA[2868], 0 ]
+[scsynth]  [ "/d_recv", DATA[263], 0 ]
+[scsynth]  [ "/d_recv", DATA[605], 0 ]
+[scsynth]  [ "/d_recv", DATA[1034], 0 ]
+[scsynth]  [ "/d_recv", DATA[519], 0 ]
+[scsynth]  [ "/d_recv", DATA[1853], 0 ]
+[scsynth]  [ "/d_recv", DATA[1952], 0 ]
+[scsynth]  [ "/d_recv", DATA[281], 0 ]
+[scsynth]  [ "/d_recv", DATA[1117], 0 ]
+[scsynth]  [ "/d_recv", DATA[2023], 0 ]
+[scsynth]  [ "/d_recv", DATA[1055], 0 ]
+[scsynth]  [ "/d_recv", DATA[964], 0 ]
+[scsynth]  [ "/d_recv", DATA[934], 0 ]
+[scsynth]  [ "/d_recv", DATA[1106], 0 ]
+[scsynth]  [ "/d_recv", DATA[430], 0 ]
+[scsynth]  [ "/d_recv", DATA[734], 0 ]
+[scsynth]  [ "/d_recv", DATA[970], 0 ]
+[scsynth]  [ "/d_recv", DATA[768], 0 ]
+[scsynth]  [ "/d_recv", DATA[235], 0 ]
+[scsynth]  [ "/d_recv", DATA[834], 0 ]
+[scsynth]  [ "/d_recv", DATA[2628], 0 ]
+[scsynth]  [ "/d_recv", DATA[1768], 0 ]
+[scsynth]  [ "/d_recv", DATA[2966], 0 ]
+[scsynth]  [ "/d_recv", DATA[854], 0 ]
+[scsynth]  [ "/d_recv", DATA[1008], 0 ]
+[scsynth]  [ "/d_recv", DATA[2530], 0 ]
+[scsynth]  [ "/d_recv", DATA[245], 0 ]
+[scsynth]  [ "/d_recv", DATA[1177], 0 ]
+[scsynth]  [ "/d_recv", DATA[1602], 0 ]
+[scsynth]  [ "/d_recv", DATA[1277], 0 ]
+[scsynth]  [ "/d_recv", DATA[396], 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1011 ]
+[scsynth]  ]
+[scsynth]  [ "/d_recv", DATA[390], 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1012 ]
+[scsynth]  ]
+[scsynth]  [ "/g_new", 1, 0, 0 ]
+[scsynth]  [ "/g_new", 67108865, 0, 0 ]
+[scsynth]  [ "/g_new", 134217729, 0, 0 ]
+[scsynth]  [ "/g_new", 201326593, 0, 0 ]
+[scsynth]  [ "/g_new", 268435457, 0, 0 ]
+[scsynth]  [ "/g_new", 335544321, 0, 0 ]
+[scsynth]  [ "/g_new", 402653185, 0, 0 ]
+[scsynth]  [ "/g_new", 469762049, 0, 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1013 ]
+[scsynth]  ]
+[scsynth]  [ "/g_new", 1, 0, 0 ]
+[scsynth]  [ "/g_new", 67108865, 0, 0 ]
+[scsynth]  [ "/g_new", 134217729, 0, 0 ]
+[scsynth]  [ "/g_new", 201326593, 0, 0 ]
+[scsynth]  [ "/g_new", 268435457, 0, 0 ]
+[scsynth]  [ "/g_new", 335544321, 0, 0 ]
+[scsynth]  [ "/g_new", 402653185, 0, 0 ]
+[scsynth]  [ "/g_new", 469762049, 0, 0 ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1014 ]
+[scsynth]  ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1015 ]
+[scsynth]  ]
+[scsynth]  [ "/d_recv", DATA[396] ]
+[scsynth]  [ "#bundle", 1,
+[scsynth]    [ "/sync", 1016 ]
+[scsynth]  ]
+</pre></div></div>
 </div>
 <ul class="simple">
 <li><p>Adding init hooks.</p></li>
@@ -1622,8 +1369,7 @@ NODE TREE Group 0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send_default_groups</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send_default_groups</span>
 </pre></div>
 </div>
 </div>
@@ -1633,7 +1379,7 @@ NODE TREE Group 0
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=9796&gt;&gt;&gt;
+&lt;bound method SCServer.send_default_groups of &lt;SCServer addr=('127.0.0.1', 57110), process=&lt;Process 'scsynth' (running) pid=12807&gt;&gt;&gt;
 </pre></div></div>
 </div>
 <ul class="simple">
@@ -1643,10 +1389,17 @@ NODE TREE Group 0
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/sync", 7963 ]
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
@@ -1657,9 +1410,9 @@ NODE TREE Group 0
 True
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Allocating-IDs">
-<h2>Allocating IDs<a class="headerlink" href="#Allocating-IDs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Allocating-IDs">
+<h2>Allocating IDs<a class="headerlink" href="#Allocating-IDs" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">SCServer</span></code> instance manages the IDs for Nodes, Buffers and Buses for the SuperCollider Objects via the following methods. These can also be used for getting suitable IDs when manually creating OSC packages.</p>
 <ul class="simple">
 <li><p>Get the IDs via the allocator.</p></li>
@@ -1668,8 +1421,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ids</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ids</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ids</span>
 </pre></div>
 </div>
@@ -1690,8 +1442,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1705,8 +1456,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1715,16 +1465,32 @@ True
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Quitting SCServer... Done.
-Booting SuperCollider Server... Done.
+Quitting SCServer... [scsynth]  [ "/quit", ]
+[scsynth | reached EOF ]
+Done.
+Booting SuperCollider Server... [scsynth | start reading ]
+[scsynth]  Number of Devices: 2
+[scsynth]     0 : "Built-in Microph"
+[scsynth]     1 : "Built-in Output"
+[scsynth]
+[scsynth]  "Built-in Microph" Input Device
+[scsynth]     Streams: 1
+[scsynth]        0  channels 2
+[scsynth]
+[scsynth]  "Built-in Output" Output Device
+[scsynth]     Streams: 1
+[scsynth]        0  channels 2
+[scsynth]
+[scsynth]  SC_AudioDriver: sample rate = 44100.000000, driver's block size = 512
+[scsynth]  SuperCollider 3 server ready.
+Done.
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># example to see how consecutive buffer alloc works:</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example to see how consecutive buffer alloc works:</span>
 <span class="n">ids</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"5 buffers:"</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
 <span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_ids</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
@@ -1748,9 +1514,9 @@ allocated 4 buffers: [133, 134, 135, 136] -&gt; new numbers to be consecutive
 allocated 2 buffers: [128, 129] -&gt; using the two freed before
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Handling-SynthDefs">
-<h2>Handling SynthDefs<a class="headerlink" href="#Handling-SynthDefs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Handling-SynthDefs">
+<h2>Handling SynthDefs<a class="headerlink" href="#Handling-SynthDefs" title="Link to this heading"></a></h2>
 <p>The server offers the following methods for handling SynthDefs. These are shortcuts for the respective SynthDef methods.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>sc.server.send_synthdef
 sc.server.load_synthdef
@@ -1762,8 +1528,7 @@ sc.server.load_synthdefs
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1772,37 +1537,31 @@ sc.server.load_synthdefs
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Quitting SCServer... Done.
-Exiting sclang... Done.
+Quitting SCServer... [scsynth | reached EOF ]
+Done.
+Exiting sclang... [sclang | reached EOF ]
+Done.
 </pre></div></div>
 </div>
+</section>
+</section>
 </div>
 </div>
-</div>
-</div>
-<footer>
-<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
-<a accesskey="n" class="btn btn-neutral float-right" href="node-examples.html" rel="next" title="Nodes (Synth and Group)">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
 <a accesskey="p" class="btn btn-neutral float-left" href="../../../supercolliderobjects.html" rel="prev" title="SuperCollider objects"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="node-examples.html" rel="next" title="Nodes (Synth and Group)">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">
-<p>
-        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
-      <span class="commit">
-        
-        Revision <code>146be82a25</code>.
-      </span>
-</p>
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>6ce4908bb3</code>.
+      </span></p>
 </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
 </div>
@@ -1812,14 +1571,14 @@ Exiting sclang... Done.
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.1.0^0
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
 </div>
 </div>
-<script type="text/javascript">
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });

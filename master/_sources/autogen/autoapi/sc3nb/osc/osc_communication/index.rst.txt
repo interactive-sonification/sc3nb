@@ -14,7 +14,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -26,6 +25,8 @@ Function List
 .. autoapisummary::
    :nosignatures:
 
+   sc3nb.osc.osc_communication.get_max_udp_packet_size
+   sc3nb.osc.osc_communication.split_into_max_size
    sc3nb.osc.osc_communication.convert_to_sc3nb_osc
 
 
@@ -49,14 +50,40 @@ Class List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
+
+.. py:function:: get_max_udp_packet_size()
+
+   
+   Get the max UDP packet size by trial and error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: split_into_max_size(bundler: Bundler, max_dgram_size) -> List[pythonosc.osc_bundle.OscBundle]
+
 
 .. class:: OSCMessage(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None)
 
 
+   
    Class for creating messages to send over OSC
 
 
@@ -87,118 +114,18 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.osc.osc_communication.OSCMessage.dgram
-         sc3nb.osc.osc_communication.OSCMessage.raw_osc
-         sc3nb.osc.osc_communication.OSCMessage.parameters
-         sc3nb.osc.osc_communication.OSCMessage.address
          sc3nb.osc.osc_communication.OSCMessage.to_pythonosc
          sc3nb.osc.osc_communication.OSCMessage._build_message
          sc3nb.osc.osc_communication.OSCMessage.__repr__
 
-   .. method:: dgram(self) -> bytes
-      :property:
+   .. py:method:: to_pythonosc() -> pythonosc.osc_message.OscMessage
 
-      datagram of OSC message
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: raw_osc(self) -> bytes
-      :property:
-
-      raw OSC representation - same as :py:attr:`~dgram`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: parameters(self) -> List[Any]
-      :property:
-
-      OSC message parameters
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: address(self) -> str
-      :property:
-
-      OSC message address
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: to_pythonosc(self) -> pythonosc.osc_message.OscMessage
-
+      
       Return python-osc OscMessage
 
 
@@ -219,10 +146,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _build_message(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
+   .. py:method:: _build_message(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
       :staticmethod:
 
+      
       Builds pythonsosc OSC message.
 
 
@@ -254,9 +181,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -280,29 +207,11 @@ Content
 
 
 
-
 .. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional[OSCCommunication] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
    Class for creating OSCBundles and bundling of messages
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a Bundler
 
@@ -355,7 +264,6 @@ Content
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.osc.osc_communication.Bundler.dgram
          sc3nb.osc.osc_communication.Bundler.wait
          sc3nb.osc.osc_communication.Bundler.add
          sc3nb.osc.osc_communication.Bundler.messages
@@ -368,12 +276,9 @@ Content
          sc3nb.osc.osc_communication.Bundler.__exit__
          sc3nb.osc.osc_communication.Bundler.__repr__
 
-   .. method:: dgram(self) -> bytes
-      :property:
+   .. py:method:: wait(time_passed: float) -> None
 
-
-   .. method:: wait(self, time_passed: float) -> None
-
+      
       Add time to internal time
 
 
@@ -398,18 +303,20 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add(*args) -> Bundler
 
-   .. method:: add(self, *args) -> Bundler
-
+      
       Add content to this Bundler.
 
 
       :Parameters:
 
-          **args** : OSCMessage or Bundler or Bundler arguments like
-              (timetag, msg_addr, msg_params)
-              (timetag, msg_addr)
-              (timetag, msg)
+          **args** : accepts an OSCMessage or Bundler
+              or a timetag with an OSCMessage or Bundler
+              or Bundler arguments like
+               (timetag, msg_addr, msg_params)
+               (timetag, msg_addr)
+               (timetag, msg)
 
       :Returns:
 
@@ -431,9 +338,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: messages(start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[float, List[OSCMessage]]
 
-   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[float, List[OSCMessage]]
-
+      
       Generate a dict with all messages in this Bundler.
 
       They dict key is the time tag of the messages.
@@ -463,9 +370,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: send(server: Optional[OSCCommunication] = None, receiver: Tuple[str, int] = None, bundle: bool = True)
 
-   .. method:: send(self, server: Optional[OSCCommunication] = None, receiver: Tuple[str, int] = None, bundle: bool = True)
-
+      
       Send this Bundler.
 
 
@@ -503,9 +410,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: to_raw_osc(start_time: Optional[float] = None, delay: Optional[float] = None) -> bytes
 
-   .. method:: to_raw_osc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> bytes
-
+      
       Create a raw OSC Bundle from this bundler.
 
 
@@ -537,9 +444,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: to_pythonosc(start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
 
-   .. method:: to_pythonosc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
-
+      
       Build this bundle.
 
 
@@ -571,21 +478,21 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _calc_timetag(self, start_time: Optional[float])
-
-
-   .. method:: __deepcopy__(self, memo) -> Bundler
+   .. py:method:: _calc_timetag(start_time: Optional[float])
 
 
-   .. method:: __enter__(self)
+   .. py:method:: __deepcopy__(memo) -> Bundler
 
 
-   .. method:: __exit__(self, exc_type, exc_value, exc_traceback)
+   .. py:method:: __enter__()
 
 
-   .. method:: __repr__(self) -> str
+   .. py:method:: __exit__(exc_type, exc_value, exc_traceback)
 
+
+   .. py:method:: __repr__() -> str
+
+      
       Return repr(self).
 
 
@@ -609,9 +516,9 @@ Content
 
 
 
+.. py:function:: convert_to_sc3nb_osc(data: Union[OSCMessage, Bundler, pythonosc.osc_message.OscMessage, pythonosc.osc_bundle.OscBundle, bytes]) -> Union[OSCMessage, Bundler]
 
-.. function:: convert_to_sc3nb_osc(data: Union[OSCMessage, Bundler, pythonosc.osc_message.OscMessage, pythonosc.osc_bundle.OscBundle, bytes]) -> Union[OSCMessage, Bundler]
-
+   
    Get binary OSC representation
 
 
@@ -644,11 +551,11 @@ Content
    ..
        !! processed by numpydoc !!
 
-
 .. class:: MessageHandler
 
    **Bases:** :class:`abc.ABC`
 
+   
    Base class for Message Handling
 
 
@@ -672,46 +579,17 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.osc.osc_communication.MessageHandler.map_values
          sc3nb.osc.osc_communication.MessageHandler.put
 
-   .. method:: map_values(self) -> Tuple[str, Callable]
-      :property:
-
-      Values used to setup mapping
-
-
-
-      :Returns:
-
-          Tuple[str, Callable]
-              OSC address, corresponding callback
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: put(self, address: str, *args) -> None
+   .. py:method:: put(address: str, *args) -> None
       :abstractmethod:
 
+      
       Add message to MessageHandler
 
 
@@ -739,7 +617,6 @@ Content
 
 
 
-
 .. class:: MessageQueue(address: str, preprocess: Optional[Callable] = None)
 
 
@@ -747,23 +624,6 @@ Content
 
    Queue to retrieve OSC messages send to the corresponding OSC address
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a new AddressQueue
 
@@ -803,16 +663,14 @@ Content
       :nosignatures:
 
          sc3nb.osc.osc_communication.MessageQueue.put
-         sc3nb.osc.osc_communication.MessageQueue.skips
-         sc3nb.osc.osc_communication.MessageQueue.size
          sc3nb.osc.osc_communication.MessageQueue.skipped
-         sc3nb.osc.osc_communication.MessageQueue.map_values
          sc3nb.osc.osc_communication.MessageQueue.get
          sc3nb.osc.osc_communication.MessageQueue.show
          sc3nb.osc.osc_communication.MessageQueue._repr_pretty_
 
-   .. method:: put(self, address: str, *args) -> None
+   .. py:method:: put(address: str, *args) -> None
 
+      
       Add a message to MessageQueue
 
 
@@ -837,57 +695,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: skipped()
 
-   .. method:: skips(self) -> int
-      :property:
-
-      Counts how many times this queue was not synced
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: size(self) -> int
-      :property:
-
-      How many items are in this queue
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: skipped(self)
-
+      
       Skipp one queue value
 
 
@@ -908,37 +718,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get(timeout: float = 5, skip: bool = True) -> Any
 
-   .. method:: map_values(self) -> Tuple[str, Callable]
-      :property:
-
-      Values needed for dispatcher map call
-
-
-
-      :Returns:
-
-          tuple
-              (OSC address pattern, callback function)
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: get(self, timeout: float = 5, skip: bool = True) -> Any
-
+      
       Returns a value from the queue
 
 
@@ -974,9 +756,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: show() -> None
 
-   .. method:: show(self) -> None
-
+      
       Print the content of the queue.
 
 
@@ -997,8 +779,7 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _repr_pretty_(self, printer, cycle) -> None
+   .. py:method:: _repr_pretty_(printer, cycle) -> None
 
 
 
@@ -1011,23 +792,6 @@ Content
 
    A collection of MessageQueues that are all sent to one and the same first address.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a collection of MessageQueues under the same first address
 
@@ -1067,12 +831,12 @@ Content
       :nosignatures:
 
          sc3nb.osc.osc_communication.MessageQueueCollection.put
-         sc3nb.osc.osc_communication.MessageQueueCollection.map_values
          sc3nb.osc.osc_communication.MessageQueueCollection.__contains__
          sc3nb.osc.osc_communication.MessageQueueCollection.__getitem__
 
-   .. method:: put(self, address: str, *args) -> None
+   .. py:method:: put(address: str, *args) -> None
 
+      
       Add a message to the corresponding MessageQueue
 
 
@@ -1097,39 +861,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: map_values(self) -> Tuple[str, Callable]
-      :property:
-
-      Values needed for dispatcher map call
+   .. py:method:: __contains__(item) -> bool
 
 
-
-      :Returns:
-
-          tuple
-              (OSC address pattern, callback function)
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: __contains__(self, item) -> bool
-
-
-   .. method:: __getitem__(self, key)
+   .. py:method:: __getitem__(key)
 
 
 
@@ -1142,23 +877,6 @@ Content
 
    Exception for OSCCommunication errors.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -1192,23 +910,6 @@ Content
 
    Class to send and receive OSC messages and bundles.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create an OSC communication server
 
@@ -1252,12 +953,9 @@ Content
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.osc.osc_communication.OSCCommunication.osc_server
          sc3nb.osc.osc_communication.OSCCommunication.add_msg_pairs
          sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue
          sc3nb.osc.osc_communication.OSCCommunication.add_msg_queue_collection
-         sc3nb.osc.osc_communication.OSCCommunication.msg_queues
-         sc3nb.osc.osc_communication.OSCCommunication.reply_addresses
          sc3nb.osc.osc_communication.OSCCommunication._check_sender
          sc3nb.osc.osc_communication.OSCCommunication.lookup_receiver
          sc3nb.osc.osc_communication.OSCCommunication.connection_info
@@ -1269,32 +967,9 @@ Content
          sc3nb.osc.osc_communication.OSCCommunication.bundler
          sc3nb.osc.osc_communication.OSCCommunication.quit
 
-   .. method:: osc_server(self) -> pythonosc.osc_server.OSCUDPServer
-      :property:
+   .. py:method:: add_msg_pairs(msg_pairs: Dict[str, str]) -> None
 
-      Underlying OSC server
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: add_msg_pairs(self, msg_pairs: Dict[str, str]) -> None
-
+      
       Add the provided pairs for message receiving.
 
 
@@ -1320,9 +995,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add_msg_queue(msg_queue: MessageQueue, out_addr: Optional[str] = None) -> None
 
-   .. method:: add_msg_queue(self, msg_queue: MessageQueue, out_addr: Optional[str] = None) -> None
-
+      
       Add a MessageQueue to this servers dispatcher
 
 
@@ -1350,9 +1025,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add_msg_queue_collection(msg_queue_collection: MessageQueueCollection) -> None
 
-   .. method:: add_msg_queue_collection(self, msg_queue_collection: MessageQueueCollection) -> None
-
+      
       Add a MessageQueueCollection
 
 
@@ -1377,68 +1052,12 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: msg_queues(self) -> Dict[str, MessageQueue]
-      :property:
-
-      Dict with all added MessageQueues
+   .. py:method:: _check_sender(sender: Tuple[str, int]) -> Union[str, Tuple[str, int]]
 
 
+   .. py:method:: lookup_receiver(receiver: Union[str, Tuple[str, int]]) -> Tuple[str, int]
 
-      :Returns:
-
-          Dict[str, MessageQueue]
-              Queue address, MessageQueue pairs
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: reply_addresses(self) -> Dict[str, str]
-      :property:
-
-      Dict with all addresses and the replies
-
-
-
-      :Returns:
-
-          Dict[str, str]
-              Outgoing address, incoming address
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: _check_sender(self, sender: Tuple[str, int]) -> Union[str, Tuple[str, int]]
-
-
-   .. method:: lookup_receiver(self, receiver: Union[str, Tuple[str, int]]) -> Tuple[str, int]
-
+      
       Reverse lookup the address of a specific receiver
 
 
@@ -1474,9 +1093,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: connection_info(print_info: bool = True) -> Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]
 
-   .. method:: connection_info(self, print_info: bool = True) -> Tuple[Tuple[str, int], Dict[Tuple[str, int], str]]
-
+      
       Get information about the known addresses
 
 
@@ -1507,9 +1126,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add_receiver(name: str, ip_address: str, port: int)
 
-   .. method:: add_receiver(self, name: str, ip_address: str, port: int)
-
+      
       Adds a receiver with the specified address.
 
 
@@ -1540,9 +1159,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: send(package: Union[OSCMessage, Bundler], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = False, await_reply: bool = True, timeout: float = 5) -> Any
 
-   .. method:: send(self, package: Union[OSCMessage, Bundler], *, receiver: Optional[Union[str, Tuple[str, int]]] = None, bundle: bool = False, await_reply: bool = True, timeout: float = 5) -> Any
-
+      
       Sends OSC packet
 
 
@@ -1592,12 +1211,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _handle_outgoing_message(message: OSCMessage, receiver_address: Tuple[str, int], await_reply: bool, timeout: float) -> Any
 
-   .. method:: _handle_outgoing_message(self, message: OSCMessage, receiver_address: Tuple[str, int], await_reply: bool, timeout: float) -> Any
 
+   .. py:method:: get_reply_address(msg_address: str) -> Optional[str]
 
-   .. method:: get_reply_address(self, msg_address: str) -> Optional[str]
-
+      
       Get the corresponding reply address for the given address
 
 
@@ -1626,9 +1245,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: msg(msg_addr: str, msg_params: Optional[Sequence] = None, *, bundle: bool = False, receiver: Optional[Tuple[str, int]] = None, await_reply: bool = True, timeout: float = 5) -> Optional[Any]
 
-   .. method:: msg(self, msg_addr: str, msg_params: Optional[Sequence] = None, *, bundle: bool = False, receiver: Optional[Tuple[str, int]] = None, await_reply: bool = True, timeout: float = 5) -> Optional[Any]
-
+      
       Creates and sends OSC message over UDP.
 
 
@@ -1673,9 +1292,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, send_on_exit: bool = True) -> Bundler
 
-   .. method:: bundler(self, timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, send_on_exit: bool = True) -> Bundler
-
+      
       Generate a Bundler.
 
       This allows the user to easly add messages/bundles and send it.
@@ -1715,9 +1334,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: quit() -> None
 
-   .. method:: quit(self) -> None
-
+      
       Shuts down the sc3nb OSC server
 
 
@@ -1737,7 +1356,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

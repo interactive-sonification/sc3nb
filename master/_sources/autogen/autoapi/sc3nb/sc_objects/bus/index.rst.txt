@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -42,23 +41,6 @@ Content
    OSC Commands for Control Buses
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -81,28 +63,28 @@ Content
 
 
 
-   .. attribute:: FILL
-      :annotation: = /c_fill
+   .. py:attribute:: FILL
+      :value: '/c_fill'
 
       
 
-   .. attribute:: SET
-      :annotation: = /c_set
+   .. py:attribute:: SET
+      :value: '/c_set'
 
       
 
-   .. attribute:: SETN
-      :annotation: = /c_setn
+   .. py:attribute:: SETN
+      :value: '/c_setn'
 
       
 
-   .. attribute:: GET
-      :annotation: = /c_get
+   .. py:attribute:: GET
+      :value: '/c_get'
 
       
 
-   .. attribute:: GETN
-      :annotation: = /c_getn
+   .. py:attribute:: GETN
+      :value: '/c_getn'
 
       
 
@@ -119,23 +101,6 @@ Content
    Calculation rate of Buses
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -158,13 +123,13 @@ Content
 
 
 
-   .. attribute:: AUDIO
-      :annotation: = audio
+   .. py:attribute:: AUDIO
+      :value: 'audio'
 
       
 
-   .. attribute:: CONTROL
-      :annotation: = control
+   .. py:attribute:: CONTROL
+      :value: 'control'
 
       
 
@@ -176,6 +141,7 @@ Content
 .. class:: Bus(rate: Union[BusRate, str], num_channels: int = 1, index: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
+   
    Represenation of Control or Audio Bus(es) on the SuperCollider Server
 
    If num_channels > 1 this will be represent muliple Buses in a row.
@@ -215,15 +181,11 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.sc_objects.bus.Bus.rate
-         sc3nb.sc_objects.bus.Bus.num_channels
-         sc3nb.sc_objects.bus.Bus.idxs
          sc3nb.sc_objects.bus.Bus.is_audio_bus
          sc3nb.sc_objects.bus.Bus.is_control_bus
          sc3nb.sc_objects.bus.Bus.set
@@ -233,92 +195,9 @@ Content
          sc3nb.sc_objects.bus.Bus.__del__
          sc3nb.sc_objects.bus.Bus.__repr__
 
-   .. method:: rate(self) -> Union[BusRate, str]
-      :property:
+   .. py:method:: is_audio_bus() -> bool
 
-      The bus calculation rate.
-
-
-
-      :Returns:
-
-          BusRate
-              the rate of this bus
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_channels(self) -> int
-      :property:
-
-      The number of buses.
-
-
-
-      :Returns:
-
-          int
-              number of buses allocated
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: idxs(self) -> Sequence[int]
-      :property:
-
-      The bus index(s).
-
-
-
-      :Returns:
-
-          int
-              first bus index
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_audio_bus(self) -> bool
-
+      
       Rate check
 
 
@@ -343,9 +222,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: is_control_bus() -> bool
 
-   .. method:: is_control_bus(self) -> bool
-
+      
       Rate check
 
 
@@ -370,9 +249,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set(*values: Sequence[Union[int, float]], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Set ranges of bus values.
 
 
@@ -404,9 +283,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: fill(value: Union[int, float], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: fill(self, value: Union[int, float], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Fill bus(es) to one value.
 
 
@@ -438,9 +317,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get() -> Union[Union[int, float], Sequence[Union[int, float]]]
 
-   .. method:: get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]
-
+      
       Get bus value(s).
 
 
@@ -470,9 +349,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free(clear: bool = True) -> None
 
-   .. method:: free(self, clear: bool = True) -> None
-
+      
       Mark this Buses ids as free again
 
 
@@ -497,12 +376,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __del__() -> None
 
-   .. method:: __del__(self) -> None
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -522,7 +401,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

@@ -5,6 +5,7 @@
 
 .. autoapi-nested-parse::
 
+   
    Package for interfacing SuperCollider.
 
    Collection of Classes and functions for communicating
@@ -32,7 +33,6 @@
        !! processed by numpydoc !!
 
 
-
 Package Contents
 ----------------
 
@@ -45,12 +45,6 @@ Function List
    :nosignatures:
 
    sc3nb.startup
-   sc3nb.linlin
-   sc3nb.midicps
-   sc3nb.cpsmidi
-   sc3nb.clip
-   sc3nb.dbamp
-   sc3nb.ampdb
 
 
 
@@ -84,8 +78,9 @@ Class List
 Content
 ~~~~~~~
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
+.. py:function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = False, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
 
+   
    Inits SuperCollider (scsynth, sclang) and registers ipython magics
 
 
@@ -113,7 +108,7 @@ Content
            make a sound when booted, by default True
 
        **console_logging** : bool, optional
-           If True write scsynth/sclang output to console, by default True
+           If True write scsynth/sclang output to console, by default False
 
        **allowed_parents** : Sequence[str], optional
            Names of parents that are allowed for other instances of
@@ -142,10 +137,10 @@ Content
    ..
        !! processed by numpydoc !!
 
-
 .. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
 
+   
    Create a SuperCollider Wrapper object.
 
 
@@ -196,10 +191,10 @@ Content
        !! processed by numpydoc !!
 
 
+   .. py:attribute:: default
+      :type: Optional[SC]
 
-   .. attribute:: default
-      :annotation: :Optional[SC]
-
+      
       Default SC instance.
 
       This will be used by all SuperCollider objects if no SC/server/lang is specified.
@@ -223,7 +218,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -233,16 +227,14 @@ Content
          sc3nb.SC.start_sclang
          sc3nb.SC.start_server
          sc3nb.SC._try_to_connect
-         sc3nb.SC.server
-         sc3nb.SC.lang
-         sc3nb.SC.console_logging
          sc3nb.SC.__del__
          sc3nb.SC.__repr__
          sc3nb.SC.exit
 
-   .. method:: get_default(cls) -> SC
+   .. py:method:: get_default() -> SC
       :classmethod:
 
+      
       Get the default SC instance
 
 
@@ -271,9 +263,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: start_sclang(sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
-   .. method:: start_sclang(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
-
+      
       Start this SuperCollider language
 
 
@@ -308,9 +300,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: start_server(scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
-   .. method:: start_server(self, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
-
+      
       Start this SuperCollider server
 
 
@@ -351,87 +343,15 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _try_to_connect(self)
-
-
-   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
-      :property:
-
-      This SuperCollider server object
+   .. py:method:: _try_to_connect()
 
 
+   .. py:method:: __del__()
 
 
+   .. py:method:: __repr__() -> str
 
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: lang(self) -> sc3nb.sclang.SCLang
-      :property:
-
-      This SuperCollider language object
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: console_logging(self)
-      :property:
-
-      True if console logging enabled
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: __del__(self)
-
-
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -452,9 +372,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: exit() -> None
 
-   .. method:: exit(self) -> None
-
+      
       Closes SuperCollider and shuts down server
 
 
@@ -478,7 +398,6 @@ Content
 
 
 
-
 .. class:: SCServer(options: Optional[ServerOptions] = None)
 
 
@@ -486,27 +405,11 @@ Content
 
    SuperCollider audio server representaion.
 
+   Parameters
+   ----------
+   options : Optional[ServerOptions], optional
+       Options used to start the local server, by default None
 
-   :Parameters:
-
-       **options** : Optional[ServerOptions], optional
-           Options used to start the local server, by default None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create an OSC communication server
 
@@ -555,6 +458,7 @@ Content
          sc3nb.SCServer.execute_init_hooks
          sc3nb.SCServer.connect_sclang
          sc3nb.SCServer.add_init_hook
+         sc3nb.SCServer.remove_init_hook
          sc3nb.SCServer.bundler
          sc3nb.SCServer.blip
          sc3nb.SCServer.remote
@@ -569,13 +473,6 @@ Content
          sc3nb.SCServer.free_all
          sc3nb.SCServer.clear_schedule
          sc3nb.SCServer.send_default_groups
-         sc3nb.SCServer.client_id
-         sc3nb.SCServer.max_logins
-         sc3nb.SCServer.default_group
-         sc3nb.SCServer.input_bus
-         sc3nb.SCServer.output_bus
-         sc3nb.SCServer.volume
-         sc3nb.SCServer.muted
          sc3nb.SCServer.mute
          sc3nb.SCServer.unmute
          sc3nb.SCServer.version
@@ -583,20 +480,6 @@ Content
          sc3nb.SCServer.dump_osc
          sc3nb.SCServer.dump_tree
          sc3nb.SCServer.query_tree
-         sc3nb.SCServer.peak_cpu
-         sc3nb.SCServer.avg_cpu
-         sc3nb.SCServer.nominal_sr
-         sc3nb.SCServer.actual_sr
-         sc3nb.SCServer.num_synths
-         sc3nb.SCServer.num_groups
-         sc3nb.SCServer.num_ugens
-         sc3nb.SCServer.num_synthdefs
-         sc3nb.SCServer.addr
-         sc3nb.SCServer.has_booted
-         sc3nb.SCServer.is_running
-         sc3nb.SCServer.unresponsive
-         sc3nb.SCServer.is_local
-         sc3nb.SCServer.pid
          sc3nb.SCServer._init_osc_communication
          sc3nb.SCServer._get_errors_for_address
          sc3nb.SCServer._log_repr
@@ -604,8 +487,9 @@ Content
          sc3nb.SCServer._warn_fail
          sc3nb.SCServer.__repr__
 
-   .. method:: boot(self, scsynth_path: Optional[str] = None, timeout: float = 5, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
+   .. py:method:: boot(scsynth_path: Optional[str] = None, timeout: float = 5, console_logging: bool = True, with_blip: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS)
 
+      
       Start the Server process.
 
 
@@ -653,9 +537,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: init(with_blip: bool = True)
 
-   .. method:: init(self, with_blip: bool = True)
-
+      
       Initialize the server.
 
       This adds allocators, loads SynthDefs, send default Groups etc.
@@ -681,9 +565,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: execute_init_hooks() -> None
 
-   .. method:: execute_init_hooks(self) -> None
-
+      
       Run all init hook functions.
 
       This is automatically done when running free_all, init or connect_sclang.
@@ -707,9 +591,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: connect_sclang(port: int) -> None
 
-   .. method:: connect_sclang(self, port: int) -> None
-
+      
       Connect sclang to the server
 
       This will add the "sclang" receiver and execute the init hooks
@@ -735,10 +619,10 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add_init_hook(fun: Callable, *args: Any, **kwargs: Any) -> Hook
 
-   .. method:: add_init_hook(self, hook: Callable[Ellipsis, None], *args: Any, **kwargs: Any) -> None
-
-      Add a function to be executed when the server is initialized
+      
+      Create and add a hook to be executed when the server is initialized
 
 
       :Parameters:
@@ -751,6 +635,37 @@ Content
 
           **kwargs** : Any, optional
               Keyword arguments given to function
+
+      :Returns:
+
+          Hook
+              The created Hook
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: remove_init_hook(hook: Hook)
+
+      
+      Remove a previously added init Hook
+
+
+      :Parameters:
+
+          **hook** : Hook
+              the hook to be removed
 
 
 
@@ -768,9 +683,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: bundler(timetag=0, msg=None, msg_params=None, send_on_exit=True)
 
-   .. method:: bundler(self, timetag=0, msg=None, msg_params=None, send_on_exit=True)
-
+      
       Generate a Bundler with added server latency.
 
       This allows the user to easly add messages/bundles and send it.
@@ -809,9 +724,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: blip() -> None
 
-   .. method:: blip(self) -> None
-
+      
       Make a blip sound
 
 
@@ -832,9 +747,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: remote(address: str, port: int, with_blip: bool = True) -> None
 
-   .. method:: remote(self, address: str, port: int, with_blip: bool = True) -> None
-
+      
       Connect to remote Server
 
 
@@ -865,9 +780,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: reboot() -> None
 
-   .. method:: reboot(self) -> None
-
+      
       Reboot this server
 
 
@@ -892,10 +807,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: ping(self)
+   .. py:method:: ping()
       :abstractmethod:
 
+      
       Ping the server.
 
 
@@ -916,9 +831,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: quit() -> None
 
-   .. method:: quit(self) -> None
-
+      
       Quits and tries to kill the server.
 
 
@@ -939,9 +854,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: sync(timeout=5) -> bool
 
-   .. method:: sync(self, timeout=5) -> bool
-
+      
       Sync the server with the /sync command.
 
 
@@ -971,9 +886,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: send_synthdef(synthdef_bytes: bytes)
 
-   .. method:: send_synthdef(self, synthdef_bytes: bytes)
-
+      
       Send a SynthDef as bytes.
 
 
@@ -1001,9 +916,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_synthdef(synthdef_path: str)
 
-   .. method:: load_synthdef(self, synthdef_path: str)
-
+      
       Load SynthDef file at path.
 
 
@@ -1032,9 +947,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_synthdefs(synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None) -> None
 
-   .. method:: load_synthdefs(self, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None) -> None
-
+      
       Load all SynthDefs from directory.
 
 
@@ -1062,9 +977,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: notify(receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1) -> None
 
-   .. method:: notify(self, receive_notifications: bool = True, client_id: Optional[int] = None, timeout: float = 1) -> None
-
+      
       Notify the server about this client.
 
       This provides the client id and max logins info needed for default groups.
@@ -1103,9 +1018,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free_all(root: bool = True) -> None
 
-   .. method:: free_all(self, root: bool = True) -> None
-
+      
       Free all node ids.
 
 
@@ -1130,9 +1045,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: clear_schedule()
 
-   .. method:: clear_schedule(self)
-
+      
       Send /clearSched to the server.
 
       This clears all scheduled bundles and removes all bundles from the scheduling queue.
@@ -1154,9 +1069,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: send_default_groups() -> None
 
-   .. method:: send_default_groups(self) -> None
-
+      
       Send the default groups for all clients.
 
 
@@ -1177,177 +1092,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: mute() -> None
 
-   .. method:: client_id(self)
-      :property:
-
-      The client id for this server
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: max_logins(self)
-      :property:
-
-      Maximum number of possible logins at server
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: default_group(self)
-      :property:
-
-      This clients default group
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: input_bus(self) -> sc3nb.sc_objects.bus.Bus
-      :property:
-
-      This servers input Bus
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: output_bus(self) -> sc3nb.sc_objects.bus.Bus
-      :property:
-
-      This servers output Bus
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: volume(self) -> float
-      :property:
-
-      Volume in dB.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: muted(self) -> bool
-      :property:
-
-      True if audio is muted
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: mute(self) -> None
-
+      
       Mute audio
 
 
@@ -1368,9 +1115,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: unmute() -> None
 
-   .. method:: unmute(self) -> None
-
+      
       Set volume back to volume prior to muting
 
 
@@ -1391,9 +1138,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: version() -> ServerVersion
 
-   .. method:: version(self) -> ServerVersion
-
+      
       Server version information
 
 
@@ -1414,9 +1161,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: status() -> ServerStatus
 
-   .. method:: status(self) -> ServerStatus
-
+      
       Server status information
 
 
@@ -1437,9 +1184,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: dump_osc(level: int = 1) -> None
 
-   .. method:: dump_osc(self, level: int = 1) -> None
-
+      
       Enable dumping incoming OSC messages at the server process
 
 
@@ -1468,9 +1215,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: dump_tree(controls: bool = True, return_tree=False) -> Optional[str]
 
-   .. method:: dump_tree(self, controls: bool = True, return_tree=False) -> Optional[str]
-
+      
       Server process prints out current nodes
 
 
@@ -1502,9 +1249,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query_tree(include_controls: bool = True) -> sc3nb.sc_objects.node.Group
 
-   .. method:: query_tree(self, include_controls: bool = True) -> sc3nb.sc_objects.node.Group
-
+      
       Query all nodes at the server and return a NodeTree
 
 
@@ -1533,360 +1280,24 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _init_osc_communication()
 
-   .. method:: peak_cpu(self) -> float
-      :property:
 
-      Peak cpu usage of server process
+   .. py:method:: _get_errors_for_address(address: str)
 
 
+   .. py:method:: _log_repr()
 
 
+   .. py:method:: _log_message(sender, *params)
 
 
+   .. py:method:: _warn_fail(sender, *params)
 
 
+   .. py:method:: __repr__() -> str
 
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: avg_cpu(self) -> float
-      :property:
-
-      Average cpu usage of server process
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: nominal_sr(self) -> float
-      :property:
-
-      Nominal sample rate of server process
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: actual_sr(self) -> float
-      :property:
-
-      Actual sample rate of server process
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_synths(self) -> int
-      :property:
-
-      Number of Synths in server tree
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_groups(self) -> int
-      :property:
-
-      Number of Groups in server tree
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_ugens(self) -> int
-      :property:
-
-      Number of UGens in server tree
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_synthdefs(self) -> int
-      :property:
-
-      Number of SynthDefs known by server
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: addr(self) -> Tuple[str, int]
-      :property:
-
-      Address (ip, port) of server
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: has_booted(self) -> bool
-      :property:
-
-      If the server is booted
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_running(self) -> bool
-      :property:
-
-      If the server is running
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: unresponsive(self) -> bool
-      :property:
-
-      If the server process is unresponsive
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_local(self) -> bool
-      :property:
-
-      If the server process is local
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: pid(self)
-      :property:
-
-      The process id of the local server process
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: _init_osc_communication(self)
-
-
-   .. method:: _get_errors_for_address(self, address: str)
-
-
-   .. method:: _log_repr(self)
-
-
-   .. method:: _log_message(self, sender, *params)
-
-
-   .. method:: _warn_fail(self, sender, *params)
-
-
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -1910,10 +1321,10 @@ Content
 
 
 
-
 .. class:: ServerOptions(udp_port: int = SCSYNTH_DEFAULT_PORT, max_logins: int = 6, num_input_buses: int = 2, num_output_buses: int = 2, num_audio_buses: int = 1024, num_control_buses: int = 4096, num_sample_buffers: int = 1024, publish_rendezvous: bool = False, block_size: Optional[int] = None, hardware_buffer_size: Optional[int] = None, hardware_sample_size: Optional[int] = None, hardware_input_device: Optional[str] = None, hardware_output_device: Optional[str] = None, other_options: Optional[Sequence[str]] = None)
 
 
+   
    Options for the SuperCollider audio server
 
    This allows the encapsulation and handling of the command line server options.
@@ -1938,66 +1349,16 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.ServerOptions.first_private_bus
-         sc3nb.ServerOptions.num_private_buses
          sc3nb.ServerOptions.__repr__
 
-   .. method:: first_private_bus(self) -> int
-      :property:
+   .. py:method:: __repr__()
 
-      The first audio bus after input and output buses
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_private_buses(self) -> int
-      :property:
-
-      Number of audio buses besides input and output buses
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: __repr__(self)
-
+      
       Return repr(self).
 
 
@@ -2021,29 +1382,11 @@ Content
 
 
 
-
 .. class:: SCLang
 
 
    Class to control the SuperCollider Language Interpreter (sclang).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Creates a python representation of sclang.
 
@@ -2091,12 +1434,11 @@ Content
          sc3nb.SCLang.read
          sc3nb.SCLang.empty
          sc3nb.SCLang.get_synth_description
-         sc3nb.SCLang.addr
-         sc3nb.SCLang.server
          sc3nb.SCLang.connect_to_server
 
-   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> None
+   .. py:method:: start(sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> None
 
+      
       Start and initilize the sclang process.
 
       This will also kill sclang processes that does not have allowed parents.
@@ -2135,9 +1477,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: init()
 
-   .. method:: init(self)
-
+      
       Initialize sclang for sc3nb usage.
 
       This will register the /return callback in sclang and load the SynthDefs from sc3nb.
@@ -2161,9 +1503,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_synthdefs(synthdefs_path: Optional[str] = None) -> None
 
-   .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None
-
+      
       Load SynthDef files from path.
 
 
@@ -2189,9 +1531,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: kill() -> int
 
-   .. method:: kill(self) -> int
-
+      
       Kill this sclang instance.
 
 
@@ -2216,12 +1558,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __del__()
 
-   .. method:: __del__(self)
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -2242,9 +1584,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmd(code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any
 
-   .. method:: cmd(self, code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any
-
+      
       Send code to sclang to execute it.
 
       This also allows to get the result of the code or the corresponding output.
@@ -2317,9 +1659,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmdv(code: str, **kwargs) -> Any
 
-   .. method:: cmdv(self, code: str, **kwargs) -> Any
-
+      
       cmd with verbose=True
 
 
@@ -2340,9 +1682,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmds(code: str, **kwargs) -> Any
 
-   .. method:: cmds(self, code: str, **kwargs) -> Any
-
+      
       cmd with verbose=False, i.e. silent
 
 
@@ -2363,9 +1705,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmdg(code: str, **kwargs) -> Any
 
-   .. method:: cmdg(self, code: str, **kwargs) -> Any
-
+      
       cmd with get_result=True
 
 
@@ -2386,9 +1728,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: read(expect: Optional[str] = None, timeout: float = 1, print_error: bool = True) -> str
 
-   .. method:: read(self, expect: Optional[str] = None, timeout: float = 1, print_error: bool = True) -> str
-
+      
       Reads SuperCollider output from the process output queue.
 
 
@@ -2427,9 +1769,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: empty() -> None
 
-   .. method:: empty(self) -> None
-
+      
       Empties sc output queue.
 
 
@@ -2450,9 +1792,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get_synth_description(synth_def)
 
-   .. method:: get_synth_description(self, synth_def)
-
+      
       Get a SynthDesc like description via sclang's global SynthDescLib.
 
 
@@ -2472,7 +1814,7 @@ Content
       :Raises:
 
           ValueError
-              When synthDesc of synthDef can not be found.
+              When SynthDesc of synth_def can not be found.
 
 
 
@@ -2485,57 +1827,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: connect_to_server(server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
-   .. method:: addr(self) -> Tuple[str, int]
-      :property:
-
-      The address of this sclang
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: server(self) -> Optional[sc3nb.sc_objects.server.SCServer]
-      :property:
-
-      The SuperCollider server connected to this sclang instance.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: connect_to_server(self, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
-
+      
       Connect this sclang instance to the SuperCollider server.
 
       This will set Server.default and s to the provided remote server.
@@ -2571,7 +1865,6 @@ Content
 
 
 
-
 .. class:: Node(*, nodeid: Optional[int] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
@@ -2579,23 +1872,6 @@ Content
 
    Representation of a Node on SuperCollider.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a new Node
 
@@ -2643,13 +1919,6 @@ Content
          sc3nb.Node.new
          sc3nb.Node._get_status_repr
          sc3nb.Node._set_node_attrs
-         sc3nb.Node.nodeid
-         sc3nb.Node.group
-         sc3nb.Node.server
-         sc3nb.Node.is_playing
-         sc3nb.Node.is_running
-         sc3nb.Node.freed
-         sc3nb.Node.started
          sc3nb.Node.free
          sc3nb.Node.run
          sc3nb.Node.set
@@ -2670,9 +1939,10 @@ Content
          sc3nb.Node.__eq__
          sc3nb.Node._get_nodeid
 
-   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, return_msg: bool = False, **kwargs) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
+   .. py:method:: new(*args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, return_msg: bool = False, **kwargs) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
       :abstractmethod:
 
+      
       Create a new Node
 
 
@@ -2700,12 +1970,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _get_status_repr() -> str
 
-   .. method:: _get_status_repr(self) -> str
 
+   .. py:method:: _set_node_attrs(target: Optional[Union[Node, int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
 
-   .. method:: _set_node_attrs(self, target: Optional[Union[Node, int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
-
+      
       Derive Node group from addaction and target
 
 
@@ -2733,179 +2003,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free(return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: nodeid(self) -> int
-      :property:
-
-      Identifier of node.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: group(self) -> Optional[int]
-      :property:
-
-      Identifier of this nodes group.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
-      :property:
-
-      The server on which this node is located.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_playing(self) -> Optional[bool]
-      :property:
-
-      True if this node is playing. None if unkown.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_running(self) -> Optional[bool]
-      :property:
-
-      True if this node is running. None if unkown.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: freed(self) -> bool
-      :property:
-
-      True if free was called on this node.
-
-      This is reseted when receiving a /n_go notification
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: started(self) -> bool
-      :property:
-
-      True if new was called on this node.
-
-      This is reseted when receiving a /n_end notification
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: free(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Free the node with /n_free.
 
       This will set is_running and is_playing to false.
@@ -2933,9 +2033,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: run(on: bool = True, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Turn node on or off with /n_run.
 
 
@@ -2964,9 +2064,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set(argument: Union[str, Dict, List], *values: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: set(self, argument: Union[str, Dict, List], *values: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Set a control value(s) of the node with n_set.
 
 
@@ -3001,15 +2101,15 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _update_control(self, control: str, value: Any) -> None
-
-
-   .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
+   .. py:method:: _update_control(control: str, value: Any) -> None
 
 
-   .. method:: fill(self, control: Union[str, int], num_controls: int, value: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
+   .. py:method:: _update_controls(controls: Optional[Dict[str, Any]] = None) -> None
 
+
+   .. py:method:: fill(control: Union[str, int], num_controls: int, value: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
+
+      
       Fill ranges of control values with n_fill.
 
 
@@ -3047,9 +2147,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: map(control: Union[str, int], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: map(self, control: Union[str, int], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Map a node's control to read from a bus using /n_map or /n_mapa.
 
 
@@ -3084,9 +2184,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: release(release_time: Optional[float] = None, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Set gate as specified.
 
       https://doc.sccode.org/Classes/Node.html#-release
@@ -3121,9 +2221,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query() -> Union[SynthInfo, GroupInfo]
 
-   .. method:: query(self) -> Union[SynthInfo, GroupInfo]
-
+      
       Sends an n_query message to the server.
 
       The answer is send to all clients who have registered via the /notify command.
@@ -3160,9 +2260,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: trace(return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: trace(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Trace a node.
 
       Print out values of the inputs and outputs for one control period.
@@ -3193,9 +2293,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: move(add_action: AddAction, another_node: Node, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: move(self, add_action: AddAction, another_node: Node, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Move this node
 
 
@@ -3234,10 +2334,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: register(self)
+   .. py:method:: register()
       :abstractmethod:
 
+      
       Register to be watched.
 
 
@@ -3258,10 +2358,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: unregister(self)
+   .. py:method:: unregister()
       :abstractmethod:
 
+      
       Unregister to stop being watched.
 
 
@@ -3282,9 +2382,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: on_free(func)
 
-   .. method:: on_free(self, func)
-
+      
       Callback that is executed when this Synth is freed
 
 
@@ -3305,9 +2405,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: wait(timeout: Optional[float] = None) -> None
 
-   .. method:: wait(self, timeout: Optional[float] = None) -> None
-
+      
       Wait until this Node is freed
 
 
@@ -3332,15 +2432,15 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[SynthInfo, GroupInfo]
-
-
-   .. method:: _handle_notification(self, kind: str, info) -> None
+   .. py:method:: _parse_info(nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[SynthInfo, GroupInfo]
 
 
-   .. method:: __eq__(self, other)
+   .. py:method:: _handle_notification(kind: str, info) -> None
 
+
+   .. py:method:: __eq__(other)
+
+      
       Return self==value.
 
 
@@ -3361,10 +2461,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _get_nodeid(value: Union[Node, int]) -> int
+   .. py:method:: _get_nodeid(value: Union[Node, int]) -> int
       :staticmethod:
 
+      
       Get the corresponding node id
 
 
@@ -3401,7 +2501,6 @@ Content
 
 
 
-
 .. class:: Synth(name: Optional[str] = None, controls: Dict[str, Any] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
@@ -3410,30 +2509,10 @@ Content
    Representation of a Synth on SuperCollider.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Create a Python representation of a SuperCollider synth.
 
 
    :Parameters:
-
-       **sc** : SC
-           sc3nb SuperCollider instance
 
        **name** : str, optional
            name of the synth to be created, by default "default"
@@ -3454,6 +2533,9 @@ Content
 
        **target** : Node or int, optional
            AddAction target, if None it will be the default group of the server
+
+       **server** : SCServer
+           sc3nb SCServer instance
 
 
 
@@ -3488,9 +2570,6 @@ Content
       :nosignatures:
 
          sc3nb.Synth._update_synth_state
-         sc3nb.Synth.synth_desc
-         sc3nb.Synth.name
-         sc3nb.Synth.current_controls
          sc3nb.Synth.new
          sc3nb.Synth.get
          sc3nb.Synth.seti
@@ -3498,83 +2577,12 @@ Content
          sc3nb.Synth.__setattr__
          sc3nb.Synth.__repr__
 
-   .. method:: _update_synth_state(self, name: Optional[str], controls: Optional[dict])
+   .. py:method:: _update_synth_state(name: Optional[str], controls: Optional[dict])
 
 
-   .. method:: synth_desc(self) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
-      :property:
+   .. py:method:: new(controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[Synth, sc3nb.osc.osc_communication.OSCMessage]
 
-      A Description of this Synths arguments
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: name(self) -> str
-      :property:
-
-      This Synths SynthDef name.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: current_controls(self) -> Dict[str, Any]
-      :property:
-
-      This Synth currently cached control arguments.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[Synth, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Creates the synth on the server with s_new.
 
       Attention: Here you create an identical synth! Same nodeID etc.
@@ -3597,9 +2605,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get(control: str) -> Any
 
-   .. method:: get(self, control: str) -> Any
-
+      
       Get a Synth argument
 
       This will request the value from scsynth with /s_get(n).
@@ -3625,10 +2633,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: seti(self, *args)
+   .. py:method:: seti(*args)
       :abstractmethod:
 
+      
       Set part of an arrayed control.
 
 
@@ -3649,12 +2657,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __getattr__(name)
 
-   .. method:: __getattr__(self, name)
 
+   .. py:method:: __setattr__(name, value)
 
-   .. method:: __setattr__(self, name, value)
-
+      
       Implement setattr(self, name, value).
 
 
@@ -3675,9 +2683,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -3701,7 +2709,6 @@ Content
 
 
 
-
 .. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
@@ -3709,23 +2716,6 @@ Content
 
    Representation of a Group on SuperCollider.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a Python representation of a SuperCollider group.
 
@@ -3780,7 +2770,6 @@ Content
 
          sc3nb.Group._update_group_state
          sc3nb.Group.new
-         sc3nb.Group.children
          sc3nb.Group.move_node_to_head
          sc3nb.Group.move_node_to_tail
          sc3nb.Group.free_all
@@ -3790,11 +2779,12 @@ Content
          sc3nb.Group._repr_pretty_
          sc3nb.Group.__repr__
 
-   .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
+   .. py:method:: _update_group_state(children: Optional[Sequence[Node]] = None) -> None
 
 
-   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[Group, sc3nb.osc.osc_communication.OSCMessage]
+   .. py:method:: new(add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[Group, sc3nb.osc.osc_communication.OSCMessage]
 
+      
       Creates the synth on the server with g_new / p_new.
 
       Attention: Here you create an identical group! Same nodeID etc.
@@ -3834,37 +2824,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: move_node_to_head(node, return_msg=False)
 
-   .. method:: children(self) -> Sequence[Node]
-      :property:
-
-      Return this groups children as currently known
-
-
-
-      :Returns:
-
-          Sequence[Node]
-              Sequence of child Nodes (Synths or Groups)
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: move_node_to_head(self, node, return_msg=False)
-
+      
       Move node to this groups head with g_head.
 
 
@@ -3896,9 +2858,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: move_node_to_tail(node, return_msg=False)
 
-   .. method:: move_node_to_tail(self, node, return_msg=False)
-
+      
       Move node to this groups tail with g_tail.
 
 
@@ -3930,9 +2892,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free_all(return_msg=False)
 
-   .. method:: free_all(self, return_msg=False)
-
+      
       Frees all nodes in the group with g_freeAll.
 
 
@@ -3961,9 +2923,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: deep_free(return_msg=False)
 
-   .. method:: deep_free(self, return_msg=False)
-
+      
       Free all synths in this group and its sub-groups with g_deepFree.
 
       Sub-groups are not freed.
@@ -3993,9 +2955,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: dump_tree(post_controls=True, return_msg=False)
 
-   .. method:: dump_tree(self, post_controls=True, return_msg=False)
-
+      
       Posts a representation of this group's node subtree with g_dumpTree.
 
 
@@ -4027,9 +2989,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query_tree(include_controls=False) -> Group
 
-   .. method:: query_tree(self, include_controls=False) -> Group
-
+      
       Send a g_queryTree message for this group.
 
       See https://doc.sccode.org/Reference/Server-Command-Reference.html#/g_queryTree for details.
@@ -4059,12 +3021,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _repr_pretty_(printer, cylce)
 
-   .. method:: _repr_pretty_(self, printer, cylce)
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -4088,11 +3050,11 @@ Content
 
 
 
-
 .. class:: AddAction
 
    **Bases:** :class:`enum.Enum`
 
+   
    AddAction of SuperCollider nodes.
 
    This Enum contains the codes for the different ways to add a node.
@@ -4115,29 +3077,28 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: TO_HEAD
-      :annotation: = 0
-
-      
-
-   .. attribute:: TO_TAIL
-      :annotation: = 1
+   .. py:attribute:: TO_HEAD
+      :value: 0
 
       
 
-   .. attribute:: BEFORE
-      :annotation: = 2
+   .. py:attribute:: TO_TAIL
+      :value: 1
 
       
 
-   .. attribute:: AFTER
-      :annotation: = 3
+   .. py:attribute:: BEFORE
+      :value: 2
 
       
 
-   .. attribute:: REPLACE
-      :annotation: = 4
+   .. py:attribute:: AFTER
+      :value: 3
+
+      
+
+   .. py:attribute:: REPLACE
+      :value: 4
 
       
 
@@ -4151,23 +3112,6 @@ Content
 
    Wrapper for SuperCollider SynthDef
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a dynamic synth definition in sc.
 
@@ -4206,8 +3150,11 @@ Content
 
 
 
-   .. attribute:: synth_descs
+   .. py:attribute:: synth_descs
+
       
+
+   .. py:attribute:: synth_defs
 
       
 
@@ -4230,9 +3177,10 @@ Content
          sc3nb.SynthDef.free
          sc3nb.SynthDef.__repr__
 
-   .. method:: get_description(cls, name: str) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
+   .. py:method:: get_description(name: str, lang: Optional[sc3nb.sclang.SCLang] = None) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
       :classmethod:
 
+      
       Get Synth description
 
 
@@ -4261,10 +3209,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: send(cls, synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+   .. py:method:: send(synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
+      
       Send a SynthDef as bytes.
 
 
@@ -4296,10 +3244,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: load(cls, synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+   .. py:method:: load(synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
+      
       Load SynthDef file at path.
 
 
@@ -4328,10 +3276,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+   .. py:method:: load_dir(synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
+      
       Load all SynthDefs from directory.
 
 
@@ -4363,9 +3311,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: reset() -> SynthDef
 
-   .. method:: reset(self) -> SynthDef
-
+      
       Reset the current synthdef configuration to the self.definition value.
 
       After this you can restart your
@@ -4392,9 +3340,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set_context(searchpattern: str, value) -> SynthDef
 
-   .. method:: set_context(self, searchpattern: str, value) -> SynthDef
-
+      
       Set context in SynthDef.
 
       This method will replace a given key (format: "...{{key}}...") in the
@@ -4428,9 +3376,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set_contexts(dictionary: Dict[str, Any]) -> SynthDef
 
-   .. method:: set_contexts(self, dictionary: Dict[str, Any]) -> SynthDef
-
+      
       Set multiple values at onces when you give a dictionary.
 
       Because dictionaries are unsorted, keep in mind, that
@@ -4461,9 +3409,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: unset_remaining() -> SynthDef
 
-   .. method:: unset_remaining(self) -> SynthDef
-
+      
       This method will remove all existing placeholders in the current def.
 
       You can use this at the end of definition
@@ -4491,9 +3439,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add(pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
 
-   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
-
+      
       This method will add the current_def to SuperCollider.s
 
       If a synth with the same definition was already in sc, this method
@@ -4531,9 +3479,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free() -> SynthDef
 
-   .. method:: free(self) -> SynthDef
-
+      
       Free this SynthDef from the server.
 
 
@@ -4558,9 +3506,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__()
 
-   .. method:: __repr__(self)
-
+      
       Return repr(self).
 
 
@@ -4584,10 +3532,10 @@ Content
 
 
 
-
 .. class:: Buffer(bufnum: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
+   
    A Buffer object represents a SuperCollider3 Buffer on scsynth
    and provides access to low-level buffer commands of scsynth via
    methods of the Buffer objects.
@@ -4625,7 +3573,7 @@ Content
 
    (see examples/buffer-examples.ipynb)
 
-   >>> b = Buffer().load_file(...)
+   >>> b = Buffer().read(...)
    >>> b = Buffer().load_data(...)
    >>> b = Buffer().alloc(...)
    >>> b = Buffer().load_asig(...)
@@ -4667,7 +3615,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -4695,19 +3642,11 @@ Content
          sc3nb.Buffer.query
          sc3nb.Buffer.__repr__
          sc3nb.Buffer.free
-         sc3nb.Buffer.bufnum
-         sc3nb.Buffer.allocated
-         sc3nb.Buffer.alloc_mode
-         sc3nb.Buffer.path
-         sc3nb.Buffer.channels
-         sc3nb.Buffer.samples
-         sc3nb.Buffer.sr
-         sc3nb.Buffer.duration
-         sc3nb.Buffer.server
          sc3nb.Buffer._gen_flags
 
-   .. method:: read(self, path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> Buffer
+   .. py:method:: read(path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> Buffer
 
+      
       Allocate buffer memory and read a sound file.
 
       If the number of frames argument num_frames is negative or zero,
@@ -4752,9 +3691,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: alloc(size: int, sr: int = 44100, channels: int = 1) -> Buffer
 
-   .. method:: alloc(self, size: int, sr: int = 44100, channels: int = 1) -> Buffer
-
+      
       Allocate buffer memory.
 
 
@@ -4793,9 +3732,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_data(data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> Buffer
 
-   .. method:: load_data(self, data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> Buffer
-
+      
       Allocate buffer memory and read input data.
 
 
@@ -4838,9 +3777,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_collection(data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> Buffer
 
-   .. method:: load_collection(self, data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> Buffer
-
+      
       Wrapper method of :func:`Buffer.load_data`
 
 
@@ -4861,9 +3800,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_asig(asig: pya.Asig, mode: str = 'file') -> Buffer
 
-   .. method:: load_asig(self, asig: pya.Asig, mode: str = 'file') -> Buffer
-
+      
       Create buffer from asig
 
 
@@ -4899,9 +3838,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: use_existing(bufnum: int, sr: int = 44100) -> Buffer
 
-   .. method:: use_existing(self, bufnum: int, sr: int = 44100) -> Buffer
-
+      
       Creates a buffer object from already existing Buffer bufnum.
 
 
@@ -4937,9 +3876,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: copy_existing(buffer: Buffer) -> Buffer
 
-   .. method:: copy_existing(self, buffer: Buffer) -> Buffer
-
+      
       Duplicate an existing buffer
 
 
@@ -4972,9 +3911,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: fill(start: int = 0, count: int = 0, value: float = 0) -> Buffer
 
-   .. method:: fill(self, start: int = 0, count: int = 0, value: float = 0) -> Buffer
-
+      
       Fill range of samples with value(s).
 
 
@@ -5014,9 +3953,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen(command: str, args: List[Any]) -> Buffer
 
-   .. method:: gen(self, command: str, args: List[Any]) -> Buffer
-
+      
       Call a command to fill a buffer.
       If you know, what you do -> you can use this method.
 
@@ -5058,9 +3997,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: zero() -> Buffer
 
-   .. method:: zero(self) -> Buffer
-
+      
       Set buffer data to zero.
 
 
@@ -5089,9 +4028,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_sine1(amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_sine1(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fill the buffer with sine waves & given amplitude
 
 
@@ -5138,9 +4077,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_sine2(freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_sine2(self, freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fill the buffer with sine waves
       given list of [frequency, amplitude] lists
 
@@ -5188,9 +4127,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_sine3(freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_sine3(self, freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fill the buffer with sine waves & given a list of
       [frequency, amplitude, phase] entries.
 
@@ -5237,9 +4176,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_cheby(amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_cheby(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fills a buffer with a series of chebyshev polynomials, which can be
       defined as cheby(n) = amplitude * cos(n * acos(x))
 
@@ -5287,9 +4226,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_copy(source: Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> Buffer
 
-   .. method:: gen_copy(self, source: Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> Buffer
-
+      
       Copy samples from the source buffer to the destination buffer
       specified in the b_gen command.
 
@@ -5334,9 +4273,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: play(rate: float = 1, loop: bool = False, pan: float = 0, amp: float = 0.3) -> sc3nb.sc_objects.node.Synth
 
-   .. method:: play(self, rate: float = 1, loop: bool = False, pan: float = 0, amp: float = 0.3) -> sc3nb.sc_objects.node.Synth
-
+      
       Play the Buffer using a Synth
 
 
@@ -5378,9 +4317,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: write(path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> Buffer
 
-   .. method:: write(self, path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> Buffer
-
+      
       Write buffer data to a sound file
 
 
@@ -5435,9 +4374,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: close() -> Buffer
 
-   .. method:: close(self) -> Buffer
-
+      
       Close soundfile after using a Buffer with DiskOut
 
 
@@ -5466,9 +4405,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: to_array() -> numpy.ndarray
 
-   .. method:: to_array(self) -> numpy.ndarray
-
+      
       Return the buffer data as an array representation.
 
 
@@ -5497,9 +4436,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query() -> BufferInfo
 
-   .. method:: query(self) -> BufferInfo
-
+      
       Get buffer info.
 
 
@@ -5528,9 +4467,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -5551,9 +4490,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free() -> None
 
-   .. method:: free(self) -> None
-
+      
       Free buffer data.
 
 
@@ -5578,265 +4517,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _gen_flags(a_normalize=False, a_wavetable=False, a_clear=False) -> int
 
-   .. method:: bufnum(self) -> Optional[int]
-      :property:
-
-      Buffer number which serves as ID in SuperCollider
-
-
-
-      :Returns:
-
-          int
-              bufnum
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocated(self) -> bool
-      :property:
-
-      Whether this Buffer is allocated by
-      any of the initialization methods.
-
-
-
-      :Returns:
-
-          bool
-              True if allocated
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: alloc_mode(self) -> BufferAllocationMode
-      :property:
-
-      Mode of Buffer allocation.
-
-      One of ['file', 'alloc', 'data', 'existing', 'copy']
-      according to previously used generator.
-      Defaults to None if not allocated.
-
-
-      :Returns:
-
-          str
-              allocation mode
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: path(self) -> Optional[pathlib.Path]
-      :property:
-
-      File path that was provided to read.
-
-
-
-      :Returns:
-
-          pathlib.Path
-              buffer file path
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: channels(self) -> Optional[int]
-      :property:
-
-      Number of channels in the Buffer.
-
-
-
-      :Returns:
-
-          int
-              channel number
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: samples(self) -> Optional[int]
-      :property:
-
-      Number of samples in the buffer.
-
-
-
-      :Returns:
-
-          int
-              sample number
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: sr(self) -> Optional[int]
-      :property:
-
-      Sampling rate of the Buffer.
-
-
-
-      :Returns:
-
-          int
-              sampling rate
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: duration(self) -> Optional[float]
-      :property:
-
-      Duration of the Buffer in seconds.
-
-
-
-      :Returns:
-
-          float
-              duration in seconds
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
-      :property:
-
-      The server where this Buffer is placed.
-
-
-
-      :Returns:
-
-          SCServer
-              The server where this Buffer is placed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False) -> int
-
+      
       Generate Wave Fill Commands flags from booleans
       according to the SuperCollider Server Command Reference.
 
@@ -5879,10 +4562,10 @@ Content
 
 
 
-
 .. class:: Bus(rate: Union[BusRate, str], num_channels: int = 1, index: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
+   
    Represenation of Control or Audio Bus(es) on the SuperCollider Server
 
    If num_channels > 1 this will be represent muliple Buses in a row.
@@ -5922,15 +4605,11 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.Bus.rate
-         sc3nb.Bus.num_channels
-         sc3nb.Bus.idxs
          sc3nb.Bus.is_audio_bus
          sc3nb.Bus.is_control_bus
          sc3nb.Bus.set
@@ -5940,92 +4619,9 @@ Content
          sc3nb.Bus.__del__
          sc3nb.Bus.__repr__
 
-   .. method:: rate(self) -> Union[BusRate, str]
-      :property:
+   .. py:method:: is_audio_bus() -> bool
 
-      The bus calculation rate.
-
-
-
-      :Returns:
-
-          BusRate
-              the rate of this bus
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: num_channels(self) -> int
-      :property:
-
-      The number of buses.
-
-
-
-      :Returns:
-
-          int
-              number of buses allocated
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: idxs(self) -> Sequence[int]
-      :property:
-
-      The bus index(s).
-
-
-
-      :Returns:
-
-          int
-              first bus index
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_audio_bus(self) -> bool
-
+      
       Rate check
 
 
@@ -6050,9 +4646,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: is_control_bus() -> bool
 
-   .. method:: is_control_bus(self) -> bool
-
+      
       Rate check
 
 
@@ -6077,9 +4673,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set(*values: Sequence[Union[int, float]], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: set(self, *values: Sequence[Union[int, float]], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Set ranges of bus values.
 
 
@@ -6111,9 +4707,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: fill(value: Union[int, float], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: fill(self, value: Union[int, float], return_msg=False) -> Union[Bus, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Fill bus(es) to one value.
 
 
@@ -6145,9 +4741,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get() -> Union[Union[int, float], Sequence[Union[int, float]]]
 
-   .. method:: get(self) -> Union[Union[int, float], Sequence[Union[int, float]]]
-
+      
       Get bus value(s).
 
 
@@ -6177,9 +4773,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free(clear: bool = True) -> None
 
-   .. method:: free(self, clear: bool = True) -> None
-
+      
       Mark this Buses ids as free again
 
 
@@ -6204,12 +4800,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __del__() -> None
 
-   .. method:: __del__(self) -> None
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -6233,7 +4829,6 @@ Content
 
 
 
-
 .. class:: Score
 
 
@@ -6249,9 +4844,10 @@ Content
          sc3nb.Score.write_file
          sc3nb.Score.record_nrt
 
-   .. method:: load_file(cls, path: Union[str, bytes, os.PathLike]) -> Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]]
+   .. py:method:: load_file(path: Union[str, bytes, os.PathLike]) -> Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]]
       :classmethod:
 
+      
       Load a OSC file into a dict.
 
 
@@ -6280,10 +4876,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: write_file(cls, messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], path: Union[str, bytes, os.PathLike], tempo: float = 1)
+   .. py:method:: write_file(messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], path: Union[str, bytes, os.PathLike], tempo: float = 1)
       :classmethod:
 
+      
       Write this score as binary OSC file for NRT synthesis.
 
 
@@ -6314,10 +4910,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: record_nrt(cls, messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], osc_path: str, out_file: str, in_file: Optional[str] = None, sample_rate: int = 44100, header_format: str = 'AIFF', sample_format: str = 'int16', options: Optional[sc3nb.sc_objects.server.ServerOptions] = None)
+   .. py:method:: record_nrt(messages: Dict[float, List[sc3nb.osc.osc_communication.OSCMessage]], osc_path: str, out_file: str, in_file: Optional[str] = None, sample_rate: int = 44100, header_format: str = 'AIFF', sample_format: str = 'int16', options: Optional[sc3nb.sc_objects.server.ServerOptions] = None)
       :classmethod:
 
+      
       Write an OSC file from the messages and wri
 
 
@@ -6370,29 +4966,11 @@ Content
 
 
 
-
 .. class:: Recorder(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
    Allows to record audio easily.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create and prepare a recorder.
 
@@ -6451,8 +5029,9 @@ Content
          sc3nb.Recorder.__repr__
          sc3nb.Recorder.__del__
 
-   .. method:: prepare(self, path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536)
+   .. py:method:: prepare(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536)
 
+      
       Pepare the recorder.
 
 
@@ -6493,9 +5072,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: start(timetag: float = 0, duration: Optional[float] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: int = 0)
 
-   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: int = 0)
-
+      
       Start the recording.
 
 
@@ -6533,9 +5112,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: pause(timetag: float = 0)
 
-   .. method:: pause(self, timetag: float = 0)
-
+      
       Pause the recording.
 
 
@@ -6564,9 +5143,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: resume(timetag: float = 0)
 
-   .. method:: resume(self, timetag: float = 0)
-
+      
       Resume the recording
 
 
@@ -6595,9 +5174,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: stop(timetag: float = 0)
 
-   .. method:: stop(self, timetag: float = 0)
-
+      
       Stop the recording.
 
 
@@ -6626,9 +5205,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -6649,8 +5228,7 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: __del__(self)
+   .. py:method:: __del__()
 
 
 
@@ -6659,6 +5237,7 @@ Content
 .. class:: TimedQueue(relative_time: bool = False, thread_sleep_time: float = 0.001, drop_time_threshold: float = 0.5)
 
 
+   
    Accumulates events as timestamps and functions.
 
    Executes given functions according to the timestamps
@@ -6694,7 +5273,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -6712,8 +5290,9 @@ Content
          sc3nb.TimedQueue.__repr__
          sc3nb.TimedQueue.elapse
 
-   .. method:: close(self) -> None
+   .. py:method:: close() -> None
 
+      
       Closes event processing without waiting for pending events
 
 
@@ -6734,9 +5313,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: join() -> None
 
-   .. method:: join(self) -> None
-
+      
       Closes event processing after waiting for pending events
 
 
@@ -6757,9 +5336,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: complete() -> None
 
-   .. method:: complete(self) -> None
-
+      
       Blocks until all pending events have completed
 
 
@@ -6780,9 +5359,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: put(timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any] = (), spawn: bool = False) -> None
 
-   .. method:: put(self, timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any] = (), spawn: bool = False) -> None
-
+      
       Adds event to queue
 
 
@@ -6820,9 +5399,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get() -> Event
 
-   .. method:: get(self) -> Event
-
+      
       Get latest event from queue and remove event
 
 
@@ -6847,9 +5426,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: peek() -> Event
 
-   .. method:: peek(self) -> Event
-
+      
       Look up latest event from queue
 
 
@@ -6874,9 +5453,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: empty() -> bool
 
-   .. method:: empty(self) -> bool
-
+      
       Checks if queue is empty
 
 
@@ -6901,9 +5480,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: pop() -> None
 
-   .. method:: pop(self) -> None
-
+      
       Removes latest event from queue
 
 
@@ -6924,9 +5503,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __worker(sleep_time: float, close_event: threading.Event) -> NoReturn
 
-   .. method:: __worker(self, sleep_time: float, close_event: threading.Event) -> NoReturn
-
+      
       Worker function to process events
 
 
@@ -6947,9 +5526,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__()
 
-   .. method:: __repr__(self)
-
+      
       Return repr(self).
 
 
@@ -6970,9 +5549,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: elapse(time_delta: float) -> None
 
-   .. method:: elapse(self, time_delta: float) -> None
-
+      
       Add time delta to the current queue time.
 
 
@@ -7000,12 +5579,12 @@ Content
 
 
 
-
 .. class:: TimedQueueSC(server: sc3nb.osc.osc_communication.OSCCommunication = None, relative_time: bool = False, thread_sleep_time: float = 0.001)
 
 
    **Bases:** :class:`TimedQueue`
 
+   
    Timed queue with OSC communication.
 
 
@@ -7039,7 +5618,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -7048,8 +5626,9 @@ Content
          sc3nb.TimedQueueSC.put_bundler
          sc3nb.TimedQueueSC.put_msg
 
-   .. method:: put_bundler(self, onset: float, bundler: sc3nb.osc.osc_communication.Bundler) -> None
+   .. py:method:: put_bundler(onset: float, bundler: sc3nb.osc.osc_communication.Bundler) -> None
 
+      
       Add a Bundler to queue
 
 
@@ -7077,9 +5656,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: put_msg(onset: float, msg: Union[sc3nb.osc.osc_communication.OSCMessage, str], msg_params: Iterable[Any]) -> None
 
-   .. method:: put_msg(self, onset: float, msg: Union[sc3nb.osc.osc_communication.OSCMessage, str], msg_params: Iterable[Any]) -> None
-
+      
       Add a message to queue
 
 
@@ -7113,10 +5692,10 @@ Content
 
 
 
-
 .. class:: OSCMessage(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None)
 
 
+   
    Class for creating messages to send over OSC
 
 
@@ -7147,118 +5726,18 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.OSCMessage.dgram
-         sc3nb.OSCMessage.raw_osc
-         sc3nb.OSCMessage.parameters
-         sc3nb.OSCMessage.address
          sc3nb.OSCMessage.to_pythonosc
          sc3nb.OSCMessage._build_message
          sc3nb.OSCMessage.__repr__
 
-   .. method:: dgram(self) -> bytes
-      :property:
+   .. py:method:: to_pythonosc() -> pythonosc.osc_message.OscMessage
 
-      datagram of OSC message
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: raw_osc(self) -> bytes
-      :property:
-
-      raw OSC representation - same as :py:attr:`~dgram`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: parameters(self) -> List[Any]
-      :property:
-
-      OSC message parameters
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: address(self) -> str
-      :property:
-
-      OSC message address
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: to_pythonosc(self) -> pythonosc.osc_message.OscMessage
-
+      
       Return python-osc OscMessage
 
 
@@ -7279,10 +5758,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _build_message(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
+   .. py:method:: _build_message(msg_address: str, msg_parameters: Optional[Union[Sequence, Any]] = None) -> pythonosc.osc_message.OscMessage
       :staticmethod:
 
+      
       Builds pythonsosc OSC message.
 
 
@@ -7314,9 +5793,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -7340,29 +5819,11 @@ Content
 
 
 
-
 .. class:: Bundler(timetag: float = 0, msg: Optional[Union[OSCMessage, str]] = None, msg_params: Optional[Sequence[Any]] = None, *, server: Optional[OSCCommunication] = None, receiver: Optional[Union[str, Tuple[str, int]]] = None, send_on_exit: bool = True)
 
 
    Class for creating OSCBundles and bundling of messages
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a Bundler
 
@@ -7415,7 +5876,6 @@ Content
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.Bundler.dgram
          sc3nb.Bundler.wait
          sc3nb.Bundler.add
          sc3nb.Bundler.messages
@@ -7428,12 +5888,9 @@ Content
          sc3nb.Bundler.__exit__
          sc3nb.Bundler.__repr__
 
-   .. method:: dgram(self) -> bytes
-      :property:
+   .. py:method:: wait(time_passed: float) -> None
 
-
-   .. method:: wait(self, time_passed: float) -> None
-
+      
       Add time to internal time
 
 
@@ -7458,18 +5915,20 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add(*args) -> Bundler
 
-   .. method:: add(self, *args) -> Bundler
-
+      
       Add content to this Bundler.
 
 
       :Parameters:
 
-          **args** : OSCMessage or Bundler or Bundler arguments like
-              (timetag, msg_addr, msg_params)
-              (timetag, msg_addr)
-              (timetag, msg)
+          **args** : accepts an OSCMessage or Bundler
+              or a timetag with an OSCMessage or Bundler
+              or Bundler arguments like
+               (timetag, msg_addr, msg_params)
+               (timetag, msg_addr)
+               (timetag, msg)
 
       :Returns:
 
@@ -7491,9 +5950,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: messages(start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[float, List[OSCMessage]]
 
-   .. method:: messages(self, start_time: Optional[float] = 0.0, delay: Optional[float] = None) -> Dict[float, List[OSCMessage]]
-
+      
       Generate a dict with all messages in this Bundler.
 
       They dict key is the time tag of the messages.
@@ -7523,9 +5982,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: send(server: Optional[OSCCommunication] = None, receiver: Tuple[str, int] = None, bundle: bool = True)
 
-   .. method:: send(self, server: Optional[OSCCommunication] = None, receiver: Tuple[str, int] = None, bundle: bool = True)
-
+      
       Send this Bundler.
 
 
@@ -7563,9 +6022,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: to_raw_osc(start_time: Optional[float] = None, delay: Optional[float] = None) -> bytes
 
-   .. method:: to_raw_osc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> bytes
-
+      
       Create a raw OSC Bundle from this bundler.
 
 
@@ -7597,9 +6056,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: to_pythonosc(start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
 
-   .. method:: to_pythonosc(self, start_time: Optional[float] = None, delay: Optional[float] = None) -> pythonosc.osc_bundle.OscBundle
-
+      
       Build this bundle.
 
 
@@ -7631,21 +6090,21 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _calc_timetag(self, start_time: Optional[float])
-
-
-   .. method:: __deepcopy__(self, memo) -> Bundler
+   .. py:method:: _calc_timetag(start_time: Optional[float])
 
 
-   .. method:: __enter__(self)
+   .. py:method:: __deepcopy__(memo) -> Bundler
 
 
-   .. method:: __exit__(self, exc_type, exc_value, exc_traceback)
+   .. py:method:: __enter__()
 
 
-   .. method:: __repr__(self) -> str
+   .. py:method:: __exit__(exc_type, exc_value, exc_traceback)
 
+
+   .. py:method:: __repr__() -> str
+
+      
       Return repr(self).
 
 
@@ -7670,220 +6129,6 @@ Content
 
 
 
-.. function:: linlin(value: Union[float, numpy.ndarray], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[float, numpy.ndarray]
-
-   Map value linearly so that [x1, x2] is mapped to [y1, y2]
-
-   linlin is implemented in analogy to the SC3 linlin, yet this
-   function extrapolates by default.
-   A frequently used invocation is with x1 < x2, i.e. thinking
-   of them as a range [x1,x2]
-
-   :Parameters:
-
-       **value** : float or np.ndarray
-           value(s) to be mapped
-
-       **x1** : float
-           source value 1
-
-       **x2** : float
-           source value 2
-
-       **y1** : float
-           destination value to be reached for value == x1
-
-       **y2** : float
-           destination value to be reached for value == x2
-
-       **clip: None or string**
-           None extrapolates, "min" or "max" clip at floor resp. ceiling
-           of the destination range, any other value defaults to "minmax",
-           i.e. it clips on both sides.
-
-   :Returns:
-
-       float or np.ndarray
-           the mapping result
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-.. function:: midicps(midi_note: float) -> float
-
-   Convert MIDI note to cycles per second
-
-
-   :Parameters:
-
-       **m** : float
-           midi note
-
-   :Returns:
-
-       float
-           corresponding cycles per seconds
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-.. function:: cpsmidi(cps: float) -> float
-
-   Convert cycles per second to MIDI note
-
-
-   :Parameters:
-
-       **cps** : float
-           cycles per second
-
-   :Returns:
-
-       float
-           corresponding MIDI note
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-.. function:: clip(value: float, minimum: float = -float('inf'), maximum: float = float('inf')) -> float
-
-   Clips a value to a certain range
-
-
-   :Parameters:
-
-       **value** : float
-           Value to clip
-
-       **minimum** : float, optional
-           Minimum output value, by default -float("inf")
-
-       **maximum** : float, optional
-           Maximum output value, by default float("inf")
-
-   :Returns:
-
-       float
-           clipped value
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-.. function:: dbamp(decibels: float) -> float
-
-   Convert a decibels to a linear amplitude.
-
-
-   :Parameters:
-
-       **decibels** : float
-           Decibel value to convert
-
-   :Returns:
-
-       float
-           Corresponding linear amplitude
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-.. function:: ampdb(amp: float) -> float
-
-   Convert a linear amplitude to decibels.
-
-
-   :Parameters:
-
-       **amp** : float
-           Linear amplitude to convert
-
-   :Returns:
-
-       float
-           Corresponding decibels
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
-
-
 
 Subpackages
 -----------
@@ -7902,7 +6147,6 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   helpers/index.rst
    magics/index.rst
    process_handling/index.rst
    sc/index.rst

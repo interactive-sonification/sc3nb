@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -42,23 +41,22 @@ Class List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
 
-.. data:: ANSI_ESCAPE
-   
+.. py:data:: ANSI_ESCAPE
 
    
 
-.. data:: ALLOWED_PARENTS
-   :annotation: = ['scide', 'python', 'tox']
+.. py:data:: ALLOWED_PARENTS
+   :value: ('scide', 'python', 'tox')
 
    
 
-.. function:: find_executable(executable: str, search_path: str = None, add_to_path: bool = False)
+.. py:function:: find_executable(executable: str, search_path: str = None, add_to_path: bool = False)
 
+   
    Looks for executable in os $PATH or specified path
 
 
@@ -97,9 +95,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: kill_processes(exec_path, allowed_parents: Optional[tuple] = None)
 
-.. function:: kill_processes(exec_path, allowed_parents: Optional[tuple] = None)
-
+   
    Kill processes with the same path for the executable.
 
    If allowed_parent is provided it will be searched in the names of the
@@ -130,7 +128,6 @@ Content
    ..
        !! processed by numpydoc !!
 
-
 .. exception:: ProcessTimeout(executable, output, timeout, expected)
 
 
@@ -138,23 +135,6 @@ Content
 
    Process Timeout Exception
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -186,6 +166,7 @@ Content
 .. class:: Process(executable: str, programm_args: Optional[Sequence[str]] = None, executable_path: str = None, console_logging: bool = True, kill_others: bool = True, allowed_parents: Sequence[str] = None)
 
 
+   
    Class for starting a executable and communication with it.
 
 
@@ -230,7 +211,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -244,11 +224,12 @@ Content
          sc3nb.process_handling.Process.__del__
          sc3nb.process_handling.Process.__repr__
 
-   .. method:: _read_loop(self)
+   .. py:method:: _read_loop()
 
 
-   .. method:: read(self, expect: Optional[str] = None, timeout: float = 3) -> str
+   .. py:method:: read(expect: Optional[str] = None, timeout: float = 3) -> str
 
+      
       Reads current output from output queue until expect is found
 
 
@@ -284,9 +265,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: empty() -> None
 
-   .. method:: empty(self) -> None
-
+      
       Empties output queue.
 
 
@@ -307,9 +288,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: write(input_str: str) -> None
 
-   .. method:: write(self, input_str: str) -> None
-
+      
       Send input to process
 
 
@@ -338,9 +319,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: kill() -> int
 
-   .. method:: kill(self) -> int
-
+      
       Kill the process.
 
 
@@ -365,12 +346,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __del__()
 
-   .. method:: __del__(self)
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -390,7 +371,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

@@ -1,0 +1,1 @@
+{"path": "../../../../../examples/supercollider-objects/score-examples.ipynb", "extra-media": ["../../../../../examples/media"]}

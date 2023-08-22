@@ -1,0 +1,1 @@
+{"path": "../../../../examples/sclang-examples.ipynb", "extra-media": ["../../../../examples/media"]}

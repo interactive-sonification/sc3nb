@@ -5,6 +5,7 @@
 
 .. autoapi-nested-parse::
 
+   
    In this module are all SuperCollider Object related classes
 
 
@@ -24,7 +25,6 @@
 
    ..
        !! processed by numpydoc !!
-
 
 
 

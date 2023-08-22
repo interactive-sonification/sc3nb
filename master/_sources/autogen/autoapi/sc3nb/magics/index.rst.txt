@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -42,8 +41,9 @@ Class List
 Content
 ~~~~~~~
 
-.. function:: load_ipython_extension(ipython) -> None
+.. py:function:: load_ipython_extension(ipython) -> None
 
+   
    Function that is called when Jupyter loads this as extension (%load_ext sc3nb)
 
 
@@ -68,9 +68,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: add_shortcut(ipython, shortcut: str = None) -> None
 
-.. function:: add_shortcut(ipython, shortcut: str = None) -> None
-
+   
    Add the server 'free all' shortcut.
 
 
@@ -98,7 +98,6 @@ Content
    ..
        !! processed by numpydoc !!
 
-
 .. class:: SC3Magics(shell=None, **kwargs)
 
 
@@ -106,23 +105,6 @@ Content
 
    IPython magics for SC class
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a configurable given a config config.
 
@@ -182,8 +164,9 @@ Content
          sc3nb.magics.SC3Magics.scgs
          sc3nb.magics.SC3Magics._parse_pyvars
 
-   .. method:: sc(self, line='', cell=None)
+   .. py:method:: sc(line='', cell=None)
 
+      
       Execute SuperCollider code via magic
 
 
@@ -215,9 +198,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: scv(line='', cell=None)
 
-   .. method:: scv(self, line='', cell=None)
-
+      
       Execute SuperCollider code with verbose output
 
 
@@ -249,9 +232,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: scs(line='', cell=None)
 
-   .. method:: scs(self, line='', cell=None)
-
+      
       Execute SuperCollider code silently (verbose==False)
 
 
@@ -283,9 +266,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: scg(line='', cell=None)
 
-   .. method:: scg(self, line='', cell=None)
-
+      
       Execute SuperCollider code returning output
 
 
@@ -321,9 +304,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: scgv(line='', cell=None)
 
-   .. method:: scgv(self, line='', cell=None)
-
+      
       Execute SuperCollider code returning output
 
 
@@ -359,9 +342,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: scgs(line='', cell=None)
 
-   .. method:: scgs(self, line='', cell=None)
-
+      
       Execute SuperCollider code returning output
 
 
@@ -397,9 +380,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _parse_pyvars(code: str) -> Dict[str, Any]
 
-   .. method:: _parse_pyvars(self, code: str) -> Dict[str, Any]
-
+      
       Parses SuperCollider code for python variables and their values
 
 
@@ -431,7 +414,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

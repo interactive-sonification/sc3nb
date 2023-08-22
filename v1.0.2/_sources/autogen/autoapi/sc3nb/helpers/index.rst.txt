@@ -1,0 +1,254 @@
+:mod:`sc3nb.helpers`
+====================
+
+.. py:module:: sc3nb.helpers
+
+.. autoapi-nested-parse::
+
+   Collection of helper functions for the user
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+ 
+
+Function List
+~~~~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.helpers.linlin
+   sc3nb.helpers.clip
+   sc3nb.helpers.midicps
+   sc3nb.helpers.cpsmidi
+   sc3nb.helpers.dbamp
+   sc3nb.helpers.ampdb
+
+
+
+
+
+
+Content
+~~~~~~~
+
+.. py:function:: linlin(value: Union[float, numpy.ndarray], x1: float, x2: float, y1: float, y2: float, clip: Optional[str] = None) -> Union[float, numpy.ndarray]
+
+   
+   Map value linearly so that [x1, x2] is mapped to [y1, y2]
+
+   linlin is implemented in analogy to the SC3 linlin, yet this
+   function extrapolates by default.
+   A frequently used invocation is with x1 < x2, i.e. thinking
+   of them as a range [x1,x2]
+
+   :Parameters:
+
+       **value** : float or np.ndarray
+           value(s) to be mapped
+
+       **x1** : float
+           source value 1
+
+       **x2** : float
+           source value 2
+
+       **y1** : float
+           destination value to be reached for value == x1
+
+       **y2** : float
+           destination value to be reached for value == x2
+
+       **clip: None or string**
+           None extrapolates, "min" or "max" clip at floor resp. ceiling
+           of the destination range, any other value defaults to "minmax",
+           i.e. it clips on both sides.
+
+   :Returns:
+
+       float or np.ndarray
+           the mapping result
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: clip(value: float, minimum: float = -float('inf'), maximum: float = float('inf')) -> float
+
+   
+   Clips a value to a certain range
+
+
+   :Parameters:
+
+       **value** : float
+           Value to clip
+
+       **minimum** : float, optional
+           Minimum output value, by default -float("inf")
+
+       **maximum** : float, optional
+           Maximum output value, by default float("inf")
+
+   :Returns:
+
+       float
+           clipped value
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: midicps(midi_note: float) -> float
+
+   
+   Convert MIDI note to cycles per second
+
+
+   :Parameters:
+
+       **m** : float
+           midi note
+
+   :Returns:
+
+       float
+           corresponding cycles per seconds
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: cpsmidi(cps: float) -> float
+
+   
+   Convert cycles per second to MIDI note
+
+
+   :Parameters:
+
+       **cps** : float
+           cycles per second
+
+   :Returns:
+
+       float
+           corresponding MIDI note
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: dbamp(decibels: float) -> float
+
+   
+   Convert a decibels to a linear amplitude.
+
+
+   :Parameters:
+
+       **decibels** : float
+           Decibel value to convert
+
+   :Returns:
+
+       float
+           Corresponding linear amplitude
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: ampdb(amp: float) -> float
+
+   
+   Convert a linear amplitude to decibels.
+
+
+   :Parameters:
+
+       **amp** : float
+           Linear amplitude to convert
+
+   :Returns:
+
+       float
+           Corresponding decibels
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

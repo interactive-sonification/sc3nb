@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>sc3nb.magics — sc3nb  documentation</title>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../_static/doctools.js?v=888ff710"></script>
+<script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script src="../../_static/js/theme.js"></script>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../search.html" rel="search" title="Search"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../index.html">
+            sc3nb
+          </a>
+<div class="version">
+                1.0.2^0
+              </div>
+<div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">README &amp; Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../info.html">How does this work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support.html">Support, Caveats and Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resources.html">Useful Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#version-1-0-2">Version 1.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html">Usage of sclang in sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../supercolliderobjects.html">SuperCollider objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html">Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/bus-examples.html">Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/recorder-examples.html">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/supercollider-objects/score-examples.html">Score</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/helper-examples.html">Helper functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#function-list">Function List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#class-list">Class List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#content">Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.startup"><code class="docutils literal notranslate"><span class="pre">startup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.SC"><code class="docutils literal notranslate"><span class="pre">SC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.SCServer"><code class="docutils literal notranslate"><span class="pre">SCServer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions"><code class="docutils literal notranslate"><span class="pre">ServerOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.SCLang"><code class="docutils literal notranslate"><span class="pre">SCLang</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Synth"><code class="docutils literal notranslate"><span class="pre">Synth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.AddAction"><code class="docutils literal notranslate"><span class="pre">AddAction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef"><code class="docutils literal notranslate"><span class="pre">SynthDef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Buffer"><code class="docutils literal notranslate"><span class="pre">Buffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Bus"><code class="docutils literal notranslate"><span class="pre">Bus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Score"><code class="docutils literal notranslate"><span class="pre">Score</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder"><code class="docutils literal notranslate"><span class="pre">Recorder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue"><code class="docutils literal notranslate"><span class="pre">TimedQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC"><code class="docutils literal notranslate"><span class="pre">TimedQueueSC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage"><code class="docutils literal notranslate"><span class="pre">OSCMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler"><code class="docutils literal notranslate"><span class="pre">Bundler</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin"><code class="docutils literal notranslate"><span class="pre">linlin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps"><code class="docutils literal notranslate"><span class="pre">midicps()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.cpsmidi"><code class="docutils literal notranslate"><span class="pre">cpsmidi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.clip"><code class="docutils literal notranslate"><span class="pre">clip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.dbamp"><code class="docutils literal notranslate"><span class="pre">dbamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#sc3nb.ampdb"><code class="docutils literal notranslate"><span class="pre">ampdb()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/osc/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../autogen/autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-test">How to test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CONTRIBUTORS.html#id1">Contributors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../index.html"></a></li>
+<li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+<li class="breadcrumb-item active">sc3nb.magics</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<h1>Source code for sc3nb.magics</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""This module adds the Jupyter specialties such as Magics and Keyboard Shortcuts"""</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="n">Magics</span><span class="p">,</span> <span class="n">line_cell_magic</span><span class="p">,</span> <span class="n">magics_class</span>
+
+<span class="kn">import</span> <span class="nn">sc3nb</span>
+
+
+<div class="viewcode-block" id="load_ipython_extension">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.load_ipython_extension">[docs]</a>
+<span class="k">def</span> <span class="nf">load_ipython_extension</span><span class="p">(</span><span class="n">ipython</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Function that is called when Jupyter loads this as extension (%load_ext sc3nb)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ipython : IPython</span>
+<span class="sd">        IPython object</span>
+<span class="sd">    """</span>
+    <span class="n">ipython</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">SC3Magics</span><span class="p">)</span>
+    <span class="n">add_shortcut</span><span class="p">(</span><span class="n">ipython</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="add_shortcut">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.add_shortcut">[docs]</a>
+<span class="k">def</span> <span class="nf">add_shortcut</span><span class="p">(</span><span class="n">ipython</span><span class="p">,</span> <span class="n">shortcut</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Add the server 'free all' shortcut.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ipython : IPython</span>
+<span class="sd">        IPython object</span>
+<span class="sd">    shortcut : str, optional</span>
+<span class="sd">        shortcut for 'free all', by default it is "cmd-." or "Ctrl-."</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">shortcut</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">"darwin"</span><span class="p">:</span>
+                <span class="n">shortcut</span> <span class="o">=</span> <span class="s2">"cmd-."</span>
+            <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"linux"</span><span class="p">,</span> <span class="s2">"linux2"</span><span class="p">,</span> <span class="s2">"win32"</span><span class="p">]:</span>
+                <span class="n">shortcut</span> <span class="o">=</span> <span class="s2">"Ctrl-."</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unable to add shortcut for platform '</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shortcut</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ipython</span><span class="o">.</span><span class="n">run_cell_magic</span><span class="p">(</span>
+                <span class="s2">"javascript"</span><span class="p">,</span>
+                <span class="s2">""</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"""if (typeof Jupyter !== 'undefined') </span><span class="se">{{</span>
+<span class="s2">                        Jupyter.keyboard_manager.command_shortcuts.add_shortcut(</span>
+<span class="s2">                        </span><span class="se">\'</span><span class="si">{</span><span class="n">shortcut</span><span class="si">}</span><span class="se">\'</span><span class="s2">, </span><span class="se">{{</span>
+<span class="s2">                        help : </span><span class="se">\'</span><span class="s2">Free all nodes on SC server</span><span class="se">\'</span><span class="s2">,</span>
+<span class="s2">                        help_index : </span><span class="se">\'</span><span class="s2">zz</span><span class="se">\'</span><span class="s2">,</span>
+<span class="s2">                        handler : function (event) </span><span class="se">{{</span>
+<span class="s2">                            IPython.notebook.kernel.execute(</span>
+<span class="s2">                                "import sc3nb; sc3nb.SC.get_default().server.free_all(root=True)"</span>
+<span class="s2">                            )</span>
+<span class="s2">                            return true;</span><span class="se">}}</span>
+<span class="s2">                        </span><span class="se">}}</span><span class="s2">);</span>
+<span class="s2">                    </span><span class="se">}}</span><span class="s2">"""</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+
+
+<span class="nd">@magics_class</span>
+<div class="viewcode-block" id="SC3Magics">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics">[docs]</a>
+<span class="k">class</span> <span class="nc">SC3Magics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""IPython magics for SC class"""</span>
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.sc">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.sc">[docs]</a>
+    <span class="k">def</span> <span class="nf">sc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute SuperCollider code via magic</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default ''</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">        """</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmd</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
+
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.scv">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scv">[docs]</a>
+    <span class="k">def</span> <span class="nf">scv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute SuperCollider code with verbose output</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default ''</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">        """</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdv</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
+
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.scs">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scs">[docs]</a>
+    <span class="k">def</span> <span class="nf">scs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute SuperCollider code silently (verbose==False)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default ''</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">        """</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmds</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
+
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.scg">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scg">[docs]</a>
+    <span class="k">def</span> <span class="nf">scg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute SuperCollider code returning output</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default ''</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">            Output from SuperCollider code, not</span>
+<span class="sd">            all SC types supported, see</span>
+<span class="sd">            pythonosc.osc_message.Message for list</span>
+<span class="sd">            of supported types</span>
+<span class="sd">        """</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">)</span></div>
+
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.scgv">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgv">[docs]</a>
+    <span class="k">def</span> <span class="nf">scgv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute SuperCollider code returning output</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default ''</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">            Output from SuperCollider code, not</span>
+<span class="sd">            all SC types supported, see</span>
+<span class="sd">            pythonosc.osc_message.Message for list</span>
+<span class="sd">            of supported types</span>
+<span class="sd">        """</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+    <span class="nd">@line_cell_magic</span>
+<div class="viewcode-block" id="SC3Magics.scgs">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics.scgs">[docs]</a>
+    <span class="k">def</span> <span class="nf">scgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute SuperCollider code returning output</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        line : str, optional</span>
+<span class="sd">            Line of SuperCollider code, by default ''</span>
+<span class="sd">        cell : str, optional</span>
+<span class="sd">            Cell of SuperCollider code , by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Unknown</span>
+<span class="sd">            cmd result</span>
+<span class="sd">            Output from SuperCollider code, not</span>
+<span class="sd">            all SC types supported, see</span>
+<span class="sd">            pythonosc.osc_message.Message for list</span>
+<span class="sd">            of supported types</span>
+<span class="sd">        """</span>
+        <span class="n">cmdstr</span> <span class="o">=</span> <span class="n">line</span> <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cell</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_pyvars</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sc3nb</span><span class="o">.</span><span class="n">SC</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">cmdg</span><span class="p">(</span><span class="n">cmdstr</span><span class="p">,</span> <span class="n">pyvars</span><span class="o">=</span><span class="n">pyvars</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SC3Magics._parse_pyvars">
+<a class="viewcode-back" href="../../autogen/autoapi/sc3nb/magics/index.html#sc3nb.magics.SC3Magics._parse_pyvars">[docs]</a>
+    <span class="k">def</span> <span class="nf">_parse_pyvars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Parses SuperCollider code for python variables and their values</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        code : str</span>
+<span class="sd">            SuperCollider code snippet</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict[str, Any]</span>
+<span class="sd">            Dict with variable names and their values.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        NameError</span>
+<span class="sd">            If pyvar injection value can't be found.</span>
+<span class="sd">        """</span>
+        <span class="n">user_ns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">user_ns</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\s*\^[A-Za-z_]\w*\s*"</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="n">pyvars</span> <span class="o">=</span> <span class="p">{</span><span class="n">match</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"^"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">pyvar</span> <span class="ow">in</span> <span class="n">pyvars</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pyvar</span> <span class="ow">in</span> <span class="n">user_ns</span><span class="p">:</span>
+                <span class="n">pyvars</span><span class="p">[</span><span class="n">pyvar</span><span class="p">]</span> <span class="o">=</span> <span class="n">user_ns</span><span class="p">[</span><span class="n">pyvar</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="s2">"name '</span><span class="si">{}</span><span class="s2">' is not defined"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pyvar</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">pyvars</span></div>
+</div>
+
+</pre></div>
+</div>
+</div>
+<footer>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>c6081ae01f</code>.
+      </span></p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
+      v: 1.0.2^0
+      <span class="fa fa-caret-down"></span>
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
+</div>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

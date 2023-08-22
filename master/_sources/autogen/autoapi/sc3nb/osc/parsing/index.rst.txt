@@ -18,7 +18,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -45,33 +44,30 @@ Function List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
 
-.. data:: SYNTH_DEF_MARKER
-   :annotation: = b'SCgf'
+.. py:data:: SYNTH_DEF_MARKER
+   :value: b'SCgf'
 
    
 
-.. data:: TYPE_TAG_MARKER
-   
+.. py:data:: TYPE_TAG_MARKER
 
    
 
-.. data:: TYPE_TAG_INDEX
-   :annotation: = 4
+.. py:data:: TYPE_TAG_INDEX
+   :value: 4
 
    
 
-.. data:: NUM_SIZE
-   :annotation: = 4
+.. py:data:: NUM_SIZE
+   :value: 4
 
    
 
-.. data:: BYTES_2_TYPE
-   
+.. py:data:: BYTES_2_TYPE
 
    
 
@@ -82,23 +78,6 @@ Content
 
    Base exception for when a datagram parsing error occurs.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -127,8 +106,9 @@ Content
 
 
 
-.. function:: _get_aligned_index(index: int) -> int
+.. py:function:: _get_aligned_index(index: int) -> int
 
+   
    Get next multiple of NUM_SIZE from index
 
 
@@ -157,9 +137,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
 
-.. function:: _parse_list(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
-
+   
    Parse a OSC List
 
    List consists of the following bytes:
@@ -199,9 +179,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: _parse_osc_bundle_element(dgram: bytes, start_index: int) -> Tuple[Union[Sequence[Any], bytes], int]
 
-.. function:: _parse_osc_bundle_element(dgram: bytes, start_index: int) -> Tuple[Union[Sequence[Any], bytes], int]
-
+   
    Parse an element from an OSC bundle.
 
    The element needs to be either an OSC bundle or a list
@@ -238,9 +218,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
 
-.. function:: _parse_bundle(dgram: bytes, start_index: int) -> Tuple[Sequence[Any], int]
-
+   
    Parsing bundle
 
 
@@ -276,9 +256,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]
 
-.. function:: parse_sclang_osc_packet(data: bytes) -> Union[bytes, Sequence[Any]]
-
+   
    Parses the OSC packet from sclang.
 
 
@@ -307,9 +287,9 @@ Content
    ..
        !! processed by numpydoc !!
 
+.. py:function:: preprocess_return(value: Sequence[Any]) -> Sequence[Any]
 
-.. function:: preprocess_return(value: Sequence[Any]) -> Sequence[Any]
-
+   
    Preprocessing function for /return values
 
 
@@ -337,7 +317,6 @@ Content
 
    ..
        !! processed by numpydoc !!
-
 
 
 

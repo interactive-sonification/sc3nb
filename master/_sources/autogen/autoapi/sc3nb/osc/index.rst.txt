@@ -5,6 +5,7 @@
 
 .. autoapi-nested-parse::
 
+   
    Module for Open Sound Control (OSC) related code.
 
 
@@ -24,7 +25,6 @@
 
    ..
        !! processed by numpydoc !!
-
 
 
 

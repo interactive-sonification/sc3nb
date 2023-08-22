@@ -1,29 +1,27 @@
-
 <!DOCTYPE html>
 
 <html class="writer-html5" lang="en">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8"/><meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Buffer — sc3nb  documentation</title>
-<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/nbsphinx-code-cells.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/jquery.js"></script>
-<script src="../../../_static/underscore.js"></script>
-<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-<script src="../../../_static/js/theme.js" type="text/javascript"></script>
+<script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../../_static/js/theme.js"></script>
 <link href="../../../genindex.html" rel="index" title="Index"/>
 <link href="../../../search.html" rel="search" title="Search"/>
 <link href="bus-examples.html" rel="next" title="Bus"/>
@@ -34,101 +32,36 @@
 <nav class="wy-nav-side" data-toggle="wy-nav-shift">
 <div class="wy-side-scroll">
 <div class="wy-side-nav-search">
-<a class="icon icon-home" href="../../../index.html"> sc3nb
-          
-
-          
+<a class="icon icon-home" href="../../../index.html">
+            sc3nb
           </a>
 <div class="version">
-                develop
+                1.1.0^0
               </div>
 <div role="search">
 <form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
-<input name="q" placeholder="Search docs" type="text"/>
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 </div>
-</div>
-<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Combined-usage">Combined usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../sclang-examples.html">Usage of sclang in sc3nb</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../sc3nb-examples.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sclang-examples.html">Usage of sclang in sc3nb</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Starting-the-Server">Starting the Server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Getting-Information">Getting Information</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Controlling-Volume">Controlling Volume</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Server-dumps">Server dumps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Make-a-test-sound">Make a test sound</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Managing-Nodes">Managing Nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Allocating-IDs">Allocating IDs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="node-examples.html">Nodes (Synth and Group)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="node-examples.html#Synth">Synth</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="node-examples.html#Group">Group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Creating-Groups">Creating Groups</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="synthdef-examples.html">SynthDef</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="server-examples.html">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="node-examples.html">Nodes (Synth and Group)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthdef-examples.html">SynthDef</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Buffer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
@@ -153,174 +86,38 @@
 <li class="toctree-l3"><a class="reference internal" href="#Free-Buffers">Free Buffers</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="bus-examples.html">Bus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="recorder-examples.html">Recorder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="bus-examples.html">Bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recorder-examples.html">Recorder</a></li>
 <li class="toctree-l2"><a class="reference internal" href="score-examples.html">Score</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../osc-communication-examples.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#Motivation:">Motivation:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../osc-communication-examples.html">OSC communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../helper-examples.html">Helper functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../timedqueue-examples.html">TimedQueue</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/index.html#function-list">Function List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/index.html#class-list">Class List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/index.html#content">Content</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.startup">startup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SC">SC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SCServer">SCServer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.ServerOptions">ServerOptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SCLang">SCLang</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Node">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Synth">Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Group">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.AddAction">AddAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.cpsmidi">cpsmidi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.clip">clip</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.dbamp">dbamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/index.html#sc3nb.ampdb">ampdb</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/osc/index.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test">How to test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#authors">Authors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#id1">Contributors</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a></li>
 </ul>
 </div>
 </div>
 </nav>
-<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
-<nav aria-label="top navigation" class="wy-nav-top">
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
 <i class="fa fa-bars" data-toggle="wy-nav-top"></i>
 <a href="../../../index.html">sc3nb</a>
 </nav>
 <div class="wy-nav-content">
 <div class="rst-content">
-<div aria-label="breadcrumbs navigation" role="navigation">
+<div aria-label="Page navigation" role="navigation">
 <ul class="wy-breadcrumbs">
-<li><a class="icon icon-home" href="../../../index.html"></a> »</li>
-<li><a href="../../../supercolliderobjects.html">SuperCollider objects</a> »</li>
-<li>Buffer</li>
+<li><a aria-label="Home" class="icon icon-home" href="../../../index.html"></a></li>
+<li class="breadcrumb-item"><a href="../../../supercolliderobjects.html">SuperCollider objects</a></li>
+<li class="breadcrumb-item active">Buffer</li>
 <li class="wy-breadcrumbs-aside">
 <a href="../../../_sources/autogen/notebooks/supercollider-objects/buffer-examples.nblink.txt" rel="nofollow"> View page source</a>
 </li>
@@ -329,284 +126,14 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-
-/* CSS overrides for sphinx_rtd_theme */
-
-/* 24px margin */
-.nbinput.nblast.container,
-.nboutput.nblast.container {
-    margin-bottom: 19px;  /* padding has already 5px */
-}
-
-/* ... except between code cells! */
-.nblast.container + .nbinput.container {
-    margin-top: -19px;
-}
-
-.admonition > p:before {
-    margin-right: 4px;  /* make room for the exclamation icon */
-}
-
-/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
-.math {
-    text-align: unset;
-}
-</style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/146be82a256db28600772e79a1404024a501d465/examples/supercollider-objects/buffer-examples.ipynb">examples/supercollider-objects/buffer-examples.ipynb</a>.</p>
+<p>This page was generated from <a class="reference external" href="https://github.com/interactive-sonification/sc3nb/blob/6ce4908bb30aa28863249d6d61906e16ae5ee8e3/examples/supercollider-objects/buffer-examples.ipynb">examples/supercollider-objects/buffer-examples.ipynb</a>.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># header / imports</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># header / imports</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -618,8 +145,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sc3nb</span> <span class="kn">import</span> <span class="n">Buffer</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sc3nb</span> <span class="kn">import</span> <span class="n">Buffer</span>
 
 <span class="n">example_file</span> <span class="o">=</span> <span class="s2">"../media/blip.wav"</span>
 </pre></div>
@@ -629,8 +155,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">startup</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -643,7 +168,7 @@ div.rendered_html tbody tr:hover {
 var element = document.currentScript.previousSibling.previousSibling;
 if (typeof Jupyter !== 'undefined') {
                         Jupyter.keyboard_manager.command_shortcuts.add_shortcut(
-                        'Ctrl-.', {
+                        'cmd-.', {
                         help : 'Free all nodes on SC server',
                         help_index : 'zz',
                         handler : function (event) {
@@ -660,33 +185,33 @@ if (typeof Jupyter !== 'undefined') {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Starting sclang process... Done.
+Starting sclang process... [sclang | start reading ]
+Done.
 Registering OSC /return callback in sclang... Done.
 Loading default sc3nb SynthDefs... Done.
-Booting SuperCollider Server... Done.
+Booting SuperCollider Server... [scsynth | start reading ]
+Done.
 </pre></div></div>
 </div>
-<div class="section" id="Buffer">
-<h1>Buffer<a class="headerlink" href="#Buffer" title="Permalink to this headline">¶</a></h1>
+<section id="Buffer">
+<h1>Buffer<a class="headerlink" href="#Buffer" title="Link to this heading"></a></h1>
 <p>Buffer is the Python class in sc3nb to interface with Buffers on the SuperCollider server.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># uncomment following line to see help for the Buffer class:</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># uncomment following line to see help for the Buffer class:</span>
 <span class="c1"># help(scn.Buffer)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="Create-Buffer-from-a-numpy.Array">
-<h2>Create Buffer from a numpy.Array<a class="headerlink" href="#Create-Buffer-from-a-numpy.Array" title="Permalink to this headline">¶</a></h2>
+<section id="Create-Buffer-from-a-numpy.Array">
+<h2>Create Buffer from a numpy.Array<a class="headerlink" href="#Create-Buffer-from-a-numpy.Array" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -694,8 +219,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf0</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf0</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span>
 <span class="n">buf0</span>
 </pre></div>
 </div>
@@ -715,18 +239,16 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.load_data<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.load_data<span class="o">?</span>
 </pre></div>
 </div>
 </div>
-<p>Attention: insertion via OSC is particularly useful for small datasets (e.g. less than 1000 entries). For larger datasets the default ‘file’ mode is much faster.</p>
+<p>Attention: insertion via OSC is particularly useful for small datasets (e.g. less than 1000 entries). For larger datasets the default ‘file’ mode is much faster.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">buf1</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'osc'</span><span class="p">)</span>
 <span class="n">buf1</span>
 </pre></div>
@@ -741,16 +263,15 @@ Booting SuperCollider Server... Done.
 &lt;Buffer(129) on ('127.0.0.1', 57110): 1 x 30000 @ 5000 Hz = 6.000s allocated using mode 'data'&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Create-Buffer-with-data-from-PyA-Asig">
-<h2>Create Buffer with data from PyA Asig<a class="headerlink" href="#Create-Buffer-with-data-from-PyA-Asig" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Create-Buffer-with-data-from-PyA-Asig">
+<h2>Create Buffer with data from PyA Asig<a class="headerlink" href="#Create-Buffer-with-data-from-PyA-Asig" title="Link to this heading"></a></h2>
 <p>This only works if using pya package: skip if you dont use pya</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">try</span><span class="p">:</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">pya</span> <span class="kn">import</span> <span class="n">Ugen</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="k">pass</span>
@@ -763,16 +284,15 @@ Booting SuperCollider Server... Done.
 </pre></div>
 </div>
 </div>
-<p>Again, default transport method is mode=‘file’, i.e. using a temporary file and fill the buffer on sc with this content. * use mode=“osc” to select the direct transfer of data via OSC messages</p>
-</div>
-<div class="section" id="Create-Buffer-of-.wav-File">
-<h2>Create Buffer of .wav File<a class="headerlink" href="#Create-Buffer-of-.wav-File" title="Permalink to this headline">¶</a></h2>
+<p>Again, default transport method is mode=’file’, i.e. using a temporary file and fill the buffer on sc with this content. * use mode=”osc” to select the direct transfer of data via OSC messages</p>
+</section>
+<section id="Create-Buffer-of-.wav-File">
+<h2>Create Buffer of .wav File<a class="headerlink" href="#Create-Buffer-of-.wav-File" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf2</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf2</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
 <span class="n">buf2</span>
 </pre></div>
 </div>
@@ -792,8 +312,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.read<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.read<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -801,8 +320,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">,</span> <span class="n">starting_frame</span><span class="o">=</span><span class="mi">18000</span><span class="p">,</span> <span class="n">num_frames</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">,</span> <span class="n">starting_frame</span><span class="o">=</span><span class="mi">18000</span><span class="p">,</span> <span class="n">num_frames</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">buf</span>
 </pre></div>
 </div>
@@ -816,15 +334,14 @@ Booting SuperCollider Server... Done.
 &lt;Buffer(131) on ('127.0.0.1', 57110): 1 x 20000 @ 44100 Hz = 0.454s allocated using mode 'file'&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Allocate-an-empty-Buffer">
-<h2>Allocate an empty Buffer<a class="headerlink" href="#Allocate-an-empty-Buffer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Allocate-an-empty-Buffer">
+<h2>Allocate an empty Buffer<a class="headerlink" href="#Allocate-an-empty-Buffer" title="Link to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf3</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mf">2.5</span><span class="o">*</span><span class="mi">44100</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">44100</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf3</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mf">2.5</span><span class="o">*</span><span class="mi">44100</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">44100</span><span class="p">)</span>
 <span class="n">buf3</span>
 </pre></div>
 </div>
@@ -838,17 +355,16 @@ Booting SuperCollider Server... Done.
 &lt;Buffer(132) on ('127.0.0.1', 57110): 1 x 110250 @ 44100 Hz = 2.500s allocated using mode 'alloc'&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Reuse-an-existing-SC-buffer">
-<h2>Reuse an existing SC buffer<a class="headerlink" href="#Reuse-an-existing-SC-buffer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Reuse-an-existing-SC-buffer">
+<h2>Reuse an existing SC buffer<a class="headerlink" href="#Reuse-an-existing-SC-buffer" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Buffer.use_existing(bufnum)</span></code> will force the Buffer to (re-)use a buffer that already exists on the server, identified via its bufnum on the scsynth.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create a Buffer in SuperCollider</span>
-<span class="o">%</span><span class="k">sc</span> <span class="nv">b</span> <span class="o">=</span> Buffer.read<span class="o">(</span>s, Platform.resourceDir +/+ <span class="s2">"sounds/a11wlk01.wav"</span><span class="o">)</span><span class="p">;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a Buffer in SuperCollider</span>
+<span class="o">%</span><span class="k">sc</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Buffer.read<span class="o">(</span>s,<span class="w"> </span>Platform.resourceDir<span class="w"> </span>+/+<span class="w"> </span><span class="s2">"sounds/a11wlk01.wav"</span><span class="o">)</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
@@ -857,15 +373,14 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
--&gt; Buffer(0, nil, nil, nil, C:\Program Files\SuperCollider-3.11.0\sounds/a11wlk01.wav)
+-&gt; Buffer(0, nil, nil, nil, /Applications/SuperCollider.app/Contents/Resources/sounds/a11wlk01.wav)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">bufnum</span> <span class="o">=</span> <span class="o">%</span><span class="k">sc</span>g b.bufnum
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bufnum</span> <span class="o">=</span> <span class="o">%</span><span class="k">sc</span>g<span class="w"> </span>b.bufnum
 <span class="n">bufnum</span>
 </pre></div>
 </div>
@@ -891,8 +406,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf4</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf4</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span>
 <span class="n">buf4</span>
 </pre></div>
 </div>
@@ -910,8 +424,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf4</span><span class="o">.</span><span class="n">use_existing</span><span class="p">(</span><span class="n">bufnum</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf4</span><span class="o">.</span><span class="n">use_existing</span><span class="p">(</span><span class="n">bufnum</span><span class="p">)</span>
 <span class="n">buf4</span> <span class="c1"># bufnum has now changed to be bufnum</span>
 </pre></div>
 </div>
@@ -929,8 +442,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf4</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf4</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -943,16 +455,15 @@ Booting SuperCollider Server... Done.
 &lt;Synth(20001) 'sc3nb_playbuf_0' s {}&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Copy-an-existing-SC-buffer">
-<h2>Copy an existing SC buffer<a class="headerlink" href="#Copy-an-existing-SC-buffer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Copy-an-existing-SC-buffer">
+<h2>Copy an existing SC buffer<a class="headerlink" href="#Copy-an-existing-SC-buffer" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">copy_existing</span></code> allows to copy an already existing buffer into another buffer.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf5</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf5</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
 <span class="n">buf6</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">copy_existing</span><span class="p">(</span><span class="n">buf5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -962,8 +473,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">server2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">SCServer</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">(</span><span class="n">udp_port</span><span class="o">=</span><span class="mi">57778</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server2</span> <span class="o">=</span> <span class="n">scn</span><span class="o">.</span><span class="n">SCServer</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">scn</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">(</span><span class="n">udp_port</span><span class="o">=</span><span class="mi">57778</span><span class="p">))</span>
 <span class="n">server2</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">kill_others</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -973,15 +483,29 @@ Booting SuperCollider Server... Done.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Booting SuperCollider Server... Done.
+Booting SuperCollider Server... [scsynth | start reading ]
+[scsynth]  Number of Devices: 2
+[scsynth]     0 : "Built-in Microph"
+[scsynth]     1 : "Built-in Output"
+[scsynth]
+[scsynth]  "Built-in Microph" Input Device
+[scsynth]     Streams: 1
+[scsynth]        0  channels 2
+[scsynth]
+[scsynth]  "Built-in Output" Output Device
+[scsynth]     Streams: 1
+[scsynth]        0  channels 2
+[scsynth]
+[scsynth]  SC_AudioDriver: sample rate = 44100.000000, driver's block size = 512
+[scsynth]  SuperCollider 3 server ready.
+Done.
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -989,8 +513,7 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">server2</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">server2</span><span class="o">.</span><span class="n">dump_osc</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -998,26 +521,32 @@ Booting SuperCollider Server... Done.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf7</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server2</span><span class="p">)</span><span class="o">.</span><span class="n">copy_existing</span><span class="p">(</span><span class="n">buf6</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf7</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server2</span><span class="p">)</span><span class="o">.</span><span class="n">copy_existing</span><span class="p">(</span><span class="n">buf6</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/b_allocReadChannel", 128, "/private/var/folders/g1/m1whjjvd7pq3yz_w9s0rj64r0000gn/T/tmp6i6my_e6", 0, -1, 0, 1 ]
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buffer.py:188: WavFileWarning: Chunk (non-data) not understood, skipping it.
-  self._path
+/Users/dreinsch/dev/soni/sc3nb/.tox/docs/lib/python3.10/site-packages/sc3nb/sc_objects/buffer.py:187: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  self._sr, data = wavfile.read(
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf5sig</span> <span class="o">=</span> <span class="n">buf5</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf5sig</span> <span class="o">=</span> <span class="n">buf5</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
 <span class="n">buf6sig</span> <span class="o">=</span> <span class="n">buf6</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
 <span class="n">buf7sig</span> <span class="o">=</span> <span class="n">buf7</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -1029,23 +558,116 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[scsynth]  [ "/b_getn", 128, 0, 1000 ]
+[scsynth]  [ "/b_getn", 128, 1000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 2000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 3000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 4000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 5000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 6000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 7000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 8000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 9000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 10000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 11000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 12000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 13000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 14000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 15000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 16000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 17000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 18000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 19000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 20000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 21000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 22000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 23000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 24000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 25000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 26000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 27000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 28000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 29000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 30000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 31000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 32000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 33000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 34000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 35000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 36000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 37000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 38000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 39000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 40000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 41000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 42000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 43000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 44000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 45000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 46000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 47000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 48000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 49000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 50000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 51000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 52000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 53000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 54000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 55000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 56000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 57000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 58000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 59000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 60000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 61000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 62000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 63000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 64000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 65000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 66000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 67000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 68000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 69000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 70000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 71000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 72000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 73000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 74000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 75000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 76000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 77000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 78000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 79000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 80000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 81000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 82000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 83000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 84000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 85000, 1000 ]
+[scsynth]  [ "/b_getn", 128, 86000, 16 ]
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_38_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_38_0.svg"/></div>
+<img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_38_1.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_38_1.svg"/></div>
 </div>
 <p>With this method, the complete buffer with all samples is copied. If you want to copy only a selection of samples, you can use <code class="docutils literal notranslate"><span class="pre">gen_copy()</span></code> (see below).</p>
-</div>
-<div class="section" id="Play-Buffer">
-<h2>Play Buffer<a class="headerlink" href="#Play-Buffer" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Play-Buffer">
+<h2>Play Buffer<a class="headerlink" href="#Play-Buffer" title="Link to this heading"></a></h2>
 <p>If you want to listen to the buffer, you can use <code class="docutils literal notranslate"><span class="pre">play</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">440</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">44100</span><span class="p">)</span><span class="o">**</span><span class="mf">0.9</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">440</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">44100</span><span class="p">)</span><span class="o">**</span><span class="mf">0.9</span><span class="p">)</span>
 <span class="n">buf8</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1054,8 +676,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">playbuf_synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">playbuf_synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
 <span class="n">playbuf_synth</span>
 </pre></div>
 </div>
@@ -1075,8 +696,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mf">0.5</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mf">0.5</span>
 </pre></div>
 </div>
 </div>
@@ -1084,8 +704,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">freed</span><span class="p">:</span> <span class="c1"># stop the playback if not done already</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">freed</span><span class="p">:</span> <span class="c1"># stop the playback if not done already</span>
     <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
     <span class="n">playbuf_synth</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 </pre></div>
@@ -1095,8 +714,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">playbuf_synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">pan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># play at given rate and pan</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">playbuf_synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">pan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># play at given rate and pan</span>
 </pre></div>
 </div>
 </div>
@@ -1104,8 +722,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># wait for synth to finish</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># wait for synth to finish</span>
 </pre></div>
 </div>
 </div>
@@ -1114,8 +731,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1138,8 +754,7 @@ c:\users\dennis\dev\soni\sc3nb\.tox\docs\lib\site-packages\sc3nb\sc_objects\buff
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf8</span><span class="o">.</span><span class="n">_synth_def</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf8</span><span class="o">.</span><span class="n">_synth_def</span>
 </pre></div>
 </div>
 </div>
@@ -1164,8 +779,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scn</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="n">playbuf_synth</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1189,8 +803,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># play looped</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span> <span class="o">=</span> <span class="n">buf8</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># play looped</span>
 </pre></div>
 </div>
 </div>
@@ -1198,8 +811,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># change controls as needed</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># change controls as needed</span>
 </pre></div>
 </div>
 </div>
@@ -1207,8 +819,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1222,16 +833,15 @@ SynthDef('sc3nb_playbuf_135',
 </pre></div></div>
 </div>
 <p>For more information regarding the Synth class, please refer to the <a class="reference internal" href="node-examples.html"><span class="doc">Node guide</span></a>.</p>
-</div>
-<div class="section" id="Write-Buffer-content-to-file">
-<h2>Write Buffer content to file<a class="headerlink" href="#Write-Buffer-content-to-file" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Write-Buffer-content-to-file">
+<h2>Write Buffer content to file<a class="headerlink" href="#Write-Buffer-content-to-file" title="Link to this heading"></a></h2>
 <p>Write the content of a buffer into a file. By default it is a .wav File with float as sample. You can change it via parameters “header” and “sample”.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf9</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf9</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1239,8 +849,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf9</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"../media/output.wav"</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf9</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"../media/output.wav"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1257,20 +866,18 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># !ls -la ../media # uncomment if your shell offers ls</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># !ls -la ../media # uncomment if your shell offers ls</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Fetch-Buffer-content-to-array">
-<h2>Fetch Buffer content to array<a class="headerlink" href="#Fetch-Buffer-content-to-array" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Fetch-Buffer-content-to-array">
+<h2>Fetch Buffer content to array<a class="headerlink" href="#Fetch-Buffer-content-to-array" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create a buffer</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a buffer</span>
 <span class="n">buf2</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1279,8 +886,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">buf2</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">buf2</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1288,8 +894,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1303,8 +908,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf2</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf2</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1317,17 +921,16 @@ SynthDef('sc3nb_playbuf_135',
 &lt;Synth(20003) 'sc3nb_playbuf_137' s {}&gt;
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Fill-Buffer-with-values">
-<h2>Fill Buffer with values<a class="headerlink" href="#Fill-Buffer-with-values" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="Fill-a-Buffer-with-zeros:">
-<h3>Fill a Buffer with zeros:<a class="headerlink" href="#Fill-a-Buffer-with-zeros:" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Fill-Buffer-with-values">
+<h2>Fill Buffer with values<a class="headerlink" href="#Fill-Buffer-with-values" title="Link to this heading"></a></h2>
+<section id="Fill-a-Buffer-with-zeros:">
+<h3>Fill a Buffer with zeros:<a class="headerlink" href="#Fill-a-Buffer-with-zeros:" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.zero<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.zero<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1335,8 +938,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">buf</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 </pre></div>
@@ -1348,15 +950,14 @@ SynthDef('sc3nb_playbuf_135',
 <div class="output_area docutils container">
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_72_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_72_0.svg"/></div>
 </div>
-</div>
-<div class="section" id="Fill-a-Buffer-range-with-values:">
-<h3>Fill a Buffer range with values:<a class="headerlink" href="#Fill-a-Buffer-range-with-values:" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Fill-a-Buffer-range-with-values:">
+<h3>Fill a Buffer range with values:<a class="headerlink" href="#Fill-a-Buffer-range-with-values:" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.fill<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.fill<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1364,8 +965,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 </pre></div>
 </div>
@@ -1381,8 +981,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">8000</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">8000</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 </pre></div>
 </div>
@@ -1393,15 +992,14 @@ SynthDef('sc3nb_playbuf_135',
 <div class="output_area docutils container">
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_77_0.svg"/></div>
 </div>
-</div>
-<div class="section" id="Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">
-<h3>Fill Buffer with sine wave harmonics of given amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes." title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">
+<h3>Fill Buffer with sine wave harmonics of given amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes." title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.gen_sine1<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.gen_sine1<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1409,8 +1007,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine1</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine1</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 </pre></div>
 </div>
@@ -1421,15 +1018,14 @@ SynthDef('sc3nb_playbuf_135',
 <div class="output_area docutils container">
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_80_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_80_0.svg"/></div>
 </div>
-</div>
-<div class="section" id="Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">
-<h3>Fill Buffer with sine wave partials using specified frequencies and amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes." title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">
+<h3>Fill Buffer with sine wave partials using specified frequencies and amplitudes.<a class="headerlink" href="#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes." title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.gen_sine2<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.gen_sine2<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1437,8 +1033,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine2</span><span class="p">([[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine2</span><span class="p">([[</span><span class="mf">3.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 </pre></div>
 </div>
@@ -1449,15 +1044,14 @@ SynthDef('sc3nb_playbuf_135',
 <div class="output_area docutils container">
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_83_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_83_0.svg"/></div>
 </div>
-</div>
-<div class="section" id="Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">
-<h3>Fill Buffer with sinus waves and given frequency, amplitude, phase<a class="headerlink" href="#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">
+<h3>Fill Buffer with sinus waves and given frequency, amplitude, phase<a class="headerlink" href="#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.gen_sine3<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.gen_sine3<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1465,8 +1059,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine3</span><span class="p">(</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine3</span><span class="p">(</span>
     <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 </pre></div>
@@ -1478,15 +1071,14 @@ SynthDef('sc3nb_playbuf_135',
 <div class="output_area docutils container">
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_86_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_86_0.svg"/></div>
 </div>
-</div>
-<div class="section" id="Fill-Buffer-with-series-of-chebyshev-polynomials:">
-<h3>Fill Buffer with series of chebyshev polynomials:<a class="headerlink" href="#Fill-Buffer-with-series-of-chebyshev-polynomials:" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Fill-Buffer-with-series-of-chebyshev-polynomials:">
+<h3>Fill Buffer with series of chebyshev polynomials:<a class="headerlink" href="#Fill-Buffer-with-series-of-chebyshev-polynomials:" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.gen_cheby<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.gen_cheby<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1495,8 +1087,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
 <span class="n">ch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="n">ch</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -1513,15 +1104,14 @@ SynthDef('sc3nb_playbuf_135',
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_90_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_90_0.svg"/></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">gen_sine1</span></code> to <code class="docutils literal notranslate"><span class="pre">gen_sine3</span></code> and <code class="docutils literal notranslate"><span class="pre">gen_cheby</span></code> have the optional parameters: * <strong>normalize</strong>: Normalize peak amplitude of wave to 1.0. * <strong>wavetable</strong>: If set, then the buffer is written in wavetable format so that it can be read by interpolating oscillators. * <strong>clear</strong>: if set then the buffer is cleared before new partials are written into it. Otherwise the new partials are summed with the existing contents of the buffer.</p>
-</div>
-<div class="section" id="Copy-data-of-another-Buffer:">
-<h3>Copy data of another Buffer:<a class="headerlink" href="#Copy-data-of-another-Buffer:" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Copy-data-of-another-Buffer:">
+<h3>Copy data of another Buffer:<a class="headerlink" href="#Copy-data-of-another-Buffer:" title="Link to this heading"></a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>scn.Buffer.gen_copy<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>scn.Buffer.gen_copy<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1529,8 +1119,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf1</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf1</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">buf1</span><span class="o">.</span><span class="n">to_array</span><span class="p">());</span>
 <span class="n">buf2</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">alloc</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">gen_sine1</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
 
@@ -1551,17 +1140,16 @@ SynthDef('sc3nb_playbuf_135',
 <img alt="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_94_0.svg" src="../../../_images/autogen_notebooks_supercollider-objects_buffer-examples_94_0.svg"/></div>
 </div>
 <p>Here we copy 100 samples of <code class="docutils literal notranslate"><span class="pre">buf2</span></code> at starting pos 1 to buf3 at position 2. Use a negative amount of samples to copy all available samples</p>
-</div>
-</div>
-<div class="section" id="Get-information-about-the-Buffer">
-<h2>Get information about the Buffer<a class="headerlink" href="#Get-information-about-the-Buffer" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="Get-information-about-the-Buffer">
+<h2>Get information about the Buffer<a class="headerlink" href="#Get-information-about-the-Buffer" title="Link to this heading"></a></h2>
 <p>Information about the buffer object:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf3</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf3</span>
 </pre></div>
 </div>
 </div>
@@ -1579,8 +1167,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>buf3.query<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>buf3.query<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1588,8 +1175,7 @@ SynthDef('sc3nb_playbuf_135',
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf3</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf3</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1602,16 +1188,15 @@ SynthDef('sc3nb_playbuf_135',
 BufferInfo(bufnum=132, num_frames=110250, num_channels=1, sample_rate=44100.0)
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Free-Buffers">
-<h2>Free Buffers<a class="headerlink" href="#Free-Buffers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Free-Buffers">
+<h2>Free Buffers<a class="headerlink" href="#Free-Buffers" title="Link to this heading"></a></h2>
 <p>start with a buffer</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span> <span class="o">=</span> <span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">example_file</span><span class="p">)</span>
 <span class="n">buf</span>
 </pre></div>
 </div>
@@ -1629,8 +1214,7 @@ BufferInfo(bufnum=132, num_frames=110250, num_channels=1, sample_rate=44100.0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>  <span class="c1"># works as intended</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>  <span class="c1"># works as intended</span>
 </pre></div>
 </div>
 </div>
@@ -1647,8 +1231,7 @@ BufferInfo(bufnum=146, num_frames=43008, num_channels=2, sample_rate=44100.0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1656,8 +1239,7 @@ BufferInfo(bufnum=146, num_frames=43008, num_channels=2, sample_rate=44100.0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">buf</span>  <span class="c1"># listed as not loaded, python Buffer instance still exists</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">buf</span>  <span class="c1"># listed as not loaded, python Buffer instance still exists</span>
 </pre></div>
 </div>
 </div>
@@ -1674,8 +1256,7 @@ BufferInfo(bufnum=146, num_frames=43008, num_channels=2, sample_rate=44100.0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">try</span><span class="p">:</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">buf</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>  <span class="c1"># raises an error after buf.free</span>
 <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
     <span class="k">pass</span>
@@ -1688,8 +1269,7 @@ BufferInfo(bufnum=146, num_frames=43008, num_channels=2, sample_rate=44100.0)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1699,36 +1279,30 @@ BufferInfo(bufnum=146, num_frames=43008, num_channels=2, sample_rate=44100.0)
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Quitting SCServer... Done.
-Exiting sclang... Done.
+Exiting sclang... [scsynth | reached EOF ]
+[sclang | reached EOF ]
+Done.
 </pre></div></div>
 </div>
+</section>
+</section>
 </div>
 </div>
-</div>
-</div>
-<footer>
-<div aria-label="footer navigation" class="rst-footer-buttons" role="navigation">
-<a accesskey="n" class="btn btn-neutral float-right" href="bus-examples.html" rel="next" title="Bus">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
+<footer><div aria-label="Footer" class="rst-footer-buttons" role="navigation">
 <a accesskey="p" class="btn btn-neutral float-left" href="synthdef-examples.html" rel="prev" title="SynthDef"><span aria-hidden="true" class="fa fa-arrow-circle-left"></span> Previous</a>
+<a accesskey="n" class="btn btn-neutral float-right" href="bus-examples.html" rel="next" title="Bus">Next <span aria-hidden="true" class="fa fa-arrow-circle-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">
-<p>
-        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
-      <span class="commit">
-        
-        Revision <code>146be82a25</code>.
-      </span>
-</p>
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>6ce4908bb3</code>.
+      </span></p>
 </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
 </div>
@@ -1738,14 +1312,14 @@ Exiting sclang... Done.
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.1.0^0
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
 </div>
 </div>
-<script type="text/javascript">
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });

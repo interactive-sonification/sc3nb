@@ -1,0 +1,171 @@
+:mod:`sc3nb.sc_objects.volume`
+==============================
+
+.. py:module:: sc3nb.sc_objects.volume
+
+.. autoapi-nested-parse::
+
+   Server Volume controls.
+
+   ..
+       !! processed by numpydoc !!
+
+
+Module Contents
+---------------
+
+ 
+
+
+
+Class List
+~~~~~~~~~~
+
+.. autoapisummary::
+   :nosignatures:
+
+   sc3nb.sc_objects.volume.Volume
+
+
+
+Content
+~~~~~~~
+
+.. py:data:: _LOGGER
+
+   
+
+.. class:: Volume(server: sc3nb.sc_objects.server.SCServer, min_: int = -90, max_: int = 6)
+
+
+   
+   Server volume controls
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+   **Overview:**
+
+   .. autoapisummary::
+      :nosignatures:
+
+         sc3nb.sc_objects.volume.Volume.mute
+         sc3nb.sc_objects.volume.Volume.unmute
+         sc3nb.sc_objects.volume.Volume.update_synth
+         sc3nb.sc_objects.volume.Volume.send_synthdef
+
+   .. py:method:: mute() -> None
+
+      
+      Mute audio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: unmute() -> None
+
+      
+      Unmute audio
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: update_synth() -> None
+
+      
+      Update volume Synth
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+   .. py:method:: send_synthdef()
+
+      
+      Send Volume SynthDef
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+
+
+

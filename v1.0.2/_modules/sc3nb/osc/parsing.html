@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>sc3nb.osc.parsing — sc3nb  documentation</title>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/css/custom.css" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+<script src="../../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<script src="../../../_static/js/theme.js"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../../../index.html">
+            sc3nb
+          </a>
+<div class="version">
+                1.0.2^0
+              </div>
+<div role="search">
+<form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-2">Version 1.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html">Usage of sclang in sc3nb</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Group">Group</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html">Buffer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/bus-examples.html">Bus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/recorder-examples.html">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/score-examples.html">Score</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html">Helper functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html">TimedQueue</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#Motivation:">Motivation:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#function-list">Function List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#class-list">Class List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#content">Content</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.startup"><code class="docutils literal notranslate"><span class="pre">startup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SC"><code class="docutils literal notranslate"><span class="pre">SC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SCServer"><code class="docutils literal notranslate"><span class="pre">SCServer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions"><code class="docutils literal notranslate"><span class="pre">ServerOptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SCLang"><code class="docutils literal notranslate"><span class="pre">SCLang</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Synth"><code class="docutils literal notranslate"><span class="pre">Synth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.AddAction"><code class="docutils literal notranslate"><span class="pre">AddAction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef"><code class="docutils literal notranslate"><span class="pre">SynthDef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Buffer"><code class="docutils literal notranslate"><span class="pre">Buffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bus"><code class="docutils literal notranslate"><span class="pre">Bus</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Score"><code class="docutils literal notranslate"><span class="pre">Score</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder"><code class="docutils literal notranslate"><span class="pre">Recorder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue"><code class="docutils literal notranslate"><span class="pre">TimedQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC"><code class="docutils literal notranslate"><span class="pre">TimedQueueSC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage"><code class="docutils literal notranslate"><span class="pre">OSCMessage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler"><code class="docutils literal notranslate"><span class="pre">Bundler</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin"><code class="docutils literal notranslate"><span class="pre">linlin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps"><code class="docutils literal notranslate"><span class="pre">midicps()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.cpsmidi"><code class="docutils literal notranslate"><span class="pre">cpsmidi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.clip"><code class="docutils literal notranslate"><span class="pre">clip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.dbamp"><code class="docutils literal notranslate"><span class="pre">dbamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.ampdb"><code class="docutils literal notranslate"><span class="pre">ampdb()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/osc/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test">How to test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#id1">Contributors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../../../index.html">sc3nb</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<div aria-label="Page navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Home" class="icon icon-home" href="../../../index.html"></a></li>
+<li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+<li class="breadcrumb-item active">sc3nb.osc.parsing</li>
+<li class="wy-breadcrumbs-aside">
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div itemprop="articleBody">
+<h1>Source code for sc3nb.osc.parsing</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Module for parsing OSC packets from sclang.</span>
+
+<span class="sd">This implements an extension of the OSC protocol.</span>
+<span class="sd">A bundle is now allowed to consist of other bundles or</span>
+<span class="sd">lists.</span>
+
+<span class="sd">This extension is needed as sclang is sending Arrays</span>
+<span class="sd">as this list or when nested as bundles with inner list</span>
+
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">pythonosc.osc_bundle</span> <span class="kn">import</span> <span class="n">OscBundle</span>
+<span class="kn">from</span> <span class="nn">pythonosc.parsing</span> <span class="kn">import</span> <span class="n">osc_types</span>
+
+<div class="viewcode-block" id="_LOGGER">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._LOGGER">[docs]</a>
+<span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="SYNTH_DEF_MARKER">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.SYNTH_DEF_MARKER">[docs]</a>
+<span class="n">SYNTH_DEF_MARKER</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">"SCgf"</span></div>
+
+<div class="viewcode-block" id="TYPE_TAG_MARKER">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.TYPE_TAG_MARKER">[docs]</a>
+<span class="n">TYPE_TAG_MARKER</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="sa">b</span><span class="s2">","</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TYPE_TAG_INDEX">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.TYPE_TAG_INDEX">[docs]</a>
+<span class="n">TYPE_TAG_INDEX</span> <span class="o">=</span> <span class="mi">4</span></div>
+
+<div class="viewcode-block" id="NUM_SIZE">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.NUM_SIZE">[docs]</a>
+<span class="n">NUM_SIZE</span> <span class="o">=</span> <span class="mi">4</span></div>
+
+<div class="viewcode-block" id="BYTES_2_TYPE">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.BYTES_2_TYPE">[docs]</a>
+<span class="n">BYTES_2_TYPE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"i"</span><span class="p">:</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_int</span><span class="p">,</span>
+    <span class="s2">"f"</span><span class="p">:</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_float</span><span class="p">,</span>
+    <span class="s2">"d"</span><span class="p">:</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_double</span><span class="p">,</span>
+    <span class="s2">"s"</span><span class="p">:</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_string</span><span class="p">,</span>
+    <span class="s2">"N"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_index</span><span class="p">),</span>
+    <span class="s2">"I"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">),</span> <span class="n">start_index</span><span class="p">),</span>
+    <span class="s2">"T"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">start_index</span><span class="p">),</span>
+    <span class="s2">"F"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_index</span><span class="p">),</span>
+<span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="ParseError">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.ParseError">[docs]</a>
+<span class="k">class</span> <span class="nc">ParseError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Base exception for when a datagram parsing error occurs."""</span></div>
+
+
+
+<div class="viewcode-block" id="_get_aligned_index">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._get_aligned_index">[docs]</a>
+<span class="k">def</span> <span class="nf">_get_aligned_index</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get next multiple of NUM_SIZE from index</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    index : int</span>
+<span class="sd">        starting index</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        next multiple of NUM_SIZE from index</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">NUM_SIZE</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">index</span> <span class="o">/</span> <span class="n">NUM_SIZE</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="_parse_list">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._parse_list">[docs]</a>
+<span class="k">def</span> <span class="nf">_parse_list</span><span class="p">(</span><span class="n">dgram</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Parse a OSC List</span>
+
+<span class="sd">    List consists of the following bytes:</span>
+<span class="sd">    4 bytes (int) : list_size</span>
+<span class="sd">    n bytes (string) : OSC type tag</span>
+<span class="sd">    n bytes (x) : content as specified by type tag</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dgram : bytes</span>
+<span class="sd">        datagram with the list</span>
+<span class="sd">    start_index : int</span>
+<span class="sd">        parsing starting index</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[Sequence[Any], int]</span>
+<span class="sd">        parsed list contents, starting index + number of consumed bytes</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ParseError</span>
+<span class="sd">        If datagram is invalid.</span>
+<span class="sd">    """</span>
+    <span class="c1"># parse list size</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"[ start parsing list: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span><span class="p">:])</span>
+    <span class="n">list_size</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+
+    <span class="c1"># parse type tag</span>
+    <span class="n">type_tag</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_string</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">type_tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">","</span><span class="p">):</span>
+        <span class="n">type_tag</span> <span class="o">=</span> <span class="n">type_tag</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"list with size </span><span class="si">%d</span><span class="s2"> and content '</span><span class="si">%s</span><span class="s2">'"</span><span class="p">,</span> <span class="n">list_size</span><span class="p">,</span> <span class="n">type_tag</span><span class="p">)</span>
+
+    <span class="c1"># parse content</span>
+    <span class="n">value_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">type_tag</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">BYTES_2_TYPE</span><span class="p">[</span><span class="n">tag</span><span class="p">](</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ParseError</span><span class="p">(</span><span class="s1">'type tag "</span><span class="si">{}</span><span class="s1">" not understood'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">tag</span><span class="p">)))</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"new value </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">value_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"resulting list </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">value_list</span><span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"] end parsing list"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value_list</span><span class="p">,</span> <span class="n">start_index</span></div>
+
+
+
+<div class="viewcode-block" id="_parse_osc_bundle_element">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._parse_osc_bundle_element">[docs]</a>
+<span class="k">def</span> <span class="nf">_parse_osc_bundle_element</span><span class="p">(</span>
+    <span class="n">dgram</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">],</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Parse an element from an OSC bundle.</span>
+
+<span class="sd">    The element needs to be either an OSC bundle or a list</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dgram : bytes</span>
+<span class="sd">        datagram with the bundle element</span>
+<span class="sd">    start_index : int</span>
+<span class="sd">        parsing starting index</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Tuple[Union[Sequence[Any], bytes], int]</span>
+<span class="sd">        parsed content of the bundle element, starting index + number of consumed bytes</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ParseError</span>
+<span class="sd">        If the datagram is invalid.</span>
+<span class="sd">    """</span>
+    <span class="n">elem_size</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_int</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="s2">"&gt;&gt; parse OSC bundle element (size: </span><span class="si">%d</span><span class="s2">): </span><span class="si">%s</span><span class="s2"> "</span><span class="p">,</span>
+        <span class="n">elem_size</span><span class="p">,</span>
+        <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span> <span class="p">:</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">elem_size</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">OscBundle</span><span class="o">.</span><span class="n">dgram_is_bundle</span><span class="p">(</span><span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span> <span class="p">:</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">elem_size</span><span class="p">]):</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"found bundle"</span><span class="p">)</span>
+        <span class="n">msgs</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">_parse_bundle</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msgs</span><span class="p">,</span> <span class="n">start_index</span>
+
+    <span class="k">if</span> <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span> <span class="o">+</span> <span class="n">TYPE_TAG_INDEX</span><span class="p">]</span> <span class="o">==</span> <span class="n">TYPE_TAG_MARKER</span><span class="p">:</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"found list"</span><span class="p">)</span>
+        <span class="n">value_list</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">_parse_list</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value_list</span><span class="p">,</span> <span class="n">start_index</span>
+
+    <span class="k">if</span> <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span> <span class="p">:</span> <span class="n">start_index</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">SYNTH_DEF_MARKER</span><span class="p">:</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"found SynthDef blob"</span><span class="p">)</span>
+        <span class="n">synth_def</span> <span class="o">=</span> <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span> <span class="p">:</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">elem_size</span><span class="p">]</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="n">start_index</span> <span class="o">+</span> <span class="n">elem_size</span>
+        <span class="k">return</span> <span class="n">synth_def</span><span class="p">,</span> <span class="n">start_index</span>
+
+    <span class="k">raise</span> <span class="n">ParseError</span><span class="p">(</span><span class="s2">"Datagram not recognized"</span><span class="p">)</span></div>
+
+
+
+<span class="n">BYTES_2_TYPE</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span> <span class="o">=</span> <span class="n">_parse_osc_bundle_element</span>
+
+
+<div class="viewcode-block" id="_parse_bundle">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing._parse_bundle">[docs]</a>
+<span class="k">def</span> <span class="nf">_parse_bundle</span><span class="p">(</span><span class="n">dgram</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Parsing bundle</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dgram : bytes</span>
+<span class="sd">        datagram with the bundle</span>
+<span class="sd">    start_index : int</span>
+<span class="sd">        parsing starting index</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[Sequence[Any], int]</span>
+<span class="sd">        parsed content, starting index + number of consumed bytes</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ParseError</span>
+<span class="sd">        If the datagram is invalid</span>
+<span class="sd">    """</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"## start parsing bundle: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span><span class="p">:])</span>
+
+    <span class="k">if</span> <span class="n">dgram</span><span class="p">[</span><span class="n">start_index</span> <span class="p">:</span> <span class="n">start_index</span> <span class="o">+</span> <span class="mi">8</span><span class="p">]</span> <span class="o">!=</span> <span class="sa">b</span><span class="s2">"#bundle</span><span class="se">\x00</span><span class="s2">"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParseError</span><span class="p">(</span><span class="s2">"Datagram of bundles should start with b'#bundle</span><span class="se">\x00</span><span class="s2">'"</span><span class="p">)</span>
+    <span class="n">start_index</span> <span class="o">+=</span> <span class="mi">8</span>
+
+    <span class="n">timetag</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">osc_types</span><span class="o">.</span><span class="n">get_timetag</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"bundle timetag: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">timetag</span><span class="p">)</span>
+
+    <span class="n">msgs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">start_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">dgram</span><span class="p">):</span>
+        <span class="n">sc_msg</span><span class="p">,</span> <span class="n">start_index</span> <span class="o">=</span> <span class="n">_parse_osc_bundle_element</span><span class="p">(</span><span class="n">dgram</span><span class="p">,</span> <span class="n">start_index</span><span class="p">)</span>
+        <span class="n">msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_msg</span><span class="p">)</span>
+
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">_get_aligned_index</span><span class="p">(</span><span class="n">start_index</span><span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"parsed bytes </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">dgram</span><span class="p">[:</span><span class="n">start_index</span><span class="p">])</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"msgs </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">msgs</span><span class="p">)</span>
+    <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"## end parsing bundle "</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">msgs</span><span class="p">,</span> <span class="n">start_index</span></div>
+
+
+
+<div class="viewcode-block" id="parse_sclang_osc_packet">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.parse_sclang_osc_packet">[docs]</a>
+<span class="k">def</span> <span class="nf">parse_sclang_osc_packet</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""Parses the OSC packet from sclang.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : bytes</span>
+<span class="sd">        bytes sent by sclang</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bytes or Sequence[Any]</span>
+<span class="sd">        unchanged bytes or content of bundles/messages</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">TYPE_TAG_INDEX</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">TYPE_TAG_INDEX</span><span class="p">]</span> <span class="o">==</span> <span class="n">TYPE_TAG_MARKER</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">_parse_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">data</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"#bundle</span><span class="se">\x00</span><span class="s2">"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">_parse_bundle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Ignoring ParseError:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">returning blob"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="preprocess_return">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/osc/parsing/index.html#sc3nb.osc.parsing.preprocess_return">[docs]</a>
+<span class="k">def</span> <span class="nf">preprocess_return</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Preprocessing function for /return values</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : tuple</span>
+<span class="sd">        return data</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    obj</span>
+<span class="sd">        data</span>
+
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">parse_sclang_osc_packet</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+</pre></div>
+</div>
+</div>
+<footer>
+<hr/>
+<div role="contentinfo">
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>c6081ae01f</code>.
+      </span></p>
+</div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span class="fa fa-book"> Read the Docs</span>
+      v: 1.0.2^0
+      <span class="fa fa-caret-down"></span>
+</span>
+<div class="rst-other-versions">
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
+</div>
+</div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+</body>
+</html>

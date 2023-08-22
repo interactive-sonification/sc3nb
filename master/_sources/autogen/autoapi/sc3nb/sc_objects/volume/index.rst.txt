@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -32,14 +31,14 @@ Class List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
 
 .. class:: Volume(server: sc3nb.sc_objects.server.SCServer, min_: int = -90, max_: int = 6)
 
 
+   
    Server volume controls
 
 
@@ -63,69 +62,19 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
       :nosignatures:
 
-         sc3nb.sc_objects.volume.Volume.muted
-         sc3nb.sc_objects.volume.Volume.volume
          sc3nb.sc_objects.volume.Volume.mute
          sc3nb.sc_objects.volume.Volume.unmute
-         sc3nb.sc_objects.volume.Volume.update_synth
-         sc3nb.sc_objects.volume.Volume.send_synthdef
+         sc3nb.sc_objects.volume.Volume.update_volume_synth
+         sc3nb.sc_objects.volume.Volume.send__volume_synthdef
 
-   .. method:: muted(self)
-      :property:
+   .. py:method:: mute() -> None
 
-      True if muted.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: volume(self)
-      :property:
-
-      Volume in dB.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: mute(self) -> None
-
+      
       Mute audio
 
 
@@ -146,9 +95,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: unmute() -> None
 
-   .. method:: unmute(self) -> None
-
+      
       Unmute audio
 
 
@@ -169,9 +118,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: update_volume_synth() -> None
 
-   .. method:: update_synth(self) -> None
-
+      
       Update volume Synth
 
 
@@ -192,9 +141,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: send__volume_synthdef()
 
-   .. method:: send_synthdef(self)
-
+      
       Send Volume SynthDef
 
 
@@ -214,7 +163,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 
