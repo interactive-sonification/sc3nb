@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -43,8 +42,7 @@ Class List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
 
@@ -55,23 +53,6 @@ Content
 
    Replies of Group Commands
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -95,8 +76,8 @@ Content
 
 
 
-   .. attribute:: QUERY_TREE_REPLY
-      :annotation: = /g_queryTree.reply
+   .. py:attribute:: QUERY_TREE_REPLY
+      :value: '/g_queryTree.reply'
 
       
 
@@ -113,23 +94,6 @@ Content
    OSC Commands for Groups
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -152,43 +116,43 @@ Content
 
 
 
-   .. attribute:: QUERY_TREE
-      :annotation: = /g_queryTree
+   .. py:attribute:: QUERY_TREE
+      :value: '/g_queryTree'
 
       
 
-   .. attribute:: DUMP_TREE
-      :annotation: = /g_dumpTree
+   .. py:attribute:: DUMP_TREE
+      :value: '/g_dumpTree'
 
       
 
-   .. attribute:: DEEP_FREE
-      :annotation: = /g_deepFree
+   .. py:attribute:: DEEP_FREE
+      :value: '/g_deepFree'
 
       
 
-   .. attribute:: FREE_ALL
-      :annotation: = /g_freeAll
+   .. py:attribute:: FREE_ALL
+      :value: '/g_freeAll'
 
       
 
-   .. attribute:: TAIL
-      :annotation: = /g_tail
+   .. py:attribute:: TAIL
+      :value: '/g_tail'
 
       
 
-   .. attribute:: HEAD
-      :annotation: = /g_head
+   .. py:attribute:: HEAD
+      :value: '/g_head'
 
       
 
-   .. attribute:: G_NEW
-      :annotation: = /g_new
+   .. py:attribute:: G_NEW
+      :value: '/g_new'
 
       
 
-   .. attribute:: P_NEW
-      :annotation: = /p_new
+   .. py:attribute:: P_NEW
+      :value: '/p_new'
 
       
 
@@ -205,23 +169,6 @@ Content
    OSC Commands for Synths
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -244,18 +191,18 @@ Content
 
 
 
-   .. attribute:: NEW
-      :annotation: = /s_new
+   .. py:attribute:: NEW
+      :value: '/s_new'
 
       
 
-   .. attribute:: S_GET
-      :annotation: = /s_get
+   .. py:attribute:: S_GET
+      :value: '/s_get'
 
       
 
-   .. attribute:: S_GETN
-      :annotation: = /s_getn
+   .. py:attribute:: S_GETN
+      :value: '/s_getn'
 
       
 
@@ -272,23 +219,6 @@ Content
    Replies of Node Commands
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -311,8 +241,8 @@ Content
 
 
 
-   .. attribute:: INFO
-      :annotation: = /n_info
+   .. py:attribute:: INFO
+      :value: '/n_info'
 
       
 
@@ -329,23 +259,6 @@ Content
    OSC Commands for Nodes
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -368,63 +281,63 @@ Content
 
 
 
-   .. attribute:: ORDER
-      :annotation: = /n_order
+   .. py:attribute:: ORDER
+      :value: '/n_order'
 
       
 
-   .. attribute:: TRACE
-      :annotation: = /n_trace
+   .. py:attribute:: TRACE
+      :value: '/n_trace'
 
       
 
-   .. attribute:: QUERY
-      :annotation: = /n_query
+   .. py:attribute:: QUERY
+      :value: '/n_query'
 
       
 
-   .. attribute:: MAP
-      :annotation: = /n_map
+   .. py:attribute:: MAP
+      :value: '/n_map'
 
       
 
-   .. attribute:: MAPN
-      :annotation: = /n_mapn
+   .. py:attribute:: MAPN
+      :value: '/n_mapn'
 
       
 
-   .. attribute:: MAPA
-      :annotation: = /n_mapa
+   .. py:attribute:: MAPA
+      :value: '/n_mapa'
 
       
 
-   .. attribute:: MAPAN
-      :annotation: = /n_mapan
+   .. py:attribute:: MAPAN
+      :value: '/n_mapan'
 
       
 
-   .. attribute:: FILL
-      :annotation: = /n_fill
+   .. py:attribute:: FILL
+      :value: '/n_fill'
 
       
 
-   .. attribute:: SET
-      :annotation: = /n_set
+   .. py:attribute:: SET
+      :value: '/n_set'
 
       
 
-   .. attribute:: SETN
-      :annotation: = /n_setn
+   .. py:attribute:: SETN
+      :value: '/n_setn'
 
       
 
-   .. attribute:: RUN
-      :annotation: = /n_run
+   .. py:attribute:: RUN
+      :value: '/n_run'
 
       
 
-   .. attribute:: FREE
-      :annotation: = /n_free
+   .. py:attribute:: FREE
+      :value: '/n_free'
 
       
 
@@ -437,6 +350,7 @@ Content
 
    **Bases:** :class:`enum.Enum`
 
+   
    AddAction of SuperCollider nodes.
 
    This Enum contains the codes for the different ways to add a node.
@@ -459,29 +373,28 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: TO_HEAD
-      :annotation: = 0
-
-      
-
-   .. attribute:: TO_TAIL
-      :annotation: = 1
+   .. py:attribute:: TO_HEAD
+      :value: 0
 
       
 
-   .. attribute:: BEFORE
-      :annotation: = 2
+   .. py:attribute:: TO_TAIL
+      :value: 1
 
       
 
-   .. attribute:: AFTER
-      :annotation: = 3
+   .. py:attribute:: BEFORE
+      :value: 2
 
       
 
-   .. attribute:: REPLACE
-      :annotation: = 4
+   .. py:attribute:: AFTER
+      :value: 3
+
+      
+
+   .. py:attribute:: REPLACE
+      :value: 4
 
       
 
@@ -494,6 +407,7 @@ Content
 
    **Bases:** :class:`NamedTuple`
 
+   
    Information about the Synth from /n_info
 
 
@@ -515,24 +429,23 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: nodeid
-      :annotation: :int
-
-      
-
-   .. attribute:: group
-      :annotation: :int
+   .. py:attribute:: nodeid
+      :type: int
 
       
 
-   .. attribute:: prev_nodeid
-      :annotation: :int
+   .. py:attribute:: group
+      :type: int
 
       
 
-   .. attribute:: next_nodeid
-      :annotation: :int
+   .. py:attribute:: prev_nodeid
+      :type: int
+
+      
+
+   .. py:attribute:: next_nodeid
+      :type: int
 
       
 
@@ -545,6 +458,7 @@ Content
 
    **Bases:** :class:`NamedTuple`
 
+   
    Information about the Group from /n_info
 
 
@@ -566,34 +480,33 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: nodeid
-      :annotation: :int
-
-      
-
-   .. attribute:: group
-      :annotation: :int
+   .. py:attribute:: nodeid
+      :type: int
 
       
 
-   .. attribute:: prev_nodeid
-      :annotation: :int
+   .. py:attribute:: group
+      :type: int
 
       
 
-   .. attribute:: next_nodeid
-      :annotation: :int
+   .. py:attribute:: prev_nodeid
+      :type: int
 
       
 
-   .. attribute:: head
-      :annotation: :int
+   .. py:attribute:: next_nodeid
+      :type: int
 
       
 
-   .. attribute:: tail
-      :annotation: :int
+   .. py:attribute:: head
+      :type: int
+
+      
+
+   .. py:attribute:: tail
+      :type: int
 
       
 
@@ -609,23 +522,6 @@ Content
 
    Representation of a Node on SuperCollider.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a new Node
 
@@ -673,13 +569,6 @@ Content
          sc3nb.sc_objects.node.Node.new
          sc3nb.sc_objects.node.Node._get_status_repr
          sc3nb.sc_objects.node.Node._set_node_attrs
-         sc3nb.sc_objects.node.Node.nodeid
-         sc3nb.sc_objects.node.Node.group
-         sc3nb.sc_objects.node.Node.server
-         sc3nb.sc_objects.node.Node.is_playing
-         sc3nb.sc_objects.node.Node.is_running
-         sc3nb.sc_objects.node.Node.freed
-         sc3nb.sc_objects.node.Node.started
          sc3nb.sc_objects.node.Node.free
          sc3nb.sc_objects.node.Node.run
          sc3nb.sc_objects.node.Node.set
@@ -700,9 +589,10 @@ Content
          sc3nb.sc_objects.node.Node.__eq__
          sc3nb.sc_objects.node.Node._get_nodeid
 
-   .. method:: new(self, *args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, return_msg: bool = False, **kwargs) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
+   .. py:method:: new(*args, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, return_msg: bool = False, **kwargs) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
       :abstractmethod:
 
+      
       Create a new Node
 
 
@@ -730,12 +620,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _get_status_repr() -> str
 
-   .. method:: _get_status_repr(self) -> str
 
+   .. py:method:: _set_node_attrs(target: Optional[Union[Node, int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
 
-   .. method:: _set_node_attrs(self, target: Optional[Union[Node, int]] = None, add_action: Optional[Union[AddAction, int]] = None) -> None
-
+      
       Derive Node group from addaction and target
 
 
@@ -763,179 +653,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free(return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: nodeid(self) -> int
-      :property:
-
-      Identifier of node.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: group(self) -> Optional[int]
-      :property:
-
-      Identifier of this nodes group.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
-      :property:
-
-      The server on which this node is located.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_playing(self) -> Optional[bool]
-      :property:
-
-      True if this node is playing. None if unkown.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: is_running(self) -> Optional[bool]
-      :property:
-
-      True if this node is running. None if unkown.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: freed(self) -> bool
-      :property:
-
-      True if free was called on this node.
-
-      This is reseted when receiving a /n_go notification
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: started(self) -> bool
-      :property:
-
-      True if new was called on this node.
-
-      This is reseted when receiving a /n_end notification
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: free(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Free the node with /n_free.
 
       This will set is_running and is_playing to false.
@@ -963,9 +683,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: run(on: bool = True, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: run(self, on: bool = True, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Turn node on or off with /n_run.
 
 
@@ -994,9 +714,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set(argument: Union[str, Dict, List], *values: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: set(self, argument: Union[str, Dict, List], *values: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Set a control value(s) of the node with n_set.
 
 
@@ -1031,15 +751,15 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _update_control(self, control: str, value: Any) -> None
-
-
-   .. method:: _update_controls(self, controls: Optional[Dict[str, Any]] = None) -> None
+   .. py:method:: _update_control(control: str, value: Any) -> None
 
 
-   .. method:: fill(self, control: Union[str, int], num_controls: int, value: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
+   .. py:method:: _update_controls(controls: Optional[Dict[str, Any]] = None) -> None
 
+
+   .. py:method:: fill(control: Union[str, int], num_controls: int, value: Any, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
+
+      
       Fill ranges of control values with n_fill.
 
 
@@ -1077,9 +797,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: map(control: Union[str, int], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: map(self, control: Union[str, int], bus: sc3nb.sc_objects.bus.Bus, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Map a node's control to read from a bus using /n_map or /n_mapa.
 
 
@@ -1114,9 +834,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: release(release_time: Optional[float] = None, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: release(self, release_time: Optional[float] = None, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Set gate as specified.
 
       https://doc.sccode.org/Classes/Node.html#-release
@@ -1151,9 +871,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query() -> Union[SynthInfo, GroupInfo]
 
-   .. method:: query(self) -> Union[SynthInfo, GroupInfo]
-
+      
       Sends an n_query message to the server.
 
       The answer is send to all clients who have registered via the /notify command.
@@ -1190,9 +910,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: trace(return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: trace(self, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Trace a node.
 
       Print out values of the inputs and outputs for one control period.
@@ -1223,9 +943,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: move(add_action: AddAction, another_node: Node, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
 
-   .. method:: move(self, add_action: AddAction, another_node: Node, return_msg: bool = False) -> Union[Node, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Move this node
 
 
@@ -1264,10 +984,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: register(self)
+   .. py:method:: register()
       :abstractmethod:
 
+      
       Register to be watched.
 
 
@@ -1288,10 +1008,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: unregister(self)
+   .. py:method:: unregister()
       :abstractmethod:
 
+      
       Unregister to stop being watched.
 
 
@@ -1312,9 +1032,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: on_free(func)
 
-   .. method:: on_free(self, func)
-
+      
       Callback that is executed when this Synth is freed
 
 
@@ -1335,9 +1055,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: wait(timeout: Optional[float] = None) -> None
 
-   .. method:: wait(self, timeout: Optional[float] = None) -> None
-
+      
       Wait until this Node is freed
 
 
@@ -1362,15 +1082,15 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _parse_info(self, nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[SynthInfo, GroupInfo]
-
-
-   .. method:: _handle_notification(self, kind: str, info) -> None
+   .. py:method:: _parse_info(nodeid: int, group: int, prev_nodeid: int, next_nodeid: int, *rest: Sequence[int]) -> Union[SynthInfo, GroupInfo]
 
 
-   .. method:: __eq__(self, other)
+   .. py:method:: _handle_notification(kind: str, info) -> None
 
+
+   .. py:method:: __eq__(other)
+
+      
       Return self==value.
 
 
@@ -1391,10 +1111,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _get_nodeid(value: Union[Node, int]) -> int
+   .. py:method:: _get_nodeid(value: Union[Node, int]) -> int
       :staticmethod:
 
+      
       Get the corresponding node id
 
 
@@ -1431,7 +1151,6 @@ Content
 
 
 
-
 .. class:: Synth(name: Optional[str] = None, controls: Dict[str, Any] = None, *, nodeid: Optional[int] = None, new: bool = True, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
@@ -1440,30 +1159,10 @@ Content
    Representation of a Synth on SuperCollider.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Create a Python representation of a SuperCollider synth.
 
 
    :Parameters:
-
-       **sc** : SC
-           sc3nb SuperCollider instance
 
        **name** : str, optional
            name of the synth to be created, by default "default"
@@ -1484,6 +1183,9 @@ Content
 
        **target** : Node or int, optional
            AddAction target, if None it will be the default group of the server
+
+       **server** : SCServer
+           sc3nb SCServer instance
 
 
 
@@ -1518,9 +1220,6 @@ Content
       :nosignatures:
 
          sc3nb.sc_objects.node.Synth._update_synth_state
-         sc3nb.sc_objects.node.Synth.synth_desc
-         sc3nb.sc_objects.node.Synth.name
-         sc3nb.sc_objects.node.Synth.current_controls
          sc3nb.sc_objects.node.Synth.new
          sc3nb.sc_objects.node.Synth.get
          sc3nb.sc_objects.node.Synth.seti
@@ -1528,83 +1227,12 @@ Content
          sc3nb.sc_objects.node.Synth.__setattr__
          sc3nb.sc_objects.node.Synth.__repr__
 
-   .. method:: _update_synth_state(self, name: Optional[str], controls: Optional[dict])
+   .. py:method:: _update_synth_state(name: Optional[str], controls: Optional[dict])
 
 
-   .. method:: synth_desc(self) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
-      :property:
+   .. py:method:: new(controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[Synth, sc3nb.osc.osc_communication.OSCMessage]
 
-      A Description of this Synths arguments
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: name(self) -> str
-      :property:
-
-      This Synths SynthDef name.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: current_controls(self) -> Dict[str, Any]
-      :property:
-
-      This Synth currently cached control arguments.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: new(self, controls: Optional[dict] = None, add_action: Optional[Union[AddAction, int]] = None, target: Optional[Union[Node, int]] = None, *, return_msg: bool = False) -> Union[Synth, sc3nb.osc.osc_communication.OSCMessage]
-
+      
       Creates the synth on the server with s_new.
 
       Attention: Here you create an identical synth! Same nodeID etc.
@@ -1627,9 +1255,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get(control: str) -> Any
 
-   .. method:: get(self, control: str) -> Any
-
+      
       Get a Synth argument
 
       This will request the value from scsynth with /s_get(n).
@@ -1655,10 +1283,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: seti(self, *args)
+   .. py:method:: seti(*args)
       :abstractmethod:
 
+      
       Set part of an arrayed control.
 
 
@@ -1679,12 +1307,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __getattr__(name)
 
-   .. method:: __getattr__(self, name)
 
+   .. py:method:: __setattr__(name, value)
 
-   .. method:: __setattr__(self, name, value)
-
+      
       Implement setattr(self, name, value).
 
 
@@ -1705,9 +1333,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -1731,7 +1359,6 @@ Content
 
 
 
-
 .. class:: Group(*, nodeid: Optional[int] = None, new: bool = True, parallel: bool = False, add_action: AddAction = AddAction.TO_HEAD, target: Optional[Union[Node, int]] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
@@ -1739,23 +1366,6 @@ Content
 
    Representation of a Group on SuperCollider.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a Python representation of a SuperCollider group.
 
@@ -1810,7 +1420,6 @@ Content
 
          sc3nb.sc_objects.node.Group._update_group_state
          sc3nb.sc_objects.node.Group.new
-         sc3nb.sc_objects.node.Group.children
          sc3nb.sc_objects.node.Group.move_node_to_head
          sc3nb.sc_objects.node.Group.move_node_to_tail
          sc3nb.sc_objects.node.Group.free_all
@@ -1820,11 +1429,12 @@ Content
          sc3nb.sc_objects.node.Group._repr_pretty_
          sc3nb.sc_objects.node.Group.__repr__
 
-   .. method:: _update_group_state(self, children: Optional[Sequence[Node]] = None) -> None
+   .. py:method:: _update_group_state(children: Optional[Sequence[Node]] = None) -> None
 
 
-   .. method:: new(self, add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[Group, sc3nb.osc.osc_communication.OSCMessage]
+   .. py:method:: new(add_action=AddAction.TO_HEAD, target=None, *, parallel=None, return_msg=False) -> Union[Group, sc3nb.osc.osc_communication.OSCMessage]
 
+      
       Creates the synth on the server with g_new / p_new.
 
       Attention: Here you create an identical group! Same nodeID etc.
@@ -1864,37 +1474,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: move_node_to_head(node, return_msg=False)
 
-   .. method:: children(self) -> Sequence[Node]
-      :property:
-
-      Return this groups children as currently known
-
-
-
-      :Returns:
-
-          Sequence[Node]
-              Sequence of child Nodes (Synths or Groups)
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: move_node_to_head(self, node, return_msg=False)
-
+      
       Move node to this groups head with g_head.
 
 
@@ -1926,9 +1508,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: move_node_to_tail(node, return_msg=False)
 
-   .. method:: move_node_to_tail(self, node, return_msg=False)
-
+      
       Move node to this groups tail with g_tail.
 
 
@@ -1960,9 +1542,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free_all(return_msg=False)
 
-   .. method:: free_all(self, return_msg=False)
-
+      
       Frees all nodes in the group with g_freeAll.
 
 
@@ -1991,9 +1573,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: deep_free(return_msg=False)
 
-   .. method:: deep_free(self, return_msg=False)
-
+      
       Free all synths in this group and its sub-groups with g_deepFree.
 
       Sub-groups are not freed.
@@ -2023,9 +1605,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: dump_tree(post_controls=True, return_msg=False)
 
-   .. method:: dump_tree(self, post_controls=True, return_msg=False)
-
+      
       Posts a representation of this group's node subtree with g_dumpTree.
 
 
@@ -2057,9 +1639,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query_tree(include_controls=False) -> Group
 
-   .. method:: query_tree(self, include_controls=False) -> Group
-
+      
       Send a g_queryTree message for this group.
 
       See https://doc.sccode.org/Reference/Server-Command-Reference.html#/g_queryTree for details.
@@ -2089,12 +1671,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _repr_pretty_(printer, cylce)
 
-   .. method:: _repr_pretty_(self, printer, cylce)
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -2118,10 +1700,10 @@ Content
 
 
 
-
 .. class:: NodeTree(info: Sequence[Any], root_nodeid: int, controls_included: bool, start: int = 0, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
+   
    Node Tree is a class for parsing /g_queryTree.reply
 
 
@@ -2145,7 +1727,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -2154,9 +1735,10 @@ Content
          sc3nb.sc_objects.node.NodeTree.parse_nodes
          sc3nb.sc_objects.node.NodeTree._repr_pretty_
 
-   .. method:: parse_nodes(info: Sequence[Any], controls_included: bool = True, start: int = 0, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> Tuple[int, Node]
+   .. py:method:: parse_nodes(info: Sequence[Any], controls_included: bool = True, start: int = 0, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> Tuple[int, Node]
       :staticmethod:
 
+      
       Parse Nodes from reply of the /g_queryTree cmd of scsynth.
       This reads the /g_queryTree.reply and creates the corresponding Nodes in Python.
       See https://doc.sccode.org/Reference/Server-Command-Reference.html#/g_queryTree
@@ -2193,8 +1775,7 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _repr_pretty_(self, printer, cylce)
+   .. py:method:: _repr_pretty_(printer, cylce)
 
 
 

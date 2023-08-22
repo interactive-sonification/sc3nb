@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -33,18 +32,17 @@ Class List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
 
-.. data:: SCLANG_DEFAULT_PORT
-   :annotation: = 57120
+.. py:data:: SCLANG_DEFAULT_PORT
+   :value: 57120
 
    
 
-.. data:: SC3NB_SCLANG_CLIENT_ID
-   :annotation: = 0
+.. py:data:: SC3NB_SCLANG_CLIENT_ID
+   :value: 0
 
    
 
@@ -52,6 +50,7 @@ Content
 
    **Bases:** :class:`NamedTuple`
 
+   
    Synth argument, rate and default value
 
 
@@ -73,19 +72,18 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: name
-      :annotation: :str
-
-      
-
-   .. attribute:: rate
-      :annotation: :str
+   .. py:attribute:: name
+      :type: str
 
       
 
-   .. attribute:: default
-      :annotation: :Any
+   .. py:attribute:: rate
+      :type: str
+
+      
+
+   .. py:attribute:: default
+      :type: Any
 
       
 
@@ -101,23 +99,6 @@ Content
 
    Exception for Errors related to SuperColliders sclang.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -151,23 +132,6 @@ Content
 
    Class to control the SuperCollider Language Interpreter (sclang).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Creates a python representation of sclang.
 
@@ -215,12 +179,11 @@ Content
          sc3nb.sclang.SCLang.read
          sc3nb.sclang.SCLang.empty
          sc3nb.sclang.SCLang.get_synth_description
-         sc3nb.sclang.SCLang.addr
-         sc3nb.sclang.SCLang.server
          sc3nb.sclang.SCLang.connect_to_server
 
-   .. method:: start(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> None
+   .. py:method:: start(sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> None
 
+      
       Start and initilize the sclang process.
 
       This will also kill sclang processes that does not have allowed parents.
@@ -259,9 +222,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: init()
 
-   .. method:: init(self)
-
+      
       Initialize sclang for sc3nb usage.
 
       This will register the /return callback in sclang and load the SynthDefs from sc3nb.
@@ -285,9 +248,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_synthdefs(synthdefs_path: Optional[str] = None) -> None
 
-   .. method:: load_synthdefs(self, synthdefs_path: Optional[str] = None) -> None
-
+      
       Load SynthDef files from path.
 
 
@@ -313,9 +276,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: kill() -> int
 
-   .. method:: kill(self) -> int
-
+      
       Kill this sclang instance.
 
 
@@ -340,12 +303,12 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __del__()
 
-   .. method:: __del__(self)
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -366,9 +329,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmd(code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any
 
-   .. method:: cmd(self, code: str, pyvars: Optional[dict] = None, verbose: bool = True, discard_output: bool = True, get_result: bool = False, print_error: bool = True, get_output: bool = False, timeout: int = 1) -> Any
-
+      
       Send code to sclang to execute it.
 
       This also allows to get the result of the code or the corresponding output.
@@ -441,9 +404,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmdv(code: str, **kwargs) -> Any
 
-   .. method:: cmdv(self, code: str, **kwargs) -> Any
-
+      
       cmd with verbose=True
 
 
@@ -464,9 +427,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmds(code: str, **kwargs) -> Any
 
-   .. method:: cmds(self, code: str, **kwargs) -> Any
-
+      
       cmd with verbose=False, i.e. silent
 
 
@@ -487,9 +450,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: cmdg(code: str, **kwargs) -> Any
 
-   .. method:: cmdg(self, code: str, **kwargs) -> Any
-
+      
       cmd with get_result=True
 
 
@@ -510,9 +473,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: read(expect: Optional[str] = None, timeout: float = 1, print_error: bool = True) -> str
 
-   .. method:: read(self, expect: Optional[str] = None, timeout: float = 1, print_error: bool = True) -> str
-
+      
       Reads SuperCollider output from the process output queue.
 
 
@@ -551,9 +514,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: empty() -> None
 
-   .. method:: empty(self) -> None
-
+      
       Empties sc output queue.
 
 
@@ -574,9 +537,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get_synth_description(synth_def)
 
-   .. method:: get_synth_description(self, synth_def)
-
+      
       Get a SynthDesc like description via sclang's global SynthDescLib.
 
 
@@ -596,7 +559,7 @@ Content
       :Raises:
 
           ValueError
-              When synthDesc of synthDef can not be found.
+              When SynthDesc of synth_def can not be found.
 
 
 
@@ -609,57 +572,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: connect_to_server(server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
-   .. method:: addr(self) -> Tuple[str, int]
-      :property:
-
-      The address of this sclang
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: server(self) -> Optional[sc3nb.sc_objects.server.SCServer]
-      :property:
-
-      The SuperCollider server connected to this sclang instance.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: connect_to_server(self, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
-
+      
       Connect this sclang instance to the SuperCollider server.
 
       This will set Server.default and s to the provided remote server.
@@ -691,7 +606,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

@@ -12,7 +12,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -42,13 +41,13 @@ Class List
 Content
 ~~~~~~~
 
-.. data:: _LOGGER
-   
+.. py:data:: _LOGGER
 
    
 
-.. function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
+.. py:function:: startup(start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, magic: bool = True, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = False, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 10) -> SC
 
+   
    Inits SuperCollider (scsynth, sclang) and registers ipython magics
 
 
@@ -76,7 +75,7 @@ Content
            make a sound when booted, by default True
 
        **console_logging** : bool, optional
-           If True write scsynth/sclang output to console, by default True
+           If True write scsynth/sclang output to console, by default False
 
        **allowed_parents** : Sequence[str], optional
            Names of parents that are allowed for other instances of
@@ -105,10 +104,10 @@ Content
    ..
        !! processed by numpydoc !!
 
-
 .. class:: SC(*, start_server: bool = True, scsynth_path: Optional[str] = None, start_sclang: bool = True, sclang_path: Optional[str] = None, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, with_blip: bool = True, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
 
+   
    Create a SuperCollider Wrapper object.
 
 
@@ -159,10 +158,10 @@ Content
        !! processed by numpydoc !!
 
 
+   .. py:attribute:: default
+      :type: Optional[SC]
 
-   .. attribute:: default
-      :annotation: :Optional[SC]
-
+      
       Default SC instance.
 
       This will be used by all SuperCollider objects if no SC/server/lang is specified.
@@ -186,7 +185,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -196,16 +194,14 @@ Content
          sc3nb.sc.SC.start_sclang
          sc3nb.sc.SC.start_server
          sc3nb.sc.SC._try_to_connect
-         sc3nb.sc.SC.server
-         sc3nb.sc.SC.lang
-         sc3nb.sc.SC.console_logging
          sc3nb.sc.SC.__del__
          sc3nb.sc.SC.__repr__
          sc3nb.sc.SC.exit
 
-   .. method:: get_default(cls) -> SC
+   .. py:method:: get_default() -> SC
       :classmethod:
 
+      
       Get the default SC instance
 
 
@@ -234,9 +230,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: start_sclang(sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
-   .. method:: start_sclang(self, sclang_path: Optional[str] = None, console_logging: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
-
+      
       Start this SuperCollider language
 
 
@@ -271,9 +267,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: start_server(scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
 
-   .. method:: start_server(self, scsynth_options: Optional[sc3nb.sc_objects.server.ServerOptions] = None, scsynth_path: Optional[str] = None, console_logging: bool = True, with_blip: bool = True, allowed_parents: Sequence[str] = ALLOWED_PARENTS, timeout: float = 5)
-
+      
       Start this SuperCollider server
 
 
@@ -314,87 +310,15 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: _try_to_connect(self)
-
-
-   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
-      :property:
-
-      This SuperCollider server object
+   .. py:method:: _try_to_connect()
 
 
+   .. py:method:: __del__()
 
 
+   .. py:method:: __repr__() -> str
 
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: lang(self) -> sc3nb.sclang.SCLang
-      :property:
-
-      This SuperCollider language object
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: console_logging(self)
-      :property:
-
-      True if console logging enabled
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: __del__(self)
-
-
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -415,9 +339,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: exit() -> None
 
-   .. method:: exit(self) -> None
-
+      
       Closes SuperCollider and shuts down server
 
 
@@ -437,7 +361,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

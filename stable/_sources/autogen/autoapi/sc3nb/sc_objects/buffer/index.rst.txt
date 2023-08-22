@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -44,23 +43,6 @@ Content
    Buffer Command Replies
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -83,8 +65,8 @@ Content
 
 
 
-   .. attribute:: INFO
-      :annotation: = /b_info
+   .. py:attribute:: INFO
+      :value: '/b_info'
 
       
 
@@ -101,23 +83,6 @@ Content
    Buffer OSC Commands for Buffers
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -140,83 +105,83 @@ Content
 
 
 
-   .. attribute:: ALLOC
-      :annotation: = /b_alloc
+   .. py:attribute:: ALLOC
+      :value: '/b_alloc'
 
       
 
-   .. attribute:: ALLOC_READ
-      :annotation: = /b_allocRead
+   .. py:attribute:: ALLOC_READ
+      :value: '/b_allocRead'
 
       
 
-   .. attribute:: ALLOC_READ_CHANNEL
-      :annotation: = /b_allocReadChannel
+   .. py:attribute:: ALLOC_READ_CHANNEL
+      :value: '/b_allocReadChannel'
 
       
 
-   .. attribute:: READ
-      :annotation: = /b_read
+   .. py:attribute:: READ
+      :value: '/b_read'
 
       
 
-   .. attribute:: READ_CHANNEL
-      :annotation: = /b_readChannel
+   .. py:attribute:: READ_CHANNEL
+      :value: '/b_readChannel'
 
       
 
-   .. attribute:: WRITE
-      :annotation: = /b_write
+   .. py:attribute:: WRITE
+      :value: '/b_write'
 
       
 
-   .. attribute:: FREE
-      :annotation: = /b_free
+   .. py:attribute:: FREE
+      :value: '/b_free'
 
       
 
-   .. attribute:: ZERO
-      :annotation: = /b_zero
+   .. py:attribute:: ZERO
+      :value: '/b_zero'
 
       
 
-   .. attribute:: SET
-      :annotation: = /b_set
+   .. py:attribute:: SET
+      :value: '/b_set'
 
       
 
-   .. attribute:: SETN
-      :annotation: = /b_setn
+   .. py:attribute:: SETN
+      :value: '/b_setn'
 
       
 
-   .. attribute:: FILL
-      :annotation: = /b_fill
+   .. py:attribute:: FILL
+      :value: '/b_fill'
 
       
 
-   .. attribute:: GEN
-      :annotation: = /b_gen
+   .. py:attribute:: GEN
+      :value: '/b_gen'
 
       
 
-   .. attribute:: CLOSE
-      :annotation: = /b_close
+   .. py:attribute:: CLOSE
+      :value: '/b_close'
 
       
 
-   .. attribute:: QUERY
-      :annotation: = /b_query
+   .. py:attribute:: QUERY
+      :value: '/b_query'
 
       
 
-   .. attribute:: GET
-      :annotation: = /b_get
+   .. py:attribute:: GET
+      :value: '/b_get'
 
       
 
-   .. attribute:: GETN
-      :annotation: = /b_getn
+   .. py:attribute:: GETN
+      :value: '/b_getn'
 
       
 
@@ -233,23 +198,6 @@ Content
    Buffer Allocation Modes
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -272,33 +220,33 @@ Content
 
 
 
-   .. attribute:: FILE
-      :annotation: = file
+   .. py:attribute:: FILE
+      :value: 'file'
 
       
 
-   .. attribute:: ALLOC
-      :annotation: = alloc
+   .. py:attribute:: ALLOC
+      :value: 'alloc'
 
       
 
-   .. attribute:: DATA
-      :annotation: = data
+   .. py:attribute:: DATA
+      :value: 'data'
 
       
 
-   .. attribute:: EXISTING
-      :annotation: = existing
+   .. py:attribute:: EXISTING
+      :value: 'existing'
 
       
 
-   .. attribute:: COPY
-      :annotation: = copy
+   .. py:attribute:: COPY
+      :value: 'copy'
 
       
 
-   .. attribute:: NONE
-      :annotation: = none
+   .. py:attribute:: NONE
+      :value: 'none'
 
       
 
@@ -311,6 +259,7 @@ Content
 
    **Bases:** :class:`NamedTuple`
 
+   
    Information about the Buffer
 
 
@@ -332,24 +281,23 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: bufnum
-      :annotation: :int
-
-      
-
-   .. attribute:: num_frames
-      :annotation: :int
+   .. py:attribute:: bufnum
+      :type: int
 
       
 
-   .. attribute:: num_channels
-      :annotation: :int
+   .. py:attribute:: num_frames
+      :type: int
 
       
 
-   .. attribute:: sample_rate
-      :annotation: :float
+   .. py:attribute:: num_channels
+      :type: int
+
+      
+
+   .. py:attribute:: sample_rate
+      :type: float
 
       
 
@@ -361,6 +309,7 @@ Content
 .. class:: Buffer(bufnum: Optional[int] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
 
 
+   
    A Buffer object represents a SuperCollider3 Buffer on scsynth
    and provides access to low-level buffer commands of scsynth via
    methods of the Buffer objects.
@@ -398,7 +347,7 @@ Content
 
    (see examples/buffer-examples.ipynb)
 
-   >>> b = Buffer().load_file(...)
+   >>> b = Buffer().read(...)
    >>> b = Buffer().load_data(...)
    >>> b = Buffer().alloc(...)
    >>> b = Buffer().load_asig(...)
@@ -440,7 +389,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -468,19 +416,11 @@ Content
          sc3nb.sc_objects.buffer.Buffer.query
          sc3nb.sc_objects.buffer.Buffer.__repr__
          sc3nb.sc_objects.buffer.Buffer.free
-         sc3nb.sc_objects.buffer.Buffer.bufnum
-         sc3nb.sc_objects.buffer.Buffer.allocated
-         sc3nb.sc_objects.buffer.Buffer.alloc_mode
-         sc3nb.sc_objects.buffer.Buffer.path
-         sc3nb.sc_objects.buffer.Buffer.channels
-         sc3nb.sc_objects.buffer.Buffer.samples
-         sc3nb.sc_objects.buffer.Buffer.sr
-         sc3nb.sc_objects.buffer.Buffer.duration
-         sc3nb.sc_objects.buffer.Buffer.server
          sc3nb.sc_objects.buffer.Buffer._gen_flags
 
-   .. method:: read(self, path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> Buffer
+   .. py:method:: read(path: str, starting_frame: int = 0, num_frames: int = -1, channels: Optional[Union[int, Sequence[int]]] = None) -> Buffer
 
+      
       Allocate buffer memory and read a sound file.
 
       If the number of frames argument num_frames is negative or zero,
@@ -525,9 +465,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: alloc(size: int, sr: int = 44100, channels: int = 1) -> Buffer
 
-   .. method:: alloc(self, size: int, sr: int = 44100, channels: int = 1) -> Buffer
-
+      
       Allocate buffer memory.
 
 
@@ -566,9 +506,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_data(data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> Buffer
 
-   .. method:: load_data(self, data: numpy.ndarray, sr: int = 44100, mode: str = 'file', sync: bool = True) -> Buffer
-
+      
       Allocate buffer memory and read input data.
 
 
@@ -611,9 +551,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_collection(data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> Buffer
 
-   .. method:: load_collection(self, data: numpy.ndarray, mode: str = 'file', sr: int = 44100) -> Buffer
-
+      
       Wrapper method of :func:`Buffer.load_data`
 
 
@@ -634,9 +574,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: load_asig(asig: pya.Asig, mode: str = 'file') -> Buffer
 
-   .. method:: load_asig(self, asig: pya.Asig, mode: str = 'file') -> Buffer
-
+      
       Create buffer from asig
 
 
@@ -672,9 +612,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: use_existing(bufnum: int, sr: int = 44100) -> Buffer
 
-   .. method:: use_existing(self, bufnum: int, sr: int = 44100) -> Buffer
-
+      
       Creates a buffer object from already existing Buffer bufnum.
 
 
@@ -710,9 +650,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: copy_existing(buffer: Buffer) -> Buffer
 
-   .. method:: copy_existing(self, buffer: Buffer) -> Buffer
-
+      
       Duplicate an existing buffer
 
 
@@ -745,9 +685,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: fill(start: int = 0, count: int = 0, value: float = 0) -> Buffer
 
-   .. method:: fill(self, start: int = 0, count: int = 0, value: float = 0) -> Buffer
-
+      
       Fill range of samples with value(s).
 
 
@@ -787,9 +727,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen(command: str, args: List[Any]) -> Buffer
 
-   .. method:: gen(self, command: str, args: List[Any]) -> Buffer
-
+      
       Call a command to fill a buffer.
       If you know, what you do -> you can use this method.
 
@@ -831,9 +771,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: zero() -> Buffer
 
-   .. method:: zero(self) -> Buffer
-
+      
       Set buffer data to zero.
 
 
@@ -862,9 +802,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_sine1(amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_sine1(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fill the buffer with sine waves & given amplitude
 
 
@@ -911,9 +851,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_sine2(freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_sine2(self, freq_amps: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fill the buffer with sine waves
       given list of [frequency, amplitude] lists
 
@@ -961,9 +901,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_sine3(freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_sine3(self, freqs_amps_phases: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fill the buffer with sine waves & given a list of
       [frequency, amplitude, phase] entries.
 
@@ -1010,9 +950,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_cheby(amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
 
-   .. method:: gen_cheby(self, amplitudes: List[float], normalize: bool = False, wavetable: bool = False, clear: bool = False) -> Buffer
-
+      
       Fills a buffer with a series of chebyshev polynomials, which can be
       defined as cheby(n) = amplitude * cos(n * acos(x))
 
@@ -1060,9 +1000,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: gen_copy(source: Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> Buffer
 
-   .. method:: gen_copy(self, source: Buffer, source_pos: int, dest_pos: int, copy_amount: int) -> Buffer
-
+      
       Copy samples from the source buffer to the destination buffer
       specified in the b_gen command.
 
@@ -1107,9 +1047,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: play(rate: float = 1, loop: bool = False, pan: float = 0, amp: float = 0.3) -> sc3nb.sc_objects.node.Synth
 
-   .. method:: play(self, rate: float = 1, loop: bool = False, pan: float = 0, amp: float = 0.3) -> sc3nb.sc_objects.node.Synth
-
+      
       Play the Buffer using a Synth
 
 
@@ -1151,9 +1091,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: write(path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> Buffer
 
-   .. method:: write(self, path: str, header: str = 'wav', sample: str = 'float', num_frames: int = -1, starting_frame: int = 0, leave_open: bool = False) -> Buffer
-
+      
       Write buffer data to a sound file
 
 
@@ -1208,9 +1148,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: close() -> Buffer
 
-   .. method:: close(self) -> Buffer
-
+      
       Close soundfile after using a Buffer with DiskOut
 
 
@@ -1239,9 +1179,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: to_array() -> numpy.ndarray
 
-   .. method:: to_array(self) -> numpy.ndarray
-
+      
       Return the buffer data as an array representation.
 
 
@@ -1270,9 +1210,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: query() -> BufferInfo
 
-   .. method:: query(self) -> BufferInfo
-
+      
       Get buffer info.
 
 
@@ -1301,9 +1241,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -1324,9 +1264,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free() -> None
 
-   .. method:: free(self) -> None
-
+      
       Free buffer data.
 
 
@@ -1351,265 +1291,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: _gen_flags(a_normalize=False, a_wavetable=False, a_clear=False) -> int
 
-   .. method:: bufnum(self) -> Optional[int]
-      :property:
-
-      Buffer number which serves as ID in SuperCollider
-
-
-
-      :Returns:
-
-          int
-              bufnum
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: allocated(self) -> bool
-      :property:
-
-      Whether this Buffer is allocated by
-      any of the initialization methods.
-
-
-
-      :Returns:
-
-          bool
-              True if allocated
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: alloc_mode(self) -> BufferAllocationMode
-      :property:
-
-      Mode of Buffer allocation.
-
-      One of ['file', 'alloc', 'data', 'existing', 'copy']
-      according to previously used generator.
-      Defaults to None if not allocated.
-
-
-      :Returns:
-
-          str
-              allocation mode
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: path(self) -> Optional[pathlib.Path]
-      :property:
-
-      File path that was provided to read.
-
-
-
-      :Returns:
-
-          pathlib.Path
-              buffer file path
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: channels(self) -> Optional[int]
-      :property:
-
-      Number of channels in the Buffer.
-
-
-
-      :Returns:
-
-          int
-              channel number
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: samples(self) -> Optional[int]
-      :property:
-
-      Number of samples in the buffer.
-
-
-
-      :Returns:
-
-          int
-              sample number
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: sr(self) -> Optional[int]
-      :property:
-
-      Sampling rate of the Buffer.
-
-
-
-      :Returns:
-
-          int
-              sampling rate
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: duration(self) -> Optional[float]
-      :property:
-
-      Duration of the Buffer in seconds.
-
-
-
-      :Returns:
-
-          float
-              duration in seconds
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: server(self) -> sc3nb.sc_objects.server.SCServer
-      :property:
-
-      The server where this Buffer is placed.
-
-
-
-      :Returns:
-
-          SCServer
-              The server where this Buffer is placed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-   .. method:: _gen_flags(self, a_normalize=False, a_wavetable=False, a_clear=False) -> int
-
+      
       Generate Wave Fill Commands flags from booleans
       according to the SuperCollider Server Command Reference.
 
@@ -1648,7 +1332,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

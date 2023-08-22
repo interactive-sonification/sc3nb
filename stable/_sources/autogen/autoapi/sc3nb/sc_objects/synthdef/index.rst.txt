@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -41,23 +40,6 @@ Content
    OSC Commands for Synth Definitions
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -80,23 +62,23 @@ Content
 
 
 
-   .. attribute:: RECV
-      :annotation: = /d_recv
+   .. py:attribute:: RECV
+      :value: '/d_recv'
 
       
 
-   .. attribute:: LOAD
-      :annotation: = /d_load
+   .. py:attribute:: LOAD
+      :value: '/d_load'
 
       
 
-   .. attribute:: LOAD_DIR
-      :annotation: = /d_loadDir
+   .. py:attribute:: LOAD_DIR
+      :value: '/d_loadDir'
 
       
 
-   .. attribute:: FREE
-      :annotation: = /d_free
+   .. py:attribute:: FREE
+      :value: '/d_free'
 
       
 
@@ -110,23 +92,6 @@ Content
 
    Wrapper for SuperCollider SynthDef
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create a dynamic synth definition in sc.
 
@@ -165,8 +130,11 @@ Content
 
 
 
-   .. attribute:: synth_descs
+   .. py:attribute:: synth_descs
+
       
+
+   .. py:attribute:: synth_defs
 
       
 
@@ -189,9 +157,10 @@ Content
          sc3nb.sc_objects.synthdef.SynthDef.free
          sc3nb.sc_objects.synthdef.SynthDef.__repr__
 
-   .. method:: get_description(cls, name: str) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
+   .. py:method:: get_description(name: str, lang: Optional[sc3nb.sclang.SCLang] = None) -> Optional[Dict[str, sc3nb.sclang.SynthArgument]]
       :classmethod:
 
+      
       Get Synth description
 
 
@@ -220,10 +189,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: send(cls, synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+   .. py:method:: send(synthdef_bytes: bytes, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
+      
       Send a SynthDef as bytes.
 
 
@@ -255,10 +224,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: load(cls, synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+   .. py:method:: load(synthdef_path: str, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
+      
       Load SynthDef file at path.
 
 
@@ -287,10 +256,10 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: load_dir(cls, synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
+   .. py:method:: load_dir(synthdef_dir: Optional[str] = None, completion_msg: Optional[bytes] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None)
       :classmethod:
 
+      
       Load all SynthDefs from directory.
 
 
@@ -322,9 +291,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: reset() -> SynthDef
 
-   .. method:: reset(self) -> SynthDef
-
+      
       Reset the current synthdef configuration to the self.definition value.
 
       After this you can restart your
@@ -351,9 +320,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set_context(searchpattern: str, value) -> SynthDef
 
-   .. method:: set_context(self, searchpattern: str, value) -> SynthDef
-
+      
       Set context in SynthDef.
 
       This method will replace a given key (format: "...{{key}}...") in the
@@ -387,9 +356,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: set_contexts(dictionary: Dict[str, Any]) -> SynthDef
 
-   .. method:: set_contexts(self, dictionary: Dict[str, Any]) -> SynthDef
-
+      
       Set multiple values at onces when you give a dictionary.
 
       Because dictionaries are unsorted, keep in mind, that
@@ -420,9 +389,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: unset_remaining() -> SynthDef
 
-   .. method:: unset_remaining(self) -> SynthDef
-
+      
       This method will remove all existing placeholders in the current def.
 
       You can use this at the end of definition
@@ -450,9 +419,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: add(pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
 
-   .. method:: add(self, pyvars=None, name: Optional[str] = None, server: Optional[sc3nb.sc_objects.server.SCServer] = None) -> str
-
+      
       This method will add the current_def to SuperCollider.s
 
       If a synth with the same definition was already in sc, this method
@@ -490,9 +459,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: free() -> SynthDef
 
-   .. method:: free(self) -> SynthDef
-
+      
       Free this SynthDef from the server.
 
 
@@ -517,9 +486,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__()
 
-   .. method:: __repr__(self)
-
+      
       Return repr(self).
 
 
@@ -539,7 +508,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 

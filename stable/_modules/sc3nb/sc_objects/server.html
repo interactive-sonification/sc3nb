@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html class="writer-html5" lang="en">
@@ -6,8 +5,6 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>sc3nb.sc_objects.server — sc3nb  documentation</title>
-<link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
-<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/graphviz.css" rel="stylesheet" type="text/css"/>
@@ -15,13 +12,13 @@
 <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
-<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-<script src="../../../_static/jquery.js"></script>
-<script src="../../../_static/underscore.js"></script>
-<script src="../../../_static/doctools.js"></script>
+<script src="../../../_static/jquery.js?v=5d32c60e"></script>
+<script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+<script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+<script src="../../../_static/doctools.js?v=888ff710"></script>
+<script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-<script src="../../../_static/js/theme.js" type="text/javascript"></script>
+<script src="../../../_static/js/theme.js"></script>
 <link href="../../../genindex.html" rel="index" title="Index"/>
 <link href="../../../search.html" rel="search" title="Search"/>
 </head>
@@ -30,293 +27,60 @@
 <nav class="wy-nav-side" data-toggle="wy-nav-shift">
 <div class="wy-side-scroll">
 <div class="wy-side-nav-search">
-<a class="icon icon-home" href="../../../index.html"> sc3nb
-          
-
-          
+<a class="icon icon-home" href="../../../index.html">
+            sc3nb
           </a>
 <div class="version">
-                develop
+                1.1.0^0
               </div>
 <div role="search">
 <form action="../../../search.html" class="wy-form" id="rtd-search-form" method="get">
-<input name="q" placeholder="Search docs" type="text"/>
+<input aria-label="Search docs" name="q" placeholder="Search docs" type="text"/>
 <input name="check_keywords" type="hidden" value="yes"/>
 <input name="area" type="hidden" value="default"/>
 </form>
 </div>
-</div>
-<div aria-label="main navigation" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+</div><div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
 <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../README.html#examples">Examples</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../README.html">README &amp; Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">How does this work?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../support.html">Support, Caveats and Problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../resources.html">Useful Resources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#version-1-0-1">Version 1.0.1</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Starting-sc3nb">Starting sc3nb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Basic-examples">Basic examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-Python-implementations-to-control-the-SuperCollider-audio-server">Use Python implementations to control the SuperCollider audio server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-OSC-to-control-the-SuperCollider-audio-server">Use OSC to control the SuperCollider audio server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Use-the-SuperCollider-Language-from-Python">Use the SuperCollider Language from Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Stoping-the-synthesis">Stoping the synthesis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Combined-usage">Combined usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Exiting-sc3nb">Exiting sc3nb</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html#Further-information-and-advanced-examples">Further information and advanced examples</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html">Usage of sclang in sc3nb</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#sclang-command-execution">sclang command execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#sclang-command-execution-with-python-variable-injection">sclang command execution with python variable injection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Getting-sclang-output-in-python">Getting sclang output in python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html#Some-more-usage-examples">Some more usage examples</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html">Server</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Starting-the-Server">Starting the Server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Configuring-Server-options">Configuring Server options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Getting-Information">Getting Information</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Controlling-Volume">Controlling Volume</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Server-dumps">Server dumps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Make-a-test-sound">Make a test sound</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Managing-Nodes">Managing Nodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Allocating-IDs">Allocating IDs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/server-examples.html#Handling-SynthDefs">Handling SynthDefs</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html">Nodes (Synth and Group)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Synth">Synth</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Create-and-control-a-Synth">Create and control a Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Set-/-get-Synth-parameters">Set / get Synth parameters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Group">Group</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Creating-Groups">Creating Groups</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Order-of-Nodes">Order of Nodes</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/node-examples.html#Example-of-Ordering-Nodes">Example of Ordering Nodes</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html">SynthDef</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation">SynthDef creation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Loading-SynthDefs">Loading SynthDefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#SynthDef-creation-with-context">SynthDef creation with context</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Example-creation-of-many-SynthDefs">Example creation of many SynthDefs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Use-case:-DynKlank-Synths-with-controllable-nr.-of-filters">Use-case: DynKlank Synths with controllable nr. of filters</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/synthdef-examples.html#Getting-a-SynthDesc">Getting a SynthDesc</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html">Buffer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-from-a-numpy.Array">Create Buffer from a numpy.Array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-with-data-from-PyA-Asig">Create Buffer with data from PyA Asig</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Create-Buffer-of-.wav-File">Create Buffer of .wav File</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Allocate-an-empty-Buffer">Allocate an empty Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Reuse-an-existing-SC-buffer">Reuse an existing SC buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-an-existing-SC-buffer">Copy an existing SC buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Play-Buffer">Play Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Write-Buffer-content-to-file">Write Buffer content to file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fetch-Buffer-content-to-array">Fetch Buffer content to array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-values">Fill Buffer with values</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-with-zeros:">Fill a Buffer with zeros:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-a-Buffer-range-with-values:">Fill a Buffer range with values:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-harmonics-of-given-amplitudes.">Fill Buffer with sine wave harmonics of given amplitudes.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sine-wave-partials-using-specified-frequencies-and-amplitudes.">Fill Buffer with sine wave partials using specified frequencies and amplitudes.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-sinus-waves-and-given-frequency,-amplitude,-phase">Fill Buffer with sinus waves and given frequency, amplitude, phase</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Fill-Buffer-with-series-of-chebyshev-polynomials:">Fill Buffer with series of chebyshev polynomials:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Copy-data-of-another-Buffer:">Copy data of another Buffer:</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Get-information-about-the-Buffer">Get information about the Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/buffer-examples.html#Free-Buffers">Free Buffers</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/bus-examples.html">Bus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/bus-examples.html#Using-a-Control-Bus">Using a Control Bus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/bus-examples.html#Use-multiple-Control-Buses">Use multiple Control Buses</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/recorder-examples.html">Recorder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/recorder-examples.html#Recording-sound-into-a-file">Recording sound into a file</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/supercollider-objects/score-examples.html">Score</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html">OSC communication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Sending-OSC">Sending OSC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Messages">Messages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Bundles">Bundles</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Bundler-Timestamp">Bundler Timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Nesting-Bundlers">Nesting Bundlers</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Managing-IDs">Managing IDs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Automatic-Bundling">Automatic Bundling</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Receiving-OSC-packets">Receiving OSC packets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Getting-replies">Getting replies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Custom-Message-Queues">Custom Message Queues</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Examples">Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html#Creating-an-OSC-responder-and-msg-to-sclang-for-synthesis">Creating an OSC responder and msg to sclang for synthesis</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html">Helper functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#linlin(x,-x1,-x2,-y1,-y2,-clip)"><code class="docutils literal notranslate"><span class="pre">linlin(x,</span> <span class="pre">x1,</span> <span class="pre">x2,</span> <span class="pre">y1,</span> <span class="pre">y2,</span> <span class="pre">clip)</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#midicps-and-cpsmidi"><code class="docutils literal notranslate"><span class="pre">midicps</span></code> and <code class="docutils literal notranslate"><span class="pre">cpsmidi</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#clip(value,-minimim,-maximum)"><code class="docutils literal notranslate"><span class="pre">clip(value,</span> <span class="pre">minimim,</span> <span class="pre">maximum)</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html#ampdb-and-dbamp"><code class="docutils literal notranslate"><span class="pre">ampdb</span></code> and <code class="docutils literal notranslate"><span class="pre">dbamp</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html">TimedQueue</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#Motivation:">Motivation:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#Basic-Demo-of-TimedQueue">Basic Demo of TimedQueue</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-example-with-synchronized-sound-and-mpl-plot">TimedQueueSC example with synchronized sound and mpl plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-matplotlib-highlights">TimedQueueSC PMSon with matplotlib highlights</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html#TimedQueueSC-PMSon-with-timeseries-data-and-matplotlib">TimedQueueSC PMSon with timeseries data and matplotlib</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sc3nb-examples.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/sclang-examples.html">Usage of sclang in sc3nb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../supercolliderobjects.html">SuperCollider objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/osc-communication-examples.html">OSC communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/helper-examples.html">Helper functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/notebooks/timedqueue-examples.html">TimedQueue</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#package-contents">Package Contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#function-list">Function List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#class-list">Class List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#content">Content</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.startup">startup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SC">SC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SCServer">SCServer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.ServerOptions">ServerOptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SCLang">SCLang</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Node">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Synth">Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Group">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.AddAction">AddAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.SynthDef">SynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Buffer">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bus">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Score">Score</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Recorder">Recorder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueue">TimedQueue</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.TimedQueueSC">TimedQueueSC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.OSCMessage">OSCMessage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.Bundler">Bundler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.linlin">linlin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.midicps">midicps</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.cpsmidi">cpsmidi</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.clip">clip</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.dbamp">dbamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#sc3nb.ampdb">ampdb</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/osc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.osc</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/osc/index.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/resources/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.resources</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/resources/index.html#subpackages">Subpackages</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc_objects/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc_objects</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc_objects/index.html#submodules">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/helpers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.helpers</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/helpers/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/magics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.magics</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/magics/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/process_handling/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.process_handling</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/process_handling/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sc</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sc/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sclang/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.sclang</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/sclang/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/timed_queue/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.timed_queue</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/timed_queue/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb.util</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/util/index.html#module-contents">Module Contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../autogen/autoapi/sc3nb/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sc3nb</span></code></a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#development-guidelines">Development Guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-contributing-an-example-notebook">How to contributing an example notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-set-up-the-testing-and-development-environment">How to set up the testing and development environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-test">How to test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-prepare-a-release">How to prepare a release</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTING.html#how-to-build-the-docs">How to build the docs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#authors">Authors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CONTRIBUTORS.html#id1">Contributors</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">How to contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTORS.html">Contributors</a></li>
 </ul>
 </div>
 </div>
 </nav>
-<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
-<nav aria-label="top navigation" class="wy-nav-top">
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift"><nav aria-label="Mobile navigation menu" class="wy-nav-top">
 <i class="fa fa-bars" data-toggle="wy-nav-top"></i>
 <a href="../../../index.html">sc3nb</a>
 </nav>
 <div class="wy-nav-content">
 <div class="rst-content">
-<div aria-label="breadcrumbs navigation" role="navigation">
+<div aria-label="Page navigation" role="navigation">
 <ul class="wy-breadcrumbs">
-<li><a class="icon icon-home" href="../../../index.html"></a> »</li>
-<li><a href="../../index.html">Module code</a> »</li>
-<li>sc3nb.sc_objects.server</li>
+<li><a aria-label="Home" class="icon icon-home" href="../../../index.html"></a></li>
+<li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+<li class="breadcrumb-item active">sc3nb.sc_objects.server</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -328,11 +92,12 @@
 <span></span><span class="sd">"""Module for managing Server related stuff."""</span>
 <span class="kn">import</span> <span class="nn">atexit</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">unique</span>
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Empty</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">NamedTuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakValueDictionary</span>
 
 <span class="kn">from</span> <span class="nn">sc3nb.osc.osc_communication</span> <span class="kn">import</span> <span class="p">(</span>
@@ -358,43 +123,100 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.synthdef</span> <span class="kn">import</span> <span class="n">SynthDef</span><span class="p">,</span> <span class="n">SynthDefinitionCommand</span>
 <span class="kn">from</span> <span class="nn">sc3nb.sc_objects.volume</span> <span class="kn">import</span> <span class="n">Volume</span>
+<span class="kn">from</span> <span class="nn">sc3nb.util</span> <span class="kn">import</span> <span class="n">is_socket_used</span>
 
-<div class="viewcode-block" id="_LOGGER"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb._LOGGER">[docs]</a><span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+<div class="viewcode-block" id="_LOGGER">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb._LOGGER">[docs]</a>
+<span class="n">_LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="MasterControlReply"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply">[docs]</a><span class="nd">@unique</span>
+
+<span class="nd">@unique</span>
+<div class="viewcode-block" id="MasterControlReply">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply">[docs]</a>
 <span class="k">class</span> <span class="nc">MasterControlReply</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">"""Reply addresses of the Master Control Commands."""</span>
+<span class="w">    </span><span class="sd">"""Reply addresses of the Master Control Commands."""</span>
 
-<div class="viewcode-block" id="MasterControlReply.VERSION_REPLY"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply.VERSION_REPLY">[docs]</a>    <span class="n">VERSION_REPLY</span> <span class="o">=</span> <span class="s2">"/version.reply"</span></div>
-<div class="viewcode-block" id="MasterControlReply.SYNCED"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply.SYNCED">[docs]</a>    <span class="n">SYNCED</span> <span class="o">=</span> <span class="s2">"/synced"</span></div>
-<div class="viewcode-block" id="MasterControlReply.STATUS_REPLY"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply.STATUS_REPLY">[docs]</a>    <span class="n">STATUS_REPLY</span> <span class="o">=</span> <span class="s2">"/status.reply"</span></div></div>
+<div class="viewcode-block" id="MasterControlReply.VERSION_REPLY">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply.VERSION_REPLY">[docs]</a>
+    <span class="n">VERSION_REPLY</span> <span class="o">=</span> <span class="s2">"/version.reply"</span></div>
+
+<div class="viewcode-block" id="MasterControlReply.SYNCED">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply.SYNCED">[docs]</a>
+    <span class="n">SYNCED</span> <span class="o">=</span> <span class="s2">"/synced"</span></div>
+
+<div class="viewcode-block" id="MasterControlReply.STATUS_REPLY">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlReply.STATUS_REPLY">[docs]</a>
+    <span class="n">STATUS_REPLY</span> <span class="o">=</span> <span class="s2">"/status.reply"</span></div>
+</div>
 
 
-<div class="viewcode-block" id="MasterControlCommand"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand">[docs]</a><span class="nd">@unique</span>
+
+<span class="nd">@unique</span>
+<div class="viewcode-block" id="MasterControlCommand">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand">[docs]</a>
 <span class="k">class</span> <span class="nc">MasterControlCommand</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">"""Master Control commands of scsynth."""</span>
+<span class="w">    </span><span class="sd">"""Master Control commands of scsynth."""</span>
 
-<div class="viewcode-block" id="MasterControlCommand.DUMP_OSC"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.DUMP_OSC">[docs]</a>    <span class="n">DUMP_OSC</span> <span class="o">=</span> <span class="s2">"/dumpOSC"</span></div>
-<div class="viewcode-block" id="MasterControlCommand.STATUS"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.STATUS">[docs]</a>    <span class="n">STATUS</span> <span class="o">=</span> <span class="s2">"/status"</span></div>
-<div class="viewcode-block" id="MasterControlCommand.VERSION"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.VERSION">[docs]</a>    <span class="n">VERSION</span> <span class="o">=</span> <span class="s2">"/version"</span></div>
-<div class="viewcode-block" id="MasterControlCommand.CLEAR_SCHED"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.CLEAR_SCHED">[docs]</a>    <span class="n">CLEAR_SCHED</span> <span class="o">=</span> <span class="s2">"/clearSched"</span></div>
-<div class="viewcode-block" id="MasterControlCommand.NOTIFY"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.NOTIFY">[docs]</a>    <span class="n">NOTIFY</span> <span class="o">=</span> <span class="s2">"/notify"</span></div>
-<div class="viewcode-block" id="MasterControlCommand.QUIT"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.QUIT">[docs]</a>    <span class="n">QUIT</span> <span class="o">=</span> <span class="s2">"/quit"</span></div>
-<div class="viewcode-block" id="MasterControlCommand.SYNC"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.SYNC">[docs]</a>    <span class="n">SYNC</span> <span class="o">=</span> <span class="s2">"/sync"</span></div></div>
+<div class="viewcode-block" id="MasterControlCommand.DUMP_OSC">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.DUMP_OSC">[docs]</a>
+    <span class="n">DUMP_OSC</span> <span class="o">=</span> <span class="s2">"/dumpOSC"</span></div>
+
+<div class="viewcode-block" id="MasterControlCommand.STATUS">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.STATUS">[docs]</a>
+    <span class="n">STATUS</span> <span class="o">=</span> <span class="s2">"/status"</span></div>
+
+<div class="viewcode-block" id="MasterControlCommand.VERSION">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.VERSION">[docs]</a>
+    <span class="n">VERSION</span> <span class="o">=</span> <span class="s2">"/version"</span></div>
+
+<div class="viewcode-block" id="MasterControlCommand.CLEAR_SCHED">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.CLEAR_SCHED">[docs]</a>
+    <span class="n">CLEAR_SCHED</span> <span class="o">=</span> <span class="s2">"/clearSched"</span></div>
+
+<div class="viewcode-block" id="MasterControlCommand.NOTIFY">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.NOTIFY">[docs]</a>
+    <span class="n">NOTIFY</span> <span class="o">=</span> <span class="s2">"/notify"</span></div>
+
+<div class="viewcode-block" id="MasterControlCommand.QUIT">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.QUIT">[docs]</a>
+    <span class="n">QUIT</span> <span class="o">=</span> <span class="s2">"/quit"</span></div>
+
+<div class="viewcode-block" id="MasterControlCommand.SYNC">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.MasterControlCommand.SYNC">[docs]</a>
+    <span class="n">SYNC</span> <span class="o">=</span> <span class="s2">"/sync"</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ReplyAddress"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress">[docs]</a><span class="nd">@unique</span>
+
+<span class="nd">@unique</span>
+<div class="viewcode-block" id="ReplyAddress">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress">[docs]</a>
 <span class="k">class</span> <span class="nc">ReplyAddress</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">"""Specific reply addresses."""</span>
+<span class="w">    </span><span class="sd">"""Specific reply addresses."""</span>
 
-<div class="viewcode-block" id="ReplyAddress.WILDCARD_ADDR"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.WILDCARD_ADDR">[docs]</a>    <span class="n">WILDCARD_ADDR</span> <span class="o">=</span> <span class="s2">"/*"</span></div>
-<div class="viewcode-block" id="ReplyAddress.FAIL_ADDR"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.FAIL_ADDR">[docs]</a>    <span class="n">FAIL_ADDR</span> <span class="o">=</span> <span class="s2">"/fail"</span></div>
-<div class="viewcode-block" id="ReplyAddress.DONE_ADDR"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.DONE_ADDR">[docs]</a>    <span class="n">DONE_ADDR</span> <span class="o">=</span> <span class="s2">"/done"</span></div>
-<div class="viewcode-block" id="ReplyAddress.RETURN_ADDR"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.RETURN_ADDR">[docs]</a>    <span class="n">RETURN_ADDR</span> <span class="o">=</span> <span class="s2">"/return"</span></div></div>
+<div class="viewcode-block" id="ReplyAddress.WILDCARD_ADDR">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.WILDCARD_ADDR">[docs]</a>
+    <span class="n">WILDCARD_ADDR</span> <span class="o">=</span> <span class="s2">"/*"</span></div>
+
+<div class="viewcode-block" id="ReplyAddress.FAIL_ADDR">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.FAIL_ADDR">[docs]</a>
+    <span class="n">FAIL_ADDR</span> <span class="o">=</span> <span class="s2">"/fail"</span></div>
+
+<div class="viewcode-block" id="ReplyAddress.DONE_ADDR">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.DONE_ADDR">[docs]</a>
+    <span class="n">DONE_ADDR</span> <span class="o">=</span> <span class="s2">"/done"</span></div>
+
+<div class="viewcode-block" id="ReplyAddress.RETURN_ADDR">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ReplyAddress.RETURN_ADDR">[docs]</a>
+    <span class="n">RETURN_ADDR</span> <span class="o">=</span> <span class="s2">"/return"</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ASYNC_CMDS"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ASYNC_CMDS">[docs]</a><span class="n">ASYNC_CMDS</span> <span class="o">=</span> <span class="p">[</span>
+
+<div class="viewcode-block" id="ASYNC_CMDS">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ASYNC_CMDS">[docs]</a>
+<span class="n">ASYNC_CMDS</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1"># Master</span>
     <span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">QUIT</span><span class="p">,</span>
     <span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">NOTIFY</span><span class="p">,</span>
@@ -412,10 +234,13 @@
     <span class="n">BufferCommand</span><span class="o">.</span><span class="n">FREE</span><span class="p">,</span>
     <span class="n">BufferCommand</span><span class="o">.</span><span class="n">ZERO</span><span class="p">,</span>
     <span class="n">BufferCommand</span><span class="o">.</span><span class="n">GEN</span><span class="p">,</span>
-    <span class="n">BufferCommand</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">,</span></div>
-<span class="p">]</span>
+    <span class="n">BufferCommand</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">,</span>
+<span class="p">]</span></div>
 
-<div class="viewcode-block" id="CMD_PAIRS"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.CMD_PAIRS">[docs]</a><span class="n">CMD_PAIRS</span> <span class="o">=</span> <span class="p">{</span>
+
+<div class="viewcode-block" id="CMD_PAIRS">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.CMD_PAIRS">[docs]</a>
+<span class="n">CMD_PAIRS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1"># Master</span>
     <span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">STATUS</span><span class="p">:</span> <span class="n">MasterControlReply</span><span class="o">.</span><span class="n">STATUS_REPLY</span><span class="p">,</span>
     <span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">SYNC</span><span class="p">:</span> <span class="n">MasterControlReply</span><span class="o">.</span><span class="n">SYNCED</span><span class="p">,</span>
@@ -433,43 +258,109 @@
     <span class="n">BufferCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">:</span> <span class="n">BufferCommand</span><span class="o">.</span><span class="n">SETN</span><span class="p">,</span>
     <span class="c1"># Control Bus Commands</span>
     <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span> <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">SET</span><span class="p">,</span>
-    <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">:</span> <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">SETN</span><span class="p">,</span></div>
-<span class="p">}</span>
-
-<div class="viewcode-block" id="LOCALHOST"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.LOCALHOST">[docs]</a><span class="n">LOCALHOST</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span></div>
-
-<div class="viewcode-block" id="SC3NB_SERVER_CLIENT_ID"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SC3NB_SERVER_CLIENT_ID">[docs]</a><span class="n">SC3NB_SERVER_CLIENT_ID</span> <span class="o">=</span> <span class="mi">1</span></div>
-<div class="viewcode-block" id="SC3NB_DEFAULT_PORT"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SC3NB_DEFAULT_PORT">[docs]</a><span class="n">SC3NB_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">57130</span></div>
-<div class="viewcode-block" id="SCSYNTH_DEFAULT_PORT"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCSYNTH_DEFAULT_PORT">[docs]</a><span class="n">SCSYNTH_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">57110</span></div>
-<div class="viewcode-block" id="SC3_SERVER_NAME"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SC3_SERVER_NAME">[docs]</a><span class="n">SC3_SERVER_NAME</span> <span class="o">=</span> <span class="s2">"scsynth"</span></div>
+    <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">GETN</span><span class="p">:</span> <span class="n">ControlBusCommand</span><span class="o">.</span><span class="n">SETN</span><span class="p">,</span>
+<span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="ServerStatus"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus">[docs]</a><span class="k">class</span> <span class="nc">ServerStatus</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-    <span class="sd">"""Information about the status of the Server program"""</span>
-
-<div class="viewcode-block" id="ServerStatus.num_ugens"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_ugens">[docs]</a>    <span class="n">num_ugens</span><span class="p">:</span> <span class="nb">int</span></div>
-<div class="viewcode-block" id="ServerStatus.num_synths"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_synths">[docs]</a>    <span class="n">num_synths</span><span class="p">:</span> <span class="nb">int</span></div>
-<div class="viewcode-block" id="ServerStatus.num_groups"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_groups">[docs]</a>    <span class="n">num_groups</span><span class="p">:</span> <span class="nb">int</span></div>
-<div class="viewcode-block" id="ServerStatus.num_synthdefs"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_synthdefs">[docs]</a>    <span class="n">num_synthdefs</span><span class="p">:</span> <span class="nb">int</span></div>
-<div class="viewcode-block" id="ServerStatus.avg_cpu"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.avg_cpu">[docs]</a>    <span class="n">avg_cpu</span><span class="p">:</span> <span class="nb">float</span></div>
-<div class="viewcode-block" id="ServerStatus.peak_cpu"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.peak_cpu">[docs]</a>    <span class="n">peak_cpu</span><span class="p">:</span> <span class="nb">float</span></div>
-<div class="viewcode-block" id="ServerStatus.nominal_sr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.nominal_sr">[docs]</a>    <span class="n">nominal_sr</span><span class="p">:</span> <span class="nb">float</span></div>
-<div class="viewcode-block" id="ServerStatus.actual_sr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.actual_sr">[docs]</a>    <span class="n">actual_sr</span><span class="p">:</span> <span class="nb">float</span></div></div>
+<div class="viewcode-block" id="LOCALHOST">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.LOCALHOST">[docs]</a>
+<span class="n">LOCALHOST</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span></div>
 
 
-<div class="viewcode-block" id="ServerVersion"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion">[docs]</a><span class="k">class</span> <span class="nc">ServerVersion</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
-    <span class="sd">"""Information about the version of the Server program"""</span>
+<div class="viewcode-block" id="SC3NB_SERVER_CLIENT_ID">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SC3NB_SERVER_CLIENT_ID">[docs]</a>
+<span class="n">SC3NB_SERVER_CLIENT_ID</span> <span class="o">=</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="ServerVersion.name"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.name">[docs]</a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></div>
-<div class="viewcode-block" id="ServerVersion.major_version"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.major_version">[docs]</a>    <span class="n">major_version</span><span class="p">:</span> <span class="nb">int</span></div>
-<div class="viewcode-block" id="ServerVersion.minor_version"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.minor_version">[docs]</a>    <span class="n">minor_version</span><span class="p">:</span> <span class="nb">int</span></div>
-<div class="viewcode-block" id="ServerVersion.patch_version"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.patch_version">[docs]</a>    <span class="n">patch_version</span><span class="p">:</span> <span class="nb">str</span></div>
-<div class="viewcode-block" id="ServerVersion.git_branch"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.git_branch">[docs]</a>    <span class="n">git_branch</span><span class="p">:</span> <span class="nb">str</span></div>
-<div class="viewcode-block" id="ServerVersion.commit"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.commit">[docs]</a>    <span class="n">commit</span><span class="p">:</span> <span class="nb">str</span></div></div>
+<div class="viewcode-block" id="SC3NB_DEFAULT_PORT">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SC3NB_DEFAULT_PORT">[docs]</a>
+<span class="n">SC3NB_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">57130</span></div>
+
+<div class="viewcode-block" id="SCSYNTH_DEFAULT_PORT">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCSYNTH_DEFAULT_PORT">[docs]</a>
+<span class="n">SCSYNTH_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">57110</span></div>
+
+<div class="viewcode-block" id="SC3_SERVER_NAME">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SC3_SERVER_NAME">[docs]</a>
+<span class="n">SC3_SERVER_NAME</span> <span class="o">=</span> <span class="s2">"scsynth"</span></div>
 
 
-<div class="viewcode-block" id="ServerOptions"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerOptions">[docs]</a><span class="k">class</span> <span class="nc">ServerOptions</span><span class="p">:</span>
-    <span class="sd">"""Options for the SuperCollider audio server</span>
+
+<div class="viewcode-block" id="ServerStatus">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus">[docs]</a>
+<span class="k">class</span> <span class="nc">ServerStatus</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Information about the status of the Server program"""</span>
+
+<div class="viewcode-block" id="ServerStatus.num_ugens">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_ugens">[docs]</a>
+    <span class="n">num_ugens</span><span class="p">:</span> <span class="nb">int</span></div>
+
+<div class="viewcode-block" id="ServerStatus.num_synths">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_synths">[docs]</a>
+    <span class="n">num_synths</span><span class="p">:</span> <span class="nb">int</span></div>
+
+<div class="viewcode-block" id="ServerStatus.num_groups">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_groups">[docs]</a>
+    <span class="n">num_groups</span><span class="p">:</span> <span class="nb">int</span></div>
+
+<div class="viewcode-block" id="ServerStatus.num_synthdefs">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.num_synthdefs">[docs]</a>
+    <span class="n">num_synthdefs</span><span class="p">:</span> <span class="nb">int</span></div>
+
+<div class="viewcode-block" id="ServerStatus.avg_cpu">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.avg_cpu">[docs]</a>
+    <span class="n">avg_cpu</span><span class="p">:</span> <span class="nb">float</span></div>
+
+<div class="viewcode-block" id="ServerStatus.peak_cpu">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.peak_cpu">[docs]</a>
+    <span class="n">peak_cpu</span><span class="p">:</span> <span class="nb">float</span></div>
+
+<div class="viewcode-block" id="ServerStatus.nominal_sr">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.nominal_sr">[docs]</a>
+    <span class="n">nominal_sr</span><span class="p">:</span> <span class="nb">float</span></div>
+
+<div class="viewcode-block" id="ServerStatus.actual_sr">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerStatus.actual_sr">[docs]</a>
+    <span class="n">actual_sr</span><span class="p">:</span> <span class="nb">float</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ServerVersion">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion">[docs]</a>
+<span class="k">class</span> <span class="nc">ServerVersion</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Information about the version of the Server program"""</span>
+
+<div class="viewcode-block" id="ServerVersion.name">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.name">[docs]</a>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span></div>
+
+<div class="viewcode-block" id="ServerVersion.major_version">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.major_version">[docs]</a>
+    <span class="n">major_version</span><span class="p">:</span> <span class="nb">int</span></div>
+
+<div class="viewcode-block" id="ServerVersion.minor_version">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.minor_version">[docs]</a>
+    <span class="n">minor_version</span><span class="p">:</span> <span class="nb">int</span></div>
+
+<div class="viewcode-block" id="ServerVersion.patch_version">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.patch_version">[docs]</a>
+    <span class="n">patch_version</span><span class="p">:</span> <span class="nb">str</span></div>
+
+<div class="viewcode-block" id="ServerVersion.git_branch">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.git_branch">[docs]</a>
+    <span class="n">git_branch</span><span class="p">:</span> <span class="nb">str</span></div>
+
+<div class="viewcode-block" id="ServerVersion.commit">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerVersion.commit">[docs]</a>
+    <span class="n">commit</span><span class="p">:</span> <span class="nb">str</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ServerOptions">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerOptions">[docs]</a>
+<span class="k">class</span> <span class="nc">ServerOptions</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Options for the SuperCollider audio server</span>
 
 <span class="sd">    This allows the encapsulation and handling of the command line server options.</span>
 <span class="sd">    """</span>
@@ -514,7 +405,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-o"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_output_buses</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">num_audio_buses</span> <span class="o">&lt;</span> <span class="n">num_input_buses</span> <span class="o">+</span> <span class="n">num_output_buses</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"You need at least </span><span class="si">{</span><span class="n">num_input_buses</span> <span class="o">+</span> <span class="n">num_output_buses</span><span class="si">}</span><span class="s2"> audio buses"</span>
+                <span class="sa">f</span><span class="s2">"You need at least </span><span class="si">{</span><span class="n">num_input_buses</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">num_output_buses</span><span class="si">}</span><span class="s2"> audio buses"</span>
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_audio_buses</span> <span class="o">=</span> <span class="n">num_audio_buses</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-a"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_audio_buses</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
@@ -542,19 +433,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-S"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hardware_sample_size</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
 
         <span class="c1"># hardware in/out device</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">hardware_input_device</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hardware_input_device</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hardware_input_device</span> <span class="o">=</span> <span class="n">hardware_input_device</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">hardware_output_device</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hardware_output_device</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">hardware_output_device</span> <span class="o">=</span> <span class="n">hardware_output_device</span>
         <span class="k">if</span> <span class="n">hardware_input_device</span> <span class="ow">or</span> <span class="n">hardware_output_device</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span>
-                <span class="s2">"-H"</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hardware_input_device</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hardware_output_device</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
-            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"-H"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">hardware_input_device</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hardware_input_device</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">hardware_output_device</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hardware_output_device</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
 
         <span class="c1"># misc. options</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">other_options</span> <span class="o">=</span> <span class="n">other_options</span>
@@ -562,21 +446,27 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">other_options</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ServerOptions.first_private_bus"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerOptions.first_private_bus">[docs]</a>    <span class="k">def</span> <span class="nf">first_private_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""The first audio bus after input and output buses"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_output_buses</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_input_buses</span></div>
+    <span class="k">def</span> <span class="nf">first_private_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""The first audio bus after input and output buses"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_output_buses</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_input_buses</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ServerOptions.num_private_buses"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerOptions.num_private_buses">[docs]</a>    <span class="k">def</span> <span class="nf">num_private_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""Number of audio buses besides input and output buses"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_audio_buses</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_output_buses</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_input_buses</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">num_private_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Number of audio buses besides input and output buses"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_audio_buses</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_output_buses</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_input_buses</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ServerOptions.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerOptions.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;ServerOptions </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="si">}</span><span class="s2">&gt;"</span></div></div>
+<div class="viewcode-block" id="ServerOptions.__repr__">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.ServerOptions.__repr__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;ServerOptions </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="si">}</span><span class="s2">&gt;"</span></div>
+</div>
 
 
-<div class="viewcode-block" id="NodeWatcher"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.NodeWatcher">[docs]</a><span class="k">class</span> <span class="nc">NodeWatcher</span><span class="p">:</span>
-    <span class="sd">"""The NodeWatcher is used to handle Node Notifications.</span>
+
+<div class="viewcode-block" id="NodeWatcher">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.NodeWatcher">[docs]</a>
+<span class="k">class</span> <span class="nc">NodeWatcher</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The NodeWatcher is used to handle Node Notifications.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -595,8 +485,10 @@
     <span class="c1"># def unregister(self, node):</span>
     <span class="c1">#     self.nodes.remove(node.nodeid)</span>
 
-<div class="viewcode-block" id="NodeWatcher.handle_notification"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.NodeWatcher.handle_notification">[docs]</a>    <span class="k">def</span> <span class="nf">handle_notification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="sd">"""Handle a Notification"""</span>
+<div class="viewcode-block" id="NodeWatcher.handle_notification">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.NodeWatcher.handle_notification">[docs]</a>
+    <span class="k">def</span> <span class="nf">handle_notification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Handle a Notification"""</span>
         <span class="n">kind</span><span class="p">,</span> <span class="o">*</span><span class="n">info</span> <span class="o">=</span> <span class="n">args</span>
         <span class="n">nodeid</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="n">info</span>
         <span class="c1"># if nodeid in self.nodes:  # check if node is registered</span>
@@ -610,11 +502,52 @@
             <span class="c1"># but it wouldn't be refered afterwards and then deleted anyway</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">node</span><span class="o">.</span><span class="n">_handle_notification</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span></div></div>
+            <span class="n">node</span><span class="o">.</span><span class="n">_handle_notification</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="SCServer"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer">[docs]</a><span class="k">class</span> <span class="nc">SCServer</span><span class="p">(</span><span class="n">OSCCommunication</span><span class="p">):</span>
-    <span class="sd">"""SuperCollider audio server representaion.</span>
+
+<div class="viewcode-block" id="Hook">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.Hook">[docs]</a>
+<span class="k">class</span> <span class="nc">Hook</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A simple class for storing a function and arguments and allows later execution."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fun</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create a Hook</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fun : Callable</span>
+<span class="sd">            Function to be executed</span>
+<span class="sd">        args : Any, optional</span>
+<span class="sd">            Arguments given to function</span>
+<span class="sd">        kwargs : Any, optional</span>
+<span class="sd">            Keyword arguments given to function</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fun</span> <span class="o">=</span> <span class="n">fun</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+<div class="viewcode-block" id="Hook.execute">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.Hook.execute">[docs]</a>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Execute the Hook"""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SCServer">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer">[docs]</a>
+<span class="k">class</span> <span class="nc">SCServer</span><span class="p">(</span><span class="n">OSCCommunication</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""SuperCollider audio server representaion.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -680,13 +613,15 @@
             <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_hooks</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Hook</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SCServer.boot"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span>
+<div class="viewcode-block" id="SCServer.boot">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.boot">[docs]</a>
+    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">scsynth_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
@@ -695,7 +630,7 @@
         <span class="n">kill_others</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">allowed_parents</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALLOWED_PARENTS</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""Start the Server process.</span>
+<span class="w">        </span><span class="sd">"""Start the Server process.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -728,42 +663,57 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span> <span class="o">=</span> <span class="n">LOCALHOST</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">max_logins</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span>
-            <span class="n">executable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_programm_name</span><span class="p">,</span>
-            <span class="n">programm_args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
-            <span class="n">executable_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span>
-            <span class="n">console_logging</span><span class="o">=</span><span class="n">console_logging</span><span class="p">,</span>
-            <span class="n">kill_others</span><span class="o">=</span><span class="n">kill_others</span><span class="p">,</span>
-            <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">expect</span><span class="o">=</span><span class="s2">"SuperCollider 3 server ready."</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">ProcessTimeout</span> <span class="k">as</span> <span class="n">process_timeout</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="s2">"Exception in World_OpenUDP"</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-                <span class="s2">"ERROR: failed to open UDP socket"</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span>
-            <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="nb">print</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">SuperCollider Server port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> already used."</span>
+        <span class="k">if</span> <span class="n">is_socket_used</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">)):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">SuperCollider Server port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> already used."</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span> <span class="o">!=</span> <span class="n">SCSYNTH_DEFAULT_PORT</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"The specified UDP port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> is already used"</span>
                 <span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span> <span class="o">!=</span> <span class="n">SCSYNTH_DEFAULT_PORT</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">"The specified UDP port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> is already used"</span>
-                    <span class="p">)</span> <span class="kn">from</span> <span class="nn">process_timeout</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">"Trying to connect."</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">,</span> <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span>
-                <span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">"Failed booting SuperCollider Server."</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="n">process_timeout</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Trying to connect."</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">,</span> <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">with_blip</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span> <span class="o">=</span> <span class="kc">True</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span>
+                <span class="n">executable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_programm_name</span><span class="p">,</span>
+                <span class="n">programm_args</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">options</span><span class="p">,</span>
+                <span class="n">executable_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span>
+                <span class="n">console_logging</span><span class="o">=</span><span class="n">console_logging</span><span class="p">,</span>
+                <span class="n">kill_others</span><span class="o">=</span><span class="n">kill_others</span><span class="p">,</span>
+                <span class="n">allowed_parents</span><span class="o">=</span><span class="n">allowed_parents</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+                    <span class="n">expect</span><span class="o">=</span><span class="s2">"SuperCollider 3 server ready."</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="n">ProcessTimeout</span> <span class="k">as</span> <span class="n">process_timeout</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="s2">"Exception in World_OpenUDP"</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                    <span class="s2">"ERROR: failed to open UDP socket"</span> <span class="ow">in</span> <span class="n">process_timeout</span><span class="o">.</span><span class="n">output</span>
+                <span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_is_local</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">SuperCollider Server port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> already used."</span>
+                    <span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span> <span class="o">!=</span> <span class="n">SCSYNTH_DEFAULT_PORT</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">"The specified UDP port </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">udp_port</span><span class="si">}</span><span class="s2"> is already used"</span>
+                        <span class="p">)</span> <span class="kn">from</span> <span class="nn">process_timeout</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"Trying to connect."</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">,</span> <span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"Failed booting SuperCollider Server."</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="n">process_timeout</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">with_blip</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="SCServer.init"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="sd">"""Initialize the server.</span>
+
+<div class="viewcode-block" id="SCServer.init">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.init">[docs]</a>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Initialize the server.</span>
 
 <span class="sd">        This adds allocators, loads SynthDefs, send default Groups etc.</span>
 
@@ -834,26 +784,25 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">blip</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"Done."</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.execute_init_hooks"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.execute_init_hooks">[docs]</a>    <span class="k">def</span> <span class="nf">execute_init_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Run all init hook functions.</span>
+
+<div class="viewcode-block" id="SCServer.execute_init_hooks">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.execute_init_hooks">[docs]</a>
+    <span class="k">def</span> <span class="nf">execute_init_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Run all init hook functions.</span>
 
 <span class="sd">        This is automatically done when running free_all, init or connect_sclang.</span>
 
 <span class="sd">        Hooks can be added using add_init_hook</span>
 <span class="sd">        """</span>
-        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Executing init hooks </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">hook</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">:</span>
-                <span class="n">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">args</span><span class="p">:</span>
-                <span class="n">hook</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">kwargs</span><span class="p">:</span>
-                <span class="n">hook</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">hook</span><span class="p">()</span></div>
+        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Executing init hooks </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_hooks</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_hooks</span><span class="p">:</span>
+            <span class="n">hook</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SCServer.connect_sclang"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.connect_sclang">[docs]</a>    <span class="k">def</span> <span class="nf">connect_sclang</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Connect sclang to the server</span>
+
+<div class="viewcode-block" id="SCServer.connect_sclang">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.connect_sclang">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_sclang</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Connect sclang to the server</span>
 
 <span class="sd">        This will add the "sclang" receiver and execute the init hooks</span>
 
@@ -865,10 +814,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add_receiver</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"sclang"</span><span class="p">,</span> <span class="n">ip_address</span><span class="o">=</span><span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SCServer.add_init_hook"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.add_init_hook">[docs]</a>    <span class="k">def</span> <span class="nf">add_init_hook</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Add a function to be executed when the server is initialized</span>
+
+<div class="viewcode-block" id="SCServer.add_init_hook">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.add_init_hook">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_init_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fun</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Hook</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Create and add a hook to be executed when the server is initialized</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -878,11 +828,34 @@
 <span class="sd">            Arguments given to function</span>
 <span class="sd">        kwargs : Any, optional</span>
 <span class="sd">            Keyword arguments given to function</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_init_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">hook</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="SCServer.bundler"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.bundler">[docs]</a>    <span class="k">def</span> <span class="nf">bundler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msg_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">send_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">"""Generate a Bundler with added server latency.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Hook</span>
+<span class="sd">            The created Hook</span>
+<span class="sd">        """</span>
+        <span class="n">hook</span> <span class="o">=</span> <span class="n">Hook</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_hooks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hook</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hook</span></div>
+
+
+<div class="viewcode-block" id="SCServer.remove_init_hook">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.remove_init_hook">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_init_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">Hook</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Remove a previously added init Hook</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        hook : Hook</span>
+<span class="sd">            the hook to be removed</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_hooks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">hook</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SCServer.bundler">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.bundler">[docs]</a>
+    <span class="k">def</span> <span class="nf">bundler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetag</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">msg_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">send_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Generate a Bundler with added server latency.</span>
 
 <span class="sd">        This allows the user to easly add messages/bundles and send it.</span>
 
@@ -907,11 +880,14 @@
             <span class="n">timetag</span><span class="o">=</span><span class="n">timetag</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">latency</span><span class="p">,</span>
             <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
             <span class="n">msg_params</span><span class="o">=</span><span class="n">msg_params</span><span class="p">,</span>
-            <span class="n">send_on_exit</span><span class="o">=</span><span class="n">send_on_exit</span><span class="p">,</span></div>
-        <span class="p">)</span>
+            <span class="n">send_on_exit</span><span class="o">=</span><span class="n">send_on_exit</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.blip"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.blip">[docs]</a>    <span class="k">def</span> <span class="nf">blip</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Make a blip sound"""</span>
+
+<div class="viewcode-block" id="SCServer.blip">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.blip">[docs]</a>
+    <span class="k">def</span> <span class="nf">blip</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Make a blip sound"""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">muted</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"SCServer is muted. Blip will also be silent!"</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">bundler</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span> <span class="k">as</span> <span class="n">bundler</span><span class="p">:</span>
@@ -920,13 +896,34 @@
                 <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"/s_new"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"s1"</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"dur"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">"num"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
             <span class="p">)</span>
             <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-                <span class="mf">0.2</span><span class="p">,</span> <span class="s2">"/s_new"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"s2"</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"freq"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">"amp"</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"num"</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="mf">0.2</span><span class="p">,</span>
+                <span class="s2">"/s_new"</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="s2">"s1"</span><span class="p">,</span>
+                    <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"freq"</span><span class="p">,</span>
+                    <span class="mi">1000</span><span class="p">,</span>
+                    <span class="s2">"amp"</span><span class="p">,</span>
+                    <span class="mf">0.05</span><span class="p">,</span>
+                    <span class="s2">"num"</span><span class="p">,</span>
+                    <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">"att"</span><span class="p">,</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"dur"</span><span class="p">,</span>
+                    <span class="mf">0.1</span><span class="p">,</span>
+                    <span class="s2">"curve"</span><span class="p">,</span>
+                    <span class="mi">42</span><span class="p">,</span>
+                <span class="p">],</span>
             <span class="p">)</span>
-            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">"/n_free"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="s2">"/error"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+            <span class="n">bundler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s2">"/error"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="SCServer.remote"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.remote">[docs]</a>    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Connect to remote Server</span>
+
+<div class="viewcode-block" id="SCServer.remote">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.remote">[docs]</a>
+    <span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">with_blip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Connect to remote Server</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -943,8 +940,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">with_blip</span><span class="o">=</span><span class="n">with_blip</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="SCServer.reboot"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.reboot">[docs]</a>    <span class="k">def</span> <span class="nf">reboot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Reboot this server</span>
+
+<div class="viewcode-block" id="SCServer.reboot">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.reboot">[docs]</a>
+    <span class="k">def</span> <span class="nf">reboot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Reboot this server</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -963,13 +963,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SCServer.ping"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.ping">[docs]</a>    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Ping the server."""</span>
+
+<div class="viewcode-block" id="SCServer.ping">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.ping">[docs]</a>
+    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Ping the server."""</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
+
     <span class="c1"># messages</span>
-<div class="viewcode-block" id="SCServer.quit"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Quits and tries to kill the server."""</span>
+<div class="viewcode-block" id="SCServer.quit">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.quit">[docs]</a>
+    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Quits and tries to kill the server."""</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"Quitting SCServer... "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">QUIT</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -983,8 +989,11 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">"Done."</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.sync"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""Sync the server with the /sync command.</span>
+
+<div class="viewcode-block" id="SCServer.sync">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.sync">[docs]</a>
+    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Sync the server with the /sync command.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1001,8 +1010,11 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">SYNC</span><span class="p">,</span> <span class="n">sync_id</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sync_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.send_synthdef"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.send_synthdef">[docs]</a>    <span class="k">def</span> <span class="nf">send_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">synthdef_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
-        <span class="sd">"""Send a SynthDef as bytes.</span>
+
+<div class="viewcode-block" id="SCServer.send_synthdef">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.send_synthdef">[docs]</a>
+    <span class="k">def</span> <span class="nf">send_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">synthdef_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Send a SynthDef as bytes.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1013,8 +1025,11 @@
 <span class="sd">        """</span>
         <span class="n">SynthDef</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">synthdef_bytes</span><span class="o">=</span><span class="n">synthdef_bytes</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.load_synthdef"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.load_synthdef">[docs]</a>    <span class="k">def</span> <span class="nf">load_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">synthdef_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">"""Load SynthDef file at path.</span>
+
+<div class="viewcode-block" id="SCServer.load_synthdef">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.load_synthdef">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">synthdef_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Load SynthDef file at path.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1026,12 +1041,15 @@
 <span class="sd">        """</span>
         <span class="n">SynthDef</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">synthdef_path</span><span class="o">=</span><span class="n">synthdef_path</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.load_synthdefs"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.load_synthdefs">[docs]</a>    <span class="k">def</span> <span class="nf">load_synthdefs</span><span class="p">(</span>
+
+<div class="viewcode-block" id="SCServer.load_synthdefs">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.load_synthdefs">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_synthdefs</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">synthdef_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">completion_msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Load all SynthDefs from directory.</span>
+<span class="w">        </span><span class="sd">"""Load all SynthDefs from directory.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1043,16 +1061,19 @@
         <span class="n">SynthDef</span><span class="o">.</span><span class="n">load_dir</span><span class="p">(</span>
             <span class="n">synthdef_dir</span><span class="o">=</span><span class="n">synthdef_dir</span><span class="p">,</span>
             <span class="n">completion_msg</span><span class="o">=</span><span class="n">completion_msg</span><span class="p">,</span>
-            <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span></div>
-        <span class="p">)</span>
+            <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.notify"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.notify">[docs]</a>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span>
+
+<div class="viewcode-block" id="SCServer.notify">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.notify">[docs]</a>
+    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">receive_notifications</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">client_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Notify the server about this client.</span>
+<span class="w">        </span><span class="sd">"""Notify the server about this client.</span>
 
 <span class="sd">        This provides the client id and max logins info needed for default groups.</span>
 
@@ -1103,8 +1124,11 @@
             <span class="k">if</span> <span class="n">receive_notifications</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span> <span class="o">=</span> <span class="n">return_val</span></div>
 
-<div class="viewcode-block" id="SCServer.free_all"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.free_all">[docs]</a>    <span class="k">def</span> <span class="nf">free_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Free all node ids.</span>
+
+<div class="viewcode-block" id="SCServer.free_all">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.free_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">free_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Free all node ids.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1121,90 +1145,111 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">execute_init_hooks</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SCServer.clear_schedule"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.clear_schedule">[docs]</a>    <span class="k">def</span> <span class="nf">clear_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Send /clearSched to the server.</span>
+
+<div class="viewcode-block" id="SCServer.clear_schedule">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.clear_schedule">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Send /clearSched to the server.</span>
 
 <span class="sd">        This clears all scheduled bundles and removes all bundles from the scheduling queue.</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">CLEAR_SCHED</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.send_default_groups"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.send_default_groups">[docs]</a>    <span class="k">def</span> <span class="nf">send_default_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Send the default groups for all clients."""</span>
+
+<div class="viewcode-block" id="SCServer.send_default_groups">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.send_default_groups">[docs]</a>
+    <span class="k">def</span> <span class="nf">send_default_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Send the default groups for all clients."""</span>
         <span class="n">client_ids</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">create_default_group</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Group</span><span class="p">(</span>
-                <span class="n">nodeid</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">26</span> <span class="o">*</span> <span class="n">client_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="kc">True</span>
+                <span class="n">nodeid</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">26</span> <span class="o">*</span> <span class="n">client_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_default_groups</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">client</span><span class="p">:</span> <span class="n">create_default_group</span><span class="p">(</span><span class="n">client</span><span class="p">)</span> <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">client_ids</span></div>
-        <span class="p">}</span>
+            <span class="n">client</span><span class="p">:</span> <span class="n">create_default_group</span><span class="p">(</span><span class="n">client</span><span class="p">)</span> <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">client_ids</span>
+        <span class="p">}</span></div>
+
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.client_id"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.client_id">[docs]</a>    <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""The client id for this server"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span></div>
+    <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""The client id for this server"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.max_logins"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.max_logins">[docs]</a>    <span class="k">def</span> <span class="nf">max_logins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Maximum number of possible logins at server"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span></div>
+    <span class="k">def</span> <span class="nf">max_logins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Maximum number of possible logins at server"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_logins</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.default_group"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.default_group">[docs]</a>    <span class="k">def</span> <span class="nf">default_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""This clients default group"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_groups</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">]</span></div>
+    <span class="k">def</span> <span class="nf">default_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""This clients default group"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_groups</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.input_bus"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.input_bus">[docs]</a>    <span class="k">def</span> <span class="nf">input_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bus</span><span class="p">:</span>
-        <span class="sd">"""This servers input Bus"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_bus</span></div>
+    <span class="k">def</span> <span class="nf">input_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bus</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""This servers input Bus"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_bus</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.output_bus"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.output_bus">[docs]</a>    <span class="k">def</span> <span class="nf">output_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bus</span><span class="p">:</span>
-        <span class="sd">"""This servers output Bus"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_bus</span></div>
+    <span class="k">def</span> <span class="nf">output_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bus</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""This servers output Bus"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_bus</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.volume"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.volume">[docs]</a>    <span class="k">def</span> <span class="nf">volume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">"""Volume in dB."""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">volume</span></div>
+    <span class="k">def</span> <span class="nf">volume</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Volume in dB."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">volume</span>
 
     <span class="nd">@volume</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volume</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">volume</span> <span class="o">=</span> <span class="n">volume</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.muted"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.muted">[docs]</a>    <span class="k">def</span> <span class="nf">muted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""True if audio is muted"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">muted</span></div>
+    <span class="k">def</span> <span class="nf">muted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""True if audio is muted"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">muted</span>
 
     <span class="nd">@muted</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">muted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">muted</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">muted</span> <span class="o">=</span> <span class="n">muted</span>
 
-<div class="viewcode-block" id="SCServer.mute"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.mute">[docs]</a>    <span class="k">def</span> <span class="nf">mute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Mute audio"""</span>
+<div class="viewcode-block" id="SCServer.mute">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.mute">[docs]</a>
+    <span class="k">def</span> <span class="nf">mute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Mute audio"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">mute</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SCServer.unmute"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.unmute">[docs]</a>    <span class="k">def</span> <span class="nf">unmute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Set volume back to volume prior to muting"""</span>
+
+<div class="viewcode-block" id="SCServer.unmute">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.unmute">[docs]</a>
+    <span class="k">def</span> <span class="nf">unmute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Set volume back to volume prior to muting"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_volume</span><span class="o">.</span><span class="n">unmute</span><span class="p">()</span></div>
 
+
     <span class="c1"># Information and debugging</span>
-<div class="viewcode-block" id="SCServer.version"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.version">[docs]</a>    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ServerVersion</span><span class="p">:</span>
-        <span class="sd">"""Server version information"""</span>
+<div class="viewcode-block" id="SCServer.version">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.version">[docs]</a>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ServerVersion</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Server version information"""</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">VERSION</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ServerVersion</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="SCServer.status"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ServerStatus</span><span class="p">:</span>
-        <span class="sd">"""Server status information"""</span>
+
+<div class="viewcode-block" id="SCServer.status">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.status">[docs]</a>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ServerStatus</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Server status information"""</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">STATUS</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ServerStatus</span><span class="o">.</span><span class="n">_make</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">bundle</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span></div>
 
-<div class="viewcode-block" id="SCServer.dump_osc"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.dump_osc">[docs]</a>    <span class="k">def</span> <span class="nf">dump_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""Enable dumping incoming OSC messages at the server process</span>
+
+<div class="viewcode-block" id="SCServer.dump_osc">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.dump_osc">[docs]</a>
+    <span class="k">def</span> <span class="nf">dump_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Enable dumping incoming OSC messages at the server process</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1218,8 +1263,11 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="n">OSCMessage</span><span class="p">(</span><span class="n">MasterControlCommand</span><span class="o">.</span><span class="n">DUMP_OSC</span><span class="p">,</span> <span class="p">[</span><span class="n">level</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer.dump_tree"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.dump_tree">[docs]</a>    <span class="k">def</span> <span class="nf">dump_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controls</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">return_tree</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">"""Server process prints out current nodes</span>
+
+<div class="viewcode-block" id="SCServer.dump_tree">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.dump_tree">[docs]</a>
+    <span class="k">def</span> <span class="nf">dump_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controls</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">return_tree</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Server process prints out current nodes</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1244,8 +1292,11 @@
         <span class="k">if</span> <span class="n">return_tree</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">node_tree</span></div>
 
-<div class="viewcode-block" id="SCServer.query_tree"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.query_tree">[docs]</a>    <span class="k">def</span> <span class="nf">query_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_controls</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
-        <span class="sd">"""Query all nodes at the server and return a NodeTree</span>
+
+<div class="viewcode-block" id="SCServer.query_tree">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.query_tree">[docs]</a>
+    <span class="k">def</span> <span class="nf">query_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_controls</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Query all nodes at the server and return a NodeTree</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1259,85 +1310,88 @@
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">query_tree</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="n">include_controls</span><span class="p">)</span></div>
 
-    <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.peak_cpu"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.peak_cpu">[docs]</a>    <span class="k">def</span> <span class="nf">peak_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">"""Peak cpu usage of server process"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">peak_cpu</span></div>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.avg_cpu"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.avg_cpu">[docs]</a>    <span class="k">def</span> <span class="nf">avg_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">"""Average cpu usage of server process"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">peak_cpu</span></div>
+    <span class="k">def</span> <span class="nf">peak_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Peak cpu usage of server process"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">peak_cpu</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.nominal_sr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.nominal_sr">[docs]</a>    <span class="k">def</span> <span class="nf">nominal_sr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">"""Nominal sample rate of server process"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">nominal_sr</span></div>
+    <span class="k">def</span> <span class="nf">avg_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Average cpu usage of server process"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">peak_cpu</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.actual_sr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.actual_sr">[docs]</a>    <span class="k">def</span> <span class="nf">actual_sr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">"""Actual sample rate of server process"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">actual_sr</span></div>
+    <span class="k">def</span> <span class="nf">nominal_sr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Nominal sample rate of server process"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">nominal_sr</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.num_synths"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.num_synths">[docs]</a>    <span class="k">def</span> <span class="nf">num_synths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""Number of Synths in server tree"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_synths</span></div>
+    <span class="k">def</span> <span class="nf">actual_sr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Actual sample rate of server process"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">actual_sr</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.num_groups"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.num_groups">[docs]</a>    <span class="k">def</span> <span class="nf">num_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""Number of Groups in server tree"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_groups</span></div>
+    <span class="k">def</span> <span class="nf">num_synths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Number of Synths in server tree"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_synths</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.num_ugens"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.num_ugens">[docs]</a>    <span class="k">def</span> <span class="nf">num_ugens</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""Number of UGens in server tree"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_ugens</span></div>
+    <span class="k">def</span> <span class="nf">num_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Number of Groups in server tree"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_groups</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.num_synthdefs"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.num_synthdefs">[docs]</a>    <span class="k">def</span> <span class="nf">num_synthdefs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">"""Number of SynthDefs known by server"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_synthdefs</span></div>
+    <span class="k">def</span> <span class="nf">num_ugens</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Number of UGens in server tree"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_ugens</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.addr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.addr">[docs]</a>    <span class="k">def</span> <span class="nf">addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
-        <span class="sd">"""Address (ip, port) of server"""</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">num_synthdefs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Number of SynthDefs known by server"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">num_synthdefs</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.has_booted"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.has_booted">[docs]</a>    <span class="k">def</span> <span class="nf">has_booted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""If the server is booted"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span></div>
+    <span class="k">def</span> <span class="nf">addr</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Address (ip, port) of server"""</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scsynth_port</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.is_running"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.is_running">[docs]</a>    <span class="k">def</span> <span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""If the server is running"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_running</span></div>
+    <span class="k">def</span> <span class="nf">has_booted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""If the server is booted"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_booted</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.unresponsive"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.unresponsive">[docs]</a>    <span class="k">def</span> <span class="nf">unresponsive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""If the server process is unresponsive"""</span>
+    <span class="k">def</span> <span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""If the server is running"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_running</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unresponsive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""If the server process is unresponsive"""</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
         <span class="k">except</span> <span class="n">OSCCommunicationError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span></div>
+            <span class="k">return</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.is_local"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.is_local">[docs]</a>    <span class="k">def</span> <span class="nf">is_local</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">"""If the server process is local"""</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_local</span></div>
+    <span class="k">def</span> <span class="nf">is_local</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""If the server process is local"""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_local</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="SCServer.pid"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.pid">[docs]</a>    <span class="k">def</span> <span class="nf">pid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""The process id of the local server process"""</span>
+    <span class="k">def</span> <span class="nf">pid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""The process id of the local server process"""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">popen</span><span class="o">.</span><span class="n">pid</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Server is not local or not booted."</span><span class="p">)</span></div>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Server is not local or not booted."</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SCServer._init_osc_communication"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._init_osc_communication">[docs]</a>    <span class="k">def</span> <span class="nf">_init_osc_communication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SCServer._init_osc_communication">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._init_osc_communication">[docs]</a>
+    <span class="k">def</span> <span class="nf">_init_osc_communication</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">server_ip</span><span class="o">=</span><span class="n">LOCALHOST</span><span class="p">,</span>
             <span class="n">server_port</span><span class="o">=</span><span class="n">SC3NB_DEFAULT_PORT</span><span class="p">,</span>
@@ -1361,14 +1415,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">add_msg_queue_collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">)</span>
 
         <span class="c1"># set logging handlers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_warning_cache</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_warning_freq</span> <span class="o">=</span> <span class="mf">0.5</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
             <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">FAIL_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warn_fail</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_osc_server</span><span class="o">.</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
-            <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">WILDCARD_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_message</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span></div>
-        <span class="p">)</span>
+            <span class="n">ReplyAddress</span><span class="o">.</span><span class="n">WILDCARD_ADDR</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_message</span><span class="p">,</span> <span class="n">needs_reply_address</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer._get_errors_for_address"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._get_errors_for_address">[docs]</a>    <span class="k">def</span> <span class="nf">_get_errors_for_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SCServer._get_errors_for_address">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._get_errors_for_address">[docs]</a>
+    <span class="k">def</span> <span class="nf">_get_errors_for_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">error_values</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">address</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fails</span><span class="p">:</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -1378,11 +1437,17 @@
                     <span class="k">break</span>
         <span class="k">return</span> <span class="n">error_values</span></div>
 
-<div class="viewcode-block" id="SCServer._log_repr"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._log_repr">[docs]</a>    <span class="k">def</span> <span class="nf">_log_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SCServer._log_repr">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._log_repr">[docs]</a>
+    <span class="k">def</span> <span class="nf">_log_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">" pid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_local</span> <span class="k">else</span> <span class="s2">""</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">"SCServer</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="si">}{</span><span class="n">pid</span><span class="si">}</span><span class="s2">"</span></div>
 
-<div class="viewcode-block" id="SCServer._log_message"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._log_message">[docs]</a>    <span class="k">def</span> <span class="nf">_log_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SCServer._log_message">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._log_message">[docs]</a>
+    <span class="k">def</span> <span class="nf">_log_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
         <span class="n">params</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">55</span><span class="p">:</span>
             <span class="n">params</span> <span class="o">=</span> <span class="n">params</span><span class="p">[:</span><span class="mi">55</span><span class="p">]</span> <span class="o">+</span> <span class="s2">".."</span>
@@ -1390,45 +1455,46 @@
             <span class="s2">"</span><span class="si">%s</span><span class="s2"> got OSC msg from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_log_repr</span><span class="p">(),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span>
-            <span class="n">params</span><span class="p">,</span></div>
-        <span class="p">)</span>
+            <span class="n">params</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
-<div class="viewcode-block" id="SCServer._warn_fail"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._warn_fail">[docs]</a>    <span class="k">def</span> <span class="nf">_warn_fail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
-        <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="s2">"Error at </span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_log_repr</span><span class="p">(),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span>
-            <span class="n">params</span><span class="p">,</span></div>
-        <span class="p">)</span>
 
-<div class="viewcode-block" id="SCServer.__repr__"><a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="SCServer._warn_fail">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer._warn_fail">[docs]</a>
+    <span class="k">def</span> <span class="nf">_warn_fail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">warn_args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log_repr</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_sender</span><span class="p">(</span><span class="n">sender</span><span class="p">),</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">last_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warning_cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">warn_args</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">last_time</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">now</span> <span class="o">-</span> <span class="n">last_time</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_warning_freq</span><span class="p">:</span>
+            <span class="n">_LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Error at </span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="o">*</span><span class="n">warn_args</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_warning_cache</span><span class="p">[</span><span class="n">warn_args</span><span class="p">]</span> <span class="o">=</span> <span class="n">now</span></div>
+
+
+<div class="viewcode-block" id="SCServer.__repr__">
+<a class="viewcode-back" href="../../../autogen/autoapi/sc3nb/sc_objects/server/index.html#sc3nb.SCServer.__repr__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_booted</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"addr=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">addr</span><span class="si">}</span><span class="s2">, process=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="si">}</span><span class="s2">"</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="s2">"(not booted)"</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;SCServer </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&gt;"</span></div></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;SCServer </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&gt;"</span></div>
+</div>
+
 </pre></div>
 </div>
 </div>
 <footer>
 <hr/>
 <div role="contentinfo">
-<p>
-        © Copyright 2021, Thomas Hermann, Dennis Reinsch.
-      <span class="commit">
-        
-        Revision <code>146be82a25</code>.
-      </span>
-</p>
+<p>© Copyright 2021, Thomas Hermann, Dennis Reinsch.
+      <span class="commit">Revision <code>6ce4908bb3</code>.
+      </span></p>
 </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
 </div>
@@ -1438,14 +1504,14 @@
 <div aria-label="versions" class="rst-versions" data-toggle="rst-versions" role="note">
 <span class="rst-current-version" data-toggle="rst-current-version">
 <span class="fa fa-book"> Read the Docs</span>
-      v: develop
+      v: 1.1.0^0
       <span class="fa fa-caret-down"></span>
 </span>
 <div class="rst-other-versions">
-<dl><dt>Versions</dt><strong><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd></strong><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
+<dl><dt>Versions</dt><dd><a href="https://interactive-sonification.github.io/sc3nb/stable/">stable</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/develop/">develop</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/1.0.1/">1.0.1</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/master/">master</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.1.0/">v1.1.0</a></dd><dd><a href="https://interactive-sonification.github.io/sc3nb/v1.0.2/">v1.0.2</a></dd></dl>
 </div>
 </div>
-<script type="text/javascript">
+<script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });

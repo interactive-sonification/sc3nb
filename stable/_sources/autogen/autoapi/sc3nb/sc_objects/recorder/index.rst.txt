@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -37,6 +36,7 @@ Content
 
    **Bases:** :class:`enum.Enum`
 
+   
    Different States
 
 
@@ -58,24 +58,23 @@ Content
        !! processed by numpydoc !!
 
 
-
-   .. attribute:: UNPREPARED
-      :annotation: = UNPREPARED
-
-      
-
-   .. attribute:: PREPARED
-      :annotation: = PREPARED
+   .. py:attribute:: UNPREPARED
+      :value: 'UNPREPARED'
 
       
 
-   .. attribute:: RECORDING
-      :annotation: = RECORDING
+   .. py:attribute:: PREPARED
+      :value: 'PREPARED'
 
       
 
-   .. attribute:: PAUSED
-      :annotation: = PAUSED
+   .. py:attribute:: RECORDING
+      :value: 'RECORDING'
+
+      
+
+   .. py:attribute:: PAUSED
+      :value: 'PAUSED'
 
       
 
@@ -89,23 +88,6 @@ Content
 
    Allows to record audio easily.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   ..
-       !! processed by numpydoc !!
 
    Create and prepare a recorder.
 
@@ -164,8 +146,9 @@ Content
          sc3nb.sc_objects.recorder.Recorder.__repr__
          sc3nb.sc_objects.recorder.Recorder.__del__
 
-   .. method:: prepare(self, path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536)
+   .. py:method:: prepare(path: str = 'record.wav', nr_channels: int = 2, rec_header: str = 'wav', rec_format: str = 'int16', bufsize: int = 65536)
 
+      
       Pepare the recorder.
 
 
@@ -206,9 +189,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: start(timetag: float = 0, duration: Optional[float] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: int = 0)
 
-   .. method:: start(self, timetag: float = 0, duration: Optional[float] = None, node: Union[sc3nb.sc_objects.node.Node, int] = 0, bus: int = 0)
-
+      
       Start the recording.
 
 
@@ -246,9 +229,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: pause(timetag: float = 0)
 
-   .. method:: pause(self, timetag: float = 0)
-
+      
       Pause the recording.
 
 
@@ -277,9 +260,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: resume(timetag: float = 0)
 
-   .. method:: resume(self, timetag: float = 0)
-
+      
       Resume the recording
 
 
@@ -308,9 +291,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: stop(timetag: float = 0)
 
-   .. method:: stop(self, timetag: float = 0)
-
+      
       Stop the recording.
 
 
@@ -339,9 +322,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__() -> str
 
-   .. method:: __repr__(self) -> str
-
+      
       Return repr(self).
 
 
@@ -362,8 +345,7 @@ Content
       ..
           !! processed by numpydoc !!
 
-
-   .. method:: __del__(self)
+   .. py:method:: __del__()
 
 
 

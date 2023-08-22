@@ -11,7 +11,6 @@
        !! processed by numpydoc !!
 
 
-
 Module Contents
 ---------------
 
@@ -37,6 +36,7 @@ Content
 .. class:: Event(timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any], spawn: bool = False)
 
 
+   
    Stores a timestamp, function and arguments for that function.
    Long running functions can be wrapped inside an own thread
 
@@ -74,7 +74,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -86,8 +85,9 @@ Content
          sc3nb.timed_queue.Event.__le__
          sc3nb.timed_queue.Event.__repr__
 
-   .. method:: execute(self) -> None
+   .. py:method:: execute() -> None
 
+      
       Executes function
 
 
@@ -108,9 +108,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __eq__(other)
 
-   .. method:: __eq__(self, other)
-
+      
       Return self==value.
 
 
@@ -131,9 +131,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __lt__(other)
 
-   .. method:: __lt__(self, other)
-
+      
       Return self<value.
 
 
@@ -154,9 +154,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __le__(other)
 
-   .. method:: __le__(self, other)
-
+      
       Return self<=value.
 
 
@@ -177,9 +177,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__()
 
-   .. method:: __repr__(self)
-
+      
       Return repr(self).
 
 
@@ -203,10 +203,10 @@ Content
 
 
 
-
 .. class:: TimedQueue(relative_time: bool = False, thread_sleep_time: float = 0.001, drop_time_threshold: float = 0.5)
 
 
+   
    Accumulates events as timestamps and functions.
 
    Executes given functions according to the timestamps
@@ -242,7 +242,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -260,8 +259,9 @@ Content
          sc3nb.timed_queue.TimedQueue.__repr__
          sc3nb.timed_queue.TimedQueue.elapse
 
-   .. method:: close(self) -> None
+   .. py:method:: close() -> None
 
+      
       Closes event processing without waiting for pending events
 
 
@@ -282,9 +282,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: join() -> None
 
-   .. method:: join(self) -> None
-
+      
       Closes event processing after waiting for pending events
 
 
@@ -305,9 +305,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: complete() -> None
 
-   .. method:: complete(self) -> None
-
+      
       Blocks until all pending events have completed
 
 
@@ -328,9 +328,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: put(timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any] = (), spawn: bool = False) -> None
 
-   .. method:: put(self, timestamp: float, function: Callable[Ellipsis, None], args: Iterable[Any] = (), spawn: bool = False) -> None
-
+      
       Adds event to queue
 
 
@@ -368,9 +368,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: get() -> Event
 
-   .. method:: get(self) -> Event
-
+      
       Get latest event from queue and remove event
 
 
@@ -395,9 +395,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: peek() -> Event
 
-   .. method:: peek(self) -> Event
-
+      
       Look up latest event from queue
 
 
@@ -422,9 +422,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: empty() -> bool
 
-   .. method:: empty(self) -> bool
-
+      
       Checks if queue is empty
 
 
@@ -449,9 +449,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: pop() -> None
 
-   .. method:: pop(self) -> None
-
+      
       Removes latest event from queue
 
 
@@ -472,9 +472,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __worker(sleep_time: float, close_event: threading.Event) -> NoReturn
 
-   .. method:: __worker(self, sleep_time: float, close_event: threading.Event) -> NoReturn
-
+      
       Worker function to process events
 
 
@@ -495,9 +495,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: __repr__()
 
-   .. method:: __repr__(self)
-
+      
       Return repr(self).
 
 
@@ -518,9 +518,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: elapse(time_delta: float) -> None
 
-   .. method:: elapse(self, time_delta: float) -> None
-
+      
       Add time delta to the current queue time.
 
 
@@ -548,12 +548,12 @@ Content
 
 
 
-
 .. class:: TimedQueueSC(server: sc3nb.osc.osc_communication.OSCCommunication = None, relative_time: bool = False, thread_sleep_time: float = 0.001)
 
 
    **Bases:** :class:`TimedQueue`
 
+   
    Timed queue with OSC communication.
 
 
@@ -587,7 +587,6 @@ Content
 
 
 
-
    **Overview:**
 
    .. autoapisummary::
@@ -596,8 +595,9 @@ Content
          sc3nb.timed_queue.TimedQueueSC.put_bundler
          sc3nb.timed_queue.TimedQueueSC.put_msg
 
-   .. method:: put_bundler(self, onset: float, bundler: sc3nb.osc.osc_communication.Bundler) -> None
+   .. py:method:: put_bundler(onset: float, bundler: sc3nb.osc.osc_communication.Bundler) -> None
 
+      
       Add a Bundler to queue
 
 
@@ -625,9 +625,9 @@ Content
       ..
           !! processed by numpydoc !!
 
+   .. py:method:: put_msg(onset: float, msg: Union[sc3nb.osc.osc_communication.OSCMessage, str], msg_params: Iterable[Any]) -> None
 
-   .. method:: put_msg(self, onset: float, msg: Union[sc3nb.osc.osc_communication.OSCMessage, str], msg_params: Iterable[Any]) -> None
-
+      
       Add a message to queue
 
 
@@ -657,7 +657,6 @@ Content
 
       ..
           !! processed by numpydoc !!
-
 
 
 
