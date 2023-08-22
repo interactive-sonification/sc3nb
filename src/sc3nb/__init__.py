@@ -26,7 +26,18 @@ from sc3nb.sc_objects.recorder import Recorder
 from sc3nb.timed_queue import TimedQueue, TimedQueueSC
 from sc3nb.osc.osc_communication import OSCMessage, Bundler
 
-from pyamapping import linlin, midi_to_cps, cps_to_midi, clip, db_to_amp, amp_to_db
+from pyamapping import (
+    linlin,
+    midicps,
+    midi_to_cps,
+    cps_to_midi,
+    cpsmidi,
+    clip,
+    db_to_amp,
+    dbamp,
+    amp_to_db,
+    ampdb,
+)
 
 
 __all__ = [
@@ -38,10 +49,14 @@ __all__ = [
     "Bundler",
     "SCLang",
     "linlin",
+    "midi_to_cps",
     "midicps",
+    "cps_to_midi",
     "cpsmidi",
     "clip",
+    "db_to_amp",
     "dbamp",
+    "amp_to_db",
     "ampdb",
     "Buffer",
     "SynthDef",
