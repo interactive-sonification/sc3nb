@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.0.3
+## Version 1.1.0
 
 - Bundler Improvements
   - Improve Bundler.add and the respective example notebook
@@ -14,7 +14,7 @@
 - Update pre-commit hooks and GitHub actions
 - Fix bugs and typos
 
-[See all changes](https://github.com/interactive-sonification/sc3nb/compare/v1.0.2...v1.0.3)
+[See all changes](https://github.com/interactive-sonification/sc3nb/compare/v1.0.2...v1.1.0)
 
 ## Version 1.0.2
 
