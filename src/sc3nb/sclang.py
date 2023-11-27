@@ -149,7 +149,7 @@ class SCLang:
                     addr.sendMsg(^replyAddress, msgContent);
                     result;  // result should be returned
                 };""",
-            pyvars={"replyAddress": ReplyAddress.RETURN_ADDR},
+            pyvars={"replyAddress": ReplyAddress.RETURN_ADDR.value},
         )
         print("Done.")
 
