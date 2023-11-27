@@ -36,6 +36,8 @@ from sc3nb.util import is_socket_used
 
 _LOGGER = logging.getLogger(__name__)
 
+# TODO py3.11++ ==> Class(str,Enum) -> StrEnum - see issue #18
+
 
 @unique
 class MasterControlReply(str, Enum):
