@@ -69,6 +69,7 @@ class SCLang:
         self,
         sclang_path: Optional[str] = None,
         console_logging: bool = True,
+        kill_others: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
         timeout: float = 10,
     ) -> None:
@@ -100,6 +101,7 @@ class SCLang:
             executable="sclang",
             executable_path=sclang_path,
             console_logging=console_logging,
+            kill_others=kill_others,
             allowed_parents=allowed_parents,
         )
         try:
