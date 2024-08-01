@@ -86,7 +86,7 @@ suppress_warnings = ["myst.mathjax"]
 
 autosummary_generate = True
 
-numpydoc_validation_checks = {"all", "GL01", "GL02", "GL05"}
+numpydoc_validation_checks = {"all", "GL08"}
 
 intersphinx_mapping = {"python": ("https://docs.python.org/dev", None)}
 
