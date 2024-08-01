@@ -7,7 +7,6 @@ version: 2
 sphinx:
    configuration: docs/source/conf.py
 
-# TODO try using supercollider at readthedocs
 build:
   os: ubuntu-lts-latest
   apt_packages:

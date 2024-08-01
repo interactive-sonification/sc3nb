@@ -157,8 +157,8 @@ nbsphinx_epilog = r"""
 # TODO currently readthedocs uses ubuntu18.04, this is old
 # it also does not support starting supercollider as it lacks X server support.
 # https://docs.readthedocs.io/en/stable/config-file/v2.html#build-apt-packages
-if on_rtd:
-    nbsphinx_execute = "never"
+# if on_rtd:
+#     nbsphinx_execute = "never"
 
 # -- RTD theme lower left ----------------------------------------------------
 # Configuration for the menu on the lower left. Thanks to
