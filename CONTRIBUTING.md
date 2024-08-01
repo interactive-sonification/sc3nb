@@ -74,6 +74,12 @@ The following tests should all be successful.
   ```
   tox -e docs
   ```
+  Note that you also need [pandoc](https://pandoc.org/) installed.
+  If you use conda you can use
+  ```
+  conda install pandoc
+  ```
+
   Controll the output in `build/docs/html/`
 
 ## How to prepare a release
