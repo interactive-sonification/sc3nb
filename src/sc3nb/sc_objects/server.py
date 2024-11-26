@@ -1,4 +1,5 @@
 """Module for managing Server related stuff."""
+
 import atexit
 import logging
 import time
@@ -872,9 +873,7 @@ class SCServer(OSCCommunication):
         client_ids = range(self._max_logins)
 
         def create_default_group(client_id) -> Group:
-            return Group(
-                nodeid=2**26 * client_id + 1, target=0, server=self, new=True
-            )
+            return Group(nodeid=2**26 * client_id + 1, target=0, server=self, new=True)
 
         self._default_groups = {
             client: create_default_group(client) for client in client_ids

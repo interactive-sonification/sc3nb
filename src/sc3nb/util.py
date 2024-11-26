@@ -1,4 +1,5 @@
 """Module with utlilty functions - especially for handling code snippets"""
+
 import inspect
 import re
 import socket

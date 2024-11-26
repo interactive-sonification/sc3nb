@@ -1,4 +1,5 @@
 """Module for handling a SuperCollider language (sclang) process."""
+
 import logging
 import re
 import sys

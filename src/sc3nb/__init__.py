@@ -9,7 +9,6 @@ Examples
 For example usage please refer to the user guide.
 """
 
-
 from sc3nb.sc import startup, SC
 
 from sc3nb.sc_objects.server import SCServer, ServerOptions
