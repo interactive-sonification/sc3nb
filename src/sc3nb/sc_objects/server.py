@@ -683,7 +683,7 @@ class SCServer(OSCCommunication):
         self.init(with_blip=with_blip)
         self._has_booted = True
 
-    def reboot(self) -> None:
+    def reboot(self, with_blip: bool = True) -> None:
         """Reboot this server
 
         Raises
@@ -695,7 +695,7 @@ class SCServer(OSCCommunication):
             raise RuntimeError("Can't reboot a remote Server")
         receivers = self._receivers  # save known receivers and restore them after boot
         self.quit()
-        self.boot()
+        self.boot(with_blip=with_blip)
         receivers.update(
             self._receivers
         )  # update old receivers with possible new values
