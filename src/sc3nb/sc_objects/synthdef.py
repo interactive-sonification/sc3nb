@@ -307,17 +307,42 @@ class SynthDef:
         # Create new SynthDef add it to SynthDescLib and get bytes
         if self.sc is None:
             self.sc = sc3nb.SC.get_default()
-        synth_def_blob, output = self.sc.lang.cmd(
+        synth_def_blob_size, output = self.sc.lang.cmd(
             f"""
             "sc3nb - Creating SynthDef {self.name}".postln;
             r.tmpSynthDef = SynthDef("{self.name}", {self.current_def});
             SynthDescLib.global.add(r.tmpSynthDef.asSynthDesc);
-            r.tmpSynthDef.asBytes();""",
+            r.tmpBlob = r.tmpSynthDef.asBytes();
+            r.tmpBlob.size""",
             pyvars=pyvars,
             verbose=False,
             get_result=True,
             get_output=True,
         )
+        # fetch r.tmpBlob chunk by chunk
+        chunk_size = 8000
+        if synth_def_blob_size < 8160:
+            synth_def_blob = self.sc.lang.cmd(
+                f"""r.tmpBlob""",
+                verbose=False,
+                get_result=True,
+                get_output=False,
+            )
+        else:
+            nr_chunks = int(synth_def_blob_size / chunk_size + 1)
+            position = 0
+            chunk_list = []
+            for k in range(nr_chunks):
+                chunk = self.sc.lang.cmd(
+                    f"""r.tmpBlob[{position}..{position+chunk_size-1}]""",
+                    verbose=False,
+                    get_result=True,
+                    get_output=False,
+                )
+                position += chunk_size
+                chunk_list.append(chunk)
+            synth_def_blob = b"".join(chunk_list)
+
         if synth_def_blob == 0:
             print(output)
             raise RuntimeError(f"Adding SynthDef failed. - {output}")
