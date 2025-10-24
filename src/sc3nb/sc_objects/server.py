@@ -1,4 +1,5 @@
 """Module for managing Server related stuff."""
+
 import atexit
 import logging
 import time
@@ -35,6 +36,8 @@ from sc3nb.sc_objects.volume import Volume
 from sc3nb.util import is_socket_used
 
 _LOGGER = logging.getLogger(__name__)
+
+# TODO py3.11++ ==> Class(str,Enum) -> StrEnum - see issue #18
 
 
 @unique
@@ -680,7 +683,7 @@ class SCServer(OSCCommunication):
         self.init(with_blip=with_blip)
         self._has_booted = True
 
-    def reboot(self) -> None:
+    def reboot(self, with_blip: bool = True) -> None:
         """Reboot this server
 
         Raises
@@ -692,7 +695,7 @@ class SCServer(OSCCommunication):
             raise RuntimeError("Can't reboot a remote Server")
         receivers = self._receivers  # save known receivers and restore them after boot
         self.quit()
-        self.boot()
+        self.boot(with_blip=with_blip)
         receivers.update(
             self._receivers
         )  # update old receivers with possible new values
@@ -870,9 +873,7 @@ class SCServer(OSCCommunication):
         client_ids = range(self._max_logins)
 
         def create_default_group(client_id) -> Group:
-            return Group(
-                nodeid=2**26 * client_id + 1, target=0, server=self, new=True
-            )
+            return Group(nodeid=2**26 * client_id + 1, target=0, server=self, new=True)
 
         self._default_groups = {
             client: create_default_group(client) for client in client_ids

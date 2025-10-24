@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 1.1.1
+
+- Fix startup [issue #18](https://github.com/interactive-sonification/sc3nb/issues/18)
+- Other minor improvements
+
+[See all changes](https://github.com/interactive-sonification/sc3nb/compare/v1.1.0...v1.1.0)
+
+
 ## Version 1.1.0
 
 - Bundler Improvements

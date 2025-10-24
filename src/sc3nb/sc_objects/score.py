@@ -3,6 +3,7 @@
 `SuperCollider Guide - Non-Realtime Synthesis <http://doc.sccode.org/Guides/Non-Realtime-Synthesis.html>`_
 
 """
+
 import os
 import platform
 import subprocess

@@ -8,6 +8,7 @@ This extension is needed as sclang is sending Arrays
 as this list or when nested as bundles with inner list
 
 """
+
 import logging
 import math
 from typing import Any, Sequence, Tuple, Union

@@ -24,6 +24,7 @@ def startup(
     scsynth_options: Optional[ServerOptions] = None,
     with_blip: bool = True,
     console_logging: bool = False,
+    kill_others: bool = True,
     allowed_parents: Sequence[str] = ALLOWED_PARENTS,
     timeout: float = 10,
 ) -> "SC":
@@ -72,6 +73,7 @@ def startup(
             scsynth_options=scsynth_options,
             with_blip=with_blip,
             console_logging=console_logging,
+            kill_others=kill_others,
             allowed_parents=allowed_parents,
             timeout=timeout,
         )
@@ -80,6 +82,7 @@ def startup(
         if start_sclang:
             SC.get_default().start_sclang(
                 sclang_path=sclang_path,
+                kill_others=kill_others,
                 allowed_parents=allowed_parents,
                 timeout=timeout,
             )
@@ -87,6 +90,7 @@ def startup(
             SC.get_default().start_server(
                 scsynth_options=scsynth_options,
                 scsynth_path=scsynth_path,
+                kill_others=kill_others,
                 allowed_parents=allowed_parents,
                 timeout=timeout,
             )
@@ -157,6 +161,7 @@ class SC:
         scsynth_options: Optional[ServerOptions] = None,
         with_blip: bool = True,
         console_logging: bool = True,
+        kill_others: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
         timeout: float = 5,
     ):
@@ -170,6 +175,7 @@ class SC:
                 self.start_sclang(
                     sclang_path=sclang_path,
                     console_logging=self._console_logging,
+                    kill_others=kill_others,
                     allowed_parents=allowed_parents,
                     timeout=timeout,
                 )
@@ -179,6 +185,7 @@ class SC:
                     scsynth_options=scsynth_options,
                     console_logging=self._console_logging,
                     with_blip=with_blip,
+                    kill_others=kill_others,
                     allowed_parents=allowed_parents,
                     timeout=timeout,
                 )
@@ -191,6 +198,7 @@ class SC:
         self,
         sclang_path: Optional[str] = None,
         console_logging: bool = True,
+        kill_others: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
         timeout: float = 5,
     ):
@@ -214,6 +222,7 @@ class SC:
                 self._sclang.start(
                     sclang_path=sclang_path,
                     console_logging=console_logging,
+                    kill_others=kill_others,
                     allowed_parents=allowed_parents,
                     timeout=timeout,
                 )
@@ -233,6 +242,7 @@ class SC:
         scsynth_path: Optional[str] = None,
         console_logging: bool = True,
         with_blip: bool = True,
+        kill_others: bool = True,
         allowed_parents: Sequence[str] = ALLOWED_PARENTS,
         timeout: float = 5,
     ):
@@ -260,6 +270,7 @@ class SC:
                 self._server.boot(
                     scsynth_path=scsynth_path,
                     console_logging=console_logging,
+                    kill_others=kill_others,
                     allowed_parents=allowed_parents,
                     with_blip=with_blip,
                     timeout=timeout,

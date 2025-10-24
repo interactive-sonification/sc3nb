@@ -1,4 +1,5 @@
 """This module adds the Jupyter specialties such as Magics and Keyboard Shortcuts"""
+
 import re
 import sys
 import warnings

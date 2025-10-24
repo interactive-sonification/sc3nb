@@ -1,6 +1,5 @@
 """Server Volume controls."""
 
-
 import logging
 import warnings
 from typing import TYPE_CHECKING, Optional
